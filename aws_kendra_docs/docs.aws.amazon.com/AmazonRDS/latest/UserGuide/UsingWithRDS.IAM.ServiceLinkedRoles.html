@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using service-linked roles for Amazon RDS - Amazon Relational Database Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="UsingWithRDS.IAM.ServiceLinkedRoles" /><meta name="default_state" content="UsingWithRDS.IAM.ServiceLinkedRoles" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" /><meta name="description" content="How to use service-linked roles to give Amazon RDS access to resources in your AWS account." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Relational Database Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Amazon Web Services (AWS) documentation to help you set up, operate, and scale a relational database in the AWS Cloud using Amazon Relational Database Service (Amazon RDS). You can create DB instances that run Amazon Aurora, MariaDB, Microsoft SQL Server, MySQL, Oracle, and PostgreSQL." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" hreflang="x-default" /><meta name="feedback-item" content="RDS" /><meta name="this_doc_product" content="Amazon Relational Database Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'rds'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Using service-linked roles for Amazon RDS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using service-linked roles for Amazon RDS - Amazon Relational Database Service</title><meta name="pdf" content="/pdfs/AmazonRDS/latest/UserGuide/rds-ug.pdf#UsingWithRDS.IAM.ServiceLinkedRoles" /><meta name="github" content="https://github.com/awsdocs/amazon-rds-user-guide/tree/main/doc_source/UsingWithRDS.IAM.ServiceLinkedRoles.md" /><meta name="rss" content="rdsupdates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=60" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html" /><meta name="keywords" content="Amazon Relational Database Service,RDS,DB Instance" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon RDS",
+        "item" : "https://docs.aws.amazon.com/rds/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon RDS",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Using service-linked roles for Amazon RDS",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonRDS/latest/UserGuide/rds-ug.pdf#UsingWithRDS.IAM.ServiceLinkedRoles" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-rds-user-guide/tree/main/doc_source/UsingWithRDS.IAM.ServiceLinkedRoles.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/rds/index.html">Amazon RDS</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#service-linked-role-permissions">Service-linked role permissions for
+                Amazon RDS</a><a href="#slr-permissions-custom">Service-linked role permissions for
+			Amazon RDS Custom</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="UsingWithRDS.IAM.ServiceLinkedRoles">Using service-linked roles for 
+      <span>Amazon RDS</span></h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p><span>Amazon RDS</span> uses AWS Identity and Access Management (IAM)<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">
+      service-linked roles</a>. A service-linked role is a unique type of IAM role that is
+    linked directly to <span>Amazon RDS</span>. Service-linked roles are 
+    predefined by <span>Amazon RDS</span> and
+    include all the permissions that the service requires to call other AWS services on your
+    behalf. </p><p>A service-linked role makes using <span>Amazon RDS</span> easier because you don't have to manually
+    add the necessary permissions. <span>Amazon RDS</span> defines the permissions of its service-linked
+    roles, and unless defined otherwise, only <span>Amazon RDS</span> can assume its roles. The defined
+    permissions include the trust policy and the permissions policy, and that permissions policy
+    cannot be attached to any other IAM entity.</p><p>You can delete the roles only after first deleting their related resources. This protects
+    your <span>Amazon RDS</span> resources because you can't inadvertently remove permission to access the
+    resources.</p><p>For information about other services that support service-linked roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services that work with
+      IAM</a> and look for the services that have <b>Yes </b>in the
+      <b>Service-Linked Role</b> column. Choose a <b>Yes</b> with a link to view the service-linked role documentation for that
+    service.</p>
+    <h2 id="service-linked-role-permissions">Service-linked role permissions for
+                <span>Amazon RDS</span></h2>
+    <p><span>Amazon RDS</span>
+        uses the service-linked role named AWSServiceRoleForRDS to allow Amazon RDS to call AWS services on behalf of your DB <span>instances</span>.</p>
+    <p>The AWSServiceRoleForRDS service-linked role trusts the following services to assume the
+        role:</p>
+    <div class="itemizedlist">
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">rds.amazonaws.com</code></p>
+        </li></ul></div>
+    <p>This service-linked role has a permissions policy attached to it called
+            <code class="code">AmazonRDSServiceRolePolicy</code> that grants it permissions to operate in your
+        account. The role permissions policy allows <span>Amazon RDS</span> to complete the following
+        actions on the specified resources:</p>
+        <p>For more information about this policy, including the JSON policy document, see 
+            <a href="https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonRDSServiceRolePolicy.html">AmazonRDSServiceRolePolicy</a> 
+        in the <em>AWS Managed Policy Reference Guide</em>.</p>
+   
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You must configure permissions to allow an IAM entity (such as a user, group, or
+            role) to create, edit, or delete a service-linked role. If you encounter the following
+            error message:</p><p><b>Unable to create the resource. Verify that you have permission
+                to create service linked role. Otherwise wait and try again later.</b></p><p> Make sure you have the following permissions enabled: </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Action": "iam:CreateServiceLinkedRole",
+    "Effect": "Allow",
+    "Resource": "arn:aws:iam::*:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS",
+    "Condition": <span>{</span>
+        "StringLike": <span>{</span>
+            "iam:AWSServiceName":"rds.amazonaws.com"
+        }
+    }
+}
+    </code></pre><p> For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions">Service-linked role permissions</a> in the
+                <em>IAM User Guide</em>.</p></div></div>
+     
+        <h3 id="create-service-linked-role">Creating a service-linked role for <span>Amazon RDS</span></h3>
+        <p>You don't need to manually create a service-linked role. When you
+            create a DB <span>instance</span>, <span>Amazon RDS</span> creates the service-linked role for you. </p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you were using the <span>Amazon RDS</span> service before December 1, 2017, when it
+                began supporting service-linked roles, then <span>Amazon RDS</span> created the
+                AWSServiceRoleForRDS role in your account. To learn more, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_roles.html#troubleshoot_roles_new-role-appeared">A new role appeared in my AWS account</a>.</p></div></div>
+        <p>If you delete this service-linked role, and then need to create it again, you can use
+            the same process to recreate the role in your account. When you
+            create a DB <span>instance</span>, <span>Amazon RDS</span> creates the service-linked role for you
+            again.</p>
+     
+     
+        <h3 id="edit-service-linked-role">Editing a service-linked role for <span>Amazon RDS</span></h3>
+        <p><span>Amazon RDS</span> does not allow you to edit the AWSServiceRoleForRDS service-linked role.
+            After you create a service-linked role, you cannot change the name of the role because
+            various entities might reference the role. However, you can edit the description of the
+            role using IAM. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role">Editing
+                a service-linked role</a> in the <em>IAM User Guide</em>.</p>
+     
+     
+        <h3 id="delete-service-linked-role">Deleting a service-linked role for <span>Amazon RDS</span></h3>
+        
+        <p>If you no longer need to use a feature or service that requires a service-linked role,
+            we recommend that you delete that role. That way you don't have an unused entity
+            that is not actively monitored or maintained. However, you must delete all of your DB
+                <span>instances</span>
+             before you can delete the service-linked
+            role.</p>
+         
+            <h4 id="service-linked-role-review-before-delete">Cleaning up a
+                    service-linked role</h4>
+            <p>Before you can use IAM to delete a service-linked role, you must first confirm
+                that the role has no active sessions and remove any resources used by the
+                role.</p>
+            <div class="procedure"><h6>To check whether the service-linked role has an active session in the IAM
+                    console</h6><ol><li><p>Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                    <p>In the navigation pane of the IAM console, choose
+                            <b>Roles</b>. Then choose the name (not the check box) of
+                        the AWSServiceRoleForRDS role.</p>
+                </li><li>
+                    <p>On the <b>Summary</b> page for the chosen role, choose the
+                            <b>Access Advisor</b> tab.</p>
+                </li><li>
+                    <p>On the <b>Access Advisor</b> tab, review recent activity for
+                        the service-linked role.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you are unsure whether <span>Amazon RDS</span> is
+                            using the AWSServiceRoleForRDS role, you can try to delete the role. If the
+                            service is using the role, then the deletion fails and you can view the
+                            AWS Regions where the role is being used. If the role is being used,
+                            then you must wait for the session to end before you can delete the
+                            role. You cannot revoke the session for a service-linked role. </p></div></div>
+                </li></ol></div>
+            
+            <p>If you want to remove the AWSServiceRoleForRDS role, you must first delete <em>all</em> of your DB <span>instances</span>
+                .</p>
+            
+             
+                <h5 id="delete-service-linked-role.delete-rds-instances">Deleting all
+                        of your instances</h5>
+                <p>Use one of these procedures to delete each of your instances.</p>
+             
+            <div class="procedure"><h6>To delete an instance (console)</h6><ol><li><p>Open the Amazon RDS console at
+         <a href="https://console.aws.amazon.com/rds/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/rds/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                    <p>In the navigation pane, choose <b>Databases</b>.</p>
+                </li><li>
+                    <p>Choose the instance that you want to delete.</p>
+                </li><li>
+                    <p>For <b>Actions</b>, choose
+                        <b>Delete</b>.</p>
+                </li><li>
+                    <p>If you are prompted for <b>Create final Snapshot?</b>,
+                        choose <b>Yes</b> or <b>No</b>.</p>
+                </li><li>
+                    <p>If you chose <b>Yes</b> in the previous step, for
+                            <b>Final snapshot name</b> enter the name of your final
+                        snapshot.</p>
+                </li><li>
+                    <p>Choose <b>Delete</b>.</p>
+                </li></ol></div>
+             
+                <h6>To delete an instance (CLI)</h6>
+                <p>See <code class="code"><a href="https://docs.aws.amazon.com/cli/latest/reference/rds/delete-db-instance.html">delete-db-instance</a></code> in the
+                        <em>AWS CLI Command Reference</em>.</p>
+             
+             
+                <h6>To delete an instance (API)</h6>
+                <p>See <code class="code"><a href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteDBInstance.html">DeleteDBInstance</a></code> in the
+                        <em>Amazon RDS API Reference</em>.</p>
+             
+            
+            
+            
+            
+            
+         
+        <p>You can use the IAM console, the IAM CLI, or the IAM API to delete the
+            AWSServiceRoleForRDS service-linked role. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role">Deleting a service-linked role</a> in the
+            <em>IAM User Guide</em>.</p>
+     
+ 
+	
+	<h2 id="slr-permissions-custom">Service-linked role permissions for
+			Amazon RDS Custom</h2>
+	<p>Amazon RDS Custom uses the service-linked role named <code class="code">AWSServiceRoleForRDSCustom</code> to
+		allow RDS Custom to call AWS services on behalf of your DB instances and DB clusters.</p>
+	<p>The AWSServiceRoleForRDSCustom service-linked role trusts the following services to assume
+		the role:</p>
+	<div class="itemizedlist">
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p><code class="code">custom.rds.amazonaws.com</code></p>
+		</li></ul></div>
+	<p>This service-linked role has a permissions policy attached to it called
+			<code class="code">AmazonRDSCustomServiceRolePolicy</code> that grants it permissions to operate in
+		your account. The role permissions policy allows RDS Custom to complete the following actions on
+		the specified resources:</p>
+    <p>For more information about this policy, including the JSON policy document, see 
+        <a href="https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonRDSCustomServiceRolePolicy.html">AmazonRDSCustomServiceRolePolicy</a> 
+        in the <em>AWS Managed Policy Reference Guide</em>.</p>
+	<p>Creating, editing, or deleting the service-linked role for RDS Custom works the same as for
+		Amazon RDS. For more information, see <a href="#service-linked-role-permissions">Service-linked role permissions for
+                Amazon RDS</a>.</p>
+	<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You must configure permissions to allow an IAM entity (such as a user, group, or
+			role) to create, edit, or delete a service-linked role. If you encounter the following
+			error message:</p><p><b>Unable to create the resource. Verify that you have permission
+				to create service linked role. Otherwise wait and try again later.</b></p><p> Make sure you have the following permissions enabled: </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Action": "iam:CreateServiceLinkedRole",
+    "Effect": "Allow",
+    "Resource": "arn:aws:iam::*:role/aws-service-role/custom.rds.amazonaws.com/AmazonRDSCustomServiceRolePolicy",
+    "Condition": <span>{</span>
+        "StringLike": <span>{</span>
+            "iam:AWSServiceName":"custom.rds.amazonaws.com"
+        }
+    }
+}
+    </code></pre><p> For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions">Service-linked role permissions</a> in the
+				<em>IAM User Guide</em>.</p></div></div>
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./UsingWithRDS.MasterAccounts.html">Master user account privileges</div><div id="next" class="next-link" accesskey="n" href="./USER_VPC.html">Using Amazon RDS with Amazon VPC</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

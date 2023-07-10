@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Testing IAM policies with the IAM policy simulator - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="access_policies_testing-policies" /><meta name="default_state" content="access_policies_testing-policies" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html" /><meta name="description" content="Use the IAM policy simulator to test and troubleshoot IAM policies that are attached to users, user groups, roles, or resources." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Testing IAM policies with the IAM policy simulator" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Testing IAM policies with the IAM policy simulator - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#access_policies_testing-policies" /><meta name="github" content="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/access_policies_testing-policies.md" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_policies_testing-policies.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_policies_testing-policies.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_policies_testing-policies.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Access management for AWS resources",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Managing IAM policies",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Testing IAM policies with the IAM policy simulator",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#access_policies_testing-policies" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/access_policies_testing-policies.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#policies_policy-simulator-how-it-works">How the IAM policy simulator
+        works</a><a href="#permissions-required_policy-simulator">Permissions required for using the
+        IAM policy simulator</a><a href="#policies_policy-simulator-using">Using the IAM policy simulator
+        (console)</a><a href="#policies-simulator-using-api">Using the IAM policy simulator (AWS CLI and
+        AWS API)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="access_policies_testing-policies">Testing IAM policies with the IAM policy
+      simulator</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>For more information about how and why to use IAM policies, see <a href="./access_policies.html">Policies and permissions in IAM</a>.</p><p><b>You can access the IAM Policy Simulator Console at: <a href="https://policysim.aws.amazon.com/" rel="noopener noreferrer" target="_blank"><span>https://policysim.aws.amazon.com/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></b></p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The policy simulator results can differ from your live AWS environment. We recommend
+      that you check your policies against your live AWS environment after testing using the
+      policy simulator to confirm that you have the desired results. For more information, see <a href="#policies_policy-simulator-how-it-works">How the IAM policy simulator
+        works</a>.</p></div></div><p>
+  </p><p>With the IAM policy simulator, you can test and troubleshoot identity-based policies and
+    IAM permissions boundaries. Here are some common things you can do with the policy
+    simulator:</p><div class="itemizedlist">
+     
+     
+     
+     
+     
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>Test identity-based policies that are attached to IAM users, user groups, or roles in
+        your AWS account. If more than one policy is attached to the user, user group, or role,
+        you can test all the policies, or select individual policies to test. You can test which
+        actions are allowed or denied by the selected policies for specific resources.</p>
+    </li><li class="listitem">
+      <p>Test and troubleshoot the effect of <a href="./access_policies_boundaries.html">permissions boundaries</a> on IAM entities. You can only simulate one permissions
+        boundary at a time.</p>
+    </li><li class="listitem">
+      <p>Test the effects of resource-based policies on IAM users that are attached to AWS
+        resources, such as Amazon S3 buckets, Amazon SQS queues, Amazon SNS topics, or Amazon S3 Glacier vaults. To use a
+        resource-based policy in the policy simulator for IAM users, you must include the resource
+        in the simulation. You must also select the check box to include that resource's policy in
+        the simulation.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Simulation of resource-based policies isn't supported for IAM roles.</p></div></div>
+    </li><li class="listitem">
+      <p>If your AWS account is a member of an organization in <a href="https://docs.aws.amazon.com/organizations/latest/userguide/">AWS Organizations</a>, then you can test the impact of service control policies (SCPs) on your
+        identity-based policies.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The policy simulator doesn't evaluate SCPs that have global conditions.</p></div></div>
+    </li><li class="listitem">
+      <p>Test new identity-based policies that are not yet attached to a user, user group, or
+        role by typing or copying them into the policy simulator. These are used only in the
+        simulation and are not saved. You can't type or copy a resource-based policy in the policy
+        simulator.</p>
+    </li><li class="listitem">
+      <p>Test identity-based policies with selected services, actions, and resources. For
+        example, you can test to ensure that your policy allows an entity to perform the
+          <code class="code">ListAllMyBuckets</code>, <code class="code">CreateBucket</code>, and <code class="code">DeleteBucket</code>
+        actions in the Amazon S3 service on a specific bucket.</p>
+    </li><li class="listitem">
+      <p>Simulate real-world scenarios by providing context keys, such as an IP address or date,
+        that are included in <code class="code">Condition</code> elements in the policies being tested.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The policy simulator doesn't simulate tags provided as input if the identity-based
+          policy in the simulation doesn't have a <code class="code">Condition</code> element that explicitly
+          checks for tags.</p></div></div>
+    </li><li class="listitem">
+      <p>Identify which specific statement in identity-based policy results in allowing or
+        denying access to a particular resource or action. </p>
+    </li></ul></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#policies_policy-simulator-how-it-works">How the IAM policy simulator
+        works</a></li><li><a href="#permissions-required_policy-simulator">Permissions required for using the
+        IAM policy simulator</a></li><li><a href="#policies_policy-simulator-using">Using the IAM policy simulator
+        (console)</a></li><li><a href="#policies-simulator-using-api">Using the IAM policy simulator (AWS CLI and
+        AWS API)</a></li></ul></div>
+    <h2 id="policies_policy-simulator-how-it-works">How the IAM policy simulator
+        works</h2>
+    <p>The policy simulator evaluates statements in the identity-based policy and the inputs that
+      you provide during simulation. The policy simulator results can differ from your live AWS
+      environment. We recommend that you check your policies against your live AWS environment
+      after testing using the policy simulator to confirm that you have the desired results.</p>
+    <p>The policy simulator differs from the live AWS environment in the following ways: </p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>The policy simulator does not make an actual AWS service request, so you can safely
+          test requests that might make unwanted changes to your live AWS environment. The policy
+          simulator doesn't consider real context key values in production.</p>
+      </li><li class="listitem">
+        <p>Because the policy simulator does not simulate running the selected actions, it cannot
+          report any response to the simulated request. The only result returned is whether the
+          requested action would be allowed or denied.</p>
+      </li><li class="listitem">
+        <p>If you edit a policy in the policy simulator, these changes affect only the policy
+          simulator. The corresponding policy in your AWS account remains unchanged.</p>
+      </li><li class="listitem">
+        <p>You can't test service control policies (SCPs) with <a href="./reference_policies_condition-keys.html">global condition keys</a>.</p>
+      </li><li class="listitem">
+        <p>The policy simulator doesn't support simulation for IAM roles and users for
+          cross-account access.</p>
+      </li></ul></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The IAM policy simulator doesn't determine which services support <a href="./reference_policies_condition-keys.html">global condition keys</a> for
+        authorization. For example, the policy simulator doesn't identify that a service doesn't
+        support <a href="./reference_policies_condition-keys.html#condition-keys-tagkeys">aws:TagKeys</a>.</p></div></div>
+   
+    <h2 id="permissions-required_policy-simulator">Permissions required for using the
+        IAM policy simulator</h2>
+    <p>You can use the policy simulator console or the policy simulator API to test policies. By
+      default, console users can test policies that are not yet attached to a user, user group, or
+      role by typing or copying those policies into the policy simulator. These policies are used
+      only in the simulation and do not disclose sensitive information. API users must have
+      permissions to test unattached policies. You can allow console or API users to test policies
+      that are attached to IAM users, user groups, or roles in your AWS account. To do so, you
+      must provide permission to retrieve those policies. In order to test resource-based policies,
+      users must have permission to retrieve the resource's policy.</p>
+    <p>For examples of console and API policies that allow a user to simulate policies, see <a href="./access_policies_examples.html#policy_library_IAM">Example policies: AWS Identity and Access Management (IAM)</a>.</p>
+     
+      <h3 id="permissions-required_policy-simulator-console">Permissions required for
+          using the policy simulator console</h3>
+      <p>You can allow users to test policies that are attached to IAM users, user groups, or
+        roles in your AWS account. To do so, you must provide your users with permissions to
+        retrieve those policies. In order to test resource-based policies, users must have
+        permission to retrieve the resource's policy.</p>
+      <p>To view an example policy that allows using the policy simulator console for policies
+        that are attached to a user, user group, or role, see <a href="./reference_policies_examples_iam_policy-sim-console.html">IAM: Access the policy
+      simulator console</a>. </p>
+      <p>To view an example policy that allows using the policy simulator console only for those
+        users with a specific path, see <a href="./reference_policies_examples_iam_policy-sim-path-console.html">IAM: Access the
+      policy simulator console based on user path</a>.</p>
+      <p>To create a policy to allow using the policy simulator console for only one type of
+        entity, use the following procedures.</p>
+       
+        <h6>To allow console users to simulate policies for users</h6>
+        <p>Include the following actions in your policy:</p>
+       
+      <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><code class="code">iam:GetGroupPolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetPolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetPolicyVersion</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetUser</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetUserPolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListAttachedUserPolicies</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListGroupsForUser</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListGroupPolicies</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListUserPolicies</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListUsers</code></p>
+        </li></ul></div>
+       
+        <h6>To allow console users to simulate policies for user groups</h6>
+        <p>Include the following actions in your policy:</p>
+       
+      <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><code class="code">iam:GetGroup</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetGroupPolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetPolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetPolicyVersion</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListAttachedGroupPolicies</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListGroupPolicies</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListGroups</code></p>
+        </li></ul></div>
+       
+        <h6>To allow console users to simulate policies for roles</h6>
+        <p>Include the following actions in your policy:</p>
+       
+      <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><code class="code">iam:GetPolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetPolicyVersion</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetRole</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:GetRolePolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListAttachedRolePolicies</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListRolePolicies</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:ListRoles</code></p>
+        </li></ul></div>
+      <p>To test resource-based policies, users must have permission to retrieve the resource's
+        policy.</p>
+       
+        <h6>To allow console users to test resource-based policies in an Amazon S3 bucket</h6>
+        <p>Include the following action in your policy:</p>
+       
+      <div class="itemizedlist">
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><code class="code">s3:GetBucketPolicy</code></p>
+        </li></ul></div>
+      <p>For example, the following policy uses this action to allow console users to simulate a
+        resource-based policy in a specific Amazon S3 bucket.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+        "Version": "2012-10-17",
+        "Statement": [
+          <span>{</span>
+            "Effect": "Allow",
+            "Action": "s3:GetBucketPolicy",
+            "Resource":"arn:aws:s3:::<code class="replaceable">bucket-name</code>/*"
+          }
+        ]
+      }</code></pre>
+      
+     
+     
+      <h3 id="permissions-required_policy-simulator-api">Permissions required for using
+          the policy simulator API</h3>
+      <p>The policy simulator API operations <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetContextKeyForCustomPolicy.html">GetContextKeyForCustomPolicy</a> and <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulateCustomPolicy.html">SimulateCustomPolicy</a> allow you to
+        test policies that are not yet attached to a user, user group, or role. To test such
+        policies, you pass the policies as strings to the API. These policies are used only in the
+        simulation and do not disclose sensitive information. You can also use the API to test
+        policies that are attached to IAM users, user groups, or roles in your AWS account. To
+        do that, you must provide users with permissions to call <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetContextKeyForPrincipalPolicy.html">GetContextKeyForPrincipalPolicy</a> and <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulatePrincipalPolicy.html">SimulatePrincipalPolicy</a>.</p>
+      <p>To view an example policy that allows using the policy simulator API for attached and
+        unattached policies in the current AWS account, see <a href="./reference_policies_examples_iam_policy-sim.html">IAM: Access the policy simulator
+        API</a>. </p>
+      <p>To create a policy to allow using the policy simulator API for only one type of policy,
+        use the following procedures.</p>
+       
+        <h6>To allow API users to simulate policies passed directly to the API as strings</h6>
+        <p>Include the following actions in your policy:</p>
+       
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><code class="code">iam:GetContextKeysForCustomPolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:SimulateCustomPolicy</code></p>
+        </li></ul></div>
+       
+        <h6>To allow API users to simulate policies attached to IAM users, user groups, roles,
+          or resources</h6>
+        <p>Include the following actions in your policy:</p>
+       
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><code class="code">iam:GetContextKeysForPrincipalPolicy</code></p>
+        </li><li class="listitem">
+          <p><code class="code">iam:SimulatePrincipalPolicy</code></p>
+        </li></ul></div>
+      <p>For example, to give a user named Bob permission to simulate a policy that is assigned
+        to a user named Alice, give Bob access to the following resource:
+          <code class="code">arn:aws:iam::777788889999:user/alice</code>. </p>
+      <p>To view an example policy that allows using the policy simulator API only for those
+        users with a specific path, see <a href="./reference_policies_examples_iam_policy-sim-path.html">IAM: Access the policy
+      simulator API based on user path</a>.</p>
+     
+   
+    <h2 id="policies_policy-simulator-using">Using the IAM policy simulator
+        (console)</h2>
+    <p>By default, users can test policies that are not yet attached to a user, user group, or
+      role by typing or copying those policies into the policy simulator console. These policies are
+      used only in the simulation and do not disclose sensitive information. </p>
+    <div class="procedure"><h6>To test a policy that is not attached to a user, user group, or role (console)</h6><ol><li>
+        <p>Open the IAM policy simulator console at: <a href="https://policysim.aws.amazon.com/" rel="noopener noreferrer" target="_blank"><span>https://policysim.aws.amazon.com/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      </li><li>
+        <p>In the <b>Mode:</b> menu at the top of the page, choose <b>New
+            Policy</b>.</p>
+      </li><li>
+        <p>In the <b>Policy Sandbox</b>, choose <b>Create New
+            Policy</b>.</p>
+      </li><li>
+        <p>Type or copy a policy into the policy simulator, and use the policy simulator as
+          described in the following steps.</p>
+      </li></ol></div>
+    <p>After you have permission to use the IAM Policy Simulator Console, you can use the
+      policy simulator to test an IAM user, user group, role, or resource policy.</p>
+    <div class="procedure"><h6>To test a policy that is attached to a user, user group, or role (console)</h6><ol><li>
+        <p>Open the IAM policy simulator console at <a href="https://policysim.aws.amazon.com/" rel="noopener noreferrer" target="_blank"><span>
+            https://policysim.aws.amazon.com/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To sign in to the policy simulator as an IAM user, use your unique sign-in URL to
+            sign in to the AWS Management Console. Then go to <a href="https://policysim.aws.amazon.com/" rel="noopener noreferrer" target="_blank"><span>https://policysim.aws.amazon.com/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. For more
+            information about signing in as an IAM user, see <a href="./id_users_sign-in.html">How IAM users sign in to AWS</a>.</p></div></div>
+        <p>The policy simulator opens in <b>Existing Policies</b> mode and lists
+          the IAM users in your account under <b>Users, Groups, and
+          Roles</b>.</p>
+      </li><li><a id="polsimstep-selectid"></a>
+        <p>Choose the option that is appropriate to your task:</p>
+        <div class="table-container"><div class="table-contents"><table id="w340aac18c22c18c21b9b4b3"><thead>
+              <tr>
+                <th>To test this:</th>
+                <th>Do this:</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>A policy attached to a user</td>
+                <td>Choose <b>Users</b> in the <b>Users, Groups, and
+                    Roles</b> list. Then choose the user. </td>
+              </tr>
+              <tr>
+                <td>A policy attached to a user group</td>
+                <td>Choose <b>Groups</b> in the <b>Users, Groups, and
+                    Roles</b> list. Then choose the user group. </td>
+              </tr>
+              <tr>
+                <td>A policy attached to a role</td>
+                <td>Choose <b>Roles</b> in the <b>Users, Groups, and
+                    Roles</b> list. Then choose the role.</td>
+              </tr>
+              <tr>
+                <td>A policy attached to a resource</td>
+                <td>See <a href="#polsimstep-respol">Step 9</a>.</td>
+              </tr>
+              <tr>
+                <td>A custom policy for a user, user group, or role</td>
+                <td>Choose <b>Create New Policy</b>. In the new
+                    <b>Policies</b> pane, type or paste a policy and then choose
+                    <b>Apply</b>.</td>
+              </tr>
+            </table></div></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Tip</h6></div><div class="awsdocs-note-text"><p>To test a policy that is attached to user group, you can launch the IAM policy
+            simulator directly from the <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>IAM console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>:
+            In the navigation pane, choose <b>User groups</b>. Choose the name of the
+            group that you want to test a policy on, and then choose the
+              <b>Permissions</b> tab. Choose <b>Simulate</b>.</p><p>To test a customer managed policy that is attached to a user: In the navigation
+            pane, choose <b>Users</b>. Choose the name of the user that you want to
+            test a policy on. Then choose the <b>Permissions</b> tab and expand the
+            policy that you want to test. On the far right, choose <b>Simulate
+              policy</b>. The <b>IAM Policy Simulator</b> opens in a new
+            window and displays the selected policy in the <b>Policies</b>
+            pane.</p></div></div>
+      </li><li>
+        <p>(Optional) If your account is a member of an organization in <a href="https://docs.aws.amazon.com/organizations/latest/userguide/">AWS Organizations</a>, then select the check box next to
+            <b>AWS Organizations SCPs</b> to include SCPs in your simulated evaluation. SCPs
+          are JSON policies that specify the maximum permissions for an organization or
+          organizational unit (OU). The SCP limits permissions for entities in member accounts. If
+          an SCP blocks a service or action, then no entity in that account can access that service
+          nor perform that action. This is true even if an administrator explicitly grants
+          permissions to that service or action through an IAM or resource policy. </p>
+        <p>If your account is not a member of an organization, then the check box does not
+          appear.</p>
+      </li><li>
+        <p>(Optional) You can test a policy that is set as a <a href="./access_policies_boundaries.html">permissions boundary</a> for an IAM entity
+          (user or role), but not for user groups. If a permissions boundary policy is currently set
+          for the entity, it appears in the <b>Policies</b> pane. You can set only one
+          permissions boundary for an entity. To test a different permissions boundary, you can
+          create a custom permissions boundary. To do this, choose <b>Create New
+            Policy</b>. A new <b>Policies</b> pane opens. In the menu, choose
+            <b>Custom IAM Permissions Boundary Policy</b>. Enter a name for the new
+          policy and type or copy a policy into the space below. Choose <b>Apply</b>
+          to save the policy. Next, choose <b>Back</b> to return to the original
+            <b>Policies</b> pane. Then select the check box next to the permissions
+          boundary you want to use for the simulation.
+          
+        </p>
+      </li><li><a id="polsimstep-polsubset"></a>
+        <p>(Optional) You can test only a subset of policies attached to a user, user group, or
+          role. To do so, in the <b>Policies</b> pane clear the check box next to each
+          policy that you want to exclude.</p>
+      </li><li><a id="polsimstep-service"></a>
+        <p>Under <b>Policy Simulator</b>, choose <b>Select
+            service</b> and then choose the service to test. Then choose <b>Select
+            actions</b> and select one or more actions to test. Although the menus show the
+          available selections for only one service at a time, all the services and actions that you
+          have selected appear in <b>Action Settings and Results</b>. </p>
+      </li><li>
+        <p>(Optional) If any of the policies that you choose in <a href="#polsimstep-selectid">Step 2</a> and <a href="#polsimstep-polsubset">Step 5</a> include conditions with
+            <a href="./reference_policies_condition-keys.html">AWSglobal condition
+              keys</a>, then supply values for those keys. You can do this by
+          expanding the <b>Global Settings</b> section and typing values for the key
+          names displayed there.</p>
+        <div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>If you leave the value for a condition key empty, then that key is ignored during
+            the simulation. In some cases, this results in an error, and the simulation fails to
+            run. In other cases, the simulation runs, but the results might not be reliable. In
+            those cases, the simulation does not match the real-world conditions that include a
+            value for the condition key or variable.</p></div></div>
+      </li><li>
+        <p>(Optional) Each selected action appears in the <b>Action Settings and
+            Results</b> list with <b>Not simulated</b> shown in the
+            <b>Permission</b> column until you actually run the simulation. Before you
+          run the simulation, you can configure each action with a resource. To configure individual
+          actions for a specific scenario, choose the arrow to expand the action's row. If the
+          action supports resource-level permissions, you can type the <a href="./reference_identifiers.html#identifiers-arns">Amazon Resource Name (ARN)</a> of the specific resource
+          whose access you want to test. By default, each resource is set to a wildcard (*). You can
+          also specify a value for any <a href="reference_policies_actions-resources-contextkeys.html" rel="noopener noreferrer" target="_blank">condition context
+            keys</a>. As noted previously, keys with empty values are ignored, which can cause
+          simulation failures or unreliable results.</p>
+        <ol><li>
+            <p>Choose the arrow next to the action name to expand each row and configure any
+              additional information required to accurately simulate the action in your scenario. If
+              the action requires any resource-level permissions, you can type the <a href="./reference_identifiers.html#identifiers-arns">Amazon Resource Name (ARN)</a> of the specific
+              resource that you want to simulate access to. By default, each resource is set to a
+              wildcard (*).</p>
+          </li><li>
+            <p>If the action supports resource-level permissions but does not require them, then
+              you can choose <b>Add Resource</b> to select the resource type that you
+              want to add to the simulation. </p>
+          </li><li>
+            <p>If any of the selected policies include a <code class="code">Condition</code> element that
+              references a context key for this action's service, then that key name is displayed
+              under the action. You can specify the value to be used during the simulation of that
+              action for the specified resource.</p>
+          </li></ol>
+         
+          <h6>Actions that require different groups of resource
+            types </h6>
+          <p>Some actions require different resource types under different circumstances. Each
+            group of resource types is associated with a scenario. If one of these applies to your
+            simulation, select it and the policy simulator requires the resource types appropriate
+            for that scenario. The following list shows each of the supported scenario options and
+            the resources that you must define to run the simulation.</p>
+         
+        <p>Each of the following Amazon EC2 scenarios requires that you specify <code class="code">instance</code>,
+            <code class="code">image</code>, and <code class="code">security-group</code> resources. If your scenario includes
+          an EBS volume, then you must specify that <code class="code">volume</code> as a resource. If the Amazon EC2
+          scenario includes a virtual private cloud (VPC), then you must supply the
+            <code class="code">network-interface</code> resource. If it includes an IP subnet, then you must
+          specify the <code class="code">subnet</code> resource. For more information on the Amazon EC2 scenario
+          options, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported
+            Platforms</a> in the <em>Amazon EC2 User Guide</em>.</p>
+        <div class="itemizedlist">
+          
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><b>EC2-VPC-InstanceStore</b></p>
+            <p>instance, image, security-group, network-interface</p>
+          </li><li class="listitem">
+            <p><b>EC2-VPC-InstanceStore-Subnet</b></p>
+            <p>instance, image, security-group, network-interface, subnet</p>
+          </li><li class="listitem">
+            <p><b>EC2-VPC-EBS</b></p>
+            <p>instance, image, security-group, network-interface, volume</p>
+          </li><li class="listitem">
+            <p><b>EC2-VPC-EBS-Subnet</b></p>
+            <p>instance, image, security-group, network-interface, subnet, volume</p>
+          </li></ul></div>
+      </li><li><a id="polsimstep-respol"></a>
+        <p>(Optional) If you want to include a resource-based policy in your simulation, then you
+          must first select the actions that you want to simulate on that resource in <a href="#polsimstep-service">Step 6</a>. Expand the rows for the
+          selected actions, and type the ARN of the resource with a policy that you want to
+          simulate. Then select <b>Include Resource Policy</b> next to the
+            <b>ARN</b> text box. The IAM policy simulator currently supports
+          resource-based policies from only the following services: Amazon S3 (resource-based policies
+          only; ACLs are not currently supported), Amazon SQS, Amazon SNS, and unlocked S3 Glacier vaults (locked
+          vaults are not currently supported).</p>
+      </li><li>
+        <p>Choose <b>Run Simulation</b> in the upper-right corner.</p>
+        <p>The <b>Permission</b> column in each row of <b>Action Settings
+            and Results</b> displays the result of the simulation of that action on the
+          specified resource.</p>
+      </li><li>
+        <p>To see which statement in a policy explicitly allowed or denied an action, choose the
+              <b><code class="replaceable">N</code> matching statement(s)</b> link in the
+            <b>Permissions</b> column to expand the row. Then choose the
+            <b>Show statement</b> link. The <b>Policies</b> pane shows
+          the relevant policy with the statement that affected the simulation result
+          highlighted.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If an action is <em>implicitly</em> denied—that is, if the action
+            is denied only because it is not explicitly allowed—the <b>List</b>
+            and <b>Show statement</b> options are not displayed.</p></div></div>
+      </li></ol></div>
+     
+      <h3 id="iam-policy-simulator-messages">Troubleshooting IAM policy simulator
+          console messages</h3>
+      <p>The following table lists the informational and warning messages you might encounter
+        when using the IAM policy simulator. The table also provides steps you can take to resolve
+        them. </p>
+      <div class="table-container"><div class="table-contents"><table id="w340aac18c22c18c21c11b5"><thead>
+            <tr>
+              <th>Message</th>
+              <th>Steps to resolve</th>
+            </tr>
+          </thead>
+            <tr>
+              <td>This policy has been edited. Changes will not be saved to your account. </td>
+              <td>
+                <p>
+                  <b>No action required.</b>
+                </p>
+                <p>This message is informational. If you edit an existing policy in the IAM
+                  policy simulator, your change does not affect your AWS account. The policy
+                  simulator allows you to make changes to policies for testing purposes only.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>Cannot get the resource policy. Reason: <code class="replaceable">detailed error
+                  message</code></td>
+              <td>The policy simulator is not able to access a requested resource-based policy.
+                Ensure that the specified resource ARN is correct and that the user running the
+                simulation has permission to read the resource's policy.</td>
+            </tr>
+            <tr>
+              <td>One or more policies require values in the simulation settings. The simulation
+                might fail without these values. </td>
+              <td>
+                <p>This message appears if the policy you are testing contains condition keys or
+                  variables but you have not provided any values for these keys or variables in
+                    <b>Simulation Settings</b>.</p>
+                <p>To dismiss this message, choose <b>Simulation Settings</b>, Then
+                  enter a value for each condition key or variable.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>You have changed policies. These results are no longer valid. </td>
+              <td>
+                <p>This message appears if you have changed the selected policy while results are
+                  displayed in the <b>Results</b> pane. Results shown in the
+                    <b>Results</b> pane are not updated dynamically.</p>
+                <p>To dismiss this message, choose <b>Run Simulation</b> again to
+                  display new simulation results based on the changes made in the
+                    <b>Policies</b> pane.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>The resource you typed for this simulation does not match this service. </td>
+              <td>
+                <p>This message appears if you have typed an Amazon Resource Name (ARN) in the
+                    <b>Simulation Settings</b> pane that does not match the service
+                  that you chose for the current simulation. For example, this message appears if
+                  you specify an ARN for an Amazon DynamoDB resource but you chose Amazon Redshift as the service
+                  to simulate.</p>
+                <p>To dismiss this message, do one of the following: </p>
+                <div class="itemizedlist">
+                   
+                   
+                <ul class="itemizedlist"><li class="listitem">
+                    <p>Remove the ARN from the box in the <b>Simulation
+                        Settings</b> pane.</p>
+                  </li><li class="listitem">
+                    <p>Choose the service that matches the ARN that you specified in
+                        <b>Simulation Settings</b>.</p>
+                  </li></ul></div>
+              </td>
+            </tr>
+            <tr>
+              <td>This action belongs to a service that supports special access control
+                mechanisms in addition to resource-based policies, such as Amazon S3 ACLs or S3 Glacier vault
+                lock policies. The policy simulator does not support these mechanisms, so the
+                results can differ from your production environment. </td>
+              <td>
+                <p>
+                  <b>No action required.</b>
+                </p>
+                <p>This message is informational. In the current version, the policy simulator
+                  evaluates policies attached to users and user groups, and can evaluate
+                  resource-based policies for Amazon S3, Amazon SQS, Amazon SNS, and S3 Glacier. The policy simulator
+                  does not support all access control mechanisms supported by other AWS
+                  services.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>DynamoDB FGAC is currently not supported. </td>
+              <td>
+                <p>
+                  <b>No action required.</b>
+                </p>
+                <p>This informational message refers to <em>fine-grained access
+                    control</em>. Fine-grained access control is the ability to use IAM
+                  policy conditions to determine who can access individual data items and attributes
+                  in DynamoDB tables and indexes. It also refers to the actions that can be performed
+                  on these tables and indexes. The current version of the IAM policy simulator
+                  does not support this type of policy condition. For more information on DynamoDB
+                  fine-grained access control, see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/FGAC_DDB.html">Fine-Grained Access Control for DynamoDB</a>.</p>
+              </td>
+            </tr>
+            <tr>
+              <td>You have policies that do not comply with the policy syntax. You can use policy
+                validation to review recommended updates to your policies. </td>
+              <td>
+                <p>This message appears at the top of the policy list if you have policies that
+                  do not comply with the IAM policy grammar. In order to simulate these policies,
+                  review the policy validation options at <a href="./access_policies_policy-validator.html">Validating IAM policies</a> to identify and fix these
+                  policies.</p>
+              </td>
+            </tr>
+            <tr>
+              <td> This policy must be updated to comply with the latest policy syntax rules. </td>
+              <td>
+                <p>This message is displayed if you have policies that do not comply with the IAM
+                  policy grammar. In order to simulate these policies, review the policy validation
+                  options at <a href="./access_policies_policy-validator.html">Validating IAM policies</a> to identify and fix these
+                  policies.</p>
+              </td>
+            </tr>
+          </table></div></div>
+     
+   
+    <h2 id="policies-simulator-using-api">Using the IAM policy simulator (AWS CLI and
+        AWS API)</h2>
+    <p>Policy simulator commands typically require calling API operations to do two
+      things:</p>
+    <div class="orderedlist">
+       
+       
+    <ol><li>
+        <p>Evaluate the policies and return the list of context keys that they reference. You
+          need to know what context keys are referenced so that you can supply values for them in
+          the next step.</p>
+      </li><li>
+        <p>Simulate the policies, providing a list of actions, resources, and context keys that
+          are used during the simulation.</p>
+      </li></ol></div>
+    <p>For security reasons, the API operations have been broken into two groups:</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>API operations that simulate only policies that are passed directly to the API as
+          strings. This set includes <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetContextKeysForCustomPolicy.html">GetContextKeysForCustomPolicy</a> and <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulateCustomPolicy.html">SimulateCustomPolicy</a>.</p>
+      </li><li class="listitem">
+        <p>API operations that simulate the policies that are attached to a specified IAM user,
+          user group, role, or resource. Because these API operations can reveal details of
+          permissions assigned to other IAM entities, you should consider restricting access to
+          these API operations. This set includes <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetContextKeysForPrincipalPolicy.html">GetContextKeysForPrincipalPolicy</a> and <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulatePrincipalPolicy.html">SimulatePrincipalPolicy</a>. For
+          more information about restricting access to API operations, see <a href="./access_policies_examples.html#policy_library_IAM">Example policies: AWS Identity and Access Management (IAM)</a>.</p>
+      </li></ul></div>
+    <p>In both cases, the API operations simulate the effect of one or more policies on a list of
+      actions and resources. Each action is paired with each resource and the simulation determines
+      whether the policies allow or deny that action for that resource. You can also provide values
+      for any context keys that your policies reference. You can get the list of context keys that
+      the policies reference by first calling <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetContextKeysForCustomPolicy.html"><code class="code">GetContextKeysForCustomPolicy</code></a> or <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetContextKeysForPrincipalPolicy.html"><code class="code">GetContextKeysForPrincipalPolicy</code></a>. If you don't provide a value for a
+      context key, the simulation still runs. But the results might not be reliable because the
+      policy simulator cannot include that context key in the evaluation.</p>
+     
+      <h6>To get the list of context keys (AWS CLI, AWS API)</h6>
+      <p>Use the following to evaluate a list of policies and return a list of context keys that
+        are used in the policies.</p>
+     
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>AWS CLI: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/get-context-keys-for-custom-policy.html"><code class="code">aws iam
+              get-context-keys-for-custom-policy</code></a> and <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/get-context-keys-for-principal-policy.html"><code class="code">aws iam
+              get-context-keys-for-principal-policy</code></a></p>
+      </li><li class="listitem">
+        <p>AWS API: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetContextKeysForCustomPolicy.html"><code class="code">GetContextKeysForCustomPolicy</code></a> and <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetContextKeysForPrincipalPolicy.html"><code class="code">GetContextKeysForPrincipalPolicy</code></a></p>
+      </li></ul></div>
+     
+      <h6>To simulate IAM policies (AWS CLI, AWS API)</h6>
+      <p>Use the following to simulate IAM policies to determine a user's effective
+        permissions.</p>
+     
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>AWS CLI: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/simulate-custom-policy.html"><code class="code">aws iam simulate-custom-policy</code></a> and <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/simulate-principal-policy.html"><code class="code">aws iam
+              simulate-principal-policy</code></a></p>
+      </li><li class="listitem">
+        <p>AWS API: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulateCustomPolicy.html"><code class="code">SimulateCustomPolicy</code></a> and <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulatePrincipalPolicy.html"><code class="code">SimulatePrincipalPolicy</code></a></p>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access_policies_generate-policy.html">Generating policies</div><div id="next" class="next-link" accesskey="n" href="./access_policies_manage-attach-detach.html">Add or remove identity permissions</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_policies_testing-policies.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_policies_testing-policies.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

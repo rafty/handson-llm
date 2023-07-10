@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using Service-Linked Roles for Amazon MemoryDB for Redis - Amazon MemoryDB for Redis</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="using-service-linked-roles" /><meta name="default_state" content="using-service-linked-roles" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/memorydb/latest/devguide/using-service-linked-roles.html" /><meta name="description" content="How to use service-linked roles to give Amazon MemoryDB for Redis access to resources in your AWS account." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon MemoryDB for Redis" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon MemoryDB for Redis is a fully managed, Redis-compatible, in-memory database that delivers ultra-fast performance and Multi-AZ durability for modern applications built using microservices architectures." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/memorydb/latest/devguide/using-service-linked-roles.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/memorydb/latest/devguide/using-service-linked-roles.html" hreflang="x-default" /><meta name="feedback-item" content="MemoryDB - Docs" /><meta name="this_doc_product" content="Amazon MemoryDB for Redis" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'memorydb'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Using Service-Linked Roles for Amazon MemoryDB for Redis" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using Service-Linked Roles for Amazon MemoryDB for Redis - Amazon MemoryDB for Redis</title><meta name="pdf" content="/pdfs/memorydb/latest/devguide/memorydb-guide.pdf.pdf#using-service-linked-roles" /><meta name="github" content="https://github.com/awsdocs/amazon-cornerstone-user-guide/tree/main/doc_source/using-service-linked-roles.md" /><meta name="rss" content="memorydb-guide.pdf.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=MemoryDB%20-%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/memorydb/latest/devguide/using-service-linked-roles.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/memorydb/latest/devguide/using-service-linked-roles.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/memorydb/latest/devguide/using-service-linked-roles.html" /><meta name="keywords" content="Amazon MemoryDB for Redis,memorydb" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon MemoryDB",
+        "item" : "https://docs.aws.amazon.com/memorydb/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/memorydb/latest/devguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in MemoryDB for Redis",
+        "item" : "https://docs.aws.amazon.com/memorydb/latest/devguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management in MemoryDB for Redis",
+        "item" : "https://docs.aws.amazon.com/memorydb/latest/devguide/iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Overview of managing access permissions to your MemoryDB resources",
+        "item" : "https://docs.aws.amazon.com/memorydb/latest/devguide/iam.overview.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Using Service-Linked Roles for Amazon MemoryDB for Redis",
+        "item" : "https://docs.aws.amazon.com/memorydb/latest/devguide/iam.overview.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/memorydb/latest/devguide/memorydb-guide.pdf.pdf#using-service-linked-roles" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-cornerstone-user-guide/tree/main/doc_source/using-service-linked-roles.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/memorydb/index.html">Amazon MemoryDB</a><a href="what-is-memorydb-for-redis.html">Developer Guide</a></div><div id="page-toc-src"><a href="#service-linked-role-permissions">Service-Linked Role Permissions</a><a href="#create-service-linked-role-iam">Creating a Service-Linked Role (IAM)</a><a href="#edit-service-linked-role">Editing a Service-Linked Role Description</a><a href="#delete-service-linked-role">Deleting a Service-Linked Role for Amazon MemoryDB for Redis</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="using-service-linked-roles">Using Service-Linked Roles for
+      Amazon MemoryDB for Redis</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon MemoryDB for Redis uses AWS Identity and Access Management (IAM) <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">service-linked roles</a>. A service-linked role is a unique type of IAM role that is
+    linked directly to an AWS service, such as Amazon MemoryDB for Redis. Amazon MemoryDB for Redis service-linked roles are
+    predefined by Amazon MemoryDB for Redis. They include all the permissions that the service requires to call
+    AWS services on behalf of your clusters. </p><p>A service-linked role makes setting up Amazon MemoryDB for Redis easier because you don’t have to
+    manually add the necessary permissions. The roles already exist within your AWS account but
+    are linked to Amazon MemoryDB for Redis use cases and have predefined permissions. Only Amazon MemoryDB for Redis can
+    assume these roles, and only these roles can use the predefined permissions policy. You can
+    delete the roles only after first deleting their related resources. This protects your
+    Amazon MemoryDB for Redis resources because you can't inadvertently remove necessary permissions to access
+    the resources.</p><p>For information about other services that support service-linked roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS Services That Work with IAM</a> and look for the services that
+    have <b>Yes </b>in the <b>Service-Linked
+    Role</b> column. Choose a <b>Yes</b> with a link to view the
+    service-linked role documentation for that service.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><a href="./using-service-linked-roles.html#service-linked-role-permissions">Service-Linked Role Permissions</a></li><li><a href="./using-service-linked-roles.html#create-service-linked-role-iam">Creating a Service-Linked Role (IAM)</a><ul><li><a href="./using-service-linked-roles.html#create-service-linked-role-iam-console">Using the IAM Console</a></li><li><a href="./using-service-linked-roles.html#create-service-linked-role-iam-cli">Using the IAM CLI</a></li><li><a href="./using-service-linked-roles.html#create-service-linked-role-iam-api">Using the IAM API</a></li></ul></li><li><a href="./using-service-linked-roles.html#edit-service-linked-role">Editing a Service-Linked Role Description</a><ul><li><a href="./using-service-linked-roles.html#edit-service-linked-role-iam-console">Using the IAM Console</a></li><li><a href="./using-service-linked-roles.html#edit-service-linked-role-iam-cli">Using the IAM CLI</a></li><li><a href="./using-service-linked-roles.html#edit-service-linked-role-iam-api">Using the IAM API</a></li></ul></li><li><a href="./using-service-linked-roles.html#delete-service-linked-role">Deleting a Service-Linked Role for Amazon MemoryDB for Redis</a><ul><li><a href="./using-service-linked-roles.html#service-linked-role-review-before-delete">Cleaning Up a Service-Linked Role</a></li><li><a href="./using-service-linked-roles.html#delete-service-linked-role-iam-console">Deleting a Service-Linked Role (IAM Console)</a></li><li><a href="./using-service-linked-roles.html#delete-service-linked-role-iam-cli">Deleting a Service-Linked Role (IAM CLI)</a></li><li><a href="./using-service-linked-roles.html#delete-service-linked-role-iam-api">Deleting a Service-Linked Role (IAM API)</a></li></ul></li></ul></div>
+    <h2 id="service-linked-role-permissions">Service-Linked Role Permissions for Amazon MemoryDB for Redis</h2>
+    <p>Amazon MemoryDB for Redis uses the service-linked role named <b>AWSServiceRoleForMemoryDB</b> –
+      This policy allows MemoryDB to manage AWS resources on your behalf as necessary for managing your clusters.</p>
+    
+    <p>The AWSServiceRoleForMemoryDB service-linked role permissions policy allows Amazon MemoryDB for Redis to complete the
+      following actions on the specified resources:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+        "Version": "2012-10-17",
+        "Statement": [
+            <span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:CreateTags"
+                ],
+                "Resource": "arn:aws:ec2:*:*:network-interface/*",
+                "Condition": <span>{</span>
+                    "StringEquals": <span>{</span>
+                        "ec2:CreateAction": "CreateNetworkInterface"
+                    },
+                    "ForAllValues:StringEquals": <span>{</span>
+                        "aws:TagKeys": [
+                            "AmazonMemoryDBManaged"
+                        ]
+                    }
+                }
+            },
+            <span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:CreateNetworkInterface"
+                ],
+                "Resource": [
+                    "arn:aws:ec2:*:*:network-interface/*",
+                    "arn:aws:ec2:*:*:subnet/*",
+                    "arn:aws:ec2:*:*:security-group/*"
+                ]
+            },
+            <span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:DeleteNetworkInterface",
+                    "ec2:ModifyNetworkInterfaceAttribute"
+                ],
+                "Resource": "arn:aws:ec2:*:*:network-interface/*",
+                "Condition": <span>{</span>
+                    "StringEquals": <span>{</span>
+                        "ec2:ResourceTag/AmazonMemoryDBManaged": "true"
+                    }
+                }
+            },
+            <span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:DeleteNetworkInterface",
+                    "ec2:ModifyNetworkInterfaceAttribute"
+                ],
+                "Resource": "arn:aws:ec2:*:*:security-group/*"
+            },
+            <span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:DescribeSecurityGroups",
+                    "ec2:DescribeNetworkInterfaces",
+                    "ec2:DescribeAvailabilityZones",
+                    "ec2:DescribeSubnets",
+                    "ec2:DescribeVpcs"
+                ],
+                "Resource": "*"
+            },
+            <span>{</span>
+                "Effect": "Allow",
+                "Action": [
+                    "cloudwatch:PutMetricData"
+                ],
+                "Resource": "*",
+                "Condition": <span>{</span>
+                    "StringEquals": <span>{</span>
+                        "cloudwatch:namespace": "AWS/MemoryDB"
+                    }
+                }
+            }
+        ]
+    }</code></pre>
+    
+    
+    
+    
+    <p>For more information, see <a href="./security-iam-awsmanpol.html#security-iam-awsmanpol-memorydbServiceRolePolicy">AWS managed policy: MemoryDBServiceRolePolicy</a>.</p>
+    
+    
+  
+    
+    
+    <p><b>To allow an IAM entity to create AWSServiceRoleForMemoryDB service-linked
+        roles</b></p>
+    <p>Add the following policy statement to the permissions for that IAM entity:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Effect": "Allow",
+    "Action": [
+        "iam:CreateServiceLinkedRole",
+        "iam:PutRolePolicy"
+    ],
+    "Resource": "arn:aws:iam::*:role/aws-service-role/memorydb.amazonaws.com/AWSServiceRoleForMemoryDB*",
+    "Condition": <span>{</span>"StringLike": <span>{</span>"iam:AWSServiceName": "memorydb.amazonaws.com"}}
+}</code></pre>
+    
+    
+    
+       
+    
+    
+    
+    
+    
+    <p><b>To allow an IAM entity to delete AWSServiceRoleForMemoryDB service-linked
+        roles</b></p>
+    <p>Add the following policy statement to the permissions for that IAM entity:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Effect": "Allow",
+    "Action": [
+        "iam:DeleteServiceLinkedRole",
+        "iam:GetServiceLinkedRoleDeletionStatus"
+    ],
+    "Resource": "arn:aws:iam::*:role/aws-service-role/memorydb.amazonaws.com/AWSServiceRoleForMemoryDB*",
+    "Condition": <span>{</span>"StringLike": <span>{</span>"iam:AWSServiceName": "memorydb.amazonaws.com"}}
+}</code></pre>
+    
+    
+    
+    
+    <p>Alternatively, you can use an AWS managed policy to provide full access to
+      Amazon MemoryDB for Redis.</p>
+   
+    <h2 id="create-service-linked-role-iam">Creating a Service-Linked Role (IAM)</h2>
+    
+    <p>You can create a service-linked role using the IAM console, CLI, or API.</p>
+
+
+     
+      <h3 id="create-service-linked-role-iam-console">Creating a Service-Linked Role (IAM Console)</h3>
+      <p>You can use the IAM console to create a service-linked role.</p>
+      <div class="procedure"><h6>To create a service-linked role (console)</h6><ol><li><p>Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the left navigation pane of the IAM console, choose <b>Roles</b>. Then
+            choose <b>Create new role</b>.</p>
+        </li><li>
+          <p>Under <b>Select type of trusted entity</b> choose <b>AWS Service</b>.</p>
+        </li><li>
+          <p>Under <b>Or select a service to view its use cases</b>, choose <b>MemoryDB</b>.</p>
+        </li><li><p>Choose <b>Next: Permissions</b>.</p></li><li><p>Under <b>Policy name</b>, note that the <code class="code">MemoryDBServiceRolePolicy</code> is required for this role. Choose <b>Next:Tags</b>.</p></li><li><p>Note that tags are not supported for Service-Linked roles. Choose <b>Next:Review</b>.</p></li><li>
+          <p>(Optional) For <b>Role description</b>, edit the description for the
+            new service-linked role.</p>
+        </li><li>
+          <p>Review the role and then choose <b>Create role</b>.</p>
+        </li></ol></div>
+     
+    
+    
+    
+     
+      <h3 id="create-service-linked-role-iam-cli">Creating a Service-Linked Role (IAM CLI)</h3>
+      <p>You can use IAM operations from the AWS Command Line Interface to create a service-linked role. This
+        role can include the trust policy and inline policies that the service needs to assume the
+        role.</p>
+      <p><b>To create a service-linked role (CLI)</b></p>
+      <p>Use the following operation:</p>
+      
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false">$ </code><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/create-service-linked-role.html">create-service-linked-role</a> --aws-service-name <code class="replaceable">memorydb.amazonaws.com</code></code></code></pre>
+
+     
+    
+    
+    
+     
+      <h3 id="create-service-linked-role-iam-api">Creating a Service-Linked Role (IAM API)</h3>
+      <p>You can use the IAM API to create a service-linked role. This role can contain the
+        trust policy and inline policies that the service needs to assume the role.</p>
+      
+      <p><b>To create a service-linked role (API)</b></p>
+      <p>Use the CreateServiceLinkedRole API call.
+        In the request, specify a service name of <code class="code">memorydb.amazonaws.com</code>. </p>
+     
+    
+    <h2 id="edit-service-linked-role">Editing the Description of a Service-Linked Role for Amazon MemoryDB for Redis</h2>
+    
+    <p>Amazon MemoryDB for Redis does not allow you to edit the AWSServiceRoleForMemoryDB service-linked role. After you
+      create a service-linked role, you cannot change the name of the role because various entities
+      might reference the role. However, you can edit the description of the role using
+      IAM.</p>
+    
+    
+    
+     
+      <h3 id="edit-service-linked-role-iam-console">Editing a Service-Linked Role Description (IAM Console)</h3>
+      <p>You can use the IAM console to edit a service-linked role description.</p>
+      <div class="procedure"><h6>To edit the description of a service-linked role (console)</h6><ol><li>
+          <p>In the left navigation pane of the IAM console, choose
+            <b>Roles</b>.</p>
+        </li><li>
+          <p>Choose the name of the role to modify.</p>
+        </li><li>
+          <p>To the far right of <b>Role description</b>, choose
+              <b>Edit</b>. </p>
+        </li><li>
+          <p>Enter a new description in the box and choose <b>Save</b>.</p>
+        </li></ol></div>
+     
+    
+    
+     
+      <h3 id="edit-service-linked-role-iam-cli">Editing a Service-Linked Role Description (IAM CLI)</h3>
+      <p>You can use IAM operations from the AWS Command Line Interface to edit a service-linked role description.</p>
+      <div class="procedure"><h6>To change the description of a service-linked role (CLI)</h6><ol><li>
+          <p>(Optional) To view the current description for a role, use the AWS CLI for IAM operation <code class="code"><a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/get-role.html">get-role</a></code>.</p>
+          <div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false">$ </code><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/get-role.html">get-role</a> --role-name AWSServiceRoleForMemoryDB</code></code></pre></div></div>
+          <p>Use the role name, not the ARN, to refer to roles with the CLI operations. For
+            example, if a role has the following ARN:
+              <code class="code">arn:aws:iam::123456789012:role/myrole</code>, refer to the role as <code class="userinput">myrole</code>.</p>
+        </li><li>
+          <p>To update a service-linked role's description, use the AWS CLI for IAM operation <code class="code"><a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/update-role-description.html">update-role-description</a></code>.</p>
+          <p>For Linux, macOS, or Unix:</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false">$ </code><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/update-role-description.html">update-role-description</a> \
+    --role-name AWSServiceRoleForMemoryDB \
+    --description "<code class="replaceable">new description</code>"</code></code></pre>
+          <p>For Windows:</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false">$ </code><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/update-role-description.html">update-role-description</a> ^
+    --role-name AWSServiceRoleForMemoryDB ^
+    --description "<code class="replaceable">new description</code>"</code></code></pre>
+        </li></ol></div>
+     
+    
+    
+     
+      <h3 id="edit-service-linked-role-iam-api">Editing a Service-Linked Role Description (IAM API)</h3>
+      <p>You can use the IAM API to edit a service-linked role description.</p>
+      <div class="procedure"><h6>To change the description of a service-linked role (API)</h6><ol><li>
+          <p>(Optional) To view the current description for a role, use the IAM API operation GetRole.</p>
+          <div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="http ">https://iam.amazonaws.com/
+   ?Action=<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetRole.html">GetRole</a>
+   &amp;RoleName=<code class="replaceable">AWSServiceRoleForMemoryDB</code>
+   &amp;Version=2010-05-08
+   &amp;AUTHPARAMS</code></pre></div></div>
+        </li><li>
+          <p>To update a role's description, use the IAM API operation UpdateRoleDescription.</p>
+          <div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="http ">https://iam.amazonaws.com/
+   ?Action=<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateRoleDescription.html">UpdateRoleDescription</a>
+   &amp;RoleName=<code class="replaceable">AWSServiceRoleForMemoryDB</code>
+   &amp;Version=2010-05-08
+   &amp;Description="<code class="replaceable">New description</code>"</code></pre></div></div>
+        </li></ol></div>
+     
+    
+    
+   
+    <h2 id="delete-service-linked-role">Deleting a Service-Linked Role for Amazon MemoryDB for Redis</h2>
+    
+    <p>If you no longer need to use a feature or service that requires a service-linked role, we
+      recommend that you delete that role. That way you don’t have an unused entity that is not
+      actively monitored or maintained. However, you must clean up your service-linked role before
+      you can delete it.</p> 
+    
+    <p>Amazon MemoryDB for Redis does not delete the service-linked role for you.</p>
+    
+    
+    
+    
+     
+      <h3 id="service-linked-role-review-before-delete">Cleaning Up a Service-Linked Role</h3>
+      
+      <p>Before you can use IAM to delete a service-linked role, first
+        confirm that the role has no resources (clusters) associated with
+        it.</p>
+      <div class="procedure"><h6>To check whether the service-linked role has an active session in the IAM console</h6><ol><li><p>Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the left navigation pane of the IAM console, choose <b>Roles</b>. Then
+            choose the name (not the check box) of the AWSServiceRoleForMemoryDB role.</p>
+        </li><li>
+          <p>On the <b>Summary</b> page for the selected role, choose the
+              <b>Access Advisor</b> tab.</p>
+        </li><li>
+          <p>On the <b>Access Advisor</b> tab, review recent activity for the
+            service-linked role.</p>
+          
+        </li></ol></div>
+
+
+      <div class="itemizedlist">
+        <h6>To delete Amazon MemoryDB for Redis resources that require AWSServiceRoleForMemoryDB (console)</h6>
+        
+         
+              <ul class="itemizedlist"><li class="listitem">
+          <p>To delete a cluster, see the following:</p>
+          <div class="itemizedlist">
+             
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p><a href="./clusters.delete.html#clusters.deleteclusters.viewdetails">Using the AWS Management Console</a></p></li><li class="listitem">
+              <p><a href="./clusters.delete.html#clusters.delete.cli">Using the AWS CLI</a></p></li><li class="listitem">
+              <p><a href="./clusters.delete.html#clusters.delete.api">Using the MemoryDB API</a></p></li></ul></div> 
+        </li></ul></div>
+     
+    
+    
+    
+    
+    
+    
+    
+     
+      <h3 id="delete-service-linked-role-iam-console">Deleting a Service-Linked Role (IAM Console)</h3>
+      <p>You can use the IAM console to delete a service-linked role.</p>
+      <div class="procedure"><h6>To delete a service-linked role (console)</h6><ol><li><p>Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+          <p>In the left navigation pane of the IAM console, choose <b>Roles</b>. Then
+            select the check box next to the role name that you want to delete, not the name or row
+            itself. </p>
+        </li><li>
+          <p>For <b>Role actions</b> at the top of the page, choose
+              <b>Delete role</b>.</p>
+        </li><li>
+          <p>In the confirmation page, review the service last accessed data, which shows
+            when each of the selected roles last accessed an AWS service. This helps you to
+            confirm whether the role is currently active. If you want to proceed, choose
+              <b>Yes, Delete</b> to submit the service-linked role for
+            deletion.</p>
+        </li><li>
+          <p>Watch the IAM console notifications to monitor the progress of the service-linked
+            role deletion. Because the IAM service-linked role deletion is asynchronous, after you
+            submit the role for deletion, the deletion task can succeed or fail. If the task fails,
+            you can choose <b>View details</b> or <b>View Resources</b>
+            from the notifications to learn why the deletion failed.</p>
+        </li></ol></div>
+     
+    
+    
+     
+      <h3 id="delete-service-linked-role-iam-cli">Deleting a Service-Linked Role (IAM CLI)</h3>
+      <p>You can use IAM operations from the AWS Command Line Interface to delete a service-linked role.</p>
+      <div class="procedure"><h6>To delete a service-linked role (CLI)</h6><ol><li>
+          <p>If you don't know the name of the service-linked role that you want to delete, enter
+            the following command. This command lists the roles and their Amazon Resource Names
+            (ARNs) in your account.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false">$ </code><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/get-role.html">get-role</a> --role-name <code class="replaceable">role-name</code></code></code></pre>
+          <p>Use the role name, not the ARN, to refer to roles with the CLI operations. For
+            example, if a role has the ARN <code class="code">arn:aws:iam::123456789012:role/myrole</code>,
+            you refer to the role as <code class="userinput">myrole</code>.</p>
+        </li><li>
+          <p>Because a service-linked role cannot be deleted if it is being used or has
+            associated resources, you must submit a deletion request. That request can be denied if
+            these conditions are not met. You must capture the <code class="code">deletion-task-id</code> from
+            the response to check the status of the deletion task. Enter the following to submit a
+            service-linked role deletion request.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false">$ </code><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/delete-service-linked-role.html">delete-service-linked-role</a> --role-name <code class="replaceable">role-name</code></code></code></pre>
+        </li><li>
+          <p>Enter the following to check the status of the deletion task.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false">$ </code><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/memorydb/latest/APIReference/iam/get-service-linked-role-deletion-status.html">get-service-linked-role-deletion-status</a> --deletion-task-id <code class="replaceable">deletion-task-id</code></code></code></pre>
+          <p>The status of the deletion task can be <code class="code">NOT_STARTED</code>,
+              <code class="code">IN_PROGRESS</code>, <code class="code">SUCCEEDED</code>, or <code class="code">FAILED</code>. If the
+            deletion fails, the call returns the reason that it failed so that you can
+            troubleshoot.</p>
+        </li></ol></div>
+     
+    
+    
+     
+      <h3 id="delete-service-linked-role-iam-api">Deleting a Service-Linked Role (IAM API)</h3>
+      <p>You can use the IAM API to delete a service-linked role.</p>
+      <div class="procedure"><h6>To delete a service-linked role (API)</h6><ol><li>
+          <p>To submit a deletion request for a service-linked roll, call DeleteServiceLinkedRole.
+            In the request, specify a role name.</p>
+          <p>Because a service-linked role cannot be deleted if it is being used or has
+            associated resources, you must submit a deletion request. That request can be denied if
+            these conditions are not met. You must capture the <code class="code">DeletionTaskId</code> from the
+            response to check the status of the deletion task.</p>
+        </li><li>
+          <p>To check the status of the deletion, call GetServiceLinkedRoleDeletionStatus.
+            In the request, specify the <code class="code">DeletionTaskId</code>.</p>
+          <p>The status of the deletion task can be <code class="code">NOT_STARTED</code>,
+            <code class="code">IN_PROGRESS</code>, <code class="code">SUCCEEDED</code>, or <code class="code">FAILED</code>. If the
+            deletion fails, the call returns the reason that it failed so that you can
+            troubleshoot.</p>
+        </li></ol></div>
+     
+    
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./iam.resourcelevelpermissions.html">Resource-level permissions</div><div id="next" class="next-link" accesskey="n" href="./security-iam-awsmanpol.html">AWS managed policies</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=MemoryDB - Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/memorydb/latest/devguide/using-service-linked-roles.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=MemoryDB - Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/memorydb/latest/devguide/using-service-linked-roles.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

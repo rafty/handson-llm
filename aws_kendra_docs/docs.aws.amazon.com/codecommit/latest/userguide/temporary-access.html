@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Connecting to AWS CodeCommit repositories with rotating credentials - AWS CodeCommit</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="temporary-access" /><meta name="default_state" content="temporary-access" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/codecommit/latest/userguide/temporary-access.html" /><meta name="description" content="Describes how to use AWS Security Token Service to grant temporary access to CodeCommit repositories." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS CodeCommit" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Privately store and manage assets (such as documents, source code, and binary files) in the cloud with AWS CodeCommit." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/codecommit/latest/userguide/temporary-access.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/codecommit/latest/userguide/temporary-access.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/codecommit/latest/userguide/temporary-access.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/codecommit/latest/userguide/temporary-access.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/codecommit/latest/userguide/temporary-access.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/codecommit/latest/userguide/temporary-access.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/codecommit/latest/userguide/temporary-access.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/codecommit/latest/userguide/temporary-access.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/codecommit/latest/userguide/temporary-access.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/codecommit/latest/userguide/temporary-access.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/codecommit/latest/userguide/temporary-access.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/codecommit/latest/userguide/temporary-access.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/codecommit/latest/userguide/temporary-access.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/codecommit/latest/userguide/temporary-access.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/codecommit/latest/userguide/temporary-access.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/codecommit/latest/userguide/temporary-access.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/codecommit/latest/userguide/temporary-access.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/codecommit/latest/userguide/temporary-access.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/codecommit/latest/userguide/temporary-access.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/codecommit/latest/userguide/temporary-access.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/codecommit/latest/userguide/temporary-access.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/codecommit/latest/userguide/temporary-access.html" hreflang="x-default" /><meta name="feedback-item" content="CodeCommit" /><meta name="this_doc_product" content="AWS CodeCommit" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'codecommit'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Connecting to AWS CodeCommit repositories with rotating credentials" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Connecting to AWS CodeCommit repositories with rotating credentials - AWS CodeCommit</title><meta name="pdf" content="/pdfs/codecommit/latest/userguide/codecommit-user.pdf#temporary-access" /><meta name="github" content="https://github.com/awsdocs/aws-codecommit-user-guide/tree/main/doc_source/temporary-access.md" /><meta name="rss" content="aws-codecommit-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=189" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CodeCommit&amp;topic_url=http://docs.aws.amazon.com/en_us/codecommit/latest/userguide/temporary-access.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/codecommit/latest/userguide/temporary-access.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/codecommit/latest/userguide/temporary-access.html" /><meta name="keywords" content="CodeCommit,AWS CodeCommit,repository,repositories,Git-based repository,source control,version control,pull request,commits,code review,git credentials,AWS,Developer Tools,Developer Tools Console,Developer Tools Services,Developer Tools AWS,CI/CD,continuous integration,continuous delivery,DevOps" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "CodeCommit",
+        "item" : "https://docs.aws.amazon.com/codecommit/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/codecommit/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in AWS CodeCommit",
+        "item" : "https://docs.aws.amazon.com/codecommit/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Data protection in AWS CodeCommit",
+        "item" : "https://docs.aws.amazon.com/codecommit/latest/userguide/data-protection.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Connecting to AWS CodeCommit repositories with rotating credentials",
+        "item" : "https://docs.aws.amazon.com/codecommit/latest/userguide/data-protection.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/codecommit/latest/userguide/codecommit-user.pdf#temporary-access" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-codecommit-user-guide/tree/main/doc_source/temporary-access.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/codecommit/index.html">CodeCommit</a><a href="welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#temporary-access-prerequisites">Step 1: Complete the prerequisites</a><a href="#temporary-access-get-credentials">Step 2: Get role name or access credentials</a><a href="#temporary-access-configure-credentials">Step 3:
+                Install
+                git-remote-codecommit and configure the AWS CLI</a><a href="#temporary-access-use-credentials">Step 4: Access the CodeCommit repositories</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="temporary-access">Connecting to AWS CodeCommit repositories with rotating credentials</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can give users access to your AWS CodeCommit repositories without configuring IAM users
+        for them or using an access key and secret key. 
+
+To assign permissions to a federated identity, you create a role and define permissions for the role. When a federated identity authenticates, the identity is associated with the role and is granted the permissions that are defined by the role. For information about roles for federation, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html">
+Creating a role for a third-party Identity Provider</a> in the <em>IAM User Guide</em>.
+
+<span>If you use IAM Identity Center, you configure a permission set. To control what your identities can access after they authenticate, IAM Identity Center correlates the permission set to a role in IAM. 
+For information about permissions sets, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html">
+Permission sets</a> in the <em>AWS IAM Identity Center (successor to AWS Single Sign-On) User Guide</em>.</span>
+ You
+        can also configure role-based access for IAM users to access CodeCommit repositories in
+        separate Amazon Web Services accounts (a technique known as <em>cross-account access</em>).
+        For a walkthrough of configuring cross-account access to a repository, see <a href="./cross-account.html">Configure cross-account access to an AWS CodeCommit repository using roles</a>. </p><p>You can configure access for users who want or must authenticate through methods such as:</p><div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Security Assertion Markup Language (SAML)</p>
+        </li><li class="listitem">
+            <p>Multi-factor authentication (MFA)</p>
+        </li><li class="listitem">
+            <p>Federation</p>
+        </li><li class="listitem">
+            <p>Login with Amazon</p>
+        </li><li class="listitem">
+            <p>Amazon Cognito</p>
+        </li><li class="listitem">
+            <p>Facebook</p>
+        </li><li class="listitem">
+            <p>Google</p>
+        </li><li class="listitem">
+            <p>OpenID Connect (OIDC)-compatible identity provider</p>
+        </li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The following information applies only to the use of
+                <b>git-remote-codecommit</b> or the AWS CLI credential helper to connect
+            to CodeCommit repositories. Because the recommended approach for temporary or federated
+            access to CodeCommit is to set up <b>git-remote-codecommit</b>, this topic
+            provides examples using that utility. For more information, see <a href="./setting-up-git-remote-codecommit.html">Setup steps for HTTPS connections to AWS CodeCommit with
+      git-remote-codecommit</a>. </p><p>You cannot use SSH or Git credentials and HTTPS to connect to CodeCommit repositories with rotating or
+            temporary access credentials. </p></div></div><p>You do not need to complete these steps if all of the following requirements are true:</p><div class="itemizedlist">
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>You are signed in to an Amazon EC2 instance.</p>
+        </li><li class="listitem">
+            <p>You are using Git and HTTPS with the AWS CLI credential helper to connect from the Amazon EC2 instance to
+                CodeCommit repositories.</p>
+        </li><li class="listitem">
+            <p>The Amazon EC2 instance has an attached IAM instance profile that contains the access permissions
+                described in <a href="./setting-up-https-unixes.html">For HTTPS connections on Linux, macOS, or Unix with the AWS CLI credential
+      helper</a> or <a href="./setting-up-https-windows.html">For HTTPS connections on Windows with the AWS CLI credential
+      helper</a>.</p>
+        </li><li class="listitem">
+            <p>You have installed and configured the Git credential helper on the Amazon EC2 instance, as described in
+                    <a href="./setting-up-https-unixes.html">For HTTPS connections on Linux, macOS, or Unix with the AWS CLI credential
+      helper</a> or <a href="./setting-up-https-windows.html">For HTTPS connections on Windows with the AWS CLI credential
+      helper</a>.</p>
+        </li></ul></div><p>Amazon EC2 instances that meet the preceding requirements are already set up to communicate temporary access
+        credentials to CodeCommit on your behalf.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can configure and use <b>git-remote-codecommit</b> on Amazon EC2 instances.</p></div></div><p>To give users temporary access to your CodeCommit repositories, complete the following steps.</p><p></p>
+        <h2 id="temporary-access-prerequisites">Step 1: Complete the prerequisites</h2>
+        <p>Complete the setup steps to provide a user with access to your CodeCommit repositories
+            using rotating credentials: </p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>For cross-account access, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-walkthrough-crossacct.html">Walkthrough: Delegating Access Across Amazon Web Services accounts Using IAM Roles</a> and <a href="./cross-account.html">Configure cross-account access to an AWS CodeCommit repository using roles</a>.</p>
+            </li><li class="listitem">
+                <p>For SAML and federation, see <a href="https://docs.aws.amazon.com/STS/latest/UsingSTS/STSUseCases.html#IdentityBrokerApplication"> Using Your Organization's Authentication System to Grant Access to AWS Resources</a> and
+                        <a href="https://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSAML.html">About AWS STS SAML 2.0-based
+                    Federation</a>.</p>
+            </li><li class="listitem">
+                <p>For MFA, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingMFA.html">Using Multi-Factor Authentication
+                        (MFA) Devices with AWS</a> and <a href="https://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSessionTokens.html">Creating Temporary Security Credentials to Enable Access for IAM Users</a>.</p>
+            </li><li class="listitem">
+                <p>For Login with Amazon, Amazon Cognito, Facebook, Google, or any OIDC-compatible identity provider, see
+                        <a href="https://docs.aws.amazon.com/STS/latest/UsingSTS/web-identity-federation.html">About AWS STS Web Identity
+                        Federation</a>.</p>
+            </li></ul></div>
+        <p>Use the information in <a href="./auth-and-access-control.html">Authentication and access control for
+            AWS CodeCommit</a>
+            to specify the CodeCommit permissions you want to  grant the user.</p>
+     
+        <h2 id="temporary-access-get-credentials">Step 2: Get role name or access credentials</h2>
+        <p>If you want your users to access repositories by assuming a role, provide your users with the Amazon
+            Resource Name (ARN) of that role. Otherwise, depending on the way you set up  access, your user can get
+            rotating  credentials in one of the following ways:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>For cross-account access, call the AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html">assume-role</a> command or call the AWS STS <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> API.</p>
+            </li><li class="listitem">
+                <p>For SAML, call the AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role-with-saml.html">assume-role-with-saml</a> command or the AWS STS <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithSAML.html">AssumeRoleWithSAML</a> API.</p>
+            </li><li class="listitem">
+                <p>For federation, call the AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html">assume-role</a>
+                    or <a href="https://docs.aws.amazon.com/cli/latest/reference/sts/get-federation-token.html">get-federation-token</a> commands or
+                    the AWS STS <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> or <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_GetFederationToken.html">GetFederationToken</a> APIs.</p>
+            </li><li class="listitem">
+                <p>For MFA, call the AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/sts/get-session-token.html">get-session-token</a> command or the AWS STS <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html">GetSessionToken</a> API.</p>
+            </li><li class="listitem">
+                <p>For Login with Amazon, Amazon Cognito, Facebook, Google, or any OIDC-compatible identity provider, call the
+                    AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role-with-web-identity.html">assume-role-with-web-identity</a> command or the AWS STS <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html">AssumeRoleWithWebIdentity</a>
+                    API.</p>
+            </li></ul></div>
+        <p></p>
+     
+        <h2 id="temporary-access-configure-credentials">Step 3:
+                Install
+                git-remote-codecommit and configure the AWS CLI</h2>
+        <p>You must configure your local computer to use the access credentials by
+            installing <a href="https://pypi.org/project/git-remote-codecommit/" rel="noopener noreferrer" target="_blank"><span><b>git-remote-codecommit</b></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and
+            configuring a profile in the AWS CLI.</p>
+        <div class="procedure"><ol><li>
+                <p>Follow the instructions in <a href="./setting-up.html">Setting up </a> to set up the AWS CLI. Use the <b>aws
+                        configure</b> command to configure one or more profiles. Consider
+                    creating a named profile to use when you connect to CodeCommit repositories using
+                    rotating credentials.</p>
+            </li><li>
+                <p>You can associate the  credentials with the user's AWS CLI named profile in one of the following
+                    ways. </p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><a id="tc-role"></a>If you are assuming a role to access CodeCommit,
+                            configure a named profile with the information required to assume that
+                            role. For example, if you want to assume a role named
+                                <code class="replaceable">CodeCommitAccess</code> in the Amazon Web Services account
+                            111111111111, you can configure a default profile to use when
+                            working with other AWS resources and a named profile to use when
+                            assuming that role. The following commands create a named profile named
+                                <code class="replaceable">CodeAccess</code> that assumes a role named
+                                <code class="replaceable">CodeCommitAccess</code>. The user name
+                                <code class="replaceable">Maria_Garcia</code>
+                            is associated with the session and the default profile is set as the
+                            source of its AWS credentials:</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws configure set role_arn arn:aws:iam::111111111111:role/<code class="replaceable">CodeCommitAccess</code> --profile <code class="replaceable">CodeAccess</code>
+aws configure set source_profile default --profile <code class="replaceable">CodeAccess</code>
+aws configure set role_session_name "<code class="replaceable">Maria_Garcia</code>" --profile <code class="replaceable">CodeAccess</code></code></pre>
+                        <p>If you want to verify the changes, manually view or edit the
+                                <code>~/.aws/config</code> file (for Linux) or the
+                                <code>%UserProfile%.aws\config</code> file (for Windows) and review the
+                            information under the named profile. For example, your file might look similar to the
+                            following:</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">[default]
+region = us-east-1
+output = json
+
+[profile CodeAccess]
+source_profile = default
+role_session_name = Maria_Garcia
+role_arn = arn:aws:iam::111111111111:role/<code class="replaceable">CodeCommitAccess</code></code></pre>
+                        <p> After you have configured your named profile, you can then clone
+                            CodeCommit repositories with the <b>git-remote-codecommit</b>
+                            utility using the named profile. For example, to clone a repository
+                            named <code class="replaceable">MyDemoRepo</code>: </p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">git clone codecommit://<code class="replaceable">CodeAccess</code>@<code class="replaceable">MyDemoRepo</code></code></pre>
+                    </li><li class="listitem">
+                        <p><a id="tc-webOIDC"></a>If you are using web identity federation and OpenID Connect (OIDC),
+                            configure a named profile that makes the AWS Security Token Service (AWS STS)
+                                <code class="code">AssumeRoleWithWebIdentity</code> API call on your behalf to
+                            refresh temporary credentials. Use the <b>aws configure
+                                set</b> command or manually edit the
+                                <code>~/.aws/credentials</code> file (for Linux) or the
+                                <code>%UserProfile%.aws\credentials</code> file (for
+                            Windows) to add an AWS CLI named profile with the required setting values.
+                            For example, to create a profile that assumes the
+                                <code class="replaceable">CodeCommitAccess</code> role and uses a web
+                            identity token file
+                                ~/<code class="replaceable">my-credentials</code><code class="replaceable">/my-token-file</code>:</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">[<code class="replaceable">CodeCommitWebIdentity</code>]
+role_arn = arn:aws:iam::111111111111:role/<code class="replaceable">CodeCommitAccess</code>
+web_identity_token_file=<code class="replaceable">~/<code class="replaceable">my-credentials</code><code class="replaceable">/my-token-file</code></code>
+role_session_name = Maria_Garcia</code></pre>
+                    </li></ul></div>
+                <p>For more information, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">Configuring the
+                        AWS Command Line Interface</a> and <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html">Using an IAM Role in
+                        the AWS CLI</a> in the <em>AWS Command Line Interface User Guide</em>.</p>
+            </li></ol></div>
+     
+        <h2 id="temporary-access-use-credentials">Step 4: Access the CodeCommit repositories</h2>
+        <p>Assuming your user has followed the instructions in <a href="./how-to-connect.html">Connect to a repository</a> to connect to the CodeCommit repositories, the user then uses the extended
+            functionality provided by <b>git-remote-codecommit</b> and Git to call <b>git
+                clone</b>, <b>git push</b>, and <b>git pull</b> to clone, push to, and
+            pull from, the CodeCommit repositories to which he or she has  access. For example, to clone a repository:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">git clone codecommit://<code class="replaceable">CodeAccess</code>@<code class="replaceable">MyDemoRepo</code></code></pre>
+        <p>Git commit, push, and pull commands use regular Git syntax. </p>
+        <p>When the user uses the AWS CLI and specifies the AWS CLI named profile associated with the rotating
+            access credentials, results scoped to that profile are returned.</p>
+        <p></p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./encryption.html">AWS KMS and encryption</div><div id="next" class="next-link" accesskey="n" href="./security-iam.html">Identity and Access Management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CodeCommit&amp;topic_url=https://docs.aws.amazon.com/en_us/codecommit/latest/userguide/temporary-access.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CodeCommit&amp;topic_url=https://docs.aws.amazon.com/en_us/codecommit/latest/userguide/temporary-access.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

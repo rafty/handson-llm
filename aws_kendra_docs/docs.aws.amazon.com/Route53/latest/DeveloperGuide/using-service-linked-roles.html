@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using Service-Linked Roles for Amazon Route 53 Resolver - Amazon Route 53</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="using-service-linked-roles" /><meta name="default_state" content="using-service-linked-roles" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/using-service-linked-roles.html" /><meta name="description" content="How to use service-linked roles to give Resolver access to resources in your AWS account." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Route 53" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="With Route 53, you can register domains, route traffic to the resources where your domains are hosted, and check the health of your resources. You can also route traffic based on the health of your resources. This guide explains how to register domains, configure DNS, and configure health checks using the Route 53 console." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/using-service-linked-roles.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/using-service-linked-roles.html" hreflang="x-default" /><meta name="feedback-item" content="Route53" /><meta name="this_doc_product" content="Amazon Route 53" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'route53'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Using Service-Linked Roles for Amazon Route 53 Resolver" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using Service-Linked Roles for Amazon Route 53 Resolver - Amazon Route 53</title><meta name="pdf" content="/pdfs/Route53/latest/DeveloperGuide/route53-dg.pdf#using-service-linked-roles" /><meta name="github" content="https://github.com/awsdocs/amazon-route53-docs/tree/main/doc_source/using-service-linked-roles.md" /><meta name="rss" content="amazon-route-53-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=87" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/using-service-linked-roles.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/using-service-linked-roles.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/using-service-linked-roles.html" /><meta name="keywords" content="Route 53,Amazon Route 53,domain,health check,DNS,routing policy,resource record set,hosted zone,name server,register,registration,transfer" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Route 53",
+        "item" : "https://docs.aws.amazon.com/route53/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon Route 53",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management in Amazon Route 53",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/auth-and-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Using Service-Linked Roles for Amazon Route 53 Resolver",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/auth-and-access-control.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/Route53/latest/DeveloperGuide/route53-dg.pdf#using-service-linked-roles" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-route53-docs/tree/main/doc_source/using-service-linked-roles.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/route53/index.html">Amazon Route 53</a><a href="Welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#slr-permissions">Service-Linked Role Permissions for
+        Resolver</a><a href="#create-slr">Creating a Service-Linked Role for
+        Resolver</a><a href="#edit-slr">Editing a Service-Linked Role for
+        Resolver</a><a href="#delete-slr">Deleting a Service-Linked Role for
+        Resolver</a><a href="#slr-regions">Supported Regions for
+        Resolver Service-Linked Roles</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="using-service-linked-roles">Using Service-Linked Roles for
+      Amazon Route 53 Resolver</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Route 53 Resolver uses AWS Identity and Access Management (IAM)<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">
+      service-linked roles</a>. A service-linked role is a unique type of IAM role that is
+    linked directly to Resolver. Service-linked roles are predefined by Resolver and
+    include all the permissions that the service requires to call other AWS services on your
+    behalf. </p><p>A service-linked role makes setting up Resolver easier because you don’t have to
+    manually add the necessary permissions. Resolver defines the permissions of its
+    service-linked roles, and unless defined otherwise, only Resolver can assume its roles. The
+    defined permissions include the trust policy and the permissions policy, and that permissions
+    policy cannot be attached to any other IAM entity.</p><p>You can delete a service-linked role only after first deleting the related resources. This
+    protects your Resolver resources because you can't inadvertently remove permission to access the
+    resources.</p><p>For information about other services that support service-linked roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS Services that Work with
+      IAM</a> and look for the services that have <b>Yes </b>in the
+      <b>Service-Linked Role</b> column. Choose a <b>Yes</b> with a link to view the service-linked role documentation for that
+    service.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#slr-permissions">Service-Linked Role Permissions for
+        Resolver</a></li><li><a href="#create-slr">Creating a Service-Linked Role for
+        Resolver</a></li><li><a href="#edit-slr">Editing a Service-Linked Role for
+        Resolver</a></li><li><a href="#delete-slr">Deleting a Service-Linked Role for
+        Resolver</a></li><li><a href="#slr-regions">Supported Regions for
+        Resolver Service-Linked Roles</a></li></ul></div>
+    <h2 id="slr-permissions">Service-Linked Role Permissions for
+        Resolver</h2>
+    <p>Resolver uses the <b><code class="code">AWSServiceRoleForRoute53Resolver</code></b> service-linked role to
+      deliver query logs on your behalf.</p>
+    <p>The role permissions policy allows Resolver to complete the following actions on your
+      resources:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Action": [
+        "logs:CreateLogDelivery",
+        "logs:GetLogDelivery",
+        "logs:UpdateLogDelivery",
+        "logs:DeleteLogDelivery",
+        "logs:ListLogDeliveries",
+        "logs:DescribeResourcePolicies",
+        "logs:DescribeLogGroups",
+        "s3:GetBucketPolicy"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}</code></pre>
+    
+    <p>You must configure permissions to allow an IAM entity (such as a user, group, or role)
+      to create, edit, or delete a service-linked role. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions">Service-Linked Role Permissions</a> in the <em>IAM User Guide</em>.</p>
+   
+    <h2 id="create-slr">Creating a Service-Linked Role for
+        Resolver</h2>
+    
+    <p>You don't need to manually create a service-linked role. When you create a resolver query
+      log configuration association in the Amazon Route 53 console, the AWS CLI, or the AWS API, Resolver
+      creates the service-linked role for you. </p>
+    
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>This service-linked role can appear in your account if you completed an action in
+        another service that uses the features supported by this role. Also, if you were using the
+        Resolver service before August 12, 2020, when it began supporting service-linked roles,
+        then Resolver created the <code class="code">AWSServiceRoleForRoute53Resolver</code> role in your account. To learn more, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_roles.html#troubleshoot_roles_new-role-appeared">A New
+          Role Appeared in My IAM Account</a>.</p></div></div>
+    <p>If you delete this service-linked role, and then need to create it again, you can use the
+      same process to recreate the role in your account. When you create a new Resolver query log
+      configuration association, the <code class="code">AWSServiceRoleForRoute53Resolver</code> service-linked role is created for you again. </p>
+   
+   
+    <h2 id="edit-slr">Editing a Service-Linked Role for
+        Resolver</h2>
+    <p>Resolver does not allow you to edit the <code class="code">AWSServiceRoleForRoute53Resolver</code> service-linked role. After you
+      create a service-linked role, you cannot change the name of the role because various entities
+      might reference the role. However, you can edit the description of the role using IAM. For
+      more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role">Editing a
+        Service-Linked Role</a> in the <em>IAM User Guide</em>.</p>
+   
+    <h2 id="delete-slr">Deleting a Service-Linked Role for
+        Resolver</h2>
+    
+    <p>If you no longer need to use a feature or service that requires a service-linked role, we
+      recommend that you delete that role. That way you don’t have an unused entity that is not
+      actively monitored or maintained. However, you must clean up the resources for your
+      service-linked role before you can manually delete it.</p>    
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If the Resolver service is using the role when you try to delete the resources,
+        then the deletion might fail. If that happens, wait for a few minutes and try the
+        operation again.</p></div></div>
+    <div class="procedure"><h6>To delete Resolver resources used by the <code class="code">AWSServiceRoleForRoute53Resolver</code></h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+        <p>Expand the Route 53 console menu. In the upper left corner of the console, choose the three horizontal bars (<span class="inlinemediaobject">
+           
+            <img src="/images/Route53/latest/DeveloperGuide/images/menu-icon.png" class="aws-docs-img-whiteBg aws-docs-img-xs-padding" alt="&#xA;            Menu icon&#xA;          " />
+           
+           
+        </span>) icon.</p>
+      </li><li>
+        <p>Within the <b>Resolver </b>menu, choose <b>Query logging</b>.</p>
+      </li><li>
+        <p>Select the check box next to the name of your query logging configuration, and then choose <b>Delete</b>.</p>
+      </li><li><p>In the <b>Delete query logging configuration</b> text box, select <b>Stop logging queries</b>.</p>
+      <p>This will disassociate the configuration from the VPC. You can also disassociate the
+          query logging configuration programmatically. For more information, see <a href="https://docs.aws.amazon.com/cli/latest/reference/route53resolver/disassociate-resolver-query-log-config.html">disassociate-resolver-query-log-config</a>.</p></li><li><p>After logging queries has stopped, you can optionally type <code class="userinput">delete</code> in
+          the field and choose <b>Delete</b> to delete the query logging
+          configuration. However, this is not necessary for deleting the resources used by
+          <code class="code">AWSServiceRoleForRoute53Resolver</code>.</p></li></ol></div>
+    <p><b>To manually delete the service-linked role using
+      IAM</b></p>
+    <p>Use the IAM console, the AWS CLI, or the AWS API to delete the <code class="code">AWSServiceRoleForRoute53Resolver</code>
+      service-linked role. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role">Deleting a
+        Service-Linked Role</a> in the <em>IAM User Guide</em>.</p>
+   
+    <h2 id="slr-regions">Supported Regions for
+        Resolver Service-Linked Roles</h2>
+    
+    
+ 
+    
+    <p>Resolver does not support using service-linked roles in every Region where the service is
+      available. You can use the <code class="code">AWSServiceRoleForRoute53Resolver</code> role in the following Regions.</p>
+    
+    <div class="table-container"><div class="table-contents"><table id="w551aac45c19c25c31c11"><thead>
+          <tr>
+            <th>Region name</th>
+            <th>Region identity</th>
+            <th>Support in Resolver</th>
+          </tr>
+        </thead>
+          <tr>
+            <td>US East (N. Virginia)</td>
+            <td>us-east-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>US East (Ohio)</td>
+            <td>us-east-2</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>US West (N. California)</td>
+            <td>us-west-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>US West (Oregon)</td>
+            <td>us-west-2</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Asia Pacific (Mumbai)</td>
+            <td>ap-south-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Asia Pacific (Osaka)</td>
+            <td>ap-northeast-3</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Asia Pacific (Seoul)</td>
+            <td>ap-northeast-2</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Asia Pacific (Singapore)</td>
+            <td>ap-southeast-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Asia Pacific (Sydney)</td>
+            <td>ap-southeast-2</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Asia Pacific (Tokyo)</td>
+            <td>ap-northeast-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Canada (Central)</td>
+            <td>ca-central-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Europe (Frankfurt)</td>
+            <td>eu-central-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Europe (Ireland)</td>
+            <td>eu-west-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Europe (London)</td>
+            <td>eu-west-2</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Europe (Paris)</td>
+            <td>eu-west-3</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>South America (São Paulo)</td>
+            <td>sa-east-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>China (Beijing)</td>
+            <td>cn-north-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>China (Ningxia)</td>
+            <td>cn-northwest-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>AWS GovCloud (US)</td>
+            <td>us-gov-east-1</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>AWS GovCloud (US)</td>
+            <td>us-gov-west-1</td>
+            <td>Yes</td>
+          </tr>
+        </table></div></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access-control-managing-permissions.html">Using IAM policies for Route 53</div><div id="next" class="next-link" accesskey="n" href="./security-iam-awsmanpol-route53.html">AWS managed policies</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/using-service-linked-roles.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/using-service-linked-roles.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

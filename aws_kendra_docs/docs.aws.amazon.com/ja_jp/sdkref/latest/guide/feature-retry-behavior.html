@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>再試行動作 - AWSSDK とツール</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="feature-retry-behavior" /><meta name="default_state" content="feature-retry-behavior" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><meta name="description" content="再試行動作には、リクエストによって発生した障害から SDK がどのように回復を試みるかに関する設定が含まれますAWS のサービス。この機能を設定するには、以下の設定を行います。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWSSDK とツール" /><meta name="guide" content="リファレンスガイド" /><meta name="abstract" content="AWSSDK と開発者ツールの一般的な特徴と機能に関するガイド。メンテナンスとサポートのポリシーのほか、AWS認証情報やその他のパラメータを設定するための完全なリファレンスが含まれています。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdkref/latest/guide/feature-retry-behavior.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdkref/latest/guide/feature-retry-behavior.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdkref/latest/guide/feature-retry-behavior.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdkref/latest/guide/feature-retry-behavior.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdkref/latest/guide/feature-retry-behavior.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdkref/latest/guide/feature-retry-behavior.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdkref/latest/guide/feature-retry-behavior.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdkref/latest/guide/feature-retry-behavior.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/sdkref/latest/guide/feature-retry-behavior.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="x-default" /><meta name="feedback-item" content="AWS Docs SDK Reference" /><meta name="this_doc_product" content="AWSSDK とツール" /><meta name="this_doc_guide" content="リファレンスガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sdkref'}"></script><meta id="panorama-serviceSubSection" value="リファレンスガイド" /><meta id="panorama-serviceConsolePage" value="再試行動作" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>再試行動作 - AWSSDK とツール</title><meta name="pdf" content="aws-sdk-ref.pdf#feature-retry-behavior" /><meta name="rss" content="aws-sdk-ref.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20Docs%20SDK%20Reference&amp;topic_url=http://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "none",
+        "item" : "https://docs.aws.amazon.com/sdkref/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "リファレンスガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "構成と認証設定のリファレンス",
+        "item" : "https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/settings-reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "標準化された機能",
+        "item" : "https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/standardized-features.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "再試行動作",
+        "item" : "https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/standardized-features.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="aws-sdk-ref.pdf#feature-retry-behavior" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="overview.html">リファレンスガイド</a></div><div id="page-toc-src"><a href="#feature-retry-behavior-sdk-compat">AWSSDK との互換性</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>翻訳は機械翻訳により提供されています。提供された翻訳内容と英語版の間で齟齬、不一致または矛盾がある場合、英語版が優先します。</p></awsui-alert><h1 class="topictitle" id="feature-retry-behavior">再試行動作</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>再試行動作には、リクエストによって発生した障害から SDK がどのように回復を試みるかに関する設定が含まれますAWS のサービス。</p><div class="variablelist"><p>以下を使用してこの機能を設定します。</p>
+         
+         
+
+
+    <dl>
+            <dt><b><span class="term"><code class="code">max_attempts</code>-AWS<code>config</code> 共有ファイル設定</span></b></dt>
+            <dt><b><span class="term"><code class="code">AWS_MAX_ATTEMPTS</code>-環境変数</span></b></dt>
+            <dd>
+                <p>1 回のリクエストの最大試行回数を指定します。</p>
+
+                <p><b>デフォルト値:</b>この値が指定されていない場合、<code class="code">retry_mode</code>そのデフォルトは設定の値によって異なります。</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>If<code class="code">retry_mode</code> is<code class="code">legacy</code> — お使いの SDK 固有のデフォルト値を使用します (<code class="code">max_attempts</code>デフォルトについては、特定の SDK ガイドまたは SDK のコードベースを確認してください)。</p>
+                    </li><li class="listitem">
+                        <p><code class="code">retry_mode</code>その場合<code class="code">standard</code> — 3 回試行します。</p>
+                    </li><li class="listitem">
+                        <p><code class="code">retry_mode</code>その場合<code class="code">adaptive</code> — 3 回試行します。</p>
+                    </li></ul></div>
+                <p><b>有効な値:</b>0 より大きい数値。</p>
+            </dd>
+        
+            <dt><b><span class="term"><code class="code">retry_mode</code>-AWS<code>config</code> 共有ファイル設定</span></b></dt>
+            <dt><b><span class="term"><code class="code">AWS_RETRY_MODE</code>-環境変数</span></b></dt>
+            <dd>
+                <p>SDK または開発者ツールがリトライを試みる方法を指定します。</p>
+
+                <p><b>デフォルト値:</b><code class="code">legacy</code>デフォルトの再試行戦略です。</p>
+                <p><b>有効な値:</b> </p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">legacy</code>— お使いの SDK に固有 (特定の SDK ガイドまたは SDK のコードベースを確認してください)。</p>
+                    </li><li class="listitem">
+                        <p><code class="code">standard</code>—AWS SDK 全体にわたるリトライルールの標準セット。このモードには、再試行される標準エラーセットと、再試行クォータのサポートが含まれています。明示的に設定されていない限り、このモードでのデフォルトの最大試行回数は 3<code class="code">max_attempts</code> 回です。</p>
+                    </li><li class="listitem">
+                        <p><code class="code">adaptive</code>— 標準モードの機能を含むが、クライアント側の自動スロットリングを含む、実験的な再試行モード。このモードは実験段階なので、future 的には動作が変わる可能性があります。</p>
+                    </li></ul></div>
+            </dd>
+        </dl></div><p>以下は、<code class="code">standard</code><code class="code">adaptive</code>と再試行モードの両方の高レベルの擬似コードです。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">MakeSDKRequest() <span>{</span>
+  attempts = 0
+  loop <span>{</span>
+    GetSendToken()
+    response = SendHTTPRequest()
+    RequestBookkeeping(response)
+    if not Retryable(response)
+      return response
+    attempts += 1
+    if attempts &gt;= MAX_ATTEMPTS:
+      return response
+    if not HasRetryQuota(response)
+      return response
+    delay = ExponentialBackoff(attempts)
+    sleep(delay)
+  }
+}</code></pre><p>擬似コードで使用されるコンポーネントの詳細は次のとおりです。</p><p><b><code class="code">GetSendToken</code>:</b></p><p> <code class="code">adaptive</code>トークンバケットはリトライモードでのみ使用されます。トークンバケットは、リクエストを開始するためにトークンが利用可能であることを要求することで、最大リクエストレートを強制します。SDKクライアントは、リクエストを高速で失敗させるか、トークンが使用可能になるまでブロックするように構成できます。</p><p><em>クライアント側のレート制限は</em>、最初はトークン許容量までの任意のレートでリクエストを送信できるようにするアルゴリズムです。ただし、スロットリングされた応答が検出されると、 rate-of-request クライアントはそれに応じて制限されます。応答が成功すると、トークンの許容量もそれに応じて増加します。</p><p>適応型レート制限を使用すると、SDK はリクエストの送信速度を遅くして、の容量にうまく対応できますAWS のサービス。</p><p><b><code class="code">SendHTTPRequest</code>:</b></p><p>ほとんどのAWS SDK は、HTTP リクエストを行う際に既存の接続を再利用できるように、接続プールを使用する HTTP ライブラリを使用します。一般に、スロットリングエラーが原因でリクエストを再試行すると、接続が再利用されます。一時的なエラーのため、再試行してもリクエストは再利用されません。</p><p><b><code class="code">RequestBookkeeping</code>:</b></p><p> リクエストが成功したら、再試行クォータを更新する必要があります。<code class="code">adaptive</code>再試行モードの場合のみ、<code class="code">maxsendrate</code>状態変数は受信した応答のタイプに基づいて更新されます。</p><p><b><code class="code">Retryable</code>:</b></p><p> このステップでは、以下に基づいて応答を再試行できるかどうかを判断します。</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>HTTP ステータスコード 。</p>
+        </li><li class="listitem">
+            <p>サービスから返されたエラーコード。</p>
+        </li><li class="listitem">
+            <p>接続エラー。SDK が受信したエラーで、サービスからの HTTP 応答が受信されないエラーとして定義されます。</p>
+        </li></ul></div><p>一時的なエラー (HTTP ステータスコード 400、408、500、502、503、504) とスロットリングエラー (HTTP ステータスコード 400、403、429、502、503、509) はすべて再試行される可能性があります。SDK の再試行動作は、エラーコードまたはサービスの他のデータと組み合わせて決定されます。</p><p><b><code class="code">MAX_ATTEMPTS</code>:</b></p><p> <code class="code">config</code>ファイル設定または環境変数によって指定されます。</p><p><b><code class="code">HasRetryQuota</code></b></p><p>このステップでは、再試行クォータバケットでトークンを使用できるようにすることで、再試行リクエストを制限します。再試行クォータバケットは、成功しそうにない再試行を防ぐためのメカニズムです。これらのクォータは SDK に依存し、多くの場合クライアントに依存し、サービスエンドポイントに依存することもあります。利用可能な再試行クォータトークンは、さまざまな理由でリクエストが失敗すると削除され、成功すると補充されます。トークンがなくなると、再試行ループは終了します。</p><p><b><code class="code">ExponentialBackoff</code></b></p><p> 再試行できるエラーの場合、再試行遅延は切り捨てられた指数バックオフを使用して計算されます。SDK は、ジッター付きの切り捨てバイナリ指数バックオフを使用します。次のアルゴリズムは、リクエストに対する応答のスリープ時間 (秒単位) がどのように定義されるかを示しています<code class="code">i</code>。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">seconds_to_sleep_i = min(b*r^i, MAX_BACKOFF)</code></pre><p>前述のアルゴリズムでは、次の値が適用されます。</p><p><code class="code">b = random number within the range of: 0 &lt;= b &lt;= 1</code></p><p><code class="code">r = 2</code></p><p><code class="code">MAX_BACKOFF = 20 seconds</code>ほとんどの SDK に対応しています。確認のため、特定の SDK ガイドまたはソースコードを参照してください。</p>
+        <h2 id="feature-retry-behavior-sdk-compat">AWSSDK との互換性</h2>
+        <p>以下の SDK は、このページで説明されている機能と設定をサポートしています。一部例外もあります。</p>
+        <div class="table-container"><div class="table-contents"><table id="w181aac11c19c27c59b5"><thead>
+                    <tr>
+                        <th>SDK</th>
+                        <th>サポート対象</th>
+                        <th>メモまたは詳細情報</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/cli/latest/userguide/">AWS CLI v2</a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-cpp/latest/developer-guide/">SDK for C++</a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://aws.github.io/aws-sdk-go-v2/docs" rel="noopener noreferrer" target="_blank"><span>SDK for Go V2 (1.x)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-go/latest/developer-guide/">Go 1.x (V1) 用 SDK</a></td>
+                        <td align="center" style="text-align: center;">いいえ</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/">Java 2.x 用 SDK</a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/">Java 1.x 用 SDK</a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/"> JavaScript 3.x 用の SDK</a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/"> JavaScript 2.x 用の SDK</a></td>
+                        <td align="center" style="text-align: center;">いいえ</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/">NET SDK for .NET 3.x</a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-php/latest/developer-guide/">PHP 3.x 用の SDK</a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html" rel="noopener noreferrer" target="_blank"><span>SDK for Python (Boto3)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-ruby/latest/developer-guide/">Ruby 3.x 用の SDK</a></td>
+                        <td align="center" style="text-align: center;">はい</td>
+                        <td></td>
+                    </tr>
+
+                </table></div></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./feature-imds-client.html">IMDDDDDD</div><div id="next" class="next-link" accesskey="n" href="./feature-smart-config-defaults.html">スマート設定のデフォルト</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Docs SDK Reference&amp;topic_url=https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Docs SDK Reference&amp;topic_url=https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

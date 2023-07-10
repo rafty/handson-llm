@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Forwarding inbound DNS queries to your VPCs - Amazon Route 53</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="resolver-forwarding-inbound-queries" /><meta name="default_state" content="resolver-forwarding-inbound-queries" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" /><meta name="description" content="To forward DNS queries from your network to Resolver, you create an inbound endpoint. An inbound endpoint specifies the IP addresses (from the range of IP addresses available to your VPC) that you want DNS resolvers on your network to forward DNS queries to. Those IP addresses aren't public IP addresses, so for each inbound endpoint, you need to connect your VPC to your network using either an AWS Direct Connect connection or a VPN connection." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Route 53" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="With Route 53, you can register domains, route traffic to the resources where your domains are hosted, and check the health of your resources. You can also route traffic based on the health of your resources. This guide explains how to register domains, configure DNS, and configure health checks using the Route 53 console." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" hreflang="x-default" /><meta name="feedback-item" content="Route53" /><meta name="this_doc_product" content="Amazon Route 53" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'route53'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Forwarding inbound DNS queries to your VPCs" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Forwarding inbound DNS queries to your VPCs - Amazon Route 53</title><meta name="pdf" content="/pdfs/Route53/latest/DeveloperGuide/route53-dg.pdf#resolver-forwarding-inbound-queries" /><meta name="github" content="https://github.com/awsdocs/amazon-route53-docs/tree/main/doc_source/resolver-forwarding-inbound-queries.md" /><meta name="rss" content="amazon-route-53-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=87" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html" /><meta name="keywords" content="Route 53,Amazon Route 53,domain,health check,DNS,routing policy,resource record set,hosted zone,name server,register,registration,transfer" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Route 53",
+        "item" : "https://docs.aws.amazon.com/route53/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "What is Amazon Route 53 Resolver?",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Forwarding inbound DNS queries to your VPCs",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/Route53/latest/DeveloperGuide/route53-dg.pdf#resolver-forwarding-inbound-queries" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-route53-docs/tree/main/doc_source/resolver-forwarding-inbound-queries.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/route53/index.html">Amazon Route 53</a><a href="Welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#resolver-forwarding-inbound-queries-configuring">Configuring inbound forwarding</a><a href="#resolver-forwarding-inbound-queries-values">Values that you specify when you create or edit inbound endpoints</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="resolver-forwarding-inbound-queries">Forwarding inbound DNS queries to your VPCs</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>To forward DNS queries from your network to Resolver, you create an inbound endpoint. An inbound endpoint specifies the IP addresses
+			(from the range of IP addresses available to your VPC) that you want DNS resolvers on your network to forward DNS queries to.
+			Those IP addresses aren't public IP addresses, so for each inbound endpoint, you need to connect your VPC to your network
+			using either an AWS Direct Connect connection or a VPN connection.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#resolver-forwarding-inbound-queries-configuring">Configuring inbound forwarding</a></li><li><a href="#resolver-forwarding-inbound-queries-values">Values that you specify when you create or edit inbound endpoints</a></li></ul></div>
+			<h2 id="resolver-forwarding-inbound-queries-configuring">Configuring inbound forwarding</h2>
+
+			<p>To create an inbound endpoint, perform the following procedure.</p>
+
+			<div class="procedure"><a id="resolver-forwarding-inbound-queries-configuring-procedure"></a><h6>To create an inbound endpoint</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Inbound endpoints</b>.</p></li><li><p>On the navigation bar, choose the Region where you want to create an inbound endpoint.</p></li><li><p>Choose <b>Create inbound endpoint</b>.</p></li><li><p>Enter the applicable values. For more information, see
+					<a href="#resolver-forwarding-inbound-queries-values">Values that you specify when you create or edit inbound endpoints</a>.</p>
+				</li><li><p>Choose <b>Create</b>.</p></li><li><p>Configure DNS resolvers on your network to forward the applicable DNS queries to the IP addresses for your
+					inbound endpoint. For more information, refer to the documentation for your DNS application.</p></li></ol></div>
+
+		 
+			<h2 id="resolver-forwarding-inbound-queries-values">Values that you specify when you create or edit inbound endpoints</h2>
+
+			<p>When you create or edit an inbound endpoint, you specify the following values:</p>
+
+			<div class="variablelist">
+				 
+				 
+				 
+				 
+				 
+				 
+			<dl>
+					<dt><b><span class="term">Endpoint name</span></b></dt>
+					<dd><p>A friendly name that lets you easily find an inbound endpoint on the dashboard.</p></dd>
+				
+					<dt><b><span class="term">VPC in the <em>region-name</em> Region</span></b></dt>
+					<dd><p>All inbound DNS queries from your network pass through this VPC on the way to Resolver.</p></dd>
+				
+					<dt><b><span class="term">Security group for this endpoint</span></b></dt>
+					<dd><p>The ID of one or more security groups that you want to use to control access to this VPC. The
+							security group that you specify must include one or more inbound rules.
+							Inbound rules must allow TCP and UDP access on port 53. You can't change
+							this value after you create the endpoint.</p>
+						<p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html">Security groups for your VPC</a>
+						in the <em>Amazon VPC User Guide</em>.</p>
+					</dd>
+				
+					<dt><b><span class="term">Endpoint type</span></b></dt>
+					<dd><p>The endpoint type can be either IPv4, IPv6, or dual-stack IP addresses. For a dual-stack
+							endpoint, the endpoint will have both IPv4 and IPv6 address that your
+							DNS resolver on your network can forward DNS query to. </p>
+						
+					</dd>
+				
+					<dt><b><span class="term">IP addresses</span></b></dt>
+					<dd><p>The IP addresses that you want DNS resolvers on your network to forward DNS queries to. We require you to specify
+						a minimum of two IP addresses for redundancy. Note the following:</p>
+
+						<div class="variablelist">
+							 
+							 
+						<dl>
+								<dt><b><span class="term">Multiple Availability Zones</span></b></dt>
+								<dd><p>We recommend that you specify IP addresses in at least two Availability Zones. You can optionally specify
+									additional IP addresses in those or other Availability Zones.</p></dd>
+							
+								<dt><b><span class="term">IP addresses and Amazon VPC elastic network interfaces</span></b></dt>
+								<dd><p>For each combination of Availability Zone, Subnet, and IP address that you specify, Resolver
+										creates an Amazon VPC elastic network interface. For the current
+										maximum number of DNS queries per second per IP address in
+										an endpoint, see <a href="./DNSLimitations.html#limits-api-entities-resolver">Quotas on Route 53 Resolver</a>. For
+										information about pricing for each elastic network
+										interface, see "Amazon Route 53" on the <a href="https://aws.amazon.com/route53/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon Route 53 pricing
+											page</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p></dd>
+							</dl></div>
+						<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Resolver endpoint has a private IP address. These IP addresses will not change through the
+								course of an endpoint's life.</p></div></div>
+						<p>For each IP address, specify the following values. Each IP address must be in an Availability Zone in the VPC
+							that you specified in <b>VPC in the <em>region-name</em> Region</b>.</p>
+
+							<div class="variablelist">
+								 
+								 
+								 
+							<dl>
+									<dt><b><span class="term">Availability Zone</span></b></dt>
+									<dd><p>The Availability Zone that you want DNS queries to pass through on the way to your VPC.
+										The Availability Zone that you specify must be configured with a subnet.</p></dd>
+								
+									<dt><b><span class="term">Subnet</span></b></dt>
+									<dd><p>The subnet that contains the IP address that you want to forward DNS queries to. The subnet
+										must have an available IP address.</p>
+										<p>The subnet IP address must match the <b>Endpoint type</b>.</p>
+									</dd>
+								
+									<dt><b><span class="term">IP address</span></b></dt>
+									<dd><p>The IP address that you want to forward DNS queries to.</p>
+										<p>Choose whether you want Resolver to choose an IP address for you from among the available IP addresses
+											in the specified subnet, or you want to specify the IP address yourself.</p>
+										<p>If you choose to specify the IP address yourself, enter either an IPv4 or IPv6 address.</p>
+									</dd>
+								</dl></div>
+					</dd>
+				
+					<dt><b><span class="term">Tags</span></b></dt>
+					<dd><p>Specify one or more keys and the corresponding values. For example, you might specify
+						<b>Cost center</b> for <b>Key</b> and specify <b>456</b> for <b>Value</b>.</p>
+					</dd>
+				</dl></div>
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./resolver-getting-started.html">Getting started with Route 53 Resolver</div><div id="next" class="next-link" accesskey="n" href="./resolver-forwarding-outbound-queries.html">Forwarding outbound DNS queries to your network</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-inbound-queries.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

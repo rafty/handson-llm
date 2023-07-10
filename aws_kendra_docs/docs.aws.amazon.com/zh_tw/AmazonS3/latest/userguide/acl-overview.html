@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>存取控制清單 (ACL) 概觀 - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="acl-overview" /><meta name="default_state" content="acl-overview" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" /><meta name="description" content="Amazon S3 存取控制清單 (ACL) 可讓您管理對儲存貯體和物件的存取。每個儲存貯體與物件都會有一個與其連接的 ACL 作為子資源。其會定義授予哪些 AWS 帳戶 或群組以存取權及存取權類型。收到針對資源的請求時，Amazon S3 會檢查對應的 ACL，以驗證請求者是否具有必要的存取許可。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="使用者指南" /><meta name="abstract" content="了解如何使用 Amazon Simple Storage Service (Amazon S3) 從任何地方存放和擷取任何數量的資料。本指南說明 Amazon S3 概念 (例如儲存貯體、物件與相關組態)，並且包含常見操作的程式碼範例。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/acl-overview.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/acl-overview.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/acl-overview.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/acl-overview.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/acl-overview.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/acl-overview.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/acl-overview.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/acl-overview.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/acl-overview.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/acl-overview.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/acl-overview.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="使用者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="使用者指南" /><meta id="panorama-serviceConsolePage" value="存取控制清單 (ACL) 概觀" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>存取控制清單 (ACL) 概觀 - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#acl-overview" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" /><meta name="keywords" content="S3,Amazon S3,S3 使用者指南,Amazon S3 使用者指南,Amazon 使用者指南,s3 儲存貯體,s3 物件,雲端儲存空間,資料儲存體" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "使用者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 安全性",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon S3 中的身分和存取管理",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/s3-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "使用 ACL 管理存取",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acls.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "存取控制清單 (ACL) 概觀",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acls.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#acl-overview" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">使用者指南</a></div><div id="page-toc-src"><a href="#specifying-grantee">誰是被授予者？</a><a href="#permissions">我可以授予哪些許可？</a><a href="#sample-acl">ACL 範例</a><a href="#canned-acl">固定的 ACL</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="acl-overview">存取控制清單 (ACL) 概觀</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon S3 存取控制清單 (ACL) 可讓您管理對儲存貯體和物件的存取。每個儲存貯體與物件都會有一個與其連接的 ACL 作為子資源。其會定義授予哪些 AWS 帳戶 或群組以存取權及存取權類型。收到針對資源的請求時，Amazon S3 會檢查對應的 ACL，以驗證請求者是否具有必要的存取許可。</p><p>S3 物件擁有權是一項 Amazon S3 儲存貯體層級設定，您可以用來同時控制上傳至儲存貯體之物件的擁有權，以及停用或啟用 ACL。根據預設，物件擁有權設定為儲存貯體擁有者強制執行設定，而且所有 ACL 都會停用。停用 ACL 時，儲存貯體擁有者會擁有儲存貯體中的所有物件，並使用存取管理政策專門管理對這些物件的存取。</p><p> Amazon S3 中的大多數新式使用案例不再需要使用 ACL。建議您將 ACL 保持停用狀態，除非在異常情況下必須個別控制每個物件的存取。停用 ACL 後，您可以使用政策來控制對儲存貯體中所有物件的存取，無論是誰將物件上傳到您的儲存貯體。如需更多詳細資訊，請參閱 <a href="./about-object-ownership.html">控制物件的擁有權並停用儲存貯體的 ACL</a>。</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>如果儲存貯體使用儲存貯體擁有者強制執行的 S3 物件擁有權設定，則您必須使用政策授予儲存貯體及其中物件的存取權。啟用儲存貯體擁有者強制執行設定後，設定存取控制清單 (ACL) 或更新 ACL 失敗，並傳回 <code class="code">AccessControlListNotSupported</code> 錯誤碼。仍支援讀取 ACL 的請求。</p></div></div><p>建立儲存貯體或物件時，Amazon S3 會建立預設 ACL 來授予資源擁有者完全控制資源。如下列範例儲存貯體 ACL 所示 (預設的物件 ACL 具有相同的結構)：</p><div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+  &lt;Owner&gt;
+    &lt;ID&gt;*** Owner-Canonical-User-ID ***&lt;/ID&gt;
+    &lt;DisplayName&gt;owner-display-name&lt;/DisplayName&gt;
+  &lt;/Owner&gt;
+  &lt;AccessControlList&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:type="Canonical User"&gt;
+        &lt;ID&gt;*** Owner-Canonical-User-ID ***&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;FULL_CONTROL&lt;/Permission&gt;
+    &lt;/Grant&gt;
+  &lt;/AccessControlList&gt;
+&lt;/AccessControlPolicy&gt; </code></pre></div></div><p>此範本 ACL 包含 <code class="code">Owner</code> 元素，可依 AWS 帳戶 的正式使用者 ID 來識別擁有者。如需尋找您的正式使用者 ID 說明，請參閱 <a href="#finding-canonical-id">尋找 AWS 帳戶 正式使用者 ID</a>。<code class="code">Grant</code> 元素可識別被授予者 (AWS 帳戶 或預先定義的群組) 及授予的許可。此預設 ACL 包含擁有者的一個 <code class="code">Grant</code> 元素。您可以新增 <code class="code">Grant</code> 元素來授予許可，每個授予都會識別被授予者與許可。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>一個 ACL 最多可以有 100 個授予。</p></div></div><div class="highlights" id="inline-topiclist"><h6>主題</h6><ul><li><a href="#specifying-grantee">誰是被授予者？</a></li><li><a href="#permissions">我可以授予哪些許可？</a></li><li><a href="#sample-acl">ACL 範例</a></li><li><a href="#canned-acl">固定的 ACL</a></li></ul></div><h2 id="specifying-grantee">誰是被授予者？</h2>
+			
+			<p>被授予者可以是 AWS 帳戶 或其中一個預先定義的 Amazon S3 群組。您會使用電子郵件地址或正式使用者 ID，將許可授予 AWS 帳戶。不過，如果您在授予請求中提供電子郵件地址，Amazon S3 會尋找該帳戶的正式使用者 ID 並新增至 ACL。產生的 ACL 一律會包含 AWS 帳戶 的正式使用者 ID，而不是 AWS 帳戶 的電子郵件地址。</p>
+			<p>當您授與存取權利時，您可以將每個授與者指定為類型=值 (type=value) 組，其中類型為下列其中一項：</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem"><p><code class="code">id</code> – 如果指定的值是 AWS 帳戶 的正式使用者 ID</p></li><li class="listitem"><p><code class="code">uri</code> — 如果您將許可授與給預先定義的群組</p></li><li class="listitem"><p><code class="code">emailAddress</code> – 如果指定的值是 AWS 帳戶 的電子郵件地址</p></li></ul></div>
+			    
+	<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>使用電子郵件地址指定僅在以下 AWS 區域中支援的被授與者：</p><div class="itemizedlist">
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>美國東部 (維吉尼亞北部)</p>
+				</li><li class="listitem">
+					<p>美國西部 (加利佛尼亞北部)</p>
+				</li><li class="listitem">
+					<p>美國西部 (奧勒岡)</p>
+				</li><li class="listitem">
+					<p>亞太區域 (新加坡)</p>
+				</li><li class="listitem">
+					<p>亞太區域 (雪梨)</p>
+				</li><li class="listitem">
+					<p>亞太區域 (東京)</p>
+				</li><li class="listitem">
+					<p>歐洲 (愛爾蘭)</p>
+				</li><li class="listitem">
+					<p>南美洲 (聖保羅)</p>
+				</li></ul></div><p>如需 Amazon S3 支援的所有區域和端點的清單，請參閱《Amazon Web Services 一般參考》<em></em>中的<a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">區域與端點</a>。</p></div></div>
+<div class="example"><h6>範例：電子郵件地址</h6><div class="example-contents"><p>例如，下列 <code class="code">x-amz-grant-read</code> 標頭將讀取物件資料及其中繼資料的許可授予由電子郵件地址識別的 AWS 帳戶：</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="">x-amz-grant-read: emailAddress="xyz@amazon.com", emailAddress="abc@amazon.com"</code></pre></div></div>		
+	<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>警告</h6></div><div class="awsdocs-note-text"><p>當您將資源的存取許可授予其他 AWS 帳戶 時，請注意 AWS 帳戶 可將其許可委派給其帳戶下的使用者。這稱為<em>跨帳戶存取</em>。如需有關使用跨帳戶存取的資訊，請參閱<em>《IAM 使用者指南》</em>中的<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html">建立角色將許可委派給 IAM 使用者</a>。</p></div></div> 
+			
+			<h3 id="finding-canonical-id">尋找 AWS 帳戶 正式使用者 ID</h3>
+				
+				<p>正式使用者 ID 與您的 AWS 帳戶 相關聯。此 ID 是一長串字元，例如 <code class="code">79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be</code>。如需有關如何尋找帳戶的正式使用者 ID 的資訊，請參閱<a href="./finding-canonical-user-id.html">尋找 AWS 帳戶 的正式使用者 ID</a>。</p>
+				<p>您也可以透過讀取 AWS 帳戶 具備存取許可之儲存貯體或物件的 ACL，來查閱 AWS 帳戶 的正式使用者 ID。當透過授予請求對個別 AWS 帳戶 授予許可時，會將授予項目新增至具有帳戶正式使用者 ID 的 ACL。</p>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>如果您設定儲存貯體為公有 (不建議)，任何授權使用者皆可上傳物件至此儲存貯體中。這些匿名使用者沒有 AWS 帳戶。當任何匿名使用者上傳物件至您的 Amazon S3 儲存貯體中，新增特別的正式使用者 ID (<code class="code">65a011a29cdf8ec533ec3d1ccaae921c</code>) 當做在 ACL 的物件擁有者。如需更多詳細資訊，請參閱 <a href="./access-control-overview.html#about-resource-owner">Amazon S3 儲存貯體和物件擁有權</a>。</p></div></div>
+			 
+
+			 
+				<h3 id="specifying-grantee-predefined-groups">Amazon S3 預先定義的群組</h3>
+				
+				<p>Amazon S3 有一組預先定義的群組。將帳戶存取授予群組時，您會指定我們的其中一個 URI，而不是正式使用者 ID。我們提供下列預先定義的群組：</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><b><span class="topcom">「已驗證的使用者」群組</span></b> – 以 <code class="code">http://acs.amazonaws.com/groups/global/AuthenticatedUsers</code> 表示。</p>
+						<p>此群組代表所有 AWS 帳戶。<b>此群組的存取許可允許任何 AWS 帳戶 存取資源。</b>但是，所有請求都必須經過簽署 (身分驗證)。</p>
+						<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>警告</h6></div><div class="awsdocs-note-text"><p>當您將存取權授予<b>通過身分驗證的使用者群組</b>時，世界上任何通過 AWS 身分驗證的使用者都可以存取您的資源。</p></div></div> 
+						</li><li class="listitem">
+						<p><span class="topcom"><b>「所有使用者」群組</b></span> – 以 <code class="code">http://acs.amazonaws.com/groups/global/AllUsers</code> 表示。</p>
+						<p><b>此群組的存取許可允許世界上任何人存取資源。</b>此請求可以經過簽署 (通過身分驗證) 或未經過簽署 (匿名)。未簽署的要求會省略要求中的身分驗證標頭。</p>
+						<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>警告</h6></div><div class="awsdocs-note-text"><p>強烈建議您絕不要將 <code class="code">WRITE</code>、<code class="code">WRITE_ACP</code> 或 <code class="code">FULL_CONTROL</code> 許可授予<b>所有使用者群組</b>。例如，雖然 <code class="code">WRITE</code> 許可不允許非擁有者覆寫或刪除現有物件，但 <code class="code">WRITE</code> 許可仍會允許任何人在儲存貯體中儲存物件，而導致您必須支付費用。如需這些許可的詳細資訊，請參閱下節「<a href="#permissions">我可以授予哪些許可？</a>」。</p></div></div>
+					</li><li class="listitem">
+						<p><span class="topcom"><b>「日誌交付」群組</b></span> – 以 <code class="code">http://acs.amazonaws.com/groups/s3/LogDelivery</code> 表示。</p>
+						<p>儲存貯體的 WRITE 許可允許此群組將伺服器存取日誌 (請參閱「<a href="./ServerLogs.html">使用伺服器存取記錄來記錄請求</a>」) 寫入至儲存貯體。</p>
+					</li></ul></div>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>使用 ACL 時，被授予者可以是 AWS 帳戶 或其中一個預先定義的 Amazon S3 群組。不過，被授予者不可以是 IAM 使用者。如需 IAM 中 AWS 使用者與許可的詳細資訊，請參閱<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/">使用 AWS Identity and Access Management</a>。</p></div></div>
+			 
+		 
+			<h2 id="permissions">我可以授予哪些許可？</h2>
+			
+			<p>下表列出 Amazon S3 在 ACL 中支援的一組許可。物件 ACL 與儲存貯體 ACL 有相同的一組 ACL 許可。不過，視內容而定 (儲存貯體 ACL 或物件 ACL)，這些 ACL 許可會授予許可進行特定儲存貯體或物件操作。下表列出這些許可，並說明其在物件與儲存貯體內容中所代表的意義。</p>
+			<p>如需 Amazon S3 主控台中 ACL 許可的詳細資訊，請參閱 <a href="./managing-acls.html">設定 ACL</a>。</p>
+			<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c23b7"><thead><tr><th class="table-header" colspan="100"><div class="title">ACL 許可</div></th></tr>
+						<tr>
+							<th>許可</th>
+							<th>在儲存貯體上授予時</th>
+							<th>在物件上授予時</th>
+						</tr>
+					</thead>
+						<tr>
+							<td><code class="code">READ</code></td>
+							<td>允許被授予者列出儲存貯體中的物件。</td>
+							<td>允許被授予者讀取物件資料及其中繼資料</td>
+						</tr>
+						<tr>
+							<td><code class="code">WRITE</code></td>
+							<td>允許被授予者在儲存貯體中建立新物件。對於現有物件的儲存貯體和物件擁有者，還允許刪除和覆寫這些物件。</td>
+							<td>不適用</td>
+						</tr>
+						<tr>
+							<td><code class="code">READ_ACP</code></td>
+							<td>允許被授予者讀取儲存貯體 ACL</td>
+							<td>允許被授予者讀取物件 ACL</td>
+						</tr>
+						<tr>
+							<td><code class="code">WRITE_ACP</code></td>
+							<td>允許被授予者寫入適用儲存貯體的 ACL</td>
+							<td>允許被授予者寫入適用物件的 ACL</td>
+						</tr>
+						<tr>
+							<td><code class="code">FULL_CONTROL</code></td>
+							<td>將儲存貯體的 READ、WRITE、READ_ACP 與 WRITE_ACP 許可授予被授予者</td>
+							<td>將物件的 READ、READ_ACP 與 WRITE_ACP 許可授予被授予者</td>
+						</tr>
+						
+					</table></div></div>
+			<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>警告</h6></div><div class="awsdocs-note-text"><p>授予 S3 儲存貯體與物件的存取許可時請小心。例如，將 <code class="code">WRITE</code> 存取許可授予儲存貯體可允許被授予者在儲存貯體中建立物件。強烈建議您閱讀「<a href="./acl-overview.html">存取控制清單 (ACL) 概觀</a>」全節，再授予許可。</p></div></div>	 
+						
+			 
+				<h3 id="acl-access-policy-permission-mapping">ACL 許可與存取政策許可的對應</h3>
+				
+				<p>如上表所示，相較於您可以在存取政策中設定的許可數目 (請參閱「<a href="./using-with-s3-actions.html">Amazon S3 動作</a>」)，ACL 只允許一組有限的許可。其中每個許可都允許一或多個 Amazon S3 操作。</p>
+				<p>下表顯示每個 ACL 許可如何對應至對應的存取政策許可。如您所見，存取政策比 ACL 允許更多許可。您可以將 ACL 主要用來授予基本的讀取/寫入許可 (類似於檔案系統許可)。如需何時使用 ACL 的詳細資訊，請參閱 <a href="./access-policy-alternatives-guidelines.html">存取政策指導方針</a>。</p>
+				<p>如需 Amazon S3 主控台中 ACL 許可的詳細資訊，請參閱 <a href="./managing-acls.html">設定 ACL</a>。</p>
+				<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c23c11b9"><thead>
+							<tr>
+								<th>ACL 許可</th>
+								<th>在儲存貯體上授予 ACL 許可時的對應存取政策許可 </th>
+								<th>在物件上授予 ACL 許可時的對應存取政策許可</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><code class="code">READ</code></td>
+
+								<td><code class="code">s3:ListBucket</code>、<code class="code">s3:ListBucketVersions</code> 與 <code class="code">s3:ListBucketMultipartUploads</code> </td>
+								<td><code class="code">s3:GetObject</code> 和 <code class="code">s3:GetObjectVersion</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">WRITE</code></td>
+
+								<td><p>
+										<code class="code">s3:PutObject</code></p>
+									<p>儲存貯體擁有者可以建立、覆寫和刪除儲存貯體中的任何物件，並且物件擁有者擁有其物件的 <code class="code">FULL_CONTROL</code>。</p> 
+									<p>此外，當被授予者是儲存貯體擁有者時，授予儲存貯體 ACL 中的 <code class="code">WRITE</code> 許可允許在該儲存貯體中的任何版本上執行 <code class="code">s3:DeleteObjectVersion</code> 動作。</p>
+								</td>
+								<td>不適用</td>
+							</tr>
+							<tr>
+								<td><code class="code">READ_ACP</code></td>
+
+								<td><code class="code">s3:GetBucketAcl</code>
+								</td>
+								<td><code class="code">s3:GetObjectAcl</code> 和 <code class="code">s3:GetObjectVersionAcl</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">WRITE_ACP</code></td>
+
+								<td><code class="code">s3:PutBucketAcl</code></td>
+								<td><code class="code">s3:PutObjectAcl</code> 和 <code class="code">s3:PutObjectVersionAcl</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">FULL_CONTROL</code></td>
+
+								<td>相當於授予 <code class="code">READ</code>、<code class="code">WRITE</code>、<code class="code">READ_ACP</code> 與 <code class="code">WRITE_ACP</code> ACL 許可。因此，此 ACL 許可會對應至一組對應的存取政策許可。</td>
+								<td>相當於授予 <code class="code">READ</code>、<code class="code">READ_ACP</code> 與 <code class="code">WRITE_ACP</code> ACL 許可。因此，此 ACL 許可會對應至一組對應的存取政策許可。</td>
+							</tr>
+							
+						</table></div></div>
+			 
+				<h4 id="acl-specific-condition-keys">條件索引鍵</h4>
+				<p>當您授與存取政策許可時，您可以使用條件索引鍵來限制物件上使用儲存貯體原則的 ACL 值。下面的內容金鑰與 ACL 對應。您可以使用這些內容金鑰來強制在請求中使用特定 ACL：</p>
+
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem"><p><code class="code">s3:x-amz-grant-read</code> ‐ 需要讀取存取權。</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-write</code> ‐ 需要寫入存取權。</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-read-acp</code> ‐ 需要對儲存貯體 ACL 的讀取存取權。</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-write-acp</code> ‐ 需要對儲存貯體 ACL 的寫入存取權。</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-full-control</code> ‐ 需要完全控制權。</p></li><li class="listitem"><p><code class="code">s3:x-amz-acl</code> ‐ 需要<a href="#canned-acl">固定的 ACL</a>。</p></li></ul></div>
+
+				<p>關於涉及 ACL 特定標頭的政策範例，請參閱 <a href="./amazon-s3-policy-keys.html#grant-putobject-conditionally-1">範例 1：授予條件為要求儲存貯體擁有者取得完全控制權的 s3:PutObject 許可</a>。如需 Amazon S3 特定條件索引鍵的完整清單，請參閱「<a href="./list_amazons3.html">Amazon S3 的動作、資源和條件索引鍵</a>」。</p>
+			 
+			 
+		<h2 id="sample-acl">ACL 範例</h2>
+			
+			<p>以下位於儲存貯體上的 ACL 範例會識別資源擁有者與一組授予。格式為 Amazon S3 REST API 中 ACL 的 XML 表示法。儲存貯體擁有者具備資源的 <code class="code">FULL_CONTROL</code>。此外，該 ACL 還顯示如何將資源的許可授予兩個 AWS 帳戶 (以正式使用者 ID 識別)，以及上節所討論的其中兩個預先定義的 Amazon S3 群組。</p>
+			<div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+  &lt;Owner&gt;
+    &lt;ID&gt;Owner-canonical-user-ID&lt;/ID&gt;
+    &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+  &lt;/Owner&gt;
+  &lt;AccessControlList&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;Owner-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;FULL_CONTROL&lt;/Permission&gt;
+    &lt;/Grant&gt;
+    
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;user1-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;WRITE&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;user2-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;READ&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"&gt;
+        &lt;URI&gt;http://acs.amazonaws.com/groups/global/AllUsers&lt;/URI&gt; 
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;READ&lt;/Permission&gt;
+    &lt;/Grant&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"&gt;
+        &lt;URI&gt;http://acs.amazonaws.com/groups/s3/LogDelivery&lt;/URI&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;WRITE&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+  &lt;/AccessControlList&gt;
+&lt;/AccessControlPolicy&gt;</code></pre></div></div>
+		<h2 id="canned-acl">固定的 ACL</h2>
+			
+			<p>Amazon S3 支援一組預先定義的許可，稱為<em>固定的 ACL</em>。每個固定的 ACL 都有一組預先定義的被授與者和許可。下表列出一組固定的 ACL 及相關聯之預先定義的授予。</p>
+			
+				<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c27b4"><thead>
+							<tr>
+								<th>固定的 ACL</th>
+								<th>適用對象</th>
+								<th>新增至 ACL 的許可</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><code class="code">private</code></td>
+								<td>儲存貯體與物件</td>
+								<td>擁有者取得 <code class="code">FULL_CONTROL</code>。其他人則沒有存取權利 (預設)。</td>
+							</tr>
+							<tr>
+								<td><code class="code">public-read</code></td>
+								<td>儲存貯體與物件</td>
+								<td>擁有者取得 <code class="code">FULL_CONTROL</code>。<code class="code">AllUsers</code> 群組 (請參閱「<a href="#specifying-grantee">誰是被授予者？</a>」) 取得 <code class="code">READ</code> 存取。</td>
+							</tr>
+							<tr>
+								<td><code class="code">public-read-write</code></td>
+								<td>儲存貯體與物件</td>
+								<td>擁有者取得 <code class="code">FULL_CONTROL</code>。<code class="code">AllUsers</code> 群組取得 <code class="code">READ</code> 與 <code class="code">WRITE</code> 存取。通常不建議在儲存貯體上授予此存取許可。</td>
+							</tr>
+						  <tr>
+						    <td><code class="code">aws-exec-read</code></td>
+						    <td>儲存貯體與物件</td>
+						    <td>擁有者取得 <code class="code">FULL_CONTROL</code>。Amazon EC2 取得 <code class="code">READ</code> 存取，可從 Amazon S3 <code class="code">GET</code> Amazon Machine Image (AMI) 套件。</td>
+						  </tr>
+							<tr>
+								<td><code class="code">authenticated-read</code></td>
+								<td>儲存貯體與物件</td>
+								<td>擁有者取得 <code class="code">FULL_CONTROL</code>。<code class="code">AuthenticatedUsers</code> 群組取得 <code class="code">READ</code> 存取許可。</td>
+							</tr>
+							<tr>
+								<td><code class="code">bucket-owner-read</code></td>
+								<td>物件</td>
+								<td>物件擁有者取得 <code class="code">FULL_CONTROL</code>。儲存貯體擁有者取得 <code class="code">READ</code> 存取許可。如果您在建立儲存貯體時指定此固定的 ACL，Amazon S3 會予以忽略。</td>
+							</tr>
+							<tr>
+								<td><code class="code">bucket-owner-full-control</code></td>
+								<td>物件 </td>
+								<td>物件擁有者與儲存貯體擁有者都會取得物件的 <code class="code">FULL_CONTROL</code>。如果您在建立儲存貯體時指定此固定的 ACL，Amazon S3 會予以忽略。</td>
+							</tr>
+							<tr>
+								<td><code class="code">log-delivery-write</code></td>
+								<td>儲存貯體 </td>
+								<td><code class="code">LogDelivery</code> 群組取得儲存貯體的 <code class="code">WRITE</code> 與 <code class="code">READ_ACP</code> 許可。如需日誌的詳細資訊，請參閱「<a href="./ServerLogs.html">使用伺服器存取記錄來記錄請求</a>」。</td>
+							</tr>
+						</table></div></div>
+			
+
+
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>您只能在要求中指定其中一個固定的 ACL。</p></div></div>
+
+			<p>您可以在要求中使用 <code class="code">x-amz-acl</code> 要求標頭來指定固定的 ACL。當 Amazon S3 收到含有固定 ACL 的請求時，就會將預先定義的授權新增至資源的 ACL。</p>
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./acls.html">使用 ACL 管理存取</div><div id="next" class="next-link" accesskey="n" href="./finding-canonical-user-id.html">尋找正式 ID</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

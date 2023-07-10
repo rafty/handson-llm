@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS セキュリティ監査のガイドライン - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="security-audit-guide" /><meta name="default_state" content="security-audit-guide" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html" /><meta name="description" content="適切なレベルのアクセスをユーザーに提供していることを確実にするため、AWS アカウントと IAM リソースを見直します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="ユーザー ID (認証) および特定のアクセス許可 (承認) を定義するポリシーで AWS リソースへのアクセスを制限します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/security-audit-guide.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/security-audit-guide.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/security-audit-guide.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/security-audit-guide.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/security-audit-guide.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/security-audit-guide.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/security-audit-guide.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/security-audit-guide.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/security-audit-guide.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/security-audit-guide.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/security-audit-guide.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/security-audit-guide.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/security-audit-guide.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/security-audit-guide.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/security-audit-guide.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/security-audit-guide.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/security-audit-guide.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/security-audit-guide.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/security-audit-guide.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="AWS セキュリティ監査のガイドライン" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS セキュリティ監査のガイドライン - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#security-audit-guide" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM ユーザー,user,IAM グループ,グループ,[IAM role] (IAM ロール),ロール,アクセス許可ポリシー,信頼ポリシー,ポリシー,アクセスキー,パスワード" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM および AWS STS のセキュリティ",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS セキュリティ監査のガイドライン",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#security-audit-guide" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#security-audit-guide-when-to-audit">セキュリティ監査を実行するタイミング</a><a href="#security-audit-general-guidelines">監査のガイドライン</a><a href="#security-audit-review-account">AWS アカウントの認証情報の確認</a><a href="#security-audit-review-users">IAM ユーザーの確認</a><a href="#security-audit-groups">IAM グループの確認</a><a href="#security-audit-review-roles">IAM ロールの確認</a><a href="#security-audit-review-saml-providers">SAML および OpenID Connect (OIDC) 用 IAM プロバイダの確認</a><a href="#security-audit-review-mobile-apps">モバイルアプリの確認</a><a href="#security-audit-review-policy-tips">IAM ポリシーを確認するためのヒント</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="security-audit-guide">AWS セキュリティ監査のガイドライン</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>セキュリティ設定を定期的に監査し、現在のビジネスニーズに対応していることを確認します。監査により、不要な IAM ユーザー、ロール、グループ、ポリシーを削除し、ユーザーとソフトウェアに対する過剰なアクセス許可がないことを確認する機会が得られます。</p><p>以下では、セキュリティのベストプラクティスを実践するために、AWS リソースを体系的に確認し、モニタリングするためのガイドラインを示します。</p><div class="awsdocs-note awsdocs-tip"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>ヒント</h6></div><div class="awsdocs-note-text"><p><a href="https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html">AWS Security Hub</a> を使用して、セキュリティのベストプラクティスに関連する IAM の使用状況をモニタリングできます。Security Hub は、セキュリティコントロールを使用してリソース設定とセキュリティ標準を評価し、お客様がさまざまなコンプライアンスフレームワークに準拠できるようサポートします。Security Hub を使用して IAM リソースを評価する方法の詳細については、「AWS Security Hub ユーザーガイド」の「<a href="https://docs.aws.amazon.com/securityhub/latest/userguide/iam-controls.html">AWS アイデンティティおよびアクセス管理コントロール</a>」を参照してください。</p></div></div><div class="highlights" id="inline-topiclist"><h6>内容</h6><ul><li><a href="#security-audit-guide-when-to-audit">セキュリティ監査を実行するタイミング</a></li><li><a href="#security-audit-general-guidelines">監査のガイドライン</a></li><li><a href="#security-audit-review-account">AWS アカウントの認証情報の確認</a></li><li><a href="#security-audit-review-users">IAM ユーザーの確認</a></li><li><a href="#security-audit-groups">IAM グループの確認</a></li><li><a href="#security-audit-review-roles">IAM ロールの確認</a></li><li><a href="#security-audit-review-saml-providers">SAML および OpenID Connect (OIDC) 用 IAM プロバイダの確認</a></li><li><a href="#security-audit-review-mobile-apps">モバイルアプリの確認</a></li><li><a href="#security-audit-review-policy-tips">IAM ポリシーを確認するためのヒント</a></li></ul></div>
+    <h2 id="security-audit-guide-when-to-audit">セキュリティ監査を実行するタイミング</h2>
+
+    <p>次の状況で、セキュリティ設定を監査します。</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>定期的な監査。セキュリティのベストプラクティスとして、このドキュメントで説明されている手順を定期的に実行します。</p>
+      </li><li class="listitem">
+        <p>従業員が退職するなど、組織に変更があった場合。</p>
+      </li><li class="listitem">
+        <p>1 つ以上の個別の AWS サービスの使用を停止したことで、アカウントのユーザーにとって不要になったアクセス許可を削除したことを検証する場合。</p>
+      </li><li class="listitem">
+        <p>Amazon EC2 インスタンス上のアプリケーション、AWS OpsWorks スタック、AWS CloudFormation テンプレートなど、アカウントでソフトウェアの追加または削除を行った場合。</p>
+      </li><li class="listitem">
+        <p>権限のないユーザーがアカウントにアクセスした疑いがある場合。</p>
+      </li></ul></div>
+   
+    <h2 id="security-audit-general-guidelines">監査のガイドライン</h2>
+
+    <p>アカウントのセキュリティ設定を確認する際は、以下のガイドラインに従います。</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>徹底して行う</b>。ほとんど使用しないものを含め、セキュリティ設定のあらゆる面について調べます。</p>
+      </li><li class="listitem">
+        <p><b>推測しない</b>。セキュリティ設定の一部 (例: 特定のポリシーやロールの存在の背後にある根拠) が不明な場合は、潜在的リスクを把握するまでビジネスニーズを調査します。</p>
+      </li><li class="listitem">
+        <p><b>作業を単純にする</b>。監査 (および管理) を容易にするために、IAM グループ、IAM ロール、一貫した命名スキーム、単純なポリシーを使用します。</p>
+      </li></ul></div>
+   
+    <h2 id="security-audit-review-account">AWS アカウントの認証情報の確認</h2>
+
+    <p>AWS アカウント認証情報を監査するときは、次の手順に従います。</p>
+    <div class="orderedlist">
+       
+       
+    <ol><li>
+        <p>使用していないルートユーザーのアクセスキーがある場合は、削除できます。AWS での日常的な作業には、ルートアクセスキーを使用するのではなく、AWS IAM アイデンティティセンター (AWS Single Sign-On の後継) のユーザー などの一時的な認証情報を持つユーザーを使用することを<a href="https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html#root-password">強くお勧めします</a>。</p>
+      </li><li>
+        <p>アカウントのアクセスキーが必要な場合は、<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html#Using_RotateAccessKey">定期的にローテーションします</a>。</p>
+      </li></ol></div>
+   
+    <h2 id="security-audit-review-users">IAM ユーザーの確認</h2>
+
+    <p>既存の IAM ユーザーを監査するときは、以下の手順に従います。</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+       
+       
+    <ol><li>
+        <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_manage_list">ユーザーを一覧表示し</a>、不要な<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_DeletingUserFromAccount.html">ユーザーを削除します</a>。</p>
+      </li><li>
+        <p> アクセスを必要としない<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_AddOrRemoveUsersFromGroup.html">グループからユーザーを削除します</a>。</p>
+      </li><li>
+        <p>ユーザーが所属するグループにアタッチされたポリシーを確認します。「」を参照してください<a href="#security-audit-review-policy-tips">IAM ポリシーを確認するためのヒント</a></p>
+      </li><li>
+        <p>ユーザーが必要としない場合や公開された可能性がある場合、セキュリティ認証情報を削除します。例えば、アプリケーションに使用される IAM ユーザーはパスワードを必要としません (パスワードは AWS ウェブサイトへのサインインにのみ必要です)。同様に、ユーザーがアクセスキーを使用しない場合、ユーザーはそのキーを持つ理由がありません。詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/credentials-add-pwd-for-user.html">IAM ユーザーのパスワードの管理</a>」および「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html">IAM ユーザーのアクセスキーの管理</a>」を参照してください。</p>
+        <p>アカウント内のすべての IAM ユーザーと、ユーザーの各種認証情報 (パスワード、アクセスキー、MFA デバイスなど) のステータスが示された認証情報レポートを生成し、ダウンロードできます。パスワードやアクセスキーでは、パスワードやアクセスキーを最近使用した日時が、認証情報レポートに表示されます。最近使用していない認証情報をアカウントから削除することを検討してください。(緊急アクセスユーザーを削除しないでください)。詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html">AWS アカウントの認証情報レポートの取得</a>」を参照してください。</p>
+      </li><li>
+        <p>長期的な認証情報を必要とするユースケースのために、アクセスキーを定期的にローテーションしてください。詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/credentials-add-pwd-for-user.html">IAM ユーザーのパスワードの管理</a>」および「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html">IAM ユーザーのアクセスキーの管理</a>」を参照してください。</p>
+      </li><li>
+        <p>ベストプラクティスでは、人間のユーザーが一時的な認証情報を使用して AWS にアクセスする際、アイデンティティプロバイダーとのフェデレーションを使用することが求められます。可能であれば、IAM ユーザーから IAM Identity Center のユーザーなどのフェデレーションユーザーに移行してください。アプリケーションに必要な最小限の IAM ユーザー数を保持してください。</p>
+      </li></ol></div>
+   
+    <h2 id="security-audit-groups">IAM グループの確認</h2>
+
+    <p>IAM グループを監査するときは、次の手順に従います。</p>
+    <div class="orderedlist">
+       
+       
+       
+    <ol><li>
+        <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_manage_list.html">グループを一覧表示し</a>、使用していない<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_DeleteGroup.html">グループを削除します</a>。</p>
+      </li><li>
+        <p>各グループの<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_manage_list">ユーザーを確認し</a>、属していない<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_AddOrRemoveUsersFromGroup.html">ユーザーを削除します</a>。</p>
+      </li><li>
+        <p>グループにアタッチされるポリシーを確認します。「」を参照してください<a href="#security-audit-review-policy-tips">IAM ポリシーを確認するためのヒント</a> </p>
+      </li></ol></div>
+   
+    <h2 id="security-audit-review-roles">IAM ロールの確認</h2>
+
+    <p>IAM ロールを監査するときは、次の手順に従います。</p>
+    <div class="orderedlist">
+       
+       
+       
+    <ol><li>
+        <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/list-roles.html">ロールを一覧表示し</a>、使用していない<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-deleting.html">ロールを削除します</a>。</p>
+      </li><li>
+        <p>ロールの信頼ポリシーを<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing.html">確認</a>します。プリンシパルが誰かを把握し、なぜアカウントまたはユーザーがロールを引き受けることができるようにする必要があるのかを理解しておいてください。</p>
+      </li><li>
+        <p>ロールを引き受けるユーザーすべてに適切なアクセス許可を付与できるよう、アクセスポリシーを<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing.html">確認</a>します。<a href="#security-audit-review-policy-tips">IAM ポリシーを確認するためのヒント</a> を参照してください。</p>
+      </li></ol></div>
+   
+    <h2 id="security-audit-review-saml-providers">SAML および OpenID Connect (OIDC) 用 IAM プロバイダの確認</h2>
+
+    <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/identity-providers.html">SAML または OIDC ID プロバイダー (IdP)</a> との信頼を確立するために IAM エンティティを作成した場合は、以下の手順に従います。</p>
+    <div class="orderedlist">
+       
+       
+       
+    <ol><li>
+        <p>使用していないプロバイダーを削除します。</p>
+      </li><li>
+        <p>SAML IdP ごとの AWS メタデータドキュメントをダウンロードして確認し、ドキュメントが現在のビジネスニーズを反映していることを確認します。</p>
+      </li><li>
+        <p>SAML IdP から最新のメタデータドキュメントを取得して、<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/identity-providers-saml.html">IAM のプロバイダーを更新します</a>。</p>
+      </li></ol></div>
+   
+    <h2 id="security-audit-review-mobile-apps">モバイルアプリの確認</h2>
+
+    <p>AWS にリクエストを送信するモバイルアプリを作成する場合、以下の手順に従います。</p>
+    <div class="orderedlist">
+       
+       
+    <ol><li>
+        <p>暗号化ストレージ内であっても、モバイルアプリケーションに埋め込みアクセスキーが含まれていないことを確認します。</p>
+      </li><li>
+        <p>その目的のために設計されている API を使用して、アプリケーションの一時的な認証情報を取得します。</p>
+      </li></ol></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p><a href="http://aws.amazon.com/cognito/" rel="noopener noreferrer" target="_blank"><span>Amazon Cognito</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> を使用して、アプリでユーザー ID を管理することをお勧めします。このサービスでは、Login with Amazon、Facebook、Google、または OpenID Connect (OIDC) に対応している任意の ID プロバイダを使用してユーザーを認証できます。詳細については、「Amazon Cognito デベロッパーガイド」の「<a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html">Amazon Cognito ID プール</a>」を参照してください。</p></div></div>
+   
+    <h2 id="security-audit-review-policy-tips">IAM ポリシーを確認するためのヒント</h2>
+
+    <p>ポリシーは強力かつ微妙であるため、各ポリシーによって付与されるアクセス許可を確認して理解することが重要です。ポリシーを確認するときは、以下のガイドラインを使用します。</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>個々のユーザーにではなくグループにポリシーをアタッチします。個々のユーザーにポリシーがある場合、なぜそのユーザーはポリシーを必要としているのかを理解しておいてください。</p>
+      </li><li class="listitem">
+        <p>IAM ユーザー、グループ、ロールに必要なアクセス許可が付与され、追加のアクセス許可が付与されていないことを確認します。</p>
+      </li><li class="listitem">
+        <p><a href="https://docs.aws.amazon.com/IAM/latest/UsingPolicySimulatorGuide/">IAM ポリシーシミュレーター</a>を使用して、ユーザーまたはグループにアタッチされたポリシーをテストします。</p>
+      </li><li class="listitem">
+        <p>ユーザーのアクセス許可は、該当するすべてのポリシー、つまり (ユーザー、グループまたはロールの) アイデンティティベースのポリシーと、(Amazon S3 バケット、Amazon SQS キュー、Amazon SNS トピック、および AWS KMS キーなどのリソースに対する) リソースベースのポリシーの結果であることに注意してください。ユーザーに適用されるすべてのポリシーを調べ、個々のユーザーに付与されるアクセス許可一式を理解することが重要です。</p>
+      </li><li class="listitem">
+        <p>IAM ユーザー、グループ、ロール、またはポリシーの作成とそのプリンシパルエンティティへのポリシーの付与をユーザーに許可すると、実質的に、お客様のアカウント内のすべてのリソースに対するすべてのアクセス権限をそのユーザーに付与することになることに注意してください。ポリシーの作成とユーザー、グループ、またはロールへのポリシーのアタッチを許可されたユーザーは、すべてのアクセス許可をユーザー自身に付与することができます。通常、信頼できないユーザーまたはロールには、アカウントのリソースへのフルアクセスを含む IAM のアクセス許可を付与しないでください。セキュリティ監査を実行する際は、信頼できるアイデンティティに次の IAM アクセス許可が付与されていることを確認してください。</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">iam:PutGroupPolicy</code></p>
+          </li><li class="listitem">
+            <p><code class="code">iam:PutRolePolicy</code></p>
+          </li><li class="listitem">
+            <p><code class="code">iam:PutUserPolicy</code></p>
+          </li><li class="listitem">
+            <p><code class="code">iam:CreatePolicy</code></p>
+          </li><li class="listitem">
+            <p><code class="code">iam:CreatePolicyVersion</code></p>
+          </li><li class="listitem">
+            <p><code class="code">iam:AttachGroupPolicy</code></p>
+          </li><li class="listitem">
+            <p><code class="code">iam:AttachRolePolicy</code></p>
+          </li><li class="listitem">
+            <p><code class="code">iam:AttachUserPolicy</code></p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p>使用しないサービスにはポリシーがアクセス許可を付与しないようにします。たとえば、<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html#aws-managed-policies">AWS 管理ポリシー</a>を使用する場合は、アカウントで使用されている AWS 管理ポリシーが、実際に使用するサービス用であることを確認します。アカウントで使用されている AWS 管理ポリシーを確認するには、IAM <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetAccountAuthorizationDetails.html"><code class="code">GetAccountAuthorizationDetails</code></a> API (AWS CLI コマンド: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/get-account-authorization-details.html"><code class="code">aws iam
+              get-account-authorization-details</code></a>) を使用します。</p>
+      </li><li class="listitem">
+        <p>ポリシーが、Amazon EC2 インスタンスを起動するアクセス許可をユーザーに付与する場合、<code class="code">iam:PassRole</code> アクションの実行も許可する可能性があります。この場合、ユーザーが Amazon EC2 インスタンスに渡すことができる<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-usingrole-ec2instance.html#roles-usingrole-ec2instance-passrole">ロールが明示的に一覧表示</a>されます。</p>
+      </li><li class="listitem">
+        <p><code class="code">*</code> を含む <code class="code">Action</code> 要素または <code class="code">Resource</code> 要素の値を検証します。可能な場合は、ユーザーが必要とする個別のアクションおよびリソースへの <code class="code">Allow</code> アクセス許可を付与します。ただし、<code class="code">*</code> をポリシーで使用するのが適切であることの理由は、以下のとおりです。</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>ポリシーは、管理レベルのアクセス許可を付与するように設計されています。</p>
+          </li><li class="listitem">
+            <p>ワイルドカード文字は、便宜上の理由から、類似するアクションのセット (例: <code class="code">Describe*</code>) に使用します。この方法で全アクションのリストを参照すれば便利です。</p>
+          </li><li class="listitem">
+            <p>ワイルドカード文字は、リソースのクラスまたはリソースパス (例: <code class="code">arn:aws:iam::<code class="replaceable">account-id</code>:users/division_abc/*</code>) を表示するために使用します。これは、そのクラスまたはパスのすべてのリソースへのアクセス許可を付与する際に便利です。</p>
+          </li><li class="listitem">
+            <p>サービスアクションは、リソースレベルのアクセス許可をサポートしないため、リソースの唯一の選択肢は <code class="code">*</code> です。</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p>ポリシー名を調べて、ポリシーの機能を反映していることを確認します。たとえば、ポリシーに「読み取り専用」を含む名前が付いていても、そのポリシーは実際には書き込みや変更を許可することもあります。</p>
+      </li></ul></div>
+
+    <p>セキュリティ監査の計画の詳細については、<em>AWS Architecture Centerの</em>「<a href="http://aws.amazon.com/architecture/security-identity-compliance/" rel="noopener noreferrer" target="_blank"><span>セキュリティ、アイデンティティ、コンプライアンスのベストプラクティス</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>」を参照してください。</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./security-creds.html">AWS セキュリティ認証情報</div><div id="next" class="next-link" accesskey="n" href="./data-protection.html">データ保護</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-audit-guide.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

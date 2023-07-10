@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>IAM 實體的許可界限 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="access_policies_boundaries" /><meta name="default_state" content="access_policies_boundaries" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="description" content="了解如何將政策用於設定使用者或角色的許可界限。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="使用者指南" /><meta name="abstract" content="透過使用者身分 (身分驗證) 和定義特定許可 (授權) 的政策，控制存取您的 AWS 資源。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="使用者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="使用者指南" /><meta id="panorama-serviceConsolePage" value="IAM 實體的許可界限" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>IAM 實體的許可界限 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#access_policies_boundaries" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 使用者,使用者,IAM 群組,群組,IAM 角色,角色,許可政策,信任政策,政策,存取金鑰,密碼" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "使用者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS 資源的存取管理",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 中的政策和許可",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "IAM 實體的許可界限",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#access_policies_boundaries" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">使用者指南</a></div><div id="page-toc-src"><a href="#access_policies_boundaries-eval-logic">評估含界限的有效許可</a><a href="#access_policies_boundaries-delegate">使用許可界限委派責任給他人</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="access_policies_boundaries">IAM 實體的許可界限</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS 支援 IAM 實體 (使用者或角色) 的<em>許可界限</em>。許可界限是一種進階功能，可供您使用受管政策來設定以身分為基礎的政策可以授予 IAM 實體的最大許可。實體的許可界限可讓其只執行由身分類型政策和其許可界限同時允許的動作。</p><p>如需有關政策類型的詳細資訊，請參閱 <a href="./access_policies.html#access_policy-types">政策類型</a>。</p><p>您可以使用 AWS 受管政策或客戶受管政策來設定 IAM 實體 (使用者或角色) 的界限。該政策限制使用者或角色的許可上限。</p><p>例如，假設名為 <code class="code">ShirleyRodriguez</code> 的 IAM 使用者應允許僅管理 Amazon S3、Amazon CloudWatch 和 Amazon EC2。為了強行實施這個規則，您可以使用以下政策設定 <code class="code">ShirleyRodriguez</code> 使用者的許可界限：</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "cloudwatch:*",
+                "ec2:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre><p>當您使用政策來設定使用者的許可界限時，它會限制使用者的許可，但不自行提供許可。在這個範例中，該政策會將 <code class="code">ShirleyRodriguez</code> 的最大許可設為 Amazon S3、CloudWatch 和 Amazon EC2 中的所有操作。Shirley 永遠無法在其他任何服務中執行操作，包括 IAM，即使許可政策允許她這麼做。例如，您可以將以下政策加入到 <code class="code">ShirleyRodriguez</code> 使用者：</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "iam:CreateUser",
+    "Resource": "*"
+  }
+}</code></pre><p>這項政策允許在 IAM 中建立使用者。如果您將此許可政策連接到 <code class="code">ShirleyRodriguez</code> 使用者，當 Shirley 嘗試建立使用者時，操作會失敗。失敗的原因是許可界限不允許 <code class="code">iam:CreateUser</code> 操作。因為這兩項政策，Shirley 沒有許可在 AWS 中執行任何操作。您必須新增不同的許可政策，才能允許其他服務 (例如 Amazon S3) 中的動作。或者，您可以更新許可界限，允許她在 IAM 中建立使用者。</p>
+        <h2 id="access_policies_boundaries-eval-logic">評估含界限的有效許可</h2>
+        <p>IAM 實體 (使用者或角色) 的許可界限會設定該實體可以擁有的最大許可。這可能改變該使用者或角色的有效許可。實體的有效許可，是指會影響使用者或角色的所有政策所授予的許可。在帳戶範圍內，以身分為基礎的政策、以資源為基礎的政策、許可界限、Organizations SCP 或工作階段政策，都可能會影響到實體的許可。如需有關不同政策類型的詳細資訊，請參閱 <a href="./access_policies.html">IAM 中的政策和許可</a>。</p>
+        <p>如果其中任何一種政策會明確拒絕存取操作，則請求將會遭拒。經由多種許可類型授予的許可將更為複雜。如需有關 AWS 如何評估政策的詳細資訊，請參閱<a href="./reference_policies_evaluation-logic.html">政策評估邏輯</a>。</p>
+        <p><b>包含界限的以身分為基礎政策</b> – 以身分為基礎的政策可分為會連接至使用者、使用者群組或角色的內嵌或受管政策。以身分為基礎的政策可為實體授予許可，而許可界限會限制這些許可。有效的許可是兩種政策類型的交集。在這些政策的明確拒絕會覆寫允許。</p>
+        <div class="mediaobject">
+             
+                <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                評估以身分為基礎的政策及許可界限&#xA;            " />
+             
+             
+        </div>
+
+        <div class="variablelist">
+            <p><b>以資源為基礎的政策</b> – 以資源為基礎的政策會控制指定主體如何存取資源，即政策連接至其中的資源。</p>
+             
+             
+             
+        <dl>
+                <dt><span class="term"><em>適用於 IAM 使用者的資源型政策</em></span></dt>
+                <dd>
+                    <p>在同一帳戶內，將許可授予 IAM 使用者 ARN (非聯合身分使用者工作階段) 的資源型政策不受身分識別型政策或許可界限中隱含拒絕的限制。</p>
+
+                    <div class="mediaobject">
+                         
+                            <img src="images/EffectivePermissions-rbp-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                            評估以資源為基礎的政策、許可界限和以身分為基礎的政策&#xA;                        " />
+                         
+                         
+                    </div>
+                </dd>
+             
+                <dt><span class="term"><em>適用於 IAM 角色的資源型政策</em></span></dt>
+                <dd>
+                    <p><b>IAM 角色</b> – 將許可授予 IAM 角色 ARN 的資源型政策受限於許可界限或工作階段政策中隱含拒絕的限制。</p>
+                    <p><b>IAM 角色工作階段</b> – 在同一帳戶內，將許可授予 IAM 角色工作階段 ARN 的資源型政策會直接授予許可給擔任角色工作階段。直接授予工作階段的許可不會受到身分識別型政策、許可界限或工作階段政策中隱含拒絕的限制。當您擔任角色並提出要求時，提出請求的主體是 IAM 角色工作階段 ARN，而不是角色本身的 ARN。</p>
+                </dd>
+             
+                <dt><span class="term"><em>適用於 IAM 聯合身分使用者的資源型政策</em></span></dt>
+
+                <dd>
+                    <p><b>IAM 聯合身分使用者工作階段</b> – IAM 聯合身分使用者工作階段是透過呼叫 <a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a> 建立的工作階段。當聯合身分使用者提出要求時，提出要求的主體是聯合身分使用者 ARN，而不是聯合身分 IAM 使用者的 ARN。在相同的帳戶中，授予許可給聯合身分使用者 ARN 的資源型政策會直接將許可授予工作階段。直接授予工作階段的許可不會受到身分識別型政策、許可界限或工作階段政策中隱含拒絕的限制。</p>
+                    <p>但是，如果資源型政策向聯合身分 IAM 使用者 ARN 授予許可，則聯合身分使用者在工作階段期間提出的要求會受到許可界限或工作階段政策中隱含拒絕的限制。</p>
+                </dd>
+            </dl></div>
+        <p><b>Organizations SCP</b> – SCP 會套用到整個 AWS 帳戶。它們會限制由該帳戶內主體所提出各個請求的許可。IAM 實體 (使用者或角色) 可以提出一個要求，而這個要求會受到 SCP、許可邊界及身分類型政策的影響。在這種情況下，只有當所有三種政策類型允許時才允許該要求。有效許可是所有三種政策類型的交集。所有這類政策中的明確拒絕都會覆寫該允許。</p>
+        <div class="mediaobject">
+             
+                <img src="images/EffectivePermissions-scp-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                 SCP 評估、許可界限及以身分為基礎的政策&#xA;            " />
+             
+             
+        </div>
+        <p>您可以了解<a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">您的帳戶是否為 AWS Organizations 中組織的成員</a>。組織成員可能會受到 SCP 影響。若要使用 AWS CLI 命令或 AWS API 操作檢視此資料，您必須擁有適用於 Organizations 實體的 <code class="code">organizations:DescribeOrganization</code> 動作許可。您必須擁有其他許可，才能在 Organizations 主控台中執行操作。若要了解 SCP 是否拒絕存取特定要求，或是變更有效的許可，請聯絡您的 AWS Organizations 管理員。</p>
+        <p><b>工作階段政策</b> – 工作階段政策是一種進階政策，您可以在透過編寫程式的方式建立角色或聯合身分使用者的暫時工作階段時，做為參數傳遞。工作階段的許可，該工作階段的來源是建立該工作階段時所使用的 IAM 實體 (使用者或角色) 或工作階段政策。實體的以身分為基礎的政策，會受到工作階段政策及許可界限所限制。這組政策類型的有效許可是所有三種政策類型的交集。所有這類政策中的明確拒絕都會覆寫該允許。如需有關工作階段政策的詳細資訊，請參閱<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">工作階段政策</a>。</p>
+        <div class="mediaobject">
+             
+                <img src="images/EffectivePermissions-session-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                評估工作階段政策、許可界限和以身分為基礎的政策&#xA;            " />
+             
+             
+        </div>
+     
+        <h2 id="access_policies_boundaries-delegate">使用許可界限委派責任給他人</h2>
+        <p>您可以使用許可界限來委派許可管理任務 (像是使用者建立) 給您的帳戶中的 IAM 使用者。這允許其他人在特定許可界限內代替您執行任務。</p>
+        <p>例如，假設 María 是 X-Company AWS 帳戶 的管理員。她想要委派使用者建立責任給 Zhang。不過，她必須確保 Zhang 建立的使用者遵守下列公司規則：</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>使用者不能使用 IAM 建立或管理使用者、群組、角色或政策。</p>
+            </li><li class="listitem">
+                <p>使用者被拒絕存取 Amazon S3 <code class="code">logs</code> 儲存貯體，且無法存取 <code class="code">i-1234567890abcdef0</code> Amazon EC2 執行個體。</p>
+            </li><li class="listitem">
+                <p>使用者無法移除自己的界限政策。</p>
+            </li></ul></div>
+        <p>為了強制執行這些規則，María 完成以下任務，其包含以下詳細資訊：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>María 建立 <code class="code">XCompanyBoundaries</code> 受管政策以針對帳戶中所有的新的使用者，當成許可界限使用。</p>
+            </li><li>
+                <p>María 建立 <code class="code">DelegatedUserBoundary</code> 受管政策，並將其指派為 Zhang 的許可界限。Maria 記下其管理員  使用者的 ARN，並在防止 Zhang 存取的政策中使用此 ARN。</p>
+            </li><li>
+                <p>María 建立 <code class="code">DelegatedUserPermissions</code> 受管政策，並將其連接為 Zhang 的許可政策。</p>
+            </li><li>
+                <p>María 告訴 Zhang 有關他的新責任和限制。</p>
+            </li></ol></div>
+        <p><b>任務 1：</b>María 必須先建立受管政策來定義新使用者的界限。María 將允許 Zhang 提供使用者所需的許可政策，但她希望這些使用者受到限制。為了執行此操作，她建立以下客戶受管政策，名稱為 <code class="code">XCompanyBoundaries</code>。此政策會執行下列動作：</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>可讓使用者完整存取數個服務</p>
+            </li><li class="listitem">
+                <p>允許在 IAM 主控台中限制自行管理存取。這表示他們可以在登入主控台之後變更密碼。也無法設定其初始密碼。若要允許此操作，請將 <code class="code">"*LoginProfile"</code> 動作加入 <code class="code">AllowManageOwnPasswordAndAccessKeys</code> 陳述式。</p>
+            </li><li class="listitem">
+                <p>拒絕對 Amazon S3  日誌儲存貯體或 <code class="code">i-1234567890abcdef0</code> Amazon EC2  執行個體的存取權限</p>
+            </li></ul></div>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "ServiceBoundaries",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "cloudwatch:*",
+                "ec2:*",
+                "dynamodb:*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "AllowIAMConsoleForCredentials",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListUsers",
+                "iam:GetAccountPasswordPolicy"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "AllowManageOwnPasswordAndAccessKeys",
+            "Effect": "Allow",
+            "Action": [
+                "iam:*AccessKey*",
+                "iam:ChangePassword",
+                "iam:GetUser",
+                "iam:*ServiceSpecificCredential*",
+                "iam:*SigningCertificate*"
+            ],
+            "Resource": ["arn:aws:iam::*:user/$<span>{</span>aws:username}"]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::logs",
+                "arn:aws:s3:::logs/*"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyEC2Production",
+            "Effect": "Deny",
+            "Action": "ec2:*",
+            "Resource": "arn:aws:ec2:*:*:instance/i-1234567890abcdef0"
+        }
+    ]
+}</code></pre>
+        <p>每個陳述式提供不同的用途：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+        <ol><li>
+                <p>此政策的 <code class="code">ServiceBoundaries</code> 陳述式允許完整存取指定的 AWS 服務。這表示新使用者在這些服務的動作，僅受限於連接到使用者的許可政策。</p>
+            </li><li>
+                <p><code class="code">AllowIAMConsoleForCredentials</code> 陳述式允許列出所有 IAM 使用者的存取權。這個存取權是導覽 AWS Management Console 中 <b>Users (使用者)</b> 頁面的必要條件。它也允許檢視帳戶的密碼要求，而這是變更您自身密碼時的必要程序。</p>
+            </li><li>
+                <p><code class="code">AllowManageOwnPasswordAndAccessKeys</code> 陳述式允許使用者僅管理自己的主控台密碼和程式設計存取金鑰。如果 Zhang 或另一個管理員為新使用者提供包含完整 IAM 存取的許可政策，這就非常重要。在這種情況下，該使用者可能會變更自己的或其他使用者的許可。此陳述式可避免此種情況發生。</p>
+            </li><li>
+                <p><code class="code">DenyS3Logs</code> 陳述式明確拒絕存取 <code class="code">logs</code> 儲存貯體。</p>
+            </li><li>
+                <p><code class="code">DenyEC2Production</code> 陳述式明確拒絕存取 <code class="code">i-1234567890abcdef0</code> 執行個體。</p>
+            </li></ol></div>
+        <p><b> 任務 2：</b>María 想要允許 Zhang 建立所有 X-Company 使用者，但只允許 <code class="code">XCompanyBoundaries</code> 許可界限。她建立以下客戶受管政策，名稱為 <code class="code">DelegatedUserBoundary</code>。此政策定義 Zhang 可以擁有的許可上限。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "CreateOrChangeOnlyWithBoundary",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachUserPolicy",
+                "iam:CreateUser",
+                "iam:DeleteUserPolicy",
+                "iam:DetachUserPolicy",
+                "iam:PutUserPermissionsBoundary",
+                "iam:PutUserPolicy"
+            ],
+            "Resource": "*",
+            "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                 "iam:PermissionsBoundary": "arn:aws:iam::123456789012:policy/XCompanyBoundaries"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "CloudWatchAndOtherIAMTasks",
+            "Effect": "Allow",
+            "Action": [
+              "cloudwatch:*",
+              "iam:CreateAccessKey",
+              "iam:CreateGroup",
+              "iam:CreateLoginProfile",
+              "iam:CreatePolicy",
+              "iam:DeleteGroup",
+              "iam:DeletePolicy",
+              "iam:DeletePolicyVersion",
+              "iam:DeleteUser",
+              "iam:GetAccountPasswordPolicy",
+              "iam:GetGroup",
+              "iam:GetLoginProfile",
+              "iam:GetPolicy",
+              "iam:GetPolicyVersion",
+              "iam:GetRolePolicy",
+              "iam:GetUser",
+              "iam:GetUserPolicy",
+              "iam:ListAccessKeys",
+              "iam:ListAttachedRolePolicies",
+              "iam:ListAttachedUserPolicies",
+              "iam:ListEntitiesForPolicy",
+              "iam:ListGroups",
+              "iam:ListGroupsForUser",
+              "iam:ListMFADevices",
+              "iam:ListPolicies",
+              "iam:ListPolicyVersions",
+              "iam:ListRolePolicies",
+              "iam:ListSSHPublicKeys",
+              "iam:ListServiceSpecificCredentials",
+              "iam:ListSigningCertificates",
+              "iam:ListUserPolicies",
+              "iam:ListUsers",
+              "iam:SetDefaultPolicyVersion",
+              "iam:SimulateCustomPolicy",
+              "iam:SimulatePrincipalPolicy",
+              "iam:UpdateGroup",
+              "iam:UpdateLoginProfile",
+              "iam:UpdateUser"
+            ],
+            "NotResource": "arn:aws:iam::123456789012:user/Maria"
+        },
+        <span>{</span>
+            "Sid": "NoBoundaryPolicyEdit",
+            "Effect": "Deny",
+            "Action": [
+                "iam:CreatePolicyVersion",
+                "iam:DeletePolicy",
+                "iam:DeletePolicyVersion",
+                "iam:SetDefaultPolicyVersion"
+            ],
+            "Resource": [
+                "arn:aws:iam::123456789012:policy/XCompanyBoundaries",
+                "arn:aws:iam::123456789012:policy/DelegatedUserBoundary"
+            ]
+        },
+        <span>{</span>
+            "Sid": "NoBoundaryUserDelete",
+            "Effect": "Deny",
+            "Action": "iam:DeleteUserPermissionsBoundary",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+        <p>每個陳述式提供不同的用途：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p><code class="code">CreateOrChangeOnlyWithBoundary</code> 陳述式允許 Zhang 建立 IAM 使用者，但前提是他須使用 <code class="code">XCompanyBoundaries</code> 政策來設定許可界限。此陳述式也可讓他為現有的使用者設定許可界限，但只能使用該相同政策。最後，此陳述式讓 Zhang 管理具此許可界限設定之使用者的許可政策。</p>
+            </li><li>
+                <p><code class="code">CloudWatchAndOtherIAMTasks</code> 陳述式允許 Zhang 完成其他使用者、群組和政策管理任務。其有權重設密碼，並為 <code class="code">NotResource</code> 政策元素中未列出的任何 IAM 使用者建立存取金鑰。這可讓 Zhang 協助使用者解決登入問題。</p>
+            </li><li>
+                <p><code class="code">NoBoundaryPolicyEdit</code> 陳述式拒絕 Zhang 存取更新 <code class="code">XCompanyBoundaries</code> 政策。他不被允許變更任何用於設定他自己或其他使用者的許可界限的政策。</p>
+            </li><li>
+                <p><code class="code">NoBoundaryUserDelete</code> 陳述式拒絕讓 Zhang 存取刪除他自己或其他使用者的許可界限。</p>
+            </li></ol></div>
+        <p>然後，María 針對 <code class="code">Zhang</code> 使用者將 <code class="code">DelegatedUserBoundary</code> 政策<a href="./id_users_change-permissions.html#users_change_permissions-set-boundary-console">分派許可界限</a>。</p>
+        <p><b>任務 3：</b>由於許可界限限制許可上限，但不自行授予存取權，因此 Maria 必須為 Zhang 建立許可政策。她建立以下政策，名稱為 <code class="code">DelegatedUserPermissions</code>。此政策定義在已定義的界限內，Zhang 可以執行的操作。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "IAM",
+            "Effect": "Allow",
+            "Action": "iam:*",
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "CloudWatchLimited",
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:GetDashboard",
+                "cloudwatch:GetMetricData",
+                "cloudwatch:ListDashboards",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "S3BucketContents",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::ZhangBucket"
+        }
+    ]
+}</code></pre>
+        <p>每個陳述式提供不同的用途：</p>
+        <div class="orderedlist">
+             
+             
+             
+        <ol><li>
+                <p>此政策的 <code class="code">IAM</code> 陳述式允許 Zhang 完整存取 IAM。不過，由於他的許可界限僅允許部分的 IAM 操作，他的有效 IAM 許可僅受限於他的許可界限。</p>
+            </li><li>
+                <p><code class="code">CloudWatchLimited</code> 陳述式允許 Zhang 在 CloudWatch 中執行五個動作。他的許可界限允許 CloudWatch 中的所有動作，因此他的有效 CloudWatch 許可僅受限於他的許可政策。</p>
+            </li><li>
+                <p><code class="code">S3BucketContents</code> 陳述式允許 Zhang 列出 <code class="code">ZhangBucket</code> Amazon S3 儲存貯體。不過，他的許可界限不允許任何 Amazon S3 動作，因此他無法執行任何 S3 操作，無論他是否有許可政策。</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>Zhang 的政策允許其建立一個使用者，此使用者可存取 Zhang 無法存取的 Amazon S3 資源。透過委派這些管理動作，Maria 利用 Amazon S3 存取權以有效方式信任了 Zhang。</p></div></div>
+            </li></ol></div>
+        <p>接著，María 將 <code class="code">DelegatedUserPermissions</code> 政策連接為 <code class="code">Zhang</code> 使用者的許可政策。</p>
+        <p><b> 任務 4：</b>她提供 Zhang 有關建立新使用者的指示。她通知他可以建立具備所需的任何許可的新使用者，但他必須將 <code class="code">XCompanyBoundaries</code> 政策指派給他們做為許可界限。</p>
+        <p>Zhang 完成下列任務：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+             
+        <ol><li>
+                <p>Zhang 透過 AWS Management Console<a href="./id_users_create.html#id_users_create_console">建立使用者</a>。他輸入使用者名稱 <code class="code">Nikhil</code>，並啟用該使用者的主控台存取權。他清除了 <b>Requires password reset</b> (需要重設密碼) 旁的核取方塊，因為上述政策只允許使用者在登入 IAM 主控台後變更密碼。</p>
+            </li><li>
+                <p>在 <b>Set permissions (設定許可)</b> 頁面上，Zhang 選擇 <b>IAMFullAccess</b> 和 <b>AmazonS3ReadOnlyAccess</b> 許可政策，允許 Nikhil 執行他的工作。</p>
+            </li><li>
+                <p>Zhang 忘了 María 的指示，略過 <b>Set permissions boundary (設定許可界限)</b> 區段。</p>
+            </li><li>
+                <p>Zhang 檢閱使用者詳細資訊，然後選擇 <b>Create user (建立使用者)</b>。</p>
+                <p>操作失敗，存取遭拒。Zhang 的 <code class="code">DelegatedUserBoundary</code> 許可界限要求他所建立的任何使用者都將 <code class="code">XCompanyBoundaries</code> 政策當做許可界限來使用。</p>
+            </li><li>
+                <p>Zhang 返回到之前的頁面。在 <b>Set permissions boundary (設定許可界限)</b> 區段中，他選擇了 <code class="code">XCompanyBoundaries</code> 政策。</p>
+            </li><li>
+                <p>Zhang 檢閱使用者詳細資訊，然後選擇 <b>Create user (建立使用者)</b>。</p>
+                <p>使用者已建立。</p>
+            </li></ol></div>
+        <p>當 Nikhil 登入時，即有權存取 IAM 和 Amazon S3，除了許可界限拒絕的那些操作之外。例如，他可以在 IAM 變更自己的密碼，但無法建立其他使用者或編輯他的政策。Nikhil 只有 Amazon S3 的讀取存取權。</p>
+        <p>如果有人將資源類型政策新增至 <code class="code">logs</code> 儲存貯體，而讓 Nikhil 在儲存貯體中放入物件，則他仍然無法存取該儲存貯體。原因在於對 <code class="code">logs</code> 儲存貯體執行的任何動作，均會受到其許可界限的明確拒絕。任何政策類型中的明確拒絕，都會導致請求遭到拒絕。不過，如果 Secrets Manager 秘密連接的以資源為基礎的政策允許 Nikhil 執行 – <code class="code">secretsmanager:GetSecretValue</code>動作，則 Nikhil 可以擷取和解密該秘密。原因在於這項許可界限並未明確拒絕上述 Secrets Manager 操作，而且許可界限的隱含拒絕不會限制資源類型政策。</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access_policies_managed-deprecated.html">已廢除的 AWS 受管政策</div><div id="next" class="next-link" accesskey="n" href="./access_policies_identity-vs-resource.html">身分與資源</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>IAM エンティティのアクセス許可境界 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="access_policies_boundaries" /><meta name="default_state" content="access_policies_boundaries" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="description" content="ポリシーを使用してユーザーまたはロールのアクセス許可の境界を設定する方法について説明します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="ユーザー ID (認証) および特定のアクセス許可 (承認) を定義するポリシーで AWS リソースへのアクセスを制限します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="IAM エンティティのアクセス許可境界" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>IAM エンティティのアクセス許可境界 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#access_policies_boundaries" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM ユーザー,user,IAM グループ,グループ,[IAM role] (IAM ロール),ロール,アクセス許可ポリシー,信頼ポリシー,ポリシー,アクセスキー,パスワード" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS リソースの アクセス管理",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM でのポリシーとアクセス許可",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "IAM エンティティのアクセス許可境界",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#access_policies_boundaries" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#access_policies_boundaries-eval-logic">境界を設定した場合の有効なアクセス許可の評価</a><a href="#access_policies_boundaries-delegate">アクセス許可の境界を使用した他のユーザーへの責任の委任</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="access_policies_boundaries">IAM エンティティのアクセス許可境界</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS は、IAM エンティティ (ユーザーまたはロール) の<em>アクセス許可の境界</em>をサポートしています。アクセス許可の境界は、管理ポリシーを使用してアイデンティティベースのポリシーが IAM エンティティに付与できるアクセス許可の上限を設定する高度な機能です。エンティティのアクセス許可の境界により、エンティティは、アイデンティティベースのポリシーとそのアクセス許可の境界の両方で許可されているアクションのみを実行できます。</p><p>ポリシーの詳細については、「<a href="./access_policies.html#access_policy-types">ポリシータイプ</a>」を参照してください。</p><p>IAM エンティティ (ユーザーまたはロール) の境界を設定するには、AWS 管理ポリシーまたはカスタマー管理ポリシーを使用します。このポリシーでは、ユーザーやロールのアクセス許可の上限を設定します。</p><p>たとえば、<code class="code">ShirleyRodriguez</code> という名前の IAM ユーザーが Amazon S3、Amazon CloudWatch、および Amazon EC2 のみを管理できるようにする必要があるとします。このルールを適用するには、次のポリシーを使用して <code class="code">ShirleyRodriguez</code> ユーザーのアクセス許可の境界を設定できます。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "cloudwatch:*",
+                "ec2:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre><p>ポリシーを使用してユーザーのアクセス許可の境界を設定する場合、このポリシーではユーザーのアクセス許可は制限しますが、それ自体のアクセス許可は提供しません。この例のポリシーでは、<code class="code">ShirleyRodriguez</code> のアクセス許可の上限を Amazon S3、CloudWatch、および Amazon EC2 のすべてのオペレーションに設定します。Shirley は、IAM を含む他のどのサービスでもオペレーションを実行することはできません。実行を許可するアクセス許可ポリシーが適用されている場合でも同様です。たとえば、<code class="code">ShirleyRodriguez</code> ユーザーに次のポリシーを追加できます。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "iam:CreateUser",
+    "Resource": "*"
+  }
+}</code></pre><p>このポリシーでは、IAM のユーザーの作成を許可します。このアクセス許可ポリシーを <code class="code">ShirleyRodriguez</code> ユーザーにアタッチすると、Shirley はユーザーを作成しようとしても、オペレーションは失敗します。アクセス許可の境界で <code class="code">iam:CreateUser</code> オペレーションが許可されていないため、失敗します。これら 2 つのポリシーを考慮すると、Shirley には AWS でのオペレーションを実行するアクセス許可がありません。Amazon S3 などの他のサービスでのアクションを許可するには、別のアクセス許可ポリシーを追加する必要があります。または、IAM のユーザーの作成を許可するように、アクセス許可の境界を更新します。</p>
+        <h2 id="access_policies_boundaries-eval-logic">境界を設定した場合の有効なアクセス許可の評価</h2>
+        <p>IAM エンティティ (ユーザーまたはロール) のアクセス許可の境界では、エンティティに許可されるアクセス許可の上限が設定されます。これにより、ユーザーやロールの有効なアクセス許可が変わる場合があります。エンティティの有効なアクセス許可は、ユーザーやロールに影響するすべてのポリシーによって付与されるアクセス許可です。エンティティのアクセス許可は、アカウント内で、アイデンティティベースのポリシー、リソースベースのポリシー、アクセス許可の境界、Organizations SCP、またはセッションポリシーの影響を受ける場合があります。各種ポリシーの詳細については、「<a href="./access_policies.html">IAM でのポリシーとアクセス許可</a>」を参照してください。</p>
+        <p>これらのいずれかのポリシータイプによって、オペレーションへのアクセスが明示的に拒否された場合、そのリクエストは拒否されます。複数のアクセス許可タイプによってエンティティに付与されたアクセス許可はさらに複雑です。AWS でのポリシーの評価の詳細については、「<a href="./reference_policies_evaluation-logic.html">ポリシーの評価論理</a>」を参照してください。</p>
+        <p><b>アイデンティティベースのポリシー (境界あり)</b> – アイデンティティベースのポリシーは、ユーザー、ユーザーのグループ、またはロールにアタッチされているインラインポリシーまたは管理ポリシーです。アイデンティティベースのポリシーはエンティティにアクセス許可を付与し、アクセス許可の境界は、それらのアクセス許可を制限します。有効なアクセス許可は、両方のポリシータイプの共通部分です。これらのポリシーのいずれかを明示的に拒否した場合、その許可は無効になります。</p>
+        <div class="mediaobject">
+             
+                <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                アイデンティティベースのポリシーとアクセス許可の境界の評価&#xA;            " />
+             
+             
+        </div>
+
+        <div class="variablelist">
+            <p><b>リソースベースのポリシー</b> – リソースベースのポリシーでは、指定されたプリンシパルが、ポリシーがアタッチされているリソースにアクセスする方法を制御します。</p>
+             
+             
+             
+        <dl>
+                <dt><span class="term"><em>IAM ユーザー用のリソースベースのポリシー</em></span></dt>
+                <dd>
+                    <p>同じアカウント内では、IAM ユーザー ARN (フェデレーティッドユーザーセッションではない) へのアクセス許可を与えているリソースベースのポリシーは、ID ベースのポリシーまたはアクセス許可の境界による、暗黙的な拒否によって制限されません。</p>
+
+                    <div class="mediaobject">
+                         
+                            <img src="images/EffectivePermissions-rbp-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                            リソースベースのポリシー、アクセス許可の境界、およびアイデンティティベースのポリシーの評価&#xA;                        " />
+                         
+                         
+                    </div>
+                </dd>
+             
+                <dt><span class="term"><em>IAM ロール用のリソースベースのポリシー</em></span></dt>
+                <dd>
+                    <p><b>IAM ロール</b>— IAM ロール ARN にアクセス許可を与えるリソースベースのポリシーは、アクセス許可の境界またはセッションポリシーの暗黙的な拒否によって制限されます。</p>
+                    <p><b>IAM ロールセッション</b> — 同じアカウント内で、IAM ロールセッション ARN にアクセス許可を与えるリソースベースのポリシーは、引き受けたロールセッションに、直接アクセス許可を与えます。セッションに直接付与されるアクセス許可は、ID ベースのポリシー、アクセス許可の境界、またはセッションポリシーの暗黙的な拒否によって制限されません。ロールを引き受けてリクエストを行う場合、リクエストを行うプリンシパルは IAM ロールセッション ARN であり、ロールそれ自体の ARN ではありません。</p>
+                </dd>
+             
+                <dt><span class="term"><em>IAM フェデレーティッドユーザーセッションのリソースベースのポリシー</em></span></dt>
+
+                <dd>
+                    <p><b>IAM フェデレーティッドユーザーセッション</b> — IAM フェデレーティッドユーザーセッションは、<a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a> を呼び出して作成されたセッションです。フェデレーティッドユーザーがリクエストを行う場合、リクエストを行うプリンシパルはフェデレーティッドユーザー ARN であり、フェデレーションした IAM ユーザーの ARN ではありません。同じアカウント内で、フェデレーティッドユーザー ARN にアクセス許可を与えるリソースベースのポリシーは、セッションに直接アクセス許可を与えます。セッションに直接付与されるアクセス許可は、ID ベースのポリシー、アクセス許可の境界、またはセッションポリシーの暗黙的な拒否によって制限されません。</p>
+                    <p>ただし、リソースベースのポリシーがフェデレーションした IAM ユーザーの ARN にアクセス許可を与える場合、セッション中にフェデレーティッドユーザーによって行われたリクエストは、アクセス許可の境界またはセッションポリシーの、暗黙的な拒否によって制限されます。</p>
+                </dd>
+            </dl></div>
+        <p><b>Organizations SCP</b> - SCP は、AWS アカウント 全体に適用されます。この場合、アカウント内のプリンシパルによって行われるすべてのリクエストのアクセス許可が制限されます。IAM エンティティ (ユーザーまたはロール) は、SCP、アクセス許可の境界、およびアイデンティティベースのポリシーの影響を受けるリクエストを行うことができます。この場合、そのリクエストは、その 3 つすべてのポリシータイプで許可されている場合にのみ許可されます。有効なアクセス許可は、その 3 つすべてのポリシータイプの共通部分です。これらのポリシーのいずれかを明示的に拒否した場合、許可は無効になります。</p>
+        <div class="mediaobject">
+             
+                <img src="images/EffectivePermissions-scp-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                SCP、アクセス許可の境界、アイデンティティベースのポリシーの評価&#xA;            " />
+             
+             
+        </div>
+        <p><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">自分のアカウントが AWS Organizations の組織のメンバーであるかどうか</a>を確認できます。組織のメンバーは、SCP による影響を受ける可能性があります。AWS CLI コマンドまたは AWS API オペレーションを使用してこのデータを表示するには、Organizations エンティティに対する <code class="code">organizations:DescribeOrganization</code> アクションのアクセス許可が必要です。Organizations コンソールでオペレーションを実行するには、追加のアクセス許可が必要です。SCP が特定のリクエストへのアクセスを拒否しているかどうかを確認する、または有効なアクセス権限を変更するには、AWS Organizations 管理者に連絡してください。</p>
+        <p><b>セッションポリシー</b> - セッションポリシーは、ロールまたはフェデレーティッドユーザーの一時的なセッションをプログラムで作成する際にパラメータとして渡す高度なポリシーです。セッションのアクセス許可は、セッションの作成に使用する IAM エンティティ (ユーザーまたはロール) と、セッションポリシーから派生します。エンティティのアイデンティティベースのポリシーのアクセス許可は、セッションポリシーとアクセス許可の境界で制限されています。この一連のポリシータイプの有効なアクセス許可は、その 3 つすべてのポリシータイプの共通部分です。これらのポリシーのいずれかを明示的に拒否した場合、許可は無効になります。セッションポリシーの詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">セッションポリシー</a>」を参照してください。</p>
+        <div class="mediaobject">
+             
+                <img src="images/EffectivePermissions-session-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                セッションポリシー、アクセス許可の境界、およびアイデンティティベースのポリシーの評価&#xA;            " />
+             
+             
+        </div>
+     
+        <h2 id="access_policies_boundaries-delegate">アクセス許可の境界を使用した他のユーザーへの責任の委任</h2>
+        <p>アクセス許可の境界を使用して、アクセス許可の管理タスク (ユーザーの作成など) をアカウントの IAM ユーザーに委任できます。これにより、アクセス許可の特定の境界内で、ユーザーの代わりに他のユーザーがタスクを実行できます。</p>
+        <p>例えば、María は X-Company の AWS アカウント の管理者であるとします。彼女は、ユーザーの作成業務を Zhang を委任したいと考えます。しかし、Zhang が以下の社内ルールに従ってユーザーを作成することを確認する必要があります。</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>ユーザーは、IAM を使用して管理ユーザー、グループ、グループロール、またはポリシーを作成できません。</p>
+            </li><li class="listitem">
+                <p>ユーザーは、Amazon S3 <code class="code">logs</code> バケットへのアクセスを拒否される。また、Amazon EC2 インスタンス <code class="code">i-1234567890abcdef0</code> にはアクセスできない。</p>
+            </li><li class="listitem">
+                <p>ユーザーは各自の境界ポリシーを削除できない。</p>
+            </li></ul></div>
+        <p>これらのルールを適用するために、María は以下のタスクを実行します (各タスクの詳細は後述します)。</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>María は、<code class="code">XCompanyBoundaries</code> 管理ポリシーを作成し、これをアカウントのすべての新しいユーザーに対するアクセス許可の境界として使用します。</p>
+            </li><li>
+                <p>María は、<code class="code">DelegatedUserBoundary</code> 管理ポリシーを作成し、これを Zhang のアクセス許可の境界として割り当てます。Maria は、管理者  ユーザーの ARN を書き留め、それをポリシーで使用して、Zhang がアクセスできないようにします。</p>
+            </li><li>
+                <p>María は、<code class="code">DelegatedUserPermissions</code> 管理ポリシーを作成し、これを Zhang のアクセス許可ポリシーとしてアタッチします。</p>
+            </li><li>
+                <p>María は、Zhang に新しい責任と制限を伝えます。</p>
+            </li></ol></div>
+        <p><b>タスク 1</b>: María は、最初に管理ポリシーを作成して、新しいユーザーの境界を定義する必要があります。María は、必要なアクセス許可ポリシーをユーザーに付与することを Zhang に許可しますが、これらのユーザーを制限したいと思います。これを行うには、次のカスタマー管理ポリシーを <code class="code">XCompanyBoundaries</code> という名前で作成します。このポリシーは以下の処理を実行します。</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>複数のサービスへのフルアクセスをユーザーに許可する</p>
+            </li><li class="listitem">
+                <p>IAM コンソールでの制限された自己管理アクセスを許可する つまり、ユーザーはコンソールにサインインした後にパスワードを変更できます。初期パスワードを設定することはできません。これを許可するには、<code class="code">"*LoginProfile"</code> アクションを <code class="code">AllowManageOwnPasswordAndAccessKeys</code> ステートメントに追加します。</p>
+            </li><li class="listitem">
+                <p>Amazon S3 ログバケットまたは <code class="code">i-1234567890abcdef0</code> Amazon EC2 インスタンスへのユーザーアクセスを拒否します</p>
+            </li></ul></div>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "ServiceBoundaries",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "cloudwatch:*",
+                "ec2:*",
+                "dynamodb:*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "AllowIAMConsoleForCredentials",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListUsers",
+                "iam:GetAccountPasswordPolicy"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "AllowManageOwnPasswordAndAccessKeys",
+            "Effect": "Allow",
+            "Action": [
+                "iam:*AccessKey*",
+                "iam:ChangePassword",
+                "iam:GetUser",
+                "iam:*ServiceSpecificCredential*",
+                "iam:*SigningCertificate*"
+            ],
+            "Resource": ["arn:aws:iam::*:user/$<span>{</span>aws:username}"]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::logs",
+                "arn:aws:s3:::logs/*"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyEC2Production",
+            "Effect": "Deny",
+            "Action": "ec2:*",
+            "Resource": "arn:aws:ec2:*:*:instance/i-1234567890abcdef0"
+        }
+    ]
+}</code></pre>
+        <p>ステートメントごとに用途は異なります。</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+        <ol><li>
+                <p>このポリシーの <code class="code">ServiceBoundaries</code> ステートメントでは、指定された AWS のサービスへのフルアクセスを許可します。つまり、これらのサービスにおける新しいユーザーのアクションは、ユーザーにアタッチされているアクセス許可ポリシーによってのみ制限されます。</p>
+            </li><li>
+                <p><code class="code">AllowIAMConsoleForCredentials</code> ステートメントは、すべての IAM ユーザーを一覧表示するためのアクセス権を付与します。このアクセス権は、AWS Management Console で [<b>ユーザー</b>] ページに移動するために必要です。また、このアクセス権では、アカウントのパスワード要件を表示することができます。これは、自分のパスワードを変更する場合に必要です。</p>
+            </li><li>
+                <p><code class="code">AllowManageOwnPasswordAndAccessKeys</code> ステートメントは、自分のパスワードおよびプログラムを使用したアクセスキーの管理のみ許可します。これは、Zhang や別の管理者が IAM へのフルアクセスを許可するアクセス許可ポリシーを新しいユーザーに与える場合に重要です。この場合、そのユーザーが自分や他のユーザーのアクセス許可を変更することができます。このステートメントで、これを防止します。</p>
+            </li><li>
+                <p><code class="code">DenyS3Logs</code> ステートメントでは、<code class="code">logs</code> バケットへのアクセスを明示的に拒否します。</p>
+            </li><li>
+                <p><code class="code">DenyEC2Production</code> ステートメントでは、<code class="code">i-1234567890abcdef0</code> インスタンスへのアクセスを明示的に拒否します。</p>
+            </li></ol></div>
+        <p><b>タスク 2</b>: María は、すべての X-Company ユーザーを作成することを Zhang に許可しますが、条件として <code class="code">XCompanyBoundaries</code> をアクセス許可の境界とします。そのために、次のカスタマー管理ポリシーを <code class="code">DelegatedUserBoundary</code> という名前で作成します。このポリシーでは、Zhang に許可されるアクセス許可の上限を定義します。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "CreateOrChangeOnlyWithBoundary",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachUserPolicy",
+                "iam:CreateUser",
+                "iam:DeleteUserPolicy",
+                "iam:DetachUserPolicy",
+                "iam:PutUserPermissionsBoundary",
+                "iam:PutUserPolicy"
+            ],
+            "Resource": "*",
+            "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                 "iam:PermissionsBoundary": "arn:aws:iam::123456789012:policy/XCompanyBoundaries"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "CloudWatchAndOtherIAMTasks",
+            "Effect": "Allow",
+            "Action": [
+              "cloudwatch:*",
+              "iam:CreateAccessKey",
+              "iam:CreateGroup",
+              "iam:CreateLoginProfile",
+              "iam:CreatePolicy",
+              "iam:DeleteGroup",
+              "iam:DeletePolicy",
+              "iam:DeletePolicyVersion",
+              "iam:DeleteUser",
+              "iam:GetAccountPasswordPolicy",
+              "iam:GetGroup",
+              "iam:GetLoginProfile",
+              "iam:GetPolicy",
+              "iam:GetPolicyVersion",
+              "iam:GetRolePolicy",
+              "iam:GetUser",
+              "iam:GetUserPolicy",
+              "iam:ListAccessKeys",
+              "iam:ListAttachedRolePolicies",
+              "iam:ListAttachedUserPolicies",
+              "iam:ListEntitiesForPolicy",
+              "iam:ListGroups",
+              "iam:ListGroupsForUser",
+              "iam:ListMFADevices",
+              "iam:ListPolicies",
+              "iam:ListPolicyVersions",
+              "iam:ListRolePolicies",
+              "iam:ListSSHPublicKeys",
+              "iam:ListServiceSpecificCredentials",
+              "iam:ListSigningCertificates",
+              "iam:ListUserPolicies",
+              "iam:ListUsers",
+              "iam:SetDefaultPolicyVersion",
+              "iam:SimulateCustomPolicy",
+              "iam:SimulatePrincipalPolicy",
+              "iam:UpdateGroup",
+              "iam:UpdateLoginProfile",
+              "iam:UpdateUser"
+            ],
+            "NotResource": "arn:aws:iam::123456789012:user/Maria"
+        },
+        <span>{</span>
+            "Sid": "NoBoundaryPolicyEdit",
+            "Effect": "Deny",
+            "Action": [
+                "iam:CreatePolicyVersion",
+                "iam:DeletePolicy",
+                "iam:DeletePolicyVersion",
+                "iam:SetDefaultPolicyVersion"
+            ],
+            "Resource": [
+                "arn:aws:iam::123456789012:policy/XCompanyBoundaries",
+                "arn:aws:iam::123456789012:policy/DelegatedUserBoundary"
+            ]
+        },
+        <span>{</span>
+            "Sid": "NoBoundaryUserDelete",
+            "Effect": "Deny",
+            "Action": "iam:DeleteUserPermissionsBoundary",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+        <p>ステートメントごとに用途は異なります。</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p><code class="code">CreateOrChangeOnlyWithBoundary</code> ステートメントでは、IAM ユーザーを作成することを Zhang に許可します。ただし、<code class="code">XCompanyBoundaries</code> ポリシーを使用してアクセス許可の境界を設定することを条件とします。また、このステートメントでは、既存のユーザーにアクセス許可の境界を設定することを Zhang に許可します。ただし、同じポリシーを使用することを条件とします。最後に、このステートメントでは、このアクセス許可の境界が設定されたユーザーのアクセス許可ポリシーを管理することを Zhang に許可します。</p>
+            </li><li>
+                <p><code class="code">CloudWatchAndOtherIAMTasks</code> ステートメントでは、他のユーザー、グループ、およびポリシーの管理タスクを実行することを Zhang に許可します。Zhang には、<code class="code">NotResource</code> ポリシー要素にリストされていないすべての IAM ユーザーのパスワードをリセットして、アクセスキーを作成する許可があります。これにより、ユーザーのサインインの問題を支援できます。</p>
+            </li><li>
+                <p><code class="code">NoBoundaryPolicyEdit</code> ステートメントでは、<code class="code">XCompanyBoundaries</code> ポリシーを更新するためのアクセスを Zhang に拒否します。自分自身や他のユーザーのアクセス許可の境界を設定するために使用されているポリシーを変更することは許可されません。</p>
+            </li><li>
+                <p><code class="code">NoBoundaryUserDelete</code> ステートメントは、Zhang が自分自身あるいは他のユーザーのアクセス許可境界を削除するためにアクセスすることを拒否します。</p>
+            </li></ol></div>
+        <p>次に María は、<code class="code">Zhang</code> ユーザーの<a href="./id_users_change-permissions.html#users_change_permissions-set-boundary-console">アクセス許可の境界</a>として <code class="code">DelegatedUserBoundary</code> ポリシーを割り当てます。</p>
+        <p><b>タスク 3</b>: アクセス許可の境界ではアクセス許可の上限を設定するだけで、それ自体はアクセスを付与しないため、Maria は Zhang のアクセス許可ポリシーを作成する必要があります。次のポリシーを <code class="code">DelegatedUserPermissions</code> という名前で作成します。このポリシーでは、設定された境界内で、Zhang が実行できるオペレーションを定義します。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "IAM",
+            "Effect": "Allow",
+            "Action": "iam:*",
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "CloudWatchLimited",
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:GetDashboard",
+                "cloudwatch:GetMetricData",
+                "cloudwatch:ListDashboards",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "S3BucketContents",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::ZhangBucket"
+        }
+    ]
+}</code></pre>
+        <p>ステートメントごとに用途は異なります。</p>
+        <div class="orderedlist">
+             
+             
+             
+        <ol><li>
+                <p>このポリシーの <code class="code">IAM</code> ステートメントでは、IAM へのフルアクセスを Zhang に許可します。ただし、許可される IAM オペレーションはアクセス許可の境界で制限されます。有効な IAM アクセス許可を制限するのはアクセス許可の境界のみです。</p>
+            </li><li>
+                <p><code class="code">CloudWatchLimited</code> ステートメントでは、CloudWatch で 5 つのアクションを実行することを Zhang に許可します。アクセス許可の境界ですべての CloudWatch アクションが許可されるため、有効な CloudWatch アクセス許可はアクセス許可ポリシーでのみ限定されます。</p>
+            </li><li>
+                <p><code class="code">S3BucketContents</code> ステートメントでは、Amazon S3 バケット <code class="code">ZhangBucket</code> を表示することを Zhang に許可します。ただし、アクセス許可の境界で一切の Amazon S3 アクションが許可されないため、アクセス許可ポリシーにかかわらず、S3 オペレーションを実行することはできません。</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>Zhang のポリシーにより、彼は自分がアクセスできない Amazon S3 リソースにアクセスできるユーザーを作成できます。これらの管理アクションを委任することによって、Maria は Zhang に Amazon S3 へのアクセス権を効果的に信頼します。</p></div></div>
+            </li></ol></div>
+        <p>次に María は、<code class="code">DelegatedUserPermissions</code> ユーザーのアクセス許可ポリシーとして <code class="code">Zhang</code> ポリシーをアタッチします。</p>
+        <p><b>タスク 4</b>: María は、新しいユーザーを作成する手順を Zhang に伝えます。新しいユーザーを作成して必要なアクセス権を付与できますが、アクセス許可の境界として <code class="code">XCompanyBoundaries</code> ポリシーを割り当てる必要があることを説明します。</p>
+        <p>Zhang は以下のタスクを実行します。</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+             
+        <ol><li>
+                <p>Zhang は AWS Management Console を使用して<a href="./id_users_create.html#id_users_create_console">ユーザーを作成</a>します。ユーザー名として「<code class="code">Nikhil</code>」と入力し、このユーザーに対してコンソールへのアクセスを有効にします。上記のポリシーではユーザーが IAM コンソールにサインインした後にのみパスワードを変更できるため、<b>[Requires password reset]</b> (パスワードのリセットが必要) の横にあるチェックボックスをオフにします。</p>
+            </li><li>
+                <p>[<b>アクセス許可の設定</b>] ページで、Zhang は Nikhil にタスクの実行を許可するアクセス許可ポリシーとして [<b>IAMFullAccess</b>] と [<b>AmazonS3ReadOnlyAccess</b>] を選択します。</p>
+            </li><li>
+                <p>Zhang は、María に教えられた手順を忘れて、[<b>Set permissions boundary (アクセス許可の境界の設定)</b>] セクションをスキップします。</p>
+            </li><li>
+                <p>Zhang はユーザーの詳細を確認し、[<b>ユーザーの作成</b>] を選択します。</p>
+                <p>オペレーションは失敗し、アクセスが拒否されます。Zhang の <code class="code">DelegatedUserBoundary</code> アクセス許可の境界では、作成するユーザーにアクセス許可の境界として <code class="code">XCompanyBoundaries</code> ポリシーが必要です。</p>
+            </li><li>
+                <p>Zhang は前のページに戻ります。[<b>Set permissions boundary (アクセス許可の境界の設定)</b>] セクションで、<code class="code">XCompanyBoundaries</code> ポリシーを選択します。</p>
+            </li><li>
+                <p>Zhang はユーザーの詳細を確認し、[<b>ユーザーの作成</b>] を選択します。</p>
+                <p>ユーザーが作成されます。</p>
+            </li></ol></div>
+        <p>Nikhil は、サインインすると、アクセス許可の境界で拒否されているオペレーションを除いて、IAM と Amazon S3 にアクセスできます。たとえば、IAM で自分のパスワードは変更できますが、別のユーザーを作成したり、自分のポリシーを編集したりすることはできません。Nikhil は Amazon S3 への読み取り専用アクセス権を持っています。</p>
+        <p>リソースベースのポリシーを <code class="code">logs</code> バケットに追加して Nikhil がそのバケットにオブジェクトを配置できるようにしても、Nikhil はこのバケットにアクセスできません。理由は、<code class="code">logs</code> バケットのアクションはすべて、彼のアクセス許可の境界によって明示的に拒否されているためです。いずれかのポリシータイプで明示的に拒否されていると、リクエストは拒否されます。ただし、Secrets Manager シークレットにアタッチされているリソースベースのポリシーで、<code class="code">secretsmanager:GetSecretValue</code> アクションの実行を Nikhil に許可している場合、Nikhil は、そのシークレットを取得して復号できます。これは、Secrets Manager オペレーションは、彼のアクセス許可境界によって明示的に拒否されており、アクセス許可の境界の暗黙的な拒否により、リソースベースのポリシーが制限されないためです。</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access_policies_managed-deprecated.html">非推奨の AWS 管理ポリシー</div><div id="next" class="next-link" accesskey="n" href="./access_policies_identity-vs-resource.html">アイデンティティとリソースの比較</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

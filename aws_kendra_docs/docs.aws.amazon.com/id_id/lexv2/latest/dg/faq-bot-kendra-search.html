@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="id-ID"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Contoh: Membuat Bot FAQ untuk Indeks Amazon Kendra - Amazon Lex</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="faq-bot-kendra-search" /><meta name="default_state" content="faq-bot-kendra-search" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="description" content="Contoh ini membuat bot Amazon Lex V2 yang menggunakan indeks Amazon Kendra untuk memberikan jawaban atas pertanyaan pengguna. Bot FAQ mengelola dialog untuk pengguna. Menggunakan AMAZON.KendraSearchIntent maksud untuk query indeks dan menyajikan respon kepada pengguna. Berikut adalah ringkasan tentang bagaimana Anda akan membuat bot FAQ Anda menggunakan indeks Amazon Kendra:" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Lex" /><meta name="guide" content="Panduan Developer V2 2 per" /><meta name="abstract" content="Memberikan gambaran umum konseptual Amazon Lex V2. Termasuk petunjuk terperinci untuk menggunakan berbagai fitur, seperti percakapan streaming, dan memberikan referensi lengkap untuk API V2." /><meta name="guide-locale" content="id_id" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="x-default" /><meta name="feedback-item" content="Lex" /><meta name="this_doc_product" content="Amazon Lex" /><meta name="this_doc_guide" content="Panduan Developer V2 2 per" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'lex'}"></script><meta id="panorama-serviceSubSection" value="Panduan Developer V2 2 per" /><meta id="panorama-serviceConsolePage" value="Contoh: Membuat Bot FAQ untuk Indeks Amazon Kendra" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Contoh: Membuat Bot FAQ untuk Indeks Amazon Kendra - Amazon Lex</title><meta name="pdf" content="lex2.0.pdf#faq-bot-kendra-search" /><meta name="rss" content="amazon-lex-v2-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=251" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=http://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Lex",
+        "item" : "https://docs.aws.amazon.com/lex/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Panduan Developer V2 2 per",
+        "item" : "https://docs.aws.amazon.com/id_id/lexv2/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Membangun bot",
+        "item" : "https://docs.aws.amazon.com/id_id/lexv2/latest/dg/building-bots.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Maksud bawaan dan jenis slot",
+        "item" : "https://docs.aws.amazon.com/id_id/lexv2/latest/dg/built-in.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Maksud bawaan",
+        "item" : "https://docs.aws.amazon.com/id_id/lexv2/latest/dg/howitworks-builtins-intents.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "AMAZON. KendraSearchIntent",
+        "item" : "https://docs.aws.amazon.com/id_id/lexv2/latest/dg/built-in-intent-kendra-search.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Contoh: Membuat Bot FAQ untuk Indeks Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/id_id/lexv2/latest/dg/built-in-intent-kendra-search.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="lex2.0.pdf#faq-bot-kendra-search" target="_blank" rel="noopener noreferrer" title="Buka PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Dokumentasi</a><a href="/lex/index.html">Amazon Lex</a><a href="what-is.html">Panduan Developer V2 2 per</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>Terjemahan disediakan oleh mesin penerjemah. Jika konten terjemahan yang diberikan bertentangan dengan versi bahasa Inggris aslinya, utamakan versi bahasa Inggris.</p></awsui-alert><h1 class="topictitle" id="faq-bot-kendra-search">Contoh: Membuat Bot FAQ untuk Indeks Amazon Kendra</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Contoh ini membuat bot Amazon Lex V2 yang menggunakan indeks Amazon Kendra untuk memberikan jawaban atas pertanyaan pengguna. Bot FAQ mengelola dialog untuk pengguna. Menggunakan<code class="code">AMAZON.KendraSearchIntent</code> maksud untuk query indeks dan menyajikan respon kepada pengguna. Berikut adalah ringkasan tentang bagaimana Anda akan membuat bot FAQ Anda menggunakan indeks Amazon Kendra:</p><div class="orderedlist">
+                     
+                     
+                     
+                     
+                <ol><li>
+                        <p>Buat bot yang akan berinteraksi dengan pelanggan Anda untuk mendapatkan jawaban dari bot Anda.</p>
+                    </li><li>
+                        <p>Buat intent kustom. Karena<code class="code">AMAZON.KendraSearchIntent</code> dan<code class="code">AMAZON.FallbackIntent</code> intent cadangan, bot Anda membutuhkan setidaknya satu maksud lain yang harus mengandung setidaknya satu ucapan. Maksud ini memungkinkan bot Anda untuk membangun, tetapi tidak digunakan sebaliknya. Oleh karena itu, bot FAQ Anda akan berisi setidaknya tiga intent, seperti pada gambar di bawah ini: </p>
+                            
+                        <div class="mediaobject">
+                             
+                                <img src="images/kendra-faqbot/kendra-intents.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                Bot Kendra FAQ dengan tiga maksud&#xA;                            " />
+                             
+                             
+                        </div>
+                    </li><li>
+                        <p>Tambahkan<code class="code">AMAZON.KendraSearchIntent</code> maksud ke bot Anda dan konfigurasikan agar berfungsi dengan <a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index.html">indeks Amazon Kendra</a> Anda. </p>
+                    </li><li>
+                        <p>Uji bot dengan membuat kueri dan memverifikasi bahwa hasil dari indeks Amazon Kendra Anda adalah dokumen yang menjawab kueri.</p>
+                    </li></ol></div><p><b>Prasyarat</b></p><p>Sebelum Anda dapat menggunakan contoh ini, Anda perlu membuat indeks Amazon Kendra. Untuk informasi selengkapnya, lihat <a href="https://docs.aws.amazon.com/kendra/latest/dg/gs-console.html">Memulai konsol Amazon Kendra</a> di <em>Panduan Pengembang Amazon Kendra</em>. Untuk contoh ini, pilih kumpulan data <b>sampel (Contoh dokumentasi AWS</b>) sebagai sumber data Anda.</p><div class="procedure"><h6>Untuk membuat bot FAQ:</h6><ol><li><p>Masuk keAWS Management Console dan buka konsol Amazon Lex di <a href="https://console.aws.amazon.com/lex/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/lex/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                        <p>Di panel navigasi, pilih <b>Bot</b>. </p>
+                    </li><li>
+                        <p>Pilih <b>Buat bot</b>.</p>
+                        <ol><li>
+                                <p> Untuk <b>metode Creation</b>, pilih <b>Create a blank bot</b>. </p>
+                            </li><li>
+                                <p> Di bagian <b>konfigurasi Bot</b>, beri bot nama yang menunjukkan tujuannya, seperti<code class="userinput">KendraTestBot</code>, dan deskripsi opsional. Nama harus unik di akun Anda. </p>
+                            </li><li>
+                                <p> Di bagian <b>Izin IAM</b>, pilih <b>Buat peran dengan izin dasar Amazon Lex</b>. Ini akan membuat peran <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html">AWS Identity and Access Management(IAM)</a> dengan izin yang diperlukan Amazon Lex V2 untuk menjalankan bot Anda. </p>
+                            </li><li>
+                                <p> Di bagian <b>Children's Online Privacy Protection Act (COPPA)</b>, pilih <b>No</b>. </p>
+                            </li><li>
+                                <p> Di bagian <b>batas waktu sesi Idle</b> dan <b>Pengaturan lanjutan</b>, biarkan pengaturan default dan pilih <b>Berikutnya</b>. </p>
+                            </li><li>
+                                <p> Sekarang Anda berada di bagian <b>Tambahkan bahasa ke bot</b>. Pada menu di bawah <b>Interaksi suara</b>, pilih <b>Tidak ada. Ini hanya aplikasi berbasis teks</b>. Tinggalkan pengaturan default untuk bidang yang tersisa. </p>
+                            </li><li>
+                                <p> Pilih<b>Selesai</b>. Amazon Lex V2 membuat bot Anda dan maksud default yang dipanggil <b>NewIntent</b>, dan membawa Anda ke halaman untuk mengonfigurasi maksud ini </p>
+                            </li></ol>
+                    </li></ol></div><p>Untuk berhasil membangun bot, Anda harus membuat setidaknya satu maksud yang terpisah dari<code class="code">AMAZON.FallbackIntent</code> dan<code class="code">AMAZON.KendraSearchIntent</code>. Maksud ini diperlukan untuk membangun bot Amazon Lex V2 Anda, tetapi tidak digunakan untuk respons FAQ. Maksud ini harus berisi setidaknya satu contoh ucapan dan ucapannya tidak boleh berlaku untuk pertanyaan apa pun yang diajukan pelanggan Anda.</p><div class="procedure"><h6>Untuk membuat maksud yang diperlukan:</h6><ol><li>
+                        <p> Di bagian <b>Rincian maksud</b>, beri nama intent, misalnya<code class="userinput">RequiredIntent</code>. </p>
+                    </li><li>
+                        <p> Di bagian <b>Contoh ucapan</b>, ketik ucapan di kotak di sebelah <b>Tambahkan ucapan</b>, misalnya<code class="userinput">Required utterance</code>. Lalu pilih <b>Tambahkan ucapan</b>. </p>
+                    </li><li>
+                        <p>Pilih <b>Simpan maksud</b>.</p>
+                    </li></ol></div><p>Buat maksud untuk mencari indeks Amazon Kendra dan pesan respons yang harus dikembalikan.</p><div class="procedure"><h6>Untuk membuat AMAZON. KendraSearchIntent maksud dan pesan respons:</h6><ol><li>
+                        <p> Pilih <b>Kembali ke daftar maksud</b> di panel navigasi untuk kembali ke halaman <b>Maksud</b> untuk bot Anda. Pilih <b>Tambahkan maksud</b> dan pilih <b>Gunakan intent bawaan</b> dari menu tarik-turun. </p>
+                    </li><li>
+                        <p> Di kotak yang muncul, pilih menu di bawah <b>Maksud bawaan.</b> Masukkan<code class="userinput">AMAZON.KendraSearchIntent</code> di bilah pencarian lalu pilih dari daftar. </p>
+                    </li><li>
+                        <p> Beri maksud nama, seperti<code class="userinput">KendraSearchIntent</code>. </p>
+                    </li><li>
+                        <p> Dari menu tarik-turun <b>indeks Amazon Kendra</b>, pilih indeks yang ingin Anda cari. Indeks yang Anda buat di bagian <b>Prasyarat</b> harus tersedia. </p>
+                    </li><li>
+                        <p> Pilih <b>Tambahkan</b>. </p>
+                    </li><li>
+                        <p>Di editor maksud, gulir ke bawah ke bagian <b>Pemenuhan</b>, pilih panah kanan untuk memperluas bagian, dan tambahkan pesan berikut di kotak di bawah <b>Pada pemenuhan yang berhasil</b>: </p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="">I found a link to a document that could help you: ((x-amz-lex:kendra-search-response-document-link-1)).</code></pre>
+                    
+                        <div class="mediaobject">
+                             
+                                <img src="images/kendra-faqbot/kendra-fulfillment-response.gif" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                Tambahkan respons pemenuhan&#xA;                            " />
+                             
+                             
+                        </div>
+                        
+                        <p> Untuk informasi selengkapnya tentang Respons Pencarian Amazon Kendra, lihat <a href="https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-kendra-search.html#kendra-search-response">Menggunakan Respons Pencarian</a>. </p>
+                    
+                    </li><li>
+                        <p>Pilih <b>Simpan maksud</b>, lalu pilih <b>Build</b> untuk membangun bot. Ketika bot siap, spanduk di bagian atas layar berubah menjadi hijau dan menampilkan pesan sukses. </p>
+                    </li></ol></div><p>Terakhir, gunakan jendela uji konsol untuk menguji respons dari bot Anda.</p><div class="procedure"><h6>Untuk menguji bot FAQ Anda:</h6><ol><li>
+                        <p> Setelah bot berhasil dibangun, pilih <b>Uji</b>. </p>
+                    </li><li>
+                        <p> Masukkan<code class="userinput">What is Amazon Kendra?</code> di jendela uji konsol. Verifikasi bahwa bot merespons dengan tautan. </p>
+                    </li><li>
+                        <p> Untuk informasi lebih lanjut tentang konfigurasi<code class="code">AMAZON.KendraSearchIntent</code>, lihat <a href="https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-kendra-search.html">AMAZON. KendraSearchIntent</a>dan <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_KendraConfiguration.html">KendraConfiguration</a>. </p>
+                    </li></ol></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Awas" /> <strong>Javascript dinonaktifkan atau tidak tersedia di browser Anda.</strong></p><p>Untuk menggunakan Dokumentasi AWS, Javascript harus diaktifkan. Lihat halaman Bantuan browser Anda untuk petunjuk.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Konvensi Dokumen</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./built-in-intent-kendra-search.html">AMAZON. KendraSearchIntent</div><div id="next" class="next-link" accesskey="n" href="./built-in-intent-pause.html">AMAZON. PauseIntent</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Apakah halaman ini membantu Anda? - Ya</div><div class="content"><p>Terima kasih telah memberitahukan bahwa hasil pekerjaan kami sudah baik.</p><p>Jika Anda memiliki waktu luang, beri tahu kami aspek apa saja yang sudah bagus, agar kami dapat menerapkannya secara lebih luas.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Umpan Balik" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Apakah halaman ini membantu Anda? - Tidak</div><div class="content"><p>Terima kasih telah memberi tahu kami bahwa halaman ini perlu ditingkatkan. Maaf karena telah mengecewakan Anda.</p><p>Jika Anda memiliki waktu luang, beri tahu kami bagaimana dokumentasi ini dapat ditingkatkan.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Umpan Balik" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

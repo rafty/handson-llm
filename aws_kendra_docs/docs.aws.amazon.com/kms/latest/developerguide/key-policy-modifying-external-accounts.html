@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Allowing users in other accounts to use a KMS key - AWS Key Management Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="key-policy-modifying-external-accounts" /><meta name="default_state" content="key-policy-modifying-external-accounts" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-modifying-external-accounts.html" /><meta name="description" content="You can allow users or roles in a different AWS account to use a KMS key in your account. Cross-account access requires permission in the key policy of the KMS key and in an IAM policy in the external user's account." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Key Management Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Learn how to use AWS Key Management Service (AWS KMS) to securely store and manage encryption keys and perform encryption and decryption of user data." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-modifying-external-accounts.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-modifying-external-accounts.html" hreflang="x-default" /><meta name="feedback-item" content="Key Management Service (KMS)" /><meta name="this_doc_product" content="AWS Key Management Service" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kms'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Allowing users in other accounts to use a KMS key" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Allowing users in other accounts to use a KMS key - AWS Key Management Service</title><meta name="pdf" content="/pdfs/kms/latest/developerguide/kms-dg.pdf#key-policy-modifying-external-accounts" /><meta name="github" content="https://github.com/awsdocs/aws-kms-developer-guide/tree/master/doc_source/key-policy-modifying-external-accounts.md" /><meta name="rss" content="aws-kms-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=182" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key%20Management%20Service%20%28KMS%29&amp;topic_url=http://docs.aws.amazon.com/en_us/kms/latest/developerguide/key-policy-modifying-external-accounts.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/kms/latest/developerguide/key-policy-modifying-external-accounts.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/kms/latest/developerguide/key-policy-modifying-external-accounts.html" /><meta name="keywords" content="KMS,key management service,encryption key management,encryption key,,envelope encryption" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Authentication and access control for AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Allowing users in other accounts to use a KMS key",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/kms/latest/developerguide/kms-dg.pdf#key-policy-modifying-external-accounts" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-kms-developer-guide/tree/master/doc_source/key-policy-modifying-external-accounts.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/kms/index.html">AWS KMS</a><a href="overview.html">Developer Guide</a></div><div id="page-toc-src"><a href="#cross-account-key-policy">Step 1: Add a key policy statement in the
+                local account</a><a href="#cross-account-iam-policy">Step 2: Add IAM policies in the external
+                account</a><a href="#cross-account-console">Creating KMS keys that other accounts can
+                use</a><a href="#cross-account-service">Allowing use of external KMS keys with AWS services</a><a href="#cross-account-use">Using KMS keys in other accounts</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="key-policy-modifying-external-accounts">Allowing users in other accounts to
+            use a KMS key</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can allow users or roles in a different AWS account to use a KMS key in your
+        account. Cross-account access requires permission in the key policy of the KMS key and in
+        an IAM policy in the external user's account.</p><p>Cross-account permission is effective only for the following operations:</p><div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><a href="./concepts.html#cryptographic-operations">Cryptographic operations</a></p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a></p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html">DescribeKey</a></p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html">GetKeyRotationStatus</a></p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html">GetPublicKey</a></p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html">ListGrants</a></p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html">RetireGrant</a></p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html">RevokeGrant</a></p>
+        </li></ul></div><p>If you give a user in a different account permission for other operations, those
+        permissions have no effect. For example, if you give a principal in a different account
+            <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html">kms:ListKeys</a> permission in an IAM
+        policy, or <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ScheduleKeyDeletion.html">kms:ScheduleKeyDeletion</a> permission on a KMS key in a key policy, the user's
+        attempts to call those operations on your resources still fail. </p><p>For details about using KMS keys in different accounts for AWS KMS operations, see the
+            <b>Cross-account use</b> column in the <a href="./kms-api-permissions-reference.html">AWS KMS permissions</a>
+        and <a href="#cross-account-use">Using KMS keys in other accounts</a>. There is also a
+            <b>Cross-account use</b> section in each API description in
+        the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/">AWS Key Management Service API Reference</a>.</p><div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>Be cautious about giving principals permissions to use your KMS keys. Whenever
+            possible, follow the <em>least privilege</em> principle. Give
+            users access only to the KMS keys they need for only the operations they
+            require.</p><p>Also, be cautious about using any unfamiliar KMS key, especially a KMS key in a
+            different account. Malicious users might give you permissions to use their KMS key to
+            get information about you or your account. </p><p>For information about using policies to protect the resources in your account, see
+                <a href="./iam-policies-best-practices.html">Best practices for IAM policies</a>.</p></div></div><p>To give permission to use a KMS key to users and roles in another account, you must use
+        two different types of policies:</p><div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>The <b>key policy</b> for the KMS key must give the
+                external account (or users and roles in the external account) permission to use the
+                KMS key. The key policy is in the account that owns the KMS key.</p>
+        </li><li class="listitem">
+            <p><b>IAM policies</b> in the external account must
+                delegate the key policy permissions to its users and roles. These policies are set
+                in the external account and give permissions to users and roles in that
+                account.</p>
+        </li></ul></div><p>The key policy determines who <em>can</em> have access to the KMS key. The
+        IAM policy determines who <em>does</em> have access to the KMS key. Neither
+        the key policy nor the IAM policy alone is sufficient—you must change both. </p><p>To edit the key policy, you can use the <a href="./key-policy-modifying.html#key-policy-modifying-how-to-console-policy-view">Policy View</a> in the
+        AWS Management Console or use the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> or
+            <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html">PutKeyPolicy</a> operations. For
+        help setting the key policy when creating a KMS key, see <a href="#cross-account-console">Creating KMS keys that other accounts can
+                use</a>.</p><p>For help with editing IAM policies, see <a href="./iam-policies.html">Using IAM policies with AWS KMS</a>. </p><p>For an example that shows how the key policy and IAM policies work together to allow use
+        of a KMS key in a different account, see <a href="./policy-evaluation.html#example-cross-acct">Example 2: User assumes role with permission to use a KMS key
+        in a different AWS account</a>.</p><p>You can view the resulting cross-account AWS KMS operations on the KMS key in your <a href="./logging-using-cloudtrail.html">AWS CloudTrail logs</a>. Operations that use KMS keys
+        in other accounts are logged in both the caller's account and the KMS key owner
+        account.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#cross-account-key-policy">Step 1: Add a key policy statement in the
+                local account</a></li><li><a href="#cross-account-iam-policy">Step 2: Add IAM policies in the external
+                account</a></li><li><a href="#cross-account-console">Creating KMS keys that other accounts can
+                use</a></li><li><a href="#cross-account-service">Allowing use of external KMS keys with AWS services</a></li><li><a href="#cross-account-use">Using KMS keys in other accounts</a></li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The examples in this topic show how to use a key policy and IAM policy together to
+            provide and limit access to a KMS key. These generic examples are not intended to
+            represent the permissions that any particular AWS service requires on a KMS key. For
+            information about the permissions that an AWS service requires, see the encryption
+            topic in the service documentation.</p></div></div>
+        <h2 id="cross-account-key-policy">Step 1: Add a key policy statement in the
+                local account</h2>
+        <p>The key policy for a KMS key is the primary determinant of who can access the
+            KMS key and which operations they can perform. The key policy is always in the account
+            that owns the KMS key. Unlike IAM policies, key policies do not specify a resource.
+            The resource is the KMS key that is associated with the key policy. When providing
+            cross-account permission, the key policy for the KMS key must give the external
+            account (or users and roles in the external account) permission to use the
+            KMS key.</p>
+        <p>To give an external account permission to use the KMS key, add a statement to the
+            key policy that specifies the external account. In the <code class="code">Principal</code> element of
+            the key policy, enter the Amazon Resource Name (ARN) of the external account. </p>
+        <p>When you specify an external account in a key policy, IAM administrators in the
+            external account can use IAM policies to delegate those permissions to any users and
+            roles in the external account. They can also decide which of the actions specified in
+            the key policy the users and roles can perform. </p>
+        <p>Permissions given to the external account and its principals are effective only if the
+            external account is enabled in the Region that hosts the KMS key and its key policy.
+            For information about Regions that are not enabled by default ("opt-in Regions"), see
+                <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html">Managing AWS Regions</a> in the
+                <em>AWS General Reference</em>.</p>
+        <p>For example, suppose you want to allow account <code class="code">444455556666</code> to
+            use a symmetric encryption KMS key in account <code class="code">111122223333</code>. To
+            do that, add a policy statement like the one in the following example to the key policy
+            for the KMS key in account <code class="code">111122223333</code>. This policy statement
+            gives the external account, <code class="code">444455556666</code>, permission to use the
+            KMS key in cryptographic operations for symmetric encryption KMS keys. </p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The following example represents a sample key policy for sharing a KMS key with
+                another account. Replace the example <code class="code">Sid</code>, <code class="code">Principal</code>, and
+                    <code class="code">Action</code> values with valid values for the intended use of your
+                KMS key. </p></div></div>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Sid": "<code class="replaceable">Allow an external account to use this KMS key</code>",
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+        "AWS": [
+            "<code class="replaceable">arn:aws:iam::444455556666:root</code>"
+        ]
+    },
+    "Action": [
+        <code class="replaceable">"kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey"</code>
+    ],
+    "Resource": "*"
+}</code></pre>
+        <p>Instead of giving permission to the external account, you can specify particular
+            external users and roles in the key policy . However, those users and roles cannot use
+            the KMS key until IAM administrators in the external account attach the proper IAM
+            policies to their identities. The IAM policies can give permission to all or a subset
+            of the external users and roles that are specified in the key policy. And they can allow
+            all or a subset of the actions specified in the key policy. </p>
+        <p>Specifying identities in a key policy restricts the permissions that IAM
+            administrators in the external account can provide. However, it makes policy management
+            with two accounts more complex. For example, assume that you need to add a user or role.
+            You must add that identity to the key policy in the account that owns the KMS key and
+            create IAM policies in the identity's account.</p>
+        <p>To specify particular external users or roles in a key policy, in the
+                <code class="code">Principal</code> element, enter the Amazon Resource Name (ARN) of a user or
+            role in the external account.</p>
+        <p>For example, the following example key policy statement allows
+                <code class="code">ExampleRole</code> in account <code class="code">444455556666</code> to use a
+            KMS key in account <code class="code">111122223333</code>. This key policy statement
+            gives the external account, <code class="code">444455556666</code>, permission to use the
+            KMS key in cryptographic operations for symmetric encryption KMS keys. </p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The following example represents a sample key policy for sharing a KMS key with
+                another account. Replace the example <code class="code">Sid</code>, <code class="code">Principal</code>, and
+                    <code class="code">Action</code> values with valid values for the intended use of your
+                KMS key. </p></div></div>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Sid": "<code class="replaceable">Allow an external account to use this KMS key</code>",
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+        <code class="replaceable">"AWS": "arn:aws:iam::444455556666:role/ExampleRole"</code>
+    },
+    "Action": [
+        <code class="replaceable">"kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey"</code>
+    ],
+    "Resource": "*"
+}</code></pre>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Do not set the Principal to an asterisk (*) in any key policy statement that allows permissions unless you use <a href="./policy-conditions.html">conditions</a> to limit the key policy. An asterisk gives every identity in every AWS account permission to use the KMS key, unless another policy statement explicitly denies it. Users in other AWS accounts can use your KMS key whenever they have corresponding permissions in their own account.</p></div></div>
+        <p>You also need to decide which permissions you want to give to the external account.
+            For a list of permissions on KMS keys, see <a href="./kms-api-permissions-reference.html">AWS KMS permissions</a>.</p>
+        <p>You can give the external account permission to use the KMS key in <a href="./concepts.html#cryptographic-operations">cryptographic operations</a> and use the
+            KMS key with AWS services that are integrated with AWS KMS. To do that, use the
+                <b>Key Users</b> section of the AWS Management Console. For details, see <a href="#cross-account-console">Creating KMS keys that other accounts can
+                use</a>.</p>
+        <p>To specify other permissions in key policies, edit the key policy document. For
+            example, you might want to give users permission to decrypt but not encrypt, or
+            permission to view the KMS key but not use it. To edit the key policy document, you
+            can use the <a href="./key-policy-modifying.html#key-policy-modifying-how-to-console-policy-view">Policy
+                View</a> in the AWS Management Console or the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a> or <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html">PutKeyPolicy</a> operations.</p>
+     
+        <h2 id="cross-account-iam-policy">Step 2: Add IAM policies in the external
+                account</h2>
+        <p>The key policy in the account that owns the KMS key sets the valid range for
+            permissions. But, users and roles in the external account cannot use the KMS key until
+            you attach IAM policies that delegate those permissions, or use grants to manage
+            access to the KMS key. The IAM policies are set in the external account. </p>
+        <p>If the key policy gives permission to the external account, you can attach IAM
+            policies to any user or role in the account. But if the key policy gives permission to
+            specified users or roles, the IAM policy can only give those permissions to all or a
+            subset of the specified users and roles. If an IAM policy gives KMS key access to
+            other external users or roles, it has no effect.</p>
+        <p>The key policy also limits the actions in the IAM policy. The IAM policy can
+            delegate all or a subset of the actions specified in the key policy. If the IAM policy
+            lists actions that are not specified in the key policy, those permissions are not
+            effective.</p>
+        <p>The following example IAM policy allows the principal to use the KMS key in
+            account <code class="code">111122223333</code> for cryptographic operations. To give this
+            permission to users and roles in account <code class="code">444455556666</code>, <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console">attach the policy</a> to the users or roles in account
+                <code class="code">444455556666</code>.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The following example represents a sample IAM policy for sharing a KMS key
+                with another account. Replace the example <code class="code">Sid</code>, <code class="code">Resource</code>,
+                and <code class="code">Action</code> values with valid values for the intended use of your
+                KMS key.</p></div></div>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Sid": "<code class="replaceable">AllowUseOfKeyInAccount111122223333</code>",
+    "Effect": "Allow",
+    "Action": [
+      <code class="replaceable">"kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"</code>
+    ],
+    "Resource": "<code class="replaceable">arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>"
+}</code></pre>
+        <p>Note the following details about this policy:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Unlike key policies, IAM policy statements do not contain the
+                        <code class="code">Principal</code> element. In IAM policies, the principal is the
+                    identity to which the policy is attached. </p>
+            </li><li class="listitem">
+                <p>The <code class="code">Resource</code> element in the IAM policy identifies the KMS key
+                    that the principal can use. To specify a KMS key, add its <a href="./concepts.html#key-id-alias-ARN">key ARN</a> to the <code class="code">Resource</code>
+                    element.</p>
+            </li><li class="listitem">
+                <p>You can specify more than one KMS key in the <code class="code">Resource</code> element.
+                    But if you don't specify particular KMS keys in the <code class="code">Resource</code>
+                    element, you might inadvertently give access to more KMS keys than you
+                    intend.</p>
+            </li><li class="listitem">
+                <p>To allow the external user to use the KMS key with <a href="https://aws.amazon.com/kms/features/#AWS_Service_Integration" rel="noopener noreferrer" target="_blank"><span>AWS services that integrate with
+                        AWS KMS,</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> you might need to add permissions to the key policy or the
+                    IAM policy. For details, see <a href="#cross-account-service">Allowing use of external KMS keys with AWS services</a>.</p>
+            </li></ul></div>
+        <p>For more information about working with IAM policies, see <a href="./iam-policies.html">IAM policies</a>.</p>
+     
+        <h2 id="cross-account-console">Creating KMS keys that other accounts can
+                use</h2>
+        <p>When you use the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html">CreateKey</a>
+            operation to create a KMS key, you can use its <code class="code">Policy</code> parameter to
+            specify a <a href="#cross-account-key-policy">key policy</a> that gives an external
+            account, or external users and roles, permission to use the KMS key. You must also add
+                <a href="#cross-account-iam-policy">IAM policies</a> in the external
+            account that delegate these permissions to the account's users and roles, even when
+            users and roles are specified in the key policy. You can change the key policy at any
+            time by using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html">PutKeyPolicy</a>
+            operation.</p>
+        <p>When you create a KMS key in the AWS Management Console, you also create its key policy. When you
+            select identities in the <b>Key Administrators</b> and <b>Key
+                Users</b> sections, AWS KMS adds policy statements for those identities to the
+            KMS key's key policy. </p>
+        <p>The <b>Key Users</b> section also lets you add external accounts as key
+            users.</p>
+        <div class="mediaobject">
+             
+                <img src="/images/kms/latest/developerguide/images/console-external-accounts-sm.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                The console element that adds external accounts to the key policy for a&#xA;                    KMS key.&#xA;            " />
+             
+             
+        </div>
+        <p>When you enter the account ID of an external account, AWS KMS adds two statements to the
+            key policy. This action only affects the key policy. Users and roles in
+            the external account cannot use the KMS key until you attach <a href="#cross-account-iam-policy">IAM policies</a> to give them some or all of
+            these permissions.</p>
+        <p>The first key policy statement gives the external account permission to use the
+            KMS key in cryptographic operations. </p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The following examples represent a sample key policy for sharing a KMS key with
+                another account. Replace the example <code class="code">Sid</code>, <code class="code">Principal</code>, and
+                    <code class="code">Action</code> values with valid values for the intended use of your
+                KMS key.</p></div></div>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Sid": "Allow use of the key",
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+        "<code class="replaceable">AWS": "arn:aws:iam::444455556666:root</code>"
+    },
+    "Action": [
+        <code class="replaceable">"kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey"</code>
+    ],
+    "Resource": "*"
+}</code></pre>
+        <p>The second key policy statement allows the external account to create, view, and
+            revoke grants on the KMS key, but only when the request comes from an <a href="https://aws.amazon.com/kms/features/#AWS_Service_Integration" rel="noopener noreferrer" target="_blank"><span>AWS service that is
+                integrated with AWS KMS</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. These permissions allow other AWS services that
+            encrypt user data to use the KMS key. </p>
+        <p>These permissions are designed for KMS keys that encrypt user data in AWS
+            services, such as <a href="./services-wm.html">Amazon WorkMail</a>. These services typically
+            use grants to get the permissions they need to use the KMS key on the user's behalf.
+            For details, see <a href="#cross-account-service">Allowing use of external KMS keys with AWS services</a>.</p>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Sid": "Allow attachment of persistent resources",
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+        <code class="replaceable">"AWS": "arn:aws:iam::444455556666:root"</code>
+    },
+    "Action": [
+        <code class="replaceable">"kms:CreateGrant",
+        "kms:ListGrants",
+        "kms:RevokeGrant"</code>
+    ],
+    "Resource": "*",
+    "Condition": <span>{</span>
+        "Bool": <span>{</span>
+            "kms:GrantIsForAWSResource": "true"
+        }
+    }
+}</code></pre>
+        <p>If these permissions don't meet your needs, you can edit them in the console <a href="./key-policy-modifying.html#key-policy-modifying-how-to-console-policy-view">policy view</a> or by
+            using the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html">PutKeyPolicy</a>
+            operation. You can specify particular external users and role instead of giving
+            permission to the external account. You can change the actions that the policy
+            specifies. And you can use global and AWS KMS policy conditions to refine the
+            permissions.</p>
+     
+        <h2 id="cross-account-service">Allowing use of external KMS keys with AWS services</h2>
+        <p>You can give a user in a different account permission to use your KMS key with a
+            service that is integrated with AWS KMS. For example, a user in an external account can
+            use your KMS key to <a href="./services-s3.html">encrypt the objects in an Amazon S3
+                bucket</a> or to <a href="./services-secrets-manager.html">encrypt the secrets
+                they store in AWS Secrets Manager</a>.</p>
+        <p>The key policy must give the external user or the external user's account permission
+            to use the KMS key. In addition, you need to attach IAM policies to the identity
+            that gives the user permission to use the AWS service. The service might also require
+            that users have additional permissions in the key policy or IAM policy. For a list of
+            permissions that the AWS service requires on a customer managed key, see the Data
+            Protection topic in the Security chapter of the user guide or developer guide for the
+            service. </p>
+     
+        <h2 id="cross-account-use">Using KMS keys in other accounts</h2>
+        <p>If you have permission to use a KMS key in a different AWS account, you can use
+            the KMS key in the AWS Management Console, AWS SDKs, AWS CLI, and AWS Tools for PowerShell. </p>
+        <p>To identify a KMS key in a different account in a shell command or API request, use
+            the following <a href="./concepts.html#key-id">key identifiers</a>.</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>For <a href="./concepts.html#cryptographic-operations">cryptographic operations</a>,
+                        <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html">DescribeKey</a>, and
+                        <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html">GetPublicKey</a>, use
+                    the <a href="./concepts.html#key-id-key-ARN">key ARN</a> or <a href="./concepts.html#key-id-alias-ARN">alias ARN</a> of the KMS key.</p>
+            </li><li class="listitem">
+                <p>For <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a>, <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html">GetKeyRotationStatus</a>, <a href="https://docs.aws.amazon.com/kms/latest/APIReference/ListGrants.html">ListGrants</a>, and <a href="https://docs.aws.amazon.com/kms/latest/APIReference/RevokeGrant.html">RevokeGrant</a>, use the key ARN of the KMS key.</p>
+            </li></ul></div>
+        <p>If you enter only a key ID or alias name, AWS assumes the KMS key is in your
+            account.</p>
+        <p>The AWS KMS console does not display KMS keys in other accounts, even if you have
+            permission to use them. Also, the lists of KMS keys displayed in the consoles of other
+            AWS services do not include KMS keys in other accounts. </p>
+        <p>To specify a KMS key in a different account in the console of an AWS service, you
+            must enter the key ARN or alias ARN of the KMS key. The required key identifier varies
+            with the service, and might differ between the service console and its API operations.
+            For details, see the service documentation.</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./abac.html">Attribute-based access control (ABAC)</div><div id="next" class="next-link" accesskey="n" href="./using-service-linked-roles.html">Service-linked roles</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/key-policy-modifying-external-accounts.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/key-policy-modifying-external-accounts.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

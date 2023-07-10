@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon Kendra자체 관리를 위한 지능형 랭킹 OpenSearch - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="opensearch-rerank" /><meta name="default_state" content="opensearch-rerank" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" /><meta name="description" content="OpenSearch (자체 관리형) 용Amazon Kendra 인텔리전트 랭킹 플러그인 설정 및 사용 방법" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="개발자 안내서" /><meta name="abstract" content="Amazon Kendra에 대한 개념적 개요를 제공합니다. Amazon Kendra기능에 대해 알아보고 콘솔, CLI 및 API를 사용하여 문서 인덱싱을 시작하세요." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/opensearch-rerank.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/opensearch-rerank.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/opensearch-rerank.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/opensearch-rerank.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/opensearch-rerank.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/opensearch-rerank.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/opensearch-rerank.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/opensearch-rerank.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/opensearch-rerank.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/opensearch-rerank.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/opensearch-rerank.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/opensearch-rerank.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/opensearch-rerank.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/opensearch-rerank.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/opensearch-rerank.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/opensearch-rerank.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="개발자 안내서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="개발자 안내서" /><meta id="panorama-serviceConsolePage" value="Amazon Kendra자체 관리를 위한 지능형 랭킹 OpenSearch" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon Kendra자체 관리를 위한 지능형 랭킹 OpenSearch - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#opensearch-rerank" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" /><meta name="keywords" content="Kendra,Amazon Kendra,검색,인텔리전트 검색,자연 언어,인덱스를 구축하고 배포할 것입니다,질문,핵심어,데이터 원본,커넥터,FAQ,시맨틱,지능형 검색 순위,시맨틱 검색,지능형 검색" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "개발자 안내서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Kendra인텔리전트 순위",
+        "item" : "https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/intelligent-rerank.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon Kendra자체 관리를 위한 지능형 랭킹 OpenSearch",
+        "item" : "https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/intelligent-rerank.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#opensearch-rerank" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">개발자 안내서</a></div><div id="page-toc-src"><a href="#how-opensearch-rerank-plugin-works">지능형 검색 플러그인의 작동 방식</a><a href="#setup-opensearch-rerank-plugin">인텔리전트 검색</a><a href="#interact-opensearch-rerank-plugin">지능형 검색 플러그인과의 상호작용</a><a href="#compare-opensearch-rerank-plugin"> OpenSearch 결과와Amazon Kendra 결과 비교</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>기계 번역으로 제공되는 번역입니다. 제공된 번역과 원본 영어의 내용이 상충하는 경우에는 영어 버전이 우선합니다.</p></awsui-alert><h1 class="topictitle" id="opensearch-rerank">Amazon Kendra자체 관리를 위한 지능형 랭킹 OpenSearch</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Apache 2.0 License 기반의 자체 관리형 오픈 소스 검색 서비스에서 <a href="https://opensearch.org/docs/latest" rel="noopener noreferrer" target="_blank"><span>OpenSearch</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>의 시맨틱 검색 기능을 활용하여Amazon Kendra 검색 결과를 개선할 수 있습니다. Amazon Kendra인텔리전트 랭킹 플러그인은 를 사용하여 OpenSearch 결과의 순위를 의미적으로 다시 매깁니다Amazon Kendra. 이는 기본 OpenSearch  검색 결과에서 문서 본문이나 제목과 같은 특정 필드를 사용하여 검색 쿼리의 의미와 컨텍스트를 이해함으로써 이루어집니다.</p><p>“주요 기조 연설”이라는 쿼리를 예로 들어 보겠습니다. '주소'에는 여러 가지 의미가 있으므로 쿼리의 의미를 유추하여 의도한 의미에 맞는 관련 정보를 반환할Amazon Kendra 수 있습니다. 이러한 맥락에서 이것은 컨퍼런스 기조 연설입니다. 예를 들어 간단한 검색 서비스는 의도를 고려하지 않을 수 있으며 Main Street의 도로명 주소에 대한 결과를 반환할 수 있습니다.</p><p>의 인텔리전트 랭킹 플러그인은 OpenSearch  (자체 관리형) 버전 2.4.0 이상에서 사용할 수 있습니다. OpenSearch  퀵 스타트 Bash 스크립트를 사용하여 플러그인을 설치하여 인텔리전트 랭킹 플러그인이 포함된 새 Docker 이미지를 빌드할 수 있습니다. OpenSearch  참조<a href="#setup-opensearch-rerank-plugin">인텔리전트 검색</a> —다음은 빠르게 시작하고 실행할 수 있는 설정의 예입니다.</p>
+        <h2 id="how-opensearch-rerank-plugin-works">지능형 검색 플러그인의 작동 방식</h2>
+        <p> OpenSearch (자체 관리형) 용 인텔리전트 랭킹 플러그인의 전체 프로세스는 다음과 같습니다.</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+        <ol><li>
+                <p> OpenSearch 사용자가 쿼리를 발행하고 쿼리 응답 또는 쿼리와 관련된 문서 목록을 OpenSearch  제공합니다.</p>
+            </li><li>
+                <p>인텔리전트 랭킹 플러그인은 쿼리 응답을 받아 문서에서 정보를 추출합니다.</p>
+            </li><li>
+                <p>인텔리전트 랭킹 플러그인은Amazon Kendra 인텔리전트 랭킹의 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Ranking_Rescore.html">Rescore</a> API를 호출합니다.</p>
+            </li><li>
+                <p><code class="code">Rescore</code>API는 문서에서 추출된 정보를 가져와 의미론적으로 검색 결과의 순위를 다시 매깁니다.</p>
+            </li><li>
+                <p><code class="code">Rescore</code>API는 순위가 조정된 검색 결과를 플러그인으로 다시 보냅니다. 플러그인은 새로운 시맨틱 순위를 반영하여 OpenSearch  검색 응답의 검색 결과를 재정렬합니다.</p>
+            </li></ol></div>
+        <p>인텔리전트 랭킹 플러그인은 “본문” 및 “제목” 필드를 사용하여 결과 순위를 다시 매깁니다. 이러한 플러그인 필드는 문서 본문 및 제목의 정의에 가장 적합한 OpenSearch  색인의 필드에 매핑할 수 있습니다. 예를 들어 색인에 “chapter_heading” 및 “chapter_contents”와 같은 필드가 있는 책의 장이 포함된 경우 전자를 “제목”에 매핑하고 후자를 “본문”에 매핑하여 최상의 결과를 얻을 수 있습니다.</p>
+     
+        <h2 id="setup-opensearch-rerank-plugin">인텔리전트 검색</h2>
+        <p>다음은 인텔리전트 랭킹 플러그인을 사용하여 빠르게 설정 OpenSearch  (자체 관리) 하는 방법을 간략하게 설명합니다.</p>
+        <div class="procedure"><h6>인텔리전트 랭킹 플러그인을 통한 설정 OpenSearch  (자체 관리) (빠른 설정)</h6><p>이미 Docker 이미지를<code class="code">opensearch:2.4.0</code> 사용하고 있다면 이 <a href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html#dockerfile-build-opensearch-example">Dockerfile을</a> 사용하여 인텔리전트 랭킹 플러그인으로 OpenSearch  2.4.0의 새 이미지를 빌드할 수 있습니다. <a href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html#docker-compose-opensearch-example">도커-컴포지.yml 파일 또는 opensearch.yml</a> 파일에 새 이미지를 위한 컨테이너를 포함합니다. 또한 리전 및 엔드포인트 정보와 함께 리전 및 엔드포인트 정보와 함께 리전 실행 계획을 만들 때 생성한 리스코어 실행 계획 ID를 포함해야 합니다. 리스코어 실행 계획을 만들려면 2단계를 참조하십시오.</p><p>이전에 2.4.0 이전 버전의<code class="code">opensearch</code> Docker 이미지를 다운로드했다면 Docker 이미지 이상을 사용하고 인텔리전트 랭킹 플러그인이 포함된 새 이미지를 빌드해야 합니다.<code class="code">opensearch:2.4.0</code></p><ol><li>
+                <p>운영 체제에 맞는 <a href="https://docs.docker.com/get-docker/" rel="noopener noreferrer" target="_blank"><span>docker 데스크톱을</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> (를) 를 도커 데스크톱에는 도커 컴포즈와 도커 엔진이 포함되어 있습니다. 컴퓨터가 Docker 설치 세부 정보에 언급된 시스템 요구 사항을 충족하는지 확인하는 것이 좋습니다.</p>
+                <p>Docker Desktop의 설정에서 메모리 사용 요구 사항을 늘릴 수도 있습니다. Docker 서비스에 대해 무료로 제공되는 사용 한도를 벗어나는 Docker 사용 요구 사항에 대한 책임은 귀하에게 있습니다. <a href="https://docs.docker.com/subscription/" rel="noopener noreferrer" target="_blank"><span>Docker 구독을</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 참조하십시오.</p>
+                <p>Docker 데스크톱 상태가 “실행 중”인지 확인하십시오.</p>
+            </li><li>
+                <p>Amazon Kendra인텔리전트 랭킹 및 <a href="https://docs.aws.amazon.com/kendra/latest/dg/adjusting-capacity.html">용량</a> 요구 사항을 프로비저닝하세요. Amazon Kendra인텔리전트 랭킹을 프로비저닝하면 설정된 용량 단위를 기준으로 시간당 요금이 청구됩니다. <a href="http://aws.amazon.com/kendra/intelligent-ranking-pricing/" rel="noopener noreferrer" target="_blank"><span>프리 티어 및 가격 정보를</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 참조하십시오.</p>
+                <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Ranking_CreateRescoreExecutionPlan.html">CreateRescoreExecutionPlan</a>API를 사용하여 프로비저닝합니다<code class="code">Rescore API</code>. 단일 단위 기본값보다 많은 용량 단위가 필요하지 않은 경우 단위를 더 추가하지 말고 재채점 실행 계획의 이름만 입력하세요. <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Ranking_UpdateRescoreExecutionPlan.html">UpdateRescoreExecutionPlan</a>API를 사용하여 용량 요구 사항을 업데이트할 수도 있습니다. 자세한 내용은 <a href="https://docs.aws.amazon.com/kendra/latest/dg/search-service-rerank.html">검색 서비스 결과의 의미론적 순위</a> 지정을 참조하십시오.</p>
+                <p>선택적으로 3단계로 이동하여 퀵 스타트 Bash 스크립트를 실행할 때 기본 재점수 조정 실행 계획을 생성할 수 있습니다.</p>
+                <p>4단계에서는 응답에 포함된 리스코어 실행 계획 ID를 기록해 둡니다.</p>
+                <awsdocs-tabs><dl style="display: none">
+                    <dt>CLI</dt><dd tab-id="cli">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra-ranking create-rescore-execution-plan \
+  --name MyRescoreExecutionPlan \ 
+  --capacity-units '<span>{</span>"RescoreCapacityUnits":&lt;integer number of additional capacity units&gt;}'
+ 
+Response:
+ 
+<span>{</span>
+    "Id": "&lt;rescore execution plan ID&gt;",
+    "Arn": "arn:aws:kendra-ranking:&lt;region&gt;:&lt;account-id&gt;:rescore-execution-plan/&lt;rescore-execution-plan-id&gt;"
+}</code></pre>
+                        </dd>
+                    <dt>Python</dt><dd tab-id="python">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3
+from botocore.exceptions import ClientError
+import pprint
+import time
+
+kendra_ranking = boto3.client("kendra-ranking")
+
+print("Create a rescore execution plan.")
+
+# Provide a name for the rescore execution plan
+name = "MyRescoreExecutionPlan"
+# Set your required additional capacity units
+# Don't set capacity units if you don't require more than 1 unit given by default
+capacity_units = 1
+
+try:
+    rescore_execution_plan_response = kendra_ranking.create_rescore_execution_plan(
+        Name = name,
+        CapacityUnits = <span>{</span>"RescoreCapacityUnits":capacity_units}
+    )
+
+    pprint.pprint(rescore_execution_plan_response)
+
+    rescore_execution_plan_id = rescore_execution_plan_response["Id"]
+
+    print("Wait for Amazon Kendra to create the rescore execution plan.")
+
+    while True:
+        # Get the details of the rescore execution plan, such as the status
+        rescore_execution_plan_description = kendra_ranking.describe_rescore_execution_plan(
+            Id = rescore_execution_plan_id
+        )
+        # When status is not CREATING quit.
+        status = rescore_execution_plan_description["Status"]
+        print(" Creating rescore execution plan. Status: "+status)
+        time.sleep(60)
+        if status != "CREATING":
+            break
+
+except ClientError as e:
+        print("%s" % e)
+
+print("Program ends.")</code></pre>
+                        </dd>
+                </dl></awsdocs-tabs>
+            </li><li>
+                <p>기본 브랜치 드롭다운에서 버전 브랜치를 OpenSearch  선택하여 사용 중인 버전에 GitHub  맞는 <a href="https://github.com/opensearch-project/search-processor/tree/main/helpers" rel="noopener noreferrer" target="_blank"><span>퀵 스타트 Bash 스크립트를</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 다운로드하십시오.</p>
+            </li><li>
+                <p>터미널을 열고 Bash 스크립트의 디렉터리에서 다음 명령을 실행합니다.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">bash search_processing_kendra_quickstart.sh -p &lt;execution-plan-id&gt; -r &lt;region&gt;</code></pre>
+                <p>이 명령을 실행하면Amazon Kendra 인텔리전트 랭킹을 프로비전할 때 2단계에서 기록한 리스코어 실행 계획 ID를 지역 정보와 함께 제공합니다. 선택적으로<code class="code">--create-execution-plan</code> 옵션을 사용하여Amazon Kendra 인텔리전트 랭킹을 대신 제공할 수 있습니다. 이렇게 하면 기본 이름과 기본 용량이 포함된 재채점 실행 계획이 생성됩니다. 환경 변수, 기본 프로필 또는Amazon EC2 인스턴스에서AWS 자격 증명을 가져올 수 없는 경우<code class="code">--profile</code> 옵션을 사용하여 자격 증명을 제공하십시오.</p>
+                <p>기본 임시 컨테이너가 제거될 때 인덱스가 손실되지 않도록 하려면<code class="code">--volume-name</code> 옵션을 사용하여 데이터 볼륨 이름을 제공하여 실행 중에도 인덱스가 유지되도록 할 수 있습니다. 이전에 색인을 만든 경우 docker-compose.yml 또는 opensearch.yml 파일에서 볼륨을 지정할 수 있습니다.</p>
+                <p>이 스크립트는 스크립트용 GitHub  리포지토리에서 선택한 버전을 사용하는 Docker 이미지 OpenSearch  및 OpenSearch  대시보드를 사용합니다. 인텔리전트 랭킹 플러그인의 zip 파일을 다운로드하고 플러그인이 OpenSearch  포함된 새 Docker 이미지를<code class="code">Dockerfile</code> 빌드하기 위한 a를 생성합니다. 또한 인텔리전트 랭킹 플러그인 및 OpenSearch  대시보드를 위한 OpenSearch  컨테이너가 포함된 <a href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html#docker-compose-opensearch-example">docker-compose.yml</a> 파일을 생성합니다. 스크립트는 recore 실행 계획 ID, 리전 정보 및 엔드포인트 (리전 사용) 를 docker-compose.yml 파일에 추가합니다. 그런 다음 스크립트가<code class="code">docker-compose up</code> 실행되어 인텔리전트 랭킹과 OpenSearch  대시보드가 포함된 컨테이너를 시작합니다. OpenSearch  컨테이너를 제거하지 않고 중지하려면 를 실행하십시오<code class="code">docker-compose stop</code>. 컨테이너를 제거하려면 를 실행합니다<code class="code">docker-compose down</code>. 볼륨을 그대로 유지하려면 <b>실행하지 마세요</b><code class="code">docker-compose down -v</code>.</p>
+            </li></ol></div>
+         
+            <h3 id="docker-compose-opensearch-example">docker-compose.yml</h3>
+            <p>인텔리전트 랭킹 플러그인 및 OpenSearch  대시보드 2.4.0 이상과 함께 OpenSearch  2.4.0 이상을 사용하는 docker-compose.yml 파일의 예입니다.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">version: '3'
+networks:
+  opensearch-net:
+volumes: 
+  &lt;volume-name&gt;:
+services:
+  opensearch-node:
+    image: &lt;Docker image tag name of OpenSearch with Intelligent Ranking plugin&gt;
+    container_name: opensearch-node
+    environment: 
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node
+      - discovery.type=single-node
+      - kendra_intelligent_ranking.service.endpoint=https://kendra-ranking.&lt;region&gt;.api.aws
+      - kendra_intelligent_ranking.service.region=&lt;region&gt;
+      - kendra_intelligent_ranking.service.execution_plan_id=&lt;rescore-execution-plan-id&gt;
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+      - 9600:9600
+    networks:
+      - opensearch-net
+  volumes:
+    &lt;docker-volume-name&gt;:/usr/share/opensearch/data 
+  opensearch-dashboard:
+   image: opensearchproject/opensearch-dashboards:&lt;your-version&gt;
+   container_name: opensearch-dashboards
+   ports:
+     - 5601:5601
+   environment:
+     OPENSEARCH_HOSTS: '["https://opensearch-node:9200"]'
+   networks:
+     - opensearch-net</code></pre>
+         
+         
+            <h3 id="dockerfile-build-opensearch-example">Dockerfile 예제 및 이미지 작성</h3>
+            <p>인텔리전트 랭킹 플러그인과 함께 OpenSearch  2.4.0 이상을 사용하는 예제입니다.<code class="code">Dockerfile</code></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">FROM opensearchproject/opensearch:&lt;your-version&gt;
+RUN /usr/share/opensearch/bin/opensearch-plugin install --batch  https://github.com/opensearch-project/search-processor/releases/download/&lt;your-version&gt;/search-processor.zip</code></pre>
+            <p>인텔리전트 랭킹 플러그인을 OpenSearch  사용하여 Docker 이미지를 빌드합니다.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">docker build --tag=&lt;Docker image tag name of OpenSearch with Intelligent Ranking plugin&gt;</code></pre>
+         
+     
+        <h2 id="interact-opensearch-rerank-plugin">지능형 검색 플러그인과의 상호작용</h2>
+        <p>Intelligent Ranking 플러그인을 설정 OpenSearch  (자체 관리) 한 후에는 curl 명령어 또는 OpenSearch  클라이언트 라이브러리를 사용하여 플러그인과 상호 작용할 수 있습니다. 인텔리전트 랭킹 플러그인으로 액세스하기 OpenSearch  위한 기본 자격 증명은 사용자 이름 'admin'과 암호 'admin'입니다.</p>
+        <p>인텔리전트 랭킹 플러그인 설정을 OpenSearch  인덱스에 적용하려면:</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Curl</dt><dd tab-id="curl">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">curl -XPUT "https://localhost:9200/&lt;your-docs-index&gt;/_settings" -u 'admin:admin' --insecure -H 'Content-Type: application/json' -d'
+<span>{</span>
+  "index": <span>{</span>
+    "plugin" : <span>{</span>
+      "searchrelevance" : <span>{</span>
+        "result_transformer" : <span>{</span>
+          "kendra_intelligent_ranking": <span>{</span>
+              "order": 1,
+              "properties": <span>{</span>
+                "title_field": "title_field_name_here",
+                "body_field": "body_field_name_here"
+              }
+          }
+        }
+      }
+    }
+  }
+}
+'</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">pip install opensearch-py
+
+from opensearchpy import OpenSearch
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin')
+
+client = OpenSearch(
+    hosts = [<span>{</span>'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    # client_cert = client_cert_path,
+    # client_key = client_key_path,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
+)
+
+setting_body = <span>{</span>
+    "index": <span>{</span>
+        "plugin" : <span>{</span>
+            "searchrelevance" : <span>{</span>
+                "result_transformer" : <span>{</span>
+                    "kendra_intelligent_ranking": <span>{</span>
+                            "order": 1,
+                            "properties": <span>{</span>
+                                "title_field": "title_field_name_here",
+                                "body_field": "body_field_name_here"
+                            }
+                    }
+                }
+            }
+        }
+    }
+}
+
+response = client.indices.put_settings(index_name, body=setting_body)</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+        <p>순위를 다시 매기는 데 사용할 기본 텍스트 필드 (예: 문서 본문 또는 문서 콘텐츠 필드) 의 이름을 포함해야 합니다. 문서 제목이나 문서 요약과 같은 다른 텍스트 필드도 포함할 수 있습니다.</p>
+        <p>이제 모든 쿼리를 실행할 수 있으며 인텔리전트 랭킹 플러그인을 사용하여 결과 순위가 매겨집니다.</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Curl</dt><dd tab-id="curl">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">curl -XGET "https://localhost:9200/&lt;your-docs-index&gt;/_search?pretty" -u 'admin:admin' --insecure -H 'Content-Type: application/json' -d'
+<span>{</span>
+  "query" : <span>{</span>
+    "match" : <span>{</span>
+      "body_field_name_here": "intelligent systems"
+    }
+  }
+}
+'</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">from opensearchpy import OpenSearch
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin')
+
+client = OpenSearch(
+    hosts = [<span>{</span>'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    # client_cert = client_cert_path,
+    # client_key = client_key_path,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
+)
+
+query = <span>{</span>
+  'size': 10,
+  "query" : <span>{</span>
+    "match" : <span>{</span>
+      "body_field_name_here": "intelligent systems"
+    }
+  }
+}
+
+response = client.search(
+    body = query,
+    index = index_name
+)
+
+print('\nSearch results:')
+print(response)</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+        <p> OpenSearch 인덱스의 인텔리전트 랭킹 플러그인 설정을 제거하려면:</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Curl</dt><dd tab-id="curl">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">curl -XPUT "http://localhost:9200/&lt;your-docs-index&gt;/_settings" -H 'Content-Type: application/json' -d'
+<span>{</span>
+  "index": <span>{</span>
+    "plugin": <span>{</span>
+      "searchrelevance": <span>{</span>
+        "result_transformer": <span>{</span>
+          "kendra_intelligent_ranking.*": null
+        }
+      }
+    }
+  }
+}
+'</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">from opensearchpy import OpenSearch
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin')
+
+client = OpenSearch(
+    hosts = [<span>{</span>'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    # client_cert = client_cert_path,
+    # client_key = client_key_path,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
+)
+
+setting_body = <span>{</span>
+  "index": <span>{</span>
+    "plugin": <span>{</span>
+      "searchrelevance": <span>{</span>
+        "result_transformer": <span>{</span>
+          "kendra_intelligent_ranking.*": null
+        }
+      }
+    }
+  }
+}
+
+response = client.indices.put_settings(index_name, body=setting_body)</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+        <p>특정 쿼리에서 인텔리전트 랭킹 플러그인을 테스트하거나 특정 본문 및 제목 필드에서 테스트하려면:</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Curl</dt><dd tab-id="curl">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">curl -XGET "https://localhost:9200/&lt;your-docs-index&gt;/_search?pretty" -u 'admin:admin' --insecure -H 'Content-Type: application/json' -d'
+<span>{</span>
+  "query": <span>{</span>
+    "multi-match": <span>{</span>
+      "query": "intelligent systems",
+      "fields": ["body_field_name_here", "title_field_name_here"]
+    }
+  },
+  "size": 25,
+  "ext": <span>{</span>
+    "search_configuration": <span>{</span>
+      "result_transformer": <span>{</span>
+        "kendra_intelligent_ranking": <span>{</span>
+          "order": 1,
+          "properties": <span>{</span>
+            "title_field": "title_field_name_here",
+            "body_field": "body_field_name_here"
+          }
+        }
+      }
+    }
+  }
+}
+'</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">from opensearchpy import OpenSearch
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin')
+
+client = OpenSearch(
+    hosts = [<span>{</span>'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    # client_cert = client_cert_path,
+    # client_key = client_key_path,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
+)
+
+# Index settings null for kendra_intelligent_ranking
+
+query = <span>{</span>
+  "query": <span>{</span>
+    "multi_match": <span>{</span>
+      "query": "intelligent systems",
+      "fields": ["body_field_name_here", "title_field_name_here"] 
+    }
+  },
+  "size": 25,
+  "ext": <span>{</span>
+    "search_configuration": <span>{</span>
+      "result_transformer": <span>{</span>
+        "kendra_intelligent_ranking": <span>{</span>
+          "order": 1,
+          "properties": <span>{</span>
+            "title_field": "title_field_name_here",
+            "body_field": "body_field_name_here"
+          }
+        }
+      }
+    }
+  }
+}
+
+response = client.search(
+    body = query,
+    index = index_name
+)
+
+print('\nSearch results:')
+print(response)</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+     
+        <h2 id="compare-opensearch-rerank-plugin"> OpenSearch 결과와Amazon Kendra 결과 비교</h2>
+        <p> side-by-side OpenSearch (자체 관리) 순위 결과를Amazon Kendra 의 순위 조정 결과와 비교할 수 있습니다.  OpenSearch 대시보드 버전 2.4.0 이상에서는 검색 쿼리의 문서 순위를 지정하는 방법과 문서 OpenSearch  순위를Amazon Kendra 비교하거나 플러그인이 문서 순위를 지정하는 방법을 비교할 수 있는 side-by-side  결과를 제공합니다.</p>
+        <p> OpenSearch 순위가 매겨진 결과를Amazon Kendra 순위가 다시 매겨진 결과와 비교하기 전에 Intelligent Ranking 플러그인을 사용하는 OpenSearch  서버가 OpenSearch  대시보드를 지원하는지 확인하세요. Docker와 퀵 스타트 Bash 스크립트를 사용하여 이를 설정할 수 있습니다. <a href="#setup-opensearch-rerank-plugin">인텔리전트 검색</a>를 참조하세요.</p>
+        <p>다음은 OpenSearch  대시보드에서 결과를 OpenSearch  비교하고Amazon Kendra 검색하는 방법을 간략하게 설명합니다. 자세한 내용은 <a href="https://opensearch.org/docs/latest/search-plugins/search-relevance" rel="noopener noreferrer" target="_blank"><span>OpenSearch  설명서</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>를 참조하세요.</p>
+        <div class="procedure"><h6> OpenSearch 대시보드의 검색 결과 비교</h6><ol><li>
+                <p>http://localhost:5601 을 열고 OpenSearch  대시보드에 로그인합니다. 기본 자격 증명은 사용자 이름 'admin'과 암호 'admin'입니다.</p>
+            </li><li>
+                <p>탐색 메뉴의 OpenSearch  플러그인에서 <b>검색 관련성을</b> 선택합니다.</p>
+            </li><li>
+                <p>검색줄에 검색줄에 검색줄에 를</p>
+            </li><li>
+                <p><b>쿼리 1에</b> 대한 인덱스를 선택하고 OpenSearch  쿼리 DSL에 쿼리를 입력합니다. <code class="code">%SearchText%</code>변수를 사용하여 검색 표시줄에 입력한 검색 텍스트를 참조할 수 있습니다. 이 쿼리의 예는 <a href="https://opensearch.org/docs/latest/search-plugins/search-relevance" rel="noopener noreferrer" target="_blank"><span>OpenSearch 설명서를</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 참조하십시오. 이 쿼리에 대해 반환된 OpenSearch  결과는 인텔리전트 랭킹 플러그인을 사용하지 않은 결과입니다.</p>
+            </li><li>
+                <p><b>쿼리 2에</b> 대해 동일한 인덱스를 선택하고 OpenSearch  쿼리 DSL에 동일한 쿼리를 입력합니다. 또한 확장 프로그램을<code class="code">kendra_intelligent_ranking</code> 포함시키고 순위를<code class="code">body_field</code> 매길 필수 항목을 지정하십시오. 제목 필드를 지정할 수도 있지만 본문 필드는 필수입니다. 이 쿼리의 예는 <a href="https://opensearch.org/docs/latest/search-plugins/search-relevance" rel="noopener noreferrer" target="_blank"><span>OpenSearch 설명서를</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 참조하십시오. 이 쿼리에 대해 반환된 결과는 인텔리전트 랭킹 플러그인을 사용하여 순위가Amazon Kendra 다시 매겨진 결과입니다. 플러그인은 최대 25개의 결과 순위를 매깁니다.</p>
+            </li><li>
+                <p>결과를 반환하고 비교하려면 <b>검색을</b> 선택합니다.</p>
+            </li></ol></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./intelligent-rerank.html">Amazon Kendra인텔리전트 순위</div><div id="next" class="next-link" accesskey="n" href="./search-service-rerank.html">검색 서비스 결과의 의미론적 순위 지정</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

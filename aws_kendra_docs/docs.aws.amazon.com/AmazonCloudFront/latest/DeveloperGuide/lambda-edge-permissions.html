@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Setting IAM permissions and roles for Lambda@Edge - Amazon CloudFront</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="lambda-edge-permissions" /><meta name="default_state" content="lambda-edge-permissions" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" /><meta name="description" content="To configure Lambda@Edge, you must set up specific IAM permissions and an IAM execution role. Lambda@Edge also creates service-linked roles to replicate Lambda functions to CloudFront Regions and to enable CloudWatch to use CloudFront log files." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudFront" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of and instructions for configuring features for Amazon CloudFront, a web service that speeds up distribution of your static and dynamic web content to end users." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" hreflang="x-default" /><meta name="feedback-item" content="CloudFront" /><meta name="this_doc_product" content="Amazon CloudFront" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudfront'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Setting IAM permissions and roles for Lambda@Edge" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Setting IAM permissions and roles for Lambda@Edge - Amazon CloudFront</title><meta name="pdf" content="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#lambda-edge-permissions" /><meta name="github" content="https://github.com/awsdocs/amazon-cloudfront-developer-guide/tree/main/doc_source/lambda-edge-permissions.md" /><meta name="rss" content="amazon-cf-doc-releases.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=46" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html" /><meta name="keywords" content="Amazon CloudFront,CloudFront,cache,distribution,edge,HTTP,HTTPS,media,origin,streaming" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudFront",
+        "item" : "https://docs.aws.amazon.com/cloudfront/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Customizing at the edge with functions",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Customizing at the edge with Lambda@Edge",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-at-the-edge.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Setting IAM permissions and roles for Lambda@Edge",
+        "item" : "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-at-the-edge.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonCloudFront/latest/DeveloperGuide/AmazonCloudFront_DevGuide.pdf#lambda-edge-permissions" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-cloudfront-developer-guide/tree/main/doc_source/lambda-edge-permissions.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/cloudfront/index.html">Amazon CloudFront</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#lambda-edge-permissions-required">IAM permissions required to associate
+					Lambda@Edge functions with CloudFront distributions</a><a href="#lambda-edge-permissions-function-execution">Function execution role for
+					service principals</a><a href="#using-service-linked-roles">Service-linked roles for Lambda@Edge</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="lambda-edge-permissions">Setting IAM permissions and roles for
+				Lambda@Edge</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>To configure Lambda@Edge, you must set up specific IAM permissions and an IAM execution
+			role. Lambda@Edge also creates service-linked roles to replicate Lambda functions to
+			CloudFront Regions and to enable CloudWatch to use CloudFront log files.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#lambda-edge-permissions-required">IAM permissions required to associate
+					Lambda@Edge functions with CloudFront distributions</a></li><li><a href="#lambda-edge-permissions-function-execution">Function execution role for
+					service principals</a></li><li><a href="#using-service-linked-roles">Service-linked roles for Lambda@Edge</a></li></ul></div>
+			<h2 id="lambda-edge-permissions-required">IAM permissions required to associate
+					Lambda@Edge functions with CloudFront distributions</h2>
+
+			<p>In addition to the IAM permissions that you need to use AWS Lambda, the user needs the
+				following IAM permissions to associate Lambda functions with CloudFront
+				distributions:</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><code class="code">lambda:GetFunction</code></p>
+					<p>Allows the user to get configuration information for the Lambda function
+						and a presigned URL to download a .zip file that contains the
+						function.</p>
+					<p>For the resource, specify the ARN of the function version that you want to execute when a CloudFront event
+						occurs, as shown in the following example:</p>
+					<p><code class="code">arn:aws:lambda:us-east-1:123456789012:function:TestFunction:2</code></p>
+				</li><li class="listitem">
+					<p><code class="code">lambda:EnableReplication*</code></p>
+					<p>Adds a permission to the resource policy that gives the Lambda replication
+						service permission to get function code and configuration.</p>
+					<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The asterisk (<code class="code">*</code>) at the end of the permission is
+							required: <code class="code">lambda:EnableReplication<b>*</b></code></p></div></div>
+					<p>For the resource, specify the ARN of the function version that you want to
+						execute when a CloudFront event occurs, as shown in the following example:</p>
+					<p><code class="code">arn:aws:lambda:us-east-1:123456789012:function:TestFunction:2</code></p>
+				</li><li class="listitem">
+					<p><code class="code">iam:CreateServiceLinkedRole</code></p>
+					<p>Allows the user to create a service linked role that is used by Lambda@Edge to replicate
+						Lambda functions in CloudFront. After this role has been created by the
+						first distribution you use with Lambda@Edge, you don't need to add
+						permission to other distributions that you use with Lambda@Edge.</p>
+				</li><li class="listitem">
+					<p><code class="code">cloudfront:UpdateDistribution</code> or <code class="code">cloudfront:CreateDistribution</code></p>
+					<p>Use <code class="code">cloudfront:UpdateDistribution</code> to update a distribution or
+						<code class="code">cloudfront:CreateDistribution</code> to create a distribution.</p>
+				</li></ul></div>
+			<p>For more information, see the following documentation:</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><a href="./security-iam.html">Identity and Access Management for Amazon CloudFront</a> in this guide.</p>
+				</li><li class="listitem">
+					<p><a href="https://docs.aws.amazon.com/lambda/latest/dg/auth-and-access-control.html">Authentication and Access Control for
+							AWS Lambda</a> in the <em>AWS Lambda Developer Guide</em></p>
+				</li></ul></div>
+		 
+			<h2 id="lambda-edge-permissions-function-execution">Function execution role for
+					service principals</h2>
+
+			<p>You must create an IAM role that can be assumed by the service principals
+				<code class="code">lambda.amazonaws.com</code> and <code class="code">edgelambda.amazonaws.com</code>. This
+				role is assumed by the service principals when they execute your function. For more
+				information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions_create-policies.html">Creating roles and attaching policies (console)</a> in the
+				<em>IAM User Guide</em>.</p>
+			<p>You add this role under the <b>Trust Relationship</b> tab in IAM (do not
+				add it under the <b>Permissions</b> tab).</p>
+			<p>Here's an example role trust policy:</p>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight "><span>{</span>
+   "Version": "2012-10-17",
+   "Statement": [
+      <span>{</span>
+         "Effect": "Allow",
+         "Principal": <span>{</span>
+            "Service": [
+               "lambda.amazonaws.com",
+               "edgelambda.amazonaws.com"
+            ]
+         },
+         "Action": "sts:AssumeRole"
+      }
+   ]
+}</code></pre>
+
+			<p>For information about the permissions that you need to grant to the execution role, see <a href="https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role">Manage Permissions: Using an IAM
+					Role (Execution Role)</a> in the <em>AWS Lambda Developer Guide</em>. Note the following:</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>By default, whenever a CloudFront event triggers a Lambda function, data is written to CloudWatch Logs. If you want to
+						use these logs, the execution role needs permission to write data to CloudWatch Logs. You can use the predefined
+						AWSLambdaBasicExecutionRole to grant permission to the execution role.</p>
+					<p>For more information about CloudWatch Logs, see <a href="./edge-functions-logs.html">Edge function logs</a>.</p>
+				</li><li class="listitem">
+					<p>If your Lambda function code accesses other AWS resources, such as reading an object from an S3 bucket,
+						the execution role needs permission to perform that operation. </p>
+				</li></ul></div>
+		 
+  <h2 id="using-service-linked-roles">Service-linked roles for Lambda@Edge</h2>
+  
+  <p>Lambda@Edge uses AWS Identity and Access Management (IAM) <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">service-linked roles</a>. A service-linked role is a unique type of
+    IAM role that is linked directly to a service. Service-linked roles are predefined by the
+    service and include all of the permissions that the service requires to call other AWS
+    services on your behalf.</p>
+  <p>Lambda@Edge uses the following IAM service-linked role:</p>
+  <div class="itemizedlist">
+     
+     
+  <ul class="itemizedlist"><li class="listitem"><p><b>AWSServiceRoleForLambdaReplicator</b> – Lambda@Edge uses this role to allow Lambda@Edge
+        to replicate functions to AWS Regions.</p></li><li class="listitem"><p><b>AWSServiceRoleForCloudFrontLogger</b> – CloudFront uses this role to push log files into your
+        CloudWatch account, to help you to debug Lambda@Edge validation errors.</p></li></ul></div>
+  <p>When you first add a Lambda@Edge trigger in CloudFront, a role named AWSServiceRoleForLambdaReplicator is automatically
+    created to allow Lambda@Edge to replicate functions to AWS Regions. This role is required for
+    using Lambda@Edge functions. The ARN for the AWSServiceRoleForLambdaReplicator role looks like this:</p>
+	<p><code class="code">arn:aws:iam::123456789012:role/aws-service-role/replicator.lambda.amazonaws.com/AWSServiceRoleForLambdaReplicator</code></p>
+  <p>The second role, named AWSServiceRoleForCloudFrontLogger, is created automatically when you add Lambda@Edge
+    function association to allow CloudFront to push Lambda@Edge error log files to CloudWatch. The ARN
+    for the AWSServiceRoleForCloudFrontLogger role looks like this:</p>
+  <p><code class="code">arn:aws:iam::account_number:role/aws-service-role/logger.cloudfront.amazonaws.com/AWSServiceRoleForCloudFrontLogger</code></p>
+  
+  <p>A service-linked role makes setting up and using Lambda@Edge easier because you don’t have to
+    manually add the necessary permissions. Lambda@Edge defines the permissions of its
+    service-linked roles, and only Lambda@Edge can assume the roles. The
+    defined permissions include the trust policy and the permissions policy. The permissions
+    policy cannot be attached to any other IAM entity.</p>
+  <p>You must remove any associated CloudFront or Lambda@Edge resources before you can delete a service-linked role. This
+    helps protect your Lambda@Edge resources by making sure that you don't remove a service-linked role that is still
+    required to access active resources.</p>
+  <p>For information about other services that support service-linked roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services that work with IAM</a> and look for the services that have <b>Yes </b>in the <b>Service-linked roles</b>
+    column.</p>
+	
+   
+    <h3 id="slr-permissions">Service-linked role permissions for Lambda@Edge</h3>
+    <p>Lambda@Edge uses two service-linked roles, named <b>AWSServiceRoleForLambdaReplicator</b> and <b>AWSServiceRoleForCloudFrontLogger</b>.
+    The following sections describe the permissions for each of these roles.</p> 
+    
+     
+      <h4 id="slr-permissions-lambda-replicator">Service-linked role permissions for
+          Lambda replicator</h4>
+      <p>This service-linked role allows Lambda to replicate Lambda@Edge functions
+to AWS Regions.</p>
+    <p>The AWSServiceRoleForLambdaReplicator service-linked role trusts the following service to assume the role:
+        <code class="code">replicator.lambda.amazonaws.com</code></p>
+    <p>The role permissions policy allows Lambda@Edge to complete the following actions on the
+      specified resources:</p>
+    <div class="itemizedlist">
+		   
+    	 
+    	 
+    	 
+       
+	   <ul class="itemizedlist"><li class="listitem">
+		  <p>Action: <code class="code">lambda:CreateFunction</code> on
+			 <code class="code">arn:aws:lambda:*:*:function:*</code></p>
+		  </li><li class="listitem">
+    		<p>Action: <code class="code">lambda:DeleteFunction</code> on
+    			<code class="code">arn:aws:lambda:*:*:function:*</code></p>
+    	</li><li class="listitem">
+    		<p>Action: <code class="code">lambda:DisableReplication</code> on
+    			<code class="code">arn:aws:lambda:*:*:function:*</code></p>
+    	</li><li class="listitem">
+    		<p>Action: <code class="code">iam:PassRole</code> on
+    			<code class="code">all AWS resources</code></p>
+    	</li><li class="listitem">
+        <p>Action: <code class="code">cloudfront:ListDistributionsByLambdaFunction</code> on
+          <code class="code">all AWS resources</code></p>
+      </li></ul></div>
+     
+    
+     
+      <h4 id="slr-permissions-cloudfront-logger">Service-linked role permissions for CloudFront
+          logger</h4>
+      <p>This service-linked role allows CloudFront to push log files into your CloudWatch account, to help you to debug Lambda@Edge
+        validation errors.</p>
+      <p>The AWSServiceRoleForCloudFrontLogger service-linked role trusts the following service to assume the role:
+        <code class="code">logger.cloudfront.amazonaws.com</code></p>
+      <p>The role permissions policy allows Lambda@Edge to complete the following actions on the
+        specified resources:</p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Action: <code class="code">logs:CreateLogGroup</code> on
+            <code class="code">arn:aws:logs:*:*:log-group:/aws/cloudfront/*</code></p>
+        </li><li class="listitem">
+          <p>Action: <code class="code">logs:CreateLogStream</code> on
+            <code class="code">arn:aws:logs:*:*:log-group:/aws/cloudfront/*</code></p>
+        </li><li class="listitem">
+          <p>Action: <code class="code">logs:PutLogEvents</code> on
+            <code class="code">arn:aws:logs:*:*:log-group:/aws/cloudfront/*</code></p>
+        </li></ul></div>
+     
+    
+    <p>You must configure permissions to allow an IAM entity (such as a user, group, or role)
+      to delete the Lambda@Edge service-linked roles. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions">Service-linked role permissions</a> in the
+      <em>IAM User Guide</em>.</p>
+   
+	
+   
+    <h3 id="create-slr">Creating service-linked roles for Lambda@Edge</h3>
+    <p>You don’t typically manually create the service-linked roles for Lambda@Edge. The service
+      creates the roles for you automatically in the following scenarios:</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem"><p>When you first create a trigger, the service creates a role, AWSServiceRoleForLambdaReplicator, if the role doesn’t
+          already exist, that allows Lambda to replicate Lambda@Edge functions to
+          AWS Regions.</p>
+        <p>If you delete the service-linked role, the role will be created again when you add a new trigger for Lambda@Edge 
+          in a distribution.</p></li><li class="listitem"><p>When you update or create a CloudFront distribution that has a Lambda@Edge association, the service
+          creates a role, AWSServiceRoleForCloudFrontLogger, if the role doesn’t already exist, that allows CloudFront to push
+          your log files to CloudWatch.</p>
+        <p>If you delete the service-linked role, the role will be created again when you update
+          or create a CloudFront distribution that has a Lambda@Edge association.</p></li></ul></div>
+  	<p>If you must manually create these service-linked roles, run the following commands using
+      the AWS CLI:</p>
+    <div class="variablelist">
+       
+       
+    <dl>
+        <dt><b><span class="term">To create the AWSServiceRoleForLambdaReplicator role</span></b></dt>
+        <dd>
+          <p><code class="code">aws iam create-service-linked-role --aws-service-name
+            replicator.lambda.amazonaws.com</code></p>
+        </dd>
+      
+        <dt><b><span class="term">To create the AWSServiceRoleForCloudFrontLogger role</span></b></dt>
+        <dd>
+          <p><code class="code">aws iam create-service-linked-role --aws-service-name
+            logger.cloudfront.amazonaws.com</code></p>
+        </dd>
+      </dl></div>
+
+   
+
+   
+    <h3 id="edit-slr">Editing Lambda@Edge service-linked roles</h3>
+    <p>Lambda@Edge does not allow you to edit the AWSServiceRoleForLambdaReplicator or AWSServiceRoleForCloudFrontLogger service-linked roles.
+      After the service has created a service-linked role, you cannot change the name of the role
+      because various entities might reference the role. However, you can edit the description of a
+      role by using IAM. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role">Editing a service-linked role</a> in the
+      <em>IAM User Guide</em>.</p>
+   
+  
+   
+    <h3 id="slr-regions">Supported AWS Regions for CloudFront service-linked
+        roles</h3>
+    <p>CloudFront supports using service-linked roles for Lambda@Edge in the following
+      AWS Regions:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>US East (N. Virginia) – <code class="code">us-east-1</code></p>
+      </li><li class="listitem">
+        <p>US East (Ohio) – <code class="code">us-east-2</code></p>
+      </li><li class="listitem">
+        <p>US West (N. California) – <code class="code">us-west-1</code></p>
+      </li><li class="listitem">
+        <p>US West (Oregon) – <code class="code">us-west-2</code></p>
+      </li><li class="listitem">
+        <p>Asia Pacific (Mumbai) – <code class="code">ap-south-1</code></p>
+      </li><li class="listitem">
+        <p>Asia Pacific (Seoul) – <code class="code">ap-northeast-2</code></p>
+      </li><li class="listitem">
+        <p>Asia Pacific (Singapore) – <code class="code">ap-southeast-1</code></p>
+      </li><li class="listitem">
+        <p>Asia Pacific (Sydney) – <code class="code">ap-southeast-2</code></p>
+      </li><li class="listitem">
+        <p>Asia Pacific (Tokyo) – <code class="code">ap-northeast-1</code></p>
+      </li><li class="listitem">
+        <p>Europe (Frankfurt) – <code class="code">eu-central-1</code></p>
+      </li><li class="listitem">
+        <p>Europe (Ireland) – <code class="code">eu-west-1</code></p>
+      </li><li class="listitem">
+        <p>Europe (London) – <code class="code">eu-west-2</code></p>
+      </li><li class="listitem">
+        <p>South America (São Paulo) – <code class="code">sa-east-1</code></p>
+      </li></ul></div>
+   
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./lambda-edge-how-it-works-tutorial.html">Tutorial: Creating a simple function</div><div id="next" class="next-link" accesskey="n" href="./lambda-edge-create-function.html">Writing and creating functions</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudFront&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-permissions.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Utilisation d'un rôle IAM pour accorder des autorisations à des applications s'exécutant sur des instances Amazon EC2 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_use_switch-role-ec2" /><meta name="default_state" content="id_roles_use_switch-role-ec2" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="description" content="Transmettez un rôle IAM à une instance Amazon EC2 pour fournir les informations d'identification AWS aux applications qui s'exécutent sur l'instance." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Guide de l'utilisateur" /><meta name="abstract" content="Contrôlez l'accès à vos ressources AWS avec l'identité d'utilisateur (authentification) et avec des politiques définissant des autorisations spécifiques (autorisation)." /><meta name="guide-locale" content="fr_fr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Guide de l'utilisateur" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Guide de l'utilisateur" /><meta id="panorama-serviceConsolePage" value="Utilisation d'un rôle IAM pour accorder des autorisations à des applications s'exécutant sur des instances Amazon EC2" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Utilisation d'un rôle IAM pour accorder des autorisations à des applications s'exécutant sur des instances Amazon EC2 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_use_switch-role-ec2" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,Utilisateur IAM,utilisateur,Groupe IAM,groupe,Rôle IAM,rôle,politique d'autorisation,politique d'approbation,politique,clé d'accès,mot de passe" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guide de l'utilisateur",
+        "item" : "https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Identités IAM (utilisateurs, groupes d'utilisateurs et rôles)",
+        "item" : "https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Rôles IAM",
+        "item" : "https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Utilisation de rôles IAM",
+        "item" : "https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Utilisation d'un rôle IAM pour accorder des autorisations à des applications s'exécutant sur des instances Amazon EC2",
+        "item" : "https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_use_switch-role-ec2" target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Guide de l'utilisateur</a></div><div id="page-toc-src"><a href="#roles-usingrole-ec2instance-roles">Comment fonctionnent les rôles pour les instances Amazon EC2 ?</a><a href="#roles-usingrole-ec2instance-permissions">Autorisations requises pour l'utilisation de rôles avec Amazon EC2</a><a href="#roles-usingrole-ec2instance-get-started">Comment puis-je commencer ?</a><a href="#roles-usingrole-ec2instance-related-info">Informations connexes</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_use_switch-role-ec2">Utilisation d'un rôle IAM pour accorder des autorisations à des applications s'exécutant sur des instances Amazon EC2</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Les applications qui s'exécutent sur une instance Amazon EC2 doivent inclure des informations d'identification AWS dans les demandes d'API AWS. Vos développeurs peuvent stocker directement les informations d'identification AWS dans l'instance Amazon EC2 et autoriser les applications de cette instance à les utiliser. Toutefois, dans ce cas, ils doivent gérer les informations d'identification, les transmettre en toute sécurité à chaque instance, puis mettre à jour chaque instance Amazon EC2 lorsqu'il convient d'effectuer une rotation des informations d'identification. Ceci représente beaucoup de travail supplémentaire.</p><p>Au lieu de cela, il est recommandé d'utiliser un rôle IAM pour gérer les informations d'identification <em>temporaires</em> pour les applications qui s'exécutent sur une instance Amazon EC2. Lorsque vous utilisez un rôle, vous n'avez pas à distribuer d'informations d'identification à long terme (telles que des informations de connexion ou des clés d'accès) à une instance Amazon EC2. À la place, le rôle fournit des autorisations temporaires que les applications peuvent utiliser lors d'appels à d'autres ressources AWS. Lorsque vous lancez une instance Amazon EC2, vous spécifiez un rôle IAM à associer à celle-ci. Les applications qui s'exécutent sur l'instance peuvent ensuite utiliser les informations d'identification de sécurité temporaires fournies pour le rôle pour signer les demandes d'API.</p><p>L'utilisation de rôles pour l'octroi d'autorisations à des applications qui s'exécutent sur des instances Amazon EC2 requiert une configuration supplémentaire. Une application qui s'exécute sur une instance Amazon EC2 est extraite d'AWS par le système d'exploitation virtuel. En raison de cette séparation supplémentaire, vous avez besoin d'une autre étape pour affecter un rôle AWS et les autorisations qui lui sont associées à une instance Amazon EC2, et également de rendre ces dernières disponibles pour toutes ses applications. Cette étape supplémentaire est la création d'un <em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html">profil d'instance</a></em> attaché à l'instance. Le profil d'instance contient le rôle et peut fournir les informations d'identification temporaires du rôle à une application qui s'exécute sur l'instance. Ces informations d'identification temporaires peuvent ensuite être utilisées dans les appels d'API de l'application pour accéder aux ressources et restreindre l'accès aux ressources spécifiées par le rôle uniquement. Notez que vous ne pouvez affecter qu'un seul rôle à une instance Amazon EC2 à la fois et que toutes les applications de l'instance partagent le même rôle et les mêmes autorisations.</p><p>Une telle utilisation des rôles présente plusieurs avantages. Dans la mesure où les informations d'identification des rôles sont temporaires et font automatiquement l'objet d'une rotation, vous n'avez pas à vous soucier de risques de sécurité à long terme. Par ailleurs, si vous utilisez le même rôle pour plusieurs instances, toute modification apportée au rôle se propage automatiquement à toutes les instances. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Même si un rôle est généralement attribué à une instance Amazon EC2 lors du lancement, un rôle peut également être attaché à une instance Amazon EC2 en cours d'exécution. Pour savoir comment attacher un rôle à une instance en cours d'exécution, consultez <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#attach-iam-role">Rôles IAM pour Amazon EC2</a>.</p></div></div><div class="highlights"><h6>Rubriques</h6><ul><li><a href="#roles-usingrole-ec2instance-roles">Comment fonctionnent les rôles pour les instances Amazon EC2 ?</a></li><li><a href="#roles-usingrole-ec2instance-permissions">Autorisations requises pour l'utilisation de rôles avec Amazon EC2</a></li><li><a href="#roles-usingrole-ec2instance-get-started">Comment puis-je commencer ?</a></li><li><a href="#roles-usingrole-ec2instance-related-info">Informations connexes</a></li><li><a href="./id_roles_use_switch-role-ec2_instance-profiles.html">Utilisation de profils d'instance</a></li></ul></div>
+    <h2 id="roles-usingrole-ec2instance-roles">Comment fonctionnent les rôles pour les instances Amazon EC2 ?</h2>
+    <p>Dans l'illustration suivante, un développeur exécute une application sur une instance Amazon EC2 qui requiert l'accès à un compartiment S3 nommé <code class="code">photos</code>. Un administrateur crée la fonction du service <code class="code">Get-pics</code> et attache le rôle à l'instance Amazon EC2. Le rôle inclut une politique d'autorisations qui accorde un accès en lecture seule au compartiment S3 spécifié. Il inclut également une politique d'approbation qui permet à l'instance Amazon EC2 d'endosser le rôle et de récupérer les informations d'identification temporaires. Lorsque l'application s'exécute sur l'instance, elle peut accéder au compartiment photos en utilisant les informations d'identification temporaires du rôle. L'administrateur n'a pas besoin d'accorder au développeur l'autorisation d'accéder au compartiment photos et le développeur n'a à aucun moment besoin de partager ou gérer les informations d'identification.</p>
+    <div class="mediaobject">
+       
+        <img src="images/roles-usingrole-ec2roleinstance.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Application d'une instance Amazon EC2 qui accède à une ressource AWS&#xA;      " />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+       
+    <ol><li>
+        <p>L'administrateur utilise IAM pour créer le rôle <code class="userinput">Get-pics</code>. Dans la politique d'approbation du rôle, l'administrateur spécifie que seules les instances Amazon EC2 peuvent endosser le rôle. Dans la politique d'autorisation du rôle, l'administrateur définit des autorisations en lecture seule pour le compartiment <code class="code">photos</code>.</p>
+      </li><li>
+        <p>Un développeur lance une instance Amazon EC2 et lui affecte le rôle <code class="code">Get-pics</code>.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Si vous utilisez la console IAM, le profil d'instance est géré de manière quasiment transparente pour vous. Toutefois, si vous utilisez l'interface AWS CLI ou l'API pour créer et gérer le rôle et l'instance Amazon EC2, vous devez également créer le profil d'instance et lui affecter le rôle, dans une procédure séparée. Ensuite, lorsque vous lancez l'instance, vous devez spécifier le nom du profil d'instance à la place du nom de rôle.</p></div></div>
+      </li><li>
+        <p>Lorsque l'application est en cours d'exécution, elle obtient des informations d'identification de sécurité temporaires à partir des <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">métadonnées d'instance</a> Amazon EC2, comme décrit dans <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">Extraction des informations d'identification de sécurité à partir des métadonnées d'instance</a>. Il s'agit d'<a href="./id_credentials_temp.html">informations d'identification de sécurité temporaires</a> qui représentent le rôle et sont valides pendant une période limitée. </p>
+        <p>Dans certains <a href="http://aws.amazon.com/tools/" rel="noopener noreferrer" target="_blank"><span>kits SDK AWS</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, le développeur peut utiliser un fournisseur qui gère de manière transparente les informations d'identification de sécurité temporaires. (La documentation de chaque kit SDK AWS décrit les fonctions prises en charge par le kit SDK pour la gestion des informations d'identification.)</p>
+        <p>Sinon, l'application peut obtenir les informations d'identification temporaires directement à partir des métadonnées d'instance de l'instance Amazon EC2. Les informations d'identification et les valeurs associées se trouvent dans la catégorie <code class="code">iam/security-credentials/<code class="replaceable">role-name</code></code> (dans cet exemple, <code class="code">iam/security-credentials/Get-pics</code>) des métadonnées. Si l'application extrait les informations d'identification des métadonnées de l'instance, elle peut les mettre en cache.</p>
+      </li><li>
+        <p>À l'aide des informations d'identification temporaires obtenues, l'application peut accéder au compartiment photos. Compte tenu de la politique attachée au rôle <code class="userinput">Get-pics</code>, l'application dispose d'autorisations en lecture seule. </p>
+        <p>Les informations d'identification de sécurité temporaires disponibles sur l'instance font automatiquement l'objet d'une rotation avant leur expiration, afin qu'un ensemble d'informations d'identification valides soit toujours disponible. L'application doit simplement obtenir un nouvel ensemble d'informations d'identification à partir des métadonnées de l'instance avant l'expiration des informations d'identification actuelles. Il est possible d'utiliser le kit SDK AWS pour gérer les informations d'identification afin que l'application n'ait pas besoin d'inclure une logique supplémentaire pour actualiser les informations d'identification. Par exemple, instanciation de clients avec les fournisseurs d'informations d'identification de profil d'instance. En revanche, si l'application extrait les informations d'identification de sécurité temporaires des métadonnées d'instance, puis les met en cache, elle doit obtenir un ensemble d'informations d'identification actualisé toutes les heures, ou au moins 15 minutes avant l'expiration des informations d'identification actuelles. Le délai d'expiration est inclus dans les informations renvoyées dans la catégorie <code class="code">iam/security-credentials/<code class="replaceable">role-name</code></code>. </p>
+      </li></ol></div>
+   
+    <h2 id="roles-usingrole-ec2instance-permissions">Autorisations requises pour l'utilisation de rôles avec Amazon EC2</h2>
+    <p>Pour lancer une instance avec un rôle, le développeur doit avoir l'autorisation de lancer des instances Amazon EC2 et de transmettre des rôles IAM.</p>
+    <p>Dans l'exemple suivant, la politique autorise les utilisateurs à lancer une instance avec un rôle à l'aide d'AWS Management Console. La politique inclut des caractères génériques (<code class="code">*</code>) pour autoriser un utilisateur à transmettre n'importe quel rôle et à réaliser les actions Amazon EC2 énumérées. L'action <code class="code">ListInstanceProfiles</code> permet aux utilisateurs d'afficher tous les rôles disponibles dans l'Compte AWS.</p>
+    <div class="example"><h6>Exemple de politique qui autorise les utilisateurs à lancer une instance avec n'importe quel rôle à l'aide de la console Amazon EC2</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "IamPassRole",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "iam:PassedToService": "ec2.amazonaws.com"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "ListEc2AndListInstanceProfiles",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListInstanceProfiles",
+                "ec2:Describe*",
+                "ec2:Search*",
+                "ec2:Get*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+</code></pre></div></div>
+     
+      <h3 id="roles-usingrole-ec2instance-passrole">Limitation des rôles pouvant être transmis à des instances Amazon EC2 (avec PassRole)</h3>
+      <p>Vous pouvez utiliser l'autorisation <code class="code">PassRole</code> pour spécifier les rôles qu'un utilisateur peut transmettre à une instance Amazon EC2 lors de son lancement. Cela évite que l'utilisateur exécute des applications ayant davantage d'autorisations qu'il n'en possède, autrement dit qu'il soit en mesure d'obtenir des droits élevés. Par exemple, supposons qu'une utilisatrice nommée Alice soit uniquement autorisée à lancer des instances Amazon EC2 et à utiliser des compartiments Amazon S3, mais que le rôle qu'elle transmet à une instance Amazon EC2 dispose d'autorisations permettant d'utiliser IAM et Amazon DynamoDB. Dans ce cas, il est possible qu'Alice soit en mesure de lancer l'instance, de s'y connecter, d'obtenir des informations d'identification de sécurité temporaires, puis d'effectuer plus d'actions IAM ou DynamoDB qu'elle n'est autorisée à le faire.</p>
+      <p>Pour limiter les rôles qu'un utilisateur peut transmettre à une instance Amazon EC2, vous pouvez créer une politique qui autorise l'action <code class="code">PassRole</code>. Ensuite, vous attachez la politique à l'utilisateur (ou à un groupe IAM auquel il appartient) qui lancera les instances Amazon EC2. Dans l'élément <code class="code">Resource</code> de la politique, vous répertoriez les rôles que l'utilisateur peut transmettre aux instances Amazon EC2. Lorsque l'utilisateur lance une instance et lui associe un rôle, Amazon EC2 vérifie si l'utilisateur est autorisé à transmettre ce rôle. Il est entendu que vous devez également vous assurer que le rôle que l'utilisateur est autorisé à transmettre n'inclut pas plus d'autorisations qu'il n'est censé en avoir.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>L'action d'API <code class="code">PassRole</code> est différente de <code class="code">RunInstances</code> ou <code class="code">ListInstanceProfiles</code>. Il s'agit en fait d'une autorisation qu'AWS vérifie chaque fois qu'un rôle ARN est passé comme paramètre à une API (ou que la console le fait pour l'utilisateur). Elle permet à un administrateur de contrôler les rôles susceptibles d'être transmis et par quels utilisateurs. Dans le cas présent, elle veille à ce que l'utilisateur soit autorisé à attacher un rôle spécifique à une instance Amazon EC2.</p></div></div>
+      <div class="example"><h6>Exemple de politique qui autorise un utilisateur à lancer une instance Amazon EC2 avec un rôle spécifique</h6><div class="example-contents"><p>Dans l'exemple suivant, la politique autorise les utilisateurs à lancer une instance avec un rôle à l'aide de l'API Amazon EC2. L'élément <code class="code">Resource</code> spécifie l'Amazon Resource Name (ARN) d'un rôle. En spécifiant l'ARN, la politique accorde à l'utilisateur l'autorisation de transmettre uniquement le rôle <code class="code">Get-pics</code>. Si l'utilisateur tente de spécifier un autre rôle lors du lancement d'une instance, l'action échoue. L'utilisateur est autorisé à exécuter n'importe quelle instance, qu'il s'agisse de transmettre un rôle ou non.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": "*"
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::<code class="replaceable">account-id</code>:role/Get-pics"
+    }
+  ]
+}</code></pre></div></div>
+     
+     
+      <h3 id="switch-role-ec2-another-account">Permettre à un rôle de profil d'instance de passer à un rôle dans un autre compte</h3>
+      <p>Vous pouvez permettre à une application qui s'exécute sur une instance Amazon EC2 d'exécuter des commandes dans un autre compte. Pour ce faire, vous devez autoriser le rôle d'instance Amazon EC2 dans le premier compte pour passer à un rôle dans le second compte.</p>
+      <p>Imaginons que vous utilisez deux Comptes AWS et que vous voulez autoriser une application s'exécutant sur une instance Amazon EC2 à exécuter des commandes de l'<a href="http://aws.amazon.com/cli/" rel="noopener noreferrer" target="_blank"><span>AWS CLI</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> dans les deux comptes. Supposons que l'instance Amazon EC2 existe dans le compte <code class="code">111111111111</code>. Cette instance inclut le rôle de profil d'instance <code class="code">abcd</code> qui permet à l'appli d'effectuer les tâches Amazon S3 <code class="code">my-bucket-1</code> en lecture seule sur le compartiment  dans le même compte <code class="code">111111111111</code>. Toutefois, l'application doit également être autorisée à endosser le rôle <code class="code">efgh</code> entre comptes pour accéder au compartiment <code class="code">my-bucket-2</code> Amazon S3 dans le compte <code class="code">222222222222</code>.</p>
+      <div class="mediaobject">
+         
+          <img src="images/roles-instance-profile-cross-account.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+         
+      </div>
+      <p>Le rôle de profil d'instance Amazon EC2 <code class="code">abcd</code> doit disposer des autorisations suivantes pour autoriser l'application à accéder au compartiment Amazon S3 <code class="code">my-bucket-1</code> :</p>
+      <p><b><em>Politique d'autorisations de rôle <code class="code">abcd</code> du compte 111111111111</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowAccountLevelS3Actions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowListAndReadS3ActionOnMyBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket-1/*",
+                "arn:aws:s3:::my-bucket-1"
+            ]
+        },
+        <span>{</span>
+            "Sid": "AllowIPToAssumeCrossAccountRole",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "arn:aws:iam::222222222222:role/efgh"
+        }
+    ]
+}</code></pre>
+      <p>Le rôle <code class="code">abcd</code> doit faire confiance au service Amazon EC2 pour endosser le rôle. Pour ce faire, le rôle <code class="code">abcd</code> doit avoir la politique de confiance suivante :</p>
+      <p><b><em>Politique de confiance de rôle <code class="code">abcd</code> du compte 111111111111</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "abcdTrustPolicy",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"Service": "ec2.amazonaws.com"}
+        }
+    ]
+}</code></pre>
+      <p>Supposons que le rôle <code class="code">efgh</code> entre comptes permet aux tâches Amazon S3 en lecture seule sur le compartiment <code class="code">my-bucket-2</code> dans le même compte <code class="code">222222222222</code>. Pour ce faire, le rôle <code class="code">efgh</code> entre comptes doit avoir la politique d'autorisations suivante :</p>
+      <p><b><em>Politique d'autorisations de rôle <code class="code">efgh</code> du compte 222222222222</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowAccountLevelS3Actions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowListAndReadS3ActionOnMyBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket-2/*",
+                "arn:aws:s3:::my-bucket-2"
+            ]
+        }
+    ]
+}</code></pre>
+      <p>Le rôle <code class="code">efgh</code> doit autoriser le rôle de profil d'instance <code class="code">abcd</code> à l'endosser. Pour ce faire, le rôle <code class="code">efgh</code> doit avoir la politique de confiance suivante :</p>
+      <p><b><em>Politique de confiance de rôle <code class="code">efgh</code> du compte 222222222222</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "efghTrustPolicy",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"AWS": "arn:aws:iam::111111111111:role/abcd"}
+        }
+    ]
+}</code></pre>
+     
+   
+    <h2 id="roles-usingrole-ec2instance-get-started">Comment puis-je commencer ?</h2>
+    <p>Pour comprendre le fonctionnement des rôles avec les instances Amazon EC2, vous devez utiliser la console IAM pour créer un rôle, lancer une instance Amazon EC2 utilisant ce rôle, puis examiner l'instance en cours d'exécution. Vous pouvez examiner les <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html">métadonnées de l'instance</a> pour voir comment les informations d'identification temporaires du rôle sont mises à la disposition d'une instance. Il est également possible d'étudier la façon dont une application exécutée sur l'instance peut utiliser un rôle donné. Consultez les ressources suivantes pour en savoir plus. </p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="https://www.youtube.com/watch?v=TlCuOjviOhk" rel="noopener noreferrer" target="_blank"><span>Didacticiel des rôles IAM sur les instances Amazon EC2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. Cette vidéo montre comment utiliser un rôle IAM avec une instance Amazon EC2 pour contrôler ce qu'une application peut faire lorsqu'elle est exécutée sur l'instance. La vidéo montre comment l'application (créée dans le kit SDK AWS) peut obtenir des informations d'identification de sécurité temporaires par le biais du rôle. </p>
+      </li><li class="listitem">
+        <p>Procédures SDK. La documentation des kits SDK AWS inclut des démonstrations qui montrent une application exécutée sur une instance Amazon EC2 qui utilise les informations d'identification temporaires des rôles pour lire un compartiment Amazon S3. Chacune des procédures suivantes comporte des étapes similaires, avec un langage de programmation différent :</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/java-dg-roles.html">Configuration de rôles IAM pour Amazon EC2 avec le kit SDK for Java</a> dans le <em>Manuel du développeur AWS SDK for Java</em> </p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/run-instance.html">Lancer une instance Amazon EC2 à l'aide du kit SDK pour .NET</a> dans le <em>Manuel du développeur AWS SDK for .NET</em></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/sdk-for-ruby/latest/developer-guide/ec2-example-create-instance.html">Création d'une instance Amazon EC2 avec le kit SDK for Ruby</a> dans le <em>Manuel du développeur AWS SDK for Ruby</em></p>
+          </li></ul></div>
+      </li></ul></div>
+   
+    <h2 id="roles-usingrole-ec2instance-related-info">Informations connexes</h2>
+    <p>Pour en savoir plus sur la création de rôles pour des instances Amazon EC2, consultez les informations suivantes :</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Pour de plus amples informations sur l'<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">utilisation de rôles IAM avec des instances Amazon EC2</a>, accédez au <em>Guide de l'utilisateur Amazon EC2 pour instances Linux</em>.</p>
+      </li><li class="listitem">
+        <p>Pour créer un rôle, consultez <a href="./id_roles_create.html">Création de rôles IAM</a></p>
+      </li><li class="listitem">
+        <p>Pour plus d'informations sur l'utilisation d'informations d'identification de sécurité temporaires, consultez <a href="./id_credentials_temp.html">Informations d'identification de sécurité temporaires dans IAM</a>.</p>
+      </li><li class="listitem">
+        <p>Si vous utilisez l'API ou l'interface de ligne de commande (CLI) IAM vous devez créer et gérer les profils d'instance IAM. Pour plus d'informations sur les profils d'instance, consultez <a href="./id_roles_use_switch-role-ec2_instance-profiles.html">Utilisation de profils d'instance</a>.</p>
+      </li><li class="listitem">
+        <p>Pour plus d'informations sur les informations d'identification de sécurité temporaires pour les rôles dans les métadonnées d'instance, consultez <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">Extraction des informations d'identification de sécurité à partir des métadonnées d'instance</a> dans le <em>Guide de l'utilisateur Amazon EC2 pour les instances Linux</em>.</p>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avertissement" /> <strong>JavaScript est désactivé ou n'est pas disponible dans votre navigateur.</strong></p><p>Pour que vous puissiez utiliser la documentation AWS, Javascript doit être activé. Vous trouverez des instructions sur les pages d'aide de votre navigateur.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Conventions de rédaction</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_use_switch-role-api.html">Changement de rôle (API AWS)</div><div id="next" class="next-link" accesskey="n" href="./id_roles_use_switch-role-ec2_instance-profiles.html">Utilisation de profils d'instance</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Oui</div><div class="content"><p>Merci de nous avoir fait part de votre satisfaction.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer ce qui vous a plu afin que nous puissions nous améliorer davantage.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Non</div><div class="content"><p>Merci de nous avoir avertis que cette page avait besoin d'être retravaillée. Nous sommes désolés de ne pas avoir répondu à vos attentes.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer comment nous pourrions améliorer cette documentation.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

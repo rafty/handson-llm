@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>예: Amazon Kendra 인덱스용 FAQ 봇 생성 - Amazon Lex</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="faq-bot-kendra-search" /><meta name="default_state" content="faq-bot-kendra-search" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="description" content="이 예에서는 Amazon Kendra 인덱스를 사용하여 사용자의 질문에 대한 답변을 제공하는 Amazon Lex V2 봇을 생성합니다. FAQ 봇은 사용자와의 대화를 관리합니다. AMAZON.KendraSearchIntent 의도를 사용하여 인덱스에 쿼리하고 사용자에게 응답을 제공합니다. 다음은 Amazon Kendra 인덱스를 사용하여 FAQ 봇을 만드는 방법을 요약한 것입니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Lex" /><meta name="guide" content="V2 개발자 안내서" /><meta name="abstract" content="Amazon Lex V2의 개념적 개요를 제공합니다. 스트리밍 대화와 같은 다양한 기능 사용에 대한 세부 지침을 포함하고 V2 API에 대한 전체 참조를 제공합니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="x-default" /><meta name="feedback-item" content="Lex" /><meta name="this_doc_product" content="Amazon Lex" /><meta name="this_doc_guide" content="V2 개발자 안내서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'lex'}"></script><meta id="panorama-serviceSubSection" value="V2 개발자 안내서" /><meta id="panorama-serviceConsolePage" value="예: Amazon Kendra 인덱스용 FAQ 봇 생성" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>예: Amazon Kendra 인덱스용 FAQ 봇 생성 - Amazon Lex</title><meta name="pdf" content="lex2.0.pdf#faq-bot-kendra-search" /><meta name="rss" content="amazon-lex-v2-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=251" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=http://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Lex",
+        "item" : "https://docs.aws.amazon.com/lex/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "V2 개발자 안내서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "봇 만들기",
+        "item" : "https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/building-bots.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "내장 인텐트 및 슬롯 유형",
+        "item" : "https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/built-in.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "내장 의도",
+        "item" : "https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/howitworks-builtins-intents.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "아마존. KendraSearchIntent",
+        "item" : "https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/built-in-intent-kendra-search.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "예: Amazon Kendra 인덱스용 FAQ 봇 생성",
+        "item" : "https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/built-in-intent-kendra-search.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="lex2.0.pdf#faq-bot-kendra-search" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/lex/index.html">Amazon Lex</a><a href="what-is.html">V2 개발자 안내서</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>기계 번역으로 제공되는 번역입니다. 제공된 번역과 원본 영어의 내용이 상충하는 경우에는 영어 버전이 우선합니다.</p></awsui-alert><h1 class="topictitle" id="faq-bot-kendra-search">예: Amazon Kendra 인덱스용 FAQ 봇 생성</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>이 예에서는 Amazon Kendra 인덱스를 사용하여 사용자의 질문에 대한 답변을 제공하는 Amazon Lex V2 봇을 생성합니다. FAQ 봇은 사용자와의 대화를 관리합니다. <code class="code">AMAZON.KendraSearchIntent</code> 의도를 사용하여 인덱스에 쿼리하고 사용자에게 응답을 제공합니다. 다음은 Amazon Kendra 인덱스를 사용하여 FAQ 봇을 만드는 방법을 요약한 것입니다.</p><div class="orderedlist">
+                     
+                     
+                     
+                     
+                <ol><li>
+                        <p>고객이 봇으로부터 답변을 얻기 위해 상호 작용할 봇을 생성합니다.</p>
+                    </li><li>
+                        <p>사용자 지정 의도를 생성합니다. <code class="code">AMAZON.KendraSearchIntent</code>및<code class="code">AMAZON.FallbackIntent</code> 는 백업 인텐트이므로 봇에는 하나 이상의 발화를 포함해야 하는 다른 인텐트가 하나 이상 필요합니다. 이 의도는 봇을 빌드하는 데 필요하지만 다른 방식으로는 사용되지 않습니다. 따라서 FAQ 봇에는 아래 이미지와 같이 최소 세 가지 인텐트가 포함됩니다.</p>
+                            
+                        <div class="mediaobject">
+                             
+                                <img src="images/kendra-faqbot/kendra-intents.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                세 가지 의도를 가진 Kendra FAQ 봇&#xA;                            " />
+                             
+                             
+                        </div>
+                    </li><li>
+                        <p>봇에<code class="code">AMAZON.KendraSearchIntent</code> 인텐트를 추가하고 <a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index.html">Amazon Kendra 인덱스와</a> 함께 작동하도록 구성합니다.</p>
+                    </li><li>
+                        <p>쿼리를 만들고 Amazon Kendra 인덱스의 결과가 쿼리에 응답하는 문서인지 확인하여 봇을 테스트합니다.</p>
+                    </li></ol></div><p><b>사전 조건</b></p><p>이 예제를 사용하려면 그 전에 Amazon Kendra 인덱스를 생성해야 합니다. 자세한 내용은 Amazon Kendra <em>개발자 안내서의 Amazon Kendra</em> <a href="https://docs.aws.amazon.com/kendra/latest/dg/gs-console.html">콘솔 시작하기를</a> 참조하십시오. 이 예제에서는 샘플 데이터세트 (<b>샘플 AWS 설명서</b>) 를 데이터 소스로 선택합니다.</p><div class="procedure"><h6>FAQ 봇을 만들려면:</h6><ol><li><p>에AWS Management Console 로그인하고 <a href="https://console.aws.amazon.com/lex/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/lex/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> Amazon Lex 콘솔을 엽니다.</p></li><li>
+                        <p>탐색 창에서 <b>봇</b>을 선택합니다.</p>
+                    </li><li>
+                        <p><b>봇 생성을</b> 선택합니다.</p>
+                        <ol><li>
+                                <p> <b>생성 방법에서</b> <b>빈 봇</b> 생성을 선택합니다.</p>
+                            </li><li>
+                                <p> <b>봇 구성</b> 섹션에서 봇의 용도를 나타내는 이름 (예:) 과 선택적 설명을 지정합니다.<code class="userinput">KendraTestBot</code> 이름은 계정에서 고유해야 합니다.</p>
+                            </li><li>
+                                <p> <b>IAM 권한</b> 섹션에서 <b>기본 Amazon Lex 권한으로 역할 생성을</b> 선택합니다. 그러면 Amazon Lex V2에서 봇을 실행하는 데 필요한 권한을 가진 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html">AWS Identity and Access Management(IAM)</a> 역할이 생성됩니다.</p>
+                            </li><li>
+                                <p> <b>어린이 온라인 개인 정보 보호법 (COPPA)</b> 섹션에서 <b>아니요를</b> 선택합니다.</p>
+                            </li><li>
+                                <p> <b>유휴 세션 제한 시간</b> 및 <b>고급 설정</b> 섹션에서 기본 설정을 그대로 두고 <b>다음을</b> 선택합니다.</p>
+                            </li><li>
+                                <p> 이제 <b>봇에 언어 추가</b> 섹션이 나타납니다. <b>음성 상호 작용</b> 아래의 메뉴에서 <b>없음을 선택합니다. 이것은 텍스트 기반 응용 프로그램일 뿐입니다</b>. 나머지 필드의 기본 설정을 그대로 둡니다.</p>
+                            </li><li>
+                                <p> <b>완료</b>(Done)를 선택합니다. Amazon Lex V2는 봇과 이라는 <b>NewIntent</b>기본 인텐트를 생성하고 이 인텐트를 구성하는 페이지로 이동합니다.</p>
+                            </li></ol>
+                    </li></ol></div><p>봇을 성공적으로 구축하려면<code class="code">AMAZON.FallbackIntent</code> 및 와 분리된 인텐트를 하나 이상 만들어야<code class="code">AMAZON.KendraSearchIntent</code> 합니다. 이 인텐트는 Amazon Lex V2 봇을 구축하는 데 필요하지만 FAQ 응답에는 사용되지 않습니다. 이 인텐트는 하나 이상의 샘플 발언을 포함해야 하며, 해당 발언은 고객이 묻는 질문에 해당되지 않아야 합니다.</p><div class="procedure"><h6>필수 인텐트를 만들려면:</h6><ol><li>
+                        <p> <b>인텐트 세부 정보</b> 섹션에서 인텐트에 이름을 지정합니다 (예:)<code class="userinput">RequiredIntent</code>.</p>
+                    </li><li>
+                        <p> <b>샘플 발화 섹션에서 발화</b> <b>추가 옆의 상자에 발화 (예:)</b> 를 입력합니다<code class="userinput">Required utterance</code>. 그런 다음 <b>발화 추가를 선택합니다</b>.</p>
+                    </li><li>
+                        <p><b>의도 저장</b>을 선택합니다.</p>
+                    </li></ol></div><p>Amazon Kendra 인덱스를 검색할 인텐트와 이 인덱스가 반환해야 하는 응답 메시지를 생성합니다.</p><div class="procedure"><h6>AMAZONS를 생성하려면 KendraSearchIntent 인텐트 및 응답 메시지:</h6><ol><li>
+                        <p> 탐색 창에서 <b>인텐트 목록으로</b> 돌아가기를 선택하면 봇의 <b>인텐트</b> 페이지로 돌아갑니다. <b>인텐트 추가를</b> 선택하고 드롭다운 메뉴에서 <b>내장 인텐트 사용을</b> 선택합니다.</p>
+                    </li><li>
+                        <p> 팝업 상자에서 <b>빌트인 인텐트에서 메뉴를 선택합니다.</b> 검색<code class="userinput">AMAZON.KendraSearchIntent</code> 창에 입력한 다음 목록에서 선택합니다.</p>
+                    </li><li>
+                        <p> 인텐트에 이름을 지정합니다 (예:)<code class="userinput">KendraSearchIntent</code>.</p>
+                    </li><li>
+                        <p> <b>Amazon Kendra 인덱스</b> 드롭다운 메뉴에서 검색할 의도가 있는 인덱스를 선택합니다. <b>필수 조건</b> 섹션에서 생성한 색인을 사용할 수 있어야 합니다.</p>
+                    </li><li>
+                        <p> <b>추가(Add)</b>를 선택합니다.</p>
+                    </li><li>
+                        <p>인텐트 편집기에서 아래로 스크롤하여 <b>주문 처리</b> 섹션으로 이동하고 오른쪽 화살표를 선택하여 섹션을 펼친 다음 <b>주문 처리 완료 시</b> 아래 상자에 다음 메시지를 추가합니다.</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">I found a link to a document that could help you: ((x-amz-lex:kendra-search-response-document-link-1)).</code></pre>
+                    
+                        <div class="mediaobject">
+                             
+                                <img src="images/kendra-faqbot/kendra-fulfillment-response.gif" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                주문 처리 응답 추가&#xA;                            " />
+                             
+                             
+                        </div>
+                        
+                        <p> Amazon Kendra 검색 응답에 대한 자세한 내용은 <a href="https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-kendra-search.html#kendra-search-response">검색 응답 사용을</a> 참조하십시오.</p>
+                    
+                    </li><li>
+                        <p><b>의도 저장</b>을 선택한 다음 <b>빌드</b>를 선택하여 봇을 빌드합니다. 봇이 준비되면 화면 상단의 배너가 녹색으로 바뀌고 성공 메시지가 표시됩니다.</p>
+                    </li></ol></div><p>마지막으로 콘솔 테스트 창을 사용하여 봇의 응답을 테스트합니다.</p><div class="procedure"><h6>FAQ 봇을 테스트하려면:</h6><ol><li>
+                        <p> 봇이 성공적으로 빌드되면 <b>Test를</b> 선택합니다.</p>
+                    </li><li>
+                        <p> 콘솔 테스트<code class="userinput">What is Amazon Kendra?</code> 창에 입력합니다. 봇이 링크로 응답하는지 확인합니다.</p>
+                    </li><li>
+                        <p> 구성에<code class="code">AMAZON.KendraSearchIntent</code> 대한 자세한 내용은 <a href="https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-kendra-search.html">AMAZONS를 참조하십시오. KendraSearchIntent</a>및 <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_KendraConfiguration.html">KendraConfiguration</a>.</p>
+                    </li></ol></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./built-in-intent-kendra-search.html">아마존. KendraSearchIntent </div><div id="next" class="next-link" accesskey="n" href="./built-in-intent-pause.html">아마존. PauseIntent </div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

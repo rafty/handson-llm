@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS PrivateLink pour Simple Storage Service (Amazon S3) - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="privatelink-interface-endpoints" /><meta name="default_state" content="privatelink-interface-endpoints" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="description" content="Connectez-vous à Amazon S3 à l'aide des points de terminaison d'un VPC d'interface AWS PrivateLink dans votre cloud privé virtuel (VPC)." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="Guide de l'utilisateur" /><meta name="abstract" content="Découvrez comment utiliser Amazon Simple Storage Service (Amazon S3) pour stocker et récupérer n'importe quel volume de données depuis n'importe quel endroit. Ce guide présente les concepts Amazon S3, tels que les compartiments, les objets et les configurations s'y rapportant. Il inclut également des exemples de code pour des opérations courantes." /><meta name="guide-locale" content="fr_fr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="Guide de l'utilisateur" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="Guide de l'utilisateur" /><meta id="panorama-serviceConsolePage" value="AWS PrivateLink pour Simple Storage Service (Amazon S3)" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS PrivateLink pour Simple Storage Service (Amazon S3) - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#privatelink-interface-endpoints" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="keywords" content="S3,Amazon S3,Guide de l'utilisateur S3,Guide de l'utilisateur Amazon S3,Guide de l'utilisateur Amazon,compartiment s3,objet s3,stockage dans le cloud,stockage des données" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guide de l'utilisateur",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Sécurité Amazon S3",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS PrivateLink pour Simple Storage Service (Amazon S3)",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#privatelink-interface-endpoints" target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">Guide de l'utilisateur</a></div><div id="page-toc-src"><a href="#types-of-vpc-endpoints-for-s3">Types de points de terminaison de VPC</a><a href="#privatelink-limitations">Restrictions et limitations de la technologie AWS PrivateLink pour Amazon S3</a><a href="#s3-creating-vpc">Création d'un point de terminaison d'un VPC</a><a href="#accessing-s3-interface-endpoints">Accès aux points de terminaison d'interface d'Amazon S3</a><a href="#private-dns">DNS privé</a><a href="#accessing-bucket-and-aps-from-interface-endpoints">Accès aux compartiments, aux points d'accès et aux opérations d'API de contrôle Amazon S3 depuis les points de terminaison de l'interface S3</a><a href="#updating-on-premises-dns-config">Mise à jour d'une configuration DNS sur site</a><a href="#creating-vpc-endpoint-policy">Création d'une stratégie de point de terminaison de VPC</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="privatelink-interface-endpoints">AWS PrivateLink pour Simple Storage Service (Amazon S3)</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Avec la technologie AWS PrivateLink pour Amazon S3, vous pouvez allouer des <em>points de terminaison de VPC d'interface</em> (points de terminaison d'interface) dans votre cloud privé virtuel (VPC). Ces points de terminaison sont directement accessibles à partir d'applications sur site via VPN et AWS Direct Connect, ou dans une Région Région AWS différente via un appairage de VPC.</p><p>Les points de terminaison d'interface sont représentés par une ou plusieurs interfaces réseau Elastic (ENI) auxquelles des adresses IP privées sont attribuées à partir de sous-réseaux VPC. Les demandes adressées à Amazon S3 via les points de terminaison d'interface restent sur le réseau Amazon. Vous pouvez également accéder aux points de terminaison d'interface dans votre VPC à partir d'applications sur site via AWS Direct Connect ou AWS Virtual Private Network (AWS VPN). Pour plus d'informations sur la façon de connecter votre VPC à votre réseau sur site, consultez le <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html">AWS Direct ConnectGuide de l'utilisateur </a> et le <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPNGuide de l'utilisateur </a>.</p><p>Pour des informations générales sur les points de terminaison d'interface, consultez <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html">Points de terminaison de VPC d'interface (AWS PrivateLink)</a> dans le <em>Guide AWS PrivateLink</em>.</p><div class="highlights" id="inline-topiclist"><h6>Rubriques</h6><ul><li><a href="#types-of-vpc-endpoints-for-s3">Types de points de terminaison de VPC pour Amazon S3</a></li><li><a href="#privatelink-limitations">Restrictions et limitations de la technologie AWS PrivateLink pour Amazon S3</a></li><li><a href="#s3-creating-vpc">Création d'un point de terminaison d'un VPC</a></li><li><a href="#accessing-s3-interface-endpoints">Accès aux points de terminaison d'interface d'Amazon S3</a></li><li><a href="#private-dns">DNS privé</a></li><li><a href="#accessing-bucket-and-aps-from-interface-endpoints">Accès aux compartiments, aux points d'accès et aux opérations d'API de contrôle Amazon S3 depuis les points de terminaison de l'interface S3</a></li><li><a href="#updating-on-premises-dns-config">Mise à jour d'une configuration DNS sur site</a></li><li><a href="#creating-vpc-endpoint-policy">Création d'une stratégie de point de terminaison de VPC pour Amazon S3</a></li></ul></div>
+    <h2 id="types-of-vpc-endpoints-for-s3">Types de points de terminaison de VPC pour Amazon S3</h2>
+    <p>Vous pouvez utiliser deux types de points de terminaison d'un VPC pour accéder à Amazon S3 : les <em>points de terminaison de passerelle</em> et les <em>points de terminaison d'interface</em> (en utilisant AWS PrivateLink). Un <em>point de terminaison de passerelle</em> est une passerelle que vous spécifiez dans votre table de routage pour accéder à Amazon S3 depuis votre VPC via le réseau AWS. Les <em>points de terminaison d'interface</em> étendent la fonctionnalité des points de terminaison de passerelle en utilisant des adresses IP privées pour acheminer les demandes vers Amazon S3 depuis votre VPC, sur site ou depuis un VPC dans une autre région AWS Transit Gateway à l'aide d'un appairage de VPC ou d'une Région AWS. Pour plus d'informations, consultez <a href="https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html">Qu'est-ce que l'appairage de VPC ?</a> et <a href="https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/transit-gateway-vs-vpc-peering.html">Transit Gateway vs VPC peering</a> (Passerelle de transit ou appairage de VPC).</p>
+    <p>Les points de terminaison d'interface sont compatibles avec les points de terminaison de passerelle. Si vous avez un point de terminaison de passerelle existant dans votre VPC, vous pouvez utiliser les deux types de points de terminaison dans le même VPC.</p>
+    <div class="table-container"><div class="table-contents"><table id="w1871aac19c23c11b7"><thead>
+          <tr>
+            <th>
+              <p>Points de terminaison de passerelle pour Amazon S3</p>
+            </th>
+            <th>
+              <p>Points de terminaison d'interface pour Amazon S3</p>
+            </th>
+          </tr>
+        </thead>
+          <tr>
+            <td colspan="2">
+              
+              <p>Dans les deux cas, votre trafic réseau reste sur le réseau AWS.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Utiliser des adresses IP publiques Amazon S3</p>
+            </td>
+            <td>
+              <p>Utiliser des adresses IP privées depuis votre VPC pour accéder à Amazon S3</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Utiliser les mêmes noms DNS Amazon S3</p>
+            </td>
+            <td>
+              <p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#accessing-s3-interface-endpoints">Exiger des noms DNS Amazon S3 spécifiques aux points de terminaison</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>N'autorise pas l'accès sur site</p>
+            </td>
+            <td>
+              <p>Autoriser l'accès depuis vos sites</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>N'autorise pas l'accès depuis une autre Région AWS</p>
+            </td>
+            <td>
+              <p>Autorise l'accès à partir d'un VPC situé dans une autre Région AWS en utilisant un appairage de VPC ou AWS Transit Gateway</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Non facturé</p>
+            </td>
+            <td>
+              <p>Facturé</p>
+            </td>
+          </tr>
+        </table></div></div>
+    <p>Pour plus d'informations sur les points de terminaison de passerelle, consultez <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Points de terminaison de VPC de passerelle</a> dans le <em>Guide AWS PrivateLink</em>.</p>
+     
+      <h2 id="privatelink-limitations">Restrictions et limitations de la technologie AWS PrivateLink pour Amazon S3</h2>
+      <p>Les limitations de VPC s'appliquent à la technologie AWS PrivateLink pour Amazon S3. Pour plus d'informations, consultez <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations">Considérations sur les points de terminaison d'interface</a> et <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-limits-endpoints.html">Quotas AWS PrivateLink</a> dans le <em>Guide AWS PrivateLink</em>. En outre, les restrictions suivantes s'appliquent.</p>
+    <p>La technologie AWS PrivateLink pour Amazon S3 ne prend pas en charge les éléments suivants :</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="http://aws.amazon.com/compliance/fips/" rel="noopener noreferrer" target="_blank"><span>Points de terminaison FIPS (Federal Information Processing Standard)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+      </li><li class="listitem">
+        <p><a href="./WebsiteEndpoints.html">Points de terminaison de sites web</a></p>
+      </li><li class="listitem">
+        <p><a href="./VirtualHosting.html#deprecated-global-endpoint">Points de terminaison globaux hérités</a></p>
+      </li><li class="listitem">
+        <p>Utilisation de <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html">CopyObject</a>ou <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html">UploadPartCopy</a> entre des compartiments dans différentes Régions AWS</p></li><li class="listitem">
+        <p>Protocole TLS (Transport Layer Security) 1.1</p>
+      </li></ul></div>
+     
+    <h2 id="s3-creating-vpc">Création d'un point de terminaison d'un VPC</h2>
+    <p>Pour créer un point de terminaison d'interface de VPC, veuillez consulter <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html#create-interface-endpoint-aws">Création d'un point de terminaison de VPC</a> dans le <em>Guide AWS PrivateLink</em>.</p>
+   
+      <h2 id="accessing-s3-interface-endpoints">Accès aux points de terminaison d'interface d'Amazon S3</h2>
+      
+      <p>Lorsque vous créez un point de terminaison d'interface, Amazon S3 génère deux types de noms DNS S3 spécifiques au point de terminaison : des noms <em>Régionaux</em> et des noms <em>zonaux</em>. </p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Les noms DNS <em>régionaux</em> incluent un ID de point de terminaison d'un VPC unique, un identifiant de service, la Région AWS, et <code class="code">vpce.amazonaws.com</code> dans son nom. Par exemple, pour l'ID de point de terminaison de VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code>, le nom DNS généré peut être similaire à <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>.s3.us-east-1.vpce.amazonaws.com</code>.</p>
+        </li><li class="listitem">
+          <p>Les noms DNS <em>zonaux</em> incluent la zone de disponibilité, par exemple, <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>-<b>us-east-1a.</b>s3.us-east-1.vpce.amazonaws.com</code>. Vous pouvez utiliser cette option si votre architecture isole les zones de disponibilité. Par exemple, vous pouvez l'utiliser pour contenir les pannes ou réduire les coûts de transfert de données Régionaux.</p>
+        </li></ul></div>
+      <p>Les noms DNS S3 spécifiques au point de terminaison peuvent être résolus depuis le domaine DNS public S3.</p>
+      
+     
+    <h2 id="private-dns">DNS privé</h2>
+    <p>Les options de DNS privé pour les points de terminaison de l'interface d'un VPC simplifient le routage du trafic S3 vers les points de terminaison d'un VPC et vous aident à tirer parti du chemin réseau le plus économique disponible pour votre application. Vous pouvez utiliser des options de DNS privé pour acheminer le trafic S3 régional sans mettre à jour vos clients S3 pour utiliser les noms DNS spécifiques aux points de terminaison de vos points de terminaison d'interface, ni gérer l'infrastructure DNS. Lorsque les noms de DNS privé sont activés, les requêtes DNS S3 régionales sont résolues vers les adresses IP privées de AWS PrivateLink pour les points de terminaison suivants :</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Points de terminaison régionaux de compartiment (par exemple, <code class="code">s3.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>Points de contrôle (par exemple, <code class="code">s3-control.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>Points de terminaison des points d'accès (par exemple, <code class="code">s3-accesspoint.us-east-1.amazonaws.com</code>)</p>
+      </li></ul></div>
+    <p>Si votre VPC comporte un point de terminaison de passerelle, vous pouvez automatiquement acheminer les demandes internes au VPC via votre point de terminaison de passerelle S3 existant et les demandes sur site via le point de terminaison de votre interface. Cette approche vous permet d'optimiser vos coûts de mise en réseau en utilisant des points de terminaison de passerelle, qui ne sont pas facturés, pour votre trafic interne au VPC. Vos applications sur site peuvent utiliser AWS PrivateLink avec l'aide du point de terminaison du résolveur entrant. Nous fournissons un serveur DNS pour votre VPC, appelé Route 53 Resolver. Un point de terminaison Resolver entrant réachemine des requêtes DNS à partir du réseau sur site vers Route 53 Resolver.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Pour bénéficier du chemin réseau le plus économique lorsque vous utilisez l'option <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b>, un point de terminaison de passerelle doit être présent dans votre VPC. La présence d'un point de terminaison de passerelle permet de garantir que le trafic interne au VPC passe toujours par le réseau privé d'AWS lorsque l'option <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b> est sélectionnée. Vous devez conserver ce point de terminaison de passerelle tant que l'option <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b> est sélectionnée. Si vous souhaitez supprimer le point de terminaison de votre passerelle, vous devez d'abord désactiver <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b>. </p><p>Si vous souhaitez mettre à jour un point de terminaison d'interface existant pour <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b>, vérifiez d'abord que votre VPC possède un point de terminaison de passerelle S3. Pour plus d'informations sur les points de terminaison de passerelle et la gestion des noms DNS privés, consultez <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Points de terminaison de passerelle</a> et <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/manage-dns-names.html">Gestion des noms DNS privés</a> dans le <em>Guide AWS PrivateLink</em>.</p></div></div>
+    <p>L'option <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b> n'est disponible que pour les services qui prennent en charge les points de terminaison de passerelle.</p>
+    <p>Pour plus d'informations sur la création d'un point de terminaison d'un VPC utilisant l'option <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b>, consultez <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html">Créer un point de terminaison d'interface</a> dans le <em>Guide AWS PrivateLink</em>.</p>
+    <p><b>Utilisation de la console du VPC</b></p>
+    <p>Dans la console, vous avez deux options : <b>Activer le nom DNS</b> et <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b>. L'option <b>Activer le nom DNS</b> est prise en charge par AWS PrivateLink. En utilisant l'option <b>Activer le nom DNS</b>, vous pouvez utiliser la connectivité privée d'Amazon à Amazon S3, tout en envoyant des demandes aux noms DNS des points de terminaison publics par défaut. Lorsque cette option est activée, les clients peuvent bénéficier du chemin réseau le plus économique disponible pour leur application.</p>
+    <p>Lorsque vous activez les noms DNS privés sur un point de terminaison d'interface de VPC existant ou nouveau pour Amazon S3, l'option <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b> est sélectionnée par défaut. Si cette option est sélectionnée, vos applications utilisent uniquement des points de terminaison d'interface pour votre trafic sur site. Ce trafic interne au VPC utilise automatiquement les points de terminaison de passerelle les moins coûteux. Vous pouvez également désactiver l'option <b>Activer le DNS privé uniquement pour les points de terminaison entrants</b> afin d'acheminer toutes les demandes S3 via le point de terminaison de votre interface.</p>
+    <p><b>Utilisation de la AWS CLI</b></p>
+    <p>Si vous ne spécifiez pas de valeur pour <code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code>, la valeur par défaut est <code class="code">true</code>. Toutefois, avant que votre VPC n'applique vos paramètres, il vérifie qu'un point de terminaison de passerelle est présent dans le VPC. Si un point de terminaison de passerelle est présent dans le VPC, l'appel aboutit. Sinon, le message d'erreur suivant s'affiche : </p>
+    <p><strong class="errortext"><code>Pour définir PrivateDnsOnlyForInboundResolverEndpoint sur true, le VPC <code class="replaceable">vpce_id</code> doit disposer d'un point de terminaison de passerelle pour le service.</code></strong></p>
+    <p><b>Pour un nouveau point de terminaison d'interface de VPC</b></p>
+    <p>Utilisez les attributs <code class="code">private-dns-enabled</code> et <code class="code">dns-options</code> pour activer le DNS privé via la ligne de commande. L'option <code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code> de l'attribut <code class="code">dns-options</code> doit être définie sur <code class="code">true</code>. Remplacez <code class="code"><code class="replaceable">user input placeholders</code></code> par vos propres informations.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 create-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--service-name <code class="replaceable">s3-service-name</code> \
+--vpc-id <code class="replaceable">client-vpc-id</code> \
+--subnet-ids <code class="replaceable">client-subnet-id</code> \ 
+--vpc-endpoint-type Interface  \
+--private-dns-enabled  \
+--ip-address-type <code class="replaceable">ip-address-type</code> \ 
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true \
+--security-group-ids <code class="replaceable">client-sg-id</code> 
+    </code></pre>
+    <p><b>Pour un point de terminaison d'un VPC existant</b></p>
+    <p>Si vous souhaitez utiliser un DNS privé pour un point de terminaison d'un VPC existant, utilisez l'exemple de commande suivant et remplacez <code class="code"><code class="replaceable">user input placeholders</code></code> par vos propres informations.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=false
+    </code></pre>
+    <p>Si vous souhaitez mettre à jour un point de terminaison d'un VPC existant afin d'activer le DNS privé uniquement pour le résolveur entrant, utilisez l'exemple suivant et remplacez les exemples de valeurs par les vôtres.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true
+    </code></pre>
+   
+    <h2 id="accessing-bucket-and-aps-from-interface-endpoints">Accès aux compartiments, aux points d'accès et aux opérations d'API de contrôle Amazon S3 depuis les points de terminaison de l'interface S3</h2>
+    <p>Vous pouvez utiliser l'AWS CLI ou les kits SDK AWS pour accéder aux compartiments, aux points d'accès S3 et aux opérations d'API de contrôle Amazon S3 via des points de terminaison d'interface S3. </p>
+    <p>L'image suivante illustre l'onglet <b>Détails</b> de la console VPC, où vous pouvez trouver le nom DNS d'un point de terminaison de VPC. Dans cet exemple, <em>l'ID de point de terminaison de VPC (vpce-id)</em> est <code class="code">vpce-0e25b8cdd720f900e</code> et le <em>nom DNS</em> est <code class="code">*.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code>. </p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <div class="mediaobject">
+       
+       
+        <img src="images/vpc-console-details-tab.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;        L'onglet Détails dans la console VPC.&#xA;      " style="max-width:100%" />
+       
+    </div>
+    <p>Lorsque vous utilisez le nom DNS pour accéder à une ressource, remplacez <code class="replaceable">*</code> par la valeur appropriée. Les valeurs appropriées à utiliser à la place de <code class="code">*</code> sont les suivantes : </p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">bucket</code></p>
+      </li><li class="listitem">
+        <p><code class="code">accesspoint</code></p>
+      </li><li class="listitem">
+        <p><code class="code">control</code></p>
+      </li></ul></div>
+    <p>Par exemple, pour accéder à un compartiment, utilisez un <em>nom DNS</em> comme celui-ci :</p>
+    <p>
+      <code class="code">bucket.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code></p>
+    <p>Pour obtenir des exemples d'utilisation des noms DNS pour accéder aux compartiments, aux points d'accès et aux opérations d'API de contrôle Amazon S3, consultez les sections suivantes de <a href="#privatelink-aws-cli-examples">Exemples AWS CLI</a> et <a href="#privatelink-aws-sdk-examples">Exemples de kit AWS SDK</a>.</p>
+    <p>Pour plus d'informations sur la façon d'afficher vos noms DNS spécifiques aux terminaux, consultez <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/view-vpc-endpoint-service-dns-name.html">Viewing endpoint service private DNS name configuration</a> (Affichage de la configuration du nom DNS privé du service de point de terminaison) dans le <em>Guide de l'utilisateur VPC</em>.</p>
+     
+      <h3 id="privatelink-aws-cli-examples">Exemples AWS CLI</h3>
+      <p>Pour accéder aux compartiments S3, aux points d'accès S3 ou aux opérations d'API de contrôle Amazon S3 via les points de terminaison de l'interface S3 dans les commandes AWS CLI, utilisez les paramètres <code class="code">--region</code> et <code class="code">--endpoint-url</code>. </p>
+       
+        <h6>Exemple : utilisez une URL de point de terminaison pour répertorier les objets dans votre compartiment</h6>
+        <p>Dans l'exemple suivant, remplacez le nom du compartiment <code class="code"><code class="replaceable">my-bucket</code></code>, la région <code class="code"><code class="replaceable">us-east-1</code></code> et le nom DNS de l'ID du point de terminaison de VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations.</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3 ls s3://<code class="replaceable">my-bucket</code>/ --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+      <p><b>Exemple : utilisez une URL de point de terminaison pour répertorier les objets depuis un point d'accès</b></p>
+      <div class="itemizedlist">
+                 
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>Méthode 1</b> : utilisation de l'Amazon Resource Name (ARN) du point d'accès avec le point de terminaison du point d'accès</p>
+          
+          <p>Remplacez l'ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code></code>, la région <code class="code"><code class="replaceable">us-east-1</code></code> et l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+          <p>Si vous ne parvenez pas à exécuter la commande correctement, mettez à jour l'AWS CLI vers la version la plus récente et réessayez. Pour plus d'informations sur les instructions de mise à jour, consultez <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions">Installation ou mise à jour de la dernière version de l'interface AWS CLI</a> dans le <em>Guide de l'utilisateur AWS Command Line Interface</em>.</p>
+        </li><li class="listitem">
+          <p><b>Méthode 2</b> : utilisation de l'alias du point d'accès avec le point de terminaison régional du compartiment</p>
+          <p>Dans l'exemple suivant, remplacez l'alias du point d'accès <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code>, la région <code class="code"><code class="replaceable">us-east-1</code></code> et l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li><li class="listitem">
+          <p><b>Méthode 3</b> : utilisation de l'alias du point d'accès avec le point de terminaison du point d'accès</p>
+          <p>Tout d'abord, pour construire un point de terminaison S3 avec le compartiment inclus dans le nom d'hôte, définissez le style d'adressage sur <code class="code">virtual</code> pour <code class="code">aws s3api</code>. Pour plus d'informations sur <code class="code">AWS configure</code>, consultez <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html">Configuration and credential file settings</a> (Paramètres des fichiers de configuration et d'informations d'identification) dans le <em>Guide de l'utilisateur AWS Command Line Interface</em>. </p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws configure set default.s3.addressing_style virtual</code></pre>
+          <p>Ensuite, dans l'exemple suivant, remplacez l'alias du point d'accès <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code>, la région <code class="code"><code class="replaceable">us-east-1</code></code> et l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations. Pour plus d'informations sur les alias de point d'accès, consultez <a href="./access-points-alias.html">Utilisation d'un alias de type compartiment pour votre point d'accès de compartiment S3</a>.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li></ul></div>     
+       
+        <h6>Exemple : utilisez une URL de point de terminaison pour répertorier les tâches avec une opération d'API de contrôle S3</h6>
+        <p>Dans l'exemple suivant, remplacez la région <code class="code"><code class="replaceable">us-east-1</code></code>, l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> et l'ID du compte <code class="code"><code class="replaceable">12345678</code></code> par vos propres informations.</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3control --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code> list-jobs --account-id <code class="replaceable">12345678</code></code></pre>
+     
+     
+      <h3 id="privatelink-aws-sdk-examples">Exemples de kit AWS SDK</h3>
+      <p>Pour accéder aux compartiments S3, aux points d'accès S3 et aux opérations d'API de contrôle Amazon S3 via des points de terminaison d'interface S3 avec les kits SDK AWS, mettez à jour vos kits SDK vers la dernière version. Configurez ensuite vos clients pour qu'ils utilisent une URL de point de terminaison afin d'accéder à un compartiment, un point d'accès ou des opérations d'API de contrôle Amazon S3 via des points de terminaison d'interface S3. </p>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>SDK for Python (Boto3)</dt><dd tab-id="sdk-for-python-(boto3)">
+             
+              <h6>Exemple : Utiliser une URL de point de terminaison pour accéder à un compartiment S3</h6>
+              <p>Dans l'exemple suivant, remplacez la région <code class="code"><code class="replaceable">us-east-1</code></code> et l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">s3_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>Exemple : Utiliser une URL de point de terminaison pour accéder à un point d'accès S3</h6>
+              <p>Dans l'exemple suivant, remplacez la région <code class="code"><code class="replaceable">us-east-1</code></code> et l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">ap_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>Exemple : utilisez une URL de point de terminaison pour accéder à l'API de contrôle Amazon S3</h6>
+              <p>Dans l'exemple suivant, remplacez la région <code class="code"><code class="replaceable">us-east-1</code></code> et l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">control_client = session.client(
+service_name='s3control',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+          </dd>
+        <dt>SDK for Java 1.x</dt><dd tab-id="sdk-for-java-1.x">
+             
+              <h6>Exemple : Utiliser une URL de point de terminaison pour accéder à un compartiment S3</h6>
+              <p>Dans l'exemple suivant, remplacez l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+List&lt;Bucket&gt; buckets = s3.listBuckets();</code></pre>
+             
+              <h6>Exemple : Utiliser une URL de point de terminaison pour accéder à un point d'accès S3</h6>
+              <p>Dans l'exemple suivant, remplacez l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> et l'ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/prod</code></code> par vos propres informations. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+final AmazonS3 s3accesspoint = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+ObjectListing objects = s3accesspoint.listObjects("arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/prod</code>");</code></pre>
+             
+              <h6>Exemple : utilisez une URL de point de terminaison pour accéder à une opération d'API de contrôle Amazon S3</h6>
+              <p>Dans l'exemple suivant, remplacez l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> par vos propres informations. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+final AWSS3Control s3control = AWSS3ControlClient.builder().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+final ListJobsResult jobs = s3control.listJobs(new ListJobsRequest());</code></pre>
+          </dd>
+        <dt>SDK for Java 2.x</dt><dd tab-id="sdk-for-java-2.x">
+             
+              <h6>Exemple : Utiliser une URL de point de terminaison pour accéder à un compartiment S3</h6>
+              <p>Dans l'exemple suivant, remplacez l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> et la région <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> par vos propres informations.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>Exemple : Utiliser une URL de point de terminaison pour accéder à un point d'accès S3</h6>
+              <p>Dans l'exemple suivant, remplacez l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> et la région <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> par vos propres informations.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>Exemple : utilisez une URL de point de terminaison pour accéder à l'API de contrôle Amazon S3</h6>
+              <p>Dans l'exemple suivant, remplacez l'ID du point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> et la région <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> par vos propres informations.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3ControlClient = S3ControlClient.builder().region(region)
+                                 .endpointOverride(URI.create("https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                                 .build()</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+     
+   
+    <h2 id="updating-on-premises-dns-config">Mise à jour d'une configuration DNS sur site</h2>
+      <p>Lorsque vous utilisez des noms DNS spécifiques aux points de terminaison pour accéder aux points de terminaison d'interface pour Amazon S3, vous n'avez pas besoin de mettre à jour votre résolveur DNS sur site. Vous pouvez résoudre le nom DNS spécifique au point de terminaison avec l'adresse IP privée du point de terminaison d'interface depuis le domaine DNS public Amazon S3. </p>
+
+       
+      <h3 id="using-interface-endpoints">Utilisation de points de terminaison d'interface pour accéder à Amazon S3 sans point de terminaison de passerelle ou passerelle Internet dans le VPC</h3>
+      <p>Les points de terminaison d'interface de votre VPC peuvent acheminer les applications de VPC et les applications sur site vers Amazon S3 via le réseau Amazon, comme illustré dans le diagramme suivant.</p>
+      <div class="mediaobject">
+         
+         
+          <img src="images/interface-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          Le diagramme de flux de données montre l'accès à Amazon S3 à partir d'applications sur site et dans le VPC en utilisant un point de terminaison d'interface et AWS PrivateLink.&#xA;        " style="max-width:100%" />
+         
+      </div>
+      <p>Le diagramme illustre les éléments suivants : </p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Votre réseau local utilise AWS Direct Connect ou AWS VPN pour se connecter au VPC A.</p>
+        </li><li class="listitem">
+          <p>Vos applications sur site et dans le VPC A utilisent des noms DNS spécifiques aux points de terminaison pour accéder à Amazon S3 via le point de terminaison d'interface S3.</p>
+        </li><li class="listitem">
+          <p>Les applications sur site envoient des données au point de terminaison d'interface dans le VPC via AWS Direct Connect (ou AWS VPN). La technologie AWS PrivateLink déplace les données du point de terminaison d'interface vers Amazon S3 via le réseau AWS.</p>
+        </li><li class="listitem">
+          <p>Les applications dans le VPC envoient également du trafic au point de terminaison d'interface. La technologie AWS PrivateLink déplace les données du point de terminaison d'interface vers Amazon S3 via le réseau AWS.</p>
+        </li></ul></div>
+     
+       
+        <h3 id="using-gateway-and-interface-endpoints">Utilisation conjointe de points de terminaison de passerelle et de points de terminaison d'interface dans le même VPC pour accéder à Amazon S3</h3>
+        <p>Vous pouvez créer des points de terminaison d'interface et conserver le point de terminaison de passerelle existant dans le même VPC, comme le montre le diagramme suivant. En adoptant cette approche, vous autorisez les applications internes au VPC à continuer d'accéder à Amazon S3 via le point de terminaison de la passerelle, ce qui n'est pas facturé. Ensuite, seules vos applications sur site utilisent des points de terminaison d'interface pour accéder à Amazon S3. Pour accéder à Amazon S3 de cette façon, vous devez mettre à jour vos applications sur site afin d'utiliser des noms DNS spécifiques du point de terminaison pour Amazon S3.</p>
+        <div class="mediaobject">
+         
+         
+          <img src="images/interface-and-gateway-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          Le diagramme de flux de données montre l'accès à Amazon S3 grâce à l'utilisation conjointe de points de terminaison de passerelle et de points de terminaison d'interface.&#xA;        " style="max-width:100%" />
+         
+      </div>
+        <p>Le diagramme illustre les éléments suivants : </p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Les applications sur site utilisent des noms DNS spécifiques du point de terminaison pour envoyer des données au point de terminaison d'interface dans le VPC via AWS Direct Connect (ou AWS VPN). La technologie AWS PrivateLink déplace les données du point de terminaison d'interface vers Amazon S3 via le réseau AWS.</p>
+          </li><li class="listitem">
+            <p>En utilisant des noms Amazon S3 Régionaux par défaut, les applications dans le VPC envoient des données au point de terminaison de passerelle qui se connecte à Amazon S3 via le réseau AWS.</p>
+          </li></ul></div>
+        <p>Pour plus d'informations sur les points de terminaison de passerelle, consultez la section<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Points de terminaison d'un VPC de passerelle</a> du <em>Guide de l'utilisateur VPC</em>. </p>
+     
+   
+    <h2 id="creating-vpc-endpoint-policy">Création d'une stratégie de point de terminaison de VPC pour Amazon S3</h2>
+    <p>Vous pouvez attacher une stratégie de point de terminaison à votre point de terminaison de VPC qui contrôle l'accès à Amazon S3. La stratégie spécifie les informations suivantes : </p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Le principal AWS Identity and Access Management (IAM) qui peut effectuer des actions. </p>
+      </li><li class="listitem">
+        <p>Les actions qui peuvent être effectuées. </p>
+      </li><li class="listitem">
+        <p>Les ressources sur lesquelles les actions peuvent être exécutées. </p>
+      </li></ul></div>
+    <p>Vous pouvez également utiliser des stratégies de compartiment Amazon S3 pour restreindre l'accès à des compartiments spécifiques depuis un point de terminaison d'un VPC spécifique en utilisant la condition <code class="code">aws:sourceVpce</code> de votre stratégie de compartiment. Les exemples suivants montrent les stratégies qui restreignent l'accès à un compartiment ou à un point de terminaison.</p>
+    <div class="highlights" id="inline-topiclist"><h6>Rubriques</h6><ul><li><a href="#privatelink-example-restrict-access-to-bucket">Exemple : restriction de l'accès à un compartiment spécifique depuis le point de terminaison d'un VPC</a></li><li><a href="#privatelink-example-access-bucket-in-specific-account-only">Exemple : restriction de l'accès aux compartiments dans un compte spécifique depuis le point de terminaison d'un VPC</a></li><li><a href="#privatelink-example-restrict-access-to-vpc-endpoint">Exemple : restriction de l'accès au point de terminaison d'un VPC spécifique dans la stratégie de compartiment S3</a></li></ul></div>
+     
+      <h3 id="privatelink-example-restrict-access-to-bucket">Exemple : restriction de l'accès à un compartiment spécifique depuis le point de terminaison d'un VPC</h3>
+      <p>Vous pouvez créer une stratégie de point de terminaison qui restreint l'accès à des compartiments Amazon S3 spécifiques uniquement. Ce type de stratégie est utile si d'autres Services AWS dans votre VPC utilisent des compartiments. La stratégie de compartiment suivante restreint l'accès à <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code> uniquement. Pour utiliser cette politique de point de terminaison, remplacez <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code> par le nom de votre compartiment.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909151",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-bucket-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>/*"]
+    }
+  ]
+}</code></pre>
+     
+     
+      <h3 id="privatelink-example-access-bucket-in-specific-account-only">Exemple : restriction de l'accès aux compartiments dans un compte spécifique depuis le point de terminaison d'un VPC</h3>
+      <p>Vous pouvez créer une stratégie de point de terminaison qui limite l'accès aux compartiments S3 uniquement dans un Compte AWS spécifique. Pour empêcher les clients de votre VPC d'accéder aux compartiments dont vous n'êtes pas le propriétaire, utilisez la déclaration suivante dans votre stratégie de point de terminaison. L'exemple de déclaration suivant crée une stratégie qui restreint l'accès aux ressources appartenant à un seul ID de Compte AWS, <code class="replaceable"><code class="code">111122223333</code></code>.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-bucket-in-specific-account-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::*",
+      "Condition": <span>{</span>
+        "StringNotEquals": <span>{</span>
+          "aws:ResourceAccount": "<code class="replaceable">111122223333</code>"
+        }
+      }
+    }
+  ]
+}</code></pre>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Vous pouvez utiliser la clé Compte AWS ou <code class="code">aws:ResourceAccount</code> dans votre politique IAM pour spécifier l'ID de <code class="code">s3:ResourceAccount</code> de la ressource en cours d'accès. Cependant, n'oubliez pas que certains Services AWS reposent sur l'accès aux compartiments gérés par AWS. Par conséquent, l'utilisation de la clé <code class="code">aws:ResourceAccount</code> ou <code class="code">s3:ResourceAccount</code> dans votre politique IAM risque également d'avoir un impact sur l'accès à ces ressources.</p></div></div>
+     
+     
+      <h3 id="privatelink-example-restrict-access-to-vpc-endpoint">Exemple : restriction de l'accès au point de terminaison d'un VPC spécifique dans la stratégie de compartiment S3</h3>
+      <p><a id="example-restrict-access-to-vpc-endpoint"></a><b>Exemple : restriction de l'accès au point de terminaison d'un VPC spécifique dans la stratégie de compartiment S3</b></p>
+      <p>La stratégie de compartiment Amazon S3 suivante autorise l'accès à un compartiment spécifique, <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code>, depuis le point de terminaison d'un VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> uniquement. La politique refuse tout accès au compartiment si le point de terminaison spécifié n'est pas utilisé. La condition <code class="code">aws:sourceVpce</code> spécifie le point de terminaison et ne requiert pas d'Amazon Resource Name (ARN) pour la ressource de point de terminaison d'un VPC, mais uniquement l'ID du point de terminaison. Pour utiliser cette stratégie de point de terminaison, remplacez <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code> et <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> par le nom et le point de terminaison de votre compartiment. </p>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Lors de l'application de la stratégie de compartiment Amazon S3 suivante afin de restreindre l'accès à certains points de terminaison d'un VPC uniquement, vous pouvez bloquer involontairement votre accès au compartiment. Les stratégies de compartiment dans le but de restreindre l'accès aux connexions issues du point de terminaison de votre VPC peuvent bloquer toutes les connexions à ce compartiment. Pour des informations sur la correction de ce problème, veuillez consulter <a href="http://aws.amazon.com/premiumsupport/knowledge-center/s3-regain-access/" rel="noopener noreferrer" target="_blank"><span>Ma politique de compartiment n'a pas le bon VPC ou ID de point de terminaison d'un VPC. Comment puis-je corriger la politique de façon à pouvoir accéder au compartiment ?</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> que vous trouverez dans le <em>AWS SupportCentre de connaissances</em>.</p>
+          </li><li class="listitem">
+            <p>Avant d'utiliser l'exemple de stratégie suivant, remplacez l'ID de point de terminaison du VPC par une valeur appropriée pour votre cas d'utilisation. Dans le cas contraire, vous ne parviendrez pas à accéder à votre compartiment. </p>
+          </li><li class="listitem">
+            <p>Cette stratégie désactive l'accès à la <em>console</em> du compartiment spécifié, car les demandes de la console ne proviennent pas du point de terminaison du VPC défini. </p>
+          </li></ul></div></div></div>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909152",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-VPCE-only",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code>/*</code>"],
+      "Condition": <span>{</span>"StringNotEquals": <span>{</span>"aws:sourceVpce": "<code class="replaceable">vpce-1a2b3c4d</code>"}}
+    }
+  ]
+}</code></pre>
+     
+    <p>Pour plus d'exemples de stratégie, consultez la section <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html#vpc-endpoints-policies-s3">Points de terminaison pour Amazon S3</a> du <em>Guide de l'utilisateur VPC</em>.</p>
+  <p>Pour plus d'informations sur la connectivité VPC, consultez la section <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html">Options de connectivité réseau vers VPC</a> du livre blanc AWS <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/welcome.html">Options de connectivité du cloud privé virtuel Amazon</a>.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avertissement" /> <strong>JavaScript est désactivé ou n'est pas disponible dans votre navigateur.</strong></p><p>Pour que vous puissiez utiliser la documentation AWS, Javascript doit être activé. Vous trouverez des instructions sur les pages d'aide de votre navigateur.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Conventions de rédaction</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./inter-network-traffic-privacy.html">Trafic inter-réseaux</div><div id="next" class="next-link" accesskey="n" href="./s3-access-control.html">Identity and Access Management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Oui</div><div class="content"><p>Merci de nous avoir fait part de votre satisfaction.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer ce qui vous a plu afin que nous puissions nous améliorer davantage.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Non</div><div class="content"><p>Merci de nous avoir avertis que cette page avait besoin d'être retravaillée. Nous sommes désolés de ne pas avoir répondu à vos attentes.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer comment nous pourrions améliorer cette documentation.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

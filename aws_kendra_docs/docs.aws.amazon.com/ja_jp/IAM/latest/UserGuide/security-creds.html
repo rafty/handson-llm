@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS セキュリティ認証情報 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="security-creds" /><meta name="default_state" content="security-creds" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html" /><meta name="description" content="自分が誰で、リクエストしている AWS リソースへのアクセス許可を持っているかどうかを検証するために、AWS セキュリティ認証情報 (パスワード、アクセスキー) を使用します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="ユーザー ID (認証) および特定のアクセス許可 (承認) を定義するポリシーで AWS リソースへのアクセスを制限します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/security-creds.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/security-creds.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/security-creds.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/security-creds.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/security-creds.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/security-creds.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/security-creds.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/security-creds.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/security-creds.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/security-creds.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/security-creds.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/security-creds.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/security-creds.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/security-creds.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/security-creds.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/security-creds.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/security-creds.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/security-creds.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/security-creds.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="AWS セキュリティ認証情報" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS セキュリティ認証情報 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#security-creds" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM ユーザー,user,IAM グループ,グループ,[IAM role] (IAM ロール),ロール,アクセス許可ポリシー,信頼ポリシー,ポリシー,アクセスキー,パスワード" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM および AWS STS のセキュリティ",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS セキュリティ認証情報",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#security-creds" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#security-considerations-ref">セキュリティに関する考慮事項</a><a href="#sec-federated-identity-overview">フェデレーティッド ID</a><a href="#sec-multi-factor-authentication">多要素認証 (MFA)</a><a href="#sec-access-keys-and-secret-access-keys">プログラム的なアクセス</a><a href="#sec-alternatives-to-long-term-access-keys">長期的なアクセスキーの代替方法</a><a href="#aws-sec-cred-access-ref">AWS にAWS認証情報を使用してアクセスする</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="security-creds">AWS セキュリティ認証情報</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS の操作時に、自身が誰であるか、そしてリクエストしているリソースに対してアクセス許可を持つかどうかを確認するための AWS <em>セキュリティ認証情報</em>を指定します。AWS は、このセキュリティ認証情報を使用してリクエストを認証、承認します。</p><p>たとえば、Amazon Simple Storage Service (Amazon S3) バケットから保護されたファイルをダウンロードする場合、認証情報はそのアクセスを許可する必要があります。認証情報にファイルをダウンロードする権限がないことが示される場合、AWS はリクエストを拒否します。ただし、公開されている Amazon S3 バケット内のファイルのダウンロードに AWS セキュリティ認証情報は必要ありません。</p><p>AWS には異なるタイプのユーザーがあります。すべての AWS ユーザーはセキュリティ認証情報を持っています。アカウント所有者 (ルートユーザー)、AWS IAM アイデンティティセンター (AWS Single Sign-On の後継) のユーザー、フェデレーションユーザー、IAM ユーザーがいます。</p><p>ユーザーは長期または一時的なセキュリティ認証情報を持っています。ルートユーザー、IAM ユーザー、アクセスキーには、有効期限のない長期セキュリティ認証情報があります。認証情報を長期間保護するために、<a href="./id_credentials_access-keys.html">アクセスキーの管理とローテーション</a>、<a href="./id_credentials_passwords.html">パスワードの変更</a>、<a href="./id_credentials_mfa.html">MFA の有効化</a>を行うことができます。</p><p>(IAM) ロール、AWS IAM アイデンティティセンター (AWS Single Sign-On の後継) のユーザー またはフェデレーションユーザーは一時的なセキュリティ認証情報をもっています。一時的なセキュリティ認証情報は、定義された期間が経過するか、ユーザーがセッションを終了したときに期限切れになります。一時的認証情報の機能は、長期的な証情報とほとんど同じですが、次の相違点があります。</p><div class="itemizedlist">
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>一時的セキュリティ認証情報は、その名前が示すとおり、<em>使用期限が短く</em>なっています。有効期限は数分から数時間に設定できます。認証情報が失効すると、AWS はそれらを認識しなくなります。また、その認証情報によって作成された API リクエストによるあらゆるタイプのアクセスが許可されなくなります。</p>
+    </li><li class="listitem">
+      <p>一時的セキュリティ認証情報はユーザーとともに保存されることはなく、ユーザーのリクエストに応じて動的に生成され、提供されます。一時的セキュリティ認証情報が失効すると（または失効する前でも）、ユーザーは新しい認証情報をリクエストできます。ただし、リクエストするユーザーがまだその権限を持っている場合に限ります。</p>
+    </li></ul></div><p>そのため、一時的な認証情報には、長期の認証情報よりも次の利点があります。</p><div class="itemizedlist">
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>アプリケーションの長期の AWS セキュリティ認証情報を配布したり埋め込んだりする必要がありません。</p>
+    </li><li class="listitem">
+      <p>ユーザーに対して AWS ID を定義せずに AWS リソースへのアクセスを許可できます。一時的認証情報は<a href="./id_roles.html">ロールおよび ID フェデレーション</a>の基本となります。</p>
+    </li><li class="listitem">
+      <p>一時的セキュリティ認証情報の有効期限は限られているので、認証情報が不要になった際にローテーションしたり、明示的に取り消したりする必要がありません。一時的セキュリティ認証情報の有効期限が切れると、再利用することはできません。認証情報が有効な期間を、最大限度まで指定できます。</p>
+    </li></ul></div>
+    <h2 id="security-considerations-ref">セキュリティに関する考慮事項</h2>
+    <p>後でアクセスする場合は、以下AWS アカウント を考慮することをお勧めします。</p>
+     
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+            
+       
+         
+        
+      <ul class="itemizedlist"><li class="listitem"><p> AWS アカウント を作成すると、1 つのルートユーザーが作成されます。ルートユーザー (アカウント所有者) の認証情報によって、アカウント内のすべてのリソースへのフルアクセスが許可されます。ルートユーザーが最初に実行するタスクは、ルートユーザーの使用を最小限にするために、別のユーザーに AWS アカウント の管理権限を付与することです。</p></li><li class="listitem">
+        <p>IAM ポリシーを使用して、リソースへのルートユーザーアクセスを明示的に拒否することはできません。AWS Organizations <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_type-auth.html">サービスコントロールポリシー</a> (SCP) を使用できるのは、ルートユーザーの許可を制限する場合のみです。</p>
+      </li><li class="listitem">
+        <p>ルートユーザーのパスワードを忘れたり、紛失したりした場合、このパスワードをリセットするには、アカウントに関連付けられている E メールアドレスにアクセスする必要があります。</p>
+      </li><li class="listitem">
+        <p>ルートユーザーアクセスキーを紛失した場合は、アカウントにルートユーザーとしてサインインして、新しいアクセスキーを作成する必要があります。</p>
+      </li><li class="listitem">
+        <p>ルートユーザーを日常的なタスクに使用しないでください。ルートユーザーのみが実行できるタスクを実行します。ルートユーザーとしてサインインする必要があるタスクの完全なリストについては、「<em>AWS Account Management 全般のリファレンスガイド</em>」の「<a href="https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html">ルートユーザー認証情報が必要なタスク</a>」を参照してください。</p>
+      </li><li class="listitem">
+        <p>認証情報は、アカウントに固有です。複数の AWS アカウント にアクセスできる場合は、アカウントごとに別々の認証情報があります。</p>
+      </li><li class="listitem">
+        <p><a href="./access_policies.html">ポリシー</a>は、ユーザー、ロール、またはユーザーグループのメンバーが実行できるアクション、 AWS リソース、および条件を決定します。ポリシーで、AWS アカウント 内の AWS のサービス やリソースへのアクセスを安全に制御できます。後でアクセス許可の変更または取り消しが必要になったら、ID に直接変更する場合は、ポリシーを削除または変更できます。</p>
+      </li><li class="listitem">
+          <p><em>Emergency Access</em> IAM ユーザーのサインイン認証情報と、プログラムによるアクセス用に作成したアクセスキーは、必ず安全な場所に保存してください。アクセスキーを紛失した場合は、アカウントにサインインして新しいアクセスキーを作成する必要があります。</p>
+        </li><li class="listitem">
+          <p>IAM ユーザーとアクセスキーによって提供される長期認証情報の代わりに、IAM ロールとフェデレーティッドユーザーによって提供される一時的な認証情報を使用することを強くお勧めします。</p>
+        </li></ul></div>
+      
+     
+    <h2 id="sec-federated-identity-overview">フェデレーティッド ID</h2>
+    <p>フェデレーション ID は、外部のアイデンティティを持つユーザーが、安全な AWS アカウント リソースにアクセスするために使用できる一時的な AWS 認証情報を付与されたものです。外部認証は、企業の ID ストア (LDAP や Windows の Active Directory など) またはサードパーティー (Login with Amazon、Facebook、または Google でのログインなど) から取得できます。フェデレーション ID は AWS Management Console または AWS アクセスポータルではサインインしません。</p>
+    <p>フェデレーション IDが AWS にサインインできるようにするには、<code class="code">https://signin.aws.amazon.com/federation</code> を含むカスタム URL を作成する必要があります。詳細については、「<a href="./id_roles_providers_enable-console-custom-url.html">カスタム ID ブローカーに対する AWS コンソールへのアクセスの許可</a>」を参照してください。</p>
+    <p>フェデレーション ID の詳細については、「<a href="./id_roles_providers.html">ID プロバイダーとフェデレーション</a>」を参照してください。</p>
+   
+    <h2 id="sec-multi-factor-authentication">多要素認証 (MFA)</h2>
+    <p>多要素認証 (MFA) は、AWS アカウント にアクセスできるユーザーのセキュリティをさらに強化するサービスです。セキュリティを高めるため、AWS アカウントのルートユーザー 認証情報と、すべての IAM ユーザーに対して MFA を必須にすることが推奨されます。詳細については、<em>IAM ユーザーガイド</em>の「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html">AWS での多要素認証 (MFA) の使用</a>」を参照してください。</p>
+    <p>MFA をアクティブ化して AWS アカウント にサインインすると、サインインの認証情報に加え、MFA デバイスによって生成されるレスポンス (コード、タッチまたはタップ、生体認証スキャンなど) を求められます。MFA を追加すると、AWS アカウント 設定とリソースの安全性が高まります。</p>
+    <p>デフォルトでは、MFA は有効化されていません。AWS アカウントのルートユーザー に対する MFA デバイスの有効化と管理は、「<a href="https://console.aws.amazon.com/iam/home?#security_credential" rel="noopener noreferrer" target="_blank"><span>セキュリティ認証情報</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>」ページ、または AWS Management Console の <a href="https://console.aws.amazon.com/iam/home?#" rel="noopener noreferrer" target="_blank"><span>IAM</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> ダッシュボードにアクセスして実行できます。IAM ユーザー向け MFA のアクセスの有効化の詳細については、「<a href="./id_credentials_mfa_enable.html">AWS でのユーザーの MFA デバイスの有効化</a>」を参照してください。</p>
+    <p>Multi-Factor Authentication (MFA) を使用したサインインについては、「<a href="./console_sign-in-mfa.html">IAM のサインインページでの MFA デバイスの使用</a>」を参照してください。</p>
+   
+    <h2 id="sec-access-keys-and-secret-access-keys">プログラム的なアクセス</h2>
+       <p>AWS へのプログラムによる呼び出しを行う場合、または AWS Command Line Interface か AWS Tools for PowerShell を使用する場合は、AWS アクセスキーを指定します 可能な場合は、短期のアクセスキーの使用をお勧めします。</p>
+      <p>長期的なアクセスキーを作成するときは、アクセスキー ID (<code class="code">AKIAIOSFODNN7EXAMPLE</code> など) とシークレットアクセスキー (<code class="code">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</code> など) をセットとして作成します。シークレットアクセスキーは、作成時にのみダウンロードできます。シークレットアクセスキーをダウンロードしない場合や紛失した場合は、新しいシークレットアクセスキーを作成する必要があります。</p>
+      <p>多くの場合、期限のない長期のアクセスキーは必要ありません (IAM ユーザー用のアクセスキーを作成する場合など)。その代わり、IAM ロールを作成し、一時的なセキュリティ認証情報を生成できます。一時的なセキュリティ認証情報は、アクセスキー ID とシークレットアクセスキーが含まれていますが、認証情報がいつ無効になるかを示すセキュリティトークンも含まれています。有効期限が切れると、その後は有効にはなりません。</p>
+      <p><code class="code">AKIA</code> で始まるアクセスキー ID は、IAM ユーザーまたは AWS アカウントルートユーザーの長期的なアクセスキーです。<code class="code">ASIA</code> で始まるアクセスキー ID は、AWS STS オペレーションを使用して作成される一時的な認証情報アクセスキーです。</p>
+      
+
+
+<p>AWS Management Console の外部で AWS を操作するには、ユーザーはプログラムによるアクセスが必要です。プログラムによるアクセス許可を付与する方法は、AWS にアクセスしているユーザーのタイプによって異なります。</p>
+    <p>ユーザーにプログラムによるアクセス権を付与するには、以下のいずれかのオプションを選択します。</p>
+    <div class="table-container"><div class="table-contents disable-scroll"><table id="w338aac19c15c27c15"><thead>
+                <tr>
+                    <th>どのユーザーがプログラムによるアクセスを必要としますか?</th>
+                    <th>To</th>
+                    <th>By</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td>
+                        <p>ワークフォース ID</p>
+                        <p>(IAM Identity Center で管理されているユーザー)</p>
+                    </td>
+                    <td>一時的な認証情報を使用して、AWS CLI、AWS SDK、AWS API へのプログラムによるリクエストに署名します。</td>
+                    <td>
+                        <p>使用するインターフェイスの指示に従ってください。</p>
+                        <div class="itemizedlist">
+                             
+
+
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>AWS CLI については、「AWS Command Line Interface ユーザーガイド」の「<a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html">AWS IAM Identity Center (successor to AWS Single Sign-On) を使用するための AWS CLI の設定</a>」を参照してください。</p>
+                            </li><li class="listitem">
+                                <p>AWS SDK、ツール、AWS API については、「AWS SDK およびツールリファレンスガイド」の「<a href="https://docs.aws.amazon.com/sdkref/latest/guide/access-sso.html">IAM ID センター認証</a>」を参照してください。</p>
+
+                            </li></ul></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>IAM</td>
+                    <td>一時的な認証情報を使用して、AWS CLI、AWS SDK、AWS API へのプログラムによるリクエストに署名します。</td>
+                    <td>「<em>IAM ユーザーガイド</em>」の「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html">AWS リソースでの一時的な認証情報の使用</a>」の指示に従ってください。</td>
+                </tr>
+                <tr>
+                    <td>IAM</td>
+                    <td><p>(非推奨)</p>長期的な認証情報を使用して、AWS CLI、AWS SDK、AWS API へのプログラムによるリクエストに署名します。</td>
+                    <td>
+                        <p>使用するインターフェイスの指示に従ってください。</p>
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>AWS CLI については、「AWS Command Line Interface ユーザーガイド」の「<a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html">IAM ユーザー認証情報を使用した認証</a>」を参照してください。</p>
+                            </li><li class="listitem">
+                                <p>AWS SDK とツールについては、「AWS SDK とツールのリファレンスガイド」の「<a href="https://docs.aws.amazon.com/sdkref/latest/guide/access-iam-users.html">長期認証情報による認証</a>」を参照してください。</p>
+                            </li><li class="listitem">
+                                <p>AWS API については、「IAM ユーザーガイド」の「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html">IAM ユーザーのアクセスキーの管理</a>」を参照してください。</p>
+                            </li></ul></div>
+                    </td>
+                </tr>
+            </table></div></div>
+
+
+
+
+
+ 
+     
+      <h2 id="sec-alternatives-to-long-term-access-keys">長期的なアクセスキーの代替方法</h2>
+      <p>多くの一般的なユースケースでは長期的なアクセスキーの代替方法があります。アカウントのセキュリティを強化するには、以下を検討してください。</p>
+      <div class="itemizedlist">
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><span class="topcom">長期的なアクセスキーやシークレットアクセスキーをアプリケーションコードやコードリポジトリに埋め込まないでください。</span>代わりに AWS Secrets Manager またはその他のシークレット管理ソリューションを使用して、プレーンテキストでキーをハードコードする必要をなくします。アプリケーションまたはクライアントは必要に応じてシークレットを取得できます。詳細については、<em>AWS Secrets Manager ユーザーガイド</em>の「<a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html">AWS Secrets Manager とは何か</a>」を参照してください。</p>
+        </li></ul></div>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><span class="topcom">可能な場合には必ず IAM ロールを使用して一時的なセキュリティ認証情報を生成してください。</span>可能な場合には、長期的なアクセスキーではなく、常に一時的なセキュリティ認証情報を発行するメカニズムを使用してください。一時的セキュリティ認証情報は、ユーザーとともに保存されることはなく、ユーザーのリクエストに応じて動的に生成され、提供されるため、より安全です。一時的セキュリティ認証情報は有効期間が限られているため、それらを管理したりローテーションしたりする必要はありません。一時的なアクセスキーを提供するメカニズムには、IAM ロールや IAM Identity Center ユーザーの認証が含まれます。AWS の外部で実行されるマシンには、<a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html">AWS Identity and Access Management Roles Anywhere</a>.を使用できます。</p>
+        </li><li class="listitem">
+          <p><span class="topcom">AWS Command Line Interface (AWS CLI) または <code class="code">aws-shell</code> の長期的なアクセスキーの代替方法を使用します。</span>代替方法には以下が含まれます。</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p><b>AWS CloudShell</b> はブラウザーベースの事前認証済みシェルで、AWS Management Console から直接起動できます。任意のシェル (Bash、PowerShell、または Z シェル) を使用して、AWS のサービス に対して AWS CLI コマンドを実行できます。この手順を実行すると、コマンドラインツールのダウンロードもインストールも不要です。詳細については、<em>AWS CloudShell ユーザーガイド</em>の「<a href="https://docs.aws.amazon.com/cloudshell/latest/userguide/welcome.html">AWS CloudShell とは何か</a>」を参照してください。</p>
+            </li><li class="listitem">
+              <p><b>AWS CLI バージョン 2 の AWS IAM Identity Center (successor to AWS Single Sign-On) との統合 (IAM Identity Center)</b>。ユーザーを認証し、短期的な認証情報を提供して AWS CLI コマンドを実行します。詳細については、AWS IAM Identity Center (successor to AWS Single Sign-On) ユーザーガイドの「<a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/integrating-asw-cli.html">AWS CLI と IAM Identity Center の統合</a>」および AWS Command Line Interface ユーザーガイドの「<a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html">IAM Identity Center を使用するための AWS CLI の設定</a>」を参照してください。</p>
+            </li></ul></div>
+        </li><li class="listitem">
+          <p><span class="topcom">アプリケーションまたは AWS のサービス にアクセスする必要があるユーザー向けに長期的なアクセスキーを作成しないでください。</span>IAM Identity Center は、AWS のサービス にアクセスする外部 IdP ユーザーに一時的なアクセス認証情報を生成できます。これにより、IAM で長期的な認証情報を作成して管理する必要がなくなります。IAM Identity Center で、外部 IdP ユーザーにアクセス権を付与する IAM Identity Center のアクセス権限セットを作成します。次に、IAM Identity Center のグループを、選択した AWS アカウント のアクセス権限セットに割り当てます。詳細については、AWS IAM Identity Center (successor to AWS Single Sign-On) ユーザーガイドの「<a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">AWS IAM Identity Center (successor to AWS Single Sign-On) とは</a>」、「<a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-idp.html">外部の ID プロバイダーとの接続</a>」、および「<a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html">アクセス権限セット</a>」を参照してください。</p>
+        </li><li class="listitem">
+          <p><span class="topcom">長期的なアクセスキーを AWS コンピューティングサービス内に保存しないでください。</span>代わりに、コンピューティングリソースに IAM ロールを割り当ててください。これにより、アクセス権を付与する一時的な認証情報が自動的に提供されます。例えば、Amazon EC2 インスタンスにアタッチされるインスタンスプロファイルを作成すると、AWS ロールをインスタンスに割り当て、そのアプリケーションのすべてで使用できるようになります。インスタンスプロファイルにはロールが含まれ、Amazon EC2 インスタンスで実行されるプログラムは一時的な認証情報を取得することができます。詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html">Amazon EC2 インスタンスで実行されるアプリケーションに IAM ロールを使用してアクセス許可を付与する</a>」を参照してください。</p>
+        </li></ul></div>
+     
+      <h2 id="aws-sec-cred-access-ref">AWS にAWS認証情報を使用してアクセスする</h2>
+      <p>AWS には、AWS へのアクセス方法とAWSユーザータイプに応じて異なる種類のセキュリティ認証情報が必要です。例えば、AWS Management Console にはサインインの認証情報を使用し、プログラムで AWS を呼び出すにはアクセスキーを使用します。また、アカウントのルートユーザー、AWS Identity and Access Management (IAM) ユーザー、AWS IAM Identity Center (successor to AWS Single Sign-On)ユーザー、またはフェデレーション ID など、使用する各 ID はいずれも AWS 内で一意の認証情報を保持します。</p>
+      <p>ユーザータイプに応じて AWS にサインインする手順については、「<em>AWS サインインユーザーガイド</em>」の「<a href="https://docs.aws.amazon.com/signin/latest/userguide/how-to-sign-in.html">AWS にサインインするには</a>」を参照してください。</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./security.html">セキュリティ</div><div id="next" class="next-link" accesskey="n" href="./security-audit-guide.html">AWS セキュリティ監査のガイドライン</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/security-creds.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

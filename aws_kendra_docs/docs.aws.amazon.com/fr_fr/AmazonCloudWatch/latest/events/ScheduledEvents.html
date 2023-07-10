@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Expression de planification des règles - Amazon CloudWatch Events</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ScheduledEvents" /><meta name="default_state" content="ScheduledEvents" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="description" content="Décrit comment utiliser les expressions de type cron ou rate pour automatiser AWS avec CloudWatch Events." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudWatch Events" /><meta name="guide" content="Guide de l'utilisateur" /><meta name="abstract" content="Créer des règles simples pour correspondre à des événements dans un flux en temps quasi réel et les acheminer vers une ou plusieurs fonctions ou flux cibles avec Amazon CloudWatch Events. Les fonctions et flux cibles peuvent automatiquement prendre des mesures appropriées en fonction des cibles des événements." /><meta name="guide-locale" content="fr_fr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="x-default" /><meta name="feedback-item" content="EventBridge" /><meta name="this_doc_product" content="Amazon CloudWatch Events" /><meta name="this_doc_guide" content="Guide de l'utilisateur" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudwatch'}"></script><meta id="panorama-serviceSubSection" value="Guide de l'utilisateur" /><meta id="panorama-serviceConsolePage" value="Expression de planification des règles" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Expression de planification des règles - Amazon CloudWatch Events</title><meta name="pdf" content="cwe-ug.pdf#ScheduledEvents" /><meta name="rss" content="amazon-cloudwatch-events-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=138" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=http://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudWatch",
+        "item" : "https://docs.aws.amazon.com/cloudwatch/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guide de l'utilisateur",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Expression de planification des règles",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="cwe-ug.pdf#ScheduledEvents" target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/cloudwatch/index.html">Amazon CloudWatch</a><a href="WhatIsCloudWatchEvents.html">Guide de l'utilisateur</a></div><div id="page-toc-src"><a href="#CronExpressions">Expressions cron</a><a href="#RateExpressions">Expressions de fréquence</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ScheduledEvents">Expression de planification des règles</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="table-container"><div class="table-contents"><table id="w61aac13b3">
+				<tr>
+					<td><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Amazon EventBridge est la meilleure façon de gérer vos événements. CloudWatch Events et EventBridge représentent les mêmes services et API sous-jacents, mais EventBridge offre davantage de fonctionnalités. Les modifications que vous apportez dans CloudWatch ou EventBridge apparaîtront dans chaque console. Pour plus d'informations, consultez la section <a href="https://docs.aws.amazon.com/eventbridge/index.html">Amazon EventBridge</a>.</p></div></div></td>
+				</tr>
+			</table></div></div><p>Vous pouvez créer des règles qui se déclenchent automatiquement selon une planification automatisée dans CloudWatch Events au moyen d'expressions cron ou rate. Tous les événements planifiés utilisent le fuseau horaire UTC et la précision minimale pour les horaires est de 1 minute.</p><p>CloudWatch Events prend en charge les expressions cron et de fréquence. Les expressions de fréquence sont plus simples à définir, mais ne proposent pas le calendrier précis de contrôle que proposent les expressions cron. Par exemple, une expression cron vous permet de définir une règle qui se déclenche à une heure spécifiée sur un jour de chaque semaine ou mois. En revanche, les expressions de fréquence déclenchent une règle à une fréquence standard, par exemple une fois toutes les heures ou une fois par jour.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>CloudWatch Events ne fournit pas de précision de deuxième niveau dans les expressions de planification. Le niveau de résolution maximum lors de l'utilisation d'une expression cron est d'une minute. En raison de la nature distribuée de CloudWatch Events et des services cible, le délai entre le moment où la règle planifiée est déclenchée et celui où le service cible lance l'exécution de la ressource cible peut être de plusieurs secondes. Votre règle planifiée est déclenchée au cours de cette minute, mais pas précisément à la seconde exacte.</p></div></div><div class="highlights" id="inline-topiclist"><h6>Formats</h6><ul><li><a href="#CronExpressions">Expressions cron</a></li><li><a href="#RateExpressions">Expressions de fréquence</a></li></ul></div><h2 id="CronExpressions">Expressions cron</h2>
+        
+
+        <p>Ces expressions se composent de six champs obligatoires qui sont séparés par des espaces. </p>
+
+        <p><b>Syntaxe</b></p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">cron(<em>fields</em>)</code></pre>
+        
+        <div class="table-container"><div class="table-contents"><table id="w61aac13c13b8"><thead>
+                    <tr>
+                        <th><b>Champ</b></th>
+                        <th><b>Valeurs</b></th>
+                        <th><b>Caractères génériques</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <p>Minutes</p>
+                        </td>
+                        <td>
+                            <p>0-59</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Heures</p>
+                        </td>
+                        <td>
+                            <p>0-23</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Jour du mois</p>
+                        </td>
+                        <td>
+                            <p>1-31</p>
+                        </td>
+                        <td>
+                            <p>, - * ? / L W</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Mois</p>
+                        </td>
+                        <td>
+                            <p>1-12 ou JAN-DEC</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Day-of-week</p>
+                        </td>
+                        <td>
+                            <p>1-7 ou SUN-SAT</p>
+                        </td>
+                        <td>
+                            <p>, - * ? L #</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Année</p>
+                        </td>
+                        <td>
+                            <p>1970-2199</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+
+        <div class="itemizedlist">
+            <h6>Wildcards</h6>
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Le caractère générique <b>,</b> (virgule) inclut des valeurs supplémentaires. Dans le champ Mois, JAN,FEB,MAR englobe janvier, février et mars.</p>
+            </li><li class="listitem">
+                <p>Le caractère générique <b>-</b> (tiret) spécifie des plages. Dans le champ Jour, 1-15 englobe les jours 1 à 15 du mois spécifié.</p>
+            </li><li class="listitem">
+                <p>Le caractère générique <b>*</b> (astérisque) inclut toutes les valeurs du champ. Dans le champ Hours, <b>*</b> inclut toutes les heures. Vous ne pouvez pas utiliser <b>*</b> à la fois dans les champs jour-du-mois et jour-de-la-semaine. Si vous l'utilisez dans un champ, vous devez utiliser <b>?</b> dans l'autre.</p>
+            </li><li class="listitem">
+                <p>Le caractère générique <b>/</b> (barre oblique) spécifie les incréments. Dans le champ Minutes, vous pouvez entrer 1/10 pour spécifier toutes les dix minutes, à partir de la première minute de l'heure (par exemple, les 11e, 21e, 31e minutes, et ainsi de suite).</p>
+            </li><li class="listitem">
+                <p>Le caractère générique <b>?</b> (point d'interrogation) indique l'un ou l'autre. Dans le champ Day-of-month, vous pouvez entrer <b>7</b>, et si peu importe pour vous le jour de la semaine auquel correspond le 7, vous pouvez entrer <b>?</b> dans le champ Day-of-week (Jour de la semaine).</p>
+            </li><li class="listitem">
+                <p>Le caractère générique <b>L</b> dans les champs Day-of-month ou Day-of-week spécifie le dernier jour du mois ou de la semaine.</p>
+            </li><li class="listitem">
+                <p>Le caractère générique <code class="userinput">W</code> dans le champ Day-of-month spécifie un jour de la semaine. Dans le champ Day-of-month, <code class="userinput">3W</code> indique le jour le plus proche du troisième jour de la semaine du mois.</p>
+            </li><li class="listitem">
+                <p>Le caractère générique <b>#</b> dans le champ Day-of-week spécifie une certaine instance du jour de la semaine spécifié dans un mois. Par exemple, 3#2 correspond au deuxième mardi du mois : le 3 fait référence à mardi, car c'est le troisième jour de chaque semaine, et le 2 fait référence à la deuxième journée de ce type dans le mois.</p>
+                
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Si vous utilisez un caractère « # », vous ne pouvez définir qu'une seule expression dans le champ « day-of-week » (jour de la semaine). Par exemple, <code class="code">"3#1,6#3"</code> n'est pas valide, car il est interprété comme deux expressions.</p></div></div>
+            </li></ul></div>
+
+        <div class="itemizedlist">
+            <h6>Restrictions</h6>
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Vous ne pouvez pas spécifier les champs Day-of-month et Day-of-week dans une même expression cron. Si vous spécifiez une valeur dans l'un de ces champs, vous devez utiliser un caractère générique <b>?</b> (point d'interrogation) dans l'autre.</p>
+            </li><li class="listitem">
+                <p>Les expressions cron qui entraînent des fréquences d'une rapidité supérieure à 1 minute ne sont pas prises en charge.</p>
+            </li></ul></div>
+
+         
+            <h6>Examples</h6>
+            <p>Vous pouvez utiliser les exemples de chaînes cron suivants lorsque vous créez une règle avec planification.</p>
+         
+
+        <div class="table-container"><div class="table-contents"><table id="w61aac13c13c16"><thead>
+                    <tr>
+                        <th>Minutes</th>
+                        <th>Heures</th>
+                        <th>Jour du mois</th>
+                        <th>Mois</th>
+                        <th>Jour de la semaine</th>
+                        <th>Année</th>
+                        <th>Signification</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <p>0 USD</p>
+                        </td>
+                        <td>
+                            <p>10</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>Exécuter à 10 h 00 (UTC) chaque jour</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>15</p>
+                        </td>
+                        <td>
+                            <p>12</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>Exécuter à 12 h 15 (UTC) chaque jour</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0 USD</p>
+                        </td>
+                        <td>
+                            <p>18</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>Exécuter à 18 h 00 (UTC) du lundi au vendredi</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0 USD</p>
+                        </td>
+                        <td>
+                            <p>8</p>
+                        </td>
+                        <td>
+                            <p>1</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>Exécuter à 8 h 00 (UTC) chaque 1er jour du mois</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/15</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>Exécuter toutes les 15 minutes</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/10</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>Exécuter toutes les 10 minutes du lundi au vendredi</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/5</p>
+                        </td>
+                        <td>
+                            <p>8-17</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>Exécuter toutes les 5 minutes du lundi au vendredi entre 8 h 00 et 17 h 55 (UTC)</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+
+        <p>Les exemples suivants indiquent comment utiliser les expressions Cron avec la commande d'AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html">put-rule</a>. Le premier exemple crée une règle qui est déclenchée chaque jour à 12 h 00 UTC.</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(0 12 * * ? *)" --name <code class="replaceable">MyRule1</code></code></pre>
+        
+        <p>L'exemple suivant crée une règle qui est déclenchée chaque jour 5 et 35 minutes après 14 h 00 UTC.</p>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(5,35 14 * * ? *)" --name <code class="replaceable">MyRule2</code></code></pre>
+        
+        <p>L'exemple suivant crée une règle qui est déclenchée à 10 h 15 UTC, le dernier vendredi de chaque mois, pendant les années 2002 à 2005.</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(15 10 ? * 6L 2002-2005)" --name <code class="replaceable">MyRule3</code></code></pre>
+    <h2 id="RateExpressions">Expressions de fréquence</h2>
+        
+
+        <p>Une expression de fréquence démarre au moment où vous créez la règle d'événement planifié, puis s'exécute selon le calendrier défini.</p>
+
+        <p>Les expressions de fréquence comportent deux champs obligatoires. Ces champs sont séparés par un espace.</p>
+
+        <p><b>Syntaxe</b></p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">rate(<em>value</em> <em>unit</em>)</code></pre>
+
+        <div class="variablelist">
+             
+             
+        <dl>
+                <dt><span class="term">valeur</span></dt>
+                <dd>
+                    <p>Nombre positif.</p>
+                </dd>
+             
+                <dt><span class="term">unité</span></dt>
+                <dd>
+                    <p>Unité de temps. Des unités différentes sont nécessaires pour les valeurs de 1 (par exemple <code class="code">minute</code>) et les valeurs supérieures à 1, (par exemple, <code class="code">minutes</code>).</p>
+                    <p>Valeurs valides : minute | minutes | heure | heures | jour | jours</p>
+                </dd>
+            </dl></div>
+
+         
+            <h6>Restrictions</h6>
+            <p>Si la valeur est égale à 1, l'unité doit être au singulier. De même, pour les valeurs supérieures à 1, l'unité doit être au pluriel. Par exemple, les fréquences rate(1 hours) et rate(5 hour) ne sont pas valides, mais les fréquences rate(1 hour) et rate(5 hours) sont valides.</p>
+         
+
+         
+            <h6>Examples</h6>
+            <p>Les exemples suivants indiquent comment utiliser les expressions rate avec la commande d'AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html">put-rule</a>. Le premier exemple déclenche la règle toutes les minutes, le deuxième la déclenche toutes les cinq minutes, le suivant une fois par heure, et l'exemple final une fois par jour.</p>
+         
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 minute)" --name <code class="replaceable">MyRule2</code></code></pre>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(5 minutes)" --name <code class="replaceable">MyRule3</code></code></pre>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 hour)" --name <code class="replaceable">MyRule4</code></code></pre>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 day)" --name <code class="replaceable">MyRule5</code></code></pre>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avertissement" /> <strong>JavaScript est désactivé ou n'est pas disponible dans votre navigateur.</strong></p><p>Pour que vous puissiez utiliser la documentation AWS, Javascript doit être activé. Vous trouverez des instructions sur les pages d'aide de votre navigateur.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Conventions de rédaction</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./CloudWatch-Events-tutorial-CloudWatch-Logs.html">Didacticiel : Enregistrer les changements d'état des instances Amazon EC2</div><div id="next" class="next-link" accesskey="n" href="./CloudWatchEventsandEventPatterns.html">Modèles d'événements</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Oui</div><div class="content"><p>Merci de nous avoir fait part de votre satisfaction.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer ce qui vous a plu afin que nous puissions nous améliorer davantage.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Non</div><div class="content"><p>Merci de nous avoir avertis que cette page avait besoin d'être retravaillée. Nous sommes désolés de ne pas avoir répondu à vos attentes.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer comment nous pourrions améliorer cette documentation.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

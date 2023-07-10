@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Access Control for Snow Family Console and Creating Jobs - AWS Snowball Edge Developer Guide</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="authentication-and-access-control" /><meta name="default_state" content="authentication-and-access-control" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/authentication-and-access-control.html" /><meta name="description" content="How to authenticate requests and manage permissions to access your AWS Snowball resources through the API." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Snowball Edge Developer Guide" /><meta name="guide" content="AWS Snowball Edge Developer Guide" /><meta name="abstract" content="Insert abstract text" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/authentication-and-access-control.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/snowball/latest/developer-guide/authentication-and-access-control.html" hreflang="x-default" /><meta name="feedback-item" content="Snowball" /><meta name="this_doc_product" content="AWS Snowball Edge Developer Guide" /><meta name="this_doc_guide" content="" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'snowball'}"></script><meta id="panorama-serviceSubSection" value="" /><meta id="panorama-serviceConsolePage" value="Access Control for Snow Family Console and Creating Jobs" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Access Control for Snow Family Console and Creating Jobs - AWS Snowball Edge Developer Guide</title><meta name="pdf" content="/pdfs/snowball/latest/developer-guide/AWSSnowball-dg.pdf#authentication-and-access-control" /><meta name="github" content="https://github.com/awsdocs/aws-snowball-developer-guide/tree/master/doc_source/authentication-and-access-control.md" /><meta name="rss" content="aws-snowball-edge-developer-guide-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=204" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Snowball&amp;topic_url=http://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/authentication-and-access-control.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/authentication-and-access-control.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/authentication-and-access-control.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Snow Family",
+        "item" : "https://docs.aws.amazon.com/snowball/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "",
+        "item" : "https://docs.aws.amazon.com/snowball/latest/developer-guide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security for AWS Snowball Edge",
+        "item" : "https://docs.aws.amazon.com/snowball/latest/developer-guide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and Access Management in AWS Snowball",
+        "item" : "https://docs.aws.amazon.com/snowball/latest/developer-guide/snowball-edge-iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Access Control for Snow Family Console and Creating Jobs",
+        "item" : "https://docs.aws.amazon.com/snowball/latest/developer-guide/snowball-edge-iam.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/snowball/latest/developer-guide/AWSSnowball-dg.pdf#authentication-and-access-control" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-snowball-developer-guide/tree/master/doc_source/authentication-and-access-control.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/snowball/index.html">AWS Snow Family</a><a href="whatisedge.html"></a></div><div id="page-toc-src"><a href="#access-control-overview">Overview of Managing Access</a><a href="#access-policy-examples-aws-managed">AWS-Managed (Predefined)
+                    Policies for AWS Snowball Edge</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="authentication-and-access-control">Access Control for Snow Family Console
+            and Creating Jobs</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>As with all AWS services, access to AWS Snowball requires credentials that AWS can use to
+        authenticate your requests. Those credentials must have permissions to access AWS resources,
+        such an Amazon S3 bucket or an AWS Lambda function. AWS Snowball differs in two ways:</p><div class="orderedlist">
+         
+         
+    <ol><li>
+            <p>Jobs in AWS Snowball do not have Amazon Resource Names (ARNs).</p>
+        </li><li>
+            <p>Physical and network access control for a device on-premises is your
+                responsibility.</p>
+        </li></ol></div><p>See <a href="./security-iam.html">Identity and Access Management for AWS Snowball</a> for details on how you can use <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/">AWS
+            Identity and Access Management (IAM)</a> and AWS Snowball to help secure your
+        resources by controlling who can access them in the AWS Cloud, and also local access control
+        recommendations.</p>
+        <h2 id="access-control-overview">Overview of Managing Access Permissions to
+                Your Resources in the AWS Cloud</h2>
+
+
+
+        <p>Every AWS resource is owned by an AWS account, and permissions to create or access a
+            resource are governed by permissions policies. An account administrator can attach
+            permissions policies to IAM identities (that is, users, groups, and roles), and some
+            services (such as AWS Lambda) also support attaching permissions policies to resources. </p>
+
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>An <em>account administrator</em> (or administrator user) is a user
+                with administrator privileges. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html">IAM Best Practices</a> in the
+                    <em>IAM User Guide</em>.</p></div></div>
+
+        
+
+        <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#access-control-resources">Resources and Operations</a></li><li><a href="#access-control-owner">Understanding Resource Ownership</a></li><li><a href="#access-control-manage-access-intro">Managing Access to Resources in
+                    the AWS Cloud</a></li><li><a href="#access-control-specify-actions">Specifying Policy Elements:
+                    Actions, Effects, and Principals</a></li><li><a href="#specifying-conditions">Specifying Conditions in a Policy</a></li></ul></div>
+
+
+         
+            <h3 id="access-control-resources">Resources and Operations</h3>
+
+
+            <p>In AWS Snowball, the primary resource is a <em>job</em>. AWS Snowball
+                also has devices like the Snowball and the AWS Snowball Edge device, however, you can only
+                use those devices in the context of an existing job. Amazon S3 buckets and Lambda
+                functions are resources of Amazon S3 and Lambda respectively.</p>
+
+            <p>As mentioned previously, jobs don't have Amazon Resource Names (ARNs) associated
+                with them. However, other services' resources, like Amazon S3 buckets, do have unique
+                (ARNs) associated with them as shown in the following table.</p>
+
+            <a id="resource-arns-table"></a><div class="table-container"><div class="table-contents"><table id="w213aac43c15c11c21c11b7"><thead>
+                        <tr>
+                            <th>Resource Type</th>
+                            <th>ARN Format</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td>S3 bucket</td>
+                            <td><code class="code">arn:aws:s3:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:<code class="replaceable">BucketName</code>/<code class="replaceable">ObjectName</code></code></td>
+                        </tr>
+                    </table></div></div>
+
+            <p>AWS Snowball provides a set of operations to create and manage jobs. For a list of
+                available operations, see the <a href="https://docs.aws.amazon.com/snowball/latest/api-reference/api-reference.html">AWS Snowball API Reference</a>.</p>
+
+         
+
+         
+            <h3 id="access-control-owner">Understanding Resource Ownership</h3>
+
+
+            <p>The AWS account owns the resources that are created in the account, regardless of
+                who created the resources. Specifically, the resource owner is the AWS account of
+                the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html">principal
+                    entity</a> (that is, the root account, an IAM user, or an IAM role) that
+                authenticates the resource creation request. The following examples illustrate how
+                this works:</p>
+
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>If you use the root account credentials of your AWS account
+                        to create a S3 bucket, your AWS account is the owner of the
+                        resource (in AWS Snowball, the resource is the job).</p>
+                </li><li class="listitem">
+                    <p>If you create an IAM user in your AWS account and grant permissions to
+                        create a job to that user, the user can create a job. However, your AWS account, 
+                        to which the user belongs, owns the job resource.</p>
+                </li><li class="listitem">
+                    <p>If you create an IAM role in your AWS account with permissions to create
+                        a job, anyone who can assume the role can create a job. Your AWS account, to
+                        which the role belongs, owns the job resource. </p>
+                </li></ul></div>
+         
+
+
+         
+            <h3 id="access-control-manage-access-intro">Managing Access to Resources in
+                    the AWS Cloud</h3>
+
+
+            <p>A <em>permissions policy</em> describes who has access to what. The
+                following section explains the available options for creating permissions
+                policies.</p>
+
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This section discusses using IAM in the context of AWS Snowball. It doesn't
+                    provide detailed information about the IAM service. For complete IAM
+                    documentation, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html">What Is
+                        IAM?</a> in the <em>IAM User Guide</em>. For information
+                    about IAM policy syntax and descriptions, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html">AWS IAM Policy Reference</a>
+                    in the <em>IAM User Guide</em>.</p></div></div>
+
+            <p>Policies attached to an IAM identity are referred to as
+                    <em>identity-based</em> policies (IAM polices) and policies
+                attached to a resource are referred to as <em>resource-based</em>
+                policies. AWS Snowball supports only identity-based policies (IAM policies). </p>
+
+            <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#access-control-manage-access-intro-resource-policies">Resource-Based Policies</a></li></ul></div>
+
+
+            
+
+             
+                <h4 id="access-control-manage-access-intro-resource-policies">Resource-Based Policies</h4>
+
+
+                <p>Other services, such as Amazon S3, also support resource-based permissions
+                    policies. For example, you can attach a policy to an S3 bucket to manage access
+                    permissions to that bucket. AWS Snowball doesn't support resource-based
+                    policies. </p>
+
+             
+         
+
+         
+            <h3 id="access-control-specify-actions">Specifying Policy Elements:
+                    Actions, Effects, and Principals</h3>
+
+
+            <p>For each job (see <a href="#access-control-resources">Resources and Operations</a>), the service defines a set of API
+                operations (see <a href="https://docs.aws.amazon.com/snowball/latest/api-reference/api-reference.html">AWS Snowball API Reference</a>) to create and
+                manage said job. To grant permissions for these API operations, AWS Snowball defines
+                a set of actions that you can specify in a policy. For example, for a job, the
+                following actions are defined: <code class="code">CreateJob</code>, <code class="code">CancelJob</code>, and
+                    <code class="code">DescribeJob</code>. Note that, performing an API operation can require
+                permissions for more than one action.</p>
+
+            <p>The following are the most basic policy elements:</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><b>Resource</b> – In a policy, you use an
+                        Amazon Resource Name (ARN) to identify the resource to which the policy
+                        applies. For more information, see <a href="#access-control-resources">Resources and Operations</a>.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This is supported for Amazon S3, Amazon EC2, AWS Lambda, AWS KMS, and many other
+                            services.</p><p>Snowball does not support specifying a resource ARN in the
+                                <code class="code">Resource</code> element of an IAM policy statement. To allow
+                            access to Snowball, specify <code class="code">“Resource”: “*”</code> in your
+                            policy.</p></div></div>
+                </li><li class="listitem">
+                    <p><b>Action</b> – You use action keywords
+                        to identify resource operations that you want to allow or deny. For example,
+                        depending on the specified <code class="code">Effect</code>, <code class="code">snowball:*</code>
+                        either allows or denies the user permissions to perform all
+                        operations.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This is supported for Amazon EC2, Amazon S3, and IAM.</p></div></div>
+                </li><li class="listitem">
+                    <p><b>Effect</b> – You specify the effect
+                        when the user requests the specific action—this can be either allow
+                        or deny. If you don't explicitly grant access to (allow) a resource, access
+                        is implicitly denied. You can also explicitly deny access to a resource,
+                        which you might do to make sure that a user cannot access it, even if a
+                        different policy grants access.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This is supported for Amazon EC2, Amazon S3, and IAM.</p></div></div>
+                </li><li class="listitem">
+                    <p><b>Principal</b> – In identity-based
+                        policies (IAM policies), the user that the policy is attached to is the
+                        implicit principal. For resource-based policies, you specify the user,
+                        account, service, or other entity that you want to receive permissions
+                        (applies to resource-based policies only). AWS Snowball doesn't support
+                        resource-based policies.</p>
+                </li></ul></div>
+
+            <p>To learn more about IAM policy syntax and descriptions, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html">AWS IAM Policy Reference</a> in
+                the <em>IAM User Guide</em>.</p>
+
+            <p>For a table showing all of the AWS Snowball API actions, see <a href="./access-policy-examples-for-sdk-cli.html#snowball-api-permissions-ref">AWS Snowball API Permissions: Actions,
+                Resources, and Conditions Reference</a>.</p>
+         
+
+         
+            <h3 id="specifying-conditions">Specifying Conditions in a Policy</h3>
+
+
+            <p>When you grant permissions, you can use the IAM policy language to specify the
+                conditions when a policy should take effect. For example, you might want a policy to
+                be applied only after a specific date. For more information about specifying
+                conditions in a policy language, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Condition">Condition</a>
+                in the <em>IAM User Guide</em>. </p>
+
+            <p>To express conditions, you use predefined condition keys. There are no condition
+                keys specific to AWS Snowball. However, there are AWS-wide condition keys that you
+                can use as appropriate. For a complete list of AWS-wide keys, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#AvailableKeys">Available
+                    Keys for Conditions</a> in the <em>IAM User Guide</em>. </p>
+
+         
+     
+            <h2 id="access-policy-examples-aws-managed">AWS-Managed (Predefined)
+                    Policies for AWS Snowball Edge</h2>
+
+
+            <p>AWS addresses many common use cases by providing standalone IAM policies that
+                are created and administered by AWS. Managed policies grant necessary permissions
+                for common use cases so you can avoid having to investigate what permissions are
+                needed. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies">AWS Managed Policies</a> in the <em>IAM User Guide</em>. </p>
+            <p>You can use the following AWS-managed policies with AWS Snowball.</p>
+
+
+             
+                <h3 id="create-iam-role">Creating an IAM Role Policy for Snowball
+                        Edge</h3>
+
+
+                <p>An IAM role policy must be created with read and write permissions for your
+                    Amazon S3 buckets. The IAM role must also have a trust relationship with Snowball.
+                    Having a trust relationship means that AWS can write the data in the Snowball
+                    and in your Amazon S3 buckets, depending on whether you're importing or
+                    exporting data.</p>
+
+                <p>When you create a job in the AWS Snow Family Management Console, creating the necessary IAM role
+                    occurs in step 4 in the <b>Permission</b> section. This process is
+                    automatic. The IAM role that you allow Snowball to assume is only used to write
+                    your data to your bucket when the Snowball with your transferred data arrives
+                    at AWS. The following procedure outlines that process.</p>
+
+                <div class="procedure"><h6>To create the IAM role for your import job</h6><ol><li>
+                        <p>Sign in to the AWS Management Console and open the AWS Snowball console at <a href="https://console.aws.amazon.com/importexport/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/importexport/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. </p>
+                    </li><li>
+                        <p>Choose <b>Create job</b>.</p>
+                    </li><li>
+                        <p>In the first step, fill out the details for your import job into Amazon S3,
+                            and then choose <b>Next</b>.</p>
+                    </li><li>
+                        <p>In the second step, under <b>Permission</b>, choose
+                                <b>Create/Select IAM Role</b>.</p>
+
+                        <p>The IAM Management Console opens, showing the IAM role that AWS
+                            uses to copy objects into your specified Amazon S3 buckets.</p>
+
+                    </li><li>
+
+                        <p>Review the details on this page, and then choose
+                                <b>Allow</b>.</p>
+
+                        <p>You return to the AWS Snow Family Management Console, where <b>Selected IAM role
+                                ARN</b> contains the Amazon Resource Name (ARN) for the IAM
+                            role that you just created.</p>
+                    </li><li>
+                        <p>Choose <b>Next</b> to finish creating your IAM
+                            role.</p>
+                    </li></ol></div>
+
+                <p>The preceding procedure creates an IAM role that has write permissions for the
+                    Amazon S3 buckets that you plan to import your data into. The IAM role that is
+                    created has one of the following structures, depending on whether it's for an
+                    import job or export job.</p>
+
+                <p><b>IAM Role for an Import Job</b></p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">
+          <span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:ListBucketMultipartUploads"
+      ],
+      "Resource": "arn:aws:s3:::*"
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketPolicy",
+        "s3:PutObject",
+        "s3:AbortMultipartUpload",
+        "s3:ListMultipartUploadParts",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": "arn:aws:s3:::*"
+    }
+  ]
+}
+</code></pre>
+
+                <p>If you use server-side encryption with AWS KMS–managed keys (SSE-KMS) to
+                    encrypt the Amazon S3 buckets associated with your import job, you also need to add
+                    the following statement to your IAM role.</p>
+
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+     "Effect": "Allow",
+     "Action": [
+       "kms:GenerateDataKey"
+     ],
+     "Resource": "arn:aws:kms:us-west-2:<code class="replaceable">123456789012:key/abc123a1-abcd-1234-efgh-111111111111</code>"
+}
+</code></pre>
+                
+                <p>If the object sizes are larger, the Amazon S3 client that is used for the import process
+                    uses multipart upload. If you initiate a multipart upload using SSE-KMS, then all the
+                    uploaded parts are encrypted using the specified AWS KMS key. Because the parts are
+                    encrypted, they must be decrypted before they can be assembled to complete the multipart
+                    upload. So you must have permission to decrypt the AWS KMS key (<code class="code">kms:Decrypt</code>)
+                    when you run a multipart upload to Amazon S3 with SSE-KMS.</p>
+                <p>The following is an example of an IAM role needed for an import job that needs
+                    <code class="code">kms:Decrypt</code> permission.</p>
+                
+
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Effect": "Allow",
+     "Action": [
+       "kms:GenerateDataKey","kms:Decrypt"
+
+     ],
+     "Resource": "arn:aws:kms:us-west-2:123456789012:key/abc123a1-abcd-1234-efgh-111111111111"
+}
+</code></pre>
+
+                <p> The following is an example of an IAM role needed for an export job.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:GetBucketPolicy",
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::*"
+    }
+  ]
+}
+</code></pre>
+
+
+                <p>If you use server-side encryption with AWS KMS–managed keys to encrypt
+                    the Amazon S3 buckets associated with your export job, you also need to add the
+                    following statement to your IAM role.</p>
+
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+     "Effect": "Allow",
+     "Action": [
+            “kms:Decrypt”
+      ],
+     "Resource": "arn:aws:kms:us-west-2:<code class="replaceable">123456789012:key/abc123a1-abcd-1234-efgh-111111111111</code>"
+}
+</code></pre>
+
+             
+
+
+
+            <p>You can create your own custom IAM policies to allow permissions for API
+                operations for AWS Snowball job management. You can attach these custom policies to
+                the IAM users or groups that require those permissions. </p>
+
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./snowball-edge-iam.html">Identity and Access Management</div><div id="next" class="next-link" accesskey="n" href="./security-iam.html">Identity and Access Management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Snowball&amp;topic_url=https://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/authentication-and-access-control.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Snowball&amp;topic_url=https://docs.aws.amazon.com/en_us/snowball/latest/developer-guide/authentication-and-access-control.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

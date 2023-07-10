@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Controlling access from VPC endpoints with bucket policies - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="example-bucket-policies-vpc-endpoint" /><meta name="default_state" content="example-bucket-policies-vpc-endpoint" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" /><meta name="description" content="An example of bucket policies for Amazon VPC endpoints for Amazon S3." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Controlling access from VPC endpoints with bucket policies" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Controlling access from VPC endpoints with bucket policies - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#example-bucket-policies-vpc-endpoint" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/example-bucket-policies-vpc-endpoint.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 security",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Bucket policies and user policies",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Using bucket policies",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Controlling access from VPC endpoints with bucket policies",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#example-bucket-policies-vpc-endpoint" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/example-bucket-policies-vpc-endpoint.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#example-bucket-policies-restrict-accesss-vpc-endpoint">Restricting
+                access to a specific VPC endpoint</a><a href="#example-bucket-policies-restrict-access-vpc">Restricting access to a
+                specific VPC</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="example-bucket-policies-vpc-endpoint">Controlling access from VPC
+            endpoints with bucket policies</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use Amazon S3 bucket policies to control access to buckets from specific virtual private cloud (VPC)
+        endpoints, or specific VPCs. This section contains example bucket policies that can be used
+        to control Amazon S3 bucket access from VPC endpoints. To learn how to set up VPC endpoints, see
+            <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html">VPC Endpoints</a> in the
+            <em>VPC User Guide</em>. </p><p>VPC enables you to launch AWS resources into a virtual network that you define. A VPC
+        endpoint enables you to create a private connection between your VPC and another AWS service
+        without requiring access over the internet, through a VPN connection, through a NAT
+        instance, or through AWS Direct Connect. </p><p>A VPC endpoint for Amazon S3 is a logical entity within a VPC that allows connectivity only to
+        Amazon S3. The VPC endpoint routes requests to Amazon S3 and routes responses back to the VPC. VPC
+        endpoints change only how requests are routed. Amazon S3 public endpoints and DNS names will
+        continue to work with VPC endpoints. For important information about using VPC endpoints
+        with Amazon S3, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpce-gateway.html">Gateway VPC Endpoints</a>
+        and <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-s3.html">Endpoints for Amazon S3</a> in the
+            <em>VPC User Guide</em>. </p><p>VPC endpoints for Amazon S3 provide two ways to control access to your Amazon S3 data: </p><div class="itemizedlist">
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>You can control the requests, users, or groups that are allowed through a specific
+                VPC endpoint. For information about this type of access control, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html">Controlling Access to Services
+                    with VPC Endpoints</a> in the <em>VPC User Guide</em>.</p>
+        </li><li class="listitem">
+            <p>You can control which VPCs or VPC endpoints have access to your buckets by using
+                Amazon S3 bucket policies. For examples of this type of bucket policy access control, see
+                the following topics on restricting access.</p>
+        </li></ul></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#example-bucket-policies-restrict-accesss-vpc-endpoint">Restricting
+                access to a specific VPC endpoint</a></li><li><a href="#example-bucket-policies-restrict-access-vpc">Restricting access to a
+                specific VPC</a></li></ul></div><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When applying the Amazon S3 bucket policies for VPC endpoints described in this section,
+            you might block your access to the bucket without intending to do so. Bucket permissions
+            that are intended to specifically limit bucket access to connections originating from
+            your VPC endpoint can block all connections to the bucket. For information about how to
+            fix this issue, see <a href="https://aws.amazon.com/premiumsupport/knowledge-center/s3-regain-access/" rel="noopener noreferrer" target="_blank"><span>My bucket
+                policy has the wrong VPC or VPC endpoint ID. How can I fix the policy so that I can
+                access the bucket?</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the <em>AWS Support Knowledge
+            Center</em>.</p></div></div>
+        <h2 id="example-bucket-policies-restrict-accesss-vpc-endpoint">Restricting
+                access to a specific VPC endpoint</h2>
+        <p>The following is an example of an Amazon S3 bucket policy that restricts access to a
+            specific bucket, <code class="code">awsexamplebucket1</code>, only from the VPC endpoint with the ID
+                <code class="code">vpce-1a2b3c4d</code>. The policy denies all access to the bucket if the
+            specified endpoint is not being used. The <code class="code">aws:SourceVpce</code> condition is used
+            to specify the endpoint. The <code class="code">aws:SourceVpce</code> condition does not require an
+            Amazon Resource Name (ARN) for the VPC endpoint resource, only the VPC endpoint ID. For
+            more information about using conditions in a policy, see <a href="./amazon-s3-policy-keys.html">Amazon S3 condition key examples</a>.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Before using the following example policy, replace the VPC endpoint ID
+                        with an appropriate value for your use case. Otherwise, you won't be able to
+                        access your bucket.</p>
+                </li><li class="listitem">
+                    <p>This policy disables console access to the specified bucket, because
+                        console requests don't originate from the specified VPC endpoint.</p>
+                </li></ul></div></div></div>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+   "Version": "2012-10-17",
+   "Id": "Policy1415115909152",
+   "Statement": [
+     <span>{</span>
+       "Sid": "Access-to-specific-VPCE-only",
+       "Principal": "*",
+       "Action": "s3:*",
+       "Effect": "Deny",
+       "Resource": ["arn:aws:s3:::<code class="replaceable">awsexamplebucket1</code>",
+                    "arn:aws:s3:::<code class="replaceable">awsexamplebucket1</code>/*"],
+       "Condition": <span>{</span>
+         "StringNotEquals": <span>{</span>
+           "aws:SourceVpce": "<code class="replaceable">vpce-1a2b3c4d</code>"
+         }
+       }
+     }
+   ]
+}</code></pre>
+     
+        <h2 id="example-bucket-policies-restrict-access-vpc">Restricting access to a
+                specific VPC</h2>
+        <p>You can create a bucket policy that restricts access to a specific VPC by using the
+                <code class="code">aws:SourceVpc</code> condition. This is useful if you have multiple VPC
+            endpoints configured in the same VPC, and you want to manage access to your Amazon S3 buckets
+            for all of your endpoints. The following is an example of a policy that denies access to
+                <code class="code">awsexamplebucket1</code> and its objects from anyone outside VPC
+                <code class="code">vpc-111bbb22</code>. The policy denies all access to the bucket if the
+            specified VPC is not being used. This statement does not grant access, for that you will
+            need to add a separate Allow statement. The <code class="code">vpc-111bbb22</code> condition key does
+            not require an ARN for the VPC resource, only the VPC ID.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Before using the following example policy, replace the VPC ID with an
+                        appropriate value for your use case. Otherwise, you won't be able to access
+                        your bucket.</p>
+                </li><li class="listitem">
+                    <p>This policy disables console access to the specified bucket, because
+                        console requests don't originate from the specified VPC.</p>
+                </li></ul></div></div></div>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+   "Version": "2012-10-17",
+   "Id": "Policy1415115909153",
+   "Statement": [
+     <span>{</span>
+       "Sid": "Access-to-specific-VPC-only",
+       "Principal": "*",
+       "Action": "s3:*",
+       "Effect": "Deny",
+       "Resource": ["arn:aws:s3:::<code class="replaceable">awsexamplebucket1</code>",
+                    "arn:aws:s3:::<code class="replaceable">awsexamplebucket1</code>/*"],
+       "Condition": <span>{</span>
+         "StringNotEquals": <span>{</span>
+           "aws:SourceVpc": "<code class="replaceable">vpc-111bbb22</code>"
+         }
+       }
+     }
+   ]
+}</code></pre>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./add-bucket-policy.html">Adding a bucket policy</div><div id="next" class="next-link" accesskey="n" href="./example-bucket-policies.html">Bucket policy examples</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example-bucket-policies-vpc-endpoint.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

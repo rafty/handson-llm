@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Uso compartido de objetos con URL prefirmadas - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ShareObjectPreSignedURL" /><meta name="default_state" content="ShareObjectPreSignedURL" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="description" content="Describe cómo configurar los objetos de modo que pueda compartirlos con otros creando una URL prefirmada para descargar los objetos." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="Guía del usuario" /><meta name="abstract" content="Aprenda a utilizar Amazon Simple Storage Service (Amazon S3) para almacenar y recuperar cualquier cantidad de datos desde cualquier lugar. En esta guía se explican los conceptos de Amazon S3, como los buckets, los objetos y las configuraciones relacionadas, y se incluyen ejemplos de código para realizar operaciones frecuentes." /><meta name="guide-locale" content="es_es" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="Guía del usuario" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="Guía del usuario" /><meta id="panorama-serviceConsolePage" value="Uso compartido de objetos con URL prefirmadas" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Uso compartido de objetos con URL prefirmadas - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#ShareObjectPreSignedURL" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="keywords" content="S3,Amazon S3,Guía del usuario de S3,Guía del usuario de Amazon S3,Guía del usuario de Amazon,s3 bucket (bucket de S3),s3 object (objeto de S3),cloud storage (almacenamiento en la nube),data storage (almacenamiento de datos)" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guía del usuario",
+        "item" : "https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Cargar, descargar y trabajar con objetos en Amazon S3",
+        "item" : "https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Uso de direcciones URL prefirmadas",
+        "item" : "https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/using-presigned-url.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Uso compartido de objetos con URL prefirmadas",
+        "item" : "https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/using-presigned-url.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#ShareObjectPreSignedURL" target="_blank" rel="noopener noreferrer" title="Abrir PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentación</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">Guía del usuario</a></div><div id="page-toc-src"><a href="#generating-presigned-url">Generación de una URL prefirmada para compartir un objeto</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ShareObjectPreSignedURL">Uso compartido de objetos con URL prefirmadas</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>De forma predeterminada, todos los objetos de S3 son privados. Solo el propietario del objeto tiene permiso para obtener acceso a ellos. Sin embargo, el propietario del objeto puede compartir opcionalmente objetos con otros creando una URL prefirmada y usando sus propias credenciales de seguridad para otorgar permisos con restricción temporal para descargar los objetos. </p><p>Cuando crea una dirección URL prefirmada para el objeto, debe facilitar sus credenciales de seguridad y, luego, especificar un nombre de bucket, una clave de objeto, un método HTTP (GET para descargar el objeto), y una fecha y hora de vencimiento. Las URL prefirmadas son solo válidas para la duración especificada. Si ha creado una URL prefirmada utilizando un token temporal, entonces la URL caduca cuando caduca el token, incluso si la URL se creó con un tiempo de caducidad posterior. </p><p>Cualquiera que reciba la URL prefirmada puede obtener acceso al objeto. Por ejemplo, si tiene un video en su bucket y tanto el bucket como el objeto son privados, puede compartir el video con otros generando una URL prefirmada. Dado que las URL prefirmadas otorgan acceso a los buckets de Amazon S3 a quien tenga la URL, recomendamos que los proteja adecuadamente. Para obtener más información acerca de la protección de direcciones URL prefirmadas, consulte <a href="./using-presigned-url.html#PresignedUrlUploadObject-LimitCapabilities">Limitación de las capacidades de URL prefirmadas</a>.</p><p>Para obtener más información sobre quién puede crear una URL prefirmada, consulte <a href="./using-presigned-url.html#who-presigned-url">Quién puede crear una URL prefirmada</a>.</p>
+            <h2 id="generating-presigned-url">Generación de una URL prefirmada para compartir un objeto</h2>
+            <p>Puede generar una URL prefirmada para un objeto sin necesidad de escribir código alguno gracias a la consola de S3 o AWS Explorer para Visual Studio. También puede generar una URL prefirmada mediante programación con la ayuda de los AWS SDK para Java, .NET, <a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Presigner.html">Ruby</a>, <a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.S3.S3Client.html#_createPresignedRequest">PHP</a>, <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getSignedUrl-property">Node.js</a>, <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url" rel="noopener noreferrer" target="_blank"><span>Python</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> y <a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/s3-example-presigned-urls.html">Go</a>.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p>Al generar una URL prefirmada, asegúrese de que los parámetros de la solicitud coincidan exactamente con la firma. Por ejemplo, si no especifica un tipo de contenido al generar la URL, debe omitir el tipo de contenido al cargar un objeto. Además, no se admiten los caracteres comodín y, si se utiliza uno en la URL prefirmada, se producirá un error.</p></div></div>
+            <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Uso de la consola de S3" id="ShareObjectPreSignedURLConsole" expanded="false"><p> Puede utilizar la AWS Management Console para generar una URL prefirmada para un objeto siguiendo los pasos que se indican a continuación. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p>En la consola de Amazon S3, el tiempo máximo de vencimiento de una URL prefirmada es de 12 horas desde el momento de su creación. </p></div></div><div class="procedure"><h6>Para generar una URL prefirmada con la AWS Management Console</h6><ol><li><p>Inicie sesión en la AWS Management Console y abra la consola de Amazon S3 en <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                            <p>En la lista <b>Buckets</b> (Buckets), elija el nombre del bucket que contiene el objeto para el que desea generar una URL prefirmada.</p>
+                        </li><li>
+                            <p>En la lista <b>Objects</b> (Objetos), seleccione el objeto para el que desea crear una URL prefirmada.</p>
+                        </li><li>
+                            <p>En el menú <b>Actions</b> (Acciones), elija <b>Share with a presigned URL</b> (Compartir con una URL prefirmada).</p>
+                        </li><li>
+                            <p>Especifique cuánto tiempo de validez desea que tenga la URL prefirmada.</p>
+                        </li><li>
+                            <p>Elija <b>Create presigned URL</b> (Crear URL prefirmada).</p>
+                        </li><li>
+                            <p>Cuando aparece una confirmación, la URL se copia automáticamente en el portapapeles. Verá un botón para copiar la URL prefirmada en caso de que necesite volver a copiarla.</p>
+                        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Uso de AWS Explorer para Visual Studio" id="ShareObjectPreSignedURLVSExplorer" expanded="false"><p>Si utiliza Visual Studio, también puede generar una URL prefirmada para un objeto sin necesidad escribir código alguno gracias a AWS Explorer para Visual Studio. Cualquiera que tenga esta URL puede descargar el objeto. Para obtener más información, vaya a <a href="https://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/using-s3.html">Uso de Amazon S3 desde AWS Explorer</a>. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p>Con AWS Explorer para Visual Studio, el tiempo máximo de vencimiento de una URL prefirmada es de 7 días desde el momento de su creación. </p></div></div><p>Para obtener instrucciones acerca de cómo instalar AWS Explorer, consulte <a href="./UsingAWSSDK.html">Desarrollo con Amazon S3 mediante los SDK de AWS y los exploradores</a>.</p></awsui-expandable-section><awsui-expandable-section variant="container" header="Uso de los SDK de AWS" id="ShareObjectPreSignedURLSDK" expanded="false"><p>Los siguientes ejemplos generan una URL prefirmada que puede dar a terceros para que puedan recuperar un objeto. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p>Con los SDK de AWS, el tiempo máximo de vencimiento de una URL prefirmada es de 7 días desde el momento de su creación. </p></div></div><awsdocs-tabs><dl style="display: none">
+                        <dt>Java</dt><dd tab-id="java">
+                                <div class="example"><div class="example-contents"><p>El siguiente ejemplo genera una URL prefirmada que puede dar a terceros de modo que puedan recuperar un objeto desde un bucket de S3. Para obtener más información, consulte <a href="./ShareObjectPreSignedURL.html">Uso compartido de objetos con URL prefirmadas</a>. </p><p> Para obtener instrucciones sobre la creación y comprobación de una muestra funcional, consulte <a href="./UsingTheMPJavaAPI.html#TestingJavaSamples">Prueba de los ejemplos de código de Java de Amazon S3</a>. </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.Instant;
+
+public class GeneratePresignedURL <span>{</span>
+
+    public static void main(String[] args) throws IOException <span>{</span>
+        Regions clientRegion = Regions.DEFAULT_REGION;
+        String bucketName = "*** Bucket name ***";
+        String objectKey = "*** Object key ***";
+
+        try <span>{</span>
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(clientRegion)
+                    .withCredentials(new ProfileCredentialsProvider())
+                    .build();
+
+            // Set the presigned URL to expire after one hour.
+            java.util.Date expiration = new java.util.Date();
+            long expTimeMillis = Instant.now().toEpochMilli();
+            expTimeMillis += 1000 * 60 * 60;
+            expiration.setTime(expTimeMillis);
+
+            // Generate the presigned URL.
+            System.out.println("Generating pre-signed URL.");
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(bucketName, objectKey)
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+            URL url = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+
+            System.out.println("Pre-Signed URL: " + url.toString());
+        } catch (AmazonServiceException e) <span>{</span>
+            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // it, so it returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) <span>{</span>
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        }
+    }
+}
+
+</code></pre></div></div>
+                            </dd>
+                        <dt>.NET</dt><dd tab-id=".net">
+                                <div class="example"><div class="example-contents"><p>Para obtener instrucciones sobre la creación y comprobación de una muestra funcional, consulte <a href="./UsingTheMPDotNetAPI.html#TestingDotNetApiSamples">Ejecución de ejemplos de código .NET de Amazon S3</a>.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="cs ">using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System;
+
+namespace Amazon.DocSamples.S3
+<span>{</span>
+    class GenPresignedURLTest
+    <span>{</span>
+        private const string bucketName = "*** bucket name ***"; 
+        private const string objectKey = "*** object key ***";
+        // Specify how long the presigned URL lasts, in hours
+        private const double timeoutDuration = 12;
+        // Specify your bucket region (an example region is shown).
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
+        private static IAmazonS3 s3Client;
+
+        public static void Main()
+        <span>{</span>
+            s3Client = new AmazonS3Client(bucketRegion);
+            string urlString = GeneratePreSignedURL(timeoutDuration);
+        }
+        static string GeneratePreSignedURL(double duration)
+        <span>{</span>
+            string urlString = "";
+            try
+            <span>{</span>
+                GetPreSignedUrlRequest request1 = new GetPreSignedUrlRequest
+                <span>{</span>
+                    BucketName = bucketName,
+                    Key = objectKey,
+                    Expires = DateTime.UtcNow.AddHours(duration)
+                };
+                urlString = s3Client.GetPreSignedURL(request1);
+            }
+            catch (AmazonS3Exception e)
+            <span>{</span>
+                Console.WriteLine("Error encountered on server. Message:'<span>{</span>0}' when writing an object", e.Message);
+            }
+            catch (Exception e)
+            <span>{</span>
+                Console.WriteLine("Unknown encountered on server. Message:'<span>{</span>0}' when writing an object", e.Message);
+            }
+            return urlString;
+        }
+    }
+}
+</code></pre></div></div>
+                            </dd>
+                        <dt>JavaScript</dt><dd tab-id="javascript">
+                                <div class="example"><div class="example-contents"><p>En el siguiente ejemplo se crea un bucket, se coloca un objeto, se crea una URL firmada para ese objeto, se obtiene la URL y, a continuación, se elimina el objeto y el bucket.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascript ">import <span>{</span> GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import <span>{</span> fromIni } from "@aws-sdk/credential-providers";
+import <span>{</span> HttpRequest } from "@aws-sdk/protocol-http";
+import <span>{</span>
+  getSignedUrl,
+  S3RequestPresigner,
+} from "@aws-sdk/s3-request-presigner";
+import <span>{</span> parseUrl } from "@aws-sdk/url-parser";
+import <span>{</span> formatUrl } from "@aws-sdk/util-format-url";
+import <span>{</span> Hash } from "@aws-sdk/hash-node";
+
+const createPresignedUrlWithoutClient = async (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const url = parseUrl(`https://$<span>{</span>bucket}.s3.$<span>{</span>region}.amazonaws.com/$<span>{</span>key}`);
+  const presigner = new S3RequestPresigner(<span>{</span>
+    credentials: fromIni(),
+    region,
+    sha256: Hash.bind(null, "sha256"),
+  });
+
+  const signedUrlObject = await presigner.presign(new HttpRequest(url));
+  return formatUrl(signedUrlObject);
+};
+
+const createPresignedUrlWithClient = (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const client = new S3Client(<span>{</span> region });
+  const command = new GetObjectCommand(<span>{</span> Bucket: bucket, Key: key });
+  return getSignedUrl(client, command, <span>{</span> expiresIn: 3600 });
+};
+
+export const main = async () =&gt; <span>{</span>
+  const REGION = "us-east-1";
+  const BUCKET = "example_bucket";
+  const KEY = "example_file.jpg";
+
+  try <span>{</span>
+    const noClientUrl = await createPresignedUrlWithoutClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    const clientUrl = await createPresignedUrlWithClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    console.log("Presigned URL without client");
+    console.log(noClientUrl);
+    console.log("\n");
+
+    console.log("Presigned URL with client");
+    console.log(clientUrl);
+  } catch (err) <span>{</span>
+    console.error(err);
+  }
+};
+</code></pre></div></div>
+                            </dd>
+                        <dt>PHP</dt><dd tab-id="php">
+                                <p>Para obtener información sobre el uso de la versión 3 de AWS SDK for PHP para generar una URL prefirmada, consulte <a href="https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-presigned-url.html">URL prefirmada de Amazon S3 con AWS SDK for PHP versión 3</a> en la <em>Guía para desarrolladores de AWS SDK for PHP</em>.</p>
+                            </dd>
+                        <dt>Python</dt><dd tab-id="python">
+                                <p>Genere una URL prefirmada para compartir un objeto mediante el SDK for Python (Boto3). Por ejemplo, utilice un cliente Boto3 y la función <code class="code">generate_presigned_url</code> para generar una URL prefirmada que obtenga un objeto.</p>
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="Python ">import boto3
+    url = boto3.client('s3').generate_presigned_url(
+    ClientMethod='get_object', 
+    Params=<span>{</span>'Bucket': 'BUCKET_NAME', 'Key': 'OBJECT_KEY'},
+    ExpiresIn=3600)</code></pre>
+                                <p>Con el objetivo de obtener más información acerca del uso de SDK for Python (Boto3) a fin de generar una URL prefirmada, consulte <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url" rel="noopener noreferrer" target="_blank"><span>Python</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> en la <em>Referencia de la API de AWS SDK for Python (Boto)</em>.</p>
+                            </dd>
+                    </dl></awsdocs-tabs></awsui-expandable-section><awsui-expandable-section variant="container" header="Utilización de la AWS CLI" id="ShareObjectPresignedCLI" expanded="false"><p>Para generar una URL prefirmada para compartir un objeto con la AWS CLI, consulte <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/presign.html" rel="noopener noreferrer" target="_blank"><span>presign</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> en la <em>Referencia de comandos de la AWS CLI</em>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p>Con la AWS CLI, el tiempo máximo de vencimiento de una URL prefirmada es de 7 días desde el momento de su creación. </p></div></div></awsui-expandable-section></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Aviso" /> <strong>JavaScript está desactivado o no está disponible en su navegador.</strong></p><p>Para utilizar la documentación de AWS, debe estar habilitado JavaScript. Para obtener más información, consulte las páginas de ayuda de su navegador.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenciones del documento</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./using-presigned-url.html">Uso de URL prefirmadas</div><div id="next" class="next-link" accesskey="n" href="./PresignedUrlUploadObject.html">Carga de objetos</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">¿Le ha servido de ayuda esta página? - Sí</div><div class="content"><p>Gracias por hacernos saber que estamos haciendo un buen trabajo.</p><p>Si tiene un momento, díganos qué es lo que le ha gustado para que podamos seguir trabajando en esa línea.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Comentarios" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">¿Le ha servido de ayuda esta página? - No</div><div class="content"><p>Gracias por informarnos de que debemos trabajar en esta página. Lamentamos haberle defraudado.</p><p>Si tiene un momento, díganos cómo podemos mejorar la documentación.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Comentarios" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

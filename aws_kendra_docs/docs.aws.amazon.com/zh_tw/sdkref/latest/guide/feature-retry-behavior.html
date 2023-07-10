@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>重試行為 - AWS軟體開發套件和工具</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="feature-retry-behavior" /><meta name="default_state" content="feature-retry-behavior" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><meta name="description" content="重試行為包括有關 SDK 如何嘗試從發出請求導致的失敗中恢復的設置AWS 服務。使用以下設定配置此功能。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS軟體開發套件和工具" /><meta name="guide" content="參考指南" /><meta name="abstract" content="AWSSDK 和開發人員工具的常見特性和功能指南。包括維護和支援政策，以及設定AWS認證和其他參數的完整參考資料。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdkref/latest/guide/feature-retry-behavior.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdkref/latest/guide/feature-retry-behavior.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdkref/latest/guide/feature-retry-behavior.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdkref/latest/guide/feature-retry-behavior.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdkref/latest/guide/feature-retry-behavior.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdkref/latest/guide/feature-retry-behavior.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdkref/latest/guide/feature-retry-behavior.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdkref/latest/guide/feature-retry-behavior.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/sdkref/latest/guide/feature-retry-behavior.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="x-default" /><meta name="feedback-item" content="AWS Docs SDK Reference" /><meta name="this_doc_product" content="AWS軟體開發套件和工具" /><meta name="this_doc_guide" content="參考指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sdkref'}"></script><meta id="panorama-serviceSubSection" value="參考指南" /><meta id="panorama-serviceConsolePage" value="重試行為" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>重試行為 - AWS軟體開發套件和工具</title><meta name="pdf" content="aws-sdk-ref.pdf#feature-retry-behavior" /><meta name="rss" content="aws-sdk-ref.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20Docs%20SDK%20Reference&amp;topic_url=http://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "none",
+        "item" : "https://docs.aws.amazon.com/sdkref/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "參考指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "組態與驗證設定參考",
+        "item" : "https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/settings-reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "標準化功能",
+        "item" : "https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/standardized-features.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "重試行為",
+        "item" : "https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/standardized-features.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="aws-sdk-ref.pdf#feature-retry-behavior" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="overview.html">參考指南</a></div><div id="page-toc-src"><a href="#feature-retry-behavior-sdk-compat">與AWS開發套件的相容性</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>本文為英文版的機器翻譯版本，如內容有任何歧義或不一致之處，概以英文版為準。</p></awsui-alert><h1 class="topictitle" id="feature-retry-behavior">重試行為</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>重試行為包括有關 SDK 如何嘗試從發出請求導致的失敗中恢復的設置AWS 服務。</p><div class="variablelist"><p>使用下列項目設定此功能：</p>
+         
+         
+
+
+    <dl>
+            <dt><b><span class="term"><code class="code">max_attempts</code>-共享AWS<code>config</code>文件設置</span></b></dt>
+            <dt><b><span class="term"><code class="code">AWS_MAX_ATTEMPTS</code>-環境變數</span></b></dt>
+            <dd>
+                <p>指定對請求進行的嘗試次數上限。</p>
+
+                <p><b>預設值：</b>如果未指定此值，其預設值取決於<code class="code">retry_mode</code>設定值：</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>如果<code class="code">retry_mode</code>是<code class="code">legacy</code> — 使用特定於您的 SDK 的默認值（<code class="code">max_attempts</code>默認情況下檢查您的特定 SDK 指南或 SDK 的代碼庫）。</p>
+                    </li><li class="listitem">
+                        <p>如果<code class="code">retry_mode</code>是<code class="code">standard</code> — 進行三次嘗試。</p>
+                    </li><li class="listitem">
+                        <p>如果<code class="code">retry_mode</code>是<code class="code">adaptive</code> — 進行三次嘗試。</p>
+                    </li></ul></div>
+                <p><b>有效值：</b>大於 0 的數字。</p>
+            </dd>
+        
+            <dt><b><span class="term"><code class="code">retry_mode</code>-共享AWS<code>config</code>文件設置</span></b></dt>
+            <dt><b><span class="term"><code class="code">AWS_RETRY_MODE</code>-環境變數</span></b></dt>
+            <dd>
+                <p>指定 SDK 或開發人員工具嘗試重試的方式。</p>
+
+                <p><b>預設值：</b><code class="code">legacy</code>是預設的重試策略。</p>
+                <p><b>有效值</b>：</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">legacy</code>— 特定於您的 SDK（請查看您的特定 SDK 指南或 SDK 的代碼庫）。</p>
+                    </li><li class="listitem">
+                        <p><code class="code">standard</code>— 跨AWS SDK 的標準重試規則集。此模式包含重試的一組標準錯誤，並支援重試配額。除非明確設定，否則使用此模式的預設最大嘗試次數<code class="code">max_attempts</code>為三次。</p>
+                    </li><li class="listitem">
+                        <p><code class="code">adaptive</code>— 實驗性重試模式，其中包含標準模式的功能，但包含自動用戶端節流。由於此模式是實驗性的，因此 future 可能會改變行為。</p>
+                    </li></ul></div>
+            </dd>
+        </dl></div><p>以下是<code class="code">standard</code>和<code class="code">adaptive</code>重試模式的高級偽代碼：</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">MakeSDKRequest() <span>{</span>
+  attempts = 0
+  loop <span>{</span>
+    GetSendToken()
+    response = SendHTTPRequest()
+    RequestBookkeeping(response)
+    if not Retryable(response)
+      return response
+    attempts += 1
+    if attempts &gt;= MAX_ATTEMPTS:
+      return response
+    if not HasRetryQuota(response)
+      return response
+    delay = ExponentialBackoff(attempts)
+    sleep(delay)
+  }
+}</code></pre><p>以下為偽代碼中使用的組件的相關詳細資料：</p><p><b><code class="code">GetSendToken</code>:</b></p><p> 令牌存儲桶僅在<code class="code">adaptive</code>重試模式下使用。令牌存儲桶通過要求可用令牌以啟動請求來強制執行最大請求率。SDK 客戶端可配置為快速失敗請求或阻止，直到令牌變為可用。</p><p><em>客戶端速率限制</em>是一種算法，最初允許以任何速率發出請求，最高可達令牌限額。但是，在偵測到節流回應之後，用戶端會 rate-of-request 受到相應的限制。如果收到成功的回應，令牌額度也會相應地增加。</p><p>使用自適應速率限制，SDK 可以減慢傳送請求的速率，以便更好地容納的容量AWS 服務。</p><p><b><code class="code">SendHTTPRequest</code>:</b></p><p>大多數AWS SDK 使用使用連接池的 HTTP 庫，以便您可以在發出 HTTP 請求時重複使用現有連接。一般而言，由於節流錯誤而重試要求時，會重複使用連線。由於暫時性錯誤而重試時，請求不會重複使用。</p><p><b><code class="code">RequestBookkeeping</code>:</b></p><p> 如果請求成功，則應更新重試配額。僅針對<code class="code">adaptive</code>重試模式，state 變數<code class="code">maxsendrate</code>會根據收到的回應類型進行更新。</p><p><b><code class="code">Retryable</code>:</b></p><p> 此步驟會根據下列項目決定是否可以重試回應：</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>HTTP 狀態碼 。</p>
+        </li><li class="listitem">
+            <p>從服務傳回的錯誤碼。</p>
+        </li><li class="listitem">
+            <p>連接錯誤，定義為 SDK 收到的任何錯誤，其中未收到來自服務的 HTTP 響應。</p>
+        </li></ul></div><p>暫時性錯誤 (HTTP 狀態碼 400、408、500、502、503 和 504) 和節流錯誤 (HTTP 狀態碼 400、403、429、502、503 和 509) 都可能會重試。SDK 重試行為是與服務中的錯誤代碼或其他數據一起確定的。</p><p><b><code class="code">MAX_ATTEMPTS</code>:</b></p><p> 由<code class="code">config</code>檔案設定或環境變數指定。</p><p><b><code class="code">HasRetryQuota</code></b></p><p>此步驟通過要求重試配額存儲桶中提供令牌來限制重試請求。重試配額值區是一種機制，可防止不太可能成功的重試。這些配額依賴於 SDK，通常依賴於用戶端，有時甚至依賴於服務端點。當請求因各種原因而失敗時，可用的重試配額令牌將被刪除，並在成功時進行補充。當沒有令牌保留時，重試循環將退出。</p><p><b><code class="code">ExponentialBackoff</code></b></p><p> 對於可重試的錯誤，會使用截斷的指數輪詢來計算重試延遲。SDK 使用具有抖動的截斷二進制指數輪詢。下列演算法顯示如何針對要求回應定義睡眠的時間量 (以秒為單位)<code class="code">i</code>：</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">seconds_to_sleep_i = min(b*r^i, MAX_BACKOFF)</code></pre><p>在上述演算法中，下列值適用：</p><p><code class="code">b = random number within the range of: 0 &lt;= b &lt;= 1</code></p><p><code class="code">r = 2</code></p><p><code class="code">MAX_BACKOFF = 20 seconds</code>適用於大多數 SDK。請參閱您的特定 SDK 指南或原始碼以進行確認。</p>
+        <h2 id="feature-retry-behavior-sdk-compat">與AWS開發套件的相容性</h2>
+        <p>下列 SDK 支援本頁所述的功能和設定，會注意任何部分例外狀況：</p>
+        <div class="table-container"><div class="table-contents"><table id="w181aac11c19c27c59b5"><thead>
+                    <tr>
+                        <th>SDK</th>
+                        <th>支援</th>
+                        <th>備註或相關詳細資訊</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/cli/latest/userguide/">AWS CLI v2</a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-cpp/latest/developer-guide/">SDK for C++</a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://aws.github.io/aws-sdk-go-v2/docs" rel="noopener noreferrer" target="_blank"><span>適用於 Go V2 (1.x) 的開發套件</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-go/latest/developer-guide/">適用於 Go 1.x 的開發套件 (V1)</a></td>
+                        <td align="center" style="text-align: center;">否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/">適用於 Java 2.x 的開發套件</a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/">適用於 Java 1.x 的開發套件</a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/">適用於 JavaScript  3.x 的開發套</a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/">適用於 JavaScript  2.x 的 SDK</a></td>
+                        <td align="center" style="text-align: center;">否</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/">適用於 .net 3.x 的開發套件</a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-php/latest/developer-guide/">適用於 PHP 3.x 的開發套件</a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html" rel="noopener noreferrer" target="_blank"><span>SDK for Python (Boto3)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-ruby/latest/developer-guide/">適用於紅寶石 3.x 的 SDK</a></td>
+                        <td align="center" style="text-align: center;">是</td>
+                        <td></td>
+                    </tr>
+
+                </table></div></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./feature-imds-client.html">IMDS 客戶</div><div id="next" class="next-link" accesskey="n" href="./feature-smart-config-defaults.html">智慧配定默認設定</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Docs SDK Reference&amp;topic_url=https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Docs SDK Reference&amp;topic_url=https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

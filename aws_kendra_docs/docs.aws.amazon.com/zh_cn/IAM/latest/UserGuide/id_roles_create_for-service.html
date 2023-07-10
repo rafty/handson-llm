@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>创建向 AWS 服务委派权限的角色 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_create_for-service" /><meta name="default_state" content="id_roles_create_for-service" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="description" content="创建一个 IAM 角色，该角色确定允许哪个 AWS 服务使用 AWS 账户 资源。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="用户指南" /><meta name="abstract" content="通过用户身份（身份验证）定义特定权限的策略（授权）控制对您的 AWS 资源的访问。" /><meta name="guide-locale" content="zh_cn" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="用户指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="用户指南" /><meta id="panorama-serviceConsolePage" value="创建向 AWS 服务委派权限的角色" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>创建向 AWS 服务委派权限的角色 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_create_for-service" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 用户,user,IAM 组,group,IAM 角色,role,权限策略,信任策略,策略,访问密钥,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "用户指南",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM 身份（用户、用户组和角色）",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 角色",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "创建 IAM 角色",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "创建向 AWS 服务委派权限的角色",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_create_for-service" target="_blank" rel="noopener noreferrer" title="打开 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文档</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">用户指南</a></div><div id="page-toc-src"><a href="#id_roles_create_service-permissions">服务角色权限</a><a href="#roles-creatingrole-service-console">创建用于 AWS 服务的角色（控制台）</a><a href="#roles-creatingrole-service-cli">创建用于服务的角色 (AWS CLI)</a><a href="#roles-creatingrole-service-api">创建用于服务的角色 (AWS API)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_create_for-service">创建向 AWS 服务委派权限的角色</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>许多 AWS 服务要求您使用角色来允许该服务代表您访问其他服务中的资源。由一项服务担任、代表您执行操作的角色称为<a href="./id_roles_terms-and-concepts.html#iam-term-service-role">服务角色</a>。如果按服务角色适用的特定目的进行分类，可分为 <a href="./id_roles_terms-and-concepts.html#iam-term-service-role-ec2">EC2 实例的服务角色</a> (举例)，或<a href="./id_roles_terms-and-concepts.html#iam-term-service-linked-role">服务相关角色</a>。要查看哪些服务支持使用服务相关角色，或服务是否支持任何形式的临时凭证，请参阅 <a href="./reference_aws-services-that-work-with-iam.html">使用 IAM 的AWS服务</a>。要了解单个服务如何使用角色，请选择表格中的服务名称以查看该服务对应的文档。</p><p>有关如何通过角色委派权限的信息，请参阅<a href="./id_roles_terms-and-concepts.html">角色术语和概念</a>。</p>
+    <h2 id="id_roles_create_service-permissions">服务角色权限</h2>
+    <p>您必须配置权限以允许 IAM 实体（用户或角色）创建或编辑服务角色。</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>服务相关角色的 ARN 包括服务主体，它在以下策略中显示为 <code class="code"><code class="replaceable">SERVICE-NAME</code>.amazonaws.com</code>。请勿尝试猜测服务主体，因为它区分大小写，并且格式会因 AWS 服务而异。要查看服务的服务主体，请参阅其服务相关角色文档。</p></div></div>
+    <p><b>允许 IAM 实体创建特定服务角色</b></p>
+    <p>将以下策略添加到需要创建服务角色的 IAM 实体中。此策略允许您为指定服务创建具有特定名称的服务角色。然后，可将托管或内联策略附加到该角色。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateRole",
+                "iam:PutRolePolicy"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        }
+    ]
+}</code></pre>
+    <p><b>允许 IAM 实体创建任何服务角色</b></p>
+    <p>AWS 建议您只允许管理用户创建任何服务角色。拥有创建角色和附加任何策略权限的人员可以升级自己的权限。相反，应创建一个策略，允许他们仅创建他们所需的角色，或者让管理员代表他们创建服务角色。</p>
+    <p>要附加允许管理员访问您整个 AWS 账户 的策略，请使用 <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS 托管策略。</p>
+
+    <p><b>允许 IAM 实体编辑服务角色</b></p>
+    <p>将以下策略添加到需要编辑服务角色的 IAM 实体中。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "EditSpecificServiceRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListRolePolicies",
+                "iam:PutRolePolicy",
+                "iam:UpdateRole",
+                "iam:UpdateRoleDescription"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        },
+        <span>{</span>
+            "Sid": "ViewRolesAndPolicies",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetPolicy",
+                "iam:ListRoles"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+    <p><b>允许 IAM 实体删除特定服务角色</b></p>
+    <p>将以下语句添加到需要删除指定服务角色的 IAM 实体的权限策略。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Effect": "Allow",
+    "Action": "iam:DeleteRole",
+    "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+}</code></pre>
+    <p><b>允许 IAM 实体删除任何服务相关角色</b></p>
+    <p>AWS 建议您只允许管理用户删除任何服务角色。相反，应创建一个策略，允许他们仅删除他们所需的角色，或者让管理员代表他们删除服务角色。</p>
+    <p>要附加到允许管理员访问您整个 AWS 账户 的策略，请使用 <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS 托管策略。</p>
+   
+    <h2 id="roles-creatingrole-service-console">创建用于 AWS 服务的角色（控制台）</h2>
+    <p>您可使用 AWS Management Console创建用于服务的角色。由于某些服务支持多个服务角色，请参阅您的服务的 <a href="https://docs.aws.amazon.com/">AWS 文档</a>以查看要选择的使用案例。您可以了解如何为角色分配必要的信任策略和权限策略，以便服务能够代表您担任角色。可用于控制您的角色的权限的步骤可能会有所不同，具体取决于服务如何定义使用案例，以及您是否创建了服务相关角色。</p>
+
+    
+    <div class="procedure"><h6>创建用于 AWS 服务的角色（控制台）</h6><ol><li><p>登录AWS Management Console，然后通过以下网址打开 IAM 控制台：<a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。</p></li><li>
+        <p>在 IAM 控制台的导航窗格中，选择 <b>Roles</b>，然后选择 <b>Create role</b>。</p>
+      </li><li>
+        <p>对于<b>选择可信实体</b>，选择 <b>AWS 服务</b>。</p>
+      </li><li>
+        <p>选择用于您的服务的使用案例。使用案例由服务定义以包含服务所需的信任策略。然后选择<b>下一步</b>。</p>
+      </li><li>
+        <p>如果可能，选择要用作权限策略的策略，或选择 <b>Create policy</b>（创建策略）以打开新的浏览器选项卡并从头开始创建新策略。有关更多信息，请参阅<a href="./access_policies_create-console.html#access_policies_create-start">创建 IAM policy</a>。在您创建策略后，关闭该选项卡并返回到您的原始选项卡。选中您希望服务具有的权限策略旁边的复选框。</p>
+        <p>根据您选择的使用案例，该服务可能允许您执行以下任意操作：</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>不执行任何操作，因为该服务为角色定义了权限。</p>
+          </li><li class="listitem">
+            <p>从一组有限的权限中进行选择。</p>
+          </li><li class="listitem">
+            <p>从任何权限中进行选择。</p>
+          </li><li class="listitem">
+            <p>此时可以不选择任何策略，稍后创建策略，然后将其附加到角色。</p>
+          </li></ul></div>
+      </li><li>
+        <p>（可选）设置<a href="./access_policies_boundaries.html">权限边界</a>。这是一项高级功能，可用于服务角色，但不可用于服务相关角色。</p>
+        <p>展开 <b>Permissions boundary</b>（权限边界）部分，然后选择 <b>Use a permissions boundary to control the maximum role permissions</b>（使用权限边界控制最大角色权限）。IAM 包括您的账户中的 AWS 托管策略和客户托管策略的列表。选择要用于权限边界的策略，或选择 <b>Create policy</b>（创建策略）以打开新的浏览器选项卡并从头开始创建新策略。有关更多信息，请参阅<a href="./access_policies_create-console.html#access_policies_create-start">创建 IAM policy</a>。在您创建策略后，关闭该选项卡并返回到您的原始选项卡，以选择要用于权限边界的策略。</p>
+      </li><li>
+        <p>选择 <b>Next</b>（下一步）。</p>
+      </li><li>
+        <p>对于 <b>Role name (角色名称)</b>，角色名称自定义的程度由服务定义。如果服务定义角色的名称，则此选项不可编辑。在其他情况下，服务可能定义角色的前缀并允许您键入可选的后缀。某些服务允许您指定角色的整个名称。</p>
+        <p>如果可能，输入有助于识别该角色的作用的角色名称或角色名称后缀。角色名称在您的 AWS 账户 内必须是唯一的。名称不区分大小写。例如，您无法同时创建名为 <code class="userinput">PRODROLE</code> 和 <code class="userinput">prodrole</code> 的角色。由于其他 AWS 资源可能引用该角色，角色创建完毕后无法编辑角色名称。</p>
+      </li><li>
+        <p>（可选）对于 <b>Description</b>（描述），输入新角色的描述。</p>
+      </li><li>
+        <p>在 <b>Step 1: Select trusted entities</b>（步骤 1：选择可信实体）或 <b>Step 2: Add permissions</b>（步骤 2：添加权限）部分中的 <b>Edit</b>（编辑），以编辑角色的用户案例和权限。</p>
+      </li><li>
+        <p>（可选）通过以键值对的形式附加标签来向角色添加元数据。有关在 IAM 中使用标签的更多信息，请参阅 <a href="./id_tags.html">标记 IAM 资源</a>。</p>
+      </li><li>
+        <p>检查角色，然后选择 <b>Create role</b>。</p>
+      </li></ol></div>
+   
+    <h2 id="roles-creatingrole-service-cli">创建用于服务的角色 (AWS CLI)</h2>
+    <p>从 AWS CLI 创建角色涉及几个步骤。当您使用控制台创建角色时，很多步骤会自动完成，但是使用 AWS CLI 时，您必须自行完成每一个步骤。您必须创建角色，然后为角色分配权限策略。如果您使用的服务是 Amazon EC2，则还必须创建实例配置文件并向其添加角色。（可选）您还可以为您的角色设置<a href="./access_policies_boundaries.html">权限边界</a>。</p>
+    <div class="procedure"><h6>从 AWS CLI 为 AWS 服务创建角色</h6><ol><li>
+        <p>以下 <code class="code"><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html">create-role</a></code> 命令创建了一个名为 <em>Test-Role</em> 的角色并向其附加了信任策略：</p>
+        <p><code class="prompt">aws iam create-role --role-name Test-Role --assume-role-policy-document
+            file://Test-Role-Trust-Policy.json</code></p>
+
+      </li><li>
+        <p>将托管权限策略附加到角色：<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/attach-role-policy.html">aws iam attach-role-policy</a>。</p>
+        <p>例如，以下内容 <code class="code">attach-role-policy</code> 命令将名为 <code class="code">ReadOnlyAccess</code> 的附加 AWS 托管策略附加到了名为 <code class="code">ReadOnlyRole</code> 的 IAM 角色：</p>
+        <p><code class="prompt">aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+            --role-name ReadOnlyRole</code></p>
+        <p> or</p>
+        <p>为角色创建内联权限策略：<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html">aws iam put-role-policy</a></p>
+        <p>要添加内联权限策略，请参阅以下示例：</p>
+        <p>
+          <code class="prompt">aws iam put-role-policy --role-name Test-Role --policy-name ExamplePolicy
+            --policy-document file://AdminPolicy.json</code></p>
+      </li><li>
+        <p>（可选）通过附加标签来向角色添加自定义属性：<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/tag-role.html">aws iam tag-role</a></p>
+        <p>有关更多信息，请参阅<a href="./id_tags_roles.html#id_tags_roles_procs-cli-api">管理 IAM 角色（AWS CLI 或 AWS API）的标签</a>。</p>
+      </li><li>
+        <p>（可选）为角色设置<a href="./access_policies_boundaries.html">权限边界</a>：<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-permissions-boundary.html">aws iam put-role-permissions-boundary</a></p>
+        <p>权限边界控制角色可以具有的最大权限。权限边界是一项高级 AWS 功能。</p>
+      </li></ol></div>
+    <p>如果要将角色与 Amazon EC2 或使用 Amazon EC2 的其他 AWS 服务结合使用，则必须将角色存储在实例配置文件中。实例配置文件是一个角色容器，可在启动时附加到 Amazon EC2 实例。一个实例配置文件只能包含一个  角色，不能提高该限制。如果使用 AWS Management Console创建角色，则会为您创建具有与角色相同的名称的实例配置文件。有关实例配置文件的更多信息，请参阅<a href="./id_roles_use_switch-role-ec2_instance-profiles.html">使用实例配置文件</a>。有关如何通过角色启动 EC2 实例的信息，请参阅<em>适用于 Linux 实例的 Amazon EC2 用户指南</em>中的<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">控制对 Amazon EC2 资源的访问</a>。</p>
+    <div class="procedure"><h6>创建实例配置文件并在其中存储角色 (AWS CLI)</h6><ol><li>
+        <p>创建实例配置文件：<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-instance-profile.html">aws iam create-instance-profile</a></p>
+      </li><li>
+        <p>向实例配置文件添加角色：<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/add-role-to-instance-profile.html">aws iam add-role-to-instance-profile</a></p>
+      </li></ol></div>
+    <p>以下 AWS CLI 示例命令集演示了创建角色并附加权限的前两个步骤。它还演示了创建实例配置文件并将角色添加到该配置文件中的两个步骤。此示例信任策略允许 Amazon EC2 服务担任角色并查看 <code class="code">example_bucket</code> Amazon S3 存储桶。该示例还假设您使用运行 Windows 的客户端计算机，并且已使用您的账户凭证和区域配置了命令行界面。有关更多信息，请参阅<a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">配置 AWS 命令行界面</a>。</p>
+    <p>在此示例中，在您创建角色时，在第一个命令中包括以下信任策略。此信任策略允许 Amazon EC2 服务代入角色。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>"Service": "ec2.amazonaws.com"},
+    "Action": "sts:AssumeRole"
+  }
+}</code></pre>
+    <p>当您使用第二个命令时，您必须将权限策略附加到角色。下面的示例权限策略仅允许角色对 <code class="code">example_bucket</code> Amazon S3 存储桶执行 <code class="code">ListBucket</code> 操作。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "s3:ListBucket",
+    "Resource": "arn:aws:s3:::example_bucket"
+  }
+}</code></pre>
+    <p>要创建此 <code class="code">Test-Role-for-EC2</code> 角色，您必须先将上述名为 <code class="code">trustpolicyforec2.json</code> 的信任策略和上述名为 <code class="code">permissionspolicyforec2.json</code> 的权限策略保存到您的本地 <code class="code">C:</code> 驱动器中的 <code class="code">policies</code> 目录。然后，您可以使用以下命令来创建角色，附加策略，创建实例配置文件，并将角色添加到实例配置文件中。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false"># Create the role and attach the trust policy that allows EC2 to assume this role.
+$ </code><code class="userinput">aws iam create-role --role-name Test-Role-for-EC2 --assume-role-policy-document file://C:\policies\trustpolicyforec2.json</code>
+
+<code class="code" copy="false"># Embed the permissions policy (in this example an inline policy) to the role to specify what it is allowed to do.
+$ </code><code class="userinput">aws iam put-role-policy --role-name Test-Role-for-EC2 --policy-name Permissions-Policy-For-Ec2 --policy-document file://C:\policies\permissionspolicyforec2.json</code>
+
+<code class="code" copy="false"># Create the instance profile required by EC2 to contain the role
+$ </code><code class="userinput">aws iam create-instance-profile --instance-profile-name EC2-ListBucket-S3</code>
+
+<code class="code" copy="false"># Finally, add the role to the instance profile
+$ </code><code class="userinput">aws iam add-role-to-instance-profile --instance-profile-name EC2-ListBucket-S3 --role-name Test-Role-for-EC2</code></code></pre>
+    <p>启动 EC2 实例时，如果您使用 AWS 控制台，请在 <b>Configure Instance Details (配置实例详细信息)</b> 页面中指定实例配置文件名称。如果使用 <code class="code">aws ec2 run-instances</code> CLI 命令，请指定 <code class="code">--iam-instance-profile</code> 参数。</p>
+   
+    <h2 id="roles-creatingrole-service-api">创建用于服务的角色 (AWS API)</h2>
+     
+      <p>从 AWS API 创建角色涉及几个步骤。当您使用控制台创建角色时，很多步骤会自动完成，但是使用 API 时，您必须自行完成每一个步骤。您必须创建角色，然后为角色分配权限策略。如果您使用的服务是 Amazon EC2，则还必须创建实例配置文件并向其添加角色。（可选）您还可以为您的角色设置<a href="./access_policies_boundaries.html">权限边界</a>。</p>
+      <div class="procedure"><h6>为 AWS 服务创建角色 (AWS API)</h6><ol><li>
+          <p>创建角色：<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a></p>
+          <p>您可以指定一个文件位置作为角色的信任策略。</p>
+        </li><li>
+          <p>将托管权限策略附加到角色：<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html">AttachRolePolicy</a></p>
+          <p> or</p>
+          <p>为角色创建内联权限策略：<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html">PutRolePolicy</a></p>
+        </li><li>
+          <p>（可选）通过附加标签来向用户添加自定义属性：<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_TagRole.html">TagRole</a></p>
+          <p>有关更多信息，请参阅<a href="./id_tags_users.html#id_tags_users_procs-cli-api">管理 IAM 用户（AWS CLI 或 AWS API）的标签</a>。</p>
+        </li><li>
+          <p>（可选）为角色设置<a href="./access_policies_boundaries.html">权限边界</a>：<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePermissionsBoundary.html">PutRolePermissionsBoundary</a></p>
+          <p>权限边界控制角色可以具有的最大权限。权限边界是一项高级 AWS 功能。</p>
+        </li></ol></div>
+      <p>如果要将角色与 Amazon EC2 或使用 Amazon EC2 的其他 AWS 服务结合使用，则必须将角色存储在实例配置文件中。实例配置文件是角色的容器。每个实例配置文件只能包含一个角色，不能提高该限制。如果在 AWS Management Console中创建角色，则为您创建具有与角色相同的名称的实例配置文件。有关实例配置文件的更多信息，请参阅<a href="./id_roles_use_switch-role-ec2_instance-profiles.html">使用实例配置文件</a>。有关如何通过角色启动 Amazon EC2 实例的信息，请参阅<em>适用于 Linux 实例的 Amazon EC2 用户指南</em>中的<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">控制对 Amazon EC2 资源的访问</a>。</p>
+      <div class="procedure"><h6>创建实例配置文件并在其中存储角色 (AWS API)</h6><ol><li>
+          <p>创建实例配置文件：<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateInstanceProfile.html">CreateInstanceProfile</a></p>
+        </li><li>
+          <p>向实例配置文件添加角色：<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AddRoleToInstanceProfile.html">AddRoleToInstanceProfile</a></p>
+        </li></ol></div>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>Javascript 在您的浏览器中被禁用或不可用。</strong></p><p>要使用 Amazon Web Services 文档，必须启用 Javascript。请参阅浏览器的帮助页面以了解相关说明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文档惯例</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_create_for-user.html">为 IAM 用户创建角色</div><div id="next" class="next-link" accesskey="n" href="./id_roles_create_for-idp.html">创建适用于身份联合验证的角色</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此页面对您有帮助吗？- 是</div><div class="content"><p>感谢您对我们工作的肯定！</p><p>如果不耽误您的时间，请告诉我们做得好的地方，让我们做得更好。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此页面对您有帮助吗？- 否</div><div class="content"><p>感谢您告诉我们本页内容还需要完善。很抱歉让您失望了。</p><p>如果不耽误您的时间，请告诉我们如何改进文档。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

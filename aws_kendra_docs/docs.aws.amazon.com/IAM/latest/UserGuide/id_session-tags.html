@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Passing session tags in AWS STS - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_session-tags" /><meta name="default_state" content="id_session-tags" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html" /><meta name="description" content="Use session tags to add or import attributes when you assume an IAM role or federate an IAM user." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_session-tags.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_session-tags.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_session-tags.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_session-tags.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_session-tags.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_session-tags.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_session-tags.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_session-tags.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_session-tags.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_session-tags.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_session-tags.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_session-tags.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_session-tags.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_session-tags.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_session-tags.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_session-tags.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_session-tags.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_session-tags.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Passing session tags in AWS STS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Passing session tags in AWS STS - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#id_session-tags" /><meta name="github" content="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/id_session-tags.md" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_session-tags.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_session-tags.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_session-tags.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM Identities (users, user groups, and roles)",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Tagging IAM resources",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Passing session tags in AWS STS",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#id_session-tags" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/id_session-tags.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#id_session-tags_operations">Session tagging operations</a><a href="#id_session-tags_know">Things to know</a><a href="#id_session-tags_permissions-required">Permissions required to add session
+        tags</a><a href="#id_session-tags_adding-assume-role">AssumeRole</a><a href="#id_session-tags_adding-assume-role-saml">AssumeRoleWithSAML</a><a href="#id_session-tags_adding-assume-role-idp">AssumeRoleWithWebIdentity</a><a href="#id_session-tags_adding-getfederationtoken">GetFederationToken</a><a href="#id_session-tags_role-chaining">Chaining roles with session tags</a><a href="#id_session-tags_using-abac">Using session tags for ABAC</a><a href="#id_session-tags_ctlogs">Viewing session tags in CloudTrail</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_session-tags">Passing session tags in AWS STS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Session tags are key-value pair attributes that you pass when you assume an IAM role or
+    federate a user in AWS STS. You do this by making an AWS CLI or AWS API request through AWS STS or
+    through your identity provider (IdP). When you use AWS STS to request temporary security
+    credentials, you generate a session. Sessions expire and have <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_Credentials.html">credentials</a>, such as an access key pair and a
+    session token. When you use the session credentials to make a subsequent request, the <a href="./reference_policies_elements_condition.html#AccessPolicyLanguage_RequestContext">request context</a> includes the <code class="code"><a href="./reference_policies_condition-keys.html#condition-keys-principaltag">aws:PrincipalTag</a></code> context key. You can
+    use the <code class="code">aws:PrincipalTag</code> key in the <code class="code">Condition</code> element of your policies
+    to allow or deny access based on those tags.</p><p>When you use temporary credentials to make a request, your principal might include a set of
+    tags. These tags come from the following sources:</p><div class="orderedlist">
+     
+     
+     
+  <ol><li>
+      <p><b>Session tags</b> – The tags passed when you assume
+        the role or federate the user using the AWS CLI or AWS API. For more information about these
+        operations, see <a href="#id_session-tags_operations">Session tagging operations</a>.</p>
+    </li><li>
+      <p><b>Incoming transitive session tags</b> – The tags
+        inherited from a previous session in a role chain. For more information, see <a href="#id_session-tags_role-chaining">Chaining roles with session tags</a>
+        later in this topic.</p>
+    </li><li>
+      <p><b>IAM tags</b> – The tags attached to your IAM
+        assumed role.</p>
+    </li></ol></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#id_session-tags_operations">Session tagging operations</a></li><li><a href="#id_session-tags_know">Things to know about session tags</a></li><li><a href="#id_session-tags_permissions-required">Permissions required to add session
+        tags</a></li><li><a href="#id_session-tags_adding-assume-role">Passing session tags using
+        AssumeRole</a></li><li><a href="#id_session-tags_adding-assume-role-saml">Passing session tags using
+        AssumeRoleWithSAML</a></li><li><a href="#id_session-tags_adding-assume-role-idp">Passing session tags using
+        AssumeRoleWithWebIdentity</a></li><li><a href="#id_session-tags_adding-getfederationtoken">Passing session tags using
+        GetFederationToken</a></li><li><a href="#id_session-tags_role-chaining">Chaining roles with session tags</a></li><li><a href="#id_session-tags_using-abac">Using session tags for ABAC</a></li><li><a href="#id_session-tags_ctlogs">Viewing session tags in CloudTrail</a></li></ul></div>
+    <h2 id="id_session-tags_operations">Session tagging operations</h2>
+    <p>You can pass session tags using the following AWS CLI or AWS API operations in AWS STS.
+        <em>The AWS Management Console <b><a href="./id_roles_use_switch-role-console.html">Switch Role</a></b> feature does
+        not allow you to pass session tags.</em></p>
+    <p>You can also set the session tags as transitive. Transitive tags persist during role
+      chaining. For more information, see <a href="#id_session-tags_role-chaining">Chaining roles with session tags</a>.</p>
+    <a id="session_tags_api_differences"></a><div class="table-container"><div class="table-contents"><table id="w340aac16c32c38c11b7"><thead><tr><th class="table-header" colspan="100"><div class="title">Comparing methods for passing session
+        tags</div></th></tr>
+          <tr>
+            <th> Operation</th>
+            <th>
+              <b>Who can assume the role</b>
+            </th>
+            <th><b>Method to pass tags</b></th>
+            <th>
+              <b>Method to set transitive tags</b>
+            </th>
+          </tr>
+        </thead>
+          <tr>
+            <td><a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"><code class="code">assume-role</code></a>
+              CLI or <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html"><code class="code">AssumeRole</code></a>
+              API operation</td>
+            <td>IAM user or a session</td>
+            <td><code class="code">Tags</code> API parameter or <code class="code">--tags</code> CLI option</td>
+            <td><code class="code">TransitiveTagKeys</code> API parameter or
+                <code class="code">--transitive-tag-keys</code> CLI option</td>
+          </tr>
+          <tr>
+            <td><a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role-with-saml.html"><code class="code">assume-role-with-saml</code></a> CLI or <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithSAML.html"><code class="code">AssumeRoleWithSAML</code></a> API operation</td>
+            <td>Any user authenticated using a SAML identity provider</td>
+            <td><code class="code">PrincipalTag</code> SAML attribute</td>
+            <td><code class="code">TransitiveTagKeys</code> SAML Attribute</td>
+          </tr>
+          <tr>
+            <td><a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role-with-web-identity.html"><code class="code">assume-role-with-web-identity</code></a> CLI or <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html"><code class="code">AssumeRoleWithWebIdentity</code></a> API operation</td>
+            <td>Any user authenticated using a web identity provider</td>
+            <td><code class="code">PrincipalTag</code> web identity token</td>
+            <td><code class="code">TransitiveTagKeys</code> web identity token</td>
+          </tr>
+          <tr>
+            <td><a href="https://docs.aws.amazon.com/cli/latest/reference/sts/get-federation-token.html"><code class="code">get-federation-token</code></a> CLI or <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_GetFederationToken.html"><code class="code">GetFederationToken</code></a> API operation</td>
+            <td>IAM user or root user</td>
+            <td><code class="code">Tags</code> API parameter or <code class="code">--tags</code> CLI option</td>
+            <td>Not supported</td>
+          </tr>
+        </table></div></div>
+    <p>Operations that support session tagging can fail under the following conditions:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>You pass more than 50 session tags.</p>
+      </li><li class="listitem">
+        <p>The plaintext of your session tag keys exceeds 128 characters.</p>
+      </li><li class="listitem">
+        <p>The plaintext of your session tag values exceeds 256 characters.</p>
+      </li><li class="listitem">
+        <p>The total size of the plaintext of session policies exceeds 2048 characters.</p>
+      </li><li class="listitem">
+        <p>The total packed size of the combined session policies and tags is too large. If the
+          operation fails, the error message shows how close the policies and tags combined come to
+          the upper size limit, by percentage.</p>
+      </li></ul></div>
+   
+    <h2 id="id_session-tags_know">Things to know about session tags</h2>
+    <p>Before you use session tags, review the following details about sessions and tags.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>When using session tags, trust policies for all roles connected to the identity
+          provider (IdP) passing tags must have the <a href="#id_session-tags_permissions-required">sts:TagSession</a>
+          permission. For roles without this permission in the trust policy, the
+            <code class="code">AssumeRole</code> operation fails.</p>
+      </li><li class="listitem">
+        <p>When you request a session, you can specify principal tags as the session tags. The
+          tags apply to requests that you make using the session's credentials.</p>
+      </li><li class="listitem">
+        <p>Session tags use key-value pairs. For example, to add contact information to a
+          session, you can add the session tag key <code class="code">email</code> and the tag value
+            <code class="code">johndoe@example.com</code>.</p>
+      </li><li class="listitem">
+        <p>Session tags must follow the <a href="./id_tags.html#id_tags_rules_creating">rules for naming
+            tags in IAM and AWS STS</a>. This topic includes information about case sensitivity
+          and restricted prefixes that apply to your session tags.</p>
+      </li><li class="listitem">
+        <p>New session tags override existing assumed role or federated user tags with the same
+          tag key, regardless of case.</p>
+      </li><li class="listitem">
+        <p>You cannot pass session tags using the AWS Management Console.</p>
+      </li><li class="listitem">
+        <p>Session tags are valid only for the current session. </p>
+      </li><li class="listitem">
+        <p>Session tags support <a href="./id_roles_terms-and-concepts.html#iam-term-role-chaining">role chaining</a>. By
+          default, AWS STS does not pass tags to subsequent role sessions. However, you can set
+          session tags as transitive. Transitive tags persist during role chaining and replace
+          matching <code class="code">ResourceTag</code> values during the evaluation of the role trust policy.
+          For more information, see <a href="#id_session-tags_role-chaining">Chaining roles with session tags</a>.</p>
+      </li><li class="listitem">
+        <p>You can use session tags to control access to resources or to control what tags can be
+          passed into a subsequent session. For more information, see <a href="./tutorial_abac-saml.html">IAM tutorial: Use SAML session tags for ABAC</a>.</p>
+      </li><li class="listitem">
+        <p>You can view the principal tags for your session, including the session tags, in the
+          AWS CloudTrail logs. For more information, see <a href="#id_session-tags_ctlogs">Viewing session tags in CloudTrail</a>.</p>
+      </li><li class="listitem">
+        <p>You must pass a single value for each session tag. AWS STS does not support multi-valued
+          session tags. </p>
+      </li><li class="listitem">
+        <p>You can pass a maximum of 50 session tags. The number and size of IAM resources in an AWS account are limited. For more information, see <a href="./reference_iam-quotas.html">IAM and AWS STS quotas</a>.</p>
+      </li><li class="listitem">
+        <p>An AWS conversion compresses the passed session policies and session tags combined
+          into a packed binary format with a separate limit. If you exceed this limit, the AWS CLI or
+          AWS API error message shows how close the policies and tags combined come to the upper
+          size limit, by percentage.</p>
+      </li></ul></div>
+   
+    <h2 id="id_session-tags_permissions-required">Permissions required to add session
+        tags</h2>
+    <p>In addition to the action that matches the API operation, you must have the following
+      permissions-only action in your policy:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">sts:TagSession</code></code></pre>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>When using session tags, the role trust policies for all roles connected to an identity
+        provider (IdP) must have the <code class="code">sts:TagSession</code> permission. The
+          <code class="code">AssumeRole</code> operation fails for any role connected to an IdP passing session
+        tags without this permission. If you don't want to update the role trust policy for each
+        role, you can use a separate IdP instance for passing session tags. Then, add the
+          <code class="code">sts:TagSession</code> permission to only the roles connected to the separate
+        IdP.</p></div></div>
+    <p>You can use the <code class="code">sts:TagSession</code> action with the following condition
+      keys.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code"><a href="./reference_policies_condition-keys.html#condition-keys-principaltag">aws:PrincipalTag</a></code>
+          – Compares the tag attached to the principal making the request with the tag you
+          specified in the policy. For example, you can allow a principal to pass session tags only
+          if the principal making the request has the specified tags.</p>
+      </li><li class="listitem">
+        <p><code class="code"><a href="./reference_policies_condition-keys.html#condition-keys-requesttag">aws:RequestTag</a></code> –
+          Compares the tag key-value pair passed in the request with the tag pair you specified in
+          the policy. For example, you can allow the principal to pass the specified session tags,
+          but only with the specified values.</p>
+      </li><li class="listitem">
+        <p><code class="code"><a href="./reference_policies_condition-keys.html#condition-keys-resourcetag">aws:ResourceTag</a></code>
+          – Compares the tag key-value pair you specified in the policy with the key-value
+          pair attached to the resource. For example, you can allow the principal to pass session
+          tags only if the role they assume includes the specified tags.</p>
+      </li><li class="listitem">
+        <p><code class="code"><a href="./reference_policies_condition-keys.html#condition-keys-tagkeys">aws:TagKeys</a></code> –
+          Compares the tag keys in a request with the keys you specified in the policy. For example,
+          you can allow the principal to pass only session tags with the specified tag keys. This
+          condition key limits the maximum set of session tags that can be passed.</p>
+      </li><li class="listitem">
+        <p><code class="code"><a href="./reference_policies_iam-condition-keys.html#ck_transitivetagkeys">sts:TransitiveTagKeys</a></code> -
+          Compares the transitive session tag keys in the request with those specified in the
+          policy. For example, you can write a policy to allow a principal to set only specific tags
+          as transitive. Transitive tags persist during role chaining. For more information, see
+            <a href="#id_session-tags_role-chaining">Chaining roles with session tags</a>.</p>
+      </li></ul></div>
+    <p>For example, the following <a href="./id_roles_terms-and-concepts.html#term_trust-policy">role trust policy</a>
+      allows the <code class="code">test-session-tags</code> user to assume the role with the attached policy.
+      When that user assumes the role, they must use the AWS CLI or AWS API to pass the three
+      required session tags and the required <a href="./id_roles_create_for-user_externalid.html">external ID</a>. Additionally, the user can choose to set the <code class="code">Project</code> and
+        <code class="code">Department</code> tags as transitive.</p>
+    <div class="example"><h6>Example role trust policy for session tags</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowIamUserAssumeRole",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:user/<code class="replaceable">test-session-tags</code>"},
+            "Condition": <span>{</span>
+              "StringLike": <span>{</span>
+                    "aws:RequestTag/<code class="replaceable">Project</code>": "*",
+                    "aws:RequestTag/<code class="replaceable">CostCenter</code>": "*",
+                    "aws:RequestTag/<code class="replaceable">Department</code>": "*"
+                },
+                "StringEquals": <span>{</span>"sts:ExternalId": "<code class="replaceable">Example987</code>"}
+            }
+        },
+        <span>{</span>
+            "Sid": "AllowPassSessionTagsAndTransitive",
+            "Effect": "Allow",
+            "Action": "sts:TagSession",
+            "Principal": <span>{</span>"AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:user/<code class="replaceable">test-session-tags</code>"},
+            "Condition": <span>{</span>
+                "StringLike": <span>{</span>
+                    "aws:RequestTag/<code class="replaceable">Project</code>": "*",
+                    "aws:RequestTag/<code class="replaceable">CostCenter</code>": "*"
+                },
+                "StringEquals": <span>{</span>
+                    "aws:RequestTag/<code class="replaceable">Department</code>": [
+                        "<code class="replaceable">Engineering</code>",
+                        "<code class="replaceable">Marketing</code>"
+                    ]
+                },
+                "ForAllValues:StringEquals": <span>{</span>
+                    "sts:TransitiveTagKeys": [
+                        "<code class="replaceable">Project</code>",
+                        "<code class="replaceable">Department</code>"
+                    ]
+                }
+            }
+        }
+    ]
+}</code></pre></div></div>
+    <p><b>What does this policy do?</b></p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>The <code class="code">AllowIamUserAssumeRole</code> statement allows the
+            <code class="code">test-session-tags</code> user to assume the role with the attached policy. When
+          that user assumes the role, they must pass the required session tags and <a href="./id_roles_create_for-user_externalid.html">external ID</a>.</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>The first condition block of this statement requires the user to pass the
+                <code class="code">Project</code>, <code class="code">CostCenter</code>, and <code class="code">Department</code> session
+              tags. The tag values do not matter in this statement, so you can use wildcards (*) for
+              the tag values. This block ensures that user passes at least these three session tags.
+              Otherwise, the operation fails. The user can pass additional tags.</p>
+          </li><li class="listitem">
+            <p>The second condition block requires the user to pass an <a href="./id_roles_create_for-user_externalid.html">external ID</a> with the value
+                <code class="code">Example987</code>.</p>
+          </li></ul></div>
+      </li><li class="listitem">
+        <p>The <code class="code">AllowPassSessionTagsAndTransitive</code> statement allows the
+            <code class="code">sts:TagSession</code> permissions-only action. This action must be allowed before
+          the user can pass session tags. If your policy includes the first statement without the
+          second statement, the user can't assume the role.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>The first condition block of this statement allows the user to pass any value for
+              the <code class="code">CostCenter</code> and <code class="code">Project</code> session tags. You do this by
+              using wildcards (*) for the tag value in the policy, which requires that you use the
+                <a href="./reference_policies_elements_condition_operators.html#Conditions_String">StringLike</a> condition operator.</p>
+          </li><li class="listitem">
+            <p>The second condition block allows the user to pass only the
+                <code class="code">Engineering</code> or <code class="code">Marketing</code> value for the
+                <code class="code">Department</code> session tag.</p>
+          </li><li class="listitem">
+            <p>The third condition block lists the maximum set of tags you can set as transitive.
+              The user can choose to set a subset or no tags as transitive. They cannot set
+              additional tags as transitive. You can require that they set at least one of the tags
+              as transitive by adding another condition block that includes
+                <code class="code">"Null":<span>{</span>"sts:TransitiveTagKeys":"false"}</code>. </p>
+          </li></ul></div>
+      </li></ul></div>
+   
+    <h2 id="id_session-tags_adding-assume-role">Passing session tags using
+        AssumeRole</h2>
+    <p>The <code class="code">AssumeRole</code> operation returns a set of temporary credentials you can use
+      to access AWS resources. You can use IAM user or role credentials to call
+        <code class="code">AssumeRole</code>. To pass session tags while assuming a role, use the
+        <code class="code">--tags</code> AWS CLI option or the <code class="code">Tags</code> AWS API parameter. </p>
+    <p>To set tags as transitive, use the <code class="code">--transitive-tag-keys</code> AWS CLI option or the
+        <code class="code">TransitiveTagKeys</code> AWS API parameter. Transitive tags persist during role
+      chaining. For more information, see <a href="#id_session-tags_role-chaining">Chaining roles with session tags</a>.</p>
+    <p>The following example shows a sample request that uses <code class="code">AssumeRole</code>. In this
+      example, when you assume the <code class="code">my-role-example</code> role, you create a session named
+        <code class="code">my-session</code>. You add the session tag key-value pairs <code class="code">Project</code> =
+        <code class="code">Automation</code>, <code class="code">CostCenter</code> = <code class="code">12345</code>, and
+        <code class="code">Department</code> = <code class="code">Engineering</code>. You also set the <code class="code">Project</code>
+      and <code class="code">Department</code> tags as transitive by specifying their keys. </p>
+    <div class="example"><h6>Example AssumeRole CLI request</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="http ">aws sts assume-role \
+--role-arn arn:aws:iam::123456789012:role/my-role-example \
+--role-session-name my-session \
+--tags Key=Project,Value=Automation Key=CostCenter,Value=12345 Key=Department,Value=Engineering \
+--transitive-tag-keys Project Department \
+--external-id Example987</code></pre></div></div>
+   
+    <h2 id="id_session-tags_adding-assume-role-saml">Passing session tags using
+        AssumeRoleWithSAML</h2>
+    <p>The <code class="code">AssumeRoleWithSAML</code> operation authenticates with SAML-based federation.
+      This operation returns a set of temporary credentials you can use to access AWS resources.
+      For more information about using SAML-based federation for AWS Management Console access, see <a href="./id_roles_providers_enable-console-saml.html">Enabling SAML 2.0 federated users to
+      access the AWS Management Console</a>. For details about AWS CLI or AWS
+      API access, see <a href="./id_roles_providers_saml.html">About SAML 2.0-based federation</a>. For a tutorial on configuring SAML federation for
+      your Active Directory users, see <a href="http://aws.amazon.com/blogs/security/aws-federated-authentication-with-active-directory-federation-services-ad-fs/" rel="noopener noreferrer" target="_blank"><span>AWS Federated Authentication with Active Directory Federation Services (ADFS)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in
+      the AWS Security Blog. </p>
+    <p>As an administrator, you can allow members of your company directory to federate into
+      AWS using the AWS STS <code class="code">AssumeRoleWithSAML</code> operation. To do this, you must complete
+      the following tasks:</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+    <ol><li>
+        <p><a href="./id_roles_providers_saml_3rd-party.html">Configure your network as a SAML
+            provider for AWS</a>.</p>
+      </li><li>
+        <p><a href="./id_roles_providers_create_saml.html">Create a SAML provider in
+          IAM</a></p>
+      </li><li>
+        <p><a href="./id_roles_create_for-idp_saml.html">Configure a role and permissions in AWS
+            for your federated users</a></p>
+      </li><li>
+        <p><a href="./id_roles_providers_create_saml_assertions.html">Finish configuring the SAML
+            IdP and create assertions for the SAML authentication response</a></p>
+      </li></ol></div>
+    <p>AWS includes identity providers with certified end-to-end experience for session tags
+      with their identity solutions. To learn how to use these identity providers to configure
+      session tags, see <a href="./id_roles_providers_saml_3rd-party.html">Integrating third-party SAML solution
+      providers with AWS</a>.</p>
+    <p>To pass SAML attributes as session tags, include the <code class="code">Attribute</code> element with
+      the <code class="code">Name</code> attribute set to
+          <code class="code">https://aws.amazon.com/SAML/Attributes/PrincipalTag:<code class="replaceable"><span>{</span>TagKey}</code></code>.
+      Use the <code class="code">AttributeValue</code> element to specify the value of the tag. Include a
+      separate <code class="code">Attribute</code> element for each session tag.</p>
+    <p>For example, assume that you want to pass the following identity attributes as session
+      tags:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">Project:Automation</code></p>
+      </li><li class="listitem">
+        <p><code class="code">CostCenter:12345</code></p>
+      </li><li class="listitem">
+        <p><code class="code">Department:Engineering</code></p>
+      </li></ul></div>
+    <p>To pass these attributes, include the following elements in your SAML assertion.</p>
+    <div class="example"><h6>Example snippet of a SAML assertion</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/PrincipalTag:Project"&gt;
+  &lt;AttributeValue&gt;Automation&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;
+&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/PrincipalTag:CostCenter"&gt;
+  &lt;AttributeValue&gt;12345&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;
+&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/PrincipalTag:Department"&gt;
+  &lt;AttributeValue&gt;Engineering&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;</code></pre></div></div>
+    <p>To set the preceding tags as transitive, include another <code class="code">Attribute</code> element
+      with the <code class="code">Name</code> attribute set to
+        <code class="code">https://aws.amazon.com/SAML/Attributes/TransitiveTagKeys</code>. Transitive tags persist
+      during role chaining. For more information, see <a href="#id_session-tags_role-chaining">Chaining roles with session tags</a>.</p>
+    <p>To set the <code class="code">Project</code> and <code class="code">Department</code> tags as transitive, use the
+      following multi-valued attribute:</p>
+    <div class="example"><h6>Example snippet of a SAML assertion</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/TransitiveTagKeys"&gt;
+  &lt;AttributeValue&gt;Project&lt;/AttributeValue&gt;
+  &lt;AttributeValue&gt;Department&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;</code></pre></div></div>
+   
+    <h2 id="id_session-tags_adding-assume-role-idp">Passing session tags using
+        AssumeRoleWithWebIdentity</h2>
+    <p>Use OpenID Connect(OIDC)-compliant web identity federation to authenticate the
+        <code class="code">AssumeRoleWithWebIdentity</code> operation. This operation returns a set of temporary
+      credentials you can use to access AWS resources. For more information about using web
+      identity federation for AWS Management Console access, see <a href="./id_roles_providers_oidc.html">About web identity federation</a>.</p>
+    <p>To pass session tags from OpenID Connect (OIDC), you must include the session tags in the
+      JSON Web Token (JWT). Include session tags in the <code class="code"><a href="https://aws.amazon.com/" rel="noopener noreferrer" target="_blank"><span>https://aws.amazon.com/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>tags</code> namespace in the token when you submit the
+        <code class="code">AssumeRoleWithWebIdentity</code> request. To learn more about OIDC tokens and claims,
+      see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-with-identity-providers.html">Using
+        Tokens with User Pools</a> in the <em>Amazon Cognito Developer
+        Guide</em>.</p>
+    <p>For example, the following decoded JWT uses a token to call
+        <code class="code">AssumeRoleWithWebIdentity</code> with the <code class="code">Project</code>,
+        <code class="code">CostCenter</code>, and <code class="code">Department</code> session tags. The token also sets the
+        <code class="code">Project</code> and <code class="code">CostCenter</code> tags as transitive. Transitive tags persist
+      during role chaining. For more information, see <a href="#id_session-tags_role-chaining">Chaining roles with session tags</a>.</p>
+    <div class="example"><h6>Example decoded JSON Web Token</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "sub": "johndoe",
+    "aud": "ac_oic_client",
+    "jti": "ZYUCeRMQVtqHypVPWAN3VB",
+    "iss": "https://xyz.com",
+    "iat": 1566583294,
+    "exp": 1566583354,
+    "auth_time": 1566583292,
+    "https://aws.amazon.com/tags": <span>{</span>
+        "principal_tags": <span>{</span>
+            "Project": ["Automation"],
+            "CostCenter": ["987654"],
+            "Department": ["Engineering"]
+        },
+        "transitive_tag_keys": [
+            "Project",
+            "CostCenter"
+        ]
+    }
+}</code></pre></div></div>
+   
+    <h2 id="id_session-tags_adding-getfederationtoken">Passing session tags using
+        GetFederationToken</h2>
+    <p>The <code class="code">GetFederationToken</code> allows you to federate your user. This operation
+      returns a set of temporary credentials you can use to access AWS resources. To add tags to
+      your federated user session, use the <code class="code">--tags</code> AWS CLI option or the <code class="code">Tags</code>
+      AWS API parameter. You can't set session tags as transitive when you use
+        <code class="code">GetFederationToken</code>, because you can't use the temporary credentials to assume a
+      role. You cannot use role chaining in this case. </p>
+    <p>The following example shows a sample request using <code class="code">GetFederationToken</code>. In
+      this example, when you request the token, you create a session named <code class="code">my-fed-user</code>.
+      You add the session tag key-value pairs <code class="code">Project</code> = <code class="code">Automation</code> and
+        <code class="code">Department</code> = <code class="code">Engineering</code>.</p>
+    <div class="example"><h6>Example GetFederationToken CLI request</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="http ">aws sts get-federation-token \
+--name my-fed-user \
+--tags key=Project,value=Automation key=Department,value=Engineering</code></pre></div></div>
+    <p>When you use the temporary credentials returned by the <code class="code">GetFederationToken</code>
+      operation, the session principal tags include the user tags and the passed session
+      tags.</p>
+   
+    <h2 id="id_session-tags_role-chaining">Chaining roles with session tags</h2>
+    <p>You can assume one role and then use the temporary credentials to assume another role. You
+      can continue from session to session. This is called <a href="./id_roles_terms-and-concepts.html#iam-term-role-chaining">role chaining</a>. When you pass session tags while assuming a role, you can set the
+      keys as transitive. This ensures that those session tags pass to subsequent sessions in a role
+      chain. You cannot set role tags as transitive. To pass these tags to subsequent sessions,
+      specify them as session tags.</p>
+    <p>The following example shows how AWS STS passes session tags, transitive tags, and role tags
+      into subsequent sessions in a role chain.</p>
+    <p>In this example role chaining scenario, you use an IAM user access key in the AWS CLI to
+      assume a role named <code class="code">Role1</code>. You then use the resulting session credentials to
+      assume a second role named <code class="code">Role2</code>. You can then use the second session credentials
+      to assume a third role named <code class="code">Role3</code>. These requests occur as three separate
+      operations. Each role is already tagged in IAM. And during each request, you pass additional
+      session tags.</p>
+    <div class="mediaobject">
+       
+        <img src="/images/IAM/latest/UserGuide/images/session-tags-chaining-simple.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Role chaining&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>When you chain roles, you can ensure that tags from an earlier session persist to the
+      later sessions. To do this using the <code class="code">assume-role</code> CLI command, you must pass the
+      tag as a session tag and set the tag as transitive. You pass the tag <code class="code">Star</code> =
+        <code class="code">1</code> as a session tag. The command also attaches the tag <code class="code">Heart</code> =
+        <code class="code">1</code> to the role and applies as a principal tag when you use the session. However,
+      you also want the <code class="code">Heart</code> = <code class="code">1</code> tag to automatically pass to the second
+      or third session. To do that, you manually include it as a session tag. The resulting session
+      principal tags include both of these tags, and sets them as transitive.</p>
+    <div class="mediaobject">
+       
+        <img src="/images/IAM/latest/UserGuide/images/session-tags-chaining-role1.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Assuming the first role in a role chain&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>You perform this request using the following AWS CLI command:</p>
+    <div class="example"><h6>Example AssumeRole CLI request</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="http ">aws sts assume-role \
+--role-arn arn:aws:iam::123456789012:role/Role1 \
+--role-session-name Session1 \
+--tags Key=Star,Value=1 Key=Heart,Value=1 \
+--transitive-tag-keys Star Heart</code></pre></div></div>
+    <p>You then use the credentials for that session to assume <code class="code">Role2</code>. The command
+      attaches the tag <code class="code">Sun</code> = <code class="code">2</code> to the second role and applies as a
+      principal tag when you use the second session. The <code class="code">Heart</code> and <code class="code">Star</code>
+      tags inherits the transitive session tags in the first session. The second session resulting
+      principal tags are <code class="code">Heart</code> = <code class="code">1</code>, <code class="code">Star</code> = <code class="code">1</code>,
+      and <code class="code">Sun</code> = <code class="code">2</code>. <code class="code">Heart</code> and <code class="code">Star</code> continue to be
+      transitive. The <code class="code">Sun</code> tag attached to <code class="code">Role2</code> is not marked as
+      transitive because it is not a session tag. Future sessions do not inherit this tag. </p>
+    <div class="mediaobject">
+       
+        <img src="/images/IAM/latest/UserGuide/images/session-tags-chaining-role2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Assuming the second role in a role chain&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>You perform this second request using the following AWS CLI command:</p>
+    <div class="example"><h6>Example AssumeRole CLI request</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="http ">aws sts assume-role \
+--role-arn arn:aws:iam::123456789012:role/Role2 \
+--role-session-name Session2</code></pre></div></div>
+    <p>You then use the second session credentials to assume <code class="code">Role3</code>. The principal
+      tags for the third session come from any new session tags, the inherited transitive session
+      tags, and the role tags. The <code class="code">Heart</code> = <code class="code">1</code> and <code class="code">Star</code> =
+        <code class="code">1</code> tags on the second session are inherited from the transitive session tag in
+      the first session. If you try to pass the <code class="code">Sun</code> = <code class="code">2</code> session tag, the
+      operation fails. The inherited <code class="code">Star</code> = 1 session tag overrides the role
+        <code class="code">Star</code> = <code class="code">3</code> tag. In role chaining, the value of a transitive tag
+      overrides the role matching the <code class="code">ResourceTag</code> value before the evaluation of the
+      role trust policy. In this example, if <code class="code">Role3</code> uses <code class="code">Star</code> as a
+        <code class="code">ResourceTag</code> in the role trust policy, and sets <code class="code">ResourceTag</code> value
+      to the transitive tag value from the calling role session. The role <code class="code">Lightning</code> tag
+      also applies to the third session, and not set as transitive.</p>
+    <div class="mediaobject">
+       
+        <img src="/images/IAM/latest/UserGuide/images/session-tags-chaining-role3.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Assuming the third role in a role chain&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>You perform the third request using the following AWS CLI command:</p>
+    <div class="example"><h6>Example AssumeRole CLI request</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="http ">aws sts assume-role \
+--role-arn arn:aws:iam::123456789012:role/Role3 \
+--role-session-name Session3</code></pre></div></div>
+   
+    <h2 id="id_session-tags_using-abac">Using session tags for ABAC</h2>
+    <p>Attribute-based access control (ABAC) uses an authorization strategy that defines
+      permissions based on tag attributes. </p>
+    <p>If your company uses an OIDC or SAML-based identity provider (IdP) to manage user
+      identities, you can configure your assertion to pass session tags to AWS. For example, with
+      corporate user identities, when your employees federate into AWS, AWS applies their
+      attributes to their resulting principal. You can then use ABAC to allow or deny permissions
+      based on those attributes. For details, see <a href="./tutorial_abac-saml.html">IAM tutorial: Use SAML session tags for ABAC</a>.</p>
+    <p>For more information about using IAM Identity Center with ABAC, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/attributesforaccesscontrol.html">Attributes for access control</a> in
+      the <em>AWS IAM Identity Center (successor to AWS Single Sign-On) User Guide</em>.</p>
+   
+    <h2 id="id_session-tags_ctlogs">Viewing session tags in CloudTrail</h2>
+    <p>You can use AWS CloudTrail to view the requests used to assume roles or federate users. The CloudTrail
+      log file includes information about the principal tags for the assumed-role or federated user
+      session. For more information, see <a href="./cloudtrail-integration.html">Logging IAM and AWS STS API calls
+      with AWS CloudTrail</a>.</p>
+    <p>For example, assume that you make an AWS STS <code class="code">AssumeRoleWithSAML</code> request, pass
+      session tags, and set those tags as transitive. You can find the following information in your
+      CloudTrail log.</p>
+    <div class="example"><h6>Example AssumeRoleWithSAML CloudTrail log</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">    "requestParameters": <span>{</span>
+        "sAMLAssertionID": "_c0046cEXAMPLEb9d4b8eEXAMPLE2619aEXAMPLE",
+        "roleSessionName": "MyRoleSessionName",
+        "principalTags": <span>{</span>
+            "CostCenter": "987654",
+            "Project": "Unicorn"
+        },
+        "transitiveTagKeys": [
+            "CostCenter",
+            "Project"
+        ],
+        "durationSeconds": 3600,
+        "roleArn": "arn:aws:iam::123456789012:role/SAMLTestRoleShibboleth",
+        "principalArn": "arn:aws:iam::123456789012:saml-provider/Shibboleth"
+    },</code></pre></div></div>
+    <p>You can view the following example CloudTrail logs to view events that use session tags.</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="./cloudtrail-integration.html#stscloudtrailexample-assumerole">Example AWS STS role chaining API event
+          in CloudTrail log file</a></p>
+      </li><li class="listitem">
+        <p><a href="./cloudtrail-integration.html#stscloudtrailexample_saml">Example SAML AWS STS API event in CloudTrail log
+          file</a></p>
+      </li><li class="listitem">
+        <p><a href="./cloudtrail-integration.html#stscloudtrailexample_web-identity">Example web identity AWS STS API
+          event in CloudTrail log file</a></p>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_tags_virtual-mfa.html">Tagging virtual MFA devices</div><div id="next" class="next-link" accesskey="n" href="./id_credentials_temp.html">Temporary security credentials</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_session-tags.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_session-tags.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

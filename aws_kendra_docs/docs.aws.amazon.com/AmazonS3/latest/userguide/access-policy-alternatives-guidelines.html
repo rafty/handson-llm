@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Access policy guidelines - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="access-policy-alternatives-guidelines" /><meta name="default_state" content="access-policy-alternatives-guidelines" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" /><meta name="description" content="General guidelines for when to use bucket and object ACLs or bucket and user policies for access in Amazon S3." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Access policy guidelines" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Access policy guidelines - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#access-policy-alternatives-guidelines" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/access-policy-alternatives-guidelines.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 security",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Access policy guidelines",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#access-policy-alternatives-guidelines" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/access-policy-alternatives-guidelines.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#when-to-use-acl">When to use an ACL-based access policy (bucket and
+                object ACLs)</a><a href="#when-to-use-bucket-policy">When to use a bucket policy</a><a href="#when-to-use-user-policy">When to use a user policy</a><a href="#access-control-guidelines-related-topics">Related topics</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="access-policy-alternatives-guidelines">Access policy guidelines</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon S3 supports resource-based policies and user policies to manage access to your Amazon S3
+        resources. For more information, see <a href="./access-control-overview.html#access-control-resources-manage-permissions-basics">Managing access to
+				resources</a>. Resource-based
+        policies include bucket policies, bucket access control lists (ACLs), and object ACLs. This
+        section describes specific scenarios for using resource-based access policies to manage
+        access to your Amazon S3 resources. </p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#when-to-use-acl">When to use an ACL-based access policy (bucket and
+                object ACLs)</a></li><li><a href="#when-to-use-bucket-policy">When to use a bucket policy</a></li><li><a href="#when-to-use-user-policy">When to use a user policy</a></li><li><a href="#access-control-guidelines-related-topics">Related topics</a></li></ul></div>
+        <h2 id="when-to-use-acl">When to use an ACL-based access policy (bucket and
+                object ACLs)</h2>
+        <p>Both buckets and objects have associated ACLs that you can use to grant permissions. </p>
+        <p>S3 Object Ownership is an Amazon S3 bucket-level setting that you can use to both control ownership of the objects that are 
+    uploaded to your bucket and to disable or enable ACLs. By default, Object Ownership is set to the bucket owner enforced setting, 
+    and all ACLs are disabled. When ACLs are disabled, the bucket owner owns all the objects in the bucket and manages access to them 
+    exclusively by using access-management policies.</p>
+	<p> A majority of modern use cases in Amazon S3 no longer require the use of ACLs. We recommend that you keep ACLs disabled, except 
+	in unusual circumstances where you need to control access for each object individually. With ACLs disabled, you can use policies 
+	to control access to all objects in your bucket, regardless of who uploaded the objects to your bucket. 
+	For more information, see <a href="./about-object-ownership.html">Controlling ownership of objects and disabling ACLs
+			for your bucket</a>.</p>
+        
+		<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, you must use policies to 
+         grant access to your bucket and the objects in it. With the bucket owner enforced setting enabled, requests to set 
+         access control lists (ACLs) or update ACLs fail and return the <code class="code">AccessControlListNotSupported</code> error code. 
+         Requests to read ACLs are still supported.</p></div></div>
+         
+            <h3 id="when-to-use-object-acl">When to use an object ACL</h3>
+            <p>The following are the scenarios when you would use object ACLs to manage permissions.</p>
+             
+                <h6>Objects are not owned by the bucket owner</h6>
+                <p>An object ACL is the only way to manage access to objects that are not owned
+                    by the bucket owner. An AWS account that owns the bucket can grant another
+                    AWS account permission to upload objects. The bucket owner does not own these
+                    objects. The AWS account that created the object must grant permissions using
+                    object ACLs.</p>
+             
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>A bucket owner cannot grant permissions on objects it does not own. For
+                    example, a bucket policy granting object permissions applies only to objects
+                    owned by the bucket owner. However, the bucket owner, who pays the bills, can
+                    write a bucket policy to deny access to any objects in the bucket, regardless of
+                    who owns it. The bucket owner can also delete any objects in the bucket. </p></div></div>
+             
+                <h6>You need to manage permissions at the object level</h6>
+                <p>Suppose that the permissions vary by object and you need to manage permissions
+                    at the object level. You can write a single policy statement granting an
+                    AWS account read permission on millions of objects with a specific <a href="https://docs.aws.amazon.com/general/latest/gr/glos-chap.html#keyprefix">key
+                        name prefix</a>. For example, you could grant read permission on objects
+                    starting with the key name prefix <code class="code">logs</code>. However, if your access
+                    permissions vary by object, granting permissions to individual objects using a
+                    bucket policy might not be practical. Also, the bucket policies are limited to
+                    20 KB in size.</p>
+             
+            <p>In this case, you might find using object ACLs a good alternative. However, even
+                an object ACL is also limited to a maximum of 100 grants. For more information, see
+                    <a href="./acl-overview.html">Access control list (ACL) overview</a>.</p>
+             
+                <h6>Object ACLs control only object-level permissions</h6>
+                <p>
+                    There is a single bucket policy for the entire bucket, but object ACLs are
+                    specified per object.</p>
+             
+            <p>An AWS account that owns a bucket can grant another AWS account permission to
+                manage an access policy. Doing so allows that account to change anything in the
+                policy. To better manage permissions, you might choose not to give such a broad
+                permission, and instead grant the other account only the <code class="code">READ-ACP</code> and
+                    <code class="code">WRITE-ACP</code> permissions on a subset of objects. This limits the
+                account to manage permissions only on specific objects by updating individual object
+                ACLs.</p>
+            <p>If you want to use ACLs to manage permissions at the object level and you also
+                want to own new objects written to your bucket, you can apply the bucket owner
+                preferred setting for Object Ownership. A bucket with the bucket owner preferred
+                setting continues to accept and honor bucket and object ACLs. With this setting, new
+                objects that are written with the <code class="code">bucket-owner-full-control</code> canned ACL
+                will be automatically owned by the bucket owner rather than the object writer. All
+                other ACL behaviors remain in place. To require all Amazon S3 PUT operations to include
+                the <code class="code">bucket-owner-full-control</code> canned ACL, you can <a href="./ensure-object-ownership.html#ensure-object-ownership-bucket-policy">add a bucket policy</a> that
+                allows only object uploads using this ACL.</p>
+             
+                <h6>Alternatives to using ACLs</h6>
+                <p>In addition to an object ACL, there are other ways an object owner can manage
+                    object permissions:</p>
+             
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>If the AWS account that owns the object also owns the bucket, it can write
+                        a bucket policy to manage the object permissions.</p>
+                </li><li class="listitem">
+                    <p>If the AWS account that owns the object wants to grant permission to a
+                        user in its account, it can use a user policy.</p>
+                </li><li class="listitem">
+                    <p>If you, as the bucket owner, want to automatically own and have full
+                        control over every object in your bucket, you can apply the bucket owner
+                        enforced setting for Object Ownership to disable ACLs. As a result, access
+                        control for your data is based on policies. For more information, see <a href="./about-object-ownership.html">Controlling ownership of objects and disabling ACLs
+			for your bucket</a>.</p>
+                </li></ul></div>
+         
+         
+            <h3 id="when-to-use-bucket-acl">When to use a bucket ACL</h3>
+            <p>The only recommended use case for bucket ACLs is to grant permissions to certain
+                AWS services like the Amazon CloudFront <code class="code">awslogsdelivery</code> account. When you
+                create or update a distribution and enable CloudFront logging, CloudFront updates the bucket ACL
+                to give the <code class="code">awslogsdelivery</code> account <code class="code">FULL_CONTROL</code>
+                permissions to write logs to your bucket. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#AccessLogsBucketAndFileOwnership">Permissions required to configure standard logging and to access your log
+                    files</a> in the <em>Amazon CloudFront Developer Guide</em>. If the
+                bucket that stores the logs uses the bucket owner enforced setting for
+                S3 Object Ownership to disable ACLs, CloudFront cannot write logs to the bucket. For
+                more information, see <a href="./about-object-ownership.html">Controlling ownership of objects and disabling ACLs
+			for your bucket</a>.</p>
+         
+     
+        <h2 id="when-to-use-bucket-policy">When to use a bucket policy</h2>
+        <p>If an AWS account that owns a bucket wants to grant permission to users in its
+            account, it can use either a bucket policy or a user policy. However, in the following
+            scenarios, you must use a bucket policy.</p>
+         
+            <h6>You want to manage cross-account permissions for all Amazon S3 permissions</h6>
+            <p>You can use ACLs to grant cross-account permissions to other accounts. But ACLs
+                support only a finite set of permissions, and these don't include all Amazon S3
+                permissions. For more information, see <a href="./acl-overview.html#permissions">What permissions can I grant?</a> For example, you can't grant permissions on bucket
+                subresources. For more information, see <a href="./s3-access-control.html">Identity and access management in Amazon S3</a>.</p>
+         
+        <p>Both bucket and user policies support granting permission for all Amazon S3
+            operations. (For more information, see <a href="./using-with-s3-actions.html">Amazon S3 actions</a>.) However, the user policies are for
+            managing permissions for users in your account. For cross-account permissions to other
+            AWS accounts or users in another account, you must use a bucket policy.</p>
+        
+     
+        <h2 id="when-to-use-user-policy">When to use a user policy</h2>
+        <p>In general, you can use either a user policy or a bucket policy to manage permissions.
+            You can choose to manage permissions by creating users and managing permissions
+            individually by attaching policies to users (or user groups). Or, you might find that
+            resource-based policies, such as a bucket policy, work better for your scenario.</p>
+        <p>With AWS Identity and Access Management (IAM) you can create multiple users within your AWS account and
+            manage their permissions through user policies. An IAM user must have permissions from
+            the parent account to which it belongs, and from the AWS account that owns the
+            resource that the user wants to access. The permissions can be granted as
+            follows:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><span class="topcom">Permission from the parent account</span> – The
+                    parent account can grant permissions to its user by attaching a user
+                    policy.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Permission from the resource owner</span> – The
+                    resource owner can grant permission to either the IAM user (by using a bucket
+                    policy) or the parent account (by using a bucket policy, bucket ACL, or object
+                    ACL).</p>
+            </li></ul></div>
+        <p>This is similar to a child who wants to play with a toy that belongs to someone else.
+            To play with the toy, the child must get permission from a parent  and permission from
+            the toy owner.</p>
+        <p>For more information, see <a href="./using-iam-policies.html">Bucket policies and user policies</a>.</p>
+         
+            <h3 id="permission-delegation">Permission delegation</h3>
+            <p>If an AWS account owns a resource, it can grant those permissions to another AWS account. That account can then delegate those permissions, or a subset of them, to
+                users in the account. This is referred to as permission delegation. But an account
+                that receives permissions from another account cannot delegate permission
+                cross-account to another AWS account. </p>
+         
+     
+        <h2 id="access-control-guidelines-related-topics">Related topics</h2>
+        <p>We recommend that you first review all introductory topics that explain how you manage
+            access to your Amazon S3 resources and related guidelines. For more information, see <a href="./s3-access-control.html">Identity and access management in Amazon S3</a>. You can then use
+            the following topics for more information about specific access policy options. </p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="./acl-overview.html">Access control list (ACL) overview</a></p>
+            </li><li class="listitem">
+                <p><a href="./about-object-ownership.html">Controlling ownership of objects and disabling ACLs
+			for your bucket</a></p>
+            </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access-control-overview.html">Overview</div><div id="next" class="next-link" accesskey="n" href="./how-s3-evaluates-access-control.html">Request authorization</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/access-policy-alternatives-guidelines.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Erste Schritte (AWS CLI) - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="gs-cli" /><meta name="default_state" content="gs-cli" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html" /><meta name="description" content="Das folgende Verfahren zeigt, wie Sie einenAmazon Kendra Index mit dem erstellenAWS CLI. Die Prozedur erstellt eine Datenquelle und einen Index und führt eine Abfrage für den Index aus." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="Entwicklerhandbuch" /><meta name="abstract" content="Bietet eine konzeptionelle Übersicht über Amazon Kendra. Erfahren Sie mehr überAmazon Kendra Funktionen und beginnen Sie mit der Indexierung Ihrer Dokumente mithilfe der Konsole, der CLI und der API." /><meta name="guide-locale" content="de_de" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/gs-cli.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/gs-cli.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/gs-cli.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/gs-cli.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/gs-cli.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/gs-cli.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/gs-cli.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/gs-cli.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/gs-cli.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/gs-cli.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/gs-cli.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/gs-cli.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/gs-cli.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/gs-cli.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/gs-cli.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/gs-cli.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/gs-cli.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/gs-cli.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/gs-cli.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="Entwicklerhandbuch" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="Entwicklerhandbuch" /><meta id="panorama-serviceConsolePage" value="Erste Schritte (AWS CLI)" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Erste Schritte (AWS CLI) - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#gs-cli" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search,intelligente Suche,natürliche Sprache,index,question,Schlüsselwort,Datenquelle,Anschluss,Häufig gestellte Fragen,häufig gestellte Frage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Entwicklerhandbuch",
+        "item" : "https://docs.aws.amazon.com/de_de/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Erste Schritte",
+        "item" : "https://docs.aws.amazon.com/de_de/kendra/latest/dg/getting-started.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Erste Schritte (AWS CLI)",
+        "item" : "https://docs.aws.amazon.com/de_de/kendra/latest/dg/getting-started.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#gs-cli" target="_blank" rel="noopener noreferrer" title="PDF öffnen"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Dokumentation</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">Entwicklerhandbuch</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>Die vorliegende Übersetzung wurde maschinell erstellt. Im Falle eines Konflikts oder eines Widerspruchs zwischen dieser übersetzten Fassung und der englischen Fassung (einschließlich infolge von Verzögerungen bei der Übersetzung) ist die englische Fassung maßgeblich.</p></awsui-alert><h1 class="topictitle" id="gs-cli">Erste Schritte (AWS CLI)</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Das folgende Verfahren zeigt, wie Sie einenAmazon Kendra Index mit dem erstellenAWS CLI. Die Prozedur erstellt eine Datenquelle und einen Index und führt eine Abfrage für den Index aus.</p><div class="procedure"><h6>Um einenAmazon Kendra Index zu erstellen (CLI) </h6><ol><li>
+        <p>Mach das<a href="./gs-prerequisites.html">Voraussetzungen</a>.</p>
+      </li><li>
+        <p>Verwenden Sie den folgenden Befehl, um einen Index zu erstellen.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra create-index \
+ --name cli-getting-started-index \
+ --description "Index for CLI getting started guide." \
+ --role-arn arn:aws:iam::<code class="replaceable">account id</code>:role/KendraRoleForGettingStartedIndex
+</code></pre>
+      </li><li>
+        <p>Warten SieAmazon Kendra, bis der Index erstellt wurde. Überprüfen Sie den Fortschritt mithilfe des Befehls. Sobald das Statusfeld lautet<code class="code">ACTIVE</code>, fahren Sie mit dem nächsten Schritt fort.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra describe-index \
+ --id <code class="replaceable">index id</code></code></pre>
+      </li><li>
+        <p>Verwenden Sie an der Eingabeaufforderung den folgenden Befehl, um eine Datenquelle zu erstellen.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra create-data-source \
+ --index-id <code class="replaceable">index id</code> \
+ --name <code class="replaceable">data source name</code> \
+ --role-arn arn:aws:iam::<code class="replaceable">account id</code>:role/KendraRoleForGettingStartedDataSource \
+ --type S3 \
+ --configuration '<span>{</span>"S3Configuration":<span>{</span>"BucketName":"<code class="replaceable">S3 bucket name</code>"}}' 
+</code></pre>
+        <p>Wenn Sie mithilfe eines Vorlagenschemas eine Verbindung zu Ihrer Datenquelle herstellen, konfigurieren Sie das Vorlagenschema.</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra create-data-source \
+ --index-id <code class="replaceable">index id</code> \
+ --name <code class="replaceable">data source name</code> \
+ --role-arn arn:aws:iam::<code class="replaceable">account id</code>:role/KendraRoleForGettingStartedDataSource \
+ --type TEMPLATE \
+ --configuration '<span>{</span>"TemplateConfiguration":<span>{</span>"Template":<span>{</span><code class="replaceable">JSON schema</code>}}}' 
+</code></pre>
+      </li><li>
+        <p>Das Erstellen der Datenquelle wirdAmazon Kendra eine Weile dauern. Verwenden Sie den folgenden Befehl, um den Fortschritt zu überprüfen. Sobald der Status lautet<code class="code">ACTIVE</code>, fahren Sie mit dem nächsten Schritt fort.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra describe-data-source \
+ --id <code class="replaceable">data source ID</code> \
+ --index-id <code class="replaceable">index ID</code></code></pre>
+      </li><li>
+        <p>Verwenden Sie den folgenden Befehl, um die Datenquelle zu synchronisieren.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra start-data-source-sync-job \
+ --id <code class="replaceable">data source ID</code> \
+ --index-id <code class="replaceable">index ID</code></code></pre>
+      </li><li>
+        <p>Amazon Kendraindexiert Ihre Datenquelle. Der Zeitaufwand hängt von der Anzahl der Dokumente ab. Sie können den Status des Synchronisierungsjobs mithilfe des Befehls überprüfen. Sobald der Status lautet<code class="code">ACTIVE</code>, fahren Sie mit dem nächsten Schritt fort.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra describe-data-source \
+ --id <code class="replaceable">data source ID</code> \
+ --index-id <code class="replaceable">index ID</code></code></pre>
+      </li><li>
+        <p>Verwenden Sie den folgenden Befehl, um eine Abfrage zu stellen.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra query \
+ --index-id <code class="replaceable">index ID</code> \
+ --query-text "<code class="replaceable">search term</code>"
+</code></pre>
+        <p>Die Ergebnisse der Suche werden im JSON-Format angezeigt.</p>
+      </li></ol></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warnung" /> <strong>JavaScript ist in Ihrem Browser nicht verfügbar oder deaktiviert.</strong></p><p>Zur Nutzung der AWS-Dokumentation muss JavaScript aktiviert sein. Weitere Informationen finden auf den Hilfe-Seiten Ihres Browsers.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Dokumentkonventionen</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./gs-console.html">Erste Schritte mit derAmazon Kendra Konsole</div><div id="next" class="next-link" accesskey="n" href="./gs-python.html">Erste Schritte (SDK for Python (Boto3))</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Hat Ihnen diese Seite geholfen? – Ja</div><div class="content"><p>Vielen Dank, dass Sie uns mitgeteilt haben, dass wir gute Arbeit geleistet haben!</p><p>Würden Sie sich einen Moment Zeit nehmen, um uns mitzuteilen, was wir richtig gemacht haben, damit wir noch besser werden?</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Hat Ihnen diese Seite geholfen? – Nein</div><div class="content"><p>Vielen Dank, dass Sie uns mitgeteilt haben, dass diese Seite überarbeitet werden muss. Es tut uns Leid, dass wir Ihnen nicht weiterhelfen konnten.</p><p>Würden Sie sich einen Moment Zeit nehmen, um uns mitzuteilen, wie wir die Dokumentation verbessern können?</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/de_de/kendra/latest/dg/gs-cli.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Identity and Access Management in Amazon OpenSearch Service - Amazon OpenSearch Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ac" /><meta name="default_state" content="ac" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html" /><meta name="description" content="Amazon OpenSearch Service offers several ways to control access to your domains. This topic covers the various policy types, how they interact with each other, and how to create your own custom policies." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon OpenSearch Service" /><meta name="guide" content="Developer Guide" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/opensearch-service/latest/developerguide/ac.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/opensearch-service/latest/developerguide/ac.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/opensearch-service/latest/developerguide/ac.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/opensearch-service/latest/developerguide/ac.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/opensearch-service/latest/developerguide/ac.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/opensearch-service/latest/developerguide/ac.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/opensearch-service/latest/developerguide/ac.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/opensearch-service/latest/developerguide/ac.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/opensearch-service/latest/developerguide/ac.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/opensearch-service/latest/developerguide/ac.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/opensearch-service/latest/developerguide/ac.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/opensearch-service/latest/developerguide/ac.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/opensearch-service/latest/developerguide/ac.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/opensearch-service/latest/developerguide/ac.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/opensearch-service/latest/developerguide/ac.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/opensearch-service/latest/developerguide/ac.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/opensearch-service/latest/developerguide/ac.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/opensearch-service/latest/developerguide/ac.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html" hreflang="x-default" /><meta name="feedback-item" content="CloudSearch" /><meta name="this_doc_product" content="Amazon OpenSearch Service" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'opensearch-service'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Identity and Access Management in Amazon OpenSearch Service" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Identity and Access Management in Amazon OpenSearch Service - Amazon OpenSearch Service</title><meta name="pdf" content="/pdfs/opensearch-service/latest/developerguide/opensearch-service-dg.pdf#ac" /><meta name="github" content="https://github.com/awsdocs/amazon-opensearch-service-developer-guide/tree/master/doc_source/ac.md" /><meta name="rss" content="amazon-opensearch-service-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=200" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudSearch&amp;topic_url=http://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ac.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ac.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ac.html" /><meta name="keywords" content="Elasticsearch,Amazon Elasticsearch Service,Amazon ES,Kibana,OpenSearch,Amazon OpenSearch Service,Amazon OpenSearch Serverless,OpenSearch Service,OpenSearch Serverless,OpenSearch Ingestion,Open Distro,OpenSearch Dashboards" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon OpenSearch Service",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon OpenSearch Service",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and Access Management in Amazon OpenSearch Service",
+        "item" : "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/opensearch-service/latest/developerguide/opensearch-service-dg.pdf#ac" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-opensearch-service-developer-guide/tree/master/doc_source/ac.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/opensearch-service/index.html">Amazon OpenSearch Service</a><a href="what-is.html">Developer Guide</a></div><div id="page-toc-src"><a href="#ac-types">Types of policies</a><a href="#managedomains-signing-service-requests">Making and signing OpenSearch Service
+                requests</a><a href="#ac-conflict">When policies collide</a><a href="#ac-reference">Policy element reference</a><a href="#ac-advanced">Advanced options and API considerations</a><a href="#ac-creating">Configuring access policies</a><a href="#ac-samples">Additional sample policies</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ac">Identity and Access Management in Amazon OpenSearch Service</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon OpenSearch Service offers several ways to control access to your domains. This topic covers the
+        various policy types, how they interact with each other, and how to create your own custom
+        policies.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>VPC support introduces some additional considerations to OpenSearch Service access control. For more
+            information, see <a href="./vpc.html#vpc-security">About access policies on VPC domains</a>.</p></div></div>
+        <h2 id="ac-types">Types of policies</h2>
+        <p>OpenSearch Service supports three types of access policies:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="#ac-types-resource">Resource-based policies</a></p>
+            </li><li class="listitem">
+                <p><a href="#ac-types-identity">Identity-based policies</a></p>
+            </li><li class="listitem">
+                <p><a href="#ac-types-ip">IP-based policies</a></p>
+            </li></ul></div>
+         
+            <h3 id="ac-types-resource">Resource-based policies</h3>
+            <p>You add a resource-based policy, often called the domain access policy, when you
+                create a domain. These policies specify which actions a principal can perform on the
+                domain's <em>subresources</em> (with the exception of
+                <a href="./cross-cluster-search.html#cross-cluster-search-walkthrough">cross-cluster search</a>). Subresources
+                include OpenSearch indexes and APIs. The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html">Principal</a>
+                element specifies the accounts, users, or roles that are allowed access. The <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html">Resource</a>
+                element specifies which subresources these principals can access.</p>
+            <p>For example, the following resource-based policy grants <code class="code">test-user</code>
+                full access (<code class="code">es:*</code>) to the subresources on
+                <code class="code">test-domain</code>:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": [
+          "arn:aws:iam::123456789012:user/test-user"
+        ]
+      },
+      "Action": [
+        "es:*"
+      ],
+      "Resource": "arn:aws:es:us-west-1:987654321098:domain/test-domain/*"
+    }
+  ]
+}</code></pre>
+            <p>Two important considerations apply to this policy:</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>These privileges apply only to this domain. Unless you create similar
+                        policies on other domains, <code class="code">test-user</code> can only access
+                            <code class="code">test-domain</code>.</p>
+                </li><li class="listitem">
+                    <p>The trailing <code class="code">/*</code> in the <code class="code">Resource</code> element is
+                        significant and indicates that resource-based policies only apply to the
+                        domain's subresources, not the domain itself. In resource-based policies,
+                        the <code class="code">es:*</code> action is equivalent to
+                        <code class="code">es:ESHttp*</code>.</p>
+                    <p>For example, <code class="code">test-user</code> can make requests against an index
+                            (<code class="code">GET
+                            https://search-test-domain.us-west-1.es.amazonaws.com/test-index</code>),
+                        but can't update the domain's configuration (<code class="code">POST
+                            https://es.us-west-1.amazonaws.com/2021-01-01/opensearch/domain/test-domain/config</code>).
+                        Note the difference between the two endpoints. Accessing the <a href="https://docs.aws.amazon.com/opensearch-service/latest/APIReference/Welcome.html">configuration API</a> requires an <a href="#ac-types-identity">identity-based policy</a>.</p>
+                </li></ul></div>
+            <p>You can specify a partial index name by adding a wildcard. This example identifies
+                any indexes beginning with <code class="code">commerce</code>:</p>
+            
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">arn:aws:es:us-west-1:987654321098:domain/test-domain/commerce*</code></pre>
+            <p>In this case, the wildcard means that <code class="code">test-user</code> can make requests to
+                indexes within <code class="code">test-domain</code> that have names that begin with
+                    <code class="code">commerce</code>.</p>
+            <p>To further restrict <code class="code">test-user</code>, you can apply the following
+                policy:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": [
+          "arn:aws:iam::123456789012:user/test-user"
+        ]
+      },
+      "Action": [
+        "es:ESHttpGet"
+      ],
+      "Resource": "arn:aws:es:us-west-1:987654321098:domain/test-domain/commerce-data/_search"
+    }
+  ]
+}</code></pre>
+            <p>Now <code class="code">test-user</code> can perform only one operation: searches against the
+                    <code class="code">commerce-data</code> index. All other indexes within the domain are
+                inaccessible, and without permissions to use the <code class="code">es:ESHttpPut</code> or
+                    <code class="code">es:ESHttpPost</code> actions, <code class="code">test-user</code> can't add or modify
+                documents.</p>
+            <p>Next, you might decide to configure a role for power users. This policy gives
+                    <code class="code">power-user-role</code> access to the HTTP GET and PUT methods for all URIs
+                in the index:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": [
+          "arn:aws:iam::123456789012:role/power-user-role"
+        ]
+      },
+      "Action": [
+        "es:ESHttpGet",
+        "es:ESHttpPut"
+      ],
+      "Resource": "arn:aws:es:us-west-1:987654321098:domain/test-domain/commerce-data/*"
+    }
+  ]
+}</code></pre>
+            <p>If your domain is in a VPC or uses fine-grained access control, you can use an
+                open domain access policy. Otherwise, your domain access policy must contain some
+                restriction, either by principal or IP address.</p>
+            <p>For information about all available actions, see <a href="#ac-reference">Policy element reference</a>. For far more granular control over your data, use an open domain access policy
+                with <a href="./fgac.html">fine-grained access control</a>.</p>
+         
+         
+            <h3 id="ac-types-identity">Identity-based policies</h3>
+            <p>Unlike resource-based policies, which are a part of each OpenSearch Service domain, you attach
+                identity-based policies to users or roles using the AWS Identity and Access Management (IAM) service. Just
+                like <a href="#ac-types-resource">resource-based policies</a>,
+                identity-based policies specify who can access a service, which actions they can
+                perform, and if applicable, the resources on which they can perform those
+                actions.</p>
+            <p>While they certainly don't have to be, identity-based policies tend to be more
+                generic. They often govern only the configuration API actions a user can perform.
+                After you have these policies in place, you can use resource-based policies (or
+                    <a href="./fgac.html">fine-grained access control</a>) in OpenSearch Service to offer users
+                access to OpenSearch indexes and APIs.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Users with the AWS managed
+                        <code class="code">AmazonOpenSearchServiceReadOnlyAccess</code> policy can't see cluster
+                    health status on the console. To allow them to see cluster health status (and
+                    other OpenSearch data), add the <code class="code">es:ESHttpGet</code> action to an access
+                    policy and attach it to their accounts or roles.</p></div></div>
+            <p>Because identity-based policies attach to users or roles (principals), the JSON
+                doesn't specify a principal. The following policy grants access to actions that
+                begin with <code class="code">Describe</code> and <code class="code">List</code>. This combination of actions
+                provides read-only access to domain configurations, but not to the data stored in
+                the domain itself:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Action": [
+        "es:Describe*",
+        "es:List*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}</code></pre>
+            <p>An administrator might have full access to OpenSearch Service and all data stored on all
+                domains:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Action": [
+        "es:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}</code></pre>
+            <p>Identity-based policies let you use tags to control access to the configuration
+                API. The following policy, for example, lets attached principals view and update a
+                domain's configuration if the domain has the <code class="code">team:devops</code> tag:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [<span>{</span>
+    "Action": [
+      "es:UpdateDomainConfig",
+      "es:DescribeDomain",
+      "es:DescribeDomainConfig"
+    ],
+    "Effect": "Allow",
+    "Resource": "*",
+    "Condition": <span>{</span>
+      "ForAnyValue:StringEquals": <span>{</span>
+        "aws:ResourceTag/team": [
+          "devops"
+        ]
+      }
+    }
+  }]
+}</code></pre>
+            <p>You can also use tags to control access to the OpenSearch API. Tag-based
+                policies for the OpenSearch API only apply to HTTP methods. For example, the
+                following policy lets attached principals send GET and PUT requests to the
+                OpenSearch API if the domain has the <code class="code">environment:production</code>
+                tag:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [<span>{</span>
+    "Action": [
+      "es:ESHttpGet",
+      "es:ESHttpPut"
+    ],
+    "Effect": "Allow",
+    "Resource": "*",
+    "Condition": <span>{</span>
+      "ForAnyValue:StringEquals": <span>{</span>
+        "aws:ResourceTag/environment": [
+          "production"
+        ]
+      }
+    }
+  }]
+}</code></pre>
+            <p>For more granular control of the OpenSearch API, consider using <a href="./fgac.html">fine-grained access control</a>. </p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>After you add one or more OpenSearch APIs to any tag-based policy, you must
+                    perform a single <a href="./managedomains-awsresourcetagging.html">tag
+                        operation</a> (such as adding, removing, or modifying a tag) in order for
+                    the changes to take effect on a domain. You must be on service software
+                    R20211203 or later to include OpenSearch API operations in tag-based
+                    policies.</p></div></div>
+            <p>OpenSearch Service supports the <code class="code">RequestTag</code> and <code class="code">TagKeys</code> global
+                condition keys for the configuration API, not the OpenSearch API. These conditions
+                only apply to API calls that include tags within the request, such as
+                    <code class="code">CreateDomain</code>, <code class="code">AddTags</code>, and <code class="code">RemoveTags</code>.
+                The following policy lets attached principals create domains, but only if they
+                include the <code class="code">team:it</code> tag in the request:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": [
+      "es:CreateDomain",
+      "es:AddTags"
+    ],
+    "Resource": "*",
+    "Condition": <span>{</span>
+      "StringEquals": <span>{</span>
+        "aws:RequestTag/team": [
+          "it"
+        ]
+      }
+    }
+  }
+}</code></pre>
+            <p>For more details on using tags for access control and the differences between
+                resource-based and identity-based policies, see the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html">IAM User Guide</a>.</p>
+         
+         
+            <h3 id="ac-types-ip">IP-based policies</h3>
+            <p>IP-based policies restrict access to a domain to one or more IP addresses or CIDR
+                blocks. Technically, IP-based policies are not a distinct type of policy. Instead,
+                they are just resource-based policies that specify an anonymous principal and
+                include a special <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">Condition</a>
+                element.</p>
+            <p>The primary appeal of IP-based policies is that they allow unsigned requests to an
+                OpenSearch Service domain, which lets you use clients like <a href="https://curl.haxx.se/" rel="noopener noreferrer" target="_blank"><span>curl</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and <a href="./dashboards.html">OpenSearch Dashboards</a> or access the domain through a
+                proxy server. To learn more, see <a href="./dashboards.html#dashboards-proxy">Using a proxy to access OpenSearch Service from
+                    OpenSearch Dashboards</a>.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you enabled VPC access for your domain, you can't configure an IP-based
+                    policy. Instead, you can use <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html">security groups</a> to control which IP addresses can access the
+                    domain. For more information, see <a href="./vpc.html#vpc-security">About access policies on VPC domains</a>.</p></div></div>
+            <p>The following policy grants all HTTP requests that originate from the specified IP
+                range access to <code class="code">test-domain</code>:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": "*"
+      },
+      "Action": [
+        "es:ESHttp*"
+      ],
+      "Condition": <span>{</span>
+        "IpAddress": <span>{</span>
+          "aws:SourceIp": [
+            "192.0.2.0/24"
+          ]
+        }
+      },
+      "Resource": "arn:aws:es:us-west-1:987654321098:domain/test-domain/*"
+    }
+  ]
+}</code></pre>
+            <p>If your domain has a public endpoint and doesn't use <a href="./fgac.html">fine-grained access control</a>, we recommend combining IAM principals and
+                IP addresses. This policy grants <code class="code">test-user</code> HTTP access only if the
+                request originates from the specified IP range:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [<span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "AWS": [
+        "arn:aws:iam::987654321098:user/test-user"
+      ]
+    },
+    "Action": [
+      "es:ESHttp*"
+    ],
+    "Condition": <span>{</span>
+      "IpAddress": <span>{</span>
+        "aws:SourceIp": [
+          "192.0.2.0/24"
+        ]
+      }
+    },
+    "Resource": "arn:aws:es:us-west-1:987654321098:domain/test-domain/*"
+  }]
+}</code></pre>
+         
+     
+        <h2 id="managedomains-signing-service-requests">Making and signing OpenSearch Service
+                requests</h2>
+        <p>Even if you configure a completely open resource-based access policy, <em>all</em> requests to the OpenSearch Service configuration API must be signed.
+            If your policies specify IAM roles or users, requests to the OpenSearch APIs also
+            must be signed using AWS Signature Version 4. The signing method differs by
+            API:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>To make calls to the OpenSearch Service configuration API, we recommend that you use one of
+                    the <a href="https://aws.amazon.com/tools/#sdk" rel="noopener noreferrer" target="_blank"><span>AWS SDKs</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. The SDKs
+                    greatly simplify the process and can save you a significant amount of time
+                    compared to creating and signing your own requests. The configuration API
+                    endpoints use the following format:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">es.<code class="replaceable">region</code>.amazonaws.com/2021-01-01/</code></pre>
+                <p>For example, the following request makes a configuration change to the
+                        <code class="code">movies</code> domain, but you have to sign it yourself (not
+                    recommended):</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">POST https://es.<code class="replaceable">us-east-1</code>.amazonaws.com/2021-01-01/opensearch/domain/<code class="replaceable">movies</code>/config
+<span>{</span>
+  "ClusterConfig": <span>{</span>
+    "InstanceType": "c5.xlarge.search"
+  }
+}</code></pre>
+                <p>If you use one of the SDKs, such as <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/opensearch.html#OpenSearchService.Client.update_domain_config" rel="noopener noreferrer" target="_blank"><span>Boto 3</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, the SDK automatically handles the request signing:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3
+
+client = boto3.client(es)
+response = client.update_domain_config(
+  DomainName='<code class="replaceable">movies</code>',
+  ClusterConfig=<span>{</span>
+    'InstanceType': 'c5.xlarge.search'
+  }
+)</code></pre>
+                <p>For a Java code sample, see <a href="./configuration-samples.html">Using the AWS SDKs to interact with
+            Amazon OpenSearch Service</a>.</p>
+            </li><li class="listitem">
+                <p>To make calls to the OpenSearch APIs, you must sign your own requests. For
+                    sample code in a variety of languages, see <a href="./request-signing.html">Signing HTTP requests to Amazon OpenSearch Service</a>.
+                    The OpenSearch APIs use the following format:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="replaceable">domain-id</code>.<code class="replaceable">region</code>.es.amazonaws.com</code></pre>
+                <p>For example, the following request searches the <code class="code">movies</code> index for
+                        <em>thor</em>:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">GET https://<code class="replaceable">my-domain</code>.<code class="replaceable">us-east-1</code>.es.amazonaws.com/movies/_search?q=thor</code></pre>
+            </li></ul></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The service ignores parameters passed in URLs for HTTP POST requests that are
+                signed with Signature Version 4.</p></div></div>
+     
+        <h2 id="ac-conflict">When policies collide</h2>
+        <p>Complexities arise when policies disagree or make no explicit mention of a user.
+                <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html">Understanding how IAM works</a> in the <em>IAM User Guide</em> provides a concise summary of policy evaluation
+            logic:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>By default, all requests are denied.</p>
+            </li><li class="listitem">
+                <p>An explicit allow overrides this default.</p>
+            </li><li class="listitem">
+                <p>An explicit deny overrides any allows.</p>
+            </li></ul></div>
+        <p>For example, if a resource-based policy grants you access to a domain subresource (an
+            OpenSearch index or API), but an identity-based policy denies you access, you are denied
+            access. If an identity-based policy grants access and a resource-based policy does not
+            specify whether or not you should have access, you are allowed access. See the following
+            table of intersecting policies for a full summary of outcomes for domain
+            subresources.</p>
+        <div class="table-container"><div class="table-contents disable-scroll"><table id="w365aac19c15c11b9"><thead>
+                    <tr>
+                        <th></th>
+                        <th>Allowed in resource-based policy</th>
+                        <th>Denied in resource-based policy</th>
+                        <th>Neither allowed nor denied in resource-based policy</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <th><b>Allowed in identity-based policy</b></th>
+                        <td>
+                            <p>Allow</p>
+                        </td>
+                        <td>Deny</td>
+                        <td>Allow</td>
+                    </tr>
+                    <tr>
+                        <th><b>Denied in identity-based policy</b></th>
+                        <td>Deny</td>
+                        <td>Deny</td>
+                        <td>Deny</td>
+                    </tr>
+                    <tr>
+                        <th><b>Neither allowed nor denied in identity-based
+                                policy</b></th>
+                        <td>Allow</td>
+                        <td>Deny</td>
+                        <td>Deny</td>
+                    </tr>
+                </table></div></div>
+     
+        <h2 id="ac-reference">Policy element reference</h2>
+        <p>OpenSearch Service supports most policy elements in the <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccessPolicyLanguage_ElementDescriptions.html">IAM Policy Elements Reference</a>, with the exception of
+                <code class="code">NotPrincipal</code>. The following table shows the most common
+            elements.</p>
+        <a id="createdomain-configure-access-policies-cli-iam-policy-json"></a><div class="table-container"><div class="table-contents disable-scroll"><table id="w365aac19c15c13b5"><thead>
+                    <tr>
+                        <th>JSON policy element</th>
+                        <th>Summary</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td><code class="code">Version</code></td>
+                        <td>
+                            <p>The current version of the policy language is
+                                    <code class="code">2012-10-17</code>. All access policies should specify this
+                                value.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">Effect</code></td>
+                        <td>
+                            <p>This element specifies whether the statement allows or denies
+                                access to the specified actions. Valid values are <code class="code">Allow</code>
+                                or <code class="code">Deny</code>.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">Principal</code></td>
+                        <td>
+                            <p>This element specifies the AWS account or IAM role or user
+                                that is allowed or denied access to a resource and can take several
+                                forms:</p>
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem">
+                                    <p><b>AWS accounts</b>:
+                                            <code class="code">"Principal":<span>{</span>"AWS": ["123456789012"]}</code> or
+                                            <code class="code">"Principal":<span>{</span>"AWS":
+                                            ["arn:aws:iam::123456789012:root"]}</code></p>
+                                </li><li class="listitem">
+                                    <p><b>IAM users</b>:
+                                            <code class="code">"Principal":<span>{</span>"AWS":
+                                            ["arn:aws:iam::123456789012:user/test-user"]}</code></p>
+                                </li><li class="listitem">
+                                    <p><b>IAM roles</b>:
+                                            <code class="code">"Principal":<span>{</span>"AWS":
+                                            ["arn:aws:iam::123456789012:role/test-role"]}</code></p>
+                                </li></ul></div>
+                            <p>Specifying the <code class="code">*</code> wildcard enables anonymous access to
+                                the domain, which we don't recommend unless you add an <a href="#ac-types-ip">IP-based condition</a>, use <a href="./vpc.html">VPC support</a>, or enable <a href="./fgac.html">fine-grained access control</a>.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">Action</code>
+                        </td>
+                        <td><p>OpenSearch Service uses <code class="code">ESHttp*</code> actions for OpenSearch HTTP
+                                methods. The rest of the actions apply to the configuration
+                                API.</p><p>Certain <code class="code">es:</code> actions support
+                                resource-level permissions. For example, you can give a user
+                                permissions to delete one particular domain without giving that user
+                                permissions to delete <em>any</em> domain.
+                                Other actions apply only to the service itself. For example,
+                                    <code class="code">es:ListDomainNames</code> makes no sense in the context of
+                                a single domain and thus requires a wildcard.</p><p>For a list
+                                of all available actions and whether they apply to the domain
+                                subresources (<code class="code">test-domain/*</code>), to the domain
+                                configuration (<code class="code">test-domain</code>), or only to the service
+                                    (<code class="code">*</code>), see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonopensearchservice.html">Actions, resources, and condition keys for Amazon OpenSearch Service</a> in
+                                the <em>Service Authorization Reference</em></p>Resource-based
+                            policies differ from resource-level permissions. <a href="#ac-types-resource">Resource-based policies</a> are full
+                            JSON policies that attach to domains. Resource-level permissions let you
+                            restrict actions to particular domains or subresources. In practice, you
+                            can think of resource-level permissions as an optional part of a
+                            resource- or identity-based policy.<p>While resource-level
+                                permissions for <code class="code">es:CreateDomain</code> might seem
+                                unintuitive—after all, why give a user permissions to create
+                                a domain that already exists?—the use of a wildcard lets you
+                                enforce a simple naming scheme for your domains, such as
+                                    <code class="code">"Resource":
+                                    "arn:aws:es:us-west-1:987654321098:domain/my-team-name-*"</code>.</p><p>Of
+                                course, nothing prevents you from including actions alongside less
+                                restrictive resource elements, such as the
+                                following:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": [
+        "es:ESHttpGet",
+        "es:DescribeDomain"
+      ],
+      "Resource": "*"
+    }
+  ]
+}</code></pre><p>To learn more about pairing actions and
+                                resources, see the <code class="code">Resource</code> element in this
+                                table.</p></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">Condition</code></td>
+                        <td>
+                            <p>OpenSearch Service supports most conditions that are described in <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys">AWS global condition context keys</a> in the
+                                    <em>IAM User Guide</em>. Notable exceptions
+                                include the <code class="code">aws:SecureTransport</code> and
+                                    <code class="code">aws:PrincipalTag</code> keys, which OpenSearch Service does not
+                                support.</p>
+                            <p>When configuring an <a href="#ac-types-ip">IP-based
+                                    policy</a>, you specify the IP addresses or CIDR block as a
+                                condition, such as the following:</p>
+                            <pre class="programlisting"><div class="code-btn-container"></div><code class="json ">"Condition": <span>{</span>
+  "IpAddress": <span>{</span>
+    "aws:SourceIp": [
+      "192.0.2.0/32"
+    ]
+  }
+}</code></pre>
+                            <p>As noted in <a href="#ac-types-identity">Identity-based policies</a>, the
+                                    <code class="code">aws:ResourceTag</code>, <code class="code">aws:RequestTag</code>, and
+                                    <code class="code">aws:TagKeys</code> condition keys apply to the
+                                configuration API as well as the OpenSearch APIs.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">Resource</code></td>
+                        <td>
+                            <p>OpenSearch Service uses <code class="code">Resource</code> elements in three basic
+                                ways:</p>
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem">
+                                    <p>For actions that apply to OpenSearch Service itself, like
+                                            <code class="code">es:ListDomainNames</code>, or to allow full
+                                        access, use the following syntax:</p>
+                                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">"Resource": "*"</code></pre>
+                                </li><li class="listitem">
+                                    <p>For actions that involve a domain's configuration, like
+                                            <code class="code">es:DescribeDomain</code>, you can use the
+                                        following syntax:</p>
+                                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">"Resource": "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">aws-account-id</code>:domain/<code class="replaceable">domain-name</code>"</code></pre>
+                                </li><li class="listitem">
+                                    <p>For actions that apply to a domain's subresources, like
+                                            <code class="code">es:ESHttpGet</code>, you can use the following
+                                        syntax:</p>
+                                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">"Resource": "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">aws-account-id</code>:domain/<code class="replaceable">domain-name</code>/*"</code></pre>
+                                    <p>You don't have to use a wildcard. OpenSearch Service lets you define a
+                                        different access policy for each OpenSearch index or API. For
+                                        example, you might limit a user's permissions to the
+                                            <code class="code">test-index</code> index:</p>
+                                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">"Resource": "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">aws-account-id</code>:domain/<code class="replaceable">domain-name</code>/test-index"</code></pre>
+                                    <p>Instead of full access to <code class="code">test-index</code>, you
+                                        might prefer to limit the policy to just the search
+                                        API:</p>
+                                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">"Resource": "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">aws-account-id</code>:domain/<code class="replaceable">domain-name</code>/test-index/_search"</code></pre>
+                                    <p>You can even control access to individual
+                                        documents:</p>
+                                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">"Resource": "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">aws-account-id</code>:domain/<code class="replaceable">domain-name</code>/test-index/test-type/1"</code></pre>
+                                    <p>Essentially, if OpenSearch expresses the subresource as a
+                                        URI, you can control access to it using an access policy.
+                                        For even more control over which resources a user can
+                                        access, see <a href="./fgac.html">Fine-grained access control in Amazon OpenSearch Service</a>.</p>
+                                </li></ul></div>
+                            <p>For details about which actions support resource-level
+                                permissions, see the <code class="code">Action</code> element in this
+                                table.</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+     
+        <h2 id="ac-advanced">Advanced options and API considerations</h2>
+        <p>OpenSearch Service has several advanced options, one of which has access control implications:
+                <code class="code">rest.action.multi.allow_explicit_index</code>. At its default setting of true,
+            it allows users to bypass subresource permissions under certain circumstances.</p>
+        <p>For example, consider the following resource-based policy:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": [
+          "arn:aws:iam::123456789012:user/test-user"
+        ]
+      },
+      "Action": [
+        "es:ESHttp*"
+      ],
+      "Resource": [
+        "arn:aws:es:us-west-1:987654321098:domain/test-domain/test-index/*",
+        "arn:aws:es:us-west-1:987654321098:domain/test-domain/_bulk"
+      ]
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": [
+          "arn:aws:iam::123456789012:user/test-user"
+        ]
+      },
+      "Action": [
+        "es:ESHttpGet"
+      ],
+      "Resource": "arn:aws:es:us-west-1:987654321098:domain/test-domain/restricted-index/*"
+    }
+  ]
+}</code></pre>
+        <p>This policy grants <code class="code">test-user</code> full access to <code class="code">test-index</code> and
+            the OpenSearch bulk API. It also allows <code class="code">GET</code> requests to
+                <code class="code">restricted-index</code>.</p>
+        <p>The following indexing request, as you might expect, fails due to a permissions
+            error:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">PUT https://search-test-domain.us-west-1.es.amazonaws.com/restricted-index/movie/1
+<span>{</span>
+  "title": "Your Name",
+  "director": "Makoto Shinkai",
+  "year": "2016"
+}</code></pre>
+        <p>Unlike the index API, the bulk API lets you create, update, and delete many documents
+            in a single call. You often specify these operations in the request body, however,
+            rather than in the request URL. Because OpenSearch Service uses URLs to control access to domain
+            subresources, <code class="code">test-user</code> can, in fact, use the bulk API to make changes to
+                <code class="code">restricted-index</code>. Even though the user lacks <code class="code">POST</code>
+            permissions on the index, the following request <b>succeeds</b>:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">POST https://search-test-domain.us-west-1.es.amazonaws.com/_bulk
+<span>{</span> "index" : <span>{</span> "_index": "restricted-index", "_type" : "movie", "_id" : "1" } }
+<span>{</span> "title": "Your Name", "director": "Makoto Shinkai", "year": "2016" }
+</code></pre>
+        <p>In this situation, the access policy fails to fulfill its intent. To prevent users
+            from bypassing these kinds of restrictions, you can change
+                <code class="code">rest.action.multi.allow_explicit_index</code> to false. If this value is
+            false, all calls to the bulk, mget, and msearch APIs that specify index names in the
+            request body stop working. In other words, calls to <code class="code">_bulk</code> no longer work,
+            but calls to <code class="code">test-index/_bulk</code> do. This second endpoint contains an index
+            name, so you don't need to specify one in the request body.</p>
+        <p><a href="./dashboards.html">OpenSearch Dashboards</a> relies heavily on mget and
+            msearch, so it is unlikely to work properly after this change. For partial remediation,
+            you can leave <code class="code">rest.action.multi.allow_explicit_index</code> as true and deny
+            certain users access to one or more of these APIs.</p>
+        <p>For information about changing this setting, see <a href="./createupdatedomains.html#createdomain-configure-advanced-options">Advanced cluster
+                settings</a>.</p>
+        <p>Similarly, the following resource-based policy contains two subtle issues:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": "arn:aws:iam::123456789012:user/test-user"
+      },
+      "Action": "es:ESHttp*",
+      "Resource": "arn:aws:es:us-west-1:987654321098:domain/test-domain/*"
+    },
+    <span>{</span>
+      "Effect": "Deny",
+      "Principal": <span>{</span>
+        "AWS": "arn:aws:iam::123456789012:user/test-user"
+      },
+      "Action": "es:ESHttp*",
+      "Resource": "arn:aws:es:us-west-1:987654321098:domain/test-domain/restricted-index/*"
+    }
+  ]
+}</code></pre>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Despite the explicit deny, <code class="code">test-user</code> can still make calls such as
+                        <code class="code">GET
+                        https://search-test-domain.us-west-1.es.amazonaws.com/_all/_search</code>
+                    and <code class="code">GET
+                        https://search-test-domain.us-west-1.es.amazonaws.com/*/_search</code> to
+                    access the documents in <code class="code">restricted-index</code>.</p>
+            </li><li class="listitem">
+                <p>Because the <code class="code">Resource</code> element references
+                        <code class="code">restricted-index/*</code>, <code class="code">test-user</code> doesn't have
+                    permissions to directly access the index's documents. The user does, however,
+                    have permissions to <em>delete the entire index</em>.
+                    To prevent access and deletion, the policy instead must specify
+                        <code class="code">restricted-index*</code>.</p>
+            </li></ul></div>
+        <p>Rather than mixing broad allows and focused denies, the safest approach is to follow
+            the principle of <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege">least privilege</a> and grant only the permissions that are required to perform
+            a task. For more information about controlling access to individual indexes or OpenSearch
+            operations, see <a href="./fgac.html">Fine-grained access control in Amazon OpenSearch Service</a>.</p>
+     
+        <h2 id="ac-creating">Configuring access policies</h2>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>For instructions on creating or modifying resource- and IP-based policies in
+                    OpenSearch Service, see <a href="./createupdatedomains.html#createdomain-configure-access-policies">Configuring access
+                policies</a>.</p>
+            </li><li class="listitem">
+                <p>For instructions on creating or modifying identity-based policies in IAM,
+                    see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html">Creating IAM
+                        policies</a> in the <em>IAM User Guide</em>.</p>
+            </li></ul></div>
+     
+        <h2 id="ac-samples">Additional sample policies</h2>
+        <p>Although this chapter includes many sample policies, AWS access control is a complex
+            subject that is best understood through examples. For more, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html">Example IAM identity-based policies</a> in the
+                <em>IAM User Guide</em>.</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./ntn.html">Node-to-node encryption</div><div id="next" class="next-link" accesskey="n" href="./ac-permissions-ref.html">API permissions reference</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudSearch&amp;topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ac.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=CloudSearch&amp;topic_url=https://docs.aws.amazon.com/en_us/opensearch-service/latest/developerguide/ac.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

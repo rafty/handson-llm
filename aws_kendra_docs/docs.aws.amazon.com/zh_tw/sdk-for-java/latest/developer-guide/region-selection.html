@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS選擇區域 - AWS SDK for Java 2.x</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="region-selection" /><meta name="default_state" content="region-selection" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/region-selection.html" /><meta name="description" content="如何檢查服務可用性，以及選擇AWS 區域和特定終端節點。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS SDK for Java 2.x" /><meta name="guide" content="2.x 版的開發人員指南" /><meta name="abstract" content="說明的 2.x 版中的新功能。AWS SDK for Java" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/region-selection.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html" hreflang="x-default" /><meta name="feedback-folder" content="105202ca-7851-4ed4-8573-079d7749192c" /><meta name="this_doc_product" content="AWS SDK for Java 2.x" /><meta name="this_doc_guide" content="2.x 版的開發人員指南 " /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sdk-for-java'}"></script><meta id="panorama-serviceSubSection" value="2.x 版的開發人員指南 " /><meta id="panorama-serviceConsolePage" value="AWS選擇區域" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS選擇區域 - AWS SDK for Java 2.x</title><meta name="pdf" content="aws-sdk-java-dg-v2.pdf#region-selection" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=70" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=105202ca-7851-4ed4-8573-079d7749192c&amp;topic_url=http://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/region-selection.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/region-selection.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/region-selection.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS SDK for Java",
+        "item" : "https://docs.aws.amazon.com/sdk-for-java/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "2.x 版的開發人員指南 ",
+        "item" : "https://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "使用 AWS SDK for Java 2.x",
+        "item" : "https://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/using.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS選擇區域",
+        "item" : "https://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/using.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="aws-sdk-java-dg-v2.pdf#region-selection" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/sdk-for-java/index.html">AWS SDK for Java</a><a href="home.html">2.x 版的開發人員指南 </a></div><div id="page-toc-src"><a href="#region-selection-choose-region">選擇區域</a><a href="#choosing-a-specific-endpoint">選擇特定端點</a><a href="#automatically-determine-the-aws-region-from-the-environment">從環境中自動確定區域</a><a href="#region-selection-query-service">檢查區域的服務可用性</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>本文為英文版的機器翻譯版本，如內容有任何歧義或不一致之處，概以英文版為準。</p></awsui-alert><h1 class="topictitle" id="region-selection">AWS選擇區域</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>區域允許您訪問AWS服務實際位於特定地理區域。這對於備援以及讓您的資料和應用程式在靠近您和您的使用者存取位置附近執行，都很有用。</p><p>InAWS SDK for Java2.x，版本 1.x 的所有不同區域相關類別都已收合到一個區域類別。您可以將此類別用於所有區域相關的動作，例如擷取區域的中繼資料或檢查區域中是否有可用服務。</p>
+      <h2 id="region-selection-choose-region">選擇區域</h2>
+      <p>您可以指定區域名稱，開發套件會自動為您選擇適當的端點。</p>
+      <p>若要明確設定區域，我們建議您使用 <a href="https://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/regions/Region.html">Region</a> 類別中定義的常數。這是所有公開可用區域的列舉。若要使用類別中的區域來建立用戶端，請使用下列程式碼。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">Ec2Client ec2 = Ec2Client.builder()
+          .region(Region.US_WEST_2)
+          .build();</code></pre>
+      <p>如果您嘗試使用的區域不是 <code class="code">Region</code> 類別中的其中一個常數，您可以使用 <code class="code">of</code> 方法建立一個新的區域。此功能可讓您存取新的區域，無需升級開發套件。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">Region newRegion = Region.of("us-east-42");
+Ec2Client ec2 = Ec2Client.builder()
+          .region(newRegion)
+          .build();</code></pre>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>使用建置器建置用戶端後，這是<em>不可變的</em>，而且區域<em>無法變更</em>。如果您正在使用多個AWS 區域，您應該建立多個用户端-每個區域一個。</p></div></div>
+    
+      <h2 id="choosing-a-specific-endpoint">選擇特定端點</h2>
+      <p>EASHAWS客户端可以配置為使用<em>特定端點</em>，方法是調用<code class="code">endpointOverride</code>方法。</p>
+      <p>例如，要配置Amazon EC2用户端使用歐洲 (愛爾蘭) 區域，請使用下列程式碼。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">Ec2Client ec2 = Ec2Client.builder()
+               .region(Region.EU_WEST_1)
+               .endpointOverride(URI.create("https://ec2.eu-west-1.amazonaws.com"))
+               .build();</code></pre>
+      <p>請參閱<a href="https://docs.aws.amazon.com/general/latest/gr/rande.html">區域與端點</a>如需所有區域及其相對應端點的最新清單AWS服務。</p>
+    
+      <h2 id="automatically-determine-the-aws-region-from-the-environment">從環境中自動確定區域</h2>
+      <p>在 Amazon EC2 或 AWS Lambda 上執行時，您可能會希望設定用戶端為使用您程式碼執行的相同區域。這會讓您的程式碼與其執行環境分離，也更容易將應用程式部署到多個區域，以降低延遲或提供備援。</p>
+      <p>若要使用預設的登入資料/區域供應者鏈結來從環境判斷區域，請使用用戶端建置器的 <code class="code">create</code> 方法。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">Ec2Client ec2 = Ec2Client.create();</code></pre>
+      <p>如果您不使用 <code class="code">region</code> 方法明確設定區域，開發套件會查閱預設區域供應者鏈結，並嘗試判斷要使用的區域。</p>
+       
+         <h3 id="default-region-provider-chain">預設區域供應者鏈結</h3>
+         <p> <strong>以下是區域查詢程序：</strong></p>
+         <div class="orderedlist">
+             
+             
+             
+             
+             
+         <ol style="list-style-type:arabic ! important;"><li>
+               <p>在建置器上使用 <code class="code">region</code> 設定的任何明確區域優先於其他項目。</p>
+            </li><li>
+               <p>檢查 <code class="code">AWS_REGION</code> 環境變數。如果有設定，會使用該區域來設定用戶端。</p>
+               <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>此環境變數由 Lambda 容器設定。</p></div></div>
+            </li><li>
+               <p>軟件開發工具包檢查AWS共用組態檔案 (通常位於<code class="code">~/.aws/config</code>。如果 <em>region</em> 屬性存在，開發套件會予以使用。</p>
+               <div class="itemizedlist">
+                   
+                   
+               <ul class="itemizedlist"><li class="listitem">
+                     <p><code class="code">AWS_CONFIG_FILE</code> 環境變數可用於自訂共用組態檔的位置。</p>
+                  </li><li class="listitem">
+                     <p>所以此<code class="code">AWS_PROFILE</code>環境變數或<code class="code">aws.profile</code>系統屬性可用於自訂開發套件載入的設定檔。</p>
+                  </li></ul></div>
+            </li><li>
+               <p>開發套件會嘗試使用 Amazon EC2 執行個體中繼資料服務，判斷目前執行 Amazon EC2 執行個體的區域。</p>
+            </li><li>
+               <p>如果開發套件在這個時候仍找不到區域，用戶端建立會失敗，並出現例外狀況。</p>
+            </li></ol></div>
+         <p>開發時AWS應用程式時，常見的方法是使用<em>共用組態檔案</em>（詳加了<a href="./credentials-chain.html#credentials-default">登入資料取回順序</a>) 來設定適用於本機開發的區域，並依賴預設區域供應者鏈結以判斷在AWS基礎設施。這可大幅簡化用戶端建立並讓您的應用程式保持可攜式。</p>
+       
+    
+      <h2 id="region-selection-query-service">檢查區域的服務可用性</h2>
+      <p>查看是否特定AWS 服務在某個地區可用，請使用<code class="code">serviceMetadata</code>和<code class="code">region</code>方法來提供您要檢查的服務。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">DynamoDbClient.serviceMetadata().regions().forEach(System.out::println);</code></pre>
+      <p>請參閱 <a href="https://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/regions/Region.html">Region</a> 類別文件以取得您可以指定的區域，並使用服務的端點字首來查詢。</p>
+   <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./ec2-iam-roles.html">配置IAM角色Amazon EC2</div><div id="next" class="next-link" accesskey="n" href="./lambda-optimize-starttime.html">減少 SDK 啟動時間AWS Lambda</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=105202ca-7851-4ed4-8573-079d7749192c&amp;topic_url=https://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/region-selection.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=105202ca-7851-4ed4-8573-079d7749192c&amp;topic_url=https://docs.aws.amazon.com/zh_tw/sdk-for-java/latest/developer-guide/region-selection.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Connect to a managed node using Remote Desktop - AWS Systems Manager</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="fleet-rdp" /><meta name="default_state" content="fleet-rdp" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet-rdp.html" /><meta name="description" content="Connect to managed instances over RDP using Fleet Manager." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Systems Manager" /><meta name="guide" content="User Guide" /><meta name="abstract" content="AWS Systems Manager (formerly Amazon EC2 Systems Manager) is a unified interface that allows you to centralize operational data and automate tasks across your AWS resources. Systems Manager shortens the time to detect and resolve operational problems in your infrastructure. Systems Manager gives you a complete view of your infrastructure performance and configuration, simplifies resource and application management, and allows you to operate and manage your infrastructure at scale." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet-rdp.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/systems-manager/latest/userguide/fleet-rdp.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/systems-manager/latest/userguide/fleet-rdp.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/systems-manager/latest/userguide/fleet-rdp.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/systems-manager/latest/userguide/fleet-rdp.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet-rdp.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet-rdp.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/systems-manager/latest/userguide/fleet-rdp.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/systems-manager/latest/userguide/fleet-rdp.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/systems-manager/latest/userguide/fleet-rdp.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/systems-manager/latest/userguide/fleet-rdp.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/systems-manager/latest/userguide/fleet-rdp.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/systems-manager/latest/userguide/fleet-rdp.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/fleet-rdp.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/fleet-rdp.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/systems-manager/latest/userguide/fleet-rdp.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/systems-manager/latest/userguide/fleet-rdp.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/systems-manager/latest/userguide/fleet-rdp.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/systems-manager/latest/userguide/fleet-rdp.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/systems-manager/latest/userguide/fleet-rdp.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/systems-manager/latest/userguide/fleet-rdp.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet-rdp.html" hreflang="x-default" /><meta name="feedback-folder" content="c4a00a7e-7431-44e0-a77d-ec8f733f0327" /><meta name="this_doc_product" content="AWS Systems Manager" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'systems-manager'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Connect to a managed node using Remote Desktop" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Connect to a managed node using Remote Desktop - AWS Systems Manager</title><meta name="pdf" content="/pdfs/systems-manager/latest/userguide/systems-manager-ug.pdf#fleet-rdp" /><meta name="github" content="https://github.com/awsdocs/aws-systems-manager-user-guide/tree/main/doc_source/fleet-rdp.md" /><meta name="rss" content="aws-systems-manager-user-guide-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=185" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=c4a00a7e-7431-44e0-a77d-ec8f733f0327&amp;topic_url=http://docs.aws.amazon.com/en_us/systems-manager/latest/userguide/fleet-rdp.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/systems-manager/latest/userguide/fleet-rdp.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/systems-manager/latest/userguide/fleet-rdp.html" /><meta name="keywords" content="EC2 Systems Manager,Simple Systems Manager,SSM,Patch Manager,Parameter Store,Maintenance Window,Run Command,State Manager,Session Manager,SSM Agent,SSM Documents,Systems Manager,AWS Resource Groups,AppConfig,OpsCenter,Explorer,Change Calendar,Quick Setup,Change Manager,Fleet Manager" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Systems Manager",
+        "item" : "https://docs.aws.amazon.com/systems-manager/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/systems-manager/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS Systems Manager Node Management",
+        "item" : "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-instances-and-nodes.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS Systems Manager Fleet Manager",
+        "item" : "https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Working with Fleet Manager",
+        "item" : "https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet-working.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Connect to a managed node using Remote Desktop",
+        "item" : "https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet-working.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/systems-manager/latest/userguide/systems-manager-ug.pdf#fleet-rdp" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-systems-manager-user-guide/tree/main/doc_source/fleet-rdp.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/systems-manager/index.html">AWS Systems Manager</a><a href="what-is-systems-manager.html">User Guide</a></div><div id="page-toc-src"><a href="#fleet-rdp-prerequisites">Setting up your environment</a><a href="#fleet-rdp-iam-policy-examples">Configuring IAM permissions
+                        for Remote Desktop</a><a href="#fleet-rdp-authentication">Authenticating Remote Desktop
+                        connections</a><a href="#fleet-rdp-duration-concurrency">Remote connection duration and
+                        concurrency </a><a href="#fleet-rdp-connect-to-node">Connect to a managed node using
+                        Remote Desktop</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="fleet-rdp">Connect to a managed node using Remote
+                        Desktop</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use Fleet Manager, a capability of AWS Systems Manager, to connect to your Amazon Elastic Compute Cloud
+                (Amazon EC2) instances using the Remote Desktop Protocol (RDP). Fleet Manager
+                Remote Desktop, which is powered by NICE DCV, provides you with secure connectivity to
+                your Windows Server instances directly from the Systems Manager console. You can have up to four
+                simultaneous connections in a single browser window.</p><p>For more information about configuring AWS Identity and Access Management (IAM) permissions to allow your
+                instances to interact with Systems Manager, see <a href="./setup-instance-permissions.html">Configure instance permissions for Systems Manager</a>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can only use Remote Desktop with instances that are running Windows Server 2012
+                    RTM or higher. Remote Desktop supports only English language inputs.</p></div></div><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#fleet-rdp-prerequisites">Setting up your environment</a></li><li><a href="#fleet-rdp-iam-policy-examples">Configuring IAM permissions
+                        for Remote Desktop</a></li><li><a href="#fleet-rdp-authentication">Authenticating Remote Desktop
+                        connections</a></li><li><a href="#fleet-rdp-duration-concurrency">Remote connection duration and
+                        concurrency </a></li><li><a href="#fleet-rdp-connect-to-node">Connect to a managed node using
+                        Remote Desktop</a></li></ul></div>
+                <h2 id="fleet-rdp-prerequisites">Setting up your environment</h2>
+                <p>Before using Remote Desktop, verify that your environment meets the following
+                    requirements:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><b>Managed node configuration</b></p>
+                        <p>Make sure that your Amazon EC2 instances are configured as <a href="./managed_instances.html">managed nodes</a> in Systems Manager.</p>
+                    </li><li class="listitem">
+                        <p><b>SSM Agent minimum version</b></p>
+                        <p>Verify that nodes are running SSM Agent version 3.0.222.0 or higher.
+                            For information about how to check which agent version is running on a
+                            node, see <a href="./ssm-agent-get-version.html">Checking the SSM Agent version number</a>. For information about
+                            installing or updating SSM Agent, see <a href="./ssm-agent.html">Working with SSM Agent</a>.</p>
+                    </li><li class="listitem">
+                        <p><b>RDP port configuration</b></p>
+                        <p>To accept remote connections, the Remote Desktop
+                                Services service on your Windows Server nodes must use default RDP
+                            port 3389. This is the default configuration on Amazon Machine Images (AMIs)
+                            provided by AWS. You are not explicitly required to open any inbound
+                            ports to use Remote Desktop.</p>
+                    </li><li class="listitem">
+                        <p><b>PSReadLine module version for
+                                keyboard functionality</b></p>
+                        <p>To ensure that your keyboard functions properly in
+                                PowerShell, verify that nodes running Windows Server 2022
+                            have PSReadLine module version 2.2.2 or higher installed.
+                            If they are running an older version, you can install the required
+                            version using the following command.</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight ">Install-Module `
+    -Name PSReadLine `
+    -Repository PSGallery `-MinimumVersion 2.2.2</code></pre>
+                    </li><li class="listitem">
+                        <p><b>Session Manager configuration</b></p>
+                        <p>Before you can use Remote Desktop, you must complete the prerequisites
+                            for Session Manager setup. When you connect to an instance using Remote Desktop,
+                            any session preferences defined for your AWS account and AWS Region
+                            are applied. For more information, see <a href="./session-manager-getting-started.html">Setting up Session Manager</a>.</p>
+                        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you log Session Manager activity using Amazon Simple Storage Service (Amazon S3), then
+                                your Remote Desktop connections will generate the following error in
+                                    <code class="code">bucket_name/Port/stderr</code>. This error is expected
+                                behavior and can be safely ignored.</p><pre class="screen">Setting up data channel with id SESSION_ID failed: failed to create websocket for datachannel with error: CreateDataChannel failed with no output or error: createDataChannel request failed: unexpected response from the service &lt;BadRequest&gt;
+&lt;ClientErrorMessage&gt;Session is already terminated&lt;/ClientErrorMessage&gt;
+&lt;/BadRequest&gt;</pre></div></div>
+                    </li></ul></div>
+             
+                <h2 id="fleet-rdp-iam-policy-examples">Configuring IAM permissions
+                        for Remote Desktop</h2>
+                <p>In addition to the required IAM permissions for Systems Manager and Session Manager, the user
+                    or role you use to access the console must allow the following actions:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">ssm-guiconnect:CancelConnection</code></p>
+                    </li><li class="listitem">
+                        <p><code class="code">ssm-guiconnect:GetConnection</code></p>
+                    </li><li class="listitem">
+                        <p><code class="code">ssm-guiconnect:StartConnection</code></p>
+                    </li></ul></div>
+                <p>The following are example IAM policies that you can attach to a user or role
+                    to allow different types of interaction with Remote Desktop. Replace each
+                        <code class="replaceable">example resource placeholder</code> with your own
+                    information.</p>
+                <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Standard policy" id="standard-policy" expanded="false"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "EC2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:GetPasswordData"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "SSM",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:DescribeInstanceProperties",
+                "ssm:GetCommandInvocation",
+                "ssm:GetInventorySchema"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "TerminateSession",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:TerminateSession"
+            ],
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "StringLike": <span>{</span>
+                    "ssm:resourceTag/aws:ssmmessages:session-id": [
+                        "$<span>{</span>aws:userid}"
+                    ]
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "SSMStartSession",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:StartSession"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:<code class="replaceable">account-id</code>:instance/*",
+                "arn:aws:ssm:*:<code class="replaceable">account-id</code>:managed-instance/*",
+                "arn:aws:ssm:*::document/AWS-StartPortForwardingSession"
+            ],
+            "Condition": <span>{</span>
+                "BoolIfExists": <span>{</span>
+                    "ssm:SessionDocumentAccessCheck": "true"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "GuiConnect",
+            "Effect": "Allow",
+            "Action": [
+                "ssm-guiconnect:CancelConnection",
+                "ssm-guiconnect:GetConnection",
+                "ssm-guiconnect:StartConnection"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre></awsui-expandable-section><awsui-expandable-section variant="container" header="Policy for connecting to instances with&#xA;                                specific tags" id="tag-policy" expanded="false"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "EC2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:GetPasswordData"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "SSM",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:DescribeInstanceProperties",
+                "ssm:GetCommandInvocation",
+                "ssm:GetInventorySchema"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "SSMStartSession",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:StartSession"
+            ],
+            "Resource": [
+                "arn:aws:ssm:*::document/AWS-StartPortForwardingSession"
+            ],
+            "Condition": <span>{</span>
+                "BoolIfExists": <span>{</span>
+                    "ssm:SessionDocumentAccessCheck": "true"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "AccessTaggedInstances",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:StartSession"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:<code class="replaceable">account-id</code>:instance/*",
+                "arn:aws:ssm:*:<code class="replaceable">account-id</code>:managed-instance/*"
+            ],
+            "Condition": <span>{</span>
+                "StringLike": <span>{</span>
+                    "ssm:resourceTag/<code class="replaceable">tag key</code>": [
+                        "<code class="replaceable">tag value</code>"
+                    ]
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "GuiConnect",
+            "Effect": "Allow",
+            "Action": [
+                "ssm-guiconnect:CancelConnection",
+                "ssm-guiconnect:GetConnection",
+                "ssm-guiconnect:StartConnection"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre></awsui-expandable-section><awsui-expandable-section variant="container" header="Policy for AWS IAM Identity Center (successor to AWS Single Sign-On) users" id="sso-policy" expanded="false"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "SSO",
+            "Effect": "Allow",
+            "Action": [
+                "sso:ListDirectoryAssociations*",
+                "identitystore:DescribeUser"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "EC2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:GetPasswordData"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "SSM",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:DescribeInstanceProperties",
+                "ssm:GetCommandInvocation",
+                "ssm:GetInventorySchema"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "TerminateSession",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:TerminateSession"
+            ],
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "StringLike": <span>{</span>
+                    "ssm:resourceTag/aws:ssmmessages:session-id": [
+                        "$<span>{</span>aws:userName}"
+                    ]
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "SSMStartSession",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:StartSession"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:*:instance/*",
+                "arn:aws:ssm:*:*:managed-instance/*",
+                "arn:aws:ssm:*:*:document/AWS-StartPortForwardingSession"
+            ],
+            "Condition": <span>{</span>
+                "BoolIfExists": <span>{</span>
+                    "ssm:SessionDocumentAccessCheck": "true"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "SSMSendCommand",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:SendCommand"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:*:instance/*",
+                "arn:aws:ssm:*:*:managed-instance/*",
+                "arn:aws:ssm:*:*:document/AWSSSO-CreateSSOUser"
+            ],
+            "Condition": <span>{</span>
+                "BoolIfExists": <span>{</span>
+                    "ssm:SessionDocumentAccessCheck": "true"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "GuiConnect",
+            "Effect": "Allow",
+            "Action": [
+                "ssm-guiconnect:CancelConnection",
+                "ssm-guiconnect:GetConnection",
+                "ssm-guiconnect:StartConnection"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre></awsui-expandable-section></div>
+             
+                <h2 id="fleet-rdp-authentication">Authenticating Remote Desktop
+                        connections</h2>
+                <p>When establishing a remote connection, you can authenticate using
+                        Windows credentials or the Amazon EC2 key pair (.pem file) that is
+                    associated with the instance. For information about using key pairs, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-key-pairs.html">Amazon EC2 key pairs and Windows instances</a> in the
+                        <em>Amazon EC2 User Guide for Windows Instances</em>.</p>
+                <p>Alternatively, if you're authenticated to the AWS Management Console using AWS IAM Identity Center (successor to AWS Single Sign-On), you
+                    can connect to your instances without providing additional credentials. For an
+                    example of a policy to allow remote connection authentication using IAM Identity Center, see
+                        <a href="#fleet-rdp-iam-policy-examples">Configuring IAM permissions
+                        for Remote Desktop</a>. </p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Note the following conditions for using IAM Identity Center authentication:</p><div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Remote Desktop supports IAM Identity Center authentication for nodes in the same
+                                AWS Region where you enabled IAM Identity Center.</p>
+                        </li><li class="listitem">
+                            <p>Remote Desktop supports IAM Identity Center user names of up to 16 characters.
+                            </p>
+                        </li><li class="listitem">
+                            <p>When a connection is authenticated using IAM Identity Center, Remote Desktop
+                                creates a local Windows user in the instance’s Local
+                                Administrators group. This user persists after the remote connection
+                                has ended. </p>
+                        </li><li class="listitem">
+                            <p>Remote Desktop does not allow IAM Identity Center authentication for nodes that
+                                are Microsoft Active Directory domain
+                                controllers.</p>
+                        </li><li class="listitem">
+                            <p>Although Remote Desktop allows you to use IAM Identity Center authentication for
+                                nodes <em>joined</em> to an Active
+                                    Directory domain, we do not recommend doing so. This
+                                authentication method grants administrative permissions to users
+                                which might override more restrictive permissions granted by the
+                                domain.</p>
+                        </li></ul></div></div></div>
+             
+                <h2 id="fleet-rdp-duration-concurrency">Remote connection duration and
+                        concurrency </h2>
+                <p>The following conditions apply to active Remote Desktop connections:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><b>Connection duration</b></p>
+                        <p>By default, a Remote Desktop connection is disconnected after 60
+                            minutes. To prevent a connection from being disconnected, you can choose
+                                <b>Renew session</b> before being disconnected to
+                            reset the duration timer.</p>
+                    </li><li class="listitem">
+                        <p><b>Connection timeout</b></p>
+                        <p>A Remote Desktop connection disconnects after it has been idle for
+                            more than 10 minutes.</p>
+                    </li><li class="listitem">
+                        <p><b>Concurrent connections</b></p>
+                        <p>By default, you can have a maximum of 5 active Remote Desktop
+                            connections at one time for the same AWS account and AWS Region. To
+                            request a service quota increase of up to 25 concurrent connections, see
+                                <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html">Requesting a quota increase </a>in the <em>Service Quotas User Guide</em>.</p>
+                    </li></ul></div>
+             
+                <h2 id="fleet-rdp-connect-to-node">Connect to a managed node using
+                        Remote Desktop</h2>
+                <div class="procedure"><h6>To connect to a managed node using Fleet Manager Remote Desktop</h6><ol><li><p>Open the AWS Systems Manager console at <a href="https://console.aws.amazon.com/systems-manager/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/systems-manager/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Fleet Manager</b>.</p>
+    <p>-or-</p>
+    <p>If the AWS Systems Manager home page opens first, choose the menu icon (<span class="inlinemediaobject">
+    
+     <img src="/images/systems-manager/latest/userguide/images/menu-icon-small.png" class="aws-docs-img-whiteBg aws-docs-img-xs-padding" alt="&#xA;    The menu icon&#xA;  " />
+    
+      
+ </span>) to open the
+        navigation pane, and then choose <b>Fleet Manager</b> in the navigation
+        pane.</p></li><li>
+                        <p>Choose the node that you want to connect to. You can select either the
+                            check box or the node name.</p>
+                    </li><li>
+                        <p>On the <b>Node actions</b> menu, choose
+                                <b>Connect with Remote Desktop</b>.</p>
+                    </li><li>
+                        <p>Choose your preferred <b>Authentication type</b>. If you
+                            choose <b>User credentials</b>, enter the user name and
+                            password for a Windows user account on the node that
+                            you're connecting to. If you choose <b>Key pair</b>, you
+                            can provide authentication using one of the following methods:</p>
+                        <ol><li>
+                                <p>Choose <b>Browse local machine</b> if you want
+                                    to select the PEM key associated with your instance from your
+                                    local file system.</p>
+                                <p>- or -</p>
+                            </li><li>
+                                <p>Choose <b>Paste key pair content</b> if you want
+                                    to copy the contents of the PEM file and paste them in to the
+                                    provided field.</p>
+                            </li></ol>
+
+                    </li><li>
+                        <p>Select <b>Connect</b>.</p>
+                    </li></ol></div>
+            <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./managed-instances-default-host-management.html">Default Host Management
+                    Configuration</div><div id="next" class="next-link" accesskey="n" href="./fleet-file-management.html">Working with the file system </div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=c4a00a7e-7431-44e0-a77d-ec8f733f0327&amp;topic_url=https://docs.aws.amazon.com/en_us/systems-manager/latest/userguide/fleet-rdp.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=c4a00a7e-7431-44e0-a77d-ec8f733f0327&amp;topic_url=https://docs.aws.amazon.com/en_us/systems-manager/latest/userguide/fleet-rdp.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Launching an Amazon EC2 instance - AWS SDK for .NET</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="run-instance" /><meta name="default_state" content="run-instance" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/run-instance.html" /><meta name="description" content="Use this .NET code example to learn how to launch an Amazon EC2 instance." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS SDK for .NET" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Developer Guide for the AWS SDK for .NET. Describes the features of the SDK and how to use them." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/run-instance.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/run-instance.html" hreflang="x-default" /><meta name="feedback-item" content="AWS SDK for .NET" /><meta name="this_doc_product" content="AWS SDK for .NET" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sdk-for-net'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Launching an Amazon EC2 instance" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Launching an Amazon EC2 instance - AWS SDK for .NET</title><meta name="pdf" content="/pdfs/sdk-for-net/v3/developer-guide/aws-sdk-net-dg.pdf#run-instance" /><meta name="github" content="https://github.com/awsdocs/aws-net-developer-guide/tree/main/doc_source/run-instance.md" /><meta name="rss" content="amazon-aws-sdk-for-net-dev-guide-doc-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=61" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20SDK%20for%20.NET&amp;topic_url=http://docs.aws.amazon.com/en_us/sdk-for-net/v3/developer-guide/run-instance.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/sdk-for-net/v3/developer-guide/run-instance.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/sdk-for-net/v3/developer-guide/run-instance.html" /><meta name="keywords" content=".net,sdk,aws,AWS SDK for .NET code examples,AWS SDK for .NET examples,EC2 instances" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS SDK for .NET",
+        "item" : "https://docs.aws.amazon.com/sdk-for-net/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Work with AWS services in the AWS SDK for .NET",
+        "item" : "https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/working-with-aws-services.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Code examples with guidance for the AWS SDK for .NET",
+        "item" : "https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/tutorials-examples.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Working with Amazon EC2",
+        "item" : "https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/ec2-apis-intro.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Working with Amazon EC2 instances",
+        "item" : "https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/how-to-ec2.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Launching an Amazon EC2 instance",
+        "item" : "https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/how-to-ec2.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/sdk-for-net/v3/developer-guide/aws-sdk-net-dg.pdf#run-instance" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-net-developer-guide/tree/main/doc_source/run-instance.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/sdk-for-net/index.html">AWS SDK for .NET</a><a href="welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#run-instance-gather">Gather what you need</a><a href="#run-instance-launch">Launch an instance</a><a href="#run-instance-monitor">Monitor the instance</a><a href="#run-instance-complete-code">Complete code</a><a href="#run-instance-additional">Additional considerations</a><a href="#connect-to-instance">(optional) Connect to the instance</a><a href="#run-instance-cleanup">Clean up</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="run-instance">Launching an Amazon EC2 instance</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>This example shows you how to use the AWS SDK for .NET to launch one or more identically configured Amazon EC2
+    instances from the same Amazon Machine Image (AMI). Using <a href="#run-instance-gather">several
+      inputs</a> that you supply, the application launches an EC2 instance and then monitors the instance
+    until it's out of the "Pending" state.</p><p>When your EC2 instance is running, you can connect to it remotely, as described in <a href="#connect-to-instance">(optional) Connect to the instance</a>.</p><p>You can launch an EC2 instance in a VPC or in EC2-Classic (if your AWS account supports this). For
+    more information about EC2 in a VPC versus EC2-Classic, see the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-classic-platform.html">Amazon EC2 User Guide for Linux Instances</a> or the <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-classic-platform.html">Amazon EC2 User Guide for Windows Instances</a>.</p><div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>We are retiring EC2-Classic on August 15, 2022. We recommend that you migrate from EC2-Classic to a
+      VPC. For more information, see <b>Migrate from EC2-Classic to a VPC</b> in the
+      <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html">Amazon EC2 User Guide for Linux Instances</a> or the <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/vpc-migrate.html">Amazon EC2 User Guide for Windows Instances</a>. Also see the blog post <a href="http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/" rel="noopener noreferrer" target="_blank"><span>EC2-Classic Networking is Retiring
+          – Here's How to Prepare</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></div></div><p>The following sections provide snippets and other information for this example. The <a href="#run-instance-complete-code">complete code for the example</a> is shown after the snippets,
+    and can be built and run as is.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#run-instance-gather">Gather what you need</a></li><li><a href="#run-instance-launch">Launch an instance</a></li><li><a href="#run-instance-monitor">Monitor the instance</a></li><li><a href="#run-instance-complete-code">Complete code</a></li><li><a href="#run-instance-additional">Additional considerations</a></li><li><a href="#connect-to-instance">(optional) Connect to the instance</a></li><li><a href="#run-instance-cleanup">Clean up</a></li></ul></div>
+    <h2 id="run-instance-gather">Gather what you need</h2>
+    <p>To launch an EC2 instance, you'll need several things.</p>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>A <a href="https://docs.aws.amazon.com/vpc/latest/userguide/">VPC</a> where the instance will be launched. If it'll be a
+          Windows instance and you'll be connecting to it through RDP, the VPC will most likely need to have
+          an internet gateway attached to it, as well as an entry for the internet gateway in the route table.
+          For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html">Internet
+            gateways</a> in the <em>Amazon VPC User Guide</em>.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>The ID of an existing subnet in the VPC where the instance will be launched. An easy way to find
+          or create this is to sign in to the <a href="https://console.aws.amazon.com/vpc/home#subnets" rel="noopener noreferrer" target="_blank"><span>Amazon VPC console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, but you can also obtain it programmatically by using the <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2CreateSubnetAsyncCreateSubnetRequestCancellationToken.html">CreateSubnetAsync</a> and <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/MEC2DescribeSubnetsAsyncDescribeSubnetsRequestCancellationToken.html">DescribeSubnetsAsync</a> methods.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If your AWS account supports EC2-Classic and that's the type of instance you want to launch,
+            this parameter isn't required. However, if your account doesn't support EC2-Classic and you don't
+            supply this parameter, the new instance is launched in the default VPC for your account.</p></div></div>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>The ID of an existing security group that belongs to the VPC where the instance will be
+          launched. For more information, see <a href="./security-groups.html">Working with security groups in Amazon EC2</a>.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>If you want to connect to the new instance, the security group mentioned earlier must have an
+          appropriate inbound rule that allows SSH traffic on port 22 (Linux instance) or RDP traffic on port
+          3389 (Windows instance). For information about how to do this see <a href="./authorize-ingress.html">Updating security groups</a>, including the <a href="./authorize-ingress.html#authorize-ingress-additional">Additional considerations</a> near the end of that topic.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>The Amazon Machine Image (AMI) that will be used to create the instance. See the information
+          about AMIs in the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">Amazon EC2 User Guide for Linux Instances</a> or the <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/AMIs.html">Amazon EC2 User Guide for Windows Instances</a>. For example, read about shared AMIs in
+          the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sharing-amis.html">Amazon EC2 User Guide for Linux Instances</a> or the <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/sharing-amis.html">Amazon EC2 User Guide for Windows Instances</a>.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>The name of an existing EC2 key pair, which is used to connect to the new instance. For more
+          information, see <a href="./key-pairs.html">Working with Amazon EC2 key pairs</a>.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>The name of the PEM file that contains the private key of the EC2 key pair mentioned earlier.
+          The PEM file is used when you <a href="#connect-to-instance">connect remotely</a> to the
+          instance.</p>
+      </li></ul></div>
+   
+    <h2 id="run-instance-launch">Launch an instance</h2>
+    <p>The following snippet launches an EC2 instance.</p>
+    <p>The example <a href="#run-instance-complete-code">near the end of this topic</a> shows this
+      snippet in use.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="csharp ">    //
+    // Method to launch the instances
+    // Returns a list with the launched instance IDs
+    private static async Task&lt;List&lt;string&gt;&gt; LaunchInstances(
+      IAmazonEC2 ec2Client, RunInstancesRequest requestLaunch)
+    <span>{</span>
+      var instanceIds = new List&lt;string&gt;();
+      RunInstancesResponse responseLaunch =
+        await ec2Client.RunInstancesAsync(requestLaunch);
+
+      Console.WriteLine("\nNew instances have been created.");
+      foreach (Instance item in responseLaunch.Reservation.Instances)
+      <span>{</span>
+        instanceIds.Add(item.InstanceId);
+        Console.WriteLine($"  New instance: <span>{</span>item.InstanceId}");
+      }
+
+      return instanceIds;
+    }</code></pre>
+   
+    <h2 id="run-instance-monitor">Monitor the instance</h2>
+    <p>The following snippet monitors the instance until it's out of the "Pending" state.</p>
+    <p>The example <a href="#run-instance-complete-code">near the end of this topic</a> shows this
+      snippet in use.</p>
+    <p>See the <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TInstanceState.html">InstanceState</a> class for the
+      valid values of the <code class="code">Instance.State.Code</code> property.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="csharp ">    //
+    // Method to wait until the instances are running (or at least not pending)
+    private static async Task CheckState(IAmazonEC2 ec2Client, List&lt;string&gt; instanceIds)
+    <span>{</span>
+      Console.WriteLine(
+        "\nWaiting for the instances to start." +
+        "\nPress any key to stop waiting. (Response might be slightly delayed.)");
+
+      int numberRunning;
+      DescribeInstancesResponse responseDescribe;
+      var requestDescribe = new DescribeInstancesRequest<span>{</span>
+        InstanceIds = instanceIds};
+
+      // Check every couple of seconds
+      int wait = 2000;
+      while(true)
+      <span>{</span>
+        // Get and check the status for each of the instances to see if it's past pending.
+        // Once all instances are past pending, break out.
+        // (For this example, we are assuming that there is only one reservation.)
+        Console.Write(".");
+        numberRunning = 0;
+        responseDescribe = await ec2Client.DescribeInstancesAsync(requestDescribe);
+        foreach(Instance i in responseDescribe.Reservations[0].Instances)
+        <span>{</span>
+          // Check the lower byte of State.Code property
+          // Code == 0 is the pending state
+          if((i.State.Code &amp; 255) &gt; 0) numberRunning++;
+        }
+        if(numberRunning == responseDescribe.Reservations[0].Instances.Count)
+          break;
+
+        // Wait a bit and try again (unless the user wants to stop waiting)
+        Thread.Sleep(wait);
+        if(Console.KeyAvailable)
+          break;
+      }
+
+      Console.WriteLine("\nNo more instances are pending.");
+      foreach(Instance i in responseDescribe.Reservations[0].Instances)
+      <span>{</span>
+        Console.WriteLine($"For <span>{</span>i.InstanceId}:");
+        Console.WriteLine($"  VPC ID: <span>{</span>i.VpcId}");
+        Console.WriteLine($"  Instance state: <span>{</span>i.State.Name}");
+        Console.WriteLine($"  Public IP address: <span>{</span>i.PublicIpAddress}");
+        Console.WriteLine($"  Public DNS name: <span>{</span>i.PublicDnsName}");
+        Console.WriteLine($"  Key pair name: <span>{</span>i.KeyName}");
+      }
+    }</code></pre>
+   
+    <h2 id="run-instance-complete-code">Complete code</h2>
+    <p>This section shows relevant references and the complete code for this example.</p>
+    <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="SDK references" id="w2aac21c15c19c19b9c29b5b1" expanded="false"><p>NuGet packages:</p><div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://www.nuget.org/packages/AWSSDK.EC2" rel="noopener noreferrer" target="_blank"><span>AWSSDK.EC2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+          </li></ul></div><p>Programming elements:</p><div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Namespace <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/NEC2.html">Amazon.EC2</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TEC2Client.html">AmazonEC2Client</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TInstanceType.html">InstanceType</a></p>
+          </li><li class="listitem">
+            <p>Namespace <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/NEC2Model.html">Amazon.EC2.Model</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TDescribeInstancesRequest.html">DescribeInstancesRequest</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TDescribeInstancesResponse.html">DescribeInstancesResponse</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TInstance.html">Instance</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TInstanceNetworkInterfaceSpecification.html">InstanceNetworkInterfaceSpecification</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TRunInstancesRequest.html">RunInstancesRequest</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TRunInstancesResponse.html">RunInstancesResponse</a></p>
+          </li></ul></div></awsui-expandable-section></div>
+    <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="The code" id="w2aac21c15c19c19b9c29b7b1" expanded="false"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="csharp ">using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Amazon.EC2;
+using Amazon.EC2.Model;
+
+namespace EC2LaunchInstance
+<span>{</span>
+  // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+  // Class to launch an EC2 instance
+  class Program
+  <span>{</span>
+    static async Task Main(string[] args)
+    <span>{</span>
+      // Parse the command line and show help if necessary
+      var parsedArgs = CommandLine.Parse(args);
+      if(parsedArgs.Count == 0)
+      <span>{</span>
+        PrintHelp();
+        return;
+      }
+
+      // Get the application arguments from the parsed list
+      string groupID =
+        CommandLine.GetArgument(parsedArgs, null, "-g", "--group-id");
+      string ami =
+        CommandLine.GetArgument(parsedArgs, null, "-a", "--ami-id");
+      string keyPairName =
+        CommandLine.GetArgument(parsedArgs, null, "-k", "--keypair-name");
+      string subnetID =
+        CommandLine.GetArgument(parsedArgs, null, "-s", "--subnet-id");
+      if(   (string.IsNullOrEmpty(groupID) || !groupID.StartsWith("sg-"))
+         || (string.IsNullOrEmpty(ami) || !ami.StartsWith("ami-"))
+         || (string.IsNullOrEmpty(keyPairName))
+         || (!string.IsNullOrEmpty(subnetID) &amp;&amp; !subnetID.StartsWith("subnet-")))
+        CommandLine.ErrorExit(
+          "\nOne or more of the required arguments is missing or incorrect." +
+          "\nRun the command with no arguments to see help.");
+
+      // Create an EC2 client
+      var ec2Client = new AmazonEC2Client();
+
+      // Create an object with the necessary properties
+      RunInstancesRequest request = GetRequestData(groupID, ami, keyPairName, subnetID);
+
+      // Launch the instances and wait for them to start running
+      var instanceIds = await LaunchInstances(ec2Client, request);
+      await CheckState(ec2Client, instanceIds);
+    }
+
+
+    //
+    // Method to put together the properties needed to launch the instance.
+    private static RunInstancesRequest GetRequestData(
+      string groupID, string ami, string keyPairName, string subnetID)
+    <span>{</span>
+      // Common properties
+      var groupIDs = new List&lt;string&gt;() <span>{</span> groupID };
+      var request = new RunInstancesRequest()
+      <span>{</span>
+        // The first three of these would be additional command-line arguments or similar.
+        InstanceType = InstanceType.T1Micro,
+        MinCount = 1,
+        MaxCount = 1,
+        ImageId = ami,
+        KeyName = keyPairName
+      };
+
+      // Properties specifically for EC2 in a VPC.
+      if(!string.IsNullOrEmpty(subnetID))
+      <span>{</span>
+        request.NetworkInterfaces =
+          new List&lt;InstanceNetworkInterfaceSpecification&gt;() <span>{</span>
+            new InstanceNetworkInterfaceSpecification() <span>{</span>
+              DeviceIndex = 0,
+              SubnetId = subnetID,
+              Groups = groupIDs,
+              AssociatePublicIpAddress = true
+            }
+          };
+      }
+
+      // Properties specifically for EC2-Classic
+      else
+      <span>{</span>
+        request.SecurityGroupIds = groupIDs;
+      }
+      return request;
+    }
+
+
+    //
+    // Method to launch the instances
+    // Returns a list with the launched instance IDs
+    private static async Task&lt;List&lt;string&gt;&gt; LaunchInstances(
+      IAmazonEC2 ec2Client, RunInstancesRequest requestLaunch)
+    <span>{</span>
+      var instanceIds = new List&lt;string&gt;();
+      RunInstancesResponse responseLaunch =
+        await ec2Client.RunInstancesAsync(requestLaunch);
+
+      Console.WriteLine("\nNew instances have been created.");
+      foreach (Instance item in responseLaunch.Reservation.Instances)
+      <span>{</span>
+        instanceIds.Add(item.InstanceId);
+        Console.WriteLine($"  New instance: <span>{</span>item.InstanceId}");
+      }
+
+      return instanceIds;
+    }
+
+
+    //
+    // Method to wait until the instances are running (or at least not pending)
+    private static async Task CheckState(IAmazonEC2 ec2Client, List&lt;string&gt; instanceIds)
+    <span>{</span>
+      Console.WriteLine(
+        "\nWaiting for the instances to start." +
+        "\nPress any key to stop waiting. (Response might be slightly delayed.)");
+
+      int numberRunning;
+      DescribeInstancesResponse responseDescribe;
+      var requestDescribe = new DescribeInstancesRequest<span>{</span>
+        InstanceIds = instanceIds};
+
+      // Check every couple of seconds
+      int wait = 2000;
+      while(true)
+      <span>{</span>
+        // Get and check the status for each of the instances to see if it's past pending.
+        // Once all instances are past pending, break out.
+        // (For this example, we are assuming that there is only one reservation.)
+        Console.Write(".");
+        numberRunning = 0;
+        responseDescribe = await ec2Client.DescribeInstancesAsync(requestDescribe);
+        foreach(Instance i in responseDescribe.Reservations[0].Instances)
+        <span>{</span>
+          // Check the lower byte of State.Code property
+          // Code == 0 is the pending state
+          if((i.State.Code &amp; 255) &gt; 0) numberRunning++;
+        }
+        if(numberRunning == responseDescribe.Reservations[0].Instances.Count)
+          break;
+
+        // Wait a bit and try again (unless the user wants to stop waiting)
+        Thread.Sleep(wait);
+        if(Console.KeyAvailable)
+          break;
+      }
+
+      Console.WriteLine("\nNo more instances are pending.");
+      foreach(Instance i in responseDescribe.Reservations[0].Instances)
+      <span>{</span>
+        Console.WriteLine($"For <span>{</span>i.InstanceId}:");
+        Console.WriteLine($"  VPC ID: <span>{</span>i.VpcId}");
+        Console.WriteLine($"  Instance state: <span>{</span>i.State.Name}");
+        Console.WriteLine($"  Public IP address: <span>{</span>i.PublicIpAddress}");
+        Console.WriteLine($"  Public DNS name: <span>{</span>i.PublicDnsName}");
+        Console.WriteLine($"  Key pair name: <span>{</span>i.KeyName}");
+      }
+    }
+
+
+    //
+    // Command-line help
+    private static void PrintHelp()
+    <span>{</span>
+      Console.WriteLine(
+        "\nUsage: EC2LaunchInstance -g &lt;group-id&gt; -a &lt;ami-id&gt; -k &lt;keypair-name&gt; [-s &lt;subnet-id&gt;]" +
+        "\n  -g, --group-id: The ID of the security group." +
+        "\n  -a, --ami-id: The ID of an Amazon Machine Image." +
+        "\n  -k, --keypair-name - The name of a key pair." +
+        "\n  -s, --subnet-id: The ID of a subnet. Required only for EC2 in a VPC.");
+    }
+  }
+
+
+  // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+  // Class that represents a command line on the console or terminal.
+  // (This is the same for all examples. When you have seen it once, you can ignore it.)
+  static class CommandLine
+  <span>{</span>
+    //
+    // Method to parse a command line of the form: "--key value" or "-k value".
+    //
+    // Parameters:
+    // - args: The command-line arguments passed into the application by the system.
+    //
+    // Returns:
+    // A Dictionary with string Keys and Values.
+    //
+    // If a key is found without a matching value, Dictionary.Value is set to the key
+    //  (including the dashes).
+    // If a value is found without a matching key, Dictionary.Key is set to "--NoKeyN",
+    //  where "N" represents sequential numbers.
+    public static Dictionary&lt;string,string&gt; Parse(string[] args)
+    <span>{</span>
+      var parsedArgs = new Dictionary&lt;string,string&gt;();
+      int i = 0, n = 0;
+      while(i &lt; args.Length)
+      <span>{</span>
+        // If the first argument in this iteration starts with a dash it's an option.
+        if(args[i].StartsWith("-"))
+        <span>{</span>
+          var key = args[i++];
+          var value = key;
+
+          // Check to see if there's a value that goes with this option?
+          if((i &lt; args.Length) &amp;&amp; (!args[i].StartsWith("-"))) value = args[i++];
+          parsedArgs.Add(key, value);
+        }
+
+        // If the first argument in this iteration doesn't start with a dash, it's a value
+        else
+        <span>{</span>
+          parsedArgs.Add("--NoKey" + n.ToString(), args[i++]);
+          n++;
+        }
+      }
+
+      return parsedArgs;
+    }
+
+    //
+    // Method to get an argument from the parsed command-line arguments
+    //
+    // Parameters:
+    // - parsedArgs: The Dictionary object returned from the Parse() method (shown above).
+    // - defaultValue: The default string to return if the specified key isn't in parsedArgs.
+    // - keys: An array of keys to look for in parsedArgs.
+    public static string GetArgument(
+      Dictionary&lt;string,string&gt; parsedArgs, string defaultReturn, params string[] keys)
+    <span>{</span>
+      string retval = null;
+      foreach(var key in keys)
+        if(parsedArgs.TryGetValue(key, out retval)) break;
+      return retval ?? defaultReturn;
+    }
+
+    //
+    // Method to exit the application with an error.
+    public static void ErrorExit(string msg, int code=1)
+    <span>{</span>
+      Console.WriteLine("\nError");
+      Console.WriteLine(msg);
+      Environment.Exit(code);
+    }
+  }
+
+}
+</code></pre></awsui-expandable-section></div>
+   
+    <h2 id="run-instance-additional">Additional considerations</h2>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>When checking the state of an EC2 instance, you can add a filter to the <code class="code">Filter</code>
+          property of the <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TDescribeInstancesRequest.html">DescribeInstancesRequest</a> object. Using this technique, you can limit the request to
+          certain instances; for example, instances with a particular user-specified tag.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>For brevity, some properties were given typical values. Any or all of these properties can
+          instead be determined programmatically or by user input.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>The values you can use for the <code class="code">MinCount</code> and <code class="code">MaxCount</code> properties of the
+            <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TRunInstancesRequest.html">RunInstancesRequest</a> object
+          are determined by the target Availability Zone and the maximum number of instances you’re allowed
+          for the instance type. For more information, see <a href="https://aws.amazon.com/ec2/faqs/#How_many_instances_can_I_run_in_Amazon_EC2" rel="noopener noreferrer" target="_blank"><span>How many
+            instances can I run in Amazon EC2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the Amazon EC2 General FAQ.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>If you want to use a different instance type than this example, there are several instance types
+          to choose from, which you can see in the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 User Guide for Linux Instances</a> or the <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/instance-types.html">Amazon EC2 User Guide for Windows Instances</a>.</p>
+      </li></ul></div>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>You can also attach an <a href="./net-dg-hosm.html">IAM role</a> to an instance when you
+          launch it. To do so, create an <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TIamInstanceProfileSpecification.html">IamInstanceProfileSpecification</a> object whose <code class="code">Name</code> property is set to the
+          name of an IAM role. Then add that object to the <code class="code">IamInstanceProfile</code> property of the
+            <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TRunInstancesRequest.html">RunInstancesRequest</a>
+          object.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To launch an EC2 instance that has an IAM role attached, an IAM user's configuration must
+            include certain permissions. For more information about the required permissions, see the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#permission-to-pass-iam-roles">Amazon EC2 User Guide for Linux Instances</a> or the <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/iam-roles-for-amazon-ec2.html#permission-to-pass-iam-roles">Amazon EC2 User Guide for Windows Instances</a>.</p></div></div>
+      </li></ul></div>
+   
+    <h2 id="connect-to-instance">(optional) Connect to the instance</h2>
+    <p>After an instance is running, you can connect to it remotely by using the appropriate remote client.
+      For both Linux and Windows instances, you need the instance's public IP address or public DNS name. You
+      also need the following.</p>
+
+    <p><b>For Linux instances</b></p>
+    <p>You can use an SSH client to connect to your Linux instance. Make sure that the security group you
+      used when you launched the instance allows SSH traffic on port 22, as described in <a href="./authorize-ingress.html">Updating security groups</a>.</p>
+    <p>You also need the private portion of the key pair you used to launch the instance; that is, the PEM
+      file.</p>
+    <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html">Connect to your Linux
+        instance</a> in the Amazon EC2 User Guide for Linux Instances.</p>
+
+    <p><b>For Windows instances</b></p>
+    <p>You can use an RDP client to connect to your instance. Make sure that the security group you used
+      when you launched the instance allows RDP traffic on port 3389, as described in <a href="./authorize-ingress.html">Updating security groups</a>.</p>
+    <p>You also need the Administrator password. You can obtain this by using the following example code,
+      which requires the instance ID and the private portion of the key pair used to launch the instance; that
+      is, the PEM file.</p>
+    <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/connecting_to_windows_instance.html">Connecting to your Windows instance</a> in the Amazon EC2 User Guide for Windows Instances.</p>
+    <div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>This example code returns the plaintext Administrator password for your instance.</p></div></div>
+    <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="SDK references" id="w2aac21c15c19c19b9c37c23b1" expanded="false"><p>NuGet packages:</p><div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://www.nuget.org/packages/AWSSDK.EC2" rel="noopener noreferrer" target="_blank"><span>AWSSDK.EC2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+          </li></ul></div><p>Programming elements:</p><div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Namespace <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/NEC2.html">Amazon.EC2</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TEC2Client.html">AmazonEC2Client</a></p>
+          </li><li class="listitem">
+            <p>Namespace <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/NEC2Model.html">Amazon.EC2.Model</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TGetPasswordDataRequest.html">GetPasswordDataRequest</a></p>
+            <p>Class <a href="https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/TGetPasswordDataResponse.html">GetPasswordDataResponse</a></p>
+          </li></ul></div></awsui-expandable-section></div>
+    <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="The code" id="w2aac21c15c19c19b9c37c25b1" expanded="false"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="csharp ">using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Amazon.EC2;
+using Amazon.EC2.Model;
+
+namespace EC2GetWindowsPassword
+<span>{</span>
+  // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+  // Class to get the Administrator password of a Windows EC2 instance
+  class Program
+  <span>{</span>
+    static async Task Main(string[] args)
+    <span>{</span>
+      // Parse the command line and show help if necessary
+      var parsedArgs = CommandLine.Parse(args);
+      if(parsedArgs.Count == 0)
+      <span>{</span>
+        PrintHelp();
+        return;
+      }
+
+      // Get the application arguments from the parsed list
+      string instanceID =
+        CommandLine.GetArgument(parsedArgs, null, "-i", "--instance-id");
+      string pemFileName =
+        CommandLine.GetArgument(parsedArgs, null, "-p", "--pem-filename");
+      if(   (string.IsNullOrEmpty(instanceID) || !instanceID.StartsWith("i-"))
+         || (string.IsNullOrEmpty(pemFileName) || !pemFileName.EndsWith(".pem")))
+        CommandLine.ErrorExit(
+          "\nOne or more of the required arguments is missing or incorrect." +
+          "\nRun the command with no arguments to see help.");
+
+      // Create the EC2 client
+      var ec2Client = new AmazonEC2Client();
+
+      // Get and display the password
+      string password = await GetPassword(ec2Client, instanceID, pemFileName);
+      Console.WriteLine($"\nPassword: <span>{</span>password}");
+    }
+
+
+    //
+    // Method to get the administrator password of a Windows EC2 instance
+    private static async Task&lt;string&gt; GetPassword(
+      IAmazonEC2 ec2Client, string instanceID, string pemFilename)
+    <span>{</span>
+      string password = string.Empty;
+      GetPasswordDataResponse response =
+        await ec2Client.GetPasswordDataAsync(new GetPasswordDataRequest<span>{</span>
+          InstanceId = instanceID});
+      if(response.PasswordData != null)
+      <span>{</span>
+        password = response.GetDecryptedPassword(File.ReadAllText(pemFilename));
+      }
+      else
+      <span>{</span>
+        Console.WriteLine($"\nThe password is not available for instance <span>{</span>instanceID}.");
+        Console.WriteLine($"If this is a Windows instance, the password might not be ready.");
+      }
+      return password;
+    }
+
+
+    //
+    // Command-line help
+    private static void PrintHelp()
+    <span>{</span>
+      Console.WriteLine(
+        "\nUsage: EC2GetWindowsPassword -i &lt;instance-id&gt; -p pem-filename" +
+        "\n  -i, --instance-id: The name of the EC2 instance." +
+        "\n  -p, --pem-filename: The name of the PEM file with the private key.");
+    }
+  }
+
+  // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+  // Class that represents a command line on the console or terminal.
+  // (This is the same for all examples. When you have seen it once, you can ignore it.)
+  static class CommandLine
+  <span>{</span>
+    //
+    // Method to parse a command line of the form: "--key value" or "-k value".
+    //
+    // Parameters:
+    // - args: The command-line arguments passed into the application by the system.
+    //
+    // Returns:
+    // A Dictionary with string Keys and Values.
+    //
+    // If a key is found without a matching value, Dictionary.Value is set to the key
+    //  (including the dashes).
+    // If a value is found without a matching key, Dictionary.Key is set to "--NoKeyN",
+    //  where "N" represents sequential numbers.
+    public static Dictionary&lt;string,string&gt; Parse(string[] args)
+    <span>{</span>
+      var parsedArgs = new Dictionary&lt;string,string&gt;();
+      int i = 0, n = 0;
+      while(i &lt; args.Length)
+      <span>{</span>
+        // If the first argument in this iteration starts with a dash it's an option.
+        if(args[i].StartsWith("-"))
+        <span>{</span>
+          var key = args[i++];
+          var value = key;
+
+          // Check to see if there's a value that goes with this option?
+          if((i &lt; args.Length) &amp;&amp; (!args[i].StartsWith("-"))) value = args[i++];
+          parsedArgs.Add(key, value);
+        }
+
+        // If the first argument in this iteration doesn't start with a dash, it's a value
+        else
+        <span>{</span>
+          parsedArgs.Add("--NoKey" + n.ToString(), args[i++]);
+          n++;
+        }
+      }
+
+      return parsedArgs;
+    }
+
+    //
+    // Method to get an argument from the parsed command-line arguments
+    //
+    // Parameters:
+    // - parsedArgs: The Dictionary object returned from the Parse() method (shown above).
+    // - defaultValue: The default string to return if the specified key isn't in parsedArgs.
+    // - keys: An array of keys to look for in parsedArgs.
+    public static string GetArgument(
+      Dictionary&lt;string,string&gt; parsedArgs, string defaultReturn, params string[] keys)
+    <span>{</span>
+      string retval = null;
+      foreach(var key in keys)
+        if(parsedArgs.TryGetValue(key, out retval)) break;
+      return retval ?? defaultReturn;
+    }
+
+    //
+    // Method to exit the application with an error.
+    public static void ErrorExit(string msg, int code=1)
+    <span>{</span>
+      Console.WriteLine("\nError");
+      Console.WriteLine(msg);
+      Environment.Exit(code);
+    }
+  }
+
+}
+</code></pre></awsui-expandable-section></div>
+   
+    <h2 id="run-instance-cleanup">Clean up</h2>
+    <p>When you no longer need your EC2 instance, be sure to terminate it, as described in <a href="./terminate-instance.html">Terminating an Amazon EC2 instance</a>.</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./how-to-ec2.html">EC2 instances</div><div id="next" class="next-link" accesskey="n" href="./terminate-instance.html">Terminating an EC2 instance</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS SDK for .NET&amp;topic_url=https://docs.aws.amazon.com/en_us/sdk-for-net/v3/developer-guide/run-instance.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS SDK for .NET&amp;topic_url=https://docs.aws.amazon.com/en_us/sdk-for-net/v3/developer-guide/run-instance.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

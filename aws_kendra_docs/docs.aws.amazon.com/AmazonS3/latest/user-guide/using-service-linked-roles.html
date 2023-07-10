@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using service-linked roles for Amazon S3 Storage Lens - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="using-service-linked-roles" /><meta name="default_state" content="using-service-linked-roles" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-service-linked-roles.html" /><meta name="description" content="How to use service-linked roles to give S3 Storage Lens access to resources to your AWS Organizations account." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-service-linked-roles.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-service-linked-roles.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Using service-linked roles for Amazon S3 Storage Lens" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using service-linked roles for Amazon S3 Storage Lens - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#using-service-linked-roles" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/using-service-linked-roles.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/using-service-linked-roles.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/using-service-linked-roles.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/using-service-linked-roles.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 security",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Bucket policies and user policies",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Using service-linked roles for Amazon S3 Storage Lens",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#using-service-linked-roles" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/using-service-linked-roles.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#slr-permissions">Service-linked role permissions for
+        Amazon S3 Storage Lens</a><a href="#create-slr">Creating a service-linked role for S3 Storage Lens</a><a href="#edit-slr">Editing a service-linked role for Amazon S3 Storage Lens</a><a href="#delete-slr">Deleting a service-linked role for Amazon S3 Storage Lens</a><a href="#slr-regions">Supported Regions for S3 Storage Lens service-linked roles</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="using-service-linked-roles">Using service-linked roles for
+      Amazon S3 Storage Lens</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>To use Amazon S3 Storage Lens to collect and aggregate metrics across all your accounts in
+    AWS Organizations, you must first ensure that S3 Storage Lens has trusted access enabled by the management
+    account in your organization. S3 Storage Lens creates a service-linked role to allow it to get the
+    list of AWS accounts belonging to your organization. This list of accounts is used by
+    S3 Storage Lens to collect metrics for S3 resources in all the member accounts when the
+    S3 Storage Lens dashboard or configurations are created or updated.</p><p>Amazon S3 Storage Lens uses AWS Identity and Access Management (IAM) <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">
+      service-linked roles</a>. A service-linked role is a unique type of IAM role that is
+    linked directly to S3 Storage Lens. Service-linked roles are predefined by S3 Storage Lens and
+    include all the permissions that the service requires to call other AWS services on your
+    behalf.</p><p>A service-linked role makes setting up S3 Storage Lens easier because you don't have to add
+    the necessary permissions manually. S3 Storage Lens defines the permissions of its service-linked
+    roles, and unless defined otherwise, only S3 Storage Lens can assume its roles. The defined
+    permissions include the trust policy and the permissions policy, and that permissions policy
+    cannot be attached to any other IAM entity.</p><p>You can delete this service-linked role only after first deleting the related resources.
+    This protects your S3 Storage Lens resources because you can't inadvertently remove permission to
+    access the resources.</p><p>For information about other services that support service-linked roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services that work with IAM</a> and look for the services that have <b>Yes </b>in the <b>Service-Linked Role</b> column.
+    Choose a <b>Yes</b> with a link to view the service-linked role
+    documentation for that service.</p>
+    <h2 id="slr-permissions">Service-linked role permissions for
+        Amazon S3 Storage Lens</h2>
+    <p>S3 Storage Lens uses the service-linked role named <b>AWSServiceRoleForS3StorageLens</b> –
+      This enables access to AWS services and resources used or managed by S3 Storage Lens. This allows S3 Storage Lens to access AWS Organizations resources on your behalf.</p>
+    <p>The S3 Storage Lens service-linked role trusts the following service on your organization's storage:</p>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">storage-lens.s3.amazonaws.com</code></p>
+      </li></ul></div>
+    <p>The role permissions policy allows S3 Storage Lens to complete the following actions:</p>
+    <div class="itemizedlist">
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">organizations:DescribeOrganization</code></p>
+        <p><code class="code">organizations:ListAccounts</code></p>
+        <p><code class="code">organizations:ListAWSServiceAccessForOrganization</code></p>
+        <p><code class="code">organizations:ListDelegatedAdministrators</code></p>
+      </li></ul></div>
+    <p>You must configure permissions to allow an IAM entity (such as a user, group, or role)
+      to create, edit, or delete a service-linked role. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions">Service-linked role permissions</a> in the
+      <em>IAM User Guide</em>.</p>
+   
+    <h2 id="create-slr">Creating a service-linked role for S3 Storage Lens</h2>
+    
+    <p>You don't need to manually create a service-linked role. When you complete one of the
+      following tasks while signed into the AWS Organizations management or the delegate administrator
+      accounts, S3 Storage Lens creates the service-linked role for you:</p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem"><p>Create an S3 Storage Lens dashboard configuration for your organization in the Amazon S3 console.</p></li><li class="listitem"><p><code class="code">PUT</code> an S3 Storage Lens configuration for your organization using the REST API, AWS CLI and SDKs.</p></li></ul></div>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>S3 Storage Lens will support a maximum of five delegated administrators per Organization.</p></div></div>
+    
+    
+    
+    <p>If you delete this service-linked role, the preceding actions will re-create it as
+      needed.</p>
+    
+    
+     
+      <h3 id="slr-sample-policy">Example policy for S3 Storage Lens service-linked role </h3>
+      <div class="example"><h6>Example Permissions policy for the S3 Storage Lens service-linked role</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AwsOrgsAccess",
+            "Effect": "Allow",
+            "Action": [
+                "organizations:DescribeOrganization",
+                "organizations:ListAccounts",
+                "organizations:ListAWSServiceAccessForOrganization",
+                "organizations:ListDelegatedAdministrators"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}</code></pre></div></div>
+      
+     
+          
+   
+    <h2 id="edit-slr">Editing a service-linked role for Amazon S3 Storage Lens</h2>
+    <p>S3 Storage Lens does not allow you to edit the AWSServiceRoleForS3StorageLens service-linked role. After you
+      create a service-linked role, you cannot change the name of the role because various entities
+      might reference the role. However, you can edit the description of the role using IAM. For
+      more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role">Editing
+        a service-linked role</a> in the <em>IAM User Guide</em>.</p>
+   
+    <h2 id="delete-slr">Deleting a service-linked role for Amazon S3 Storage Lens</h2>
+    <p>If you no longer need to use the service-linked role, we
+      recommend that you delete that role. That way you don't have an unused entity that is not
+      actively monitored or maintained. However, you must clean up the resources for your
+      service-linked role before you can manually delete it.</p>    
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If the Amazon S3 Storage Lens service is using the role when you try to delete the resources,
+        then the deletion might fail. If that happens, wait for a few minutes and try the
+        operation again.</p></div></div>
+    <p>To delete the AWSServiceRoleForS3StorageLens you must delete all the organization level S3 Storage Lens configurations present 
+      in all Regions using the AWS Organizations Management or the delegate administrator accounts.</p>
+    <p>The resources are organization-level S3 Storage Lens configurations. Use S3 Storage Lens to clean up the resources and 
+      then use the IAM console, CLI, REST API or AWS SDK to delete the role. </p>
+    <p>In the REST API, AWS CLI and SDKs, S3 Storage Lens configurations can be discovered using
+        <code class="code">ListStorageLensConfigurations</code> in all the Regions where your Organization has
+      created S3 Storage Lens configurations. Use the action
+        <code class="code">DeleteStorageLensConfiguration</code> to delete these configurations so that you can
+      then delete the role.</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To delete the service-linked role, you must delete all the organization-level S3 Storage Lens
+        configurations in all the Regions where they exist.</p></div></div>
+    <div class="procedure"><h6>To delete Amazon S3 Storage Lens resources used by the AWSServiceRoleForS3StorageLens</h6><ol><li>
+        <p>You must use the <code class="code">ListStorageLensConfigurations</code> in every Region that you have S3 Storage Lens configurations
+          to get a list of your organization level configurations. This list may also be obtained from the Amazon S3 console.</p>
+      </li><li><p>These configurations then must be deleted from the appropriate regional endpoints by invoking the 
+        <code class="code">DeleteStorageLensConfiguration</code> API call or via the Amazon S3 console. </p>
+      </li></ol></div>
+    <p><b>To manually delete the service-linked role using
+      IAM</b></p>
+    <p>After the configurations are deleted the AWSServiceRoleForS3StorageLens can be deleted from the IAM console or
+      by invoking the IAM API <code class="code">DeleteServiceLinkedRole</code>, the AWS CLI, or the AWS SDK. For
+      more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role">Deleting a service-linked role</a> in the <em>IAM User Guide</em>.</p>
+   
+    <h2 id="slr-regions">Supported Regions for S3 Storage Lens service-linked roles</h2>    
+    <p>S3 Storage Lens supports using service-linked roles in all of the AWS Regions where the
+      service is available. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/s3.html">Amazon S3 Regions and Endpoints</a>.</p>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./example-walkthroughs-managing-access-example4.html">Granting cross-account object permissions</div><div id="next" class="next-link" accesskey="n" href="./security-iam-awsmanpol.html">AWS managed policies</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/using-service-linked-roles.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/using-service-linked-roles.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

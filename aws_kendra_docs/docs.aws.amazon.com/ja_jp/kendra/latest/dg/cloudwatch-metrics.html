@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon CloudWatch による Amazon Kendra のモニタリング - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cloudwatch-metrics" /><meta name="default_state" content="cloudwatch-metrics" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" /><meta name="description" content="インデックスの正常性を追跡するには、Amazon を使用します CloudWatch。では CloudWatch、インデックスのドキュメント同期のメトリクスを取得できます。定義したしきい値を 1 CloudWatch つ以上のメトリクスが超えたときに通知するアラームを設定することもできます。例えば、インデックス作成するために送信されたドキュメントの数やインデックス作成に失敗したドキュメントの数をモニタリングできます。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="デベロッパーガイド" /><meta name="abstract" content="Amazon Kendra の概念的な概要について説明します。Amazon Kendra機能について学び、コンソール、CLI、API を使用してドキュメントのインデックス作成を始めましょう。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/cloudwatch-metrics.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/cloudwatch-metrics.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/cloudwatch-metrics.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/cloudwatch-metrics.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-metrics.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-metrics.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/cloudwatch-metrics.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/cloudwatch-metrics.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/cloudwatch-metrics.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/cloudwatch-metrics.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/cloudwatch-metrics.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/cloudwatch-metrics.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/cloudwatch-metrics.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/cloudwatch-metrics.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/cloudwatch-metrics.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/cloudwatch-metrics.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/cloudwatch-metrics.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/cloudwatch-metrics.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-metrics.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="デベロッパーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="デベロッパーガイド" /><meta id="panorama-serviceConsolePage" value="Amazon CloudWatch による Amazon Kendra のモニタリング" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon CloudWatch による Amazon Kendra のモニタリング - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#cloudwatch-metrics" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search (検索),インテリジェント検索,自然言語,インデックス,質問,キーワード,データソース,コネクタ,よくある質問" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "デベロッパーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Kendra のモニタリングとログ記録",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/monitoring.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon CloudWatch による Amazon Kendra のモニタリング",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/monitoring.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#cloudwatch-metrics" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">デベロッパーガイド</a></div><div id="page-toc-src"><a href="#viewing-metrics">Amazon Kendra メトリクスの表示</a><a href="#cloudwatch-alarms">アラームを作成する</a><a href="#cloudwatch-metric-sync-jobs">CloudWatch インデックス同期ジョブのメトリクス</a><a href="#cloudwatch-metrics-data-source">Amazon Kendra データソースのメトリクス</a><a href="#cloudwatch-metrics-id">インデックス作成されたドキュメントのメトリクス</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>翻訳は機械翻訳により提供されています。提供された翻訳内容と英語版の間で齟齬、不一致または矛盾がある場合、英語版が優先します。</p></awsui-alert><h1 class="topictitle" id="cloudwatch-metrics">Amazon CloudWatch による Amazon Kendra のモニタリング</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>インデックスの正常性を追跡するには、Amazon を使用します CloudWatch。では CloudWatch、インデックスのドキュメント同期のメトリクスを取得できます。定義したしきい値を 1 CloudWatch  つ以上のメトリクスが超えたときに通知するアラームを設定することもできます。例えば、インデックス作成するために送信されたドキュメントの数やインデックス作成に失敗したドキュメントの数をモニタリングできます。</p><p>Amazon Kendra をモニタリングするには、 CloudWatch 適切なアクセス権限が必要です CloudWatch。詳細については、Amazon <em> CloudWatchユーザーガイドの「<a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html">Amazon CloudWatch の認証とアクセス制御</a>」を参照してください</em>。</p>
+            <h2 id="viewing-metrics">Amazon Kendra メトリクスの表示</h2>
+            <p> CloudWatch コンソールを使用して Amazon Kendra メトリクスを表示します。</p>
+            <div class="procedure"><h6>メトリクスを表示するには (CloudWatch コンソール)</h6><ol><li><p>にサインインしてAWS Management Console、<a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/ CloudWatch </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> でコンソールを開きます。</p></li><li>
+                    <p><b>[Metrics]</b> (メトリクス)、<b>[All Metrics]</b> (すべてのメトリクス)、<b>[Kendra]</b> の順に選択します。</p>
+                </li><li>
+                    <p>ディメンションを選択してメトリクスの名前を選んだら、<b>[Add to graph]</b> (グラフへ追加) を選択します。</p>
+                </li><li>
+                    <p>日付範囲の値を選択します。選択した日付範囲のメトリクスカウントがグラフに表示されます。</p>
+                </li></ol></div>
+         
+            <h2 id="cloudwatch-alarms">アラームを作成する</h2>
+            <p> CloudWatch アラームは指定期間中に単一のメトリクスを監視し、1 つ以上のアクションを実行して Amazon Simple Notification Service (Amazon SNS) トップまたは Auto Scaling ポリシーに通知を送信します。アクションは、複数の指定期間にわたって特定のしきい値を基準としたメトリクスの値に応じて実行されます。  CloudWatch アラームの状態が変わったときにも、Amazon SNS メッセージを送信できます。</p>
+            <p>CloudWatch アラームがアクションを呼び出すのは、状態が変わってから指定期間が経過するまで、その新しい状態が続いた場合に限ります。</p>
+            <div class="procedure"><h6>アラームを設定するには</h6><ol><li><p>にサインインしてAWS Management Console、<a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/ CloudWatch </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> でコンソールを開きます。</p></li><li>
+                    <p><b>[Alarms]</b> (アラーム)、<b>[Create Alarm]</b> (アラームの作成) の順に選択します。</p>
+                </li><li>
+                    <p><b>[Kendra metrics]</b> (Kendra メトリクス) を選択し、メトリクスを選択します。</p>
+                </li><li>
+                    <p><b>[Time Range]</b> (時間の範囲) で、モニタリングする期間を選択し、<b>[Next]</b> (次へ) を選択します。</p>
+                </li><li>
+                    <p><b>[Name]</b> (名前) と <b>[Description]</b> (説明) を入力します。</p>
+                </li><li>
+                    <p><b>[Whenever]</b> (以下のときは毎回) で [<b>&gt;=</b>] を選択し、最大値を入力します。</p>
+                </li><li>
+                    <p>アラーム状態に達したときに E メールを送信する場合は CloudWatch 、[<b>Actions</b>] (アクション) セクションの [<b>Whenever this alarm] (アラームが次の時</b>) で、[<b>State is ALARM] (状態:</b>警告) を選択します。<b>[Send notification to]</b> (通知の送信先) でメーリングリストを選択するか、<b>[New list]</b> (新しいリスト) を選択して新しいメーリングリストを作成します</p>
+                </li><li>
+                    <p><b>[Alarm Preview]</b> (アラームの確認) セクションでアラームをプレビューします。アラームに問題がなければ、[<b>Create Alarm</b>] (アラームの作成) を選択します。</p>
+                </li></ol></div>
+         
+            <h2 id="cloudwatch-metric-sync-jobs">CloudWatch インデックス同期ジョブのメトリクス</h2>
+            <p>次の表は、データソース同期ジョブの Amazon Kendra メトリクスの説明です。</p>
+            <div class="table-container"><div class="table-contents"><table id="w1460aac41c13c11b5"><thead>
+                        <tr>
+                            <th>メトリクス</th>
+                            <th>説明</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td><code class="code">DocumentsCrawled</code></td>
+                            <td><p>同期ジョブの実行中にスキャンまたは検出されたドキュメントの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForIndexing</code></td>
+                            <td><p>同期ジョブがインデックスに送信したドキュメントの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForIndexingFailed</code></td>
+                            <td><p>インデックス作成に失敗したドキュメントの数。詳細については、 CloudWatch 同期ジョブのログの内容を確認してください。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForDeletion</code></td>
+                            <td><p>同期ジョブがインデックスから削除するよう指示したドキュメントの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForDeletionFailed</code></td>
+                            <td><p>削除に失敗したドキュメントの数。詳細については、 CloudWatch 同期ジョブのログの内容を確認してください。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                    </table></div></div>
+         
+            <h2 id="cloudwatch-metrics-data-source">Amazon Kendra データソースのメトリクス</h2>
+            <p>次の表は、データソース同期ジョブの Amazon Kendra メトリクスの説明です。アスタリスク (*) が付いたメトリクスは、Amazon S3 データソースにのみ使用されます。</p>
+            <div class="table-container"><div class="table-contents"><table id="w1460aac41c13c13b5"><thead>
+                        <tr>
+                            <th>メトリクス</th>
+                            <th>説明</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td><code class="code">DocumentsSkippedNoChange *</code></td>
+                            <td><p>調査され、インデックス作成のために送信されなかったために変更されていないことが判明したドキュメント数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSkippedInvalidMetadata *</code></td>
+                            <td><p>関連するメタデータファイルに問題があったため、スキップされたドキュメントの数。詳細については、 CloudWatch 同期実行のログの内容を確認してください。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsCrawled</code></td>
+                            <td><p>検査されたドキュメントファイルの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForDeletion</code></td>
+                            <td><p>データソースから削除され、削除のために送信された調査済みドキュメントの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForDeletionFailed</code></td>
+                            <td><p>データソースからの削除に失敗したドキュメントの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForIndexing</code></td>
+                            <td><p>インデックス作成のために調査および送信されたドキュメントの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForIndexingFailed</code></td>
+                            <td><p>インデックス作成のために送信され、インデックス作成できなかったドキュメントの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                    </table></div></div>
+         
+            <h2 id="cloudwatch-metrics-id">インデックス作成されたドキュメントのメトリクス</h2>
+            <p>次の表は、インデックス作成されたドキュメントの Amazon Kendra メトリクスの説明です。<a href="./API_BatchPutDocument.html">BatchPutDocument</a> 演算を使用してインデックス作成されたドキュメントの場合、<code class="code">IndexId</code> ディメンションのみがサポートされています。</p>
+            <div class="table-container"><div class="table-contents"><table id="w1460aac41c13c15b5"><thead>
+                        <tr>
+                            <th>メトリクス</th>
+                            <th>説明</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td><code class="code">DocumentsIndexed</code></td>
+                            <td><p>インデックスが作成されたドキュメントの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsFailedToIndex</code></td>
+                            <td><p>インデックスが作成できなかったドキュメントの数。詳細については、 CloudWatch ログの内容を確認してください。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><code class="code">IndexQueryCount</code></td>
+                            <td><p>1 分あたりのインデックスクエリの数。</p>
+                                <p>ディメンション:</p>
+                                <div class="itemizedlist">
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li></ul></div><p>単位: 個</p></td>
+                        </tr>
+                    </table></div></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cloudtrail-intelligent-ranking.html">CloudTrail による Amazon Kendra インテリジェントランキング API コールのモニタリング</div><div id="next" class="next-link" accesskey="n" href="./cloudwatch-logs.html">CloudWatch Logs による Amazon Kendra のモニタリング</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

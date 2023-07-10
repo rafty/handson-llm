@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Use Amazon SageMaker Ground Truth to Label Data - Amazon SageMaker</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sms" /><meta name="default_state" content="sms" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sms.html" /><meta name="description" content="To train a machine learning model, you need a large, high-quality, labeled dataset. Ground Truth helps you build high-quality training datasets for your machine learning models. With Ground Truth, you can use workers from either Amazon Mechanical Turk, a vendor company that you choose, or an internal, private workforce along with machine learning to enable you to create a labeled dataset. You can use the labeled dataset output from Ground Truth to train your own models. You can also use the output as a training dataset for an Amazon SageMaker model." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon SageMaker" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Use Internet Monitor to build, train, and host machine learning models in AWS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sms.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sagemaker/latest/dg/sms.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sagemaker/latest/dg/sms.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sagemaker/latest/dg/sms.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sagemaker/latest/dg/sms.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sms.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sms.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sagemaker/latest/dg/sms.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sagemaker/latest/dg/sms.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sagemaker/latest/dg/sms.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sagemaker/latest/dg/sms.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sagemaker/latest/dg/sms.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sagemaker/latest/dg/sms.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/sms.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/sms.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sagemaker/latest/dg/sms.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sagemaker/latest/dg/sms.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sagemaker/latest/dg/sms.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sagemaker/latest/dg/sms.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/sagemaker/latest/dg/sms.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/sagemaker/latest/dg/sms.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sms.html" hreflang="x-default" /><meta name="feedback-item" content="SageMaker" /><meta name="this_doc_product" content="Amazon SageMaker" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sagemaker'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Use Amazon SageMaker Ground Truth to Label Data" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Use Amazon SageMaker Ground Truth to Label Data - Amazon SageMaker</title><meta name="pdf" content="/pdfs/sagemaker/latest/dg/sagemaker-dg.pdf#sms" /><meta name="rss" content="amazon-sagemaker-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=285" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=http://docs.aws.amazon.com/en_us/sagemaker/latest/dg/sms.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/sagemaker/latest/dg/sms.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/sagemaker/latest/dg/sms.html" /><meta name="keywords" content="SageMaker,Amazon SageMaker,machine learning,notebook instance" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon SageMaker",
+        "item" : "https://docs.aws.amazon.com/sagemaker/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Label Data",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/data-label.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Use Amazon SageMaker Ground Truth to Label Data",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/data-label.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/sagemaker/latest/dg/sagemaker-dg.pdf#sms" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/sagemaker/index.html">Amazon SageMaker</a><a href="whatis.html">Developer Guide</a></div><div id="page-toc-src"><a href="#what-first-time">Are You a First-time User of Ground Truth?</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="sms">Use Amazon SageMaker Ground Truth to Label Data</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>To train a machine learning model, you need a large, high-quality, labeled dataset. Ground Truth
+        helps you build high-quality training datasets for your machine learning models. With Ground Truth,
+        you can use workers from either Amazon Mechanical Turk, a vendor company that you choose, or an internal,
+        private workforce along with machine learning to enable you to create a labeled dataset. You
+        can use the labeled dataset output from Ground Truth to train your own models. You can also use the
+        output as a training dataset for an Amazon SageMaker model.</p><p>Depending on your ML application, you can choose from one of the Ground Truth built-in task types
+        to have workers generate specific types of labels for your data. You can also build a custom
+        labeling workflow to provide your own UI and tools to workers labeling your data. To learn
+        more about the Ground Truth built in task types, see <a href="./sms-task-types.html">Built-in Task Types</a>. To learn how to create a custom labeling workflow, see
+        <a href="./sms-custom-templates.html">Creating Custom Labeling Workflows</a>.</p><p>In order to automate labeling your training dataset, you can optionally
+        use <em>automated data labeling</em>, a Ground Truth process that uses machine learning
+        to decide which data needs to be labeled by humans. Automated data labeling may reduce the
+        labeling time and manual effort required. For more information, see <a href="./sms-automated-labeling.html">Automate Data Labeling</a>. To create a
+        custom labeling workflow, see <a href="./sms-custom-templates.html">Creating Custom Labeling Workflows</a>.</p><p>Use either pre-built or custom tools to assign the labeling tasks for your training
+        dataset. A <em>labeling UI template</em> is a webpage that Ground Truth uses to present
+        tasks and instructions to your workers. The SageMaker console provides built-in templates for
+        labeling data. You can use these templates to get started , or you can build your own tasks
+        and instructions by using our HTML 2.0 components. For more information, see <a href="./sms-custom-templates.html">Creating Custom Labeling Workflows</a>.
+        
+    </p><p>Use the workforce of your choice to label your dataset. You can choose your workforce
+        from:</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>The Amazon Mechanical Turk workforce of over 500,000 independent contractors worldwide.</p>
+        </li><li class="listitem">
+            <p>A private workforce that you create from your employees or contractors for
+                handling data within your organization.</p>
+        </li><li class="listitem">
+            <p>A vendor company that you can find in the AWS Marketplace that specializes in data
+                labeling services.</p>
+        </li></ul></div><p>For more information, see <a href="./sms-workforce-management.html">Create and Manage Workforces</a>.</p><p>You store your datasets in Amazon S3 buckets. The buckets contain three things: The data to be
+        labeled, an input manifest file that Ground Truth uses to read the data files, and an output
+        manifest file. The output file contains the results of the labeling job. For more
+        information, see <a href="./sms-data.html">Use Input and Output Data</a>.</p><p>Events from your labeling jobs appear in Amazon CloudWatch under the <code class="code">/aws/sagemaker/LabelingJobs</code> group. CloudWatch uses the labeling job name as the name for the log stream.</p>
+        <h2 id="what-first-time">Are You a First-time User of Ground Truth?</h2>
+        <p>If you are a first-time user of Ground Truth, we recommend that you do the following:</p>
+        <div class="orderedlist">
+             
+             
+             
+        <ol><li>
+                <p><b>Read <a href="./sms-getting-started.html">Getting started</a></b>—This section
+                    walks you through setting up your first Ground Truth labeling job.</p>
+            </li><li>
+                <p><b>Explore other topics</b>—Depending on your
+                    needs, do the following:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><b>Explore built-in task types</b>—
+                            Use built-in task types to streamline the process of creating a labeling
+                            job. See <a href="./sms-task-types.html">Built-in Task Types</a> to learn more about Ground Truth built-in task types.</p>
+                    </li><li class="listitem">
+                        <p><b>Manage your labeling
+                            workforce</b>—Create new work teams and manage your
+                            existing workforce. For more information, see <a href="./sms-workforce-management.html">Create and Manage Workforces</a>.</p>
+                    </li><li class="listitem">
+                        <p><b>Learn about streaming labeling
+                            jobs</b>— Create a streaming labeling job and send new
+                            dataset objects to workers in real time using a perpetually running
+                            labeling job. Workers continuously receive new data objects to label as
+                            long as the labeling job is active and new objects are being sent to it.
+                            To learn more, see <a href="./sms-streaming-labeling-job.html">Ground Truth Streaming Labeling Jobs</a>.</p>
+                    </li></ul></div>
+            </li><li>
+                <p><b>See the <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_Reference.html"><code class="code">Reference</code></a></b>—This section describes
+                    operations to automate Ground Truth operations.</p>
+            </li></ol></div>
+
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./data-label.html">Label Data</div><div id="next" class="next-link" accesskey="n" href="./sms-getting-started.html">Getting started</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/sms.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/sms.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

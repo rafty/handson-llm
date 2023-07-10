@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>IAM access control - Amazon Managed Streaming for Apache Kafka</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="iam-access-control" /><meta name="default_state" content="iam-access-control" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/msk/latest/developerguide/iam-access-control.html" /><meta name="description" content="How to use IAM for authentication and authorization." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Managed Streaming for Apache Kafka" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Developer guide for Amazon Managed Streaming for Apache Kafka." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/msk/latest/developerguide/iam-access-control.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/msk/latest/developerguide/iam-access-control.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/msk/latest/developerguide/iam-access-control.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/msk/latest/developerguide/iam-access-control.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/msk/latest/developerguide/iam-access-control.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/msk/latest/developerguide/iam-access-control.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/msk/latest/developerguide/iam-access-control.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/msk/latest/developerguide/iam-access-control.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/msk/latest/developerguide/iam-access-control.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/msk/latest/developerguide/iam-access-control.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/msk/latest/developerguide/iam-access-control.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/msk/latest/developerguide/iam-access-control.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/msk/latest/developerguide/iam-access-control.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/msk/latest/developerguide/iam-access-control.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/msk/latest/developerguide/iam-access-control.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/msk/latest/developerguide/iam-access-control.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/msk/latest/developerguide/iam-access-control.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/msk/latest/developerguide/iam-access-control.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/msk/latest/developerguide/iam-access-control.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/msk/latest/developerguide/iam-access-control.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/msk/latest/developerguide/iam-access-control.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/msk/latest/developerguide/iam-access-control.html" hreflang="x-default" /><meta name="feedback-item" content="msk" /><meta name="this_doc_product" content="Amazon Managed Streaming for Apache Kafka" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'msk'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="IAM access control" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>IAM access control - Amazon Managed Streaming for Apache Kafka</title><meta name="pdf" content="/pdfs/msk/latest/developerguide/MSKDevGuide.pdf#iam-access-control" /><meta name="github" content="https://github.com/awsdocs/amazon-msk-developer-guide/tree/main/doc_source/iam-access-control.md" /><meta name="rss" content="amazon-msk-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=315" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=msk&amp;topic_url=http://docs.aws.amazon.com/en_us/msk/latest/developerguide/iam-access-control.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/msk/latest/developerguide/iam-access-control.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/msk/latest/developerguide/iam-access-control.html" /><meta name="keywords" content="Apache Kafka,Apache ZooKeeper,MSK,Amazon MSK,Broker,cluster,MSK cluster" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Managed Streaming for Apache Kafka",
+        "item" : "https://docs.aws.amazon.com/msk/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/msk/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon Managed Streaming for Apache Kafka",
+        "item" : "https://docs.aws.amazon.com/msk/latest/developerguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Authentication and authorization for Apache Kafka APIs",
+        "item" : "https://docs.aws.amazon.com/msk/latest/developerguide/kafka_apis_iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "IAM access control",
+        "item" : "https://docs.aws.amazon.com/msk/latest/developerguide/kafka_apis_iam.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/msk/latest/developerguide/MSKDevGuide.pdf#iam-access-control" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-msk-developer-guide/tree/main/doc_source/iam-access-control.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/msk/index.html">Amazon Managed Streaming for Apache Kafka</a><a href="what-is-msk.html">Developer Guide</a></div><div id="page-toc-src"><a href="#how-to-use-iam-access-control">How IAM access control for Amazon MSK works</a><a href="#kafka-actions">Semantics of actions and resources</a><a href="#iam-access-control-use-cases">Common use cases</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="iam-access-control">IAM access control</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>IAM access control for Amazon MSK enables you to handle both authentication and authorization for
+        your MSK cluster. This eliminates the need to use one mechanism for authentication
+        and another for authorization. For example, when a client tries to write to your cluster,
+        Amazon MSK uses IAM to check whether that client is an authenticated identity and also whether
+        it is authorized to produce to your cluster.</p><p>Amazon MSK logs access events so you can audit them. For more information, see <a href="./msk-logging.html#logging-using-cloudtrail">Logging API calls with AWS CloudTrail</a>.</p><p>To make IAM access control possible, Amazon MSK makes minor modifications to Apache Kafka
+        source code. These modifications won't cause a noticeable difference in your Apache Kafka
+        experience.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>IAM access control doesn't apply to Apache ZooKeeper nodes. For information about how you
+            can control access to those nodes, see <a href="./zookeeper-security.html">Controlling access to Apache ZooKeeper</a>.</p></div></div><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The <code class="code">allow.everyone.if.no.acl.found</code> Apache Kafka setting has no effect if
+            your cluster uses IAM  access control. </p></div></div><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>You can invoke Apache Kafka ACL APIs for an MSK cluster that uses IAM
+            access control. However, Apache Kafka ACLs stored in Apache ZooKeeper have no effect on
+            authorization for IAM roles. You must use IAM policies to control access for IAM
+            roles.</p></div></div>
+        <h2 id="how-to-use-iam-access-control">How IAM access control for Amazon MSK works</h2>
+        <p>To use IAM access control for Amazon MSK, perform the following steps, which are
+            described in detail in the rest of this section.</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem"><p><a href="#create-iam-access-control-cluster-in-console">Create a cluster that uses IAM access control</a>
+                </p></li><li class="listitem"><p><a href="#configure-clients-for-iam-access-control">Configure clients for IAM access
+                    control</a></p></li><li class="listitem"><p><a href="#create-iam-access-control-policies">Create authorization policies</a></p></li><li class="listitem"><p><a href="#get-bootstrap-brokers-for-iam">Get the bootstrap brokers for IAM access
+                    control</a></p></li></ul></div>
+         
+            <h3 id="create-iam-access-control-cluster-in-console">Create a cluster that uses IAM access control</h3>
+            <p>This section explains how you can use the AWS Management Console, the API, or the AWS CLI to
+                create a cluster that uses IAM access control. For information about how to turn
+                on IAM access control for an existing cluster, see <a href="./msk-update-security.html">Updating security settings of a cluster</a>.</p>
+        <div class="procedure"><h6>Use the AWS Management Console to create a cluster that uses IAM access control</h6><ol><li><p>Open the Amazon MSK console at <a href="https://console.aws.amazon.com/msk/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/msk/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>Choose <b>Create cluster</b>.</p>
+            </li><li>
+                <p>Choose <b>Create cluster with custom settings</b>.</p>
+            </li><li>
+                <p>In the <b>Authentication</b> section, choose <b>IAM
+                        access control</b>.</p>
+            </li><li>
+                <p>Complete the rest of the workflow for creating a cluster.</p>
+            </li></ol></div>
+        <div class="procedure"><h6>Use the API or the AWS CLI to create a cluster that uses IAM access control</h6><ul><li><p>To create a cluster with IAM access control enabled, use the <a href="https://docs.aws.amazon.com/msk/1.0/apireference/clusters.html#CreateCluster">CreateCluster</a> API or the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/kafka/create-cluster.html" rel="noopener noreferrer" target="_blank"><span>create-cluster</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> CLI command, and pass the following JSON for the
+                <code class="code">ClientAuthentication</code> parameter: <code class="code">"ClientAuthentication": <span>{</span>
+                    "Sasl": <span>{</span>
+                    "Iam": <span>{</span>
+                    "Enabled": true
+                    }
+                    }</code>. </p></li></ul></div>
+         
+         
+            <h3 id="configure-clients-for-iam-access-control">Configure clients for IAM access
+                    control</h3>
+            <p>To enable clients to communicate with an MSK cluster that uses IAM access control, configure them as described in the following steps.</p>
+            
+        <div class="procedure"><ol><li><p>Add the following to the <code>client.properties</code> file. Replace
+                            <code class="replaceable">&lt;PATH_TO_TRUST_STORE_FILE&gt;</code> with the
+                        fully-qualified path to the trust store file on the client.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you don't want to use a specific certificate, you can remove
+                                    <code class="code">ssl.truststore.location=<code class="replaceable">&lt;PATH_TO_TRUST_STORE_FILE&gt;</code></code>
+                            from your <code class="code">client.properties</code> file. When you don't specify a
+                            value for <code class="code">ssl.truststore.location</code>, the Java process uses
+                            the default certificate.</p></div></div>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">ssl.truststore.location=<code class="replaceable">&lt;PATH_TO_TRUST_STORE_FILE&gt;</code>
+security.protocol=SASL_SSL
+sasl.mechanism=AWS_MSK_IAM
+sasl.jaas.config=software.amazon.msk.auth.iam.IAMLoginModule required;
+sasl.client.callback.handler.class=software.amazon.msk.auth.iam.IAMClientCallbackHandler</code></pre>
+                
+                <p>To use a named profile that you created for AWS credentials, include
+                                <code class="code">awsProfileName="<code class="replaceable">your profile
+                            name</code>";</code> in your client configuration file. For
+                        information about named profiles, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html">Named profiles</a> in the AWS CLI documentation.</p>
+            </li><li><p>Download the latest stable <a href="https://github.com/aws/aws-msk-iam-auth/releases" rel="noopener noreferrer" target="_blank"><span>aws-msk-iam-auth</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> JAR file, and place it in the class path. If
+                        you use Maven, add the following dependency, adjusting the version number as
+                        needed:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;dependency&gt;
+    &lt;groupId&gt;software.amazon.msk&lt;/groupId&gt;
+    &lt;artifactId&gt;aws-msk-iam-auth&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre></li></ol></div>
+            <p>The Amazon MSK client plugin is open-sourced under the Apache 2.0 license.</p>
+         
+         
+            <h3 id="create-iam-access-control-policies">Create authorization policies</h3>
+        
+                <p>Attach an authorization policy to the IAM role that corresponds to the
+                client. In an authorization policy, you specify which actions to allow or deny for
+                the role. If your client is on an Amazon EC2 instance, associate the authorization policy
+                with the IAM role for that Amazon EC2 instance. Alternatively, you can configure your
+                client to use a named profile, and then you associate the authorization policy with
+                the role for that named profile. <a href="#configure-clients-for-iam-access-control">Configure clients for IAM access
+                    control</a> describes how to configure
+                a client to use a named profile.</p>
+            <p>For information about how to create an IAM policy, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html">Creating IAM policies</a>. </p>
+            <p>The following is an example authorization policy for a cluster named
+                MyTestCluster. To understand the semantics of the <code class="code">Action</code> and
+                    <code class="code">Resource</code> elements, see <a href="#kafka-actions">Semantics of actions and resources</a>.</p>
+            <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Changes that you make to an IAM policy are reflected in the IAM APIs and the AWS CLI
+                    immediately. However, it can take noticeable time for the policy change to take
+                    effect. In most cases, policy changes take effect in less than a minute. Network
+                    conditions may sometimes increase the delay.</p></div></div>
+            
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "kafka-cluster:Connect",
+                "kafka-cluster:AlterCluster",
+                "kafka-cluster:DescribeCluster"
+            ],
+            "Resource": [
+                "arn:aws:kafka:us-east-1:0123456789012:cluster/MyTestCluster/abcd1234-0123-abcd-5678-1234abcd-1"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "kafka-cluster:*Topic*",
+                "kafka-cluster:WriteData",
+                "kafka-cluster:ReadData"
+            ],
+            "Resource": [
+                "arn:aws:kafka:us-east-1:0123456789012:topic/MyTestCluster/*"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "kafka-cluster:AlterGroup",
+                "kafka-cluster:DescribeGroup"
+            ],
+            "Resource": [
+                "arn:aws:kafka:us-east-1:0123456789012:group/MyTestCluster/*"
+            ]
+        }
+    ]
+}</code></pre>
+            <p>To learn how to create a policy with action elements that correspond to
+                common Apache Kafka use cases, like producing and consuming data, see <a href="#iam-access-control-use-cases">Common use cases</a>.</p>
+         
+         
+            <h3 id="get-bootstrap-brokers-for-iam">Get the bootstrap brokers for IAM access
+                    control</h3>
+            <p>See <a href="./msk-get-bootstrap-brokers.html">Getting the bootstrap brokers for an
+                Amazon MSK cluster</a>.</p>
+            
+         
+     
+        <h2 id="kafka-actions">Semantics of actions and resources</h2>
+        <p>This section explains the semantics of the action and resource elements that you can use in an IAM authorization policy. For an example policy, see <a href="#create-iam-access-control-policies">Create authorization policies</a>.</p>
+         
+            <h3 id="actions">Actions</h3>
+        <p>The following table lists the actions that you can include in an authorization policy
+                when you use IAM access control for Amazon MSK. When you include in your authorization
+                policy an action from the <em>Action</em> column of the table, you must
+                also include the corresponding actions from the <em>Required
+                    actions</em> column. </p>
+        
+
+        
+        
+        <div class="table-container"><div class="table-contents"><table id="w860aac27c17b9c16b5b5"><thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Description</th>
+                            <th>Required actions</th>
+                            <th>Required resources</th>
+                            <th>Applicable to serverless clusters</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td><code class="code">kafka-cluster:Connect</code></td>
+                            <td>Grants permission to connect and authenticate to the
+                                cluster.</td>
+                            <td>None</td>
+                            <td>cluster</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:DescribeCluster</code></td>
+                            <td>Grants permission to describe various aspects of the cluster,
+                                equivalent to Apache Kafka's DESCRIBE CLUSTER ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                            </td>
+                            <td>cluster</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:AlterCluster</code></td>
+                            <td>Grants permission to alter various aspects of the cluster,
+                                equivalent to Apache Kafka's ALTER CLUSTER ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeCluster</code></p>
+                            </td>
+                            <td>cluster</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:DescribeClusterDynamicConfiguration</code></td>
+                            <td>Grants permission to describe the dynamic configuration of a
+                                cluster, equivalent to Apache Kafka's DESCRIBE_CONFIGS CLUSTER
+                                ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                            </td>
+                            <td>cluster</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:AlterClusterDynamicConfiguration</code></td>
+                            <td>Grants permission to alter the dynamic configuration of a
+                                cluster, equivalent to Apache Kafka's ALTER_CONFIGS CLUSTER
+                                ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeClusterDynamicConfiguration</code></p>
+                            </td>
+                            <td>cluster</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:WriteDataIdempotently</code></td>
+                            <td>Grants permission to write data idempotently on a cluster,
+                                equivalent to Apache Kafka's IDEMPOTENT_WRITE CLUSTER ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:WriteData</code></p>
+                            </td>
+                            <td>cluster</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:CreateTopic</code></td>
+                            <td>Grants permission to create topics on a cluster, equivalent to
+                                Apache Kafka's CREATE CLUSTER/TOPIC ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                            </td>
+                            <td>topic</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:DescribeTopic</code></td>
+                            <td>Grants permission to describe topics on a cluster, equivalent to
+                                Apache Kafka's DESCRIBE TOPIC ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                            </td>
+                            <td>topic</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:AlterTopic</code></td>
+                            <td>Grants permission to alter topics on a cluster, equivalent to
+                                Apache Kafka's ALTER TOPIC ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                            </td>
+                            <td>topic</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:DeleteTopic</code></td>
+                            <td>Grants permission to delete topics on a cluster, equivalent to
+                                Apache Kafka's DELETE TOPIC ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                            </td>
+                            <td>topic</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:DescribeTopicDynamicConfiguration</code></td>
+                            <td>Grants permission to describe the dynamic configuration of topics
+                                on a cluster, equivalent to Apache Kafka's DESCRIBE_CONFIGS TOPIC
+                                ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                            </td>
+                            <td>topic</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:AlterTopicDynamicConfiguration</code></td>
+                            <td>Grants permission to alter the dynamic configuration of topics on
+                                a cluster, equivalent to Apache Kafka's ALTER_CONFIGS TOPIC
+                                ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeTopicDynamicConfiguration</code></p>
+                            </td>
+                            <td>topic</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:ReadData</code></td>
+                            <td>Grants permission to read data from topics on a cluster,
+                                equivalent to Apache Kafka's READ TOPIC ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                                <p><code class="code">kafka-cluster:AlterGroup</code></p>
+                            </td>
+                            <td>topic</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:WriteData</code></td>
+                            <td>Grants permission to write data to topics on a cluster,
+                                equivalent to Apache Kafka's WRITE TOPIC ACL</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                            </td>
+                            <td>topic</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:DescribeGroup</code></td>
+                            <td>Grants permission to describe groups on a cluster, equivalent to
+                                Apache Kafka's DESCRIBE GROUP ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                            </td>
+                            <td>group</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:AlterGroup</code></td>
+                            <td>Grants permission to join groups on a cluster, equivalent to
+                                Apache Kafka's READ GROUP ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeGroup</code></p>
+                            </td>
+                            <td>group</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:DeleteGroup</code></td>
+                            <td>Grants permission to delete groups on a cluster, equivalent to
+                                Apache Kafka's DELETE GROUP ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeGroup</code></p>
+                            </td>
+                            <td>group</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:DescribeTransactionalId</code></td>
+                            <td>Grants permission to describe transactional IDs on a cluster,
+                                equivalent to Apache Kafka's DESCRIBE TRANSACTIONAL_ID ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                            </td>
+                            <td>transactional-id</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">kafka-cluster:AlterTransactionalId</code></td>
+                            <td>Grants permission to alter transactional IDs on a cluster,
+                                equivalent to Apache Kafka's WRITE TRANSACTIONAL_ID ACL.</td>
+                            <td>
+                                <p><code class="code">kafka-cluster:Connect</code></p>
+                                <p><code class="code">kafka-cluster:DescribeTransactionalId</code></p>
+                                <p><code class="code">kafka-cluster:WriteData</code></p>
+                            </td>
+                            <td>transactional-id</td>
+                            <td>Yes</td>
+                        </tr>
+                    </table></div></div>
+            <p>You can use the asterisk (*) wildcard any number of times in an action after the
+                colon. The following are examples.</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem"><p><code class="code">kafka-cluster:*Topic</code> stands for <code class="code">kafka-cluster:CreateTopic</code>,
+                            <code class="code">kafka-cluster:DescribeTopic</code>,
+                            <code class="code">kafka-cluster:AlterTopic</code>, and
+                            <code class="code">kafka-cluster:DeleteTopic</code>. It doesn't include
+                            <code class="code">kafka-cluster:DescribeTopicDynamicConfiguration</code> or
+                            <code class="code">kafka-cluster:AlterTopicDynamicConfiguration</code>.</p></li><li class="listitem">
+                    <p><code class="code">kafka-cluster:*</code> stands for all permissions.</p>
+                </li></ul></div>
+         
+         
+            <h3 id="msk-iam-resources">Resources</h3>
+            <p>The following table shows the four types of resources that you can use in an
+                authorization policy when you use IAM access control for Amazon MSK. You can get the
+                cluster Amazon Resource Name (ARN) from the AWS Management Console or by using the <a href="https://docs.aws.amazon.com/msk/1.0/apireference/clusters-clusterarn.html#DescribeCluster">DescribeCluster</a> API or the <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/kafka/describe-cluster.html" rel="noopener noreferrer" target="_blank"><span>describe-cluster</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS CLI command. You can then use the cluster ARN to
+                construct topic, group, and transactional ID ARNs. To specify a resource in an
+                authorization policy, use that resource's ARN.</p>
+            <div class="table-container"><div class="table-contents"><table id="w860aac27c17b9c16b7b5"><thead>
+                        <tr>
+                            <th>Resource</th>
+                            <th>ARN format</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td>Cluster</td>
+                            <td>arn:aws:kafka:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:cluster/<code class="replaceable">cluster-name</code>/<code class="replaceable">cluster-uuid</code></td>
+                        </tr>
+                        <tr>
+                            <td>Topic</td>
+                            <td>arn:aws:kafka:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:topic/<code class="replaceable">cluster-name</code>/<code class="replaceable">cluster-uuid</code>/<code class="replaceable">topic-name</code></td>
+                        </tr>
+                        <tr>
+                            <td>Group</td>
+                            <td>arn:aws:kafka:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:group/<code class="replaceable">cluster-name</code>/<code class="replaceable">cluster-uuid</code>/<code class="replaceable">group-name</code></td>
+                        </tr>
+                        <tr>
+                            <td>Transactional ID</td>
+                            <td>arn:aws:kafka:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:transactional-id/<code class="replaceable">cluster-name</code>/<code class="replaceable">cluster-uuid</code>/<code class="replaceable">transactional-id</code></td>
+                        </tr>
+                    </table></div></div>
+            <p>You can use the asterisk (*) wildcard any number of times anywhere in the part of
+                the ARN that comes after <code class="code">:cluster/</code>, <code class="code">:topic/</code>,
+                    <code class="code">:group/</code>, and <code class="code">:transactional-id/</code>. The following are some
+                examples of how you can use the asterisk (*) wildcard to refer to multiple
+                resources:</p>
+            
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">arn:aws:kafka:us-east-1:0123456789012:topic/MyTestCluster/*</code>:
+                        all the topics in any cluster named MyTestCluster, regardless of the
+                        cluster's UUID.</p>
+                </li><li class="listitem">
+                    <p><code class="code">arn:aws:kafka:us-east-1:0123456789012:topic/MyTestCluster/abcd1234-0123-abcd-5678-1234abcd-1/*_test</code>:
+                        all topics whose name ends with "_test" in the cluster whose name is
+                        MyTestCluster and whose UUID is abcd1234-0123-abcd-5678-1234abcd-1.</p>
+                </li><li class="listitem"><p><code class="code">arn:aws:kafka:us-east-1:0123456789012:transactional-id/MyTestCluster/*/5555abcd-1111-abcd-1234-abcd1234-1</code>:
+                        all transactions whose transactional ID is
+                        5555abcd-1111-abcd-1234-abcd1234-1, across all incarnations of a cluster
+                        named MyTestCluster in your account. This means that if you create a cluster
+                        named MyTestCluster, then delete it, and then create another cluster by the
+                        same name, you can use this resource ARN to represent the same transactions
+                        ID on both clusters. However, the deleted cluster isn't accessible.</p></li></ul></div>
+         
+     
+        <h2 id="iam-access-control-use-cases">Common use cases</h2>
+        <p>The first column in the following table shows some common use cases. To authorize a
+            client to carry out a given use case, include the required actions for that use case in
+            the client's authorization policy, and set <code class="code">Effect</code> to
+            <code class="code">Allow</code>.</p>
+        <p>For information about all the actions that are part of IAM access control for Amazon MSK,
+            see <a href="#kafka-actions">Semantics of actions and resources</a>.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Actions are denied by default. You must explicitly allow every action that you
+                want to authorize the client to perform.</p></div></div>
+        <div class="table-container"><div class="table-contents"><table id="w860aac27c17b9c18b9"><thead>
+                    <tr>
+                        <th>Use case</th>
+                        <th>Required actions</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>Admin</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:*</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Create a topic</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:CreateTopic</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Produce data</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                            <p><code class="code">kafka-cluster:WriteData</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Consume data</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                            <p><code class="code">kafka-cluster:DescribeGroup</code></p>
+                            <p><code class="code">kafka-cluster:AlterGroup</code></p>
+                            <p><code class="code">kafka-cluster:ReadData</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Produce data idempotently</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                            <p><code class="code">kafka-cluster:WriteData</code></p>
+                            <p><code class="code">kafka-cluster:WriteDataIdempotently</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Produce data transactionally</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                            <p><code class="code">kafka-cluster:WriteData</code></p>
+                            <p><code class="code">kafka-cluster:DescribeTransactionalId</code></p>
+                            <p><code class="code">kafka-cluster:AlterTransactionalId</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Describe the configuration of a cluster</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeClusterDynamicConfiguration</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Update the configuration of a cluster</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeClusterDynamicConfiguration</code></p>
+                            <p><code class="code">kafka-cluster:AlterClusterDynamicConfiguration</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Describe the configuration of a topic</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeTopicDynamicConfiguration</code></p></td>
+                    </tr>
+                    <tr>
+                        <td>Update the configuration of a topic</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeTopicDynamicConfiguration</code></p>
+                            <p><code class="code">kafka-cluster:AlterTopicDynamicConfiguration</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Alter a topic</td>
+                        <td>
+                            <p><code class="code">kafka-cluster:Connect</code></p>
+                            <p><code class="code">kafka-cluster:DescribeTopic</code></p>
+                            <p><code class="code">kafka-cluster:AlterTopic</code></p>
+                        </td>
+                    </tr>
+                </table></div></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./kafka_apis_iam.html">Authentication and authorization for Apache Kafka APIs</div><div id="next" class="next-link" accesskey="n" href="./msk-authentication.html">Mutual TLS authentication</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=msk&amp;topic_url=https://docs.aws.amazon.com/en_us/msk/latest/developerguide/iam-access-control.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=msk&amp;topic_url=https://docs.aws.amazon.com/en_us/msk/latest/developerguide/iam-access-control.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

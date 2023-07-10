@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>政策評估邏輯 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="reference_policies_evaluation-logic" /><meta name="default_state" content="reference_policies_evaluation-logic" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="description" content="了解如何運用單一帳戶評估 JSON 政策並傳回允許或拒絕。若要了解 AWS 如何評估跨帳戶存取的政策，請參閱。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="使用者指南" /><meta name="abstract" content="透過使用者身分 (身分驗證) 和定義特定許可 (授權) 的政策，控制存取您的 AWS 資源。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="使用者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="使用者指南" /><meta id="panorama-serviceConsolePage" value="政策評估邏輯" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>政策評估邏輯 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#reference_policies_evaluation-logic" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 使用者,使用者,IAM 群組,群組,IAM 角色,角色,許可政策,信任政策,政策,存取金鑰,密碼" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "使用者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS Identity and Access Management 的參考資訊。",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM JSON 政策參考",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "政策評估邏輯",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#reference_policies_evaluation-logic" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">使用者指南</a></div><div id="page-toc-src"><a href="#policy-eval-reqcontext">處理請求內容</a><a href="#policy-eval-basics">運用單一帳戶評估政策</a><a href="#policy-eval-denyallow">決定是否允許或拒絕帳戶中的請求</a><a href="#policies_evaluation_example">以身分為基礎和以資源為基礎的政策的範例</a><a href="#AccessPolicyLanguage_Interplay">明確和隱含拒絕之間的差異</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="reference_policies_evaluation-logic">政策評估邏輯</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>當主體嘗試使用 AWS Management Console、AWS API 或 AWS CLI 時，該主體會向 AWS 發送<em>請求</em>。當 AWS 服務收到請求時，AWS 會先完成幾個步驟以判斷是否該允許或拒絕請求。</p><div class="orderedlist">
+     
+     
+     
+     
+  <ol><li>
+      <p><b>身分驗證</b> – AWS 首先驗證提出請求的主體身分，如有必要。有少數幾個服務並不需要這個步驟，例如 Amazon S3，它允許匿名使用者的一些請求。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-reqcontext">處理請求內容</a></b> – AWS 處理請求所收集到的資訊，以判斷將哪些政策套用到請求。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-basics">運用單一帳戶評估政策</a></b> – AWS 評估所有政策類型，這會影響評估政策的順序。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-denyallow">決定是否允許或拒絕帳戶中的請求</a></b> – AWS 接著會針對請求內容處理政策，以判斷是否允許或拒絕請求。</p>
+    </li></ol></div>
+    <h2 id="policy-eval-reqcontext">處理請求內容</h2>
+    <p>AWS 處理請求以將下列資訊收集到「請求內容」<em></em>：</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>動作 (或操作)</b> – 主體想要執行的動作或操作。</p>
+      </li><li class="listitem">
+        <p><b>資源</b> – 對其執行動作或操作的 AWS 資源物件。</p>
+      </li><li class="listitem">
+        <p><b>主體</b> – IAM 使用者、角色、聯合身分使用者或傳送請求的應用程式。有關主體的資訊，包括與該主體相關聯的政策。</p>
+      </li><li class="listitem">
+        <p><b>環境資料</b> – IP 地址、使用者代理程式、啟用 SSL 的狀態或一天中時間的相關資訊。</p>
+      </li><li class="listitem">
+        <p><b>資源資料</b> – 與所請求資源相關的資料。這可以包括諸如 DynamoDB 資料表名稱或 Amazon EC2 執行個體上之標籤的資訊。</p>
+      </li></ul></div>
+    <p>AWS然後， 使用此資訊尋找適用於請求內容的政策。</p>
+   
+    <h2 id="policy-eval-basics">運用單一帳戶評估政策</h2>
+    <p>AWS 如何根據套用到請求內容之政策類型來評估政策。下面以頻率順序列出的政策類型，可以提供單一 AWS 帳戶 使用。如需有關這些政策類型的詳細資訊，請參閱 <a href="./access_policies.html">IAM 中的政策和許可</a>。若要了解 AWS 如何評估跨帳戶存取的政策，請參閱<a href="./reference_policies_evaluation-logic-cross-account.html">跨帳戶政策評估邏輯</a>。</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+       
+    <ol><li>
+        <p><b>以身分為基礎的政策</b> – 以身分為基礎的政策會連接到 IAM 身分 (使用者、使用者群組或角色)，並且授予許可給 IAM 實體 (使用者與角色)。如果只有以身分為基礎的政策套用到請求，則 AWS 至少會為一個 <code class="code">Allow</code> 核取所有的這類政策。</p>
+      </li><li>
+        <p><b>資源型政策</b> – 資源型政策會授予許可給指定為主體的主體 (帳戶、使用者、角色和工作階段主體，例如角色工作階段和 IAM 聯合身分使用者)。這些許可會定義主體可以對政策連接於其中的資源做哪些動作。如果以資源為基礎的政策與以身分為基礎的政策都套用到請求，則 AWS 至少會為一個 <code class="code">Allow</code> 核取所有的這類政策。評估資源型政策時，政策中指定的主體 ARN 會決定其他政策類型中的隱含拒絕是否適用於最終決定。</p>
+      </li><li>
+        <p><b>IAM 許可界限</b> – 許可界限是一種進階功能，可負責設定以身分為基礎的政策可以授予 IAM 實體 (使用者或角色) 的最大許可。當您為實體設定許可界限時，實體只能執行由以身分為基礎的政策和其許可界限同時允許的動作。在某些情況下，許可界限中的隱含拒絕會限制資源型政策所授予的許可。如需進一步了解，請參閱本主題稍後的 <a href="#policy-eval-denyallow">決定是否允許或拒絕帳戶中的請求</a>。</p>
+      </li><li>
+        <p><b>AWS Organizations 服務控制政策 (SCP)</b> – Organizations SCP 會指定組織或組織單位 (OU) 的最大許可。SCP 最大許可會套用到成員帳戶中的委託人，包括每個 AWS 帳戶根使用者。如果 SCP 存在，則只有在這些政策和 SCP 允許該動作執行時，以身分為基礎和以資源為基礎的政策才會對成員帳戶中的主體授予許可。如果許可界限和 SCP 兩者都存在，則此界限、SCP 和以身分為基礎的政策都必須允許該動作。</p>
+      </li><li>
+        <p><b>工作階段政策</b> – 工作階段政策是一種進階政策，您可以在透過編寫程式的方式建立角色或聯合身分使用者的暫時工作階段時，作為參數傳遞。若要以程式設計方式建立角色工作階段，請使用其中一種 <code class="code">AssumeRole*</code> API 操作。當您這麼做且傳遞工作階段政策時，所產生工作階段的許可會是 IAM 實體的身分類型政策和工作階段政策的交集。若要建立聯合身分使用者工作階段，您要使用 IAM 使用者存取金鑰，以程式設計的方式來呼叫 <code class="code">GetFederationToken</code> API 操作。以資源為基礎的政策對工作階段政策許可的評估會有不同的效果。效果差異會因使用者或角色的 ARN 或工作階段的 ARN 是否在以資源為基礎的政策中列為主體而有所不同。如需詳細資訊，請參閱 <a href="./access_policies.html#policies_session">工作階段政策</a>。</p>
+      </li></ol></div>
+    <p>請記住，所有這類政策中的明確拒絕都會覆寫該允許。</p>
+     
+      <h3 id="policy-eval-basics-id-rdp">搭配以資源為基礎的政策來評估以身分為基礎的政策</h3>
+      <p>以身分為基礎的政策和以資源為基礎的政策，可為其連接到其中的身分或資源授予許可。當 IAM 實體 (使用者或角色) 請求存取同一帳戶中的資源時，AWS 會評估由以身分為基礎和以資源為基礎的政策所授予的所有許可。最後得到的許可總括了這兩類許可。如果以身分為基礎的政策或以資源為基礎的政策已允許某動作，或兩者都允許該動作，則 AWS 會允許此動作。在這些政策的明確拒絕會覆寫允許。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_policies_effective.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          搭配以資源為基礎的政策來評估以身分為基礎的政策&#xA;        " />
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-bound">搭配許可界限來評估以身分為基礎的政策</h3>
+      <p>當 AWS 評估使用者的以身分為基礎的政策和許可界限時，產生的許可是兩個類別的交集。這表示，當您新增許可界限到已有現有以身分為基礎之政策的使用者時，您可能會減少使用者可執行的動作。或者，當您移除使用者的許可界限時，您可能會增加他們可以執行的動作。在這些政策的明確拒絕會覆寫允許。若要檢視有關如何搭配許可界限來評估其他政策類型的詳細資訊，請參閱<a href="./access_policies_boundaries.html#access_policies_boundaries-eval-logic">評估含界限的有效許可</a>。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          評估以身分為基礎的政策及許可界限&#xA;        " />
+          
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-scp">搭配 Organizations SCP 來評估以身分為基礎的政策</h3>
+      <p>當使用者所屬的帳戶是組織的成員，產生的許可會是使用者政策和 SCP 的交集。這就代表該動作必須同時獲得以身分為基礎的政策和 SCP 的允許。在這些政策的明確拒絕會覆寫允許。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_scp-idp.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          評估以身分為基礎的政策和 SCP&#xA;        " />
+          
+         
+         
+      </div>
+      <p>您可以了解<a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">您的帳戶是否為 AWS Organizations 中組織的成員</a>。組織成員可能會受到 SCP 影響。若要使用 AWS CLI 命令或 AWS API 操作檢視此資料，您必須擁有適用於 Organizations 實體的 <code class="code">organizations:DescribeOrganization</code> 動作許可。您必須擁有其他許可，才能在 Organizations 主控台中執行操作。若要了解 SCP 是否拒絕存取特定要求，或是變更有效的許可，請聯絡您的 AWS Organizations 管理員。</p>
+     
+   
+    <h2 id="policy-eval-denyallow">決定是否允許或拒絕帳戶中的請求</h2>
+    <p>假設主體將請求傳送到 AWS 來在與主體實體相同的帳戶中存取資源。AWS 強制執行程式碼會決定是否應允許或拒絕該請求。AWS 會評估適用於請求內容的所有政策。以下是適用於單一帳戶內存政策的 AWS 評估邏輯的摘要。</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>根據預設，所有的要求會一律拒絕 (AWS 帳戶根使用者 提出的要求例外，該使用者具有完整存取權)。</p>
+      </li><li class="listitem">
+        <p>若是以身分為基礎或以資源為基礎的政策，當中的明確允許會覆寫此預設值。</p>
+      </li><li class="listitem">
+        <p>如果有許可界限、Organizations SCP 或工作階段政策，則其可能會以隱含拒絕覆寫該允許。</p>
+      </li><li class="listitem">
+        <p>任何政策中的明確拒絕會覆寫任何允許。</p>
+      </li></ul></div>
+    
+    <p>以下流程圖提供有關如何做出決策的詳細資訊。此流程圖不涵蓋以資源型政策和其他類型政策中隱含拒絕的影響。</p>
+    <div class="mediaobject">
+       
+        <img src="images/PolicyEvaluationHorizontal111621.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        評估流程圖&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+      
+
+       
+       
+       
+       
+    <ol><li>
+        <p><b>拒絕評估</b> – 根據預設，所有的請求一律拒絕。這稱為<a href="#AccessPolicyLanguage_Interplay">隱含拒絕</a>。AWS 強制執行程式碼會在帳戶內評估所有套用到請求的政策。這些政策包括 AWS Organizations SCP、資源型政策、身分型政策、IAM 許可界限和工作階段政策。在所有這些政策中，強制執行程式碼會尋找套用到請求的 <code class="code">Deny</code> 陳述式。此稱為<a href="#AccessPolicyLanguage_Interplay">明確拒絕</a>。如果強制執行程式碼找到一個適用的明確拒絕，則程式碼會傳回 <b>拒絕</b> 的最後決定。如果沒有明確拒絕，該強制執行程式碼評估會持續執行。</p>
+      </li><li>
+        <p><b>Organizations SCP</b> – 這段強制執行程式碼會接著評估套用到該請求的 AWS Organizations 服務控制政策 (SCP)。SCP 會套用至連接 SCP 的帳戶之主體。如果強制執行程式碼在 SCP 中找不到任何適用的 <code class="code">Allow</code> 陳述式，請求便是被明顯拒絕，即使拒絕是隱含的。強制執行程式碼傳回<b>拒絕</b>的最後決定。如果 SCP 不存在，或是 SCP 允許請求動作，強制執行程式碼評估就會繼續執行。</p>
+      </li><li>
+        <p><b>資源型政策</b> – 在同一帳戶內，資源型政策會根據存取資源的主體類型以及資源型政策中允許的主體，以不同的方式影響政策評估。根據主體類型，資源型政策中的 <code class="code">Allow</code> 可能會導致 <code class="code">Allow</code> 的最終決定，即使身分型識別政策、許可界限或工作階段政策中有隱含拒絕。</p>
+        <p>針對大部分資源，您只需要使用身分型政策或資源型政策明確允許主體，授予存取權即可。<a href="./id_roles_compare-resource-policies.html">IAM 角色信任政策</a>和 <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html">KMS 金鑰政策</a>是此邏輯的例外，因為這些政策必須明確允許存取<a href="./reference_policies_elements_principal.html">主體</a>。</p>
+        <p>如果指定的主體是 IAM 使用者、IAM 角色或工作階段主體，資源型政策的邏輯就會與其他政策類型有所不同。工作階段主體包括 IAM<a href="./reference_policies_elements_principal.html#principal-role-session">角色工作階段</a>或 <a href="./reference_policies_elements_principal.html#sts-session-principals">IAM 聯合身分使用者工作階段</a>。如果資源型政策直接將許可授予 IAM 使用者或提出要求的工作階段主體，則身分識別型政策、許可界限或工作階段政策中的隱含拒絕不會影響最終決定。</p>
+        <p>下表可協助您瞭解當身分識別型政策、許可界限和工作階段政策中出現隱含拒絕時，資源型政策會針對不同主體類型產生何種影響。</p>
+        <div class="table-container"><div class="table-contents"><table id="w339aac25c19c13c13c11b5b9"><thead><tr><th class="table-header" colspan="100"><div class="title">資源型政策和其他政策類型 (相同帳戶) 中的隱含拒絕</div></th></tr>
+              <tr>
+                <th>主體發出要求</th>
+                <th>以資源為基礎政策</th>
+                <th>身分型政策</th>
+                <th>許可界限</th>
+                <th>工作階段政策</th>
+                <th>結果</th>
+                <th>原因</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>IAM 角色</td>
+                <td>不適用</td>
+                <td>不適用</td>
+                <td>不適用</td>
+                <td>不適用</td>
+                <td>不適用</td>
+                <td>角色本身無法提出要求。擔任角色之後，系統會使用角色工作階段提出要求。</td>
+              </tr>
+              <tr>
+                <td>IAM 角色工作階段</td>
+                <td>允許角色 ARN</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>DENY</td>
+                <td>許可界限和工作階段政策會作為最終決定的一部分進行評估。任一政策中的隱含拒絕會導致「拒絕」決定。</td>
+              </tr>
+              <tr>
+                <td>IAM 角色工作階段</td>
+                <td>允許角色工作階段 ARN</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>允許</td>
+                <td>許可會直接授予工作階段。其他政策類型不會影響決定。</td>
+              </tr>
+              <tr>
+                <td>IAM 使用者</td>
+                <td>允許 IAM 使用者 ARN</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>不適用</td>
+                <td>允許</td>
+                <td>許可直接授予使用者。其他政策類型不會影響決定。</td>
+              </tr>
+              <tr>
+                <td>IAM 聯合身分使用者 (<code class="code">GetFederationToken</code>)</td>
+                <td>允許 IAM 使用者 ARN</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>DENY</td>
+                <td>許可界限或工作階段政策中的隱含拒絕會導致「拒絕」。</td>
+              </tr>
+              <tr>
+                <td>IAM 聯合身分使用者 (<code class="code">GetFederationToken</code>)</td>
+                <td>允許 IAM 聯合身分使用者工作階段 ARN</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>隱含拒絕</td>
+                <td>允許</td>
+                <td>許可會直接授予工作階段。其他政策類型不會影響決定。</td>
+              </tr>
+              <tr>
+                <td>根使用者</td>
+                <td>允許根使用者 ARN</td>
+                <td>不適用</td>
+                <td>不適用</td>
+                <td>不適用</td>
+                <td>允許</td>
+                <td>根使用者可無限制地全面存取 AWS 帳戶 的所有資源。若要了解如何控制對 AWS Organizations 中帳戶的根使用者的存取權，請參閱 <em>Organizations 使用者指南</em>中的<a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html">服務控制政策 (SCP)</a>。</td>
+              </tr>
+              <tr>
+                <td>AWS 服務主體</td>
+                <td>允許 AWS 服務主體</td>
+                <td>不適用</td>
+                <td>不適用</td>
+                <td>不適用</td>
+                <td>允許</td>
+                <td>資源型政策直接將許可授予 <a href="./reference_policies_elements_principal.html#principal-services">AWS 服務主體</a>時，其他政策類型不會影響決定。</td>
+              </tr>
+            </table></div></div>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><b>IAM 角色</b> – 將許可授予 IAM 角色 ARN 的資源型政策受限於許可界限或工作階段政策中隱含拒絕的限制。</p>
+            <p><b>角色 ARN 範例</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:role/examplerole</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM 角色工作階段</b> – 在同一帳戶內，將許可授予 IAM 角色工作階段 ARN 的資源型政策直接授予許可給擔任的角色工作階段。直接授予工作階段的許可不會受到身分識別型政策、許可界限或工作階段政策中隱含拒絕的限制。當您擔任角色並提出要求時，提出要求的主體是 IAM 角色工作階段 ARN，而不是角色本身的 ARN。</p>
+            <p><b>角色工作階段 ARN 範例</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:assumed-role/examplerole/examplerolesessionname</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM 使用者</b> – 在同一帳戶內，將許可授予 IAM 使用者 ARN (非聯合身分使用者工作階段) 的資源型政策不受身分識別型政策或許可界限中隱含拒絕的限制。</p>
+            <p><b>IAM 使用者 ARN 範例</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:user/exampleuser</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM 聯合身分使用者工作階段</b> – IAM 聯合身分使用者工作階段是透過呼叫 <a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a> 建立的工作階段。當聯合身分使用者提出要求時，提出要求的主體是聯合身分使用者 ARN，而不是聯合身分 IAM 使用者的 ARN。在相同的帳戶中，授予許可給聯合身分使用者 ARN 的資源型政策會直接將許可授予工作階段。直接授予工作階段的許可不會受到身分識別型政策、許可界限或工作階段政策中隱含拒絕的限制。</p>
+            <p>但是，如果資源型政策將許可授予聯合身分 IAM 使用者的 ARN，則聯合身分使用者在工作階段期間提出的要求會受到許可界限或工作階段政策中隱含拒絕的限制。</p>
+            <p><b>IAM 聯合身分使用者工作階段 ARN 範例</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:federated-user/exampleuser</code></code></pre>
+          </li></ul></div>
+      </li><li>
+        <p><b>以身分為基礎的政策</b> – 程式碼接著會檢查主體的以身分為基礎的政策。若為 IAM 使用者，這些政策會包含使用者政策，以及使用者所屬群組的政策。如果沒有任何身分型政策或其中的任何陳述式允許該要求動作，則表示要求已遭隱含拒絕，且程式碼會傳回<b>拒絕</b>的最終決定。如果任何適用的身分型政策中有任一陳述式允許該要求動作，則程式碼會繼續執行。</p>
+      </li><li>
+        <p><b>IAM 許可界限</b> – 程式碼接著會檢查主體所使用的 IAM 實體是否有許可界限。如果用來設定許可界限的政策不允許該請求動作，則表示請求已遭隱含拒絕。程式碼傳回<b>拒絕</b>的最後決定。如果許可界限不存在，或是許可界限允許請求動作，程式碼就會繼續執行。</p>
+      </li><li>
+        <p><b>工作階段政策</b> – 程式碼接著會檢查主體是否為工作階段主體。工作階段主體包括 IAM 角色工作階段或 IAM 聯合身分使用者工作階段。如果主體不是工作階段主體，則強制執行程式碼會傳回<b>允許</b>的最終決定。</p>
+        <p>對於工作階段主體，程式碼檢查工作階段政策是否在要求中傳遞。您可以在使用 AWS CLI 或 AWS API 取得角色或 IAM 聯合身分使用者的暫時憑證時，同時傳遞工作階段政策。</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>如果工作階段政策存在，且不允許該要求動作，則表示要求已遭隱含拒絕。程式碼傳回<b>拒絕</b>的最後決定。</p>
+          </li><li class="listitem">
+            <p>如果工作階段政策不存在，程式碼會檢查主體是否為角色工作階段。如果主體是角色工作階段，則要求為<b>已允許</b>。否則，要求會受到婉拒，程式碼則會傳回<b>拒絕</b>的最終決定。</p>
+          </li><li class="listitem">
+            <p>如果有工作階段政策，且政策允許該要求動作，則強制執行程式碼會傳回<b>允許</b>的最終決定。</p>
+          </li></ul></div>
+      </li><li>
+        <p><b>錯誤</b> – 如果 AWS 強制執行程式碼在評估期間的任何時間點發生錯誤，則會產生例外狀況並關閉。</p>
+      </li></ol></div>
+
+   
+    <h2 id="policies_evaluation_example">以身分為基礎和以資源為基礎的政策的範例</h2>
+    <p>最常見的政策類型是以身分為基礎的政策和以資源為基礎的政策。當收到存取資源的請求時，AWS 會評估政策授予的所有許可，以確認在相同帳戶內是否 <b>至少有一個 Allow</b>。所有政策中的明確拒絕都會覆寫該允許。</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>如果在相同帳戶中，身分型政策和資源型政策中的任意一項政策允許請求而另一項不允許，則請求仍將被允許。</p></div></div>
+    <p>假設 Carlos 有使用者名稱 <code class="code">carlossalazar</code>，他嘗試儲存檔案到 <code class="code">carlossalazar-logs</code> Amazon S3 儲存貯體。</p>
+    <p>另外，也假設以下政策已連接到 <code class="code">carlossalazar</code> IAM 使用者。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowS3ListRead",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowS3Self",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::*log*"
+        }
+    ]
+}</code></pre>
+    <p>此政策中的 <code class="code">AllowS3ListRead</code> 陳述式允許 Carlos 檢視帳戶中的所有儲存貯體的清單。<code class="code">AllowS3Self</code> 陳述式允許 Carlos 完整存取名稱和他的使用者名稱完全相同的儲存貯體。<code class="code">DenyS3Logs</code> 陳述式拒絕 Carlos 存取名稱中包含 <code class="code">log</code> 的任何 S3 儲存貯體。</p>
+    <p>此外，以下以資源為基礎的政策 (稱為儲存貯體政策) 已連接到 <code class="code">carlossalazar</code> 儲存貯體。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:user/carlossalazar"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        }
+    ]
+}</code></pre>
+    <p>此政策指定只有 <code class="code">carlossalazar</code> 使用者可以存取 <code class="code">carlossalazar</code> 儲存貯體。</p>
+    <p>當 Carlos 提出請求將檔案儲存到 <code class="code">carlossalazar-logs</code> 儲存貯體時，AWS 會決定套用至請求的政策。在這種情況下，只有以身分為基礎的政策和以資源為基礎的政策適用。這兩者都是許可政策。由於未套用許可界限，評估邏輯會降低到以下邏輯。</p>
+    <div class="mediaobject">
+       
+        <img src="images/EffectivePermissionsShort.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        評估流程圖&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>AWS 會先檢查套用於請求內容的 <code class="code">Deny</code> 陳述式。它找到一個，因為以身分為基礎的政策明確拒絕 Carlos 存取任何用於記錄的 S3 儲存貯體。Carlos 存取遭拒。</p>
+    <p>假設他了解他的錯誤，嘗試將檔案儲存到 <code class="code">carlossalazar</code> 儲存貯體。AWS 檢查 <code class="code">Deny</code> 陳述式，但找不到。接著檢查許可政策。身分類型政策和資源類型政策都允許請求。因此，AWS 允許請求。如果其中一個元素明確拒絕陳述式、請求會被拒絕。如果其中一種政策類型允許請求，但另一種則不允許，則仍會允許請求。</p>
+   
+    <h2 id="AccessPolicyLanguage_Interplay">明確和隱含拒絕之間的差異</h2>
+    <p>如果適用的請求包含 <code class="code">Deny</code> 陳述式，請求會導致明確拒絕。如果套用到請求的政策包含 <code class="code">Allow</code> 陳述式和 <code class="code">Deny</code> 陳述式，則 <code class="code">Deny</code> 陳述式勝過 <code class="code">Allow</code> 陳述式。請求明確遭拒。</p>
+    <p>如果沒有適用的 <code class="code">Deny</code> 陳述式，也沒有適用的 <code class="code">Allow</code> 陳述式，則會發生暗中拒絕。由於預設拒絕存取 IAM 主體，他們必須明確獲允許執行動作。否則，會暗中拒絕他們存取。</p>
+    <p>當您設計授權策略時，您必須建立具 <code class="code">Allow</code> 陳述式的政策，讓您的主體成功發出請求。不過，您可以選擇明確和暗中拒絕的任意組合。</p>
+    <p>例如，您可以建立下列政策，其中包含允許的動作、隱含拒絕的動作以及明確拒絕的動作。此 <code class="code">AllowGetList</code> 陳述式<b>允許</b>對以字首 <code class="code">Get</code> 和 <code class="code">List</code> 開頭的 IAM 動作的唯讀存取。IAM 中的所有其他動作，例如 <code class="code">iam:CreatePolicy</code>，則被<b>隱含拒絕</b>。此 <code class="code">DenyReports</code> 陳述式<b>明確拒絕</b>存取 IAM 報告，方法是拒絕存取包含 <code class="code">Report</code> 尾碼的動作，例如 <code class="code">iam:GetOrganizationsAccessReport</code>。如果有人向此主體新增其他政策，以授予他們對 IAM 報告的存取權，例如 <code class="code">iam:GenerateCredentialReport</code>，則由於存在此明確拒絕，報告相關的要求仍然被拒絕。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowGetList",
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "DenyReports",
+            "Effect": "Deny",
+            "Action": "iam:*Report",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./reference_policies_elements_datatypes.html">支援的資料類型</div><div id="next" class="next-link" accesskey="n" href="./reference_policies_evaluation-logic-cross-account.html">跨帳戶政策評估邏輯</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

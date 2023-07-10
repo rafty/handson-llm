@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon S3 用の AWS PrivateLink - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="privatelink-interface-endpoints" /><meta name="default_state" content="privatelink-interface-endpoints" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="description" content="仮想プライベートクラウド (VPC) で AWS PrivateLink インターフェイス VPC エンドポイントを使用して、Amazon S3 に接続します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="Amazon Simple Storage Service (Amazon S3) を使用して、任意の量のデータをどこからでも保存および取得する方法について説明します。このガイドでは、Amazon S3 のバケット、オブジェクト、関連設定などの概念について説明し、一般的なオペレーションのコード例をいくつか示します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="Amazon S3 用の AWS PrivateLink" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon S3 用の AWS PrivateLink - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#privatelink-interface-endpoints" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="keywords" content="S3,Amazon S3,S3 ユーザーガイド,Amazon S3 ユーザーガイド,Amazon ユーザーガイド,s3 バケット,s3 オブジェクト,クラウドストレージ,データストレージ" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 のセキュリティ",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon S3 用の AWS PrivateLink",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#privatelink-interface-endpoints" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#types-of-vpc-endpoints-for-s3">VPC エンドポイントのタイプ</a><a href="#privatelink-limitations">AWS PrivateLink for Amazon S3 の制約と制限</a><a href="#s3-creating-vpc">VPC エンドポイントの作成</a><a href="#accessing-s3-interface-endpoints">Amazon S3 インターフェイスエンドポイントへのアクセス</a><a href="#private-dns">プライベート DNS</a><a href="#accessing-bucket-and-aps-from-interface-endpoints">S3 インターフェイスエンドポイントからバケット、アクセスポイント、および Amazon S3 コントロール API オペレーションにアクセスする</a><a href="#updating-on-premises-dns-config">オンプレミスの DNS 設定の更新</a><a href="#creating-vpc-endpoint-policy">VPC エンドポイントポリシーの作成</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="privatelink-interface-endpoints">Amazon S3 用の AWS PrivateLink</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS PrivateLink for Amazon S3 では、Virtual Private Cloud (VPC) で<em>インターフェイス VPC エンドポイント</em> (インターフェイスエンドポイント) をプロビジョニングできます。これらのエンドポイントは、VPN および AWS Direct Connect 経由でオンプレミスにあるアプリケーション、または VPC ピアリング経由で別の AWS リージョン にあるアプリケーションから直接アクセスできます。</p><p>インターフェイスエンドポイントは、VPC 内のサブネットからプライベート IP アドレスが割り当てられた 1 つ以上の Elastic Network Interface (ENI) で表されます。インターフェイスエンドポイントを介した Amazon S3 へのリクエストは、Amazon ネットワークに残ります。AWS Direct Connect または AWS Virtual Private Network (AWS VPN) を介して、オンプレミスのアプリケーションから VPC 内のインターフェイスエンドポイントにアクセスすることもできます。VPC をオンプレミスネットワークに接続する方法の詳細については、<a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html">AWS Direct Connect ユーザーガイド</a>および <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPN ユーザーガイド</a>を参照してください。</p><p>インターフェイスエンドポイントの一般的な情報については、<em>AWS PrivateLink ガイド</em>の<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html">インターフェイス VPC エンドポイント (AWS PrivateLink) </a>を参照してください。</p><div class="highlights" id="inline-topiclist"><h6>トピック</h6><ul><li><a href="#types-of-vpc-endpoints-for-s3">Amazon S3 の VPC エンドポイントのタイプ</a></li><li><a href="#privatelink-limitations">AWS PrivateLink for Amazon S3 の制約と制限</a></li><li><a href="#s3-creating-vpc">VPC エンドポイントの作成</a></li><li><a href="#accessing-s3-interface-endpoints">Amazon S3 インターフェイスエンドポイントへのアクセス</a></li><li><a href="#private-dns">プライベート DNS</a></li><li><a href="#accessing-bucket-and-aps-from-interface-endpoints">S3 インターフェイスエンドポイントからバケット、アクセスポイント、および Amazon S3 コントロール API オペレーションにアクセスする</a></li><li><a href="#updating-on-premises-dns-config">オンプレミスの DNS 設定の更新</a></li><li><a href="#creating-vpc-endpoint-policy">Amazon S3 用の VPC エンドポイントポリシーの作成</a></li></ul></div>
+    <h2 id="types-of-vpc-endpoints-for-s3">Amazon S3 の VPC エンドポイントのタイプ</h2>
+    <p>Amazon S3 へのアクセスには、<em>ゲートウェイエンドポイント</em>と<em>インターフェイスエンドポイント</em> (AWS PrivateLink を使用) の 2 つのタイプの VPC エンドポイントを使用できます。<em>ゲートウェイエンドポイント</em>は、AWS ネットワーク経由で VPC から Amazon S3 にアクセスするために、ルートテーブルで指定するゲートウェイです。<em>インターフェイスエンドポイント</em>は、プライベート IP アドレスを使用して、VPC 内、オンプレミス、または VPC ピアリングや AWS リージョン を使用する別の AWS Transit Gateway にある VPC から Amazon S3 にリクエストをルーティングすることにより、ゲートウェイエンドポイントの機能を拡張します。詳細については、「<a href="https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html">VPC ピア機能とは</a>」および「<a href="https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/transit-gateway-vs-vpc-peering.html">Transit Gateway vs VPC peering</a>」(Transit Gateway と VPC ピアリング) を参照してください。</p>
+    <p>インターフェイスエンドポイントは、ゲートウェイエンドポイントと互換性があります。VPC 内に既存のゲートウェイエンドポイントがある場合は、同じ VPC で両方のタイプのエンドポイントを使用できます。</p>
+    <div class="table-container"><div class="table-contents"><table id="w1866aac19c23c11b7"><thead>
+          <tr>
+            <th>
+              <p>Amazon S3 のゲートウェイエンドポイント</p>
+            </th>
+            <th>
+              <p>Amazon S3 のインターフェイスエンドポイント</p>
+            </th>
+          </tr>
+        </thead>
+          <tr>
+            <td colspan="2">
+              
+              <p>いずれの場合も、ネットワークトラフィックは AWS ネットワーク上に残ります。</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Amazon S3 パブリック IP アドレスを使用する</p>
+            </td>
+            <td>
+              <p>VPC のプライベート IP アドレスを使用して Amazon S3 にアクセスする</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>同じ Amazon S3 DNS 名を使用する</p>
+            </td>
+            <td>
+              <p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#accessing-s3-interface-endpoints">エンドポイント固有の Amazon S3 DNS 名を要求する</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>オンプレミスからのアクセスを許可しない</p>
+            </td>
+            <td>
+              <p>オンプレミスからのアクセスを許可する</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>別の AWS リージョン からのアクセスを許可しない</p>
+            </td>
+            <td>
+              <p>VPC ピアリングまたは AWS Transit Gateway を使用する別の AWS リージョンにある VPC からのアクセスを許可する</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>課金されない</p>
+            </td>
+            <td>
+              <p>請求される</p>
+            </td>
+          </tr>
+        </table></div></div>
+    <p>ゲートウェイエンドポイントの詳細については、<em>AWS PrivateLink ガイド</em>の<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">ゲートウェイ VPC エンドポイント</a>を参照してください。</p>
+     
+      <h2 id="privatelink-limitations">AWS PrivateLink for Amazon S3 の制約と制限</h2>
+      <p>VPC 制限は、AWS PrivateLink for Amazon S3 に適用されます。詳細については、<em>AWS PrivateLink ガイド</em>の「<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations">インターフェイスエンドポイントの考慮事項</a>」と「<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-limits-endpoints.html">AWS PrivateLink クォータ</a>」を参照してください。また、以下の制約も適用されます。</p>
+    <p>AWS PrivateLink for Amazon S3 では、以下はサポートされていません。</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="http://aws.amazon.com/compliance/fips/" rel="noopener noreferrer" target="_blank"><span>連邦情報処理規格 (FIPS) エンドポイント</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+      </li><li class="listitem">
+        <p><a href="./WebsiteEndpoints.html">ウェブサイトエンドポイント</a></p>
+      </li><li class="listitem">
+        <p><a href="./VirtualHosting.html#deprecated-global-endpoint">レガシーグローバルエンドポイント</a></p>
+      </li><li class="listitem">
+        <p>異なる AWS リージョン のバケット間での <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html">CopyObject</a> または <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html">UploadPartCopy</a> の使用</p></li><li class="listitem">
+        <p>Transport Layer Security (TLS) 1.1</p>
+      </li></ul></div>
+     
+    <h2 id="s3-creating-vpc">VPC エンドポイントの作成</h2>
+    <p>VPC インターフェイスエンドポイントを作成するには、<em>AWS PrivateLink ガイド</em>の「<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html#create-interface-endpoint-aws">VPC エンドポイントの作成</a>」を参照してください。</p>
+   
+      <h2 id="accessing-s3-interface-endpoints">Amazon S3 インターフェイスエンドポイントへのアクセス</h2>
+      
+      <p>インターフェイスエンドポイントを作成すると、Amazon S3 はエンドポイント固有の 2 つのタイプの S3 DNS 名 (<em>Regional</em> および <em>zonal</em>) を生成します。</p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><em>Regional</em> DNS 名には、一意の VPC エンドポイント ID、サービス識別子、AWS リージョン、およびその名前の <code class="code">vpce.amazonaws.com</code> が含まれます。例えば、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> の場合、生成される DNS 名は <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>.s3.us-east-1.vpce.amazonaws.com</code> に似ている場合があります。</p>
+        </li><li class="listitem">
+          <p><em>Zonal</em> DNS 名には、アベイラビリティーゾーンが含まれます (<code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>-<b>us-east-1a.</b>s3.us-east-1.vpce.amazonaws.com</code> など)。このオプションは、アーキテクチャがアベイラビリティーゾーンを分離する場合に使用できます。例えば、障害を隔離し、リージョン間のデータ転送コストを削減するために使用できます。</p>
+        </li></ul></div>
+      <p>エンドポイント固有の S3 DNS 名は、S3 パブリック DNS ドメインから解決できます。</p>
+      
+     
+    <h2 id="private-dns">プライベート DNS</h2>
+    <p>VPC インターフェイスエンドポイント用のプライベート DNS オプションを使用すると、VPC エンドポイント経由の S3 トラフィックのルーティングが簡単になり、アプリケーションで使用できる最も低コストのネットワークパスを活用できます。プライベート DNS オプションを使用すると、インターフェイスエンドポイントのエンドポイント固有の DNS 名を使用するように S3 クライアントを更新したり、DNS インフラストラクチャを管理したりすることなく、Regional S3 トラフィックをルーティングできます。プライベート DNS 名を有効にすると、Regional S3 DNS クエリは次のエンドポイントの AWS PrivateLink のプライベート IP アドレスに解決されます。</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Regional バケットエンドポイント (例: <code class="code">s3.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>制御エンドポイント (例: <code class="code">s3-control.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>アクセスポイントエンドポイント (例: <code class="code">s3-accesspoint.us-east-1.amazonaws.com</code>)</p>
+      </li></ul></div>
+    <p>VPC にゲートウェイエンドポイントがある場合は、VPC 内リクエストを既存の S3 ゲートウェイエンドポイントに、オンプレミスリクエストをインターフェイスエンドポイントに自動的にルーティングできます。このアプローチでは、VPC 内のトラフィックに課金されないゲートウェイエンドポイントを使用することで、ネットワークコストを最適化できます。オンプレミスアプリケーションは、インバウンドリゾルバーエンドポイントを利用して AWS PrivateLink を使用できます。Amazon は、「Route 53 Resolver」と呼ばれる VPC 用の DNS サーバーを提供しています。インバウンド Resolver エンドポイントは、DNS クエリをオンプレミスネットワークから Route 53 Resolver に転送します。</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p><b>[インバウンドエンドポイントでのみプライベート DNS を有効にする]</b> を使用するときに最も低コストのネットワークパスを利用するには、ゲートウェイエンドポイントが VPC に存在している必要があります。ゲートウェイエンドポイントが存在すると、<b>[インバウンドエンドポイントでのみプライベート DNS を有効にする]</b> オプションが選択されている場合でも、VPC 内のトラフィックは常に AWS プライベートネットワーク経由でルーティングされます。<b>[インバウンドエンドポイントでのみプライベート DNS を有効にする]</b> オプションが選択されている間は、このゲートウェイエンドポイントを維持する必要があります。ゲートウェイエンドポイントを削除する場合は、まず <b>[インバウンドエンドポイントでのみプライベート DNS を有効にする]</b> をオフにする必要があります。</p><p>既存のインターフェイスエンドポイントを <b>[インバウンドエンドポイントでのみプライベート DNS を有効にする]</b> に更新する場合は、まず VPC に S3 ゲートウェイエンドポイントがあることを確認します。ゲートウェイエンドポイントとプライベート DNS 名の管理の詳細については、<em>AWS PrivateLink ガイド</em>の「<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">ゲートウェイ VPC エンドポイント</a>」と「<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/manage-dns-names.html">VPC エンドポイントサービスの DNS 名を管理する</a>」をそれぞれ参照してください。</p></div></div>
+    <p><b>[インバウンドエンドポイントでのみプライベート DNS を有効にする]</b> オプションは、ゲートウェイエンドポイントをサポートするサービスでのみ使用できます。</p>
+    <p><b>[インバウンドエンドポイントでのみプライベート DNS を有効にする]</b> を使用する VPC エンドポイントの作成の詳細については、<em>AWS PrivateLink ガイドの</em>の「<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html">VPC エンドポイントの作成</a>」を参照してください。</p>
+    <p><b> Amazon VPC コンソールの使用</b></p>
+    <p>コンソールには、<b>[DNS 名を有効にする]</b> と <b>[インバウンドエンドポイントに対してのみプライベート DNS を有効にする]</b> の 2 つのオプションがあります。<b>[DNS 名を有効にする]</b> は、AWS PrivateLink でサポートされているオプションです。<b>[DNS 名を有効にする]</b> オプションを使用すると、デフォルトのパブリックエンドポイント DNS 名にリクエストを送信しながら、Amazon S3 への Amazon のプライベート接続を使用できます。このオプションを有効にすると、お客様はアプリケーションで使用できる最も低コストのネットワークパスを利用できます。</p>
+    <p>Amazon S3 の既存または新しい VPC インターフェイスエンドポイントでプライベート DNS 名を有効にすると、デフォルトで <b>[インバウンドエンドポイントに対してのみプライベート DNS を有効にする]</b> オプションが選択されます。このオプションを選択すると、アプリケーションはオンプレミストラフィックのインターフェイスエンドポイントのみを使用します。この VPC 内トラフィックは、低コストのゲートウェイエンドポイントを自動的に使用します。または、<b>[インバウンドエンドポイントのみプライベート DNS を有効にする]</b> をオフにして、すべての S3 リクエストをインターフェイスエンドポイントにルーティングすることもできます。</p>
+    <p><b>AWS CLI の使用</b></p>
+    <p><code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code> の値を指定しない場合は、デフォルトで <code class="code">true</code> になります。ただし、VPC は設定を適用する前に、VPC にゲートウェイエンドポイントが存在することを確認します。ゲートウェイエンドポイントが VPC に存在する場合、呼び出しは成功します。そうでない場合は、以下のエラーメッセージが表示されます。</p>
+    <p><strong class="errortext"><code>PrivateDnsOnlyForInboundResolverEndpoint を true に設定するには、VPC <code class="replaceable">vpce_id</code> にサービスのゲートウェイエンドポイントが必要です。</code></strong></p>
+    <p><b>新しい VPC インターフェイスエンドポイントの場合</b></p>
+    <p><code class="code">private-dns-enabled</code> および <code class="code">dns-options</code> 属性を使用して、コマンドラインからプライベート DNS を有効にします。<code class="code">dns-options</code> 属性の <code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code> オプションは <code class="code">true</code> に設定する必要があります。<code class="code"><code class="replaceable">user input placeholders</code></code> を、ユーザー自身の情報に置き換えます。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 create-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--service-name <code class="replaceable">s3-service-name</code> \
+--vpc-id <code class="replaceable">client-vpc-id</code> \
+--subnet-ids <code class="replaceable">client-subnet-id</code> \ 
+--vpc-endpoint-type Interface  \
+--private-dns-enabled  \
+--ip-address-type <code class="replaceable">ip-address-type</code> \ 
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true \
+--security-group-ids <code class="replaceable">client-sg-id</code> 
+    </code></pre>
+    <p><b>既存の VPC エンドポイントの場合</b></p>
+    <p>既存の VPC エンドポイントにプライベート DNS を使用する場合は、以下のコマンド例を使用して、<code class="code"><code class="replaceable">user input placeholders</code></code> を独自の情報に置き換えます。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=false
+    </code></pre>
+    <p>既存の VPC エンドポイントを更新して Inbound Resolver のプライベート DNS のみを有効にする場合は、次の例を使用して、サンプル値を独自の値に置き換えてください。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true
+    </code></pre>
+   
+    <h2 id="accessing-bucket-and-aps-from-interface-endpoints">S3 インターフェイスエンドポイントからバケット、アクセスポイント、および Amazon S3 コントロール API オペレーションにアクセスする</h2>
+    <p>AWS CLI または AWS SDK を使用し、S3 インターフェイスエンドポイントを介してバケット、S3 アクセスポイント、および Amazon S3 コントロール API オペレーションにアクセスできます。</p>
+    <p>次の図は、VPC コンソールの [<b>Details</b>] (詳細) タブを示しています。ここでは、VPC エンドポイントの DNS 名を確認できます。この例では、<em>VPC エンドポイント ID (vpce−id)</em> は <code class="code">vpce-0e25b8cdd720f900e</code> で、<em>DNS 名</em>は <code class="code">*.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code> です。</p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <div class="mediaobject">
+       
+       
+        <img src="images/vpc-console-details-tab.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;        VPC コンソールの [詳細] タブ。&#xA;      " style="max-width:100%" />
+       
+    </div>
+    <p>DNS 名を使用してリソースにアクセスする場合は、<code class="replaceable">*</code> を適切な値に置き換えてください。<code class="code">*</code> の代わりに使用する適切な値は次のとおりです。</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">bucket</code></p>
+      </li><li class="listitem">
+        <p><code class="code">accesspoint</code></p>
+      </li><li class="listitem">
+        <p><code class="code">control</code></p>
+      </li></ul></div>
+    <p>例えば、バケットにアクセスするには、次のような <em>DNS 名</em>を使用します。</p>
+    <p>
+      <code class="code">bucket.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code></p>
+    <p>DNS 名を使用してバケット、アクセスポイント、Amazon S3 Control API オペレーションにアクセスする方法の例については、<a href="#privatelink-aws-cli-examples">AWS CLI の例</a> および <a href="#privatelink-aws-sdk-examples">AWS SDK の例</a> の以下のセクションを参照してください。</p>
+    <p>エンドポイント固有の DNS 名の表示方法の詳細については、<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/view-vpc-endpoint-service-dns-name.html">VPC ユーザーガイド</a>の「<em>Viewing endpoint service private DNS name configuration</em>」(エンドポイントサービスのプライベート DNS 名設定の表示) を参照してください。</p>
+     
+      <h3 id="privatelink-aws-cli-examples">AWS CLI の例</h3>
+      <p>AWS CLI コマンドで S3 インターフェイスエンドポイントを介して S3 バケット、S3 アクセスポイント、または Amazon S3 コントロール API 操作にアクセスするには、<code class="code">--region</code> および <code class="code">--endpoint-url</code> パラメータを使用します。</p>
+       
+        <h6>例: エンドポイント URL を使用したバケット内のオブジェクトのリスト化</h6>
+        <p>次の例では、バケット名 <code class="code"><code class="replaceable">my-bucket</code></code>、リージョン <code class="code"><code class="replaceable">us-east-1</code></code>、VPC エンドポイント ID の DNS 名 <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3 ls s3://<code class="replaceable">my-bucket</code>/ --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+      <p><b>例: エンドポイント URL を使用したアクセスポイントのオブジェクトのリスト化</b></p>
+      <div class="itemizedlist">
+                 
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>方法 1</b> — アクセスポイントエンドポイントでアクセスポイントの Amazon リソースネーム (ARN) を使用する</p>
+          
+          <p>ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code></code>、リージョン <code class="code"><code class="replaceable">us-east-1</code></code>、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+          <p>コマンドを正常に実行できない場合は、AWS CLI を最新バージョンに更新してからやり直してください。更新手順について詳細は、<em>AWS Command Line Interface ユーザーガイド</em>の「<a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions">AWS CLI の最新バージョンをインストールまたは更新</a>」を参照してください。</p>
+        </li><li class="listitem">
+          <p><b>方法 2</b> — リージョンバケットエンドポイントでアクセスポイントのエイリアスを使用する</p>
+          <p>次の例では、アクセスポイントエイリアス <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code>、リージョン <code class="code"><code class="replaceable">us-east-1</code></code>、および VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li><li class="listitem">
+          <p><b>方法 3</b> — アクセスポイントのエイリアスをアクセスポイントエンドポイントで使用する</p>
+          <p>まず、バケットをホスト名の一部として含む S3 エンドポイントを作成するには、<code class="code">aws s3api</code> が使用するアドレス指定スタイルを <code class="code">virtual</code> に設定します。<code class="code">AWS configure</code> の詳細については、<em>AWS Command Line Interface ユーザーガイド</em>の「<a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html">設定ファイルと認証情報ファイルの設定</a>」を参照してください。</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws configure set default.s3.addressing_style virtual</code></pre>
+          <p>次に、次の例では、アクセスポイントのエイリアス <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code>、リージョン <code class="code"><code class="replaceable">us-east-1</code></code>、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。アクセスポイントエイリアスの詳細については、「<a href="./access-points-alias.html">S3 バケットアクセスポイントでのバケット形式のエイリアスの使用</a>」を参照してください。</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li></ul></div>     
+       
+        <h6>例: エンドポイント URL を使用して、S3 コントロール API オペレーションでジョブを一覧表示する</h6>
+        <p>次の例では、リージョン <code class="code"><code class="replaceable">us-east-1</code></code>、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code>、およびアカウント ID <code class="code"><code class="replaceable">12345678</code></code> をユーザー自身の情報に置き換えます。</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3control --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code> list-jobs --account-id <code class="replaceable">12345678</code></code></pre>
+     
+     
+      <h3 id="privatelink-aws-sdk-examples">AWS SDK の例</h3>
+      <p>AWS SDK を使用する際に S3 インターフェイス エンドポイントを介して S3 バケット、S3 アクセスポイント、または Amazon S3 コントロール API オペレーションにアクセスするには、SDK を最新バージョンに更新します。S3 インターフェイスエンドポイントを介してバケット、アクセスポイント、または S3 コントロール API オペレーションにアクセスするためのエンドポイント URL を使用するようにクライアントを設定します。</p>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>SDK for Python (Boto3)</dt><dd tab-id="sdk-for-python-(boto3)">
+             
+              <h6>例: エンドポイント URL を使用して S3 バケットにアクセスする</h6>
+              <p>次の例では、リージョン <code class="code"><code class="replaceable">us-east-1</code></code> および VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">s3_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>例: エンドポイント URL を使用して S3 アクセスポイントにアクセスする</h6>
+              <p>次の例では、リージョン <code class="code"><code class="replaceable">us-east-1</code></code> および VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">ap_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>例: エンドポイント URL を使用して Amazon S3 コントロール API にアクセスする</h6>
+              <p>次の例では、リージョン <code class="code"><code class="replaceable">us-east-1</code></code> および VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">control_client = session.client(
+service_name='s3control',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+          </dd>
+        <dt>SDK for Java 1.x</dt><dd tab-id="sdk-for-java-1.x">
+             
+              <h6>例: エンドポイント URL を使用して S3 バケットにアクセスする</h6>
+              <p>次の例では、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+List&lt;Bucket&gt; buckets = s3.listBuckets();</code></pre>
+             
+              <h6>例: エンドポイント URL を使用して S3 アクセスポイントにアクセスする</h6>
+              <p>次の例では、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> と ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/prod</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+final AmazonS3 s3accesspoint = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+ObjectListing objects = s3accesspoint.listObjects("arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/prod</code>");</code></pre>
+             
+              <h6>例: エンドポイント URL を使用して Amazon S3 コントロール API オペレーションにアクセスする</h6>
+              <p>次の例では、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+final AWSS3Control s3control = AWSS3ControlClient.builder().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+final ListJobsResult jobs = s3control.listJobs(new ListJobsRequest());</code></pre>
+          </dd>
+        <dt>SDK for Java 2.x</dt><dd tab-id="sdk-for-java-2.x">
+             
+              <h6>例: エンドポイント URL を使用して S3 バケットにアクセスする</h6>
+              <p>次の例では、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> とリージョン <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>例: エンドポイント URL を使用して S3 アクセスポイントにアクセスする</h6>
+              <p>次の例では、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> とリージョン <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>例: エンドポイント URL を使用して Amazon S3 コントロール API にアクセスする</h6>
+              <p>次の例では、VPC エンドポイント ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> とリージョン <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> をユーザー自身の情報に置き換えます。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3ControlClient = S3ControlClient.builder().region(region)
+                                 .endpointOverride(URI.create("https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                                 .build()</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+     
+   
+    <h2 id="updating-on-premises-dns-config">オンプレミスの DNS 設定の更新</h2>
+      <p>エンドポイント固有の DNS 名を使用して Amazon S3 のインターフェイスエンドポイントにアクセスする場合、オンプレミス DNS リゾルバーを更新する必要はありません。パブリック Amazon S3 DNS ドメインからのインターフェイスエンドポイントのプライベート IP アドレスを使用して、エンドポイント固有の DNS 名を解決できます。</p>
+
+       
+      <h3 id="using-interface-endpoints">Amazon S3 にアクセスするためのインターフェイスエンドポイントの使用 (VPC 内のゲートウェイエンドポイントまたはインターネットゲートウェイの使用なし)</h3>
+      <p>次の図に示すように、VPC 内のインターフェイスエンドポイントは、VPC 内アプリケーションとオンプレミスアプリケーションの両方を Amazon ネットワーク経由で Amazon S3 にルーティングできます。</p>
+      <div class="mediaobject">
+         
+         
+          <img src="images/interface-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          インターフェイスエンドポイントと AWS PrivateLink を使用した、オンプレミスアプリケーションと VPC 内アプリケーションから S3 へのアクセスを示すデータフロー図。&#xA;        " style="max-width:100%" />
+         
+      </div>
+      <p>図は、以下を示しています。</p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>オンプレミスネットワークでは、AWS Direct Connect または AWS VPN を使用して VPC A に接続します。</p>
+        </li><li class="listitem">
+          <p>オンプレミスと VPC A のアプリケーションでは、エンドポイント固有の DNS 名を使用して S3 インターフェイスエンドポイントを介して Amazon S3 にアクセスします。</p>
+        </li><li class="listitem">
+          <p>オンプレミスのアプリケーションは、AWS Direct Connect (または AWS VPN) を介して VPC 内のインターフェイスエンドポイントにデータを送信します。AWS PrivateLink は、AWS ネットワークを経由してデータをインターフェイスエンドポイントから Amazon S3 に移動します。</p>
+        </li><li class="listitem">
+          <p>VPC 内アプリケーションは、インターフェイスエンドポイントにトラフィックの送信も行います。AWS PrivateLink は、AWS ネットワークを経由してデータをインターフェイスエンドポイントから Amazon S3 に移動します。</p>
+        </li></ul></div>
+     
+       
+        <h3 id="using-gateway-and-interface-endpoints">Amazon S3 にアクセスするための、ゲートウェイエンドポイントとインターフェイスエンドポイントの同じ VPC における併用</h3>
+        <p>次の図に示すように、インターフェイスエンドポイントを作成し、同じ VPC 内に既存のゲートウェイエンドポイントを保持できます。このアプローチにより、VPC 内アプリケーションがゲートウェイエンドポイントを介して Amazon S3 に引き続きアクセスすることを許可します。これについての請求はありません。その後、オンプレミスのアプリケーションだけがインターフェイスエンドポイントを使用して Amazon S3 にアクセスします。この方法で Amazon S3 にアクセスするには、Amazon S3 のエンドポイント固有の DNS 名を使用するようにオンプレミスのアプリケーションを更新する必要があります。</p>
+        <div class="mediaobject">
+         
+         
+          <img src="images/interface-and-gateway-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          ゲートウェイエンドポイントとインターフェイスエンドポイントを併用した S3 へのアクセスを示すデータフロー図。&#xA;        " style="max-width:100%" />
+         
+      </div>
+        <p>図は、以下を示しています。</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>オンプレミスのアプリケーションは、エンドポイント固有の DNS 名を使用し、AWS Direct Connect (または AWS VPN) を介して VPC 内のインターフェイスエンドポイントにデータを送信します。AWS PrivateLink は、AWS ネットワークを経由してデータをインターフェイスエンドポイントから Amazon S3 に移動します。</p>
+          </li><li class="listitem">
+            <p>VPC 内アプリケーションは、デフォルトのリージョンの Amazon S3 名を使用し、AWS ネットワークを介して Amazon S3 に接続するゲートウェイエンドポイントにデータを送信します。</p>
+          </li></ul></div>
+        <p>ゲートウェイエンドポイントの詳細については、<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">VPC ユーザーガイド</a>の<em>ゲートウェイ VPC エンドポイント</em>を参照してください。</p>
+     
+   
+    <h2 id="creating-vpc-endpoint-policy">Amazon S3 用の VPC エンドポイントポリシーの作成</h2>
+    <p>VPC エンドポイントに Amazon S3 へのアクセスをコントロールするエンドポイントポリシーをアタッチできます。このポリシーでは、以下の情報を指定します。</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>アクションを実行できる AWS Identity and Access Management (IAM) プリンシパル </p>
+      </li><li class="listitem">
+        <p>実行可能なアクション </p>
+      </li><li class="listitem">
+        <p>アクションを実行できるリソース </p>
+      </li></ul></div>
+    <p>Amazon S3 バケットポリシーを使用して、バケットポリシーの <code class="code">aws:sourceVpce</code> 条件を使用して、特定の VPC エンドポイントからの特定のバケットへのアクセスを制限することもできます。次の例は、バケットまたはエンドポイントへのアクセスを制限するポリシーを示しています。</p>
+    <div class="highlights" id="inline-topiclist"><h6>トピック</h6><ul><li><a href="#privatelink-example-restrict-access-to-bucket">例: VPC エンドポイントから特定のバケットへのアクセスの制限</a></li><li><a href="#privatelink-example-access-bucket-in-specific-account-only">例: VPC エンドポイントから特定のアカウントのバケットへのアクセスの制限</a></li><li><a href="#privatelink-example-restrict-access-to-vpc-endpoint">例: S3 バケットポリシーでの特定の VPC エンドポイントへのアクセスの制限</a></li></ul></div>
+     
+      <h3 id="privatelink-example-restrict-access-to-bucket">例: VPC エンドポイントから特定のバケットへのアクセスの制限</h3>
+      <p>特定の Amazon S3 バケットへのアクセスのみを制限するエンドポイントポリシーを作成できます。このタイプのポリシーは、VPC で S3 バケットを使用する他の AWS のサービス がある場合に便利です。次のバケットポリシーは、<code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code> へのアクセスのみを制限します。このエンドポイントポリシーを使用するには、<code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code> をバケットの名前に置き換えます。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909151",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-bucket-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>/*"]
+    }
+  ]
+}</code></pre>
+     
+     
+      <h3 id="privatelink-example-access-bucket-in-specific-account-only">例: VPC エンドポイントから特定のアカウントのバケットへのアクセスの制限</h3>
+      <p>特定の AWS アカウント の S3 バケットへのアクセスのみを制限するエンドポイントポリシーを作成できます。VPC 内のクライアントが所有していないバケットにアクセスできないようにするには、エンドポイント ポリシーで次のステートメントを使用してください。次のステートメント例では、単一の AWS アカウント、<code class="replaceable"><code class="code">111122223333</code></code> が所有するリソースへのアクセスを制限するポリシーを作成します。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-bucket-in-specific-account-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::*",
+      "Condition": <span>{</span>
+        "StringNotEquals": <span>{</span>
+          "aws:ResourceAccount": "<code class="replaceable">111122223333</code>"
+        }
+      }
+    }
+  ]
+}</code></pre>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>アクセスされるリソースの AWS アカウント ID を指定するには、IAM ポリシーで <code class="code">aws:ResourceAccount</code> キーまたは <code class="code">s3:ResourceAccount</code> キーを使用できます。ただし、一部の AWS のサービス は AWS マネージドバケットへのアクセスに依存していることに注意してください。したがって、IAM ポリシーで <code class="code">aws:ResourceAccount</code> キーまたは <code class="code">s3:ResourceAccount</code> キーを使用することは、これらのリソースへのアクセスにも影響する可能性があります。</p></div></div>
+     
+     
+      <h3 id="privatelink-example-restrict-access-to-vpc-endpoint">例: S3 バケットポリシーでの特定の VPC エンドポイントへのアクセスの制限</h3>
+      <p><a id="example-restrict-access-to-vpc-endpoint"></a><b>例: S3 バケットポリシーでの特定の VPC エンドポイントへのアクセスの制限</b></p>
+      <p>次の Amazon S3 バケットポリシーは、VPC エンドポイント <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> からのみ、特定のバケット、<code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code> へのアクセスを許可します。指定されたエンドポイントを使用していない場合、ポリシーによりバケットへのすべてのアクセスが拒否されます。<code class="code">aws:sourceVpce</code> 条件はエンドポイントを指定し、VPC エンドポイントリソースの Amazon リソースネーム (ARN) を必要とせず、エンドポイント ID のみを指定します。このバケットポリシーを使用するには、<code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code> と <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> をバケット名とエンドポイントに置き換えてください。</p>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>次の Amazon S3 バケットポリシーを適用して特定の VPC エンドポイントのみへのアクセスを制限すると、バケットへのアクセスが意図せずにブロックされる場合があります。特に VPC エンドポイントからの接続に対するバケットのアクセスを制限することを目的としたバケットのポリシーにより、バケットへのすべての接続がブロックされる場合があります。この問題を修正する方法については、<a href="http://aws.amazon.com/premiumsupport/knowledge-center/s3-regain-access/" rel="noopener noreferrer" target="_blank"><span>バケットポリシーの VPC または VPC エンドポイント ID が間違っています。ポリシーを修正してバケットにアクセスできるようにするにはどうすれば良いですか?</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>」(<em>AWS Support ナレッジセンター</em>) を参照してください。</p>
+          </li><li class="listitem">
+            <p>次のポリシーの例を使用する前に、VPC エンドポイントの ID をユースケースに応じた値に置き換えてください。そうしないと、バケットにアクセスできません。</p>
+          </li><li class="listitem">
+            <p>このポリシーは、<em>コンソール</em>リクエストが指定の VPC エンドポイントを経由していない場合、指定先のバケットへのコンソールアクセスを無効にします。</p>
+          </li></ul></div></div></div>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909152",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-VPCE-only",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code>/*</code>"],
+      "Condition": <span>{</span>"StringNotEquals": <span>{</span>"aws:sourceVpce": "<code class="replaceable">vpce-1a2b3c4d</code>"}}
+    }
+  ]
+}</code></pre>
+     
+    <p>ポリシーの例については、<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html#vpc-endpoints-policies-s3">VPC ユーザーガイド</a>の <em>Amazon S3 のエンドポイント</em>を参照してください。</p>
+  <p>VPC 接続の詳細については、<a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html"> ホワイトペーパー </a>Amazon Virtual Private Cloud 接続オプションAWSの<a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/welcome.html">ネットワークから VPC への接続オプション</a> を参照してください。</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./inter-network-traffic-privacy.html">インターネットのプライバシー</div><div id="next" class="next-link" accesskey="n" href="./s3-access-control.html">Identity and access management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

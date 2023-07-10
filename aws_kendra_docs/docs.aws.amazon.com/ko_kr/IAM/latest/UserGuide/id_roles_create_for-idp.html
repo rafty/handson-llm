@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>서드 파티 자격 증명 공급자의 역할 만들기(연동) - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_create_for-idp" /><meta name="default_state" content="id_roles_create_for-idp" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html" /><meta name="description" content="서드 파티 공급자에 의해 인증된 사용자에 대한 IAM 역할을 생성합니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="사용 설명서" /><meta name="abstract" content="사용자 자격 증명(인증)과 특정 권한을 정의하는 정책(권한 부여)을 사용하여 AWS 리소스에 대한 액세스를 제어합니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="사용 설명서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="사용 설명서" /><meta id="panorama-serviceConsolePage" value="서드 파티 자격 증명 공급자의 역할 만들기(연동)" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>서드 파티 자격 증명 공급자의 역할 만들기(연동) - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_create_for-idp" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 사용자,사용자,IAM 그룹,그룹,IAM 역할,역할,권한 정책,신뢰 정책,정책,액세스 키,암호" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "사용 설명서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM 자격 증명(사용자, 사용자 그룹 및 역할)",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 역할",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "IAM 역할 생성",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "서드 파티 자격 증명 공급자의 역할 만들기(연동)",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_create_for-idp" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">사용 설명서</a></div><div id="page-toc-src"><a href="#roles-creatingrole-federated-users-console">페더레이션 사용자의 역할 만들기(콘솔)</a><a href="#roles-creatingrole-identityprovider-cli">페더레이션 액세스의 역할 만들기(AWS CLI)</a><a href="#roles-creatingrole-identityprovider-api">페더레이션 액세스의 역할 만들기(AWS API)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_create_for-idp">서드 파티 자격 증명 공급자의 역할 만들기(연동)</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS 계정에 속하는 IAM 사용자를 생성하는 대신에 자격 증명 공급자를 사용할 수 있습니다. 자격 증명 공급자(IdP)를 사용하면 AWS 외부의 사용자 자격 증명을 관리할 수 있고 이 외부 사용자 자격 증명에 계정의 AWS 리소스에 대한 사용 권한을 부여할 수 있습니다. 연동 및 자격 증명 공급자에 대한 자세한 내용은 <a href="./id_roles_providers.html">자격 증명 공급자 및 페더레이션</a> 섹션을 참조하세요.</p>
+    <h2 id="roles-creatingrole-federated-users-console">페더레이션 사용자의 역할 만들기(콘솔)</h2>
+    <p>페더레이션 사용자의 역할을 만드는 절차는 서드 파티 공급자들의 선택에 따라 다릅니다.</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>웹 자격 증명 또는 OpenID Connect 연동(OIDC)을 위한 역할 생성은 <a href="./id_roles_create_for-idp_oidc.html">웹 아이덴티티 또는 OpenID Connect 페더레이션을 위한 역할 생성(콘솔)</a> 섹션을 참조하세요.</p>
+      </li><li class="listitem">
+        <p>SAML 2.0은 <a href="./id_roles_create_for-idp_saml.html">SAML 2.0 연동을 위한 역할 생성(콘솔)</a> 섹션을 참조하세요.</p>
+      </li></ul></div>
+   
+    <h2 id="roles-creatingrole-identityprovider-cli">페더레이션 액세스의 역할 만들기(AWS CLI)</h2>
+    <p>AWS CLI에서 지원되는 자격 증명 공급자(OIDC 또는 SAML)의 역할을 만드는 절차는 동일합니다. 차이는 필수 선행 단계에서 생성하는 신뢰 정책의 내용에 있습니다. 사용하고 있는 공급자의 유형에 대한 <b>필수 선행 조건</b> 섹션에 나와 있는 절차에서부터 시작하세요.</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>OIDC 공급자의 경우 <a href="./id_roles_create_for-idp_oidc.html#idp_oidc_Prerequisites">웹 자격 증명 또는 OIDC의 역할 생성하기 위한 사전 조건</a> 섹션을 참조하세요.</p>
+      </li><li class="listitem">
+        <p>SAML 공급자의 경우 <a href="./id_roles_create_for-idp_saml.html#idp_saml_Prerequisites">SAML 역할을 생성하기 위한 사전 조건</a> 섹션을 참조하세요.</p>
+      </li></ul></div>
+    <p>AWS CLI에서 역할을 만들려면 여러 단계를 거쳐야 합니다. 콘솔을 사용하여 역할을 만들 때는 많은 단계가 자동으로 수행되지만 AWS CLI를 사용하면 각 단계를 직접 명시적으로 수행해야 합니다. 역할을 만든 다음 권한 정책을 역할에 할당해야 합니다. 선택적으로 역할에 대한 <a href="./access_policies_boundaries.html">권한 경계</a>를 설정할 수 있습니다.</p>
+    <div class="procedure"><h6><a id="createrolecli"></a>아이덴티티 페더레이션을 위한 역할을 생성하려면(AWS CLI)</h6><ol><li>
+        <p>역할 생성: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html">aws iam create-role</a></p>
+      </li><li>
+        <p>역할에 권한 정책 연결: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/attach-role-policy.html">aws iam attach-role-policy</a></p>
+        <p> 또는</p>
+        <p>역할을 위한 인라인 권한 정책 생성: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html">aws iam put-role-policy</a></p>
+      </li><li>
+        <p>(선택 사항) 태그를 연결하여 사용자 지정 속성을 역할에 추가: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/tag-role.html">aws iam tag-role</a></p>
+        <p>자세한 내용은 <a href="./id_tags_roles.html#id_tags_roles_procs-cli-api">IAM 역할의 태그 관리(AWS CLI 또는 AWS API)</a> 섹션을 참조하세요.</p>
+      </li><li>
+        <p>(선택 사항) 역할(<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-permissions-boundary.html">aws iam put-role-permissions-boundary</a>)에 대한 <a href="./access_policies_boundaries.html">권한 경계</a>를 설정합니다.</p>
+        <p>이 권한 경계는 역할이 가질 수 있는 최대 권한을 관리합니다. 권한 경계는 고급 AWS 기능입니다.</p>
+      </li></ol></div>
+    <p>다음 예는 단순한 환경에서 자격 증명 공급자를 생성하는 가장 일반적인 단계 중 첫 두 단계를 보여줍니다. 이 예제는 <code class="code">123456789012</code> 계정에 있는 모든 사용자가 역할을 수임하고 <code class="code">example_bucket</code> Amazon S3 버킷을 볼 수 있도록 허용합니다. 또한 이 예는 Windows가 구동중인 컴퓨터에서 AWS CLI를 실행하고 있으며 자격 증명으로 AWS CLI를 이미 구성했다고 가정합니다. 자세한 내용은 <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">AWS Command Line Interface 구성</a> 섹션을 참조하세요.</p>
+    <p>다음 예는 사용자가 Amazon Cognito를 사용하여 로그인하는 경우 모바일 앱에 대해 설계되는 신뢰 정책을 보여줍니다. 이 예제에서 <code class="replaceable">us-east:12345678-ffff-ffff-ffff-123456</code>은 Amazon Cognito에 의해 할당된 자격 증명 풀 ID를 나타냅니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": <span>{</span>
+        "Sid": "RoleForCognito",
+        "Effect": "Allow",
+        "Principal": <span>{</span>"Federated": "cognito-identity.amazonaws.com"},
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": <span>{</span>"StringEquals": <span>{</span>"cognito-identity.amazonaws.com:aud": "us-east:12345678-ffff-ffff-ffff-123456"}}
+    }
+}</code></pre>
+    <p>다음 권한 정책에서는 역할을 수임하는 사용자가 <code class="code">example_bucket</code> Amazon S3 버킷에서 <code class="code">ListBucket</code> 작업만 수행하도록 허용합니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "s3:ListBucket",
+    "Resource": "arn:aws:s3:::example_bucket"
+  }
+}</code></pre>
+    <p>이 <code class="code">Test-Cognito-Role</code> 역할을 생성하기 위해서는 이전 신뢰 정책을 <code class="code">trustpolicyforcognitofederation.json</code> 이름으로 이전 권한 정책을 <code class="code">permspolicyforcognitofederation.json</code> 이름으로 로컬 <code class="code">policies</code> 드라이브의 <code class="code">C:</code> 폴더에 먼저 저장해야 합니다. 그러고 나면 다음 명령을 사용하여 역할을 만들고 인라인 정책을 연결합니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false"># Create the role and attach the trust policy that enables users in an account to assume the role.
+$ </code><code class="userinput">aws iam create-role --role-name Test-Cognito-Role --assume-role-policy-document file://C:\policies\trustpolicyforcognitofederation.json</code>
+<code class="code" copy="false">
+# Attach the permissions policy to the role to specify what it is allowed to do.
+</code><code class="userinput">aws iam put-role-policy --role-name Test-Cognito-Role --policy-name Perms-Policy-For-CognitoFederation --policy-document file://C:\policies\permspolicyforcognitofederation.json</code></code></pre>
+   
+    <h2 id="roles-creatingrole-identityprovider-api">페더레이션 액세스의 역할 만들기(AWS API)</h2>
+    <p>AWS CLI에서 지원되는 자격 증명 공급자(OIDC 또는 SAML)의 역할을 만드는 절차는 동일합니다. 차이는 필수 선행 단계에서 생성하는 신뢰 정책의 내용에 있습니다. 사용하고 있는 공급자의 유형에 대한 <b>필수 선행 조건</b> 섹션에 나와 있는 절차에서부터 시작하세요.</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>OIDC 공급자의 경우 <a href="./id_roles_create_for-idp_oidc.html#idp_oidc_Prerequisites">웹 자격 증명 또는 OIDC의 역할 생성하기 위한 사전 조건</a> 섹션을 참조하세요.</p>
+      </li><li class="listitem">
+        <p>SAML 공급자의 경우 <a href="./id_roles_create_for-idp_saml.html#idp_saml_Prerequisites">SAML 역할을 생성하기 위한 사전 조건</a> 섹션을 참조하세요.</p>
+      </li></ul></div>
+    <div class="procedure"><h6><a id="createroleapi"></a>아이덴티티 페더레이션을 위한 역할을 생성하려면(AWS API)</h6><ol><li>
+        <p>역할 만들기: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a></p>
+      </li><li>
+        <p>역할에 권한 정책 연결: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html">AttachRolePolicy</a></p>
+        <p> 또는</p>
+        <p>역할을 위한 인라인 권한 정책 생성: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html">PutRolePolicy</a></p>
+      </li><li>
+        <p>(선택 사항) 태그를 연결하여 사용자 지정 속성을 사용자에게 추가: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_TagRole.html">TagRole</a></p>
+        <p>자세한 내용은 <a href="./id_tags_users.html#id_tags_users_procs-cli-api">IAM 사용자의 태그 관리(AWS CLI 또는 AWS API)</a> 섹션을 참조하세요.</p>
+      </li><li>
+        <p>(선택 사항) 역할(<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePermissionsBoundary.html">PutRolePermissionsBoundary</a>)에 대한 <a href="./access_policies_boundaries.html">권한 경계</a>를 설정합니다.</p>
+        <p>이 권한 경계는 역할이 가질 수 있는 최대 권한을 관리합니다. 권한 경계는 고급 AWS 기능입니다.</p>
+      </li></ol></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_create_for-service.html">AWS 서비스에 대한 역할 생성</div><div id="next" class="next-link" accesskey="n" href="./id_roles_create_for-idp_oidc.html">웹 자격 증명/OIDC 페더레이션을 위한 역할 생성</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-idp.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

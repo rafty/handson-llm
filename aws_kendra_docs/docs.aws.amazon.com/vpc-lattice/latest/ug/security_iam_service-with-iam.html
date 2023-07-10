@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>How Amazon VPC Lattice works with IAM - Amazon VPC Lattice</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="security_iam_service-with-iam" /><meta name="default_state" content="security_iam_service-with-iam" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/security_iam_service-with-iam.html" /><meta name="description" content="Before you use IAM to manage access to VPC Lattice, learn what IAM features are available to use with VPC Lattice. Identity-based policies Yes Resource-based policies Yes Policy actions Yes Policy resources Yes Policy condition keys" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon VPC Lattice" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Insert abstract text" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/security_iam_service-with-iam.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/security_iam_service-with-iam.html" hreflang="x-default" /><meta name="feedback-item" content="VPC Lattice" /><meta name="this_doc_product" content="Amazon VPC Lattice" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'vpc-lattice'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="How Amazon VPC Lattice works with IAM" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>How Amazon VPC Lattice works with IAM - Amazon VPC Lattice</title><meta name="pdf" content="/pdfs/vpc-lattice/latest/ug/vpc-lattice.pdf#security_iam_service-with-iam" /><meta name="rss" content="lattice.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC%20Lattice&amp;topic_url=http://docs.aws.amazon.com/en_us/vpc-lattice/latest/ug/security_iam_service-with-iam.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/vpc-lattice/latest/ug/security_iam_service-with-iam.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/vpc-lattice/latest/ug/security_iam_service-with-iam.html" /><meta name="keywords" content="Amazon VPC Lattice,Amazon VPC Lattice" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "VPC Lattice",
+        "item" : "https://docs.aws.amazon.com/vpc-lattice/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/vpc-lattice/latest/ug"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon VPC Lattice",
+        "item" : "https://docs.aws.amazon.com/vpc-lattice/latest/ug/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management for Amazon VPC Lattice",
+        "item" : "https://docs.aws.amazon.com/vpc-lattice/latest/ug/security-iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "How Amazon VPC Lattice works with IAM",
+        "item" : "https://docs.aws.amazon.com/vpc-lattice/latest/ug/security-iam.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/vpc-lattice/latest/ug/vpc-lattice.pdf#security_iam_service-with-iam" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/vpc-lattice/index.html">VPC Lattice</a><a href="what-is-vpc-lattice.html">User Guide</a></div><div id="page-toc-src"><a href="#security_iam_service-with-iam-id-based-policies">Identity-based policies</a><a href="#security_iam_service-with-iam-resource-based-policies">Resource-based policies</a><a href="#security_iam_service-with-iam-id-based-policies-actions">Policy actions</a><a href="#security_iam_service-with-iam-id-based-policies-resources">Policy resources</a><a href="#security_iam_service-with-iam-id-based-policies-conditionkeys">Policy condition keys</a><a href="#security_iam_service-with-iam-acls">ACLs</a><a href="#security_iam_service-with-iam-tags">ABAC</a><a href="#security_iam_service-with-iam-roles-tempcreds">Temporary credentials</a><a href="#security_iam_service-with-iam-roles-service">Service roles</a><a href="#security_iam_service-with-iam-roles-service-linked">Service-linked roles</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="security_iam_service-with-iam">How Amazon VPC Lattice works with IAM</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Before you use IAM to manage access to VPC Lattice, learn what IAM features are
+         available to use with VPC Lattice.</p><p></p><div class="table-container"><div class="table-contents"><table id="w148aac40c26c15b9"><thead><tr><th class="table-header" colspan="100"><div class="title">IAM features you can use with Amazon VPC Lattice</div></th></tr>
+            <tr>
+               <th>IAM feature</th>
+               <th>VPC Lattice support</th>
+            </tr>
+         </thead>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-id-based-policies">Identity-based policies</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     Yes</p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-resource-based-policies">Resource-based policies</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     Yes</p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-id-based-policies-actions">Policy actions</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     Yes</p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-id-based-policies-resources">Policy resources</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     Yes</p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-id-based-policies-conditionkeys">Policy condition keys</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     Yes</p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-acls">ACLs</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     No
+    </p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-tags">ABAC (tags in
+                        policies)</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     Yes</p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-roles-tempcreds">Temporary
+                        credentials</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     Yes</p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-roles-service">Service
+                        roles</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     No
+    </p>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <p><a href="#security_iam_service-with-iam-roles-service-linked">Service-linked roles</a></p>
+               </td>
+               <td>
+                  <p>
+     
+     Yes</p>
+               </td>
+            </tr>
+         </table></div></div><p>For a high-level view of how VPC Lattice and other AWS services work with most IAM
+      features, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS
+         services that work with IAM</a> in the <em>IAM User Guide</em>.</p>
+      <h2 id="security_iam_service-with-iam-id-based-policies">Identity-based policies
+            for VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c13b5">
+               <tr>
+                  <td>
+                     <p>Supports identity-based policies</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     Yes</p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      
+     
+         
+   
+         <p>Identity-based policies are JSON permissions policy documents that you can attach to an identity, such as an IAM user, group of users, or role. These
+            policies control what actions users and roles can perform, on which resources, and under what conditions. To learn how to create an identity-based
+            policy, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html">Creating IAM policies</a> in the
+            <em>IAM User Guide</em>.</p>
+  
+         <p>With IAM identity-based policies, you can specify allowed or denied actions and
+            resources as well as the conditions under which actions are allowed or denied.  You
+            can't specify the principal in an identity-based policy because it applies to the user
+            or role to which it is attached. To learn about all of the elements that you can use in a
+            JSON policy, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html">IAM JSON
+               policy elements reference</a> in the
+            <em>IAM User Guide</em>.</p>
+  
+      
+      
+    
+      <h2 id="security_iam_service-with-iam-resource-based-policies">Resource-based
+            policies within VPC Lattice</h2>
+
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c15b5">
+               <tr>
+                  <td>
+                     <p>Supports resource-based policies</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     Yes</p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      <p>Resource-based policies are JSON policy documents that you attach to a resource. In
+         services that support resource-based policies, service administrators can use them to
+         control access to a specific resource. For the resource where the policy is attached, the
+         policy defines what actions a specified principal can perform on that resource and under
+         what conditions. You must specify a principal in a resource-based policy.</p>
+      <p>VPC Lattice supports <em>auth policies</em>, a resource-based
+         policy that lets you control access to services in your service network. For more
+         information, see <a href="./auth-policies.html">Control access to services using auth policies</a>.</p>
+      <p>VPC Lattice also supports resource-based permissions policies for integration with
+         AWS Resource Access Manager. You can use these resource-based policies to grant usage permission to other
+         AWS accounts or organizations to enable resource sharing. For more information, see <a href="./sharing.html">Share your VPC Lattice resources</a>.</p>
+    
+      <h2 id="security_iam_service-with-iam-id-based-policies-actions">Policy actions
+            for VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c17b5">
+               <tr>
+                  <td>
+                     <p>Supports policy actions</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     Yes</p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      <p>In an IAM policy statement, you can specify any API action from any service that
+         supports IAM. For VPC Lattice, use the following prefix with the name of the API action:
+            <code class="code">vpc-lattice:</code>. For example: <code class="code">vpc-lattice:CreateService</code>,
+            <code class="code">vpc-lattice:CreateTargetGroup</code>, and
+         <code class="code">vpc-lattice:PutAuthPolicy</code>.</p>
+      <p>To specify multiple actions in a single statement, separate them with commas, as
+         follows:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Action": [ "vpc-lattice:<code class="replaceable">action1</code>", "vpc-lattice:<code class="replaceable">action2</code>" ]</code></pre>
+      <p>You can also specify multiple actions using wildcards. For example, you can specify all
+         actions whose names begin with the word <code class="code">Get</code>, as follows:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Action": "vpc-lattice:Get*"</code></pre>
+      <p>For a complete list of VPC Lattice API actions, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonvpclattice.html#amazonvpclattice-actions-as-permissions">Actions defined by Amazon VPC Lattice
+      </a> in the <em>Service Authorization Reference</em>.</p>
+    
+      <h2 id="security_iam_service-with-iam-id-based-policies-resources">Policy
+            resources for VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c19b5">
+               <tr>
+                  <td>
+                     <p>Supports policy resources</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     Yes</p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      <p>In an IAM policy statement, the <code class="code">Resource</code> element specifies the object or
+         objects that the statement covers. For VPC Lattice, each IAM policy statement applies to
+         the resources that you specify using their ARNs.</p>
+      <p>The specific Amazon Resource Name (ARN) format depends on the resource. When you provide
+         an ARN, replace the <code class="replaceable">italicized</code> text with your resource-specific
+         information. </p>
+      <div class="itemizedlist">
+          
+          
+          
+          
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p><b>Access log subscriptions:</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:vpc-lattice:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:accesslogsubscription/<code class="replaceable">access-log-subscription-id</code>"</code></pre>
+         </li><li class="listitem">
+            <p><b>Listeners:</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:vpc-lattice:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:service/<code class="replaceable">service-id</code>/listener/<code class="replaceable">listener-id</code>"</code></pre>
+         </li><li class="listitem">
+            <p><b>Rules:</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:vpc-lattice:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:service/<code class="replaceable">service-id</code>/listener/<code class="replaceable">listener-id</code>/rule/<code class="replaceable">rule-id</code>"</code></pre>
+         </li><li class="listitem">
+            <p><b>Services:</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:vpc-lattice:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:service/<code class="replaceable">service-id</code>"</code></pre>
+         </li><li class="listitem">
+            <p><b>Service networks:</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:vpc-lattice:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:servicenetwork/<code class="replaceable">service-network-id</code>"</code></pre>
+         </li><li class="listitem">
+            <p><b>Service network service associations:</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:vpc-lattice:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:servicenetworkserviceassociation/<code class="replaceable">service-network-service-association-id</code>"</code></pre>
+         </li><li class="listitem">
+            <p><b>Service network VPC associations:</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:vpc-lattice:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:servicenetworkvpcassociation/<code class="replaceable">service-network-vpc-association-id</code>"</code></pre>
+         </li><li class="listitem">
+            <p><b>Target groups:</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:vpc-lattice:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:targetgroup/<code class="replaceable">target-group-id</code>"</code></pre>
+         </li></ul></div>
+    
+      <h2 id="security_iam_service-with-iam-id-based-policies-conditionkeys">Policy
+            condition keys for VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c21b5">
+               <tr>
+                  <td>
+                     <p>Supports service-specific policy condition keys</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     Yes</p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      <p>You can specify conditions in the IAM policies that control access to VPC Lattice
+         resources. The policy statement is effective only when the conditions are true. </p>
+      <p>VPC Lattice supports the following service-defined condition keys that you can use in
+         identity-based policies to determine who can perform VPC Lattice API actions.   For more information, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonvpclatticeservices.html#amazonvpclatticeservices-policy-keys">Condition keys for Amazon VPC Lattice Services
+         </a> in the <em>Service Authorization Reference</em>.</p>
+      <div class="table-container"><div class="table-contents disable-scroll"><table id="w148aac40c26c15c21c11"><thead><tr><th class="table-header" colspan="100"><div class="title">Service-defined condition keys for identity-based policies</div></th></tr>
+               <tr>
+                  <th>Condition keys</th>
+                  <th>Description</th>
+                  <th>Supported for these actions</th>
+               </tr>
+            </thead>
+               <tr>
+                  <td>
+                     <p><code class="code">vpc-lattice:AuthType</code></p>
+                  </td>
+                  <td>Filters access by the auth type in the request (<code class="code">AWS_IAM</code> or
+                        <code class="code">NONE</code>)</td>
+                  <td>
+                     <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                     <ul class="itemizedlist"><li class="listitem">
+                           <p>CreateService</p>
+                        </li><li class="listitem">
+                           <p>CreateServiceNetwork</p>
+                        </li><li class="listitem">
+                           <p>UpdateService</p>
+                        </li><li class="listitem">
+                           <p>UpdateServiceNetwork</p>
+                        </li></ul></div>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p><code class="code">vpc-lattice:Protocol</code></p>
+                  </td>
+                  <td>Filters access by the protocol in the request (<code class="code">HTTP</code> or
+                        <code class="code">HTTPS</code>)</td>
+                  <td>
+                     <div class="itemizedlist">
+                         
+                     <ul class="itemizedlist"><li class="listitem">
+                           <p>CreateListener</p>
+                        </li></ul></div>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p><code class="code">vpc-lattice:SecurityGroupIds</code>
+                     </p>
+                  </td>
+                  <td>
+                     <p>Filters access by the security group IDs in the request</p>
+                  </td>
+                  <td>
+                     <div class="itemizedlist">
+                         
+                         
+                     <ul class="itemizedlist"><li class="listitem">
+                           <p>CreateServiceNetworkVpcAssociation</p>
+                        </li><li class="listitem">
+                           <p>UpdateServiceNetworkVpcAssociation</p>
+                        </li></ul></div>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p><code class="code">vpc-lattice:ServiceArn</code>
+                     </p>
+                  </td>
+                  <td>
+                     <p>Filters access by the ARN of a service in the request</p>
+                  </td>
+                  <td>
+                     <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                     <ul class="itemizedlist"><li class="listitem">
+                           <p>CreateServiceNetworkServiceAssociation</p>
+                        </li><li class="listitem">
+                           <p>DeleteServiceNetworkServiceAssociation</p>
+                        </li><li class="listitem">
+                           <p>GetServiceNetworkServiceAssociation</p>
+                        </li><li class="listitem">
+                           <p>ListServiceNetworkServiceAssociations</p>
+                        </li></ul></div>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p><code class="code">vpc-lattice:ServiceNetworkArn</code>
+                     </p>
+                  </td>
+                  <td>Filters access by the ARN of a service network in the request</td>
+                  <td>
+                     <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                         
+                     <ul class="itemizedlist"><li class="listitem">
+                           <p>CreateServiceNetworkServiceAssociation</p>
+                        </li><li class="listitem">
+                           <p>CreateServiceNetworkVpcAssociation</p>
+                        </li><li class="listitem">
+                           <p>DeleteServiceNetworkVpcAssociation</p>
+                        </li><li class="listitem">
+                           <p>GetServiceNetworkServiceAssociation</p>
+                        </li><li class="listitem">
+                           <p>GetServiceNetworkVpcAssociation</p>
+                        </li><li class="listitem">
+                           <p>ListServiceNetworkServiceAssociations</p>
+                        </li><li class="listitem">
+                           <p>ListServiceNetworkVpcAssociations</p>
+                        </li><li class="listitem">
+                           <p>UpdateServiceNetworkVpcAssociation</p>
+                        </li></ul></div>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p><code class="code">vpc-lattice:TargetGroupArns</code></p>
+                  </td>
+                  <td>Filters access by the ARNs of target groups in the request</td>
+                  <td>
+                     <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                     <ul class="itemizedlist"><li class="listitem">
+                           <p>CreateListener</p>
+                        </li><li class="listitem">
+                           <p>CreateRule</p>
+                        </li><li class="listitem">
+                           <p>UpdateListener</p>
+                        </li><li class="listitem">
+                           <p>UpdateRule</p>
+                        </li></ul></div>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p><code class="code">vpc-lattice:VpcId</code>
+                     </p>
+                  </td>
+                  <td>
+                     <p>Filters access by the ID of a virtual private cloud (VPC) in the
+                        request</p>
+                  </td>
+                  <td>
+                     <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                         
+                         
+                     <ul class="itemizedlist"><li class="listitem">
+                           <p>CreateServiceNetworkVpcAssociation</p>
+                        </li><li class="listitem">
+                           <p>CreateTargetGroup</p>
+                        </li><li class="listitem">
+                           <p>DeleteServiceNetworkVpcAssociation</p>
+                        </li><li class="listitem">
+                           <p>GetServiceNetworkVpcAssociation</p>
+                        </li><li class="listitem">
+                           <p>ListServiceNetworkVpcAssociations</p>
+                        </li><li class="listitem">
+                           <p>UpdateServiceNetworkVpcAssociation</p>
+                        </li></ul></div>
+                  </td>
+               </tr>
+            </table></div></div>
+      <p>AWS supports global condition keys and service-specific condition keys. For
+         information about AWS global condition keys, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS global condition
+            context keys</a> in the <em>IAM User Guide</em>.</p>
+    
+      <h2 id="security_iam_service-with-iam-acls">Access control lists (ACLs) in
+            VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c23b5">
+               <tr>
+                  <td>
+                     <p>Supports ACLs</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     No
+    </p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      
+     
+            
+   
+   <p>Access control lists (ACLs) control which principals (account members, users, or roles) have permissions to access a resource. ACLs are
+            similar to resource-based policies, although they do not use the JSON policy document format.</p>
+  
+  
+      
+      
+    
+      <h2 id="security_iam_service-with-iam-tags">Attribute-based access control (ABAC)
+            with VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c25b5">
+               <tr>
+                  <td>
+                     <p>Supports ABAC (tags in policies)</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     Yes</p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      
+   
+      <p>Attribute-based access control (ABAC) is an authorization strategy that defines permissions
+      based on attributes. In AWS, these attributes are called <em>tags</em>. You can attach tags to IAM entities (users
+      or roles) and to many AWS resources. Tagging entities and resources is the first step of ABAC. Then you 
+      design ABAC policies to allow operations when the principal's tag matches the tag on the resource that they 
+      are trying to access.</p>
+      <p>ABAC is helpful in environments that are growing rapidly and helps with situations where policy management becomes cumbersome.</p>
+      <p>To control access based on tags, you provide tag information in the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">condition
+         element</a> of a policy using the
+         <code class="code">aws:ResourceTag/<code class="replaceable">key-name</code></code>,
+         <code class="code">aws:RequestTag/<code class="replaceable">key-name</code></code>, or
+         <code class="code">aws:TagKeys</code> condition keys.</p>
+           <p>If a service supports all three condition keys for every resource type, then the value is <b>Yes</b> for the service. 
+  If a service supports all three condition keys for only some resource types, then the value is <b>Partial</b>.</p>
+  <p>For more information about ABAC, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html">What is ABAC?</a> in the <em>IAM User Guide</em>. To view a tutorial with steps for setting up ABAC, see 
+  <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html">Use attribute-based access control (ABAC)</a> in the <em>IAM User Guide</em>.</p>
+  
+    
+      <h2 id="security_iam_service-with-iam-roles-tempcreds">Using temporary credentials
+            with VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c27b5">
+               <tr>
+                  <td>
+                     <p>Supports temporary credentials</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     Yes</p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      
+   
+         <p>Some AWS services don't work when you sign in using temporary credentials. For additional 
+         information, including which AWS services work with temporary credentials, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services
+               that work with IAM</a> in the <em>IAM User Guide</em>.</p>
+         <p>You are using temporary credentials if you sign in to the AWS Management Console using any method
+            except a user name and password. For example, when you access AWS using your
+            company's single sign-on (SSO) link, that process automatically creates temporary credentials.
+            You also automatically create temporary credentials when you sign in to the console as a user and
+            then switch roles. For more information about switching roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html">Switching to a role
+               (console)</a> in the <em>IAM User Guide</em>.</p>
+         <p>You can manually create temporary credentials using the AWS CLI or AWS API. You can
+            then use those temporary credentials to access AWS. AWS recommends that you
+            dynamically generate temporary credentials instead of using long-term access keys. For
+            more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html">Temporary
+               security credentials in IAM</a>.</p>
+  
+    
+      <h2 id="security_iam_service-with-iam-roles-service">Service roles for
+            VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c29b5">
+               <tr>
+                  <td>
+                     <p>Supports service roles</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     No
+    </p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      
+   
+         <p>
+
+      A service role is an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM role</a> that a service assumes to perform 
+      actions on your behalf. An IAM administrator can create, modify, and delete a service role from within IAM. For 
+      more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating a role to delegate permissions 
+      to an AWS service</a> in the <em>IAM User Guide</em>.
+ </p>
+  
+      <div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>Changing the permissions for a service role might break VPC Lattice functionality. Edit
+            service roles only when VPC Lattice provides guidance to do so.</p></div></div>
+    
+      <h2 id="security_iam_service-with-iam-roles-service-linked">Service-linked roles
+            for VPC Lattice</h2>
+      
+     
+      <div class="table-container"><div class="table-contents"><table id="w148aac40c26c15c31b5">
+               <tr>
+                  <td>
+                     <p>Supports service-linked roles</p>
+                  </td>
+                  <td>
+                     <p>
+     
+     Yes</p>
+                  </td>
+               </tr>
+            </table></div></div>
+  
+      
+   
+         <p>
+
+      A service-linked role is a type of service role that is linked to an AWS service. The service can assume the role to perform an action on your behalf. 
+      Service-linked roles appear in your AWS account and are owned by the service. An IAM administrator can view, 
+      but not edit the permissions for service-linked roles. 
+ </p>
+  
+      <p>For information about creating or managing VPC Lattice service-linked roles, see <a href="./using-service-linked-roles.html">Using service-linked roles for
+            VPC Lattice</a>.</p>
+   <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./security-iam.html">Identity and access management</div><div id="next" class="next-link" accesskey="n" href="./additional-api-permissions.html">API permissions</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC Lattice&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc-lattice/latest/ug/security_iam_service-with-iam.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=VPC Lattice&amp;topic_url=https://docs.aws.amazon.com/en_us/vpc-lattice/latest/ug/security_iam_service-with-iam.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

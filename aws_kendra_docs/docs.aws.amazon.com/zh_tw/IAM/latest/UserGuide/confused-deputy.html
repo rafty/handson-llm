@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>混淆代理人問題 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="confused-deputy" /><meta name="default_state" content="confused-deputy" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" /><meta name="description" content="混淆代理人問題屬於安全性議題，其中沒有執行動作許可的實體可以強制具有更多權限的實體執行該動作。為了防止這種情況，如果您提供第三方 (稱為 跨帳戶 ) 或其他 AWS 服務 (稱為 跨服務 ) 來存取您帳戶中的資源，則 AWS 提供的工具可協助您保護帳戶。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="使用者指南" /><meta name="abstract" content="透過使用者身分 (身分驗證) 和定義特定許可 (授權) 的政策，控制存取您的 AWS 資源。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="使用者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="使用者指南" /><meta id="panorama-serviceConsolePage" value="混淆代理人問題" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>混淆代理人問題 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#confused-deputy" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 使用者,使用者,IAM 群組,群組,IAM 角色,角色,許可政策,信任政策,政策,存取金鑰,密碼" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "使用者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM 身分 (使用者、使用者群組和角色)",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 角色",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "常見的角色方案：使用者、應用程式和服務",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "混淆代理人問題",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#confused-deputy" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">使用者指南</a></div><div id="page-toc-src"><a href="#mitigate-confused-deputy">預防跨帳戶混淆代理人</a><a href="#cross-service-confused-deputy-prevention">預防跨服務混淆代理人</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="confused-deputy">混淆代理人問題</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>混淆代理人問題屬於安全性議題，其中沒有執行動作許可的實體可以強制具有更多權限的實體執行該動作。為了防止這種情況，如果您提供第三方 (稱為<em>跨帳戶</em>) 或其他 AWS 服務 (稱為<em>跨服務</em>) 來存取您帳戶中的資源，則 AWS 提供的工具可協助您保護帳戶。</p><p>有時，您可能需要向第三方提供對您的 AWS 資源的存取權 (提供存取權)。例如，假設您決定聘請一家名為 Example Corp 的第三方公司來監控您的 AWS 帳戶 並幫助改善成本。為追蹤您的日常開支，Example Corp 需要存取您的 AWS 資源。Example Corp 也可監控其他客戶的許多其他 AWS 帳戶。您可以使用 IAM 角色，在您的 AWS 帳戶 與 Example Corp 帳戶之間建立信任關係。此方案的一個重要層面是<em>外部 ID</em>，外部 ID 是一條可選資訊，您可在 IAM 角色信任政策中使用該資訊來指定誰能擔任該角色。外部 ID 的主要功能是解決並防止「混淆代理人」問題。</p><p>在 AWS 中，跨服務模擬可能會導致混淆代理人問題。在某個服務 (<em>呼叫服務</em>) 呼叫另一個服務 (<em>被呼叫服務</em>) 時，可能會發生跨服務模擬。可以操縱呼叫服務來使用其許可，以其不應有存取許可的方式對其他客戶的資源採取動作。</p>
+        <h2 id="mitigate-confused-deputy">預防跨帳戶混淆代理人</h2>
+        <p>下圖說明了跨帳戶混淆代理人問題。</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputyproblem2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                混淆代理人問題描述。&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <p>此案例假設如下：</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>AWS1</b> 是你的 AWS 帳戶。</p>
+            </li><li class="listitem">
+                <p><b>AWS1:ExampleRole</b> 是您帳戶中的角色。此角色的信任政策透過將 Example Corp 的 AWS 帳戶指定為可擔任該角色的帳戶來信任 Example Corp。</p>
+            </li></ul></div>
+        <p>將發生以下情況：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>在您開始使用 Example Corp 的服務時，您將向 Example Corp 提供 <b>AWS1:ExampleRole</b> 的 ARN。</p>
+            </li><li>
+                <p>Example Corp 使用該角色 ARN 取得臨時安全性憑證以存取您的 AWS 帳戶 中的資源。這樣一來，您將信任 Example Corp 做為可代表您執行操作的「代理人」。</p>
+            </li><li>
+                <p>另一個 AWS 客戶也開始使用 Example Corp 的服務，而且此客戶還為 Example Corp 提供 <b>AWS1:ExampleRole</b> 的 ARN 以供其使用。另一個客戶可能已了解或猜到已不是機密資訊的 <b>AWS1:ExampleRole</b>。</p>
+            </li><li>
+                <p>當另一個客戶要求 Example Corp 存取 (它聲稱的) 其帳戶中的 AWS 資源時，Example Corp 會使用 <b>AWS1:ExampleRole</b> 存取您帳戶中的資源。</p>
+            </li></ol></div>
+        <p>這就是其他客戶可對您的資源進行未授權存取的方式。由於此客戶能夠誘使 Example Corp 無意中操作您的資源，因此 Example Corp 現在是一個「混淆代理人」。</p>
+        <p>Example Corp 可以透過要求在角色的信任政策中包含 <code class="code">ExternalId</code> 條件檢查來解決混淆代理人問題。Example Corp 為每個客戶生成唯一的 <code class="code">ExternalId</code> 值，並在其請求中使用該值來擔任此角色。因此，<code class="code">ExternalId</code> 值必須在 Example Corp 的客戶中具備唯一性，並由 Example Corp 而非其客戶控制。這就是您從 Example Corp 取得該 ID 且不能自行提供該 ID 的原因。這可以防止 Example Corp 成為混淆代理人，並授予存取其他帳戶的 AWS 資源的權利。</p>
+        <p>在我們的方案中，假設 Example Corp 為您提供的獨有識別碼是 12345，而為另一個客戶提供的識別碼是 67890。這些識別碼已針對此方案進行簡化。通常，這些識別碼為 GUID。假定這些識別碼在 Example Corp 的客戶之間是獨有的，它們將是用於外部 ID 的有意義的值。</p>
+        <p>Example Corp 將為您提供外部 ID 值 12345。然後，您必須將一個 <code class="code">Condition</code> 元素加入到角色的信任政策，該政策要求 <code class="code">sts:ExternalId</code> 值為 12345，如下所示：</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "AWS": "<code class="replaceable">Example Corp's AWS Account ID</code>"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "StringEquals": <span>{</span>
+        "sts:ExternalId": "12345"
+      }
+    }
+  }
+}
+</code></pre>
+        <p>此政策中的 Condition 元素允許 Example Corp 僅在 AssumeRole API 呼叫包括外部 ID 值 12345 時擔任該角色。Example Corp 會確認，只要它代表客戶擔任角色，就會一律在 AssumeRole 呼叫中包括客戶的外部 ID。即使另一個客戶向 Example Corp 提供您的 ARN，也無法控制 Example Corp 包括在其發送給 AWS 的請求中的外部 ID。這有助於防止未經授權的客戶取得對您的資源的存取權限。</p>
+        <p>下圖說明此程序。</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputymitigation2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                如何消除混淆代理人問題。&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>與之前一樣，在您開始使用 Example Corp 的服務時，您將向 Example Corp 提供 <b>AWS1:ExampleRole</b> 的 ARN。</p>
+            </li><li>
+                <p> 在 Example Corp 使用該角色 ARN 來擔任 <b>AWS1:ExampleRole</b> 角色時，Example Corp 將在 AssumeRole API 呼叫中包含您的外部 ID (12345)。該外部 ID 與角色的信任政策相符，因此 AssumeRole API 呼叫將成功，並且 Example Corp 將取得用於存取您的 AWS 帳戶 中的資源的臨時安全性憑證。</p>
+            </li><li>
+                <p>另一個 AWS 客戶也開始使用 Example Corp 的服務，而且與之前一樣，此客戶也為 Example Corp 提供 <b>AWS1:ExampleRole</b> 的 ARN 以供其使用。</p>
+            </li><li>
+                <p>但這一次，在 Example Corp 嘗試擔任角色 <b>AWS1:ExampleRole</b> 時，它提供與其他客戶建立關聯的外部 ID (67890)。其他客戶無法更改此外部 ID。Example Corp 這樣做是因為另一個客戶請求使用該角色，因此 67890 表示 Example Corp 正在其中操作的環境。因為您已將具有您自己的外部 ID (12345) 的條件新增至 <b>AWS1:ExampleRole</b> 的信任政策，所以 AssumeRole API 呼叫將失敗。該其他客戶不能對您帳戶中的資源進行未經授權的存取 (由圖表中的紅色 "X" 表示)。</p>
+            </li></ol></div>
+        <p>該外部 ID 說明阻止任何其他客戶誘使 Example Corp 無意中存取您的資源。</p>
+     
+        <h2 id="cross-service-confused-deputy-prevention">預防跨服務混淆代理人</h2>
+        <p>建議您在資源型政策中使用 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn"><code class="code">aws:SourceArn</code></a> 和 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount"><code class="code">aws:SourceAccount</code></a> 全域條件內容金鑰，將服務具備的許可限定於特定資源。如果您想要僅允許一個資源與跨服務存取相關聯，則請使用 <code class="code">aws:SourceArn</code>。如果您想要允許該帳戶中的任何資源與跨服務使用相關聯，請使用 <code class="code">aws:SourceAccount</code>。</p>
+        <p>防範混淆代理人問題的最有效方法是使用 <code class="code">aws:SourceArn</code> 全域條件內容金鑰，其中包含資源型政策中資源的完整 ARN。如果不知道資源的完整 ARN，或者如果您指定了多個資源，請使用 <code class="code">aws:SourceArn</code> 全域條件內容金鑰，同時使用萬用字元 (<code class="code">*</code>) 表示 ARN 的未知部分。例如 <code class="code">arn:aws:<code class="replaceable">servicename</code>:*:<code class="replaceable">123456789012</code>:*</code>。</p>
+        <p>如果 <code class="code">aws:SourceArn</code> 值不包含帳戶 ID (例如 Amazon S3 儲存貯體 ARN)，您必須使用這兩個全域條件內容金鑰來限制許可。</p>
+
+         
+            <h3 id="cross-service-confused-deputy-prevention-sts">預防 AWS Security Token Service 的跨服務混淆代理人</h3>
+            <p>許多 AWS 服務需要您使用角色，讓服務代表您存取其他服務的資源。服務會擔任代您執行動作的角色稱為<a href="./id_roles_terms-and-concepts.html#iam-term-service-role">服務角色</a>。角色需要兩個政策：指定允許承擔角色的主體的角色信任政策；以及指定角色可執行動作的許可政策。角色信任政策是 IAM 中唯一的資源型政策類型。其他 AWS 服務採用資源型政策，例如 Amazon S3 儲存貯體政策。</p>
+            <p>當服務代表您擔任角色時，必須允許服務主體執行角色信任政策中的 <code class="code">sts:AssumeRole</code> 動作。當服務呼叫 <code class="code">sts:AssumeRole</code> 時，AWS STS 會傳回服務主體用來存取角色許可政策允許之資源的一組暫時安全登入資料。當服務在您的帳戶中擔任角色時，您可以在角色信任政策中包含 <code class="code">aws:SourceAccount</code> 和 <code class="code">aws:SourceArn</code> 全域條件內容金鑰，以將角色的存取限制為僅由預期資源產生的要求。</p>
+            <p>例如，在 AWS Systems Manager Incident Manager 中，您必須選擇角色，讓 Incident Manager 代表您執行 Systems Manager 自動化文件。自動化文件可包含由 CloudWatch 警示或 EventBridge 事件啟動之事件的自動化回應計劃。在下列角色信任政策範例中，您可以使用 <code class="code">aws:SourceArn</code> 條件金鑰，以根據事件記錄的 ARN 限制對服務角色的存取。只有從回應計劃資源 <code class="code">myresponseplan</code> 建立的事件記錄能夠使用此角色。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "Service": "ssm-incidents.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "ArnLike": <span>{</span>
+        "aws:SourceArn": "arn:aws:ssm-incidents:*:<code class="replaceable">111122223333</code>:incident-record/<code class="replaceable">myresponseplan</code>/*"
+      }
+    }
+  }
+}</code></pre>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_common-scenarios_services.html">提供隊 AWS 服務的存取</div><div id="next" class="next-link" accesskey="n" href="./id_roles_common-scenarios_federated-users.html">透過聯合身分提供存取</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

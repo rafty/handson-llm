@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Configuring SAML assertions for the authentication response - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_providers_create_saml_assertions" /><meta name="default_state" content="id_roles_providers_create_saml_assertions" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" /><meta name="description" content="Learn the requirements of SAML assertions that are sent by the SAML 2.0 identity provider service to AWS for validation. Find a mapping of the SAML attributes to AWS context keys." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Configuring SAML assertions for the authentication response" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Configuring SAML assertions for the authentication response - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#id_roles_providers_create_saml_assertions" /><meta name="github" content="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/id_roles_providers_create_saml_assertions.md" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM Identities (users, user groups, and roles)",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM roles",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Identity providers and federation",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Creating IAM identity providers",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Creating IAM SAML identity providers",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 9,
+        "name" : "Configuring SAML assertions for the authentication response",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#id_roles_providers_create_saml_assertions" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/id_roles_providers_create_saml_assertions.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#saml_subject-name-id">Subject and NameID</a><a href="#saml_role-session-tags">PrincipalTag SAML attribute</a><a href="#saml_role-attribute">Role SAML attribute</a><a href="#saml_role-session-attribute">RoleSessionName SAML
+        attribute</a><a href="#saml_role-session-duration">SessionDuration SAML
+        attribute</a><a href="#saml_sourceidentity">SourceIdentity SAML attribute</a><a href="#saml-attribute-mapping">Mapping SAML attributes to AWS trust policy context
+        keys</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_providers_create_saml_assertions">Configuring SAML assertions for the
+      authentication response</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>After you have verified a user's identity in your organization, the external identity
+    provider (IdP) sends an authentication response to the AWS SAML endpoint at
+        <code class="code">https://<code class="replaceable">region-code</code>.signin.aws.amazon.com/saml</code>. For a
+    list of potential <code class="replaceable">region-code</code> replacements, see the
+      <b>Region</b> column in <a href="https://docs.aws.amazon.com/general/latest/gr/signin-service.html">AWS Sign-In
+      endpoints</a>. This response is a POST request that includes a SAML token that adheres to
+    the <a href="http://docs.oasis-open.org/security/saml/v2.0/saml-bindings-2.0-os.pdf" rel="noopener noreferrer" target="_blank"><span>HTTP
+      POST Binding for SAML 2.0</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> standard and that contains the following elements, or
+      <em>claims</em>. You configure these claims in your SAML-compatible IdP. Refer to
+    the documentation for your IdP for instructions on how to enter these claims.</p><p>When the IdP sends the response containing the claims to AWS, many of the incoming claims
+    map to AWS context keys. These context keys can be checked in IAM policies using the
+      <code class="code">Condition</code> element. A listing of the available mappings follows in the section
+      <a href="#saml-attribute-mapping">Mapping SAML attributes to AWS trust policy context
+        keys</a>.</p>
+    <h2 id="saml_subject-name-id"><code class="code">Subject</code> and <code class="code">NameID</code></h2>
+    <p>The following excerpt shows an example. Substitute your own values for the marked ones.
+      There must be exactly one <code class="code">SubjectConfirmation</code> element with a
+        <code class="code">SubjectConfirmationData</code> element that includes both the
+        <code class="code">NotOnOrAfter</code> attribute and a <code class="code">Recipient</code> attribute. These attributes
+      include a value that must match the AWS endpoint
+          <code class="code">https://<code class="replaceable">region-code</code>.signin.aws.amazon.com/saml</code>. For
+      a list of possible <code class="replaceable">region-code</code> values, see the
+        <b>Region</b> column in <a href="https://docs.aws.amazon.com/general/latest/gr/signin-service.html">AWS Sign-In
+        endpoints</a>. For the AWS value, you can also use
+        <code class="code">https://signin.aws.amazon.com/static/saml</code>, as shown in the following
+      example.</p>
+
+    <p><code class="code">NameID</code> elements can have the value persistent, transient, or consist of the
+      full Format URI as provided by the IdP solution. A value of persistent indicates that the
+      value in <code class="code">NameID</code> is the same for a user between sessions. If the value is
+      transient, the user has a different <code class="code">NameID</code> value for each session. Single sign-on
+      interactions support the following types of identifiers:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</code></p>
+      </li><li class="listitem">
+        <p><code class="code">urn:oasis:names:tc:SAML:2.0:nameid-format:transient</code></p>
+      </li><li class="listitem">
+        <p><code class="code">urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</code></p>
+      </li><li class="listitem">
+        <p><code class="code">urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</code></p>
+      </li><li class="listitem">
+        <p><code class="code">urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</code></p>
+      </li><li class="listitem">
+        <p><code class="code">urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName</code></p>
+      </li><li class="listitem">
+        <p><code class="code">urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos</code></p>
+      </li><li class="listitem">
+        <p><code class="code">urn:oasis:names:tc:SAML:2.0:nameid-format:entity</code></p>
+      </li></ul></div>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="xml ">&lt;Subject&gt;
+  &lt;NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"&gt;<code class="replaceable">_cbb88bf52c2510eabe00c1642d4643f41430fe25e3</code>&lt;/NameID&gt;
+  &lt;SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"&gt;
+    &lt;SubjectConfirmationData NotOnOrAfter="<code class="replaceable">2013-11-05T02:06:42.876Z</code>" Recipient="https://signin.aws.amazon.com/saml"/&gt;
+  &lt;/SubjectConfirmation&gt;
+&lt;/Subject&gt;</code></pre>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The <code class="code">saml:aud</code> context key comes from the SAML <em>recipient</em> attribute because it is the SAML equivalent to the OIDC audience
+        field, for example, <code class="code">accounts.google.com:aud</code>.</p></div></div>
+   
+    <h2 id="saml_role-session-tags"><code class="code">PrincipalTag</code> SAML attribute</h2>
+    <p>(Optional) You can use an <code class="code">Attribute</code> element with the <code class="code">Name</code>
+      attribute set to
+          <code class="code">https://aws.amazon.com/SAML/Attributes/PrincipalTag:<code class="replaceable"><span>{</span>TagKey}</code></code>.
+      This element allows you to pass attributes as session tags in the SAML assertion. For more
+      information about session tags, see <a href="./id_session-tags.html">Passing session tags in AWS STS</a>.</p>
+    <p>To pass attributes as session tags, include the <code class="code">AttributeValue</code> element that
+      specifies the value of the tag. For example, to pass the tag key-value pairs
+        <code class="code">Project</code> = <code class="code">Marketing</code> and <code class="code">CostCenter</code> =
+        <code class="code">12345</code>, use the following attribute. Include a separate <code class="code">Attribute</code>
+      element for each tag.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="xml ">&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/PrincipalTag:Project"&gt;
+  &lt;AttributeValue&gt;Marketing&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;
+&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/PrincipalTag:CostCenter"&gt;
+  &lt;AttributeValue&gt;12345&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;</code></pre>
+    <p>To set the tags above as transitive, include another <code class="code">Attribute</code> element with
+      the <code class="code">Name</code> attribute set to
+        <code class="code">https://aws.amazon.com/SAML/Attributes/TransitiveTagKeys</code>. This is an optional
+      multivalued attribute that sets your session tags as transitive. Transitive tags persist when
+      you use the SAML session to assume another role in AWS. This is known as <a href="./id_roles_terms-and-concepts.html#iam-term-role-chaining">role chaining</a>. For example, to set both the
+        <code class="code">Principal</code> and <code class="code">CostCenter</code> tags as transitive, use the following
+      attribute to specify the keys.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="xml ">&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/TransitiveTagKeys"&gt;
+  &lt;AttributeValue&gt;Project&lt;/AttributeValue&gt;
+  &lt;AttributeValue&gt;CostCenter&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;</code></pre>
+   
+    <h2 id="saml_role-attribute"><code class="code">Role</code> SAML attribute</h2>
+    <p>You can use an <code class="code">Attribute</code> element with the <code class="code">Name</code> attribute set to
+        <code class="code">https://aws.amazon.com/SAML/Attributes/Role</code>. This element contains one or more
+        <code class="code">AttributeValue</code> elements that list the IAM identity provider and role to which
+      the user is mapped by your IdP. The IAM role and IAM identity provider are specified as a
+      comma-delimited pair of ARNs in the same format as the <code class="code">RoleArn</code> and
+        <code class="code">PrincipalArn</code> parameters that are passed to <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithSAML.html">AssumeRoleWithSAML</a>. This element must
+      contain at least one role-provider pair (<code class="code">AttributeValue</code> element), and can contain
+      multiple pairs. If the element contains multiple pairs, then the user is asked to choose which
+      role to assume when they use WebSSO to sign in to the AWS Management Console.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The value of the <code class="code">Name</code> attribute in the <code class="code">Attribute</code> tag is
+        case-sensitive. It must be set to <code class="code">https://aws.amazon.com/SAML/Attributes/Role</code>
+        exactly.</p></div></div>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="xml ">&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/Role"&gt;
+  &lt;AttributeValue&gt;arn:aws:iam::<code class="replaceable">account-number</code>:role/<code class="replaceable">role-name1</code>,arn:aws:iam::<code class="replaceable">account-number</code>:saml-provider/<code class="replaceable">provider-name</code>&lt;/AttributeValue&gt;
+  &lt;AttributeValue&gt;arn:aws:iam::<code class="replaceable">account-number</code>:role/<code class="replaceable">role-name2</code>,arn:aws:iam::<code class="replaceable">account-number</code>:saml-provider/<code class="replaceable">provider-name</code>&lt;/AttributeValue&gt;
+  &lt;AttributeValue&gt;arn:aws:iam::<code class="replaceable">account-number</code>:role/<code class="replaceable">role-name3</code>,arn:aws:iam::<code class="replaceable">account-number</code>:saml-provider/<code class="replaceable">provider-name</code>&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;</code></pre>
+   
+    <h2 id="saml_role-session-attribute"><code class="code">RoleSessionName</code> SAML
+        attribute</h2>
+    <p>You can use an <code class="code">Attribute</code> element with the <code class="code">Name</code> attribute set to
+        <code class="code">https://aws.amazon.com/SAML/Attributes/RoleSessionName</code>. This element contains one
+        <code class="code">AttributeValue</code> element that provides an identifier for the temporary
+      credentials that are issued when the role is assumed. You can use this to associate the
+      temporary credentials with the user who is using your application. This element is used to
+      display user information in the AWS Management Console. The value in the <code class="code">AttributeValue</code>
+      element must be between 2 and 64 characters long, can contain only alphanumeric characters,
+      underscores, and the following characters: <b>. , + = @ -</b>
+      (hyphen). It cannot contain spaces. The value is typically a user ID (<code class="code">johndoe</code>) or
+      an email address (<code class="code">johndoe@example.com</code>). It should not be a value that includes a
+      space, like a user's display name (<code class="code">John Doe</code>).</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The value of the <code class="code">Name</code> attribute in the <code class="code">Attribute</code> tag is
+        case-sensitive. It must be set to
+          <code class="code">https://aws.amazon.com/SAML/Attributes/RoleSessionName</code> exactly.</p></div></div>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="xml ">&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/RoleSessionName"&gt;
+  &lt;AttributeValue&gt;<code class="replaceable">user-id-name</code>&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;</code></pre>
+   
+    <h2 id="saml_role-session-duration"><code class="code">SessionDuration</code> SAML
+        attribute</h2>
+    <p>(Optional) You can use an <code class="code">Attribute</code> element with the <code class="code">Name</code>
+      attribute set to <code class="code">https://aws.amazon.com/SAML/Attributes/SessionDuration"</code>. This element
+      contains one <code class="code">AttributeValue</code> element that specifies how long the user can access
+      the AWS Management Console before having to request new temporary credentials. The value is an integer
+      representing the number of seconds for the session. The value can range from 900 seconds (15
+      minutes) to 43200 seconds (12 hours). If this attribute is not present, then the credential
+      last for one hour (the default value of the <code class="code">DurationSeconds</code> parameter of the
+        <code class="code">AssumeRoleWithSAML</code> API).</p>
+    <p>To use this attribute, you must configure the SAML provider to provide single sign-on
+      access to the AWS Management Console through the console sign-in web endpoint at
+          <code class="code">https://<code class="replaceable">region-code</code>.signin.aws.amazon.com/saml</code>. For
+      a list of possible <code class="replaceable">region-code</code> values, see the
+        <b>Region</b> column in <a href="https://docs.aws.amazon.com/general/latest/gr/signin-service.html">AWS Sign-In
+        endpoints</a>. You can optionally use the following URL:
+        <code class="code">https://signin.aws.amazon.com/static/saml</code>. Note that this attribute extends
+      sessions only to the AWS Management Console. It cannot extend the lifetime of other credentials. However,
+      if it is present in an <code class="code">AssumeRoleWithSAML</code> API call, it can be used to <em>shorten</em> the duration of the session. The default lifetime of the
+      credentials returned by the call is 60 minutes. </p>
+    <p>Note, too, that if a <code class="code">SessionNotOnOrAfter</code> attribute is also defined, then the
+        <b><em>lesser</em></b> value of the two
+      attributes, <code class="code">SessionDuration</code> or <code class="code">SessionNotOnOrAfter</code>, establishes the
+      maximum duration of the console session.</p>
+    <p>When you enable console sessions with an extended duration the risk of compromise of the
+      credentials rises. To help you mitigate this risk, you can immediately disable the active
+      console sessions for any role by choosing <b>Revoke Sessions</b> on the
+        <b>Role Summary</b> page in the IAM console. For more information, see <a href="./id_roles_use_revoke-sessions.html">Revoking IAM role temporary security
+      credentials</a>. </p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>The value of the <code class="code">Name</code> attribute in the <code class="code">Attribute</code> tag is
+        case-sensitive. It must be set to
+          <code class="code">https://aws.amazon.com/SAML/Attributes/SessionDuration</code> exactly.</p></div></div>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="xml ">&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/SessionDuration"&gt;
+  &lt;AttributeValue&gt;1800&lt;/AttributeValue&gt;
+&lt;/Attribute&gt;</code></pre>
+   
+    <h2 id="saml_sourceidentity"><code class="code">SourceIdentity</code> SAML attribute</h2>
+    <p>(Optional) You can use an <code class="code">Attribute</code> element with the <code class="code">Name</code>
+      attribute set to <code class="code">https://aws.amazon.com/SAML/Attributes/SourceIdentity</code>. This element
+      contains one <code class="code">AttributeValue</code> element that provides an identifier for the person or
+      application that is using an IAM role. The value for source identity persists when you use
+      the SAML session to assume another role in AWS known as <a href="./id_roles_terms-and-concepts.html#iam-term-role-chaining">role chaining</a>. The value for source identity is
+      present in the request for every action taken during the role session. The value that is set
+      cannot be changed during the role session. Administrators can then use AWS CloudTrail logs to
+      monitor and audit the source identity information to determine who performed actions with
+      shared roles.</p>
+    <p>The value in the <code class="code">AttributeValue</code> element must be between 2 and 64 characters
+      long, can contain only alphanumeric characters, underscores, and the following characters:
+        <b>. , + = @ -</b> (hyphen). It cannot contain spaces. The value
+      is typically an attribute that is associated with the user such as a user id
+        (<code class="code">johndoe</code>) or an email address (<code class="code">johndoe@example.com</code>). It should not
+      be a value that includes a space, like a user's display name (<code class="code">John Doe</code>). For more
+      information about using source identity, see <a href="./id_credentials_temp_control-access_monitor.html">Monitor and control actions
+            taken with assumed roles</a>.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If your SAML assertion is configured to use the SourceIdentity attribute, then your role trust policy must also
+        include the <code class="code">sts:SetSourceIdentity</code> action, otherwise the assume role operation
+        will fail. For more information about using source identity, see <a href="./id_credentials_temp_control-access_monitor.html">Monitor and control actions
+            taken with assumed roles</a>.</p></div></div>
+    <p>To pass a source identity attribute, include the <code class="code">AttributeValue</code> element that
+      specifies the value of the source identity. For example, to pass the source identity
+        <code class="code">DiegoRamirez</code> use the following attribute.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="xml ">&lt;Attribute Name="https://aws.amazon.com/SAML/Attributes/SourceIdentity"&gt;
+  &lt;AttributeValue&gt;DiegoRamirez&lt;/AttributeValue&gt;
+    </code></pre>
+   
+    <h2 id="saml-attribute-mapping">Mapping SAML attributes to AWS trust policy context
+        keys</h2>
+    <p>The tables in this section list commonly used SAML attributes and how they map to trust
+      policy condition context keys in AWS. You can use these keys to control access to a role. To
+      do that, compare the keys to the values that are included in the assertions that accompany a
+      SAML access request.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>These keys are available only in IAM trust policies (policies that determine who can
+        assume a role) and are not applicable to permissions policies.</p></div></div>
+    <p>In the eduPerson and eduOrg attributes table, values are typed either as strings or as
+      lists of strings. For string values, you can test these values in IAM trust policies using
+        <code class="code">StringEquals</code> or <code class="code">StringLike</code> conditions. For values that contain a
+      list of strings, you can use the <code class="code">ForAnyValue</code> and <code class="code">ForAllValues</code>
+      <a href="./reference_policies_multi-value-conditions.html">policy set operators</a> to test
+      the values in trust policies.</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You should include only one claim per AWS context key. If you include more than one,
+        only one claim will be mapped. </p></div></div>
+    <div class="table-container"><div class="table-contents"><table id="w340aac16c30c21c15c13c29c19c11"><thead><tr><th class="table-header" colspan="100"><div class="title">eduPerson and eduOrg attributes</div></th></tr>
+          <tr>
+            <th>eduPerson or eduOrg attribute (<code class="code">Name</code> key)</th>
+            <th>Maps to this AWS context key (<code class="code">FriendlyName</code> key)</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.1</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonAffiliation</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.2</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonNickname</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.3</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonOrgDN</code>
+              </p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.4</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonOrgUnitDN</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.5</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonPrimaryAffiliation</code>
+              </p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.6</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonPrincipalName</code>
+              </p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.7</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonEntitlement</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.8</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonPrimaryOrgUnitDN</code>
+              </p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.9</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonScopedAffiliation</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.10</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonTargetedID</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.1.1.11</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduPersonAssurance</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.2.1.2</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduOrgHomePageURI</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.2.1.3</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduOrgIdentityAuthNPolicyURI</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.2.1.4</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduOrgLegalName</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.2.1.5</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduOrgSuperiorURI</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:1.3.6.1.4.1.5923.1.2.1.6</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">eduOrgWhitePagesURI</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                <code class="code">urn:oid:2.5.4.3</code>
+              </p>
+            </td>
+            <td>
+              <p>
+                <code class="code">cn</code>
+              </p>
+            </td>
+            <td>
+              <p>List of strings</p>
+            </td>
+          </tr>
+        </table></div></div>
+    <div class="table-container"><div class="table-contents"><table id="w340aac16c30c21c15c13c29c19c13"><thead><tr><th class="table-header" colspan="100"><div class="title">Active Directory attributes</div></th></tr>
+          <tr>
+            <th>AD attribute</th>
+            <th>Maps to this AWS context key</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+          <tr>
+            <td>
+              <p><code class="code">http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</code></p>
+            </td>
+            <td>
+              <p><code class="code">name</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">http://schemas.xmlsoap.org/claims/CommonName</code></p>
+            </td>
+            <td>
+              <p><code class="code">commonName</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname</code></p>
+            </td>
+            <td>
+              <p><code class="code">givenName</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname</code></p>
+            </td>
+            <td>
+              <p><code class="code">surname</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress</code></p>
+            </td>
+            <td>
+              <p><code class="code">mail</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">http://schemas.microsoft.com/ws/2008/06/identity/claims/primarygroupsid</code></p>
+            </td>
+            <td>
+              <p><code class="code">uid</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+        </table></div></div>
+    <div class="table-container"><div class="table-contents"><table id="w340aac16c30c21c15c13c29c19c15"><thead><tr><th class="table-header" colspan="100"><div class="title">X.500 attributes</div></th></tr>
+          <tr>
+            <th>X.500 attribute</th>
+            <th>Maps to this AWS context key</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+          <tr>
+            <td>
+              <p><code class="code">2.5.4.3</code></p>
+            </td>
+            <td>
+              <p><code class="code">commonName</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">2.5.4.4</code></p>
+            </td>
+            <td>
+              <p><code class="code">surname</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">2.4.5.42</code></p>
+            </td>
+            <td>
+              <p><code class="code">givenName</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">2.5.4.45</code></p>
+            </td>
+            <td>
+              <p><code class="code">x500UniqueIdentifier</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">0.9.2342.19200300100.1.1</code></p>
+            </td>
+            <td>
+              <p><code class="code">uid</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">0.9.2342.19200300100.1.3</code></p>
+            </td>
+            <td>
+              <p><code class="code">mail</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><code class="code">0.9.2342.19200300.100.1.45</code></p>
+            </td>
+            <td>
+              <p><code class="code">organizationStatus</code></p>
+            </td>
+            <td>
+              <p>String</p>
+            </td>
+          </tr>
+        </table></div></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_providers_saml_3rd-party.html">Integrating third-party SAML solution
+      providers with AWS</div><div id="next" class="next-link" accesskey="n" href="./id_roles_providers_enable-console-saml.html">Enable SAML 2.0 federated users to access the AWS console</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_roles_providers_create_saml_assertions.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

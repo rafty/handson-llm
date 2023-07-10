@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using versioning in S3 buckets - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="Versioning" /><meta name="default_state" content="Versioning" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html" /><meta name="description" content="Use versioning in Amazon S3 to keep multiple variants of an object in the same bucket." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/Versioning.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/Versioning.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/Versioning.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/Versioning.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/Versioning.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/Versioning.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/Versioning.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/Versioning.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/Versioning.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/Versioning.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/Versioning.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/Versioning.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/Versioning.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/Versioning.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/Versioning.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/Versioning.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/Versioning.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/Versioning.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Using versioning in S3 buckets" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using versioning in S3 buckets - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#Versioning" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/Versioning.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/Versioning.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/Versioning.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/Versioning.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Managing your Amazon S3 storage",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-storage.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Using versioning in S3 buckets",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-storage.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#Versioning" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/Versioning.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#versioning-states">Unversioned, versioning-enabled, and
+				versioning-suspended buckets</a><a href="#versioning-lifecycle">Using S3 Versioning with S3 Lifecycle</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="Versioning">Using versioning in S3 buckets</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Versioning in Amazon S3 is a means of keeping multiple variants of an object in the same bucket.
+		You can use the S3 Versioning feature to preserve, retrieve, and restore every version of
+		every object stored in your buckets. With versioning you can recover more easily from both
+		unintended user actions and application failures. After versioning is enabled for a bucket,
+		if Amazon S3 receives multiple write requests for the same object simultaneously, it stores all
+		of those objects.</p><p>Versioning-enabled buckets can help you recover objects from accidental deletion or
+		overwrite. For example, if you delete an object, Amazon S3 inserts a delete marker instead of
+		removing the object permanently. The delete marker becomes the current object version. If
+		you overwrite an object, it results in a new object version in the bucket. You can always
+		restore the previous version. For more information, see <a href="./DeletingObjectVersions.html">Deleting object versions from a
+				versioning-enabled bucket</a>. </p><p>By default, S3 Versioning is disabled on buckets, and you must explicitly enable it. For
+		more information, see <a href="./manage-versioning-examples.html">Enabling versioning on buckets</a>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+	         
+	         
+	    <ul class="itemizedlist"><li class="listitem">
+	            <p>The SOAP API does not support S3 Versioning. SOAP support over HTTP is deprecated, but
+	                it is still available over HTTPS. New Amazon S3 features are not supported for SOAP.</p>
+	        </li><li class="listitem">
+	            <p>Normal Amazon S3 rates apply for every version of an object stored and transferred.
+	                Each version of an object is the entire object; it is not just a diff from the
+	                previous version. Thus, if you have three versions of an object stored, you are
+	                charged for three objects. </p>
+	        </li></ul></div></div></div>
+		<h2 id="versioning-states">Unversioned, versioning-enabled, and
+				versioning-suspended buckets</h2>
+		<p>Buckets can be in one of three states: </p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Unversioned (the default)</p>
+			</li><li class="listitem">
+				<p>Versioning-enabled</p>
+			</li><li class="listitem">
+				<p>Versioning-suspended</p>
+			</li></ul></div>
+		<p>You enable and suspend versioning at the bucket level. After you version-enable a
+			bucket, it can never return to an unversioned state. But you can <em>suspend</em> versioning on that bucket.</p>
+		<p>The versioning state applies to all (never some) of the objects in that bucket. When
+			you enable versioning in a bucket, all new objects are versioned and given a unique 
+			version ID. Objects that already existed in the bucket at the time versioning was 
+			enabled will thereafter <em>always</em> be versioned and given 
+			a unique version ID when they are modified by future requests. Note the following: </p>
+		<div class="itemizedlist">
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Objects that are stored in your bucket before you set the versioning state
+					have a version ID of <code class="code">null</code>. When you enable versioning, existing
+					objects in your bucket do not change. What changes is how Amazon S3 handles the
+					objects in future requests. For more information, see <a href="./manage-objects-versioned-bucket.html">Working with objects in a
+			versioning-enabled bucket</a>.</p>
+			</li><li class="listitem">
+				<p>The bucket owner (or any user with appropriate permissions) can suspend
+					versioning to stop accruing object versions. When you suspend versioning,
+					existing objects in your bucket do not change. What changes is how Amazon S3 handles
+					objects in future requests. For more information, see <a href="./VersionSuspendedBehavior.html">Working with objects in a versioning-suspended
+			bucket</a>.</p>
+			</li></ul></div>
+	 
+		<h2 id="versioning-lifecycle">Using S3 Versioning with S3 Lifecycle</h2>
+		<p>To customize your data retention approach and control storage costs, use object
+			versioning with S3 Lifecycle. For more information, see <a href="./object-lifecycle-mgmt.html">Managing your storage lifecycle</a>. For
+			information about creating S3 Lifecycle configurations using the AWS Management Console, AWS CLI, AWS SDKs, or
+			the REST API, see <a href="./how-to-set-lifecycle-configuration-intro.html">Setting lifecycle configuration on a
+            bucket</a>.</p>
+		<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If you have an object expiration lifecycle configuration in your unversioned bucket and
+				you want to maintain the same permanent delete behavior when you enable versioning,
+				you must add a noncurrent expiration configuration. The noncurrent expiration lifecycle
+				configuration manages the deletes of the noncurrent object versions in the version-enabled
+				bucket. (A version-enabled bucket maintains one current, and zero or more
+				noncurrent, object versions.) For more information, see <a href="./how-to-set-lifecycle-configuration-intro.html">Setting lifecycle configuration on a
+            bucket</a>.</p></div></div>
+	<p>For information about working with S3 Versioning, see the following topics.</p><div class="highlights"><h6>Topics</h6><ul><li><a href="./versioning-workflows.html">How S3 Versioning works</a></li><li><a href="./manage-versioning-examples.html">Enabling versioning on buckets</a></li><li><a href="./MultiFactorAuthenticationDelete.html">Configuring MFA delete</a></li><li><a href="./manage-objects-versioned-bucket.html">Working with objects in a
+			versioning-enabled bucket</a></li><li><a href="./VersionSuspendedBehavior.html">Working with objects in a versioning-suspended
+			bucket</a></li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./managing-storage.html">Managing storage</div><div id="next" class="next-link" accesskey="n" href="./versioning-workflows.html">S3 Versioning</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/Versioning.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/Versioning.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

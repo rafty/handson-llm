@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="it-IT"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Autenticazione e controllo degli accessi per AWS KMS - AWS Key Management Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="control-access" /><meta name="default_state" content="control-access" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" /><meta name="description" content="Introduzione all'autenticazione e al controllo degli accessi (autorizzazione) in AWS Key Management Service (AWS KMS)." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Key Management Service" /><meta name="guide" content="Guida per gli sviluppatori" /><meta name="abstract" content="Scopri come utilizzare AWS Key Management Service (AWS KMS) per memorizzare e gestire in modo sicuro le chiavi crittografiche ed eseguire la crittografia e la decrittografia dei dati utente." /><meta name="guide-locale" content="it_it" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/control-access.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/control-access.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/control-access.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/control-access.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/control-access.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/control-access.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/control-access.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/control-access.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/control-access.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/control-access.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/control-access.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/control-access.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kms/latest/developerguide/control-access.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="x-default" /><meta name="feedback-item" content="Key Management Service (KMS)" /><meta name="this_doc_product" content="AWS Key Management Service" /><meta name="this_doc_guide" content="Guida per gli sviluppatori" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kms'}"></script><meta id="panorama-serviceSubSection" value="Guida per gli sviluppatori" /><meta id="panorama-serviceConsolePage" value="Autenticazione e controllo degli accessi per AWS KMS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Autenticazione e controllo degli accessi per AWS KMS - AWS Key Management Service</title><meta name="pdf" content="kms-dg.pdf#control-access" /><meta name="rss" content="aws-kms-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=182" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key%20Management%20Service%20%28KMS%29&amp;topic_url=http://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" /><meta name="keywords" content="KMS,key management service,gestione delle chiavi crittografiche,chiave crittografica,,crittografia envelope" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guida per gli sviluppatori",
+        "item" : "https://docs.aws.amazon.com/it_it/kms/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Autenticazione e controllo degli accessi per AWS KMS",
+        "item" : "https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kms-dg.pdf#control-access" target="_blank" rel="noopener noreferrer" title="Apri PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentazione</a><a href="/kms/index.html">AWS KMS</a><a href="overview.html">Guida per gli sviluppatori</a></div><div id="page-toc-src"><a href="#permission-concepts">Concetti</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>Le traduzioni sono generate tramite traduzione automatica. In caso di conflitto tra il contenuto di una traduzione e la versione originale in Inglese, quest'ultima prevarrà.</p></awsui-alert><h1 class="topictitle" id="control-access">Autenticazione e controllo degli accessi per AWS KMS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Per utilizzare AWS KMS, l'utente deve disporre di credenziali che AWS può utilizzare per autenticare le richieste. Le credenziali devono includere le autorizzazioni per accedere alle risorse AWS, una <a href="./concepts.html#kms_keys">AWS KMS keys</a> e gli <a href="./kms-alias.html">alias</a>. Nessun principale AWS dispone di autorizzazioni per una chiave KMS a meno che tale autorizzazione non venga fornita esplicitamente e mai negata. Non sono disponibili autorizzazioni implicite o automatiche per l'utilizzo o la gestione di una chiave KMS. </p><p>Il modo principale per gestire l'accesso alle risorse AWS KMS è mediante le <em>policy</em>. Le policy sono documenti che descrivono quali principali possono accedere a quali risorse. Le policy allegate a un'identità IAM sono definite <em>policy basate su identità</em> (o <em>policy IAM</em>), mentre quelle collegate ad altri tipi di risorse vengono definite <em>policy di risorse</em>. Le policy di risorse AWS KMS per le chiavi KMS sono dette <em>policy delle chiavi</em>. Tutte le chiavi KMS dispongono di una policy delle chiavi.</p><p>Per controllare l'accesso agli alias AWS KMS, utilizzare le policy IAM. Per consentire ai principali di creare gli alias, è necessario fornire l'autorizzazione all'alias in una policy IAM e l'autorizzazione alla chiave in una policy delle chiavi. Per informazioni dettagliate, consultare <a href="./alias-access.html">Controllo dell'accesso agli alias</a>.</p><p>Per controllare l'accesso alle chiavi KMS, è possibile utilizzare i seguenti meccanismi delle policy.</p><div class="itemizedlist">
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p><b>Policy delle chiavi</b>: ogni chiave KMS ha una policy delle chiavi. Le policy delle chiavi sono il meccanismo principale per controllare l'accesso a una chiave KMS. Puoi utilizzare la sola policy delle chiavi per il controllo dell'accesso, per cui l'accesso alla chiave KMS nella sua interezza è definito in un unico documento (la policy delle chiavi). Per ulteriori informazioni sull'utilizzo delle policy delle chiavi, consulta <a href="./key-policies.html">Policy delle chiavi</a>.</p>
+    </li><li class="listitem">
+      <p><b>Policy IAM</b>: è possibile utilizzare le policy IAM insieme alla policy delle chiavi e alle concessioni per controllare l'accesso a una chiave KMS. Il controllo dell'accesso eseguito in questo modo consente di gestire tutte le autorizzazioni delle identità IAM in IAM. Per utilizzare una policy IAM per consentire l'accesso a una chiave KMS, la policy delle chiavi deve consentirla esplicitamente. Per ulteriori informazioni sull'utilizzo di policy IAM consulta <a href="./iam-policies.html">Policy IAM</a>. </p>
+    </li><li class="listitem">
+      <p><b>Concessioni</b>: è possibile utilizzare le concessioni insieme alla policy delle chiavi e alle policy IAM per consentire l'accesso a una chiave KMS. Il controllo dell'accesso eseguito in questo modo ti consente di accedere alla chiave KMS nella policy delle chiavi e di permettere alle identità di delegare l'accesso ad altri utenti. Per ulteriori informazioni sull'utilizzo di concessioni, consulta <a href="./grants.html">Concessioni in AWS KMS</a>.</p>
+    </li></ul></div><p>Le chiavi KMS appartengono all'account AWS in cui sono state create. Tuttavia, nessuna identità o principale, incluso l’utente root dell'account AWS, ha il permesso di utilizzare o gestire una chiave KMS a meno che tale autorizzazione non sia esplicitamente fornita in una policy delle chiavi, una policy IAM o una concessione. L'identità IAM che crea una chiave KMS non è considerata il proprietario della chiave e non dispone automaticamente dell'autorizzazione a utilizzare o gestire la chiave KMS creata. Come qualsiasi altra identità, il creatore di chiavi deve ottenere l'autorizzazione tramite una policy chiave, una policy IAM o una concessione. Tuttavia, le identità che hanno l'autorizzazione <code class="code">kms:CreateKey</code> possono impostare la policy chiave iniziale e concedersi l'autorizzazione all'utilizzo o alla gestione della chiave.</p><p>Nelle sezioni seguenti vengono fornite informazioni dettagliate su come utilizzare AWS Identity and Access Management (IAM) e le autorizzazioni AWS KMS per contribuire a proteggere le risorse tramite il controllo degli accessi.</p><div class="highlights"><h6>Argomenti</h6><ul><li><a href="#permission-concepts">Concetti</a></li><li><a href="./key-policies.html">Policy delle chiavi</a></li><li><a href="./iam-policies.html">Policy IAM</a></li><li><a href="./grants.html">Concessioni</a></li><li><a href="./kms-vpc-endpoint.html">Endpoint VPC</a></li><li><a href="./policy-conditions.html">Chiavi di condizione</a></li><li><a href="./abac.html">Controllo degli accessi basato su attributi (ABAC)</a></li><li><a href="./key-policy-modifying-external-accounts.html">Accesso multi-account</a></li><li><a href="./using-service-linked-roles.html">Ruoli collegati ai servizi</a></li><li><a href="./pqtls.html">Protocollo TLS post-quantistico ibrido</a></li><li><a href="./determining-access.html">Determinazione dell'accesso</a></li><li><a href="./kms-api-permissions-reference.html">Riferimento per le autorizzazioni</a></li></ul></div>
+    <h2 id="permission-concepts">Concetti del controllo degli accessi di AWS KMS</h2>
+
+    <p>Scopri i concetti utilizzati nelle discussioni sul controllo degli accessi in AWS KMS.</p>
+    <div class="highlights" id="inline-topiclist"><h6>Argomenti</h6><ul><li><a href="#permission-concept-authentication">Autenticazione</a></li><li><a href="#permission-concept-authorization">Autorizzazione</a></li><li><a href="#security_iam_authentication">Autenticazione con identità</a></li><li><a href="#security_iam_access-manage">Gestione dell'accesso tramite policy</a></li><li><a href="#kms-resources-operations">risorse AWS KMS</a></li></ul></div>
+    
+     
+      <h3 id="permission-concept-authentication">Autenticazione</h3>
+      <p>L'<em>autenticazione</em> è il processo di verifica della tua identità. Per inviare una richiesta aAWS KMS, devi accedere adAWS utilizzandoAWS le tue credenziali.</p>
+     
+    
+     
+      <h3 id="permission-concept-authorization">Autorizzazione</h3>
+      <p>L'<em>autorizzazione</em> consente di inviare richieste per creare, gestire o utilizzare risorse AWS KMS. Ad esempio, devi avere l'autorizzazione per utilizzare una chiave KMS in un'operazione di crittografia.</p>
+      <p>Usa <a href="./key-policies.html">policy delle chiavi</a>, <a href="./iam-policies.html">policy IAM</a> e <a href="./grants.html">concessioni</a> per controllare gli accessi alle risorse AWS KMS. Ogni chiave KMS deve avere una policy delle chiavi. Se la policy delle chiavi lo consente, puoi anche utilizzare le policy IAM e le concessioni per consentire ai principali l'accesso alla chiave KMS. Per affinare l'autorizzazione, puoi utilizzare le <a href="./policy-conditions.html">chiavi di condizione</a> che consentono o negano l'accesso solo quando una richiesta o una risorsa soddisfa le condizioni specificate. Puoi permettere l'accesso ai principali attendibili in <a href="./key-policy-modifying-external-accounts.html">altri Account AWS</a>.</p>
+     
+    
+    
+    
+     
+      <h3 id="security_iam_authentication">Autenticazione con identità</h3> 
+      
+   
+<p>L'autenticazione è la procedura di accesso ad AWS utilizzando le credenziali di identità. Devi essere <em>autenticato</em> (connesso a AWS) come utente root Utente root dell'account AWS, come utente IAM o assumere un ruolo IAM.</p>
+
+<p>Puoi accedere ad AWS come identità federata utilizzando le credenziali fornite tramite un'origine di identità. AWS IAM Identity Center (successor to AWS Single Sign-On) Gli esempi di identità federate comprendono gli utenti del centro identità IAM, l'autenticazione Single Sign-On (SSO) dell'azienda e le credenziali di Google o Facebook. Se accedi come identità federata, l'amministratore ha configurato in precedenza la federazione delle identità utilizzando i ruoli IAM. Se accedi ad AWS tramite la federazione, assumi indirettamente un ruolo.</p>
+
+<p>A seconda del tipo di utente, puoi accedere alla AWS Management Console o al portale di accesso AWS. Per ulteriori informazioni sull'accesso ad AWS, consulta la sezione <a href="https://docs.aws.amazon.com/signin/latest/userguide/how-to-sign-in.html">Come accedere al tuo Account AWS</a> nella <em>Guida per l'utente di Accedi ad AWS</em>.</p>
+
+<p>Se accedi ad AWS in modo programmatico, AWS fornisce un Software Development Kit (SDK) e un'interfaccia a riga di comando (CLI) per firmare crittograficamente le richieste utilizzando le tue credenziali. Se non utilizzi gli strumenti AWS, devi firmare le richieste personalmente. Per ulteriori informazioni sul metodo consigliato per firmare personalmente le richieste, consulta la sezione <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Processo di firma con Signature Version 4</a> nella <em>Riferimenti generali di AWS</em>.</p>
+
+<p>Indipendentemente dal metodo di autenticazione utilizzato, potrebbe essere necessario specificare ulteriori informazioni sulla sicurezza. AWS consiglia ad esempio di utilizzare l'autenticazione a più fattori (MFA) per aumentare la sicurezza dell'account. Per ulteriori informazioni, consulta <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/enable-mfa.html">Autenticazione a più fattori</a> nella <em>Guida per l'utente di AWS IAM Identity Center (successor to AWS Single Sign-On)</em> e <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html">Utilizzo dell'autenticazione a più fattori (MFA) in AWS</a> nella <em>Guida per l'utente di IAM</em>.</p>
+
+
+   
+       
+        <h4 id="security_iam_authentication-rootuser">Utente root di un Account AWS</h4>
+        <p> Quando crei un Account AWS, inizi con una singola identità di accesso che ha accesso completo a tutti i Servizi AWS e le risorse nell'account. Tale identità è detta <em>utente root</em> Account AWS ed è possibile accedervi con l'indirizzo e-mail e la password utilizzati per creare l'account. Si consiglia vivamente di non utilizzare l'utente root per le attività quotidiane. Conserva le credenziali dell'utente root e utilizzale per eseguire le operazioni che solo l'utente root può eseguire. Per un elenco completo delle attività che richiedono l'accesso come utente root, consulta la sezione <a href="https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html">Tasks that require root user credentials</a> (Attività che richiedono le credenziali dell'utente root) nella <em>Guida di riferimento di AWS Account Management</em>. </p>
+       
+       
+        <h4 id="security_iam_authentication-federated">Identità federata</h4> 
+        
+
+<p>Come best practice, richiedere agli utenti umani, compresi quelli che richiedono l'accesso di amministratore, di utilizzare la federazione con un provider di identità per accedere a Servizi AWS utilizzando credenziali temporanee.</p>
+
+<p>Un'<em>identità federata</em> è un utente della directory degli utenti aziendali, un provider di identità Web, AWS Directory Service, <span>la directory Identity Center </span>o qualsiasi utente che accede ad Servizi AWS utilizzando le credenziali fornite tramite un'origine di identità. Quando le identità federate accedono ad Account AWS, assumono ruoli e i ruoli forniscono credenziali temporanee.</p>
+
+<p>Per la gestione centralizzata degli accessi, consigliamo di utilizzare AWS IAM Identity Center (successor to AWS Single Sign-On). È possibile creare utenti e gruppi in IAM Identity Center oppure connettersi e sincronizzarsi con un gruppo di utenti e gruppi nell'origine di identità per utilizzarli in tutte le applicazioni e gli Account AWS. Per ulteriori informazioni su IAM Identity Center, consulta <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">Cos'è IAM Identity Center?</a> nella <em>Guida per l'utente di AWS IAM Identity Center (successor to AWS Single Sign-On)</em>.</p>
+ 
+       
+       
+        <h4 id="security_iam_authentication-iamuser">Utenti e gruppi IAM</h4> 
+        
+   
+         <p>Un <em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html">utente IAM</a></em> è una identità all'interno del tuo Account AWS che dispone di autorizzazioni specifiche per un singolo utente o applicazione. Ove possibile, consigliamo di fare affidamento a credenziali temporanee invece di creare utenti IAM con credenziali a lungo termine come le password e le chiavi di accesso. Tuttavia, se si hanno casi d'uso specifici che richiedono credenziali a lungo termine con utenti IAM, si consiglia di ruotare le chiavi di accesso. Per ulteriori informazioni, consulta la pagina <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#rotate-credentials">Ruota regolarmente le chiavi di accesso per casi d'uso che richiedono credenziali a lungo termine</a> nella <em>Guida per l'utente IAM</em>.</p>
+         
+         <p>Un <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html"><em>gruppo IAM</em></a> è un'identità che specifica un insieme di utenti IAM. Non è possibile eseguire l'accesso come gruppo. È possibile utilizzare gruppi per specificare le autorizzazioni per più utenti alla volta. I gruppi semplificano la gestione delle autorizzazioni per set di utenti di grandi dimensioni. Ad esempio, è possibile avere un gruppo denominato <em>Amministratori IAM</em> e concedere a tale gruppo le autorizzazioni per amministrare le risorse IAM.</p>
+         <p>Gli utenti sono diversi dai ruoli. Un utente è associato in modo univoco a una persona o un'applicazione, mentre un ruolo è destinato a essere assunto da chiunque ne abbia bisogno. Gli utenti dispongono di credenziali a lungo termine permanenti, mentre i ruoli forniscono credenziali temporanee. Per ulteriori informazioni, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html#id_which-to-choose">Quando creare un utente IAM invece di un ruolo)</a> nella <em>Guida per l'utente di IAM</em>.</p>
+   
+       
+      
+       
+        <h4 id="security_iam_authentication-iamrole">Ruoli IAM</h4> 
+        
+   
+         <p>Un <em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">ruolo IAM</a></em> è un'identità all'interno di Account AWS che dispone di autorizzazioni specifiche. È simile a un utente IAM, ma non è associato a una persona specifica. È possibile assumere temporaneamente un ruolo IAM nella AWS Management Console mediante lo <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html">scambio di ruoli</a>. È possibile assumere un ruolo chiamando un'operazione AWS CLI o API AWS oppure utilizzando un URL personalizzato. Per ulteriori informazioni sui metodi per l'utilizzo dei ruoli, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">Utilizzo di ruoli IAM</a> nella <em>Guida per l'utente di IAM</em>.</p>
+         <p>I ruoli IAM con credenziali temporanee sono utili nelle seguenti situazioni:</p>
+         <div class="itemizedlist">
+            
+             
+             
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p><b>Accesso utente federato</b>: per assegnare le autorizzazioni a una identità federata, è possibile creare un ruolo e definire le autorizzazioni per il ruolo. Quando un'identità federata viene autenticata, l'identità viene associata al ruolo e ottiene le autorizzazioni da esso definite. Per ulteriori informazioni sulla federazione dei ruoli, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html"> Creazione di un ruolo per un provider di identità di terza parte</a> nella <em>Guida per l'utente IAM</em>. <span>Se utilizzi IAM Identity Center, configura una serie di autorizzazioni. IAM Identity Center mette in correlazione il set di autorizzazioni con un ruolo in IAM per controllare a cosa possono accedere le identità dopo l'autenticazione. Per informazioni sulle serie di autorizzazioni, consulta <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html">Serie di autorizzazioni</a> nella <em>Guida per l'utente di AWS IAM Identity Center (successor to AWS Single Sign-On)</em>.</span> </p>
+            </li><li class="listitem">
+               <p><b>Autorizzazioni utente IAM temporanee</b>: un utente IAM o un ruolo può assumere un ruolo IAM per ottenere temporaneamente autorizzazioni diverse per un'attività specifica.</p>
+            </li><li class="listitem">
+               <p><b>Accesso multi-account</b>: è possibile utilizzare un ruolo IAM per permettere a un utente (entità di sicurezza attendibile) con un account diverso di accedere alle risorse nell'account. I ruoli sono lo strumento principale per concedere l'accesso tra account. Tuttavia, per alcuni dei Servizi AWS, è possibile collegare una policy direttamente a una risorsa (anziché utilizzare un ruolo come proxy). Per informazioni sulle differenze tra ruoli e policy basate su risorse per l'accesso multi-account, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">Differenza tra i ruoli IAM e le policy basate su risorse</a> nella <em>Guida per l'utente di IAM</em>.</p>
+            </li><li class="listitem">
+               <p><b>Accesso tra servizi</b>: alcuni Servizi AWS utilizzano funzionalità che eseguono in altri Servizi AWS. Ad esempio, quando effettui una chiamata in un servizio, è comune che tale servizio esegua applicazioni in Amazon EC2 o archivi oggetti in Amazon S3. Un servizio può eseguire questa operazione utilizzando le autorizzazioni dell'entità chiamante, utilizzando un ruolo di servizio o utilizzando un ruolo collegato al servizio. </p>
+                  <div class="itemizedlist">
+                      
+                      
+                      
+                  <ul class="itemizedlist"><li class="listitem">
+                        <p><b>Autorizzazioni principale</b>: quando si utilizza un utente o un ruolo IAM per eseguire operazioni in AWS, si viene considerati un principale. Le policy concedono autorizzazioni a un'entità. Quando si utilizzano alcuni servizi, è possibile eseguire un'azione che attiva un'altra azione in un servizio diverso. In questo caso è necessario disporre delle autorizzazioni per eseguire entrambe le operazioni. Per verificare se un'azione richiede azioni dipendenti aggiuntive in una policy, consulta https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html nella <em>guida di riferimento per l'autorizzazione del servizio</em>. </p>
+                     </li><li class="listitem">
+                        <p><b>Ruolo di servizio</b>: un ruolo di servizio è un <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">ruolo IAM</a> assunto da un servizio per eseguire operazioni per conto dell'utente. Un amministratore IAM può creare, modificare ed eliminare un ruolo di servizio da IAM. Per ulteriori informazioni, consulta la sezione <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creazione di un ruolo per delegare le autorizzazioni a un Servizio AWS</a> nella <em>Guida per l'utente di IAM</em>. </p>
+                     </li><li class="listitem">
+                        <p><b>Ruolo collegato al servizio</b>: un ruolo collegato al servizio è un tipo di ruolo di servizio collegato a un Servizio AWS. Il servizio può assumere il ruolo per eseguire un'azione per conto dell'utente. I ruoli collegati ai servizi sono visualizzati nell'account Account AWS e sono di proprietà del servizio. Un amministratore IAM può visualizzare le autorizzazioni per i ruoli collegati ai servizi, ma non può modificarle. </p>
+                     </li></ul></div>
+            </li><li class="listitem">
+               <p><b>Applicazioni in esecuzione su Amazon EC2</b>: è possibile utilizzare un ruolo IAM per gestire credenziali temporanee per le applicazioni in esecuzione su un'istanza EC2 che eseguono richieste di AWS CLI o dell'API AWS. Ciò è preferibile all'archiviazione delle chiavi di accesso nell'istanza EC2. Per assegnare un ruolo AWS a un'istanza EC2, affinché sia disponibile per tutte le relative applicazioni, puoi creare un profilo dell'istanza collegato all'istanza. Un profilo dell'istanza contiene il ruolo e consente ai programmi in esecuzione sull'istanza EC2 di ottenere le credenziali temporanee. Per ulteriori informazioni, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html">Utilizzo di un ruolo IAM per concedere autorizzazioni ad applicazioni in esecuzione su istanze di Amazon EC2</a> nella <em>Guida per l'utente di IAM</em>. </p>
+            </li></ul></div>
+         <p>Per informazioni sull'utilizzo dei ruoli IAM, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html#id_which-to-choose_role">Quando creare un ruolo IAM (invece di un utente)</a> nella <em>Guida per l'utente di IAM</em>.</p>
+   
+       
+     
+     
+      <h3 id="security_iam_access-manage">Gestione dell'accesso tramite policy</h3> 
+      
+   
+ <p>Per controllare l'accesso a AWS è possibile creare policy e collegarle a identità  o risorse AWS. Una policy è un oggetto in AWS che, quando associato a un'identità o a una risorsa, ne definisce le autorizzazioni. AWS valuta queste policy quando un principale IAM (utente, utente root o sessione ruolo) effettua una richiesta. Le autorizzazioni nella policy determinano l'approvazione o il rifiuto della richiesta. La maggior parte delle policy viene archiviata in AWS sotto forma di documenti JSON. Per ulteriori informazioni sulla struttura e sui contenuti dei documenti delle policy JSON, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json">Panoramica delle policy JSON</a> nella <em>Guida per l'utente di IAM</em>.</p>
+
+ 
+   
+      <p>Gli amministratori possono utilizzare le policy AWS JSON per specificare l'accesso ai diversi elementi. Cioè, quale <b>principale</b> può eseguire <b>azioni</b> su quali <b>risorse</b>, e in quali <b>condizioni</b>.</p>
+  
+
+<p>Per impostazione predefinita, utenti e ruoli non dispongono di autorizzazioni. Per concedere agli utenti l'autorizzazione a eseguire operazioni sulle risorse di cui hanno bisogno, un amministratore IAM può creare policy IAM. Successivamente l'amministratore può aggiungere le policy IAM ai ruoli e gli utenti possono assumere i ruoli.</p>
+ <p>Le policy IAM definiscono le autorizzazioni relative a un'operazione, indipendentemente dal metodo utilizzato per eseguirla. Ad esempio, supponiamo di disporre di una policy che consente l'operazione <code class="code">iam:GetRole</code>. Un utente con tale policy può ottenere informazioni sul ruolo dalla AWS Management Console, la AWS CLI o l'API AWS.</p>
+   
+       
+        <h4 id="security_iam_access-manage-id-based-policies">Policy basate su identità</h4> 
+        
+   
+         
+   
+         <p>Le policy basate su identità sono documenti di policy di autorizzazione JSON che è possibile allegare a un'identità (utente, gruppo di utenti o ruolo IAM). Tali policy definiscono le operazioni che utenti e ruoli possono eseguire, su quali risorse e in quali condizioni. Per informazioni su come creare una policy basata su identità, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html">Creazione di policy IAM</a> nella <em>Guida per l'utente di IAM</em>.</p>
+  
+         <p>Le policy basate su identità possono essere ulteriormente classificate come <em>policy inline</em> o <em>policy gestite</em>. Le policy inline sono incorporate direttamente in un singolo utente, gruppo o ruolo. Le policy gestite sono policy autonome che possono essere collegate a più utenti, gruppi e ruoli in Account AWS. Le policy gestite includono le policy gestite da AWS e le policy gestite dal cliente. Per informazioni su come scegliere tra una policy gestita o una policy inline, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#choosing-managed-or-inline">Scelta fra policy gestite e policy inline</a> nella <em>Guida per l'utente di IAM</em>.</p>
+   
+       
+       
+        <h4 id="security_iam_access-manage-resource-based-policies">Policy basate su risorse</h4> 
+        
+        <p>Una <a href="./key-policies.html">policy delle chiavi</a> AWS KMS è una policy basata sulle risorse che controlla l'accesso a una chiave KMS. Ogni chiave KMS deve avere una policy delle chiavi. Puoi utilizzare un altro meccanismo di autorizzazione per consentire l'accesso alla chiave KMS, ma solo se la policy delle chiavi lo consente. (Puoi utilizzare una policy IAM per <em>negare</em> l'accesso a una chiave KMS anche se la policy delle chiavi non lo consente esplicitamente).</p>
+        <p>Le policy basate sulle risorse sono documenti di policy JSON che colleghi a una risorsa, come una chiave KMS, per controllare l'accesso a una risorsa specifica. Le policy basate su risorse stabiliscono quali operazioni uno specifico principale può eseguire, su quale risorsa e in quali condizioni. Non specifichi la risorsa in una policy basata sulle risorse, ma devi specificare un principale, ad esempio account, utenti, ruoli, utenti federati o Servizi AWS. Le policy basate sulle risorse sono policy inline che si trovano nel servizio che gestisce la risorsa. Non puoi utilizzare le policy gestite da AWS da IAM, come una <a href="./aws-managed-policies.html">policy gestita da AWSKeyManagementServicePowerUser</a> in una policy basata sulle risorse.</p>
+             
+
+       
+        <h4 id="security_iam_access-manage-acl">Liste di controllo accessi (ACL)</h4> 
+        
+   
+      
+   
+   <p>Le liste di controllo degli accessi (ACL) controllano quali principali (membri, utenti o ruoli dell'account) hanno le autorizzazioni per accedere a una risorsa. Le ACL sono simili alle policy basate sulle risorse, sebbene non utilizzino il formato del documento di policy JSON.</p>
+  
+      <p>Amazon S3, AWS WAF e Amazon VPC sono esempi di servizi che supportano le ACL. Per maggiori informazioni sulle ACL, consulta <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Panoramica della lista di controllo accessi</a> nella <em>Guida per gli sviluppatori di Amazon Simple Storage Service</em>.</p>
+   
+        <p>AWS KMS non supporta le ACL.</p>
+       
+       
+        <h4 id="security_iam_access-manage-other-policies">Altri tipi di policy</h4> 
+        
+   
+         <p>AWS supporta altri tipi di policy meno comuni. Questi tipi di policy possono impostare il numero massimo di autorizzazioni concesse dai tipi di policy più comuni. </p>
+         <div class="itemizedlist">
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p><b>Limiti delle autorizzazioni</b>: un limite delle autorizzazioni è una funzione avanzata nella quale si imposta il numero massimo di autorizzazioni che una policy basata su identità può concedere a un'entità IAM (utente o ruolo IAM). È possibile impostare un limite delle autorizzazioni per un'entità. Le autorizzazioni risultanti sono l'intersezione delle policy basate su identità dell'entità e i relativi limiti delle autorizzazioni. Le policy basate su risorse che specificano l'utente o il ruolo nel campo <code class="code">Principal</code> sono condizionate dal limite delle autorizzazioni. Un rifiuto esplicito in una qualsiasi di queste policy sostituisce l'autorizzazione. Per ulteriori informazioni sui limiti delle autorizzazioni, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">Limiti delle autorizzazioni per le entità IAM</a> nella <em>Guida per l'utente di IAM</em>.</p>
+            </li><li class="listitem">
+               <p><b>Policy di controllo dei servizi (SCP)</b>: le SCP sono policy JSON che specificano il numero massimo di autorizzazioni per un'organizzazione o unità organizzativa (OU) in AWS Organizations. AWS Organizations è un servizio per il raggruppamento e la gestione centralizzata degli Account AWS multipli di proprietà dell'azienda. Se si abilitano tutte le caratteristiche in un'organizzazione, è possibile applicare le policy di controllo dei servizi (SCP) a uno o tutti i propri account. L'SCP limita le autorizzazioni per le entità negli account membri, compreso ogni Utente root dell'account AWS. Per ulteriori informazioni su Organizations e le policy SCP, consulta <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_about-scps.html">Utilizzo delle SCP</a> nella <em>Guida per l'utente di AWS Organizations</em>.</p>
+            </li><li class="listitem">
+               <p><b>Policy di sessione</b>: le policy di sessione sono policy avanzate che vengono passate come parametro quando si crea in modo programmatico una sessione temporanea per un ruolo o un utente federato. Le autorizzazioni della sessione risultante sono l'intersezione delle policy basate sull'identità del ruolo o dell'utente e le policy di sessione. Le autorizzazioni possono anche provenire da una policy basata su risorse. Un rifiuto esplicito in una qualsiasi di queste policy sostituisce l'autorizzazione. Per ulteriori informazioni, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">Policy di sessione</a> nella <em>Guida per l'utente di IAM</em>. </p>
+            </li></ul></div>
+   
+       
+       
+        <h4 id="security_iam_access-manage-multiple-policies">Più tipi di policy</h4> 
+        
+   
+         <p>Quando più tipi di policy si applicano a una richiesta, le autorizzazioni risultanti sono più complicate da comprendere. Per informazioni su come AWS determina se consentire una richiesta quando sono coinvolti più tipi di policy, consulta <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html">Logica di valutazione delle policy</a> nella <em>Guida per l'utente di IAM</em>.</p>
+   
+       
+     
+    
+    
+    
+     
+      <h3 id="kms-resources-operations">risorse AWS KMS</h3>      
+      <p>In AWS KMS, la risorsa principale è una <a href="./concepts.html#kms_keys">AWS KMS keys</a>. AWS KMS supporta anche un <a href="./kms-alias.html">alias</a>, una risorsa indipendente che fornisce un nome descrittivo per una chiave KMS. Alcune operazioni AWS KMS ti consentono di utilizzare un alias per identificare una chiave KMS.</p>
+      <p>Ogni istanza di una chiave KMS o un alias ha un <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Amazon Resource Name</a> (ARN) univoco con un formato standard. Nelle risorse AWS KMS, il nome del servizio AWS è <code class="code">kms</code>. </p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>AWS KMS key</b></p>
+          <p>Formato ARN:</p>
+          <p><code class="code">arn:<code class="replaceable">AWS partition name</code>:<code class="replaceable">AWS service
+            name</code>:<code class="replaceable">Regione AWS</code>:<code class="replaceable">Account AWS
+              ID</code>:key/<code class="replaceable">key ID</code></code></p>
+          <p>Esempio di ARN:</p>
+          <p><code class="code">arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code></p>
+        </li><li class="listitem">
+          <p><b>Alias</b></p>
+          <p>Formato ARN:</p>
+          <p><code class="code">arn:<code class="replaceable">AWS partition name</code>:<code class="replaceable">AWS service
+            name</code>:<code class="replaceable">Regione AWS</code>:<code class="replaceable">Account AWS
+              ID</code>:alias/<code class="replaceable">alias name</code></code></p>
+          <p>Esempio di ARN:</p>
+          <p><code class="code">arn:aws:kms:us-west-2:111122223333:alias/example-alias</code></p>
+        </li></ul></div>
+      <p>AWS KMS fornisce un set di operazioni API da utilizzare con le risorse AWS KMS. Per ulteriori informazioni sull'identificazione delle chiavi KMS nelle operazioni API AWS Management Console e AWS KMS, consulta <a href="./concepts.html#key-id">Identificatori chiave (KeyId)</a>. Per visualizzare un elenco di operazioni AWS KMS, consulta la <a href="https://docs.aws.amazon.com/kms/latest/APIReference/">documentazione di riferimento delle API AWS Key Management Service</a>.</p>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avvertimento" /> <strong>JavaScript è disabilitato o non è disponibile nel tuo browser.</strong></p><p>Per usare la documentazione AWS, JavaScript deve essere abilitato. Consulta le pagine della guida del browser per le istruzioni.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenzioni dei documenti</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./key-state.html">Riferimento degli stati chiave</div><div id="next" class="next-link" accesskey="n" href="./key-policies.html">Policy delle chiavi</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Questa pagina ti è stata utile? - Sì</div><div class="content"><p>Grazie per averci comunicato che stiamo facendo un buon lavoro!</p><p>Se hai un momento, ti invitiamo a dirci che cosa abbiamo fatto che ti è piaciuto così possiamo offrirti altri contenuti simili.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Questa pagina ti è stata utile? - No</div><div class="content"><p>Grazie per averci comunicato che questa pagina ha bisogno di essere modificata. Siamo spiacenti di non aver soddisfatto le tue esigenze.</p><p>Se hai un momento, ti invitiamo a dirci come possiamo migliorare la documentazione.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

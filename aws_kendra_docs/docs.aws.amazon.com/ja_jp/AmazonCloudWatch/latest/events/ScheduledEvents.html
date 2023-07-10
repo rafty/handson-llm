@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>ルールのスケジュール式 - Amazon CloudWatch Events</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ScheduledEvents" /><meta name="default_state" content="ScheduledEvents" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="description" content="Amazon CloudWatch Events で cron 式または rate 式を使用して AWS を自動化する方法について説明します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudWatch Events" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="Amazon CloudWatch Events で、ほぼリアルタイムのストリームでイベントと一致するシンプルなルールを作成し、1 つ以上のターゲット関数またはストリームにルーティングします。ターゲット関数とストリームは、イベントトリガーに適したアクションを自動的に実行できます。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="x-default" /><meta name="feedback-item" content="EventBridge" /><meta name="this_doc_product" content="Amazon CloudWatch Events" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudwatch'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="ルールのスケジュール式" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>ルールのスケジュール式 - Amazon CloudWatch Events</title><meta name="pdf" content="cwe-ug.pdf#ScheduledEvents" /><meta name="rss" content="amazon-cloudwatch-events-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=138" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=http://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudWatch",
+        "item" : "https://docs.aws.amazon.com/cloudwatch/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "ルールのスケジュール式",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="cwe-ug.pdf#ScheduledEvents" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/cloudwatch/index.html">Amazon CloudWatch</a><a href="WhatIsCloudWatchEvents.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#CronExpressions">cron 式</a><a href="#RateExpressions">rate 式</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ScheduledEvents">ルールのスケジュール式</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="table-container"><div class="table-contents"><table id="w61aac13b3">
+				<tr>
+					<td><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>イベントを管理するには、Amazon EventBridge が好ましい方法です。CloudWatch Events と EventBridge は同じ基盤となるサービスと API ですが、EventBridge はより多くの機能を提供します。CloudWatch または EventBridge のいずれかで行った変更は、各コンソールに表示されます。詳細については、<a href="https://docs.aws.amazon.com/eventbridge/index.html">Amazon EventBridge</a> を参照してください。</p></div></div></td>
+				</tr>
+			</table></div></div><p>cron または rate 式を使用して、CloudWatch Events で自動化されたスケジュールに基づいて自己トリガーするルールを作成できます。すべてのスケジュールされたイベントは UTC タイムゾーンを使用し、スケジュールの最小精度は 1 分です。</p><p>CloudWatch Events は、cron 式や rate 式をサポートしています。rate 式は定義が簡単ですが、cron 式がサポートするきめ細かいスケジュール制御を提供しません。たとえば、cron 式を使用すると、毎週または毎月の特定の日の指定した時間にトリガーされるルールを定義できます。それに対して、rate 式では、1 時間に 1 回または 1 日 1 回など、通常のレートでルールを起動します。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>CloudWatch Events は、スケジュール式で秒レベルの精度を提供しません。Cron 式を使用した最小の解決は分です。CloudWatch Events とターゲットサービスが持つ分散性の特質により、スケジュールされたルールがトリガーされてから、ターゲットサービスがターゲットリソースの実行を優先するまでの遅延は、数秒となる可能性があります。スケジュールされたルールは、その分のうちにトリガーされますが、正確に 0 秒にトリガーされません。</p></div></div><div class="highlights" id="inline-topiclist"><h6>形式</h6><ul><li><a href="#CronExpressions">cron 式</a></li><li><a href="#RateExpressions">rate 式</a></li></ul></div><h2 id="CronExpressions">cron 式</h2>
+        
+
+        <p>Cron 式には 6 つの必須フィールドがあり、それらは空白で区切られます。</p>
+
+        <p><b>構文</b></p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">cron(<em>fields</em>)</code></pre>
+        
+        <div class="table-container"><div class="table-contents"><table id="w61aac13c13b8"><thead>
+                    <tr>
+                        <th><b>フィールド</b></th>
+                        <th><b>値</b></th>
+                        <th><b>ワイルドカード</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <p>分</p>
+                        </td>
+                        <td>
+                            <p>0-59</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>時間</p>
+                        </td>
+                        <td>
+                            <p>0-23</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>日</p>
+                        </td>
+                        <td>
+                            <p>1-31</p>
+                        </td>
+                        <td>
+                            <p>, - * ? / L W</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>月</p>
+                        </td>
+                        <td>
+                            <p>1-12 または JAN-DEC</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>曜日</p>
+                        </td>
+                        <td>
+                            <p>1-7 または SUN-SAT</p>
+                        </td>
+                        <td>
+                            <p>, - * ? L #</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>年</p>
+                        </td>
+                        <td>
+                            <p>1970-2199</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+
+        <div class="itemizedlist">
+            <h6>Wildcards</h6>
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>ワイルドカード [<b>,</b>] (カンマ) には追加の値が含まれます。月フィールドの、「JAN,FEB,MAR」は、1 月、2 月、3 月を含みます。</p>
+            </li><li class="listitem">
+                <p>ワイルドカード [<b>-</b>] (ダッシュ) は範囲を指定します。日フィールドの、「1-15」は、指定した月の 1 日から 15 日を含みます。</p>
+            </li><li class="listitem">
+                <p>ワイルドカード [<b>*</b>] (アスタリスク) にはフィールドのすべての値が含まれます。時間フィールドの、<b>*</b> にはすべての時間が含まれています。[<b>*</b>] を日および曜日フィールドの両方に使用することはできません。一方に使用する場合は、もう一方に [<b>?</b>] を使用する必要があります。</p>
+            </li><li class="listitem">
+                <p>ワイルドカード [<b>/</b>] (スラッシュ) で増分を指定します。分フィールドで、「1/10」と入力して、その時間の最初の分から始めて、10 分毎を指定できます (11 分、21 分、31 分など)。</p>
+            </li><li class="listitem">
+                <p><b>?</b> (疑問符) ワイルドカードは任意を意味します。[日] フィールドに <b>7</b> と入力し、7 日が何曜日であってもかまわない場合、[曜日] フィールドに <b>?</b> を入力できます。</p>
+            </li><li class="listitem">
+                <p>Day-of-month フィールドまたは Day-of-week フィールドの、ワイルドカード <b>L</b> は月または週の最終日を指定します。</p>
+            </li><li class="listitem">
+                <p>Day-of-month フィールドのワイルドカード <code class="userinput">W</code> は、平日を指定します。Day-of-month フィールドで、<code class="userinput">3W</code> は月の 3 日目に最も近い平日を指定します。</p>
+            </li><li class="listitem">
+                <p>Day-of-week フィールドの <b>#</b> ワイルドカードは、月の指定された曜日の特定のインスタンスを指定します。たとえば、3#2 は、月の第 2 火曜日を示します。3 は週の 3 番目の日 (火曜日) を示し、2 は月のそのタイプの 2 番目の日を示します。</p>
+                
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>「#」文字を使用する場合、曜日フィールドには 1 つの式しか定義できません。例えば、<code class="code">"3#1,6#3"</code> は 2 つの式として解釈されるため、無効です。</p></div></div>
+            </li></ul></div>
+
+        <div class="itemizedlist">
+            <h6>Restrictions</h6>
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>cron 式の日フィールドと曜日フィールドを同時に指定することはできません。一方のフィールドに値 (または *) を指定する場合、もう一方のフィールドで <b>?</b> (疑問符) を使用する必要があります。</p>
+            </li><li class="listitem">
+                <p>1 分より短い間隔を導き出す cron 式はサポートされていません。</p>
+            </li></ul></div>
+
+         
+            <h6>Examples</h6>
+            <p>スケジュールに基づいたルールを作成するときは、以下のサンプルの cron 文字列を使用できます。</p>
+         
+
+        <div class="table-container"><div class="table-contents"><table id="w61aac13c13c16"><thead>
+                    <tr>
+                        <th>分</th>
+                        <th>時間</th>
+                        <th>日</th>
+                        <th>月</th>
+                        <th>曜日</th>
+                        <th>年</th>
+                        <th>意味</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>10</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>毎日午前 10:00 (UTC) に実行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>15</p>
+                        </td>
+                        <td>
+                            <p>12</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>毎日午後 12:15 (UTC) に実行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>18</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>毎週月曜日から金曜日まで午後 6:00 (UTC) に実行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>8</p>
+                        </td>
+                        <td>
+                            <p>1</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>毎月 1 日の午前 8:00（UTC）に実行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/15</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>15 分ごとに実行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/10</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>月曜日から金曜日まで 10 分ごとに実行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/5</p>
+                        </td>
+                        <td>
+                            <p>8-17</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>月曜日から金曜日まで午前 8:00 から午後 5:55（UTC）の間に 5 分ごとに実行</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+
+        <p>以下の例に示しているのは、AWS CLI の <a href="https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html">put-rule</a> コマンドで Cron 式を使用する方法です。最初の例では、毎日午後 12:00 (UTC) にトリガーされるルールを作成します。</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(0 12 * * ? *)" --name <code class="replaceable">MyRule1</code></code></pre>
+        
+        <p>次の例では、毎日午後 2:05 と 2:35 (UTC) にトリガーされるルールを作成します。</p>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(5,35 14 * * ? *)" --name <code class="replaceable">MyRule2</code></code></pre>
+        
+        <p>次の例では、2002～2005 年の毎月最後の金曜日の午前 10:15 (UTC) にトリガーされるルールを作成します。</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(15 10 ? * 6L 2002-2005)" --name <code class="replaceable">MyRule3</code></code></pre>
+    <h2 id="RateExpressions">rate 式</h2>
+        
+
+        <p>rate 式は、予定されたイベントルールを作成すると開始され、その定義済されたスケジュールに基づいて実行されます。</p>
+
+        <p>rate 式は 2 つの必須フィールドがあります。フィールドは空白で区切ります。</p>
+
+        <p><b>構文</b></p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">rate(<em>value</em> <em>unit</em>)</code></pre>
+
+        <div class="variablelist">
+             
+             
+        <dl>
+                <dt><span class="term">値</span></dt>
+                <dd>
+                    <p>正数。</p>
+                </dd>
+             
+                <dt><span class="term">単位</span></dt>
+                <dd>
+                    <p>時刻の単位。値 1 には、<code class="code">minute</code> などさまざまな単位が必要です。また、1 を超える値には <code class="code">minutes</code> などの単位が必要です。</p>
+                    <p>有効な値: minute | minutes | hour | hours | day | days</p>
+                </dd>
+            </dl></div>
+
+         
+            <h6>Restrictions</h6>
+            <p>値が 1 に等しい場合、単位は単数形であることが必要です。同様に、1 より大きい値の場合、単位は複数であることが必要です。たとえば、rate(1 hours) と rate(5 hour) は有効ではありませんが、rate(1 hour) と rate(5 hours) は有効です。</p>
+         
+
+         
+            <h6>Examples</h6>
+            <p>以下の例に示しているのは、AWS CLI の <a href="https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html">put-rule</a> コマンドで rate 式を使用する方法です。最初の例では、1 分ごとにルールを起動し、次の例は 5 分ごとにルールを起動し、3 番目は 1 時間に 1 回ルールを起動し、最後の例は 1 日に 1 回ルールを起動します。</p>
+         
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 minute)" --name <code class="replaceable">MyRule2</code></code></pre>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(5 minutes)" --name <code class="replaceable">MyRule3</code></code></pre>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 hour)" --name <code class="replaceable">MyRule4</code></code></pre>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 day)" --name <code class="replaceable">MyRule5</code></code></pre>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./CloudWatch-Events-tutorial-CloudWatch-Logs.html">チュートリアル: Amazon EC2 インスタンスの状態変更をログに記録する</div><div id="next" class="next-link" accesskey="n" href="./CloudWatchEventsandEventPatterns.html">イベントパターン</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

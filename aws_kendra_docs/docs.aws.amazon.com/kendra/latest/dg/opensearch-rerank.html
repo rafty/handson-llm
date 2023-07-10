@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon Kendra Intelligent Ranking for self-managed OpenSearch - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="opensearch-rerank" /><meta name="default_state" content="opensearch-rerank" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html" /><meta name="description" content="How to set up and use the Amazon Kendra Intelligent Ranking plugin for OpenSearch (self managed)." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of Amazon Kendra. Learn about Amazon Kendra features and get started indexing your documents using the console, CLI, and API." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/opensearch-rerank.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/opensearch-rerank.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/opensearch-rerank.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/opensearch-rerank.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/opensearch-rerank.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/opensearch-rerank.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/opensearch-rerank.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/opensearch-rerank.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/opensearch-rerank.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/opensearch-rerank.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/opensearch-rerank.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/opensearch-rerank.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/opensearch-rerank.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/opensearch-rerank.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/opensearch-rerank.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/opensearch-rerank.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/opensearch-rerank.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Amazon Kendra Intelligent Ranking for self-managed OpenSearch" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon Kendra Intelligent Ranking for self-managed OpenSearch - Amazon Kendra</title><meta name="pdf" content="/pdfs/kendra/latest/dg/kendra-dg.pdf#opensearch-rerank" /><meta name="github" content="https://github.com/awsdocs/amazon-kendra-developer-guide/tree/master/doc_source/opensearch-rerank.md" /><meta name="rss" content="amazon-kendra-release-notes.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/opensearch-rerank.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/opensearch-rerank.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/opensearch-rerank.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search,intelligent search,natural language,index,question,keyword,data source,connector,FAQ,frequently asked question,Semantic search,Intelligent search ranking,intelligent search ranking" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Kendra Intelligent Ranking",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg/intelligent-rerank.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon Kendra Intelligent Ranking for self-managed OpenSearch",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg/intelligent-rerank.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/kendra/latest/dg/kendra-dg.pdf#opensearch-rerank" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-kendra-developer-guide/tree/master/doc_source/opensearch-rerank.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">Developer Guide</a></div><div id="page-toc-src"><a href="#how-opensearch-rerank-plugin-works">How the 
+                intelligent search plugin works</a><a href="#setup-opensearch-rerank-plugin">Setting up the 
+                intelligent search plugin</a><a href="#interact-opensearch-rerank-plugin">Interacting with the 
+                intelligent search plugin</a><a href="#compare-opensearch-rerank-plugin">Comparing 
+                OpenSearch results with Amazon Kendra results</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="opensearch-rerank">Amazon Kendra Intelligent Ranking 
+            for self-managed OpenSearch</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can leverage Amazon Kendra's semantic search capabilities 
+        to improve search results from <a href="https://opensearch.org/docs/latest" rel="noopener noreferrer" target="_blank"><span>OpenSearch</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, 
+        the self managed open source search service based on the Apache 2.0 
+        License. The Amazon Kendra Intelligent Ranking plugin semantically 
+        re-ranks OpenSearch's results using Amazon Kendra. It does this by 
+        understanding the meaning and context of a search query using specific 
+        fields, such as the document body or title, from the default OpenSearch 
+        search results.</p><p>Take, for example, this query: "main keynote address". Since 'address' 
+        has several meanings, Amazon Kendra can infer the meaning  
+        behind the query to return relevant information aligned with the 
+        intended meaning. In this context, it's a conference keynote address. A  
+        simpler search service might not take into account the intent and could 
+        possibly return results for a street address on Main Street, for example.</p><p>The Intelligent Ranking plugin for OpenSearch is available for 
+        OpenSearch (self managed) version 2.4.0 and later. You can install the 
+        plugin using a quick start Bash script to build a new Docker image of 
+        OpenSearch with the Intelligent Ranking plugin included. See 
+        <a href="#setup-opensearch-rerank-plugin">Setting up the 
+                intelligent search plugin</a>—this is an 
+        example of a setup to get you up and running quickly.</p>
+        <h2 id="how-opensearch-rerank-plugin-works">How the 
+                intelligent search plugin works</h2>
+        <p>The overall process of the Intelligent Ranking plugin for 
+            OpenSearch (self managed) is as follows:</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+        <ol><li>
+                <p>An OpenSearch user issues a query, and OpenSearch 
+                    provides a query response or a list of documents that are 
+                    relevant to the query.</p>
+            </li><li>
+                <p>The Intelligent Ranking plugin takes the query response 
+                    and extracts information from the documents.</p>
+            </li><li>
+                <p>The Intelligent Ranking plugin makes a call to Amazon Kendra Intelligent Ranking's <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_Ranking_Rescore.html">Rescore</a> 
+                    API.</p>
+            </li><li>
+                <p>The <code class="code">Rescore</code> API takes the extracted 
+                    information from the documents and semantically re-ranks 
+                    the search results.</p>
+            </li><li>
+                <p>The <code class="code">Rescore</code> API sends the re-ranked search 
+                    results back to the plugin. The plugin re-arranges the 
+                    search results in the OpenSearch search response to reflect 
+                    the new semantic ranking.</p>
+            </li></ol></div>
+        <p>The Intelligent Ranking plugin re-ranks results using the "body" 
+            and "title" fields. These plugin fields can be mapped to fields in 
+            your OpenSearch index that would most fit the definition of a 
+            document body and title. For example, if your index contains 
+            chapters of a book with fields like "chapter_heading" and 
+            "chapter_contents", you can map the former to "title" and the latter 
+            to "body" to get the best results.</p>
+     
+        <h2 id="setup-opensearch-rerank-plugin">Setting up the 
+                intelligent search plugin</h2>
+        <p>The following outlines how to quickly set up OpenSearch (self 
+            managed) with the Intelligent Ranking plugin.</p>
+        <div class="procedure"><h6>Setting up OpenSearch (self managed) with the Intelligent 
+                Ranking plugin (quick setup)</h6><p>If you are already using Docker image <code class="code">opensearch:2.4.0</code>, 
+                you can use this <a href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html#dockerfile-build-opensearch-example">Dockerfile</a> 
+                to build a new image of OpenSearch 2.4.0 with the Intelligent Ranking 
+                plugin. You include a container for the new image in your <a href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html#docker-compose-opensearch-example">docker-compose.yml</a> 
+                file or opensearch.yml file. You also include your generated rescore 
+                execution plan ID from creating a rescore execution plan, along with 
+                your region and endpoint information—see step 2 for creating a 
+                rescore execution plan.</p><p>If you had previously downloaded a version of the <code class="code">opensearch</code> 
+                Docker image that's older than 2.4.0, you must use Docker image 
+                <code class="code">opensearch:2.4.0</code> or later and build a new image with the 
+                Intelligent Ranking plugin included.</p><ol><li>
+                <p>Download and install <a href="https://docs.docker.com/get-docker/" rel="noopener noreferrer" target="_blank"><span>Docker Desktop</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 
+                    for your operating system. Docker Desktop includes Docker Compose 
+                    and Docker Engine. It's recommended that you check 
+                    whether your computer meets the system requirements mentioned in 
+                    the Docker installation details.</p>
+                <p>You can also increase your memory usage requirements within the 
+                    settings of your Docker Desktop. You are responsible for the usage 
+                    requirements of Docker outside the freely available usage limits 
+                    for Docker services. See <a href="https://docs.docker.com/subscription/" rel="noopener noreferrer" target="_blank"><span>Docker 
+                        subscriptions</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                <p>Check Docker Desktop status is "running".</p>
+            </li><li>
+                <p>Provision Amazon Kendra Intelligent Ranking and your 
+                    <a href="https://docs.aws.amazon.com/kendra/latest/dg/adjusting-capacity.html">capacity</a> 
+                    requirements. Once you provision Amazon Kendra Intelligent Ranking, 
+                        you are charged hourly based on your set capacity units. See 
+                    <a href="http://aws.amazon.com/kendra/intelligent-ranking-pricing/" rel="noopener noreferrer" target="_blank"><span>free tier and pricing 
+                            information</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+                <p>You use the <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_Ranking_CreateRescoreExecutionPlan.html">CreateRescoreExecutionPlan</a> 
+                    API to provision the <code class="code">Rescore API</code>. If you don't need more 
+                    capacity units than the single unit default, don't add more units 
+                    and provide only a name for your rescore execution plan. You can also 
+                    update your capacity requirements by using the <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_Ranking_UpdateRescoreExecutionPlan.html">UpdateRescoreExecutionPlan</a> 
+                    API. For more information, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/search-service-rerank.html">Semantically 
+                        ranking a search service's results</a>.</p>
+                <p>Optionally, you can go to step 3 to create a default rescore execution 
+                    plan when you run the quick start Bash script.</p>
+                <p>Note for step 4 the rescore execution plan ID included in the response.</p>
+                <awsdocs-tabs><dl style="display: none">
+                    <dt>CLI</dt><dd tab-id="cli">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra-ranking create-rescore-execution-plan \
+  --name MyRescoreExecutionPlan \ 
+  --capacity-units '<span>{</span>"RescoreCapacityUnits":&lt;integer number of additional capacity units&gt;}'
+ 
+Response:
+ 
+<span>{</span>
+    "Id": "&lt;rescore execution plan ID&gt;",
+    "Arn": "arn:aws:kendra-ranking:&lt;region&gt;:&lt;account-id&gt;:rescore-execution-plan/&lt;rescore-execution-plan-id&gt;"
+}</code></pre>
+                        </dd>
+                    <dt>Python</dt><dd tab-id="python">
+                            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3
+from botocore.exceptions import ClientError
+import pprint
+import time
+
+kendra_ranking = boto3.client("kendra-ranking")
+
+print("Create a rescore execution plan.")
+
+# Provide a name for the rescore execution plan
+name = "MyRescoreExecutionPlan"
+# Set your required additional capacity units
+# Don't set capacity units if you don't require more than 1 unit given by default
+capacity_units = 1
+
+try:
+    rescore_execution_plan_response = kendra_ranking.create_rescore_execution_plan(
+        Name = name,
+        CapacityUnits = <span>{</span>"RescoreCapacityUnits":capacity_units}
+    )
+
+    pprint.pprint(rescore_execution_plan_response)
+
+    rescore_execution_plan_id = rescore_execution_plan_response["Id"]
+
+    print("Wait for Amazon Kendra to create the rescore execution plan.")
+
+    while True:
+        # Get the details of the rescore execution plan, such as the status
+        rescore_execution_plan_description = kendra_ranking.describe_rescore_execution_plan(
+            Id = rescore_execution_plan_id
+        )
+        # When status is not CREATING quit.
+        status = rescore_execution_plan_description["Status"]
+        print(" Creating rescore execution plan. Status: "+status)
+        time.sleep(60)
+        if status != "CREATING":
+            break
+
+except ClientError as e:
+        print("%s" % e)
+
+print("Program ends.")</code></pre>
+                        </dd>
+                </dl></awsdocs-tabs>
+            </li><li>
+                <p>Download the <a href="https://github.com/opensearch-project/search-processor/tree/main/helpers" rel="noopener noreferrer" target="_blank"><span>quick 
+                    start Bash script</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> from GitHub for your version of OpenSearch 
+                    by selecting the version branch from the main branch dropdown.</p>
+            </li><li>
+                <p>Open your terminal and in the directory of the Bash script, run 
+                    the following command.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">bash search_processing_kendra_quickstart.sh -p &lt;execution-plan-id&gt; -r &lt;region&gt;</code></pre>
+                <p>When you run this command, you provide the 
+                    rescore execution plan ID that you noted in step 2 when you 
+                    provisioned Amazon Kendra Intelligent Ranking, along with your 
+                    region information. Optionally, you can instead provision Amazon Kendra 
+                    Intelligent Ranking by using the <code class="code">--create-execution-plan</code> 
+                    option. This creates a rescore execution plan with a default name and 
+                    default capacity. If AWS credentials cannot be obtained 
+                    from either environment variables, default profile, or Amazon EC2 
+                    instance, then provide your credentials using the <code class="code">--profile</code> 
+                    option.</p>
+                <p>To not lose your index when the default ephemeral container is removed, 
+                    you can have your index persist across executions by providing the data  
+                    volume name using the <code class="code">--volume-name</code> option. If you previously 
+                    created an index, you can specify the volume in your docker-compose.yml or
+                    opensearch.yml file.</p>
+                <p>This script uses Docker images for OpenSearch and OpenSearch Dashboards 
+                    using your version you selected on the GitHub repository for the script. 
+                    It downloads a zip file for the Intelligent Ranking plugin, and generates 
+                    a <code class="code">Dockerfile</code> to build a new Docker image of OpenSearch 
+                    that includes the plugin. It also creates a <a href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html#docker-compose-opensearch-example">docker-compose.yml</a> 
+                    file that includes containers for OpenSearch with the Intelligent 
+                    Ranking plugin and OpenSearch Dashboards. The script adds your 
+                    rescore execution plan ID, region information, and endpoint (uses the 
+                    region) to the docker-compose.yml file. The script then runs 
+                    <code class="code">docker-compose up</code> to start the containers for OpenSearch 
+                    with Intelligent Ranking included and OpenSearch Dashboards. To stop the 
+                    containers without removing them, run <code class="code">docker-compose stop</code>. 
+                    To remove the containers, run <code class="code">docker-compose down</code>. To leave 
+                    your volumes intact, <b>don't</b> run <code class="code">docker-compose down -v</code>.</p>
+            </li></ol></div>
+         
+            <h3 id="docker-compose-opensearch-example">Example of docker-compose.yml</h3>
+            <p>An example of a docker-compose.yml file using OpenSearch 2.4.0 or later 
+                with the Intelligent Ranking plugin and OpenSearch Dashboards 2.4.0 or later.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">version: '3'
+networks:
+  opensearch-net:
+volumes: 
+  &lt;volume-name&gt;:
+services:
+  opensearch-node:
+    image: &lt;Docker image tag name of OpenSearch with Intelligent Ranking plugin&gt;
+    container_name: opensearch-node
+    environment: 
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node
+      - discovery.type=single-node
+      - kendra_intelligent_ranking.service.endpoint=https://kendra-ranking.&lt;region&gt;.api.aws
+      - kendra_intelligent_ranking.service.region=&lt;region&gt;
+      - kendra_intelligent_ranking.service.execution_plan_id=&lt;rescore-execution-plan-id&gt;
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - 9200:9200
+      - 9600:9600
+    networks:
+      - opensearch-net
+  volumes:
+    &lt;docker-volume-name&gt;:/usr/share/opensearch/data 
+  opensearch-dashboard:
+   image: opensearchproject/opensearch-dashboards:&lt;your-version&gt;
+   container_name: opensearch-dashboards
+   ports:
+     - 5601:5601
+   environment:
+     OPENSEARCH_HOSTS: '["https://opensearch-node:9200"]'
+   networks:
+     - opensearch-net</code></pre>
+         
+         
+            <h3 id="dockerfile-build-opensearch-example">Example of a Dockerfile and building an image</h3>
+            <p>An example of a <code class="code">Dockerfile</code> for using OpenSearch 2.4.0 or later 
+                with the Intelligent Ranking plugin.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">FROM opensearchproject/opensearch:&lt;your-version&gt;
+RUN /usr/share/opensearch/bin/opensearch-plugin install --batch  https://github.com/opensearch-project/search-processor/releases/download/&lt;your-version&gt;/search-processor.zip</code></pre>
+            <p>Building a Docker image for OpenSearch with the 
+                Intelligent Ranking plugin.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">docker build --tag=&lt;Docker image tag name of OpenSearch with Intelligent Ranking plugin&gt;</code></pre>
+         
+     
+        <h2 id="interact-opensearch-rerank-plugin">Interacting with the 
+                intelligent search plugin</h2>
+        <p>Once you have set up OpenSearch (self managed) with the Intelligent 
+            Ranking plugin, you can interact with the plugin using curl commands 
+            or OpenSearch client libraries. The default credentials for accessing 
+            OpenSearch with the Intelligent Ranking plugin are user name 'admin' 
+            and password 'admin'.</p>
+        <p>To apply the Intelligent Ranking plugin settings to an OpenSearch 
+            index:</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Curl</dt><dd tab-id="curl">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">curl -XPUT "https://localhost:9200/&lt;your-docs-index&gt;/_settings" -u 'admin:admin' --insecure -H 'Content-Type: application/json' -d'
+<span>{</span>
+  "index": <span>{</span>
+    "plugin" : <span>{</span>
+      "searchrelevance" : <span>{</span>
+        "result_transformer" : <span>{</span>
+          "kendra_intelligent_ranking": <span>{</span>
+              "order": 1,
+              "properties": <span>{</span>
+                "title_field": "title_field_name_here",
+                "body_field": "body_field_name_here"
+              }
+          }
+        }
+      }
+    }
+  }
+}
+'</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">pip install opensearch-py
+
+from opensearchpy import OpenSearch
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin')
+
+client = OpenSearch(
+    hosts = [<span>{</span>'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    # client_cert = client_cert_path,
+    # client_key = client_key_path,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
+)
+
+setting_body = <span>{</span>
+    "index": <span>{</span>
+        "plugin" : <span>{</span>
+            "searchrelevance" : <span>{</span>
+                "result_transformer" : <span>{</span>
+                    "kendra_intelligent_ranking": <span>{</span>
+                            "order": 1,
+                            "properties": <span>{</span>
+                                "title_field": "title_field_name_here",
+                                "body_field": "body_field_name_here"
+                            }
+                    }
+                }
+            }
+        }
+    }
+}
+
+response = client.indices.put_settings(index_name, body=setting_body)</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+        <p>You must include the name of the main text field you want to use 
+            to re-rank on, such as a document body or document contents field. You
+            can also include other text fields, such as document title or document 
+            summary.</p>
+        <p>Now you can issue any query and the results are ranked using the 
+            Intelligent Ranking plugin.</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Curl</dt><dd tab-id="curl">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">curl -XGET "https://localhost:9200/&lt;your-docs-index&gt;/_search?pretty" -u 'admin:admin' --insecure -H 'Content-Type: application/json' -d'
+<span>{</span>
+  "query" : <span>{</span>
+    "match" : <span>{</span>
+      "body_field_name_here": "intelligent systems"
+    }
+  }
+}
+'</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">from opensearchpy import OpenSearch
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin')
+
+client = OpenSearch(
+    hosts = [<span>{</span>'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    # client_cert = client_cert_path,
+    # client_key = client_key_path,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
+)
+
+query = <span>{</span>
+  'size': 10,
+  "query" : <span>{</span>
+    "match" : <span>{</span>
+      "body_field_name_here": "intelligent systems"
+    }
+  }
+}
+
+response = client.search(
+    body = query,
+    index = index_name
+)
+
+print('\nSearch results:')
+print(response)</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+        <p>To remove the Intelligent Ranking plugin settings for an OpenSearch 
+            index:</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Curl</dt><dd tab-id="curl">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">curl -XPUT "http://localhost:9200/&lt;your-docs-index&gt;/_settings" -H 'Content-Type: application/json' -d'
+<span>{</span>
+  "index": <span>{</span>
+    "plugin": <span>{</span>
+      "searchrelevance": <span>{</span>
+        "result_transformer": <span>{</span>
+          "kendra_intelligent_ranking.*": null
+        }
+      }
+    }
+  }
+}
+'</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">from opensearchpy import OpenSearch
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin')
+
+client = OpenSearch(
+    hosts = [<span>{</span>'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    # client_cert = client_cert_path,
+    # client_key = client_key_path,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
+)
+
+setting_body = <span>{</span>
+  "index": <span>{</span>
+    "plugin": <span>{</span>
+      "searchrelevance": <span>{</span>
+        "result_transformer": <span>{</span>
+          "kendra_intelligent_ranking.*": null
+        }
+      }
+    }
+  }
+}
+
+response = client.indices.put_settings(index_name, body=setting_body)</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+        <p>To test the Intelligent Ranking plugin on a certain query or to 
+            test on certain body and title fields:</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Curl</dt><dd tab-id="curl">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">curl -XGET "https://localhost:9200/&lt;your-docs-index&gt;/_search?pretty" -u 'admin:admin' --insecure -H 'Content-Type: application/json' -d'
+<span>{</span>
+  "query": <span>{</span>
+    "multi-match": <span>{</span>
+      "query": "intelligent systems",
+      "fields": ["body_field_name_here", "title_field_name_here"]
+    }
+  },
+  "size": 25,
+  "ext": <span>{</span>
+    "search_configuration": <span>{</span>
+      "result_transformer": <span>{</span>
+        "kendra_intelligent_ranking": <span>{</span>
+          "order": 1,
+          "properties": <span>{</span>
+            "title_field": "title_field_name_here",
+            "body_field": "body_field_name_here"
+          }
+        }
+      }
+    }
+  }
+}
+'</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">from opensearchpy import OpenSearch
+host = 'localhost'
+port = 9200
+auth = ('admin', 'admin')
+
+client = OpenSearch(
+    hosts = [<span>{</span>'host': host, 'port': port}],
+    http_compress = True, # enables gzip compression for request bodies
+    http_auth = auth,
+    # client_cert = client_cert_path,
+    # client_key = client_key_path,
+    use_ssl = True,
+    verify_certs = False,
+    ssl_assert_hostname = False,
+    ssl_show_warn = False,
+    ca_certs = ca_certs_path
+)
+
+# Index settings null for kendra_intelligent_ranking
+
+query = <span>{</span>
+  "query": <span>{</span>
+    "multi_match": <span>{</span>
+      "query": "intelligent systems",
+      "fields": ["body_field_name_here", "title_field_name_here"] 
+    }
+  },
+  "size": 25,
+  "ext": <span>{</span>
+    "search_configuration": <span>{</span>
+      "result_transformer": <span>{</span>
+        "kendra_intelligent_ranking": <span>{</span>
+          "order": 1,
+          "properties": <span>{</span>
+            "title_field": "title_field_name_here",
+            "body_field": "body_field_name_here"
+          }
+        }
+      }
+    }
+  }
+}
+
+response = client.search(
+    body = query,
+    index = index_name
+)
+
+print('\nSearch results:')
+print(response)</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+     
+        <h2 id="compare-opensearch-rerank-plugin">Comparing 
+                OpenSearch results with Amazon Kendra results</h2>
+        <p>You can compare side-by-side OpenSearch (self managed) ranked 
+            results against Amazon Kendra's re-ranked results. OpenSearch 
+            Dashboards version 2.4.0 and later offers side-by-side results so 
+            that you can compare how OpenSearch ranks documents with how 
+            Amazon Kendra or the plugin ranks documents for a search query.</p>
+        <p>Before you can compare OpenSearch ranked results against 
+            Amazon Kendra re-ranked results, make sure your OpenSearch 
+            Dashboards is backed by an OpenSearch server with the 
+            Intelligent Ranking plugin. You can set this up using Docker and 
+            a quick start Bash script. See <a href="#setup-opensearch-rerank-plugin">Setting up the 
+                intelligent search plugin</a>.</p>
+        <p>The following outlines how to compare OpenSearch and 
+            Amazon Kendra search results in OpenSearch Dashboards. For more 
+            information, see the <a href="https://opensearch.org/docs/latest/search-plugins/search-relevance" rel="noopener noreferrer" target="_blank"><span>OpenSearch 
+                Documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+        <div class="procedure"><h6>Comparing search results in OpenSearch Dashboards</h6><ol><li>
+                <p>Open http://localhost:5601 and sign in to OpenSearch 
+                    Dashboards. The default credentials are user name 
+                    'admin' and password 'admin'.</p>
+            </li><li>
+                <p>Select <b>Search Relevance</b> from the 
+                    OpenSearch plugins in the navigation menu.</p>
+            </li><li>
+                <p>Enter the search text in the search bar.</p>
+            </li><li>
+                <p>Select your index for <b>Query 1</b> and 
+                    enter a query in the OpenSearch Query DSL. You can use the 
+                    <code class="code">%SearchText%</code> variable to refer to the search 
+                    text you entered in the search bar. For an example of this 
+                    query, see <a href="https://opensearch.org/docs/latest/search-plugins/search-relevance" rel="noopener noreferrer" target="_blank"><span>OpenSearch 
+                        Documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. The results returned for this 
+                    query are the OpenSearch results without using the Intelligent 
+                    Ranking plugin.</p>
+            </li><li>
+                <p>Select the same index for <b>Query 2</b> and 
+                    enter the same query in the OpenSearch Query DSL. In addition, 
+                    include the extension with <code class="code">kendra_intelligent_ranking</code> 
+                    and specify the mandatory <code class="code">body_field</code> to rank on. 
+                    You can also specify the title field, but the body field is 
+                    mandatory. For an example of this query, see <a href="https://opensearch.org/docs/latest/search-plugins/search-relevance" rel="noopener noreferrer" target="_blank"><span>OpenSearch 
+                        Documentation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. The results returned for this query 
+                    are the Amazon Kendra re-ranked results using the Intelligent 
+                    Ranking plugin. The plugin ranks up to 25 results.</p>
+            </li><li>
+                <p>Select <b>Search</b> to return and compare results.</p>
+            </li></ol></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./intelligent-rerank.html">Amazon Kendra Intelligent Ranking</div><div id="next" class="next-link" accesskey="n" href="./search-service-rerank.html">Semantically ranking a search 
+            service's results</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/en_us/kendra/latest/dg/opensearch-rerank.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/en_us/kendra/latest/dg/opensearch-rerank.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

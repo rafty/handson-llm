@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>署名付き URL を使用したオブジェクトの共有 - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ShareObjectPreSignedURL" /><meta name="default_state" content="ShareObjectPreSignedURL" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="description" content="オブジェクトのダウンロード用に署名付き URL を作成して、オブジェクトを別のユーザーと共有できるようオブジェクトを設定する方法について説明します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="Amazon Simple Storage Service (Amazon S3) を使用して、任意の量のデータをどこからでも保存および取得する方法について説明します。このガイドでは、Amazon S3 のバケット、オブジェクト、関連設定などの概念について説明し、一般的なオペレーションのコード例をいくつか示します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="署名付き URL を使用したオブジェクトの共有" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>署名付き URL を使用したオブジェクトの共有 - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#ShareObjectPreSignedURL" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="keywords" content="S3,Amazon S3,S3 ユーザーガイド,Amazon S3 ユーザーガイド,Amazon ユーザーガイド,s3 バケット,s3 オブジェクト,クラウドストレージ,データストレージ" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 でのオブジェクトのアップロード、ダウンロード、操作",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "署名付き URL の使用",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-presigned-url.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "署名付き URL を使用したオブジェクトの共有",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/using-presigned-url.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#ShareObjectPreSignedURL" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#generating-presigned-url">オブジェクトを共有するための署名付き URL の生成</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ShareObjectPreSignedURL">署名付き URL を使用したオブジェクトの共有</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>デフォルトでは、すべての S3 オブジェクトがプライベートです。オブジェクトの所有者のみがそれらにアクセスする許可を持ちます。ただし、オブジェクトの所有者はオプションで他ユーザーとオブジェクトを共有することができます。その場合は、署名付き URL を作成し、独自のセキュリティ証明書を使用して、オブジェクトをダウンロードするための期限付きの許可を相手に付与します。</p><p>オブジェクトの署名付き URL を作成するときは、セキュリティ認証情報を提供し、そしてバケット名とオブジェクトキーを指定する必要があります。また、HTTP メソッド (オブジェクトをダウンロードするには GET) と有効期限も指定する必要があります。署名付き URL は、指定した期間のみ有効です。一時トークンを使用して署名付き URL を作成した場合、トークンが有効期限切れになると、URL は失効します。URL の有効期限がより長い場合でも失効します。</p><p>署名付き URL を受け取った相手は誰でも、そのオブジェクトにアクセスできるようになります。例えば、プライベートのバケット内にプライベートの動画を格納している場合は、署名付き URL を生成することで、その動画を他ユーザーと共有できます。署名付き URL は、URL を持つすべてのユーザーに Amazon S3 バケットへのアクセスを許可するため、適切に保護することをお勧めします。署名付き URL の保護の詳細については、<a href="./using-presigned-url.html#PresignedUrlUploadObject-LimitCapabilities">署名付き URL 機能の制限</a> を参照してください。</p><p>署名付き URL を作成できるユーザーの詳細については、「<a href="./using-presigned-url.html#who-presigned-url">署名付き URL を作成できるユーザー</a>」を参照してください。</p>
+            <h2 id="generating-presigned-url">オブジェクトを共有するための署名付き URL の生成</h2>
+            <p>S3 コンソールか AWS Explorer for Visual Studio を使用することで、コードを記述せずに、オブジェクトの署名付き URL を生成できます。署名付き URL は、AWS SDKs for Java、.NET、<a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Presigner.html">Ruby</a>、<a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.S3.S3Client.html#_createPresignedRequest">PHP</a>、<a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getSignedUrl-property">Node.js</a>、<a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url" rel="noopener noreferrer" target="_blank"><span>Python</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>、および <a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/s3-example-presigned-urls.html">Go</a> を使用してプログラムで生成できます。</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>署名済み URL を生成するときは、リクエストのパラメータが署名と完全に一致することを確認してください。例えば、URL を生成するときにコンテンツタイプを指定しない場合、オブジェクトをアップロードするときにコンテンツタイプを省略する必要があります。また、ワイルドカードはサポートされていないため、署名済み URL にワイルドカードを使用するとエラーになります。</p></div></div>
+            <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="S3 コンソールの使用" id="ShareObjectPreSignedURLConsole" expanded="false"><p> AWS Management Console を使用して、次の手順に従い、オブジェクトの署名付き URL を生成できます。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>Amazon S3 コンソールでは、署名付き URL の最大有効期限は、作成時点から 12 時間です。</p></div></div><div class="procedure"><h6>AWS Management Console を使用した署名付き URL の生成</h6><ol><li><p>AWS Management Console にサインインし、Amazon S3 コンソール <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> を開きます。</p></li><li>
+                            <p><b>[Buckets]</b> (バケット) リストで、署名付き URL を取得するオブジェクトが含まれているバケットの名前を選択します。</p>
+                        </li><li>
+                            <p><b>[Objects]</b> (オブジェクト) リストで、署名付き URL を作成するオブジェクトを選択します。</p>
+                        </li><li>
+                            <p><b>[Action]</b> (アクション) メニューで、<b>[Share with a presigned URL]</b> (署名付き URL の共有) を選択します。</p>
+                        </li><li>
+                            <p>署名付き URL の有効期間を指定します。</p>
+                        </li><li>
+                            <p><b>[Create presigned URL]</b> (署名付き URL を作成) を選択します。</p>
+                        </li><li>
+                            <p>確認が表示されると、URL は自動的にクリップボードにコピーされます。署名済み URL を再度コピーする必要がある場合は、署名済み URL をコピーするボタンが表示されます。</p>
+                        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Visual Studio でのAWS エクスプローラーの使用" id="ShareObjectPreSignedURLVSExplorer" expanded="false"><p>Visual Studio を使用している場合は、AWS Explorer for Visual Studio を使用することで、コードを一切記述しなくてもオブジェクトの署名付き URL を生成できます。この URL を受け取った相手は誰でも、オブジェクトをダウンロードできるようになります。詳細については、<a href="https://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/using-s3.html">AWS Explorer で Amazon S3 を使用する</a>を参照してください。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>AWS Explorer for Visual Studio では、署名付き URL の最大有効期限は、作成時点から 7 日間です。</p></div></div><p>AWS Explorer をインストールする方法については、「<a href="./UsingAWSSDK.html">AWS SDK およびエクスプローラーを使用して Amazon S3 で開発する</a>」を参照してください。</p></awsui-expandable-section><awsui-expandable-section variant="container" header="AWS SDK の使用" id="ShareObjectPreSignedURLSDK" expanded="false"><p>次の例では、署名付き URL を生成します。この URL を他ユーザーに配布すると、オブジェクトを取得できるようになります。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>AWS SDK では、署名付き URL の最大有効期限は、作成時点から 7 日間です。</p></div></div><awsdocs-tabs><dl style="display: none">
+                        <dt>Java</dt><dd tab-id="java">
+                                <div class="example"><div class="example-contents"><p>次のサンプルコードは、署名付き URL を生成します。この URL は、S3 バケットからのオブジェクトの取得を可能にするために他のユーザーに配布できます。詳細については、<a href="./ShareObjectPreSignedURL.html">署名付き URL を使用したオブジェクトの共有</a> を参照してください。</p><p> ワーキングサンプルの作成とテストに関する手順については、<a href="./UsingTheMPJavaAPI.html#TestingJavaSamples">Amazon S3 Java コード例のテスト</a> を参照してください。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.Instant;
+
+public class GeneratePresignedURL <span>{</span>
+
+    public static void main(String[] args) throws IOException <span>{</span>
+        Regions clientRegion = Regions.DEFAULT_REGION;
+        String bucketName = "*** Bucket name ***";
+        String objectKey = "*** Object key ***";
+
+        try <span>{</span>
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(clientRegion)
+                    .withCredentials(new ProfileCredentialsProvider())
+                    .build();
+
+            // Set the presigned URL to expire after one hour.
+            java.util.Date expiration = new java.util.Date();
+            long expTimeMillis = Instant.now().toEpochMilli();
+            expTimeMillis += 1000 * 60 * 60;
+            expiration.setTime(expTimeMillis);
+
+            // Generate the presigned URL.
+            System.out.println("Generating pre-signed URL.");
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(bucketName, objectKey)
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+            URL url = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+
+            System.out.println("Pre-Signed URL: " + url.toString());
+        } catch (AmazonServiceException e) <span>{</span>
+            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // it, so it returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) <span>{</span>
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        }
+    }
+}
+
+</code></pre></div></div>
+                            </dd>
+                        <dt>.NET</dt><dd tab-id=".net">
+                                <div class="example"><div class="example-contents"><p>ワーキングサンプルの作成とテストに関する手順については、<a href="./UsingTheMPDotNetAPI.html#TestingDotNetApiSamples">Amazon S3 .NET コード例の実行</a> を参照してください。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="cs ">using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System;
+
+namespace Amazon.DocSamples.S3
+<span>{</span>
+    class GenPresignedURLTest
+    <span>{</span>
+        private const string bucketName = "*** bucket name ***"; 
+        private const string objectKey = "*** object key ***";
+        // Specify how long the presigned URL lasts, in hours
+        private const double timeoutDuration = 12;
+        // Specify your bucket region (an example region is shown).
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
+        private static IAmazonS3 s3Client;
+
+        public static void Main()
+        <span>{</span>
+            s3Client = new AmazonS3Client(bucketRegion);
+            string urlString = GeneratePreSignedURL(timeoutDuration);
+        }
+        static string GeneratePreSignedURL(double duration)
+        <span>{</span>
+            string urlString = "";
+            try
+            <span>{</span>
+                GetPreSignedUrlRequest request1 = new GetPreSignedUrlRequest
+                <span>{</span>
+                    BucketName = bucketName,
+                    Key = objectKey,
+                    Expires = DateTime.UtcNow.AddHours(duration)
+                };
+                urlString = s3Client.GetPreSignedURL(request1);
+            }
+            catch (AmazonS3Exception e)
+            <span>{</span>
+                Console.WriteLine("Error encountered on server. Message:'<span>{</span>0}' when writing an object", e.Message);
+            }
+            catch (Exception e)
+            <span>{</span>
+                Console.WriteLine("Unknown encountered on server. Message:'<span>{</span>0}' when writing an object", e.Message);
+            }
+            return urlString;
+        }
+    }
+}
+</code></pre></div></div>
+                            </dd>
+                        <dt>JavaScript</dt><dd tab-id="javascript">
+                                <div class="example"><div class="example-contents"><p>次の例では、バケットの作成、オブジェクトのプット、オブジェクトの署名付き URL の作成、URL の取得を行い、その後にオブジェクトとバケットを削除します。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascript ">import <span>{</span> GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import <span>{</span> fromIni } from "@aws-sdk/credential-providers";
+import <span>{</span> HttpRequest } from "@aws-sdk/protocol-http";
+import <span>{</span>
+  getSignedUrl,
+  S3RequestPresigner,
+} from "@aws-sdk/s3-request-presigner";
+import <span>{</span> parseUrl } from "@aws-sdk/url-parser";
+import <span>{</span> formatUrl } from "@aws-sdk/util-format-url";
+import <span>{</span> Hash } from "@aws-sdk/hash-node";
+
+const createPresignedUrlWithoutClient = async (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const url = parseUrl(`https://$<span>{</span>bucket}.s3.$<span>{</span>region}.amazonaws.com/$<span>{</span>key}`);
+  const presigner = new S3RequestPresigner(<span>{</span>
+    credentials: fromIni(),
+    region,
+    sha256: Hash.bind(null, "sha256"),
+  });
+
+  const signedUrlObject = await presigner.presign(new HttpRequest(url));
+  return formatUrl(signedUrlObject);
+};
+
+const createPresignedUrlWithClient = (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const client = new S3Client(<span>{</span> region });
+  const command = new GetObjectCommand(<span>{</span> Bucket: bucket, Key: key });
+  return getSignedUrl(client, command, <span>{</span> expiresIn: 3600 });
+};
+
+export const main = async () =&gt; <span>{</span>
+  const REGION = "us-east-1";
+  const BUCKET = "example_bucket";
+  const KEY = "example_file.jpg";
+
+  try <span>{</span>
+    const noClientUrl = await createPresignedUrlWithoutClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    const clientUrl = await createPresignedUrlWithClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    console.log("Presigned URL without client");
+    console.log(noClientUrl);
+    console.log("\n");
+
+    console.log("Presigned URL with client");
+    console.log(clientUrl);
+  } catch (err) <span>{</span>
+    console.error(err);
+  }
+};
+</code></pre></div></div>
+                            </dd>
+                        <dt>PHP</dt><dd tab-id="php">
+                                <p>AWS SDK for PHP バージョン 3 を使用して署名済み URL を生成する方法のさらなる詳細については、「<em>AWS SDK for PHP デベロッパーガイド</em>」の 「<a href="https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-presigned-url.html">AWS SDK for PHP バージョン 3 を使用した Amazon S3 署名付き URL</a>」を参照してください。</p>
+                            </dd>
+                        <dt>Python</dt><dd tab-id="python">
+                                <p>SDK for Python (Boto3) を使用してオブジェクトを共有する署名付き URL を生成します。例えば、Boto3 クライアントと <code class="code">generate_presigned_url</code> 関数を使用して、オブジェクトを GET する署名付き URL を生成します。</p>
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="Python ">import boto3
+    url = boto3.client('s3').generate_presigned_url(
+    ClientMethod='get_object', 
+    Params=<span>{</span>'Bucket': 'BUCKET_NAME', 'Key': 'OBJECT_KEY'},
+    ExpiresIn=3600)</code></pre>
+                                <p>SDK for Python (Boto3) を使用して署名付き URL を生成する方法の詳細については、<em>AWS SDK for Python (Boto) API リファレンス</em>の <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url" rel="noopener noreferrer" target="_blank"><span>Python</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> を参照してください。</p>
+                            </dd>
+                    </dl></awsdocs-tabs></awsui-expandable-section><awsui-expandable-section variant="container" header="AWS CLI を使用する場合" id="ShareObjectPresignedCLI" expanded="false"><p>AWS CLI を使用してオブジェクトを共有するための署名付き URL を生成するには、「<em>AWS CLI コマンドリファレンス</em>」の「<a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/presign.html" rel="noopener noreferrer" target="_blank"><span>事前署名</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>」を参照してください。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>AWS CLI では、署名付き URL の最大有効期限は、作成時点から 7 日間です。</p></div></div></awsui-expandable-section></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./using-presigned-url.html">署名付き URL の使用</div><div id="next" class="next-link" accesskey="n" href="./PresignedUrlUploadObject.html">オブジェクトのアップロード</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

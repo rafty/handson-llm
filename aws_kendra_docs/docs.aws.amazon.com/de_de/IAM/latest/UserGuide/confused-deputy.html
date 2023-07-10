@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Das Confused-Deputy-Problem - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="confused-deputy" /><meta name="default_state" content="confused-deputy" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" /><meta name="description" content="Das Problem des verwirrten Stellvertreters ist ein Sicherheitsproblem, bei dem eine Entität, die keine Berechtigung zur Durchführung einer Aktion hat, eine privilegiertere Entität zur Durchführung der Aktion zwingen kann. Um dies zu verhindern, bietet AWS Tools, mit denen Sie Ihr Konto schützen können, wenn Sie Dritten (d. h." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Leitfaden" /><meta name="abstract" content="Steuern des Zugriffs auf Ihre AWS-Ressourcen mit Benutzeridentität (Authentifizierung) und Richtlinien, die spezifische Berechtigungen (Autorisierung) definieren." /><meta name="guide-locale" content="de_de" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Leitfaden" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Leitfaden" /><meta id="panorama-serviceConsolePage" value="Das Confused-Deputy-Problem" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Das Confused-Deputy-Problem - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#confused-deputy" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM-Benutzer,user,IAM-Gruppe,Gruppe,IAM role (IAM-Rolle),Rolle,Berechtigungsrichtlinie,Vertrauensrichtlinie,Richtlinie,Zugriffsschlüssel,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Leitfaden",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM-Identitäten (Benutzer, Gruppen und Rollen)",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM-Rollen",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Gängige Szenarien für Rollen: Benutzer, Anwendungen und Services",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Das Confused-Deputy-Problem",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#confused-deputy" target="_blank" rel="noopener noreferrer" title="PDF öffnen"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Dokumentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Leitfaden</a></div><div id="page-toc-src"><a href="#mitigate-confused-deputy">Vermeidung des Problems des verwirrten Stellvertreters (kontoübergreifend)</a><a href="#cross-service-confused-deputy-prevention">Vermeidung des Problems des verwirrten Stellvertreters (dienstübergreifend)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="confused-deputy">Das Confused-Deputy-Problem</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Das Problem des verwirrten Stellvertreters ist ein Sicherheitsproblem, bei dem eine Entität, die keine Berechtigung zur Durchführung einer Aktion hat, eine privilegiertere Entität zur Durchführung der Aktion zwingen kann. Um dies zu verhindern, bietet AWS Tools, mit denen Sie Ihr Konto schützen können, wenn Sie Dritten (d. h. <em>kontoübergreifend</em>) oder anderen AWS-Diensten (d. h. <em>dienstübergreifend</em>) Zugriff auf Ressourcen in Ihrem Konto bereitstellen.</p><p>Es kann vorkommen, dass Sie Dritten Zugriff auf Ihre AWS-Ressourcen gewähren müssen, also Zugriff delegieren müssen. Angenommen, Sie beauftragen das externe Unternehmen Example Corp damit, Ihr AWS-Konto zu überwachen und zur Kostenoptimierung beizutragen. Um Ihre täglichen Ausgaben zu überwachen, benötigt Example Corp Zugriff auf Ihre AWS-Ressourcen. Example Corp überwacht zudem viele weitere AWS-Konten anderer Kunden. Etablieren Sie mithilfe einer IAM-Rolle eine Vertrauensbeziehung zwischen Ihrem AWS-Konto und dem Konto von Example Corp. Ein wichtiger Faktor hierbei ist die <em>externe ID</em>, eine optionale Information, mit der Sie in Vertrauensrichtlinien von IAM-Rollen festlegen können, wer die Rolle übernehmen kann. Die Hauptfunktion des externen Ausweises besteht darin, das Problem des verwirrten Stellvertreters zu lösen und zu verhindern.</p><p>In AWS kann der betriebsübergreifende Identitätswechsel zu dem Problem des verwirrten Stellvertreters führen. Ein dienstübergreifender Identitätswechsel kann auftreten, wenn ein Dienst (der <em>Anruf-Dienst</em>) einen anderen Dienst anruft (den <em>aufgerufenen Dienst</em>). Der Anruf-Dienst kann so manipuliert werden, dass er seine Berechtigungen verwendet, um auf die Ressourcen eines anderen Kunden zu reagieren, auf die er sonst nicht zugreifen dürfte.</p>
+        <h2 id="mitigate-confused-deputy">Vermeidung des Problems des verwirrten Stellvertreters (kontoübergreifend)</h2>
+        <p>In der nachfolgenden Abbildung wird das verwirrte Stellvertreter-Problem dargestellt.</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputyproblem2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                Beschreibung eines Problems des verwirrten Stellvertreters&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <p>In diesem Szenario wird von Folgendem ausgegangen:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>AWS-1</b> ist Ihr AWS-Konto.</p>
+            </li><li class="listitem">
+                <p><b>AWS1:ExampleRole</b> ist eine Rolle in Ihrem Konto. Über die Vertrauensrichtlinie dieser Rolle wird das AWS-Konto von Example Corp angegeben und kann somit die Rolle übernehmen.</p>
+            </li></ul></div>
+        <p>Es passiert Folgendes:</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>Wenn Sie die Zusammenarbeit mit Example Corp beginnen, stellen Sie Example Corp den ARN von <b>AWSAWS1:ExampleRole</b> bereit.</p>
+            </li><li>
+                <p>Example Corp verwendet den Rollen-ARN, um temporäre Sicherheitsanmeldeinformationen abzurufen und damit auf die Ressourcen in Ihrem AWS-Konto zuzugreifen. Sie machen Example Corp also zu Ihrem "Stellvertreter", der in Ihrem Namen handeln darf.</p>
+            </li><li>
+                <p>Ein anderer AWS-Kunde beginnt ebenfalls mit Example Corp zu arbeiten und stellt Example Corp ebenfalls den ARN von <b>AWSAWS1:ExampleRole</b> bereit. Dabei gehen wir davon aus, dass der andere Kunde den ARN von <b>AWSAWS1:ExampleRole</b> in Erfahrung gebracht hat, der ja nicht geheim ist.</p>
+            </li><li>
+                <p>Wenn der andere Kunde Example Corp Zugriff auf die AWS-Ressourcen in (scheinbar) seinem Konto gewährt, greift Beispielunternehmen mithilfe von <b>AWSAWS1:ExampleRole</b> auf die Ressourcen in Ihrem Konto zu.</p>
+            </li></ol></div>
+        <p>So kann der andere Kunde unautorisiert Zugriff auf Ihre Ressourcen erlangen. Da der Kunde Example Corp dahingehend manipuliert hat, unwissentlich auf Ihre Ressourcen zuzugreifen, ist Beispielunternehmen nun ein "verwirrter Stellvertreter".</p>
+        <p>Example Corp vermeidet dieses Problem zum Beispiel, indem sie verlangt, in der Vertrauensrichtlinie der Rolle eine <code class="code">ExternalId</code>-Bedingungsprüfung aufzunehmen. Example Corp generiert zum Beispiel einen einzigartigen<code class="code">ExternalId</code>-Wert für jeden Kunden und verwendet diesen Wert in seiner Anforderung, um die Rolle zu übernehmen. Der <code class="code">ExternalId</code>-Wert muss unter den Kunden von Example Corp eindeutig sein und von Example Corp kontrolliert werden, nicht von seinen Kunden. Deshalb erhalten Sie diese ID auch von Example Corp und können sie nicht selbst erstellen. Dies verhindert, dass Example Corp ein verwirrter Stellvertreter wird und Zugang zu AWS-Ressourcen eines anderen Kontos gewährt.</p>
+        <p>Stellen Sie sich in unserem Szenario vor, dass Ihre eindeutige ID beim Example Corp 12345 lautet und die ID des anderen Kunden 67890. Die IDs sind für dieses Szenario vereinfacht. Im Allgemeinen sind diese IDs GUIDs. Angenommen, diese IDs sind innerhalb des Kundenstamms von Example Corp eindeutig und es handelt sich um sinnvolle externe ID-Werte. </p>
+        <p>Example Corp teilt Ihnen den externen ID-Wert 12345 mit. Sie fügen nun ein <code class="code">Condition</code>-Element zur Vertrauensrichtlinie der Rolle hinzu, dessen <code class="code">sts:ExternalId</code>-Wert 12345 lauten muss. Beispiel:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "AWS": "<code class="replaceable">Example Corp's AWS Account ID</code>"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "StringEquals": <span>{</span>
+        "sts:ExternalId": "12345"
+      }
+    }
+  }
+}
+</code></pre>
+        <p>Aufgrund des Condition-Elements in dieser Richtlinie kann Example Corp die Rolle nur übernehmen, wenn der AssumeRole-API-Aufruf den externen ID-Wert 12345 enthält. Example Corp gibt immer, wenn es für einen Kunden eine Rolle übernimmt, den externen ID-Wert des Kunden im AssumeRole-Aufruf mit an. Selbst wenn ein anderer Kunde Example Corp Ihren ARN bereitstellt, kann er die externe ID, die Example Corp in seine Anforderung an AWS aufnimmt, nicht kontrollieren. So wird verhindert, dass nicht autorisierte Kunden Zugriff auf Ihre Ressourcen erhalten.</p>
+        <p>Das folgende Diagramm verdeutlicht dieses Konzept.</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputymitigation2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                Vermeiden des Problems des verwirrten Stellvertreters&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>Wie zuvor stellen Sie, wenn Sie die Zusammenarbeit mit Example Corp beginnen, dem Unternehmen den ARN von <b>AWSAWS1:ExampleRole</b> bereit.</p>
+            </li><li>
+                <p> Wenn das Example Corp den Rollen-ARN nutzt, um die Rolle <b>AWS1:ExampleRole</b> anzunehmen, gibt das Example Corp Ihre externe ID (12345) im AssumeRole-API-Aufruf mit an. Die externe ID stimmt mit der Vertrauensrichtlinie der Rolle überein, sodass der AssumeRole-API-Aufruf erfolgreich ist und Example Corp temporäre Sicherheitsanmeldeinformationen für den Zugriff auf Ressourcen in Ihrem AWS-Konto erhält.</p>
+            </li><li>
+                <p>Ein anderer AWS-Kunde beginnt ebenfalls wie zuvor mit Example Corp zu arbeiten und stellt Example Corp ebenfalls den ARN von <b>AWSAWS1:ExampleRole</b> bereit. </p>
+            </li><li>
+                <p>Wenn das Example Corp jedoch diesmal versucht, die Rolle <b>AWS1:ExampleRole</b> anzunehmen, gibt es die dem anderen Kunden zugeordnete externe ID (67890) an. Der andere Kunde hat keinen Einfluss darauf. Example Corp gibt dies an, da die Anforderung zur Verwendung der Rolle von dem anderen Kunden stammte und 67890 somit die Umstände angibt, unter denen Example Corp handelt. Da Sie eine Bedingung mit Ihrer eigenen externen ID (12345) zur Vertrauensrichtlinie von <b>AWS1:ExampleRole</b> hinzugefügt haben, schlägt der AssumeRole-API-Aufruf fehl. Der andere Kunde wird daran gehindert, unbefugten Zugriff auf Ressourcen in Ihrem Konto zu erhalten (gekennzeichnet durch das rote "X" in der Grafik).</p>
+            </li></ol></div>
+        <p>Die externe ID verhindert, dass andere Kunden Example Corp manipuliert, und unwissentlich Zugriff auf Ihre Ressourcen gewährt. </p>
+     
+        <h2 id="cross-service-confused-deputy-prevention">Vermeidung des Problems des verwirrten Stellvertreters (dienstübergreifend)</h2>
+        <p>Wir empfehlen die Verwendung der globalen Bedingungskontextschlüssel <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn"><code class="code">aws:SourceArn</code></a> und <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount"><code class="code">aws:SourceAccount</code></a> in ressourcenbasierten Richtlinien, um die Berechtigungen zu beschränken, die ein Dienst für eine bestimmte Ressource hat. Verwenden Sie <code class="code">aws:SourceArn</code>, wenn Sie nur eine Ressource mit dem betriebsübergreifenden Zugriff verknüpfen möchten. Verwenden Sie <code class="code">aws:SourceAccount</code>, wenn Sie zulassen möchten, dass Ressourcen in diesem Konto mit der betriebsübergreifenden Verwendung verknüpft werden.</p>
+        <p>Am effektivsten schützen Sie sich vor dem Problem des verwirrten Stellvertreters, indem Sie den globalen Bedingungskontextschlüssel <code class="code">aws:SourceArn</code> mit dem vollständigen ARN der Ressource in Ihren ressourcenbasierten Richtlinien verwenden. Wenn Sie den vollständigen ARN der Ressource nicht kennen oder wenn Sie mehrere Ressourcen angeben, verwenden Sie den globalen Bedingungskontextschlüssel <code class="code">aws:SourceArn</code> mit Platzhaltern (<code class="code">*</code>) für die unbekannten Teile des ARN. Zum Beispiel <code class="code">arn:aws:<code class="replaceable">servicename</code>:*:<code class="replaceable">123456789012</code>:*</code>.</p>
+        <p>Wenn der <code class="code">aws:SourceArn</code>-Wert die Konto-ID nicht enthält, z. B. einen Amazon-S3-Bucket-ARN, müssen Sie beide globale Bedingungskontextschlüssel verwenden, um Berechtigungen einzuschränken.</p>
+
+         
+            <h3 id="cross-service-confused-deputy-prevention-sts">Vermeidung des Problems des verwirrten Stellvertreters im dienstübergreifenden Szenario für AWS Security Token Service</h3>
+            <p>Viele AWS-Services erfordern, dass Sie Rollen verwenden, um dem Service den Zugriff auf Ressourcen in anderen Services in Ihrem Namen zu ermöglichen. Eine Rolle, die ein Service übernimmt, um Aktionen in Ihrem Namen durchzuführen, wird als <a href="./id_roles_terms-and-concepts.html#iam-term-service-role">Servicerolle</a> bezeichnet. Eine Rolle erfordert zwei Richtlinien: eine Rollenvertrauensrichtlinie, die den Prinzipal angibt, der die Rolle übernehmen darf, und eine Berechtigungsrichtlinie, die angibt, was mit der Rolle gemacht werden kann. Eine Rollenvertrauensrichtlinie ist die einzige ressourcenbasierte Richtlinie in IAM. Sonstige AWS-Services verfügen über ressourcenbasierte Richtlinien wie eine Amazon-S3-Bucket-Richtlinie.</p>
+            <p>Wenn ein Dienst eine Rolle in Ihrem Namen übernimmt, muss der Service-Prinzipal die<code class="code">sts:AssumeRole</code>-Aktion in der Rollenvertrauensrichtlinie ausführen dürfen. Wenn ein Service <code class="code">sts:AssumeRole</code> aufruft, gibt AWS STS eine Reihe temporärer Sicherheitsanmeldeinformationen zurück, die der Service-Prinzipal für den Zugriff auf die Ressourcen verwendet, die laut Berechtigungsrichtlinie der Rolle zulässig sind. Wenn ein Dienst eine Rolle in Ihrem Konto übernimmt, können Sie die globalen Bedingungskontextschlüssel <code class="code">aws:SourceAccount</code> und <code class="code">aws:SourceArn</code> in Ihrer Rollenvertrauensrichtlinie übernehmen, um den Zugriff auf die Rolle nur auf Anforderungen zu beschränken, die von erwarteten Ressourcen generiert werden.</p>
+            <p>In AWS Systems Manager Incident Manager müssen Sie zum Beispiel eine Rolle auswählen, damit Incident Manager in Ihrem Namen ein Systems-Manager-Automatisierungsdokument ausführen kann. Das Automatisierungsdokument kann automatisierte Reaktionspläne für Vorfälle enthalten, die durch CloudWatch-Alarme oder EventBridge-Ereignisse ausgelöst werden. Im folgenden Beispiel für eine Rollenvertrauensrichtlinie können Sie den <code class="code">aws:SourceArn</code>-Bedingungsschlüssel verwenden, um den Zugriff auf die Servicerolle basierend auf dem ARN des Vorfalldatensatzes einzuschränken. Nur Vorfallsdatensätze, die aus der Reaktionsplan-Ressource <code class="code">myresponseplan</code> erstellt werden, können diese Rolle verwenden.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "Service": "ssm-incidents.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "ArnLike": <span>{</span>
+        "aws:SourceArn": "arn:aws:ssm-incidents:*:<code class="replaceable">111122223333</code>:incident-record/<code class="replaceable">myresponseplan</code>/*"
+      }
+    }
+  }
+}</code></pre>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warnung" /> <strong>JavaScript ist in Ihrem Browser nicht verfügbar oder deaktiviert.</strong></p><p>Zur Nutzung der AWS-Dokumentation muss JavaScript aktiviert sein. Weitere Informationen finden auf den Hilfe-Seiten Ihres Browsers.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Dokumentkonventionen</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_common-scenarios_services.html">Gewähren von Zugriff auf AWS-Services</div><div id="next" class="next-link" accesskey="n" href="./id_roles_common-scenarios_federated-users.html">Gewähren von Zugriff über den Identitätsverbund</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Hat Ihnen diese Seite geholfen? – Ja</div><div class="content"><p>Vielen Dank, dass Sie uns mitgeteilt haben, dass wir gute Arbeit geleistet haben!</p><p>Würden Sie sich einen Moment Zeit nehmen, um uns mitzuteilen, was wir richtig gemacht haben, damit wir noch besser werden?</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Hat Ihnen diese Seite geholfen? – Nein</div><div class="content"><p>Vielen Dank, dass Sie uns mitgeteilt haben, dass diese Seite überarbeitet werden muss. Es tut uns Leid, dass wir Ihnen nicht weiterhelfen konnten.</p><p>Würden Sie sich einen Moment Zeit nehmen, um uns mitzuteilen, wie wir die Dokumentation verbessern können?</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

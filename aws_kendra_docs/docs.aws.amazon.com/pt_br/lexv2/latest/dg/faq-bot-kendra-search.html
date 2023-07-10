@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Exemplo: Criação de um bot de perguntas frequentes para um índice Amazon Kendra - Amazon Lex</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="faq-bot-kendra-search" /><meta name="default_state" content="faq-bot-kendra-search" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="description" content="Este exemplo cria um bot Amazon Lex V2 que usa um índice Amazon Kendra para fornecer respostas às perguntas dos usuários. O bot de perguntas frequentes gerencia a caixa de diálogo para o usuário. Ele usa a intenção AMAZON.KendraSearchIntent para consultar o índice e apresentar a resposta ao usuário. Aqui está um resumo de como você criará seu bot de perguntas frequentes usando um índice Amazon Kendra:" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Lex" /><meta name="guide" content="Guia do desenvolvedor do V2" /><meta name="abstract" content="Fornece uma visão geral conceitual do Amazon Lex V2. Inclui instruções detalhadas para usar vários recursos, como streaming de conversas, e fornece uma referência completa para as APIs V2." /><meta name="guide-locale" content="pt_br" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="x-default" /><meta name="feedback-item" content="Lex" /><meta name="this_doc_product" content="Amazon Lex" /><meta name="this_doc_guide" content="Guia do desenvolvedor do V2" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'lex'}"></script><meta id="panorama-serviceSubSection" value="Guia do desenvolvedor do V2" /><meta id="panorama-serviceConsolePage" value="Exemplo: Criação de um bot de perguntas frequentes para um índice Amazon Kendra" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Exemplo: Criação de um bot de perguntas frequentes para um índice Amazon Kendra - Amazon Lex</title><meta name="pdf" content="lex2.0.pdf#faq-bot-kendra-search" /><meta name="rss" content="amazon-lex-v2-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=251" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=http://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Lex",
+        "item" : "https://docs.aws.amazon.com/lex/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guia do desenvolvedor do V2",
+        "item" : "https://docs.aws.amazon.com/pt_br/lexv2/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Construindo bots",
+        "item" : "https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/building-bots.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Intenções e tipos de slots integrados",
+        "item" : "https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/built-in.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Intenções integradas",
+        "item" : "https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/howitworks-builtins-intents.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "AMAZÔNIA. KendraSearchIntent",
+        "item" : "https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/built-in-intent-kendra-search.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Exemplo: Criação de um bot de perguntas frequentes para um índice Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/built-in-intent-kendra-search.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="lex2.0.pdf#faq-bot-kendra-search" target="_blank" rel="noopener noreferrer" title="Abrir em PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentação</a><a href="/lex/index.html">Amazon Lex</a><a href="what-is.html">Guia do desenvolvedor do V2</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>As traduções são geradas por tradução automática. Em caso de conflito entre o conteúdo da tradução e da versão original em inglês, a versão em inglês prevalecerá.</p></awsui-alert><h1 class="topictitle" id="faq-bot-kendra-search">Exemplo: Criação de um bot de perguntas frequentes para um índice Amazon Kendra</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Este exemplo cria um bot Amazon Lex V2 que usa um índice Amazon Kendra para fornecer respostas às perguntas dos usuários. O bot de perguntas frequentes gerencia a caixa de diálogo para o usuário. Ele usa a intenção <code class="code">AMAZON.KendraSearchIntent</code> para consultar o índice e apresentar a resposta ao usuário. Aqui está um resumo de como você criará seu bot de perguntas frequentes usando um índice Amazon Kendra:</p><div class="orderedlist">
+                     
+                     
+                     
+                     
+                <ol><li>
+                        <p>Criar um bot com o qual seus clientes vão interagir para obter respostas do bot.</p>
+                    </li><li>
+                        <p>Criar uma intenção personalizada. Como os<code class="code">AMAZON.KendraSearchIntent</code> e<code class="code">AMAZON.FallbackIntent</code> são intenções de backup, seu bot exige pelo menos uma outra intenção que deve conter pelo menos uma expressão. Essa intenção permite que o bot crie, mas não seja usado de outra forma. Portanto, seu bot de perguntas frequentes conterá pelo menos três intenções, como na imagem abaixo: </p>
+                            
+                        <div class="mediaobject">
+                             
+                                <img src="images/kendra-faqbot/kendra-intents.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                Um bot de perguntas frequentes do Kendra com três intenções&#xA;                            " />
+                             
+                             
+                        </div>
+                    </li><li>
+                        <p>Adicione a<code class="code">AMAZON.KendraSearchIntent</code> intenção ao seu bot e configure-o para funcionar com seu <a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index.html">índice Amazon Kendra</a>. </p>
+                    </li><li>
+                        <p>Teste o bot fazendo uma consulta e verificando se os resultados do seu índice Amazon Kendra são documentos que respondem à consulta.</p>
+                    </li></ol></div><p><b>Pré-requisitos</b></p><p>Antes que você possa usar esse exemplo, é necessário criar um índice do Amazon Kendra. Para obter mais informações, consulte <a href="https://docs.aws.amazon.com/kendra/latest/dg/gs-console.html">Introdução ao console Amazon Kendra</a> no <em>Guia do desenvolvedor do Amazon Kendra</em>. Neste exemplo, escolha o conjunto de dados de amostra (<b>amostra de documentação da AWS</b>) como sua fonte de dados.</p><div class="procedure"><h6>Para criar um bot de perguntas frequentes:</h6><ol><li><p>Faça login noAWS Management Console e abra o console do Lex do Amazon Lex em <a href="https://console.aws.amazon.com/lex/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/lex/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                        <p>No painel de navegação, selecione <b>Bots</b>. </p>
+                    </li><li>
+                        <p>Escolha <b>Criar bot</b>.</p>
+                        <ol><li>
+                                <p> Para o <b>método de criação</b>, escolha <b>Criar um bot em branco</b>. </p>
+                            </li><li>
+                                <p> Na seção <b>Configuração do bot</b>, dê ao bot um nome que indique sua finalidade<code class="userinput">KendraTestBot</code>, como uma descrição opcional. O nome deve ser exclusivo na sua conta. </p>
+                            </li><li>
+                                <p> Na seção <b>Permissões do IAM</b>, escolha <b>Criar uma função com permissões básicas do Amazon Lex</b>. Isso criará uma função <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html">AWS Identity and Access Management(IAM)</a> com as permissões que o Amazon Lex V2 precisa para executar seu bot. </p>
+                            </li><li>
+                                <p> Na seção <b>Lei de Proteção à Privacidade Online para Crianças (COPPA)</b>, escolha <b>Não</b>. </p>
+                            </li><li>
+                                <p> Nas seções <b>Tempo limite da sessão inativa</b> e <b>Configurações avançadas</b>, deixe as configurações padrão e escolha <b>Avançar</b>. </p>
+                            </li><li>
+                                <p> Agora você está na seção <b>Adicionar idioma ao bot</b>. No menu em <b>Interação por voz</b>, selecione <b>Nenhuma. Este é apenas um aplicativo baseado em texto</b>. Mantenha as configurações padrão </p>
+                            </li><li>
+                                <p> Escolha <b>Done</b> (Concluído). O Amazon Lex V2 cria seu bot e uma intenção padrão chamada <b>NewIntent</b>, e leva você à página para configurar essa intenção. </p>
+                            </li></ol>
+                    </li></ol></div><p>Para criar um bot com sucesso, você deve criar pelo menos uma intenção separada do<code class="code">AMAZON.FallbackIntent</code> e do<code class="code">AMAZON.KendraSearchIntent</code>. Essa intenção é necessária para criar seu bot Amazon Lex V2, mas não é usada para responder às perguntas frequentes. Essa intenção deve conter pelo menos um exemplo de enunciado e o enunciado não deve se aplicar a nenhuma das perguntas feitas pelo cliente.</p><div class="procedure"><h6>Para criar a intenção necessária:</h6><ol><li>
+                        <p> Na seção <b>Detalhes da intenção</b>, dê um nome à intenção, como<code class="userinput">RequiredIntent</code>. </p>
+                    </li><li>
+                        <p> Na seção <b>Exemplos de enunciados</b>, digite um enunciado na caixa ao lado de <b>Adicionar enunciado</b>, como<code class="userinput">Required utterance</code>. Em seguida, escolha <b>Adicionar enunciado</b>. </p>
+                    </li><li>
+                        <p>Selecione <b>Salvar intenção</b>.</p>
+                    </li></ol></div><p>Crie a intenção de pesquisar um índice do Amazon Kendra e a mensagem de resposta que ele deve retornar.</p><div class="procedure"><h6>Para criar uma AMAZON. KendraSearchIntent mensagem de intenção e resposta:</h6><ol><li>
+                        <p> Selecione <b>Voltar à lista de intenções</b> no painel de navegação para retornar à página de <b>intenções</b> do seu bot. Escolha <b>Adicionar intenção</b> e selecione <b>Usar intenção embutida</b> no menu suspenso. </p>
+                    </li><li>
+                        <p> Na caixa exibida, selecione o menu em <b>Intenção embutida.</b> Entre<code class="userinput">AMAZON.KendraSearchIntent</code> na barra de pesquisa e, em seguida, escolha-a na lista. </p>
+                    </li><li>
+                        <p> Dê um nome à intenção, como<code class="userinput">KendraSearchIntent</code>. </p>
+                    </li><li>
+                        <p> No menu suspenso do <b>índice do Amazon Kendra</b>, escolha o índice no qual você deseja que a intenção pesquise. O índice que você criou na seção <b>Pré-requisitos</b> deve estar disponível. </p>
+                    </li><li>
+                        <p> Select <b>Add</b> (Adicionar). </p>
+                    </li><li>
+                        <p>No editor de intenção, role para baixo até a seção <b>Cumprimento</b>, selecione a seta para a direita para expandir a seção e adicione a seguinte mensagem na caixa em <b>Sobre o cumprimento bem-sucedido</b>: </p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="">I found a link to a document that could help you: ((x-amz-lex:kendra-search-response-document-link-1)).</code></pre>
+                    
+                        <div class="mediaobject">
+                             
+                                <img src="images/kendra-faqbot/kendra-fulfillment-response.gif" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                Adicione a resposta de atendimento&#xA;                            " />
+                             
+                             
+                        </div>
+                        
+                        <p> Para obter mais informações sobre o Amazon Kendra Search Response, consulte <a href="https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-kendra-search.html#kendra-search-response">Usando a resposta de pesquisa</a>. </p>
+                    
+                    </li><li>
+                        <p>Escolha <b>Salvar intenção</b> e selecione <b>Criar</b> para criar o bot. Quando o bot estiver pronto, o banner na parte superior da tela ficará verde e exibirá uma mensagem de sucesso. </p>
+                    </li></ol></div><p>Por fim, use a janela de teste do console para testar as respostas do bot.</p><div class="procedure"><h6>Para testar seu bot de perguntas frequentes:</h6><ol><li>
+                        <p> Depois que o bot for criado com sucesso, escolha <b>Testar</b>. </p>
+                    </li><li>
+                        <p> Entre<code class="userinput">What is Amazon Kendra?</code> na janela de teste do console. Verifique se o bot responde com um link. </p>
+                    </li><li>
+                        <p> Para obter mais informações sobre configuração<code class="code">AMAZON.KendraSearchIntent</code>, consulte <a href="https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-kendra-search.html">AMAZON. KendraSearchIntent</a>e <a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_KendraConfiguration.html">KendraConfiguration</a>. </p>
+                    </li></ol></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Atenção" /> <strong>O Javascript está desativado ou não está disponível no seu navegador.</strong></p><p>Para usar a documentação da AWS, o Javascript deve estar ativado. Consulte as páginas de Ajuda do navegador para obter instruções.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenções do documento</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./built-in-intent-kendra-search.html">AMAZÔNIA. KendraSearchIntent</div><div id="next" class="next-link" accesskey="n" href="./built-in-intent-pause.html">AMAZÔNIA. PauseIntent</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Essa página foi útil? - Sim</div><div class="content"><p>Obrigado por nos informar que estamos fazendo um bom trabalho!</p><p>Se tiver tempo, conte-nos sobre o que você gostou para que possamos melhorar ainda mais.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Essa página foi útil? - Não</div><div class="content"><p>Obrigado por nos informar que precisamos melhorar a página. Lamentamos ter decepcionado você.</p><p>Se tiver tempo, conte-nos como podemos melhorar a documentação.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

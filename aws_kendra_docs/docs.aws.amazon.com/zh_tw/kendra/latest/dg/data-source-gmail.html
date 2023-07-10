@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Gmail - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="data-source-gmail" /><meta name="default_state" content="data-source-gmail" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-gmail.html" /><meta name="description" content="如何在Amazon Kendra中使用 Gmail 資料來源連接器來編製文件的索引。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="開發人員指南" /><meta name="abstract" content="提供 Amazon Kendra 的概念性概觀。瞭解Amazon Kendra功能，並開始使用主控台、CLI 和 API 編製文件索引。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-gmail.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/data-source-gmail.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/data-source-gmail.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/data-source-gmail.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/data-source-gmail.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-gmail.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-gmail.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/data-source-gmail.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/data-source-gmail.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/data-source-gmail.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/data-source-gmail.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/data-source-gmail.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/data-source-gmail.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/data-source-gmail.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/data-source-gmail.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/data-source-gmail.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/data-source-gmail.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/data-source-gmail.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/data-source-gmail.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/data-source-gmail.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-gmail.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-gmail.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="開發人員指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="開發人員指南" /><meta id="panorama-serviceConsolePage" value="Gmail" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Gmail - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#data-source-gmail" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-gmail.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-gmail.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-gmail.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search,智能搜索,自然語言,index,question,關鍵詞,資料來源,連接器,常見問答集,Gmail" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "開發人員指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "建立資料來源連接器",
+        "item" : "https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "資料來源連接器",
+        "item" : "https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-sources.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Gmail",
+        "item" : "https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-sources.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#data-source-gmail" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">開發人員指南</a></div><div id="page-toc-src"><a href="#supported-features-gmail">支援的功能</a><a href="#prerequisites-gmail">先決條件</a><a href="#data-source-procedure-gmail">連接說明</a><a href="#gmail-notes">備註</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>本文為英文版的機器翻譯版本，如內容有任何歧義或不一致之處，概以英文版為準。</p></awsui-alert><h1 class="topictitle" id="data-source-gmail">Gmail</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Gmail 是由 Google 開發的電子郵件客戶端，您可以通過它發送帶有文件附件的電子郵件。Gmail 郵件可以使用文件夾和標籤對您的電子郵件收件箱進行排序和存儲。您可以用Amazon Kendra來編製電子郵件訊息和郵件附件的索引。您也可以設定Amazon Kendra為包含或排除特定的電子郵件訊息、郵件附件和索引標籤。</p><p>您可以使用<a href="https://console.aws.amazon.com/kendra/" rel="noopener noreferrer" target="_blank"><span>Amazon Kendra主控台</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>和 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_TemplateConfiguration.html">TemplateConfiguration</a>API 連線Amazon Kendra至 Gmail 資料來源。</p><p>如需對Amazon Kendra Gmail 資料來源連接器的疑難排解，請參閱<a href="./troubleshooting-data-sources.html">對資料來源進行</a>。</p><div class="highlights" id="inline-topiclist"><h6>主題</h6><ul><li><a href="#supported-features-gmail">支援的功能</a></li><li><a href="#prerequisites-gmail">先決條件</a></li><li><a href="#data-source-procedure-gmail">連接說明</a></li><li><a href="#gmail-notes">備註</a></li></ul></div>
+        <h2 id="supported-features-gmail">支援的功能</h2>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>欄位映射</p>
+            </li><li class="listitem">
+                <p>使用者內容篩選</p>
+            </li><li class="listitem">
+                <p>包含/排除過濾器</p>
+            </li><li class="listitem">
+                <p>Virtual Private Cloud (VPC) (虛擬私有雲端 (VPC))</p>
+            </li><li class="listitem">
+                <p>同步所有文檔/僅同步新的，修改的，已刪除的文檔</p>
+            </li></ul></div>
+     
+        <h2 id="prerequisites-gmail">先決條件</h2>
+        <p>您可以在 Gmail 資料來源建立索引之前，請先在 Gmail 和AWS帳戶中進行這些變更。Amazon Kendra</p>
+
+        <p><b>在 Gmail 中，請確定您具有下列項目：</b></p>
+        <div class="itemizedlist">
+            
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>創建了一個谷歌雲平台管理員帳戶，並創建了一個谷歌雲項目。</p>
+            </li><li class="listitem">
+                <p>在您的管理員帳戶中激活了 Gmail API 和管理員 SDK API。</p>
+            </li><li class="listitem">
+                <p>創建了一個服務帳戶並為您的 Gmail 下載了一個 JSON 私鑰。如需如何建立和存取私密金鑰的詳細資訊，請參閱 Google Cloud 說明文件，瞭解如何<a href="https://cloud.google.com/iam/docs/keys-create-delete#creating" rel="noopener noreferrer" target="_blank"><span>建立服務帳戶金鑰</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>和<a href="https://cloud.google.com/iam/docs/service-account-creds#key-types" rel="noopener noreferrer" target="_blank"><span>服務帳戶憑證</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。</p>
+
+            </li><li class="listitem">
+                <p>複製您的管理員帳戶電子郵件，您的服務帳戶電子郵件和私鑰以用於身份驗證。</p>
+            </li><li class="listitem">
+                <p>為您的使用者和要建立索引的共用目錄新增下列 Oauth 範圍 (使用管理員角色)：</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>https://www.googleapis.com/auth/admin.directory.user.readonly</p>
+                    </li><li class="listitem">
+                        <p>https://www.googleapis.com/auth/gmail.readonly</p>
+                    </li></ul></div>
+            </li><li class="listitem"> 
+    <p>檢查每個文檔在 Gmail 和您打算用於同一索引的其他數據源中是唯一的。您要用於索引的每個資料來源不得包含跨資料來源的相同文件。文件 ID 對索引來說是全域的，而且每個索引必須是唯一的。</p>
+ </li></ul></div>
+        
+
+ <p><b>在您的AWS帳戶中，確定您具有下列項目：</b></p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index.html">建立Amazon Kendra索引</a>，如果使用 API，則會記下索引識別碼。</p>
+            </li><li class="listitem">
+                <p>為您的資料來源<a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html#iam-roles-ds">建立IAM角色</a>，如果使用 API，則會記錄IAM角色的 ARN。</p>
+            </li><li class="listitem">
+                <p>將您的 Gmail 身份驗證憑據存儲在一個AWSSecrets Manager秘密中，如果使用 API，則註明秘密的 ARN。</p>
+                
+
+ <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>請務必定期重新整理或旋轉您的憑證和密碼。僅為您自己的安全提供必要的訪問級別。不建議跨資料來源以及連接器 1.0 和 2.0 版 (如果適用) 重複使用認證和密碼。</p></div></div>
+
+
+            </li></ul></div>
+        <p>如果您沒有現有的IAM角色或密碼，則可以在將 Gmail 資料來源連線至時使用主控台建立新IAM角色和Secrets Manager密碼Amazon Kendra。如果您使用 API，則必須提供現有IAM角色和Secrets Manager密碼的 ARN 以及索引 ID。</p>
+
+
+     
+        <h2 id="data-source-procedure-gmail">連接說明</h2>
+        <p>要連接Amazon Kendra到 Gmail 數據源，您必須提供 Gmail 憑據的詳細信息，Amazon Kendra以便可以訪問您的數據。如果您尚未為 Gmail 設定Amazon Kendra，請參閱<a href="#prerequisites-gmail">先決條件</a>。</p>
+
+        
+         
+            <awsdocs-tabs><dl style="display: none">
+                <dt>Console</dt><dd tab-id="console">
+                        <p><b>若要連線Amazon Kendra至 Gmail</b> </p>
+                        <div class="procedure"><ol><li>
+    <p>登入 AWS 管理主控台，並開啟 <a href="https://console.aws.amazon.com/kendra/" rel="noopener noreferrer" target="_blank"><span>Amazon Kendra 主控台</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。</p>
+    </li><li>
+    <p>在左側導覽窗格中，選擇 [<b>索引</b>]，然後從索引清單中選擇要使用的索引。</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>您可以選擇在<b>索引設置下配置或編輯<b>用戶訪問控制</b>設置</b>。</p></div></div>
+    </li><li>
+    <p>在 [<b>開始使</b>用] 頁面上，選擇 [<b>新增資料來源</b>]。</p>
+    </li><li>
+    <p>在 [<b>新增資料來源</b>] 頁面上，選擇 [<b>Gmail 連接器</b>]，然後選擇 [<b>新增資料來源</b>]。</p>
+    </li><li> 
+    <p>在<b>指定資料來源詳細</b>資訊頁面上，輸入以下資訊：</p>
+        <ol><li>
+            <p>在<b>名稱和說明</b>中，對於<b>資料來源名稱</b> — 輸入資料來源的名稱。您可以包含連字號，但不能包含空格。</p>
+            </li><li>
+            <p>(選擇性) <b>說明</b> — 輸入資料來源的選用說明。</p>
+            </li><li>
+            <p>在<b>語言</b>中，對於<b>預設語</b>言-用於篩選索引文件的語言。除非另有指定，否則語言預設為英文。中繼資料中指定的語言會覆寫所選語言</p>
+            </li><li>
+            <p>在標<b>籤</b>中，在<b>新增標籤中 — 標</b>籤來搜尋和篩選資源，或追蹤AWS成本。</p>
+            </li><li>
+            <p>選擇 <b>下一步</b>。</p>
+            </li></ol>
+      </li><li>
+                                <p>在定<b>義存取和安全性</b>頁面，輸入以下資訊：</p>
+                                <ol><li>
+                                        <p>在<b>AWSSecrets Manager密碼</b><b>驗證</b>中 — 選擇現有密碼或建立新Secrets Manager密碼來儲存您的 Gmail 驗證憑證。如果您選擇建立新密碼，則會開啟一個AWSSecrets Manager密碼視窗。</p>
+                                        <ol><li>
+                                                <p>在「<b>建立AWSSecrets Manager密碼視窗」中輸入</b>下列資訊：</p>
+                                                <ol><li>
+                                                  <p><b>秘密名稱</b> — 您秘密的名稱。</p>
+                                                  </li><li>
+                                                  <p><b>用戶端電子郵</b>件：您從 Google 服務帳戶複製的用戶端電子郵件。</p>
+                                                  </li><li>
+                                                  <p><b>管理員帳戶電子郵</b>件 — 您要使用的管理員帳戶電子郵件。</p>
+                                                  </li><li>
+                                                  <p><b>私密金鑰</b> — 您從 Google 服務帳戶複製的私密金鑰。</p>
+                                                  </li><li>
+                                                  <p>選擇 <b>儲存</b> 。</p>
+                                                  </li></ol>
+                                            </li></ol>
+                                    </li><li>
+   <p>V@@ <b>irtual Private Cloud (VPC)</b> — 您可以選擇使用 VPC。如果是這樣，您必須新增<b>子網路</b>和 <b>VPC 安全性群組</b>。</p>
+   
+   </li><li>
+    <p><b>IAM 角色</b> — 選擇現有的 IAM 角色或建立新的 IAM 角色以存取儲存庫登入資料和索引內容。</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>用於索引的 IAM 角色無法用於資料來源。如果您不確定索引或常見問題集是否使用現有角色，請選擇 [<b>建立新角色</b>] 以避免發生錯誤。</p></div></div>
+   </li><li>
+                                        <p>選擇 <b>下一步</b>。</p>
+                                    </li></ol>
+                            </li><li>
+                                <p>在配<b>置同步設定</b>頁面上，輸入以下資訊：</p>
+                                <ol><li>
+                                        <p>在<b>同步範圍</b>中，對於<b>實體類型</b> — 選取<b>訊息附件</b>以同步郵件附件。默認情況下將同步消息。</p>
+                                    </li><li>
+                                        <p>(選用) 在<b>其他組態</b>中，輸入以下資訊：</p>
+                                        <ol><li>
+                                                <p><b>日期範圍</b> — 輸入日期範圍，以指定要編目的電子郵件的開始和結束日期。</p>
+                                            </li><li>
+                                                <p><b>電子郵件網域</b>：根據網域包含或排除電子郵件。</p>
+                                            </li><li>
+                                                <p><b>主題中的關鍵字</b>：根據主題中的關鍵字包含或排除電子郵件。</p>
+                                                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>您也可以選擇包含符合您輸入之所有主題關鍵字的任何文件。</p></div></div>
+                                            </li><li>
+                                                <p><b>標籤</b> — 新增規則運算式模式以包括或排除特定標籤。您最多可新增 100 個圖樣。</p>
+                                            </li><li>
+                                                <p><b>附件</b> — 新增規則運算式模式以包含或排除特定附件。您最多可新增 100 個圖樣。</p>
+                                            </li></ol>
+                                    </li><li>
+                                        <p>對於<b>同步模式</b>，請選擇資料來源內容變更時要如何更新索引。第一次將資料來源同Amazon Kendra步時，依預設會同步所有內容。</p>
+                                        <div class="itemizedlist">
+                                             
+                                             
+                                        <ul class="itemizedlist"><li class="listitem">
+                                                <p><b>完全同步</b> — 同步所有內容，無論先前的同步狀態為何。</p>
+                                            </li><li class="listitem">
+                                                <p><b>新增、修改或刪除的內容同步</b>：僅同步新內容、修改內容和刪除的內容。</p>
+                                                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>由於沒有 API 可以更新永久刪除的 Gmail 郵件，因此可以進行<b>新的，修改或刪除的內容同步</b>：</p><div class="itemizedlist">
+                                                   
+                                                   
+                                                  <ul class="itemizedlist"><li class="listitem">
+                                                  <p>不會從Amazon Kendra索引中移除已從 Gmail 永久刪除的郵件</p>
+                                                  </li><li class="listitem">
+                                                  <p>不會同步 Gmail 電子郵件標籤中的變更</p>
+                                                  </li></ul></div><p>若要將 Gmail 資料來源標籤變更和永久刪除的電子郵件訊息同步至Amazon Kendra索引，您必須定期執行完整檢索。</p></div></div>
+                                            </li></ul></div>
+                                    </li><li>
+                                        <p>在<b>同步執行排程</b>中，對於<b>頻率</b> — 與資料來源同步的頻率。Amazon Kendra</p>
+                                    </li><li>
+                                        <p>選擇 <b>下一步</b>。</p>
+                                    </li></ol>
+                            </li><li>
+                                <p>在 <b>[設定欄位映射]</b> 頁面上，輸入以下資訊：</p>
+                                <ol><li>
+                                        <p>對於「訊<b>息</b>」和「<b>訊息」附件</b> — 從Amazon Kendra產生的預設資料來源欄位中選取您要對映至索引的資料來源欄位。</p>
+                                        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>Amazon Kendra由於 API 限制，Gmail 資料來源連接器不支援建立自訂索引欄位。</p></div></div>
+                                    </li><li>
+                                        <p>選擇 <b>下一步</b>。</p>
+                                    </li></ol>
+                            </li><li>
+   <p>在 [<b>檢閱並建立</b>] 頁面上，檢查您輸入的資訊是否正確，然後選取 [<b>新增資料來源</b>]。您也可以從此頁面選擇編輯資訊。成功新增資料來源後，<b>資料來源將顯示在 [資料來源</b>] 頁面上。</p>
+   
+   </li></ol></div>
+                    </dd>
+                
+                
+                <dt>TemplateConfiguration API</dt><dd tab-id="templateconfiguration-api">
+                        <p><b>若要連線Amazon Kendra至 Gmail</b></p>
+                        
+                        <p>您必須使用 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_TemplateConfiguration.html">TemplateConfiguration</a>API 指定下列項目：</p>
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p><b>資料來源</b> — 您必須將資料來源指定為<code class="code">GMAIL</code>。</p>
+                            </li><li class="listitem"> 
+    <p><b>資料來源結構描述</b> — 包含包含資料來源結構描述的 JSON。若要檢視範本結構描述，請參閱<a href="https://docs.aws.amazon.com/kendra/latest/dg/ds-schemas.html">資料來源結構</a>描述。</p>
+    
+    </li><li class="listitem"> 
+    <p><b>類型</b> — 在您呼叫時指定<code class="code">TEMPLATE</code>為「類型」<code class="code">CreateDataSource</code>。</p>
+    
+    </li><li class="listitem">
+
+    <p><b>秘密亞馬遜資源名稱（ARN）</b>— 提供包含 Gmail 帳戶身份驗證憑據的Secrets Manager秘密的亞馬遜資源名稱（ARN）。私密會儲存在具有下列索引鍵的 JSON 結構中：</p>
+    
+   
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "adminAccountEmailId": <code class="replaceable">"$<span>{</span>adminAccountEmailId}"</code>,
+    "clientEmailId": <code class="replaceable">"$<span>{</span>clientEmailId}"</code>,
+    "privateKey": <code class="replaceable">"$<span>{</span>privateKey}"</code>
+}</code></pre>
+                                
+
+ <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>請務必定期重新整理或旋轉您的憑證和密碼。僅為您自己的安全提供必要的訪問級別。不建議跨資料來源以及連接器 1.0 和 2.0 版 (如果適用) 重複使用認證和密碼。</p></div></div>
+
+
+                            </li><li class="listitem"> 
+    <p><b>IAM 角色</b> — 指定您撥<code class="code">CreateDataSource</code>打電話的<code class="code">RoleArn</code>時間，以提供具有存取Secrets Manager密碼權限的IAM角色，以及呼叫 Gmail 連接器和所需的公用 APIAmazon Kendra。如需詳細資訊，請參閱 <a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html#iam-roles-ds">Gmail 資料來源的 IAM 角色</a>。</p>
+    
+    </li></ul></div>
+                        
+                        <p>您還可以新增下列選用功能：</p>
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                             
+
+                        <ul class="itemizedlist"><li class="listitem"> 
+    <p> <b>VPC (VPC) — 指定呼叫<code class="code">VpcConfiguration</code>時間</b><code class="code">CreateDataSource</code>。請參閱 <a href="./vpc-configuration.html">設Amazon Kendra定為使用 VPC</a>。</p>
+    
+    </li><li class="listitem">
+                                <p><b>同步模式</b> — 指定Amazon Kendra要透過同步所有文件或僅同步新的、已修改和刪除的文件來更新索引。您可以選擇：</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p><code class="code">FORCED_FULL_CRAWL</code>以重新檢索所有內容，並在每次資料來源與索引同步時取代現有內容</p>
+                                    </li><li class="listitem">
+                                        <p><code class="code">FULL_CRAWL</code>每次資料來源與索引同步時，只會逐步編目新的、已修改和刪除的內容</p>
+                                    </li></ul></div>
+                                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>由於沒有 API 可以更新永久刪除的 Gmail 郵件，因此可以進行<code class="code">FULL_CRAWL</code>/<b>新增、修改或刪除的內容同步</b>：</p><div class="itemizedlist">
+                                         
+                                         
+                                    <ul class="itemizedlist"><li class="listitem">
+                                            <p>不會從Amazon Kendra索引中移除已從 Gmail 永久刪除的郵件</p>
+                                        </li><li class="listitem">
+                                            <p>不會同步 Gmail 電子郵件標籤中的變更</p>
+                                        </li></ul></div><p>若要將 Gmail 資料來源標籤變更和永久刪除的電子郵件訊息同步至Amazon Kendra索引，您必須定期執行完整檢索。</p></div></div>
+                            </li><li class="listitem">
+                                <p> <b>包含和排除篩選器</b> — 您可以指定是否要包含附件。您也可以指定規則運算式模式，以包含或排除特定郵件和附件。</p>
+                                
+     <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>大多數資料來源使用規則運算式模式，這些模式是稱為篩選器的包含或排除模式。如果您指定包含篩選器，則只有符合包含項目篩選器的內容會編製索引。不符合包含篩選器的任何文件都不會建立索引。如果您指定包含和排除篩選器，符合排除篩選器的文件將不會建立索引，即使它們符合包含篩選器也是如此。</p></div></div>
+    
+   
+                            </li><li class="listitem">
+   <p> <b>欄位對應</b> — 選擇將 Gmail 資料來源欄位對應至Amazon Kendra索引欄位。如需詳細資訊，請參閱<a href="https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html">映射資料來源欄位</a>。</p>
+    
+   
+                                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>Amazon Kendra由於 API 限制，Gmail 資料來源連接器不支援建立自訂索引欄位。</p></div></div>
+                            </li></ul></div>
+                    </dd>
+            </dl></awsdocs-tabs>
+         
+     
+        <h2 id="gmail-notes">備註</h2>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>由於沒有 API 可以更新永久刪除的 Gmail 郵件，因此可以進行<code class="code">FULL_CRAWL</code>/<b>新增、修改或刪除的內容同步</b>：</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>不會從Amazon Kendra索引中移除已從 Gmail 永久刪除的郵件</p>
+                    </li><li class="listitem">
+                        <p>不會同步 Gmail 電子郵件標籤中的變更</p>
+                    </li></ul></div>
+                <p>若要將 Gmail 資料來源標籤變更和永久刪除的電子郵件訊息同步至Amazon Kendra索引，您必須定期執行完整檢索。</p>
+
+            </li><li class="listitem">
+                <p>Amazon Kendra由於 API 限制，Gmail 資料來源連接器不支援建立自訂索引欄位。</p>
+            </li></ul></div>
+
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./data-source-github.html">GitHub</div><div id="next" class="next-link" accesskey="n" href="./data-source-google-drive.html">Google 雲端硬碟</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-gmail.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-gmail.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

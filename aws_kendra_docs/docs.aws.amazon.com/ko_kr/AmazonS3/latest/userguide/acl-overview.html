@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>ACL(액세스 제어 목록) 개요 - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="acl-overview" /><meta name="default_state" content="acl-overview" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" /><meta name="description" content="Amazon S3 ACL(액세스 제어 목록)로 버킷과 객체에 대한 액세스를 관리합니다. 각 버킷과 객체마다 하위 리소스로서 연결되어 있는 ACL이 있습니다. ACL은 액세스를 허용할 AWS 계정이나 그룹과 액세스 유형을 정의합니다. 리소스에 대한 요청을 수신하면, Amazon S3는 해당 ACL을 확인해 요청자가 필요한 액세스 권한을 보유하고 있는지 판단합니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="사용 설명서" /><meta name="abstract" content="Amazon Simple Storage Service(Amazon S3)를 사용하여 언제 어디서든 원하는 양의 데이터를 저장하고 검색하는 방법을 알아봅니다. 본 설명서는 버킷, 객체 및 관련 구성 등 Amazon S3 개념들을 설명하며 일반적인 작업에 대한 코드 예제를 포함합니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/acl-overview.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/acl-overview.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/acl-overview.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/acl-overview.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/acl-overview.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/acl-overview.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/acl-overview.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/acl-overview.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/acl-overview.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/acl-overview.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/acl-overview.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="사용 설명서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="사용 설명서" /><meta id="panorama-serviceConsolePage" value="ACL(액세스 제어 목록) 개요" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>ACL(액세스 제어 목록) 개요 - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#acl-overview" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" /><meta name="keywords" content="S3,Amazon S3,S3 사용 설명서,Amazon S3 사용 설명서,Amazon 사용 설명서,s3 버킷,s3 객체,클라우드 스토리지,데이터 스토리지" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "사용 설명서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 보안",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon S3의 Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/s3-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "ACL을 사용한 액세스 관리",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acls.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "ACL(액세스 제어 목록) 개요",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acls.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#acl-overview" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">사용 설명서</a></div><div id="page-toc-src"><a href="#specifying-grantee">피부여자란?</a><a href="#permissions">부여할 수 있는 권한</a><a href="#sample-acl">샘플 ACL</a><a href="#canned-acl">미리 제공된 ACL</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="acl-overview">ACL(액세스 제어 목록) 개요</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon S3 ACL(액세스 제어 목록)로 버킷과 객체에 대한 액세스를 관리합니다. 각 버킷과 객체마다 하위 리소스로서 연결되어 있는 ACL이 있습니다. ACL은 액세스를 허용할 AWS 계정이나 그룹과 액세스 유형을 정의합니다. 리소스에 대한 요청을 수신하면, Amazon S3는 해당 ACL을 확인해 요청자가 필요한 액세스 권한을 보유하고 있는지 판단합니다.</p><p>S3 객체 소유권은 버킷에 업로드되는 객체의 소유권을 제어하고 ACL을 비활성화 또는 활성화하는 데 사용할 수 있는 Amazon S3 버킷 수준 설정입니다. 기본적으로 객체 소유권은 버킷 소유자 적용 설정으로 설정되며 모든 ACL이 비활성화되어 있습니다. ACL이 비활성화되면 버킷 소유자는 버킷의 모든 객체를 소유하고 액세스 관리 정책을 사용하여 객체에 대한 액세스를 독점적으로 관리합니다.</p><p> Amazon S3의 최신 사용 사례 대부분은 더 이상 ACL을 사용할 필요가 없습니다. 각 객체에 대해 액세스를 개별적으로 제어할 필요가 있는 드문 상황을 제외하고는 ACL을 비활성화한 채로 두는 것이 좋습니다. ACL을 비활성화하면 누가 객체를 버킷에 업로드했는지에 관계없이 정책을 사용하여 버킷의 모든 객체에 대한 액세스를 제어할 수 있습니다. 자세한 내용은 <a href="./about-object-ownership.html">객체 소유권 제어 및 버킷에 대해 ACL 사용 중지</a> 섹션을 참조하세요.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>중요</h6></div><div class="awsdocs-note-text"><p>버킷이 S3 객체 소유권에 대해 버킷 소유자 시행 설정을 사용하는 경우 정책을 사용하여 버킷과 버킷의 객체에 대한 액세스 권한을 부여해야 합니다. 버킷 소유자 적용 설정이 활성화된 상태에서 액세스 제어 목록(ACL) 설정 또는 ACL 업데이트 요청은 실패하고 <code class="code">AccessControlListNotSupported</code> 오류 코드를 반환합니다. ACL 읽기 요청은 계속 지원됩니다.</p></div></div><p>버킷이나 객체를 생성하면 Amazon S3는 리소스에 대한 모든 권한을 리소스 소유자에게 부여하는 기본 ACL을 생성합니다. 이 정보는 다음 샘플 버킷 ACL(기본 객체 ACL도 동일한 구조)에 표시됩니다.</p><div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+  &lt;Owner&gt;
+    &lt;ID&gt;*** Owner-Canonical-User-ID ***&lt;/ID&gt;
+    &lt;DisplayName&gt;owner-display-name&lt;/DisplayName&gt;
+  &lt;/Owner&gt;
+  &lt;AccessControlList&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:type="Canonical User"&gt;
+        &lt;ID&gt;*** Owner-Canonical-User-ID ***&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;FULL_CONTROL&lt;/Permission&gt;
+    &lt;/Grant&gt;
+  &lt;/AccessControlList&gt;
+&lt;/AccessControlPolicy&gt; </code></pre></div></div><p>샘플 ACL에는 AWS 계정 정식 사용자 ID로 소유자를 식별하는 <code class="code">Owner</code> 요소가 포함되어 있습니다. 정식 사용자 ID를 찾는 방법에 대한 자세한 내용은 <a href="#finding-canonical-id">AWS 계정 정식 사용자 ID 찾기</a>을 참조하십시오. <code class="code">Grant</code> 요소는 피부여자(AWS 계정 또는 미리 정의된 그룹)와 부여된 권한을 식별합니다. 이 기본 ACL에는 소유자에 대해 한 개의 <code class="code">Grant</code> 요소가 있습니다. 각각 피부여자와 권한을 식별하는 <code class="code">Grant</code> 요소를 추가해 권한을 부여합니다.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>ACL은 최고 100개의 권한을 부여할 수 있습니다.</p></div></div><div class="highlights" id="inline-topiclist"><h6>주제</h6><ul><li><a href="#specifying-grantee">피부여자란?</a></li><li><a href="#permissions">부여할 수 있는 권한</a></li><li><a href="#sample-acl">샘플 ACL</a></li><li><a href="#canned-acl">미리 제공된 ACL</a></li></ul></div><h2 id="specifying-grantee">피부여자란?</h2>
+			
+			<p>피부여자는 AWS 계정 또는 미리 정의된 Amazon S3 그룹 중 하나가 될 수 있습니다. AWS 계정의 이메일 주소나 정식 사용자 ID로 권한을 부여합니다. 단, 권한 요청에 이메일 주소를 적은 경우, Amazon S3에서 해당 계정의 정식 사용자 ID를 찾아서 ACL에 추가합니다. 그 결과 ACL에는 AWS 계정의 이메일 주소가 아니라 AWS 계정의 정식 사용자 ID가 항상 포함됩니다.</p>
+			<p>액세스 권한을 부여할 때 유형=값 쌍으로 각 피부여자를 지정합니다. 여기서 유형은 다음 중 하나입니다.</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem"><p><code class="code">id</code> - 지정된 값이 AWS 계정의 정식 사용자 ID인 경우</p></li><li class="listitem"><p><code class="code">uri</code> — 미리 정의된 그룹에 권한을 부여하는 경우</p></li><li class="listitem"><p><code class="code">emailAddress</code> - 지정된 값이 AWS 계정의 이메일 주소인 경우</p></li></ul></div>
+			    
+	<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>중요</h6></div><div class="awsdocs-note-text"><p>피부여자를 지정하기 위해 이메일 주소를 사용하는 것은 다음 AWS 리전에서만 지원됩니다.</p><div class="itemizedlist">
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>미국 동부(버지니아 북부)</p>
+				</li><li class="listitem">
+					<p>미국 서부(캘리포니아 북부)</p>
+				</li><li class="listitem">
+					<p>미국 서부(오리건)</p>
+				</li><li class="listitem">
+					<p>아시아 태평양(싱가포르)</p>
+				</li><li class="listitem">
+					<p>아시아 태평양(시드니)</p>
+				</li><li class="listitem">
+					<p>아시아 태평양(도쿄)</p>
+				</li><li class="listitem">
+					<p>유럽(아일랜드)</p>
+				</li><li class="listitem">
+					<p>남아메리카(상파울루)</p>
+				</li></ul></div><p>모든 Amazon S3 지원 리전 및 엔드포인트 목록은 <em></em>Amazon Web Services 일반 참조에서 <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">리전 및 엔드포인트</a>를 참조하세요.</p></div></div>
+<div class="example"><h6>예: 이메일 주소</h6><div class="example-contents"><p>예를 들어 다음 <code class="code">x-amz-grant-read</code> 헤더는 이메일 주소로 식별된 AWS 계정에 객체 데이터와 메타데이터를 읽을 수 있는 권한을 부여합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">x-amz-grant-read: emailAddress="xyz@amazon.com", emailAddress="abc@amazon.com"</code></pre></div></div>		
+	<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>주의</h6></div><div class="awsdocs-note-text"><p>다른 AWS 계정에 본인의 리소스 액세스를 허용하는 경우, AWS 계정이 자신의 계정에 속한 사용자에게 그 권한을 위임할 수도 있다는 사실을 염두에 두어야 합니다. 이것을 <em>교차 계정 액세스</em>라고 합니다. 교차 계정 액세스를 사용하는 자세한 방법은 <em>IAM 사용 설명서</em>에서 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html">역할을 만들어 IAM 사용자에게 권한 위임</a> 단원을 참조하십시오.</p></div></div> 
+			
+			<h3 id="finding-canonical-id">AWS 계정 정식 사용자 ID 찾기</h3>
+				
+				<p>정식 사용자 ID는 AWS 계정과 연결되어 있습니다. 이 ID는 <code class="code">79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be</code>와 같은 긴 문자열입니다. 계정의 정식 사용자 ID를 찾는 방법에 대한 자세한 내용은 <a href="./finding-canonical-user-id.html">AWS 계정의 정식 사용자 ID 찾기</a> 섹션을 참조하세요.</p>
+				<p>AWS 계정에서 액세스 권한을 보유한 버킷이나 객체의 ACL을 확인해 AWS 계정의 정식 사용자 ID를 찾을 수도 있습니다. 권한 요청에 따라 개별 AWS 계정에 권한이 부여될 때, 권한 항목이 계정 정식 사용자 ID와 함께 ACL에 추가됩니다.</p>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>버킷을 공개하면(권장하지 않음) 인증되지 않은 모든 사용자들이 그 버킷에 객체를 업로드할 수 있습니다. 이러한 익명의 사용자에게는 AWS 계정이 없습니다. 익명의 사용자가 귀하의 버킷에 객체를 업로드하면 Amazon S3는 ACL의 객체 소유자로서 특별한 정식 사용자 ID(<code class="code">65a011a29cdf8ec533ec3d1ccaae921c</code>)를 추가합니다. 자세한 내용은 <a href="./access-control-overview.html#about-resource-owner">Amazon S3 버킷 및 객체 소유권</a> 섹션을 참조하세요.</p></div></div>
+			 
+
+			 
+				<h3 id="specifying-grantee-predefined-groups">Amazon S3의 미리 정의된 그룹</h3>
+				
+				<p>Amazon S3에는 여러 개의 미리 정의된 그룹이 있습니다. 그룹에 계정 액세스를 허용하려면 정식 사용자 ID 대신 URI 하나를 지정합니다. 미리 정의된 그룹은 다음과 같이 제공됩니다.</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><b><span class="topcom">인증된 사용자 그룹(Authenticated Users group)</span></b> – <code class="code">http://acs.amazonaws.com/groups/global/AuthenticatedUsers</code>로 표시.</p>
+						<p>이 그룹은 모든 AWS 계정에 있습니다. <b>이 그룹에 대한 액세스 권한은 모든 AWS 계정에 리소스 액세스를 허용합니다.</b> 단, 모든 요청에는 서명을(인증) 해야 합니다.</p>
+						<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>주의</h6></div><div class="awsdocs-note-text"><p><b>인증된 사용자 그룹</b>에 액세스 권한을 부여하면 AWS 인증을 받은 전 세계 사용자가 리소스에 액세스할 수 있습니다.</p></div></div> 
+						</li><li class="listitem">
+						<p><span class="topcom"><b>전체 사용자 그룹(All Users group)</b></span> – <code class="code">http://acs.amazonaws.com/groups/global/AllUsers</code>로 표시.</p>
+						<p><b>이 그룹의 액세스 권한으로 전 세계 누구나 리소스에 액세스할 수 있습니다.</b> 요청에 서명을 할 수도(인증) 있고 하지 않을(익명) 수도 있습니다. 서명되지 않은 요청은 요청에 인증 헤더를 생략합니다.</p>
+						<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>주의</h6></div><div class="awsdocs-note-text"><p><b>전체 사용자 그룹(All Users group)</b> <code class="code">WRITE</code>, <code class="code">WRITE_ACP</code> 또는 <code class="code">FULL_CONTROL</code> 권한을 부여하지 않는 것이 좋습니다. 예를 들어, <code class="code">WRITE</code> 권한은 비소유자가 기존 객체를 덮어쓰거나 삭제하도록 허용하지 않지만, 여전히 <code class="code">WRITE</code> 권한은 요금 청구를 받는 버킷에 모든 사람이 객체를 저장할 수 있도록 허용합니다. 이러한 권한에 대한 자세한 내용은 다음 <a href="#permissions">부여할 수 있는 권한</a> 단원을 참조하십시오.</p></div></div>
+					</li><li class="listitem">
+						<p><span class="topcom"><b>로그 전달 그룹(Log Delivery group)</b></span> – <code class="code">http://acs.amazonaws.com/groups/s3/LogDelivery</code>로 표시.</p>
+						<p>버킷 내 WRITE(쓰기) 권한으로 이 그룹은 버킷에 서버 액세스 로그를 쓸 수 있습니다(<a href="./ServerLogs.html">서버 액세스 로깅을 사용한 요청 로깅</a> 참조).</p>
+					</li></ul></div>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>ACL을 사용하는 경우, 피부여자는 AWS 계정이나 미리 정의된 Amazon S3 그룹 중 하나가 됩니다. 하지만, IAM 사용자는 피부여자가 될 수 없습니다. AWS 사용자 및 IAM 내 권한에 대한 자세한 내용은 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/">AWS Identity and Access Management 사용</a>을 참조하세요.</p></div></div>
+			 
+		 
+			<h2 id="permissions">부여할 수 있는 권한</h2>
+			
+			<p>다음 표에는 ACL에서 Amazon S3가 지원하는 권한 목록이 나와 있습니다. ACL 권한 집합은 객체 ACL 및 버킷 ACL과 동일합니다. 단, 상황에 따라 이 ACL 권한(버킷 ACL이나 객체 ACL) 은 특정 버킷이나 객체 작업에 대한 권한을 부여하기도 합니다. 표에는 권한 목록이 나열되어 있으며 객체 및 버킷에 따른 권한에 대한 설명이 수록되어 있습니다.</p>
+			<p>Amazon S3 콘솔의 ACL 권한에 대한 자세한 내용은 <a href="./managing-acls.html">ACL 구성</a> 단원을 참조하세요.</p>
+			<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c23b7"><thead><tr><th class="table-header" colspan="100"><div class="title">ACL 권한</div></th></tr>
+						<tr>
+							<th>권한</th>
+							<th>버킷에 대한 권한을 부여하는 경우</th>
+							<th>객체에 대한 권한을 부여하는 경우</th>
+						</tr>
+					</thead>
+						<tr>
+							<td><code class="code">READ</code></td>
+							<td>피부여자가 버킷에서 객체를 나열할 수 있습니다.</td>
+							<td>피부여자에게 객체 데이터와 그 메타데이터를 읽도록 허용합니다</td>
+						</tr>
+						<tr>
+							<td><code class="code">WRITE</code></td>
+							<td>피부여자가 버킷에서 새 객체를 생성할 수 있습니다. 기존 객체의 버킷 및 객체 소유자는 해당 객체의 삭제 및 덮어쓰기도 허용합니다.</td>
+							<td>해당 사항 없음</td>
+						</tr>
+						<tr>
+							<td><code class="code">READ_ACP</code></td>
+							<td>피부여자에게 버킷 ACL 읽기를 허용합니다</td>
+							<td>피부여자에게 객체 ACL 읽기를 허용합니다</td>
+						</tr>
+						<tr>
+							<td><code class="code">WRITE_ACP</code></td>
+							<td>피부여자에게 해당 버킷에 대한 ACL 쓰기를 허용합니다</td>
+							<td>피부여자에게 해당 객체에 대한 ACL 쓰기를 허용합니다</td>
+						</tr>
+						<tr>
+							<td><code class="code">FULL_CONTROL</code></td>
+							<td>피부여자에게 버킷에 대한 WRITE, READ, READ_ACP, WRITE_ACP 권한을 허용합니다.</td>
+							<td>피부여자에게 객체에 대한 읽기, 쓰기, READ_ACP, WRITE_ACP 권한을 허용합니다</td>
+						</tr>
+						
+					</table></div></div>
+			<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>주의</h6></div><div class="awsdocs-note-text"><p>S3 버킷과 객체에 액세스 권한을 부여할 때 주의하세요. 예를 들어, 버킷에 <code class="code">WRITE</code> 액세스 권한을 부여하면 피부여자가 버킷에서 객체를 생성할 수 있습니다. 권한을 부여하기 전에 이 <a href="./acl-overview.html">ACL(액세스 제어 목록) 개요</a> 단원 전체를 잘 읽으시기 바랍니다.</p></div></div>	 
+						
+			 
+				<h3 id="acl-access-policy-permission-mapping">ACL 권한과 액세스 정책 권한의 매핑</h3>
+				
+				<p>앞의 표에서와 같이, ACL은 액세스 정책에서 설정할 수 있는 권한 수와 비교해 유한한 권한 집합만 허용합니다(<a href="./using-with-s3-actions.html">Amazon S3 작업</a> 참조). 이러한 권한은 각각 한 개 이상의 Amazon S3 작업을 허용합니다.</p>
+				<p>다음 표는 각 ACL 권한이 어떻게 해당 액세스 정책 권한에 매핑되는지 보여줍니다. 보시다시피 액세스 정책은 ACL보다 많은 권한을 허용합니다. 주로 ACL을 사용하여 파일 시스템 권한과 유사한 기본 읽기/쓰기 권한을 부여합니다. ACL을 사용하는 경우에 대한 자세한 내용은 <a href="./access-policy-alternatives-guidelines.html">액세스 정책 지침</a>을 참조하십시오.</p>
+				<p>Amazon S3 콘솔의 ACL 권한에 대한 자세한 내용은 <a href="./managing-acls.html">ACL 구성</a> 단원을 참조하세요.</p>
+				<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c23c11b9"><thead>
+							<tr>
+								<th>ACL 권한</th>
+								<th>버킷에 대한 ACL 권한 부여 시 해당 액세스 정책 권한 </th>
+								<th>객체에 대한 ACL 권한 부여 시 해당 액세스 정책 권한</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><code class="code">READ</code></td>
+
+								<td><code class="code">s3:ListBucket</code>, <code class="code">s3:ListBucketVersions</code>, 및 <code class="code">s3:ListBucketMultipartUploads</code> </td>
+								<td><code class="code">s3:GetObject</code> 및 <code class="code">s3:GetObjectVersion</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">WRITE</code></td>
+
+								<td><p>
+										<code class="code">s3:PutObject</code></p>
+									<p>버킷 소유자는 버킷의 모든 객체를 생성, 덮어쓰기 및 삭제할 수 있으며 객체 소유자는 객체에 대해 <code class="code">FULL_CONTROL</code>을(를) 소유합니다.</p> 
+									<p>또한, 피부여자가 버킷 소유자인 경우 버킷 ACL의 <code class="code">WRITE</code> 권한을 부여해 해당 버킷의 어떤 버전에서든 <code class="code">s3:DeleteObjectVersion</code> 작업의 수행할 수 있습니다.</p>
+								</td>
+								<td>해당 사항 없음</td>
+							</tr>
+							<tr>
+								<td><code class="code">READ_ACP</code></td>
+
+								<td><code class="code">s3:GetBucketAcl</code>
+								</td>
+								<td><code class="code">s3:GetObjectAcl</code> 및 <code class="code">s3:GetObjectVersionAcl</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">WRITE_ACP</code></td>
+
+								<td><code class="code">s3:PutBucketAcl</code></td>
+								<td><code class="code">s3:PutObjectAcl</code> 및 <code class="code">s3:PutObjectVersionAcl</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">FULL_CONTROL</code></td>
+
+								<td><code class="code">READ</code>, <code class="code">WRITE</code>, <code class="code">READ_ACP</code>, <code class="code">WRITE_ACP</code> ACL 권한을 부여하는 것과 동일합니다. 따라서, 이 ACL 권한은 해당 액세스 정책 권한의 조합과 매핑됩니다.</td>
+								<td><code class="code">READ</code>, <code class="code">READ_ACP</code>, <code class="code">WRITE_ACP</code> ACL 권한을 부여하는 것과 동일합니다. 따라서, 이 ACL 권한은 해당 액세스 정책 권한의 조합과 매핑됩니다.</td>
+							</tr>
+							
+						</table></div></div>
+			 
+				<h4 id="acl-specific-condition-keys">조건 키</h4>
+				<p>액세스 정책 권한을 부여할 때 조건 키를 사용하여 버킷 정책을 통해 객체의 ACL 값을 제한할 수 있습니다. 아래의 컨텍스트 키는 ACL에 해당합니다. 이러한 컨텍스트 키를 사용하여 요청에서 특정 ACL을 사용하도록 지정할 수 있습니다.</p>
+
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem"><p><code class="code">s3:x-amz-grant-read</code> ‐ 읽기 액세스가 필요합니다.</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-write</code> ‐ 쓰기 액세스가 필요합니다.</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-read-acp</code> ‐ 버킷 ACL에 대한 읽기 권한이 필요합니다.</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-write-acp</code> ‐ 버킷 ACL에 대한 쓰기 권한이 필요합니다.</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-full-control</code> ‐ 완전한 제어가 필요합니다.</p></li><li class="listitem"><p><code class="code">s3:x-amz-acl</code> ‐ <a href="#canned-acl">미리 제공된 ACL</a>이 필요합니다.</p></li></ul></div>
+
+				<p>ACL 관련 헤더를 포함하는 정책 예는 <a href="./amazon-s3-policy-keys.html#grant-putobject-conditionally-1">예제 1: 버킷 소유자가 전체 권한을 가져오도록 요구하는 조건으로 s3:PutObject 권한 부여</a>을 참조하십시오. Amazon S3 전용 조건 키의 전체 목록은 <a href="./list_amazons3.html">Amazon S3에 사용되는 작업, 리소스 및 조건 키</a> 단원을 참조하십시오.</p>
+			 
+			 
+		<h2 id="sample-acl">샘플 ACL</h2>
+			
+			<p>다음 샘플 버킷 ACL은 리소스 소유자와 권한 부여 집합을 식별합니다. 해당 형식은 Amazon S3 REST API에서 ACL의 XML 표시입니다. 버킷 소유자는 리소스의 <code class="code">FULL_CONTROL</code>을 보유합니다. 또한, ACL은 이전 섹션에서 다룬 2가지 사전 정의된 Amazon S3 그룹과 정식 사용자 ID로 식별되는 2가지 AWS 계정에 리소스에 대한 권한을 부여하는 방법을 보여 줍니다.</p>
+			<div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+  &lt;Owner&gt;
+    &lt;ID&gt;Owner-canonical-user-ID&lt;/ID&gt;
+    &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+  &lt;/Owner&gt;
+  &lt;AccessControlList&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;Owner-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;FULL_CONTROL&lt;/Permission&gt;
+    &lt;/Grant&gt;
+    
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;user1-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;WRITE&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;user2-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;READ&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"&gt;
+        &lt;URI&gt;http://acs.amazonaws.com/groups/global/AllUsers&lt;/URI&gt; 
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;READ&lt;/Permission&gt;
+    &lt;/Grant&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"&gt;
+        &lt;URI&gt;http://acs.amazonaws.com/groups/s3/LogDelivery&lt;/URI&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;WRITE&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+  &lt;/AccessControlList&gt;
+&lt;/AccessControlPolicy&gt;</code></pre></div></div>
+		<h2 id="canned-acl">미리 제공된 ACL</h2>
+			
+			<p>Amazon S3는 <em>미리 제공된 ACL</em>이라고 하는 사전 정의된 권한 부여 집합을 지원합니다. 미리 제공된 각 ACL에는 사전정의된 피부여자와 권한 집합이 있습니다. 다음 표에는 미리 제공된 ACL 집합과 그에 연결된 사전정의된 권한 부여 목록이 있습니다.</p>
+			
+				<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c27b4"><thead>
+							<tr>
+								<th>미리 제공된 ACL</th>
+								<th>적용 대상</th>
+								<th>ACL에 추가된 권한</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><code class="code">private</code></td>
+								<td>버킷과 객체</td>
+								<td>소유자는 <code class="code">FULL_CONTROL</code>을 가집니다. 다른 누구도 액세스 권한이 없습니다(기본).</td>
+							</tr>
+							<tr>
+								<td><code class="code">public-read</code></td>
+								<td>버킷과 객체</td>
+								<td>소유자는 <code class="code">FULL_CONTROL</code>을 가집니다. <code class="code">AllUsers</code> 그룹은(<a href="#specifying-grantee">피부여자란?</a> 참조) <code class="code">READ</code> 액세스 권한을 가집니다.</td>
+							</tr>
+							<tr>
+								<td><code class="code">public-read-write</code></td>
+								<td>버킷과 객체</td>
+								<td>소유자는 <code class="code">FULL_CONTROL</code>을 가집니다. <code class="code">AllUsers</code> 그룹은 <code class="code">READ</code>와 <code class="code">WRITE</code>에 대한 액세스 권한을 가집니다. 버킷에 이를 허용하는 것은 일반적으로 권장하지 않습니다.</td>
+							</tr>
+						  <tr>
+						    <td><code class="code">aws-exec-read</code></td>
+						    <td>버킷과 객체</td>
+						    <td>소유자는 <code class="code">FULL_CONTROL</code>을 가집니다. Amazon EC2는 Amazon S3에서 Amazon Machine Image(AMI) 번들을 <code class="code">GET</code>하기 위해 <code class="code">READ</code> 액세스 권한을 가져옵니다.</td>
+						  </tr>
+							<tr>
+								<td><code class="code">authenticated-read</code></td>
+								<td>버킷과 객체</td>
+								<td>소유자는 <code class="code">FULL_CONTROL</code>을 가집니다. <code class="code">AuthenticatedUsers</code> 그룹은 <code class="code">READ</code> 액세스 권한을 가집니다.</td>
+							</tr>
+							<tr>
+								<td><code class="code">bucket-owner-read</code></td>
+								<td>객체</td>
+								<td>객체 소유자는 <code class="code">FULL_CONTROL</code>을 가집니다. 버킷 소유자는 <code class="code">READ</code> 액세스 권한을 가집니다. 버킷 생성 시 미리 제공된 이 ACL을 지정하면 Amazon S3는 이를 무시합니다.</td>
+							</tr>
+							<tr>
+								<td><code class="code">bucket-owner-full-control</code></td>
+								<td>객체 </td>
+								<td>객체 소유자와 버킷 소유자 모두 객체에 대해 <code class="code">FULL_CONTROL</code>을 가집니다. 버킷 생성 시 미리 제공된 이 ACL을 지정하면 Amazon S3는 이를 무시합니다.</td>
+							</tr>
+							<tr>
+								<td><code class="code">log-delivery-write</code></td>
+								<td>버킷 </td>
+								<td><code class="code">LogDelivery</code> 그룹은 버킷에 대해 <code class="code">WRITE</code>과 <code class="code">READ_ACP</code> 권한을 가집니다. 로그에 대한 자세한 내용은 <a href="./ServerLogs.html">서버 액세스 로깅을 사용한 요청 로깅</a> 단원을 참조하십시오.</td>
+							</tr>
+						</table></div></div>
+			
+
+
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>이러한 미리 제공된 ACL은 요청에 하나만 지정할 수 있습니다.</p></div></div>
+
+			<p><code class="code">x-amz-acl</code> 요청 헤더로 요청에 미리 제공된 ACL을 지정합니다. Amazon S3에서 미리 제공된 ACL이 포함된 요청을 수신하면, 사전 정의된 권한을 리소스 ACL에 추가합니다.</p>
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./acls.html">ACL을 사용한 액세스 관리</div><div id="next" class="next-link" accesskey="n" href="./finding-canonical-user-id.html">정식 ID 찾기</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

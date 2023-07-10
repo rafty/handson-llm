@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Lógica da avaliação de política - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="reference_policies_evaluation-logic" /><meta name="default_state" content="reference_policies_evaluation-logic" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="description" content="Saiba como as políticas JSON são avaliadas em uma única conta para retornar Allow (Permitir) ou Deny (Negar). Para saber como a AWS avalia políticas para acesso entre contas, consulte ." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Guia do usuário" /><meta name="abstract" content="Controle o acesso aos recursos da AWS com identidade de usuário (autenticação) e com políticas que definem permissões específicas (autorização)." /><meta name="guide-locale" content="pt_br" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Guia do usuário" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Guia do usuário" /><meta id="panorama-serviceConsolePage" value="Lógica da avaliação de política" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Lógica da avaliação de política - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#reference_policies_evaluation-logic" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,Usuário do IAM,user,Grupo do IAM,grupo,Perfil do IAM,função,política de permissão,política de confiança,política,chave de acesso,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guia do usuário",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Informações de referência do AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Referência de política JSON do IAM",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Lógica da avaliação de política",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#reference_policies_evaluation-logic" target="_blank" rel="noopener noreferrer" title="Abrir em PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentação</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Guia do usuário</a></div><div id="page-toc-src"><a href="#policy-eval-reqcontext">Processamento do contexto da solicitação</a><a href="#policy-eval-basics">Avaliação de políticas em uma única conta</a><a href="#policy-eval-denyallow">Determinar se uma solicitação é permitida ou negada em uma conta</a><a href="#policies_evaluation_example">Exemplo de avaliação das políticas baseadas em identidade e políticas baseadas em recurso</a><a href="#AccessPolicyLanguage_Interplay">A diferença entre negações explícitas e implícitas</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="reference_policies_evaluation-logic">Lógica da avaliação de política</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Quando uma entidade principal tenta usar o AWS Management Console, a API da AWS ou a AWS CLI, ela envia uma <em>solicitação</em> para a AWS. Quando um serviço da AWS recebe a solicitação, a AWS realiza várias etapas para determinar se deve permitir ou negar a solicitação.</p><div class="orderedlist">
+     
+     
+     
+     
+  <ol><li>
+      <p><b>Autenticação</b>: a AWS primeiro autentica a entidade de segurança que faz a solicitação, se necessário. Essa etapa não é necessária para alguns serviços, como o Amazon S3, que permite algumas solicitações de usuários anônimos.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-reqcontext">Processamento do contexto da solicitação</a></b>: a AWS processa as informações coletadas na solicitação para determinar quais políticas se aplicam à solicitação.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-basics">Avaliação de políticas em uma única conta</a></b>: a AWS avalia todos os tipos de política, que afetam a ordem em que as políticas são avaliadas.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-denyallow">Determinar se uma solicitação é permitida ou negada em uma conta</a></b>: a AWS então processa as políticas em relação ao contexto da solicitação para determinar se a solicitação é permitida ou negada.</p>
+    </li></ol></div>
+    <h2 id="policy-eval-reqcontext">Processamento do contexto da solicitação</h2>
+    <p>A AWS processa a solicitação para reunir as seguintes informações em um <em>contexto de solicitação</em>:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Ações (ou operações)</b>: as ações ou as operações que a entidade de segurança deseja executar.</p>
+      </li><li class="listitem">
+        <p><b>Recursos</b>: o objeto de recurso da AWS no qual as ações ou operações são executadas.</p>
+      </li><li class="listitem">
+        <p><b>Entidade de segurança</b>: o usuário, função, usuário federado ou aplicativo que enviou a solicitação. As informações sobre a entidade principal incluem as políticas que estão associadas à entidade principal. </p>
+      </li><li class="listitem">
+        <p><b>Dados do ambiente</b> – Informações sobre o endereço IP, o agente de usuário, o status do SSL habilitado ou a hora do dia.</p>
+      </li><li class="listitem">
+        <p><b>Dados do recurso</b> – Dados relacionados ao recurso que está sendo solicitado. Isso pode incluir informações como um nome da tabela do DynamoDB ou uma tag em uma instância do Amazon EC2.</p>
+      </li></ul></div>
+    <p>A AWS usa essas informações para localizar as políticas que se aplicam ao contexto da solicitação.</p>
+   
+    <h2 id="policy-eval-basics">Avaliação de políticas em uma única conta</h2>
+    <p>A forma como o AWS avalia as políticas depende dos tipos de políticas que se aplicam ao contexto da solicitação. Os seguintes tipos de políticas, listados em ordem de frequência, estão disponíveis para uso em uma única Conta da AWS. Para obter mais informações sobre esses tipos de política, consulte <a href="./access_policies.html">Políticas e permissões no IAM</a>. Para saber como a AWS avalia políticas para acesso entre contas, consulte <a href="./reference_policies_evaluation-logic-cross-account.html">Lógica de avaliação de política entre contas</a>.</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+       
+    <ol><li>
+        <p><b>Políticas baseadas em identidade</b>: as políticas baseadas em identidade são anexadas a uma identidade do IAM (usuário, grupo de usuários ou função) e concedem permissões a entidades do IAM (usuários e funções). Se somente políticas baseadas em identidade se aplicarem a uma solicitação, o AWS verificará todas essas políticas para pelo menos um <code class="code">Allow</code>.</p>
+      </li><li>
+        <p><b>Políticas baseadas em recurso</b>: as políticas baseadas em recurso concedem permissões à entidade principal (conta, usuário, função e entidades principais de sessão, como sessões de função e usuários federados do IAM ) especificada como entidade principal. As permissões definem o que a entidade principal pode fazer com o recurso ao qual a política está anexada. Se as políticas baseadas em recurso e as políticas baseadas em identidade se aplicarem a uma solicitação, o AWS verificará todas as políticas para pelo menos um <code class="code">Allow</code>. Quando políticas baseadas em recursos são avaliadas, o ARN da entidade principal especificado na política determina se as negações implícitas em outros tipos de política são aplicáveis à decisão final.</p>
+      </li><li>
+        <p><b>Limites de permissões do IAM</b>: limites de permissões são um recurso avançado que define as permissões máximas que uma política baseada em identidade pode conceder a uma entidade do IAM (usuário ou função). Quando você definir um limite de permissões para uma entidade, a entidade poderá executar apenas as ações que são permitidas por ambas as políticas baseadas em identidade e seus limites de permissões. Em alguns casos, uma negação implícita em um limite de permissões pode limitar as permissões concedidas por uma política baseada em recursos. Para saber mais, consulte <a href="#policy-eval-denyallow">Determinar se uma solicitação é permitida ou negada em uma conta</a> mais adiante neste tópico.</p>
+      </li><li>
+        <p><b>Políticas de controle de serviço (SCPs) do AWS Organizations</b>: as SCPs do Organizations especificam as permissões máximas para uma organização ou unidade organizacional (UO). O máximo de SCP se aplica a entidades principais em contas-membro, incluindo cada Usuário raiz da conta da AWS. Se uma SCP estiver presente, as políticas baseadas em identidade e baseadas em recurso concedem permissões a entidades principais em contas-membro somente se essas políticas e a SCP permitirem a ação. Se um limite de permissões e uma SCP estiverem presentes, o limite, o SCP e a política baseada em identidade devem permitir a ação.</p>
+      </li><li>
+        <p><b>Políticas de sessão</b>: as políticas de sessão são políticas avançadas que você passa como parâmetros ao criar uma sessão temporária de forma programática para uma função ou um usuário federado. Para criar uma sessão de função de forma programática, use uma das operações da API <code class="code">AssumeRole*</code>. Quando você faz isso e passa políticas de sessão, as permissões de sessão resultantes são a interseção da política baseada em identidade do IAM e as políticas de sessão. Para criar uma sessão de usuário federado, use as chaves de acesso do usuário do IAM para chamar de forma programática a operação da API <code class="code">GetFederationToken</code>. Uma política baseada em recurso tem um efeito diferente na avaliação das permissões da política de sessão. A diferença depende de se o usuário ou o ARN da função ou o ARN da sessão está listado como a entidade principal na política baseada em recurso. Para obter mais informações, consulte <a href="./access_policies.html#policies_session">Políticas de sessão</a>.</p>
+      </li></ol></div>
+    <p>Lembre-se de que uma negação explícita em qualquer uma dessas políticas substitui a permissão.</p>
+     
+      <h3 id="policy-eval-basics-id-rdp">Avaliação das políticas baseadas em identidade com políticas baseadas em recurso</h3>
+      <p>As políticas baseadas em identidade e as baseadas em recurso concedem permissões para as identidades ou recursos aos quais elas estão conectadas. Quando uma entidade do IAM (usuário ou função) solicita acesso a um recurso na mesma conta, a AWS avalia todas as permissões concedidas pelas políticas baseadas em identidade e as políticas baseadas em recurso. As permissões resultantes são as permissões totais dos dois tipos. Se uma ação for permitida por uma política baseada em identidade, uma política baseada em recurso ou ambas, o AWS permitirá a ação. Uma negação explícita em qualquer uma dessas políticas substitui a permissão.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_policies_effective.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Avaliação das políticas baseadas em identidade e políticas baseadas em recurso&#xA;        " />
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-bound">Avaliação das políticas baseadas em identidade com limites de permissões</h3>
+      <p>Quando o AWS avalia as políticas baseadas em identidade e limites de permissões para um usuário, as permissões resultantes são a interseção das duas categorias. Isso significa que, quando você adiciona um limite de permissões a um usuário com políticas baseadas em identidade existentes, você pode reduzir as ações que o usuário pode executar. Como alternativa, quando você remove o limite de permissões de um usuário, você pode aumentar as ações que ele pode executar. Uma negação explícita em qualquer uma dessas políticas substitui a permissão. Para visualizar informações sobre como outros tipos de política são avaliadas com limites de permissões, consulte <a href="./access_policies_boundaries.html#access_policies_boundaries-eval-logic">Avaliar permissões efetivas com limites</a>.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Avaliação das políticas baseadas em identidade com limites de permissões&#xA;        " />
+          
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-scp">Avaliação das políticas baseadas em identidade com SCPs do Organizations</h3>
+      <p>Quando um usuário pertence a uma conta que é membro de uma organização, as permissões resultantes são a interseção das políticas do usuário e a SCP. Isso significa que uma ação deve ser permitida tanto pela política baseada em identidade quanto pelo SCP. Uma negação explícita em qualquer uma dessas políticas substitui a permissão.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_scp-idp.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Avaliação das políticas baseadas em identidade e SCPs&#xA;        " />
+          
+         
+         
+      </div>
+      <p>Você pode saber <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">se sua conta é membro de uma organização</a> no AWS Organizations. Os membros da organização podem ser afetados por uma SCP. Para visualizar esses dados usando o comando da AWS CLI ou a operação da API da AWS, você deve ter permissões para a ação <code class="code">organizations:DescribeOrganization</code> da sua entidade do Organizations. Você deve ter permissões adicionais para executar a operação no console do Organizations. Para saber se uma SCP está negando acesso a uma solicitação específica ou alterar as permissões efetivas, entre em contato com o administrador do AWS Organizations.</p>
+     
+   
+    <h2 id="policy-eval-denyallow">Determinar se uma solicitação é permitida ou negada em uma conta</h2>
+    <p>Suponha que uma entidade principal envie uma solicitação para a AWS para acessar um recurso na mesma conta que a entidade principal. O código de imposição da AWS decide se a solicitação deve ser permitida ou negada. A AWS avalia todas as políticas que são aplicáveis ao contexto da solicitação. A seguir apresentamos um resumo da lógica de avaliação da AWS para políticas em uma única conta.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Por padrão, todas as solicitações são implicitamente negadas, com exceção do Usuário raiz da conta da AWS, que tem acesso total.</p>
+      </li><li class="listitem">
+        <p>Uma permissão explícita em uma política baseada em recurso ou identidade substitui esse padrão.</p>
+      </li><li class="listitem">
+        <p>Se houver um limite de permissões, uma SCP do Organizations ou uma política de sessão, isso poderá substituir a permissão com uma negação implícita.</p>
+      </li><li class="listitem">
+        <p>Uma negação explícita em qualquer política substitui todas as permissões.</p>
+      </li></ul></div>
+    
+    <p>O seguinte fluxograma fornece detalhes sobre como a decisão é tomada. Este fluxograma não aborda o impacto de políticas baseadas em recursos e negações implícitas em outros tipos de políticas. </p>
+    <div class="mediaobject">
+       
+        <img src="images/PolicyEvaluationHorizontal111621.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Fluxograma de avaliação&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+      
+
+       
+       
+       
+       
+    <ol><li>
+        <p><b>Avaliação de negação</b>: por padrão, todas as solicitações são negadas. Isso é chamado de <a href="#AccessPolicyLanguage_Interplay">negação implícita</a>. O código de imposição do AWS avalia todas as políticas na conta que se aplicam à solicitação. Isso inclui SCPs do AWS Organizations, políticas baseadas em recurso, políticas baseadas em identidade, limites de permissões do IAM e políticas de sessão. Em todas essas políticas, o código de imposição procura uma instrução <code class="code">Deny</code> que se aplica à solicitação. Esse processo é chamado de <a href="#AccessPolicyLanguage_Interplay">negação explícita</a>. Se o código de imposição encontrar uma única negação explícita aplicável, o código retornará uma decisão final <b>Deny</b> (Negação). Se não houver uma negação explícita, a avaliação do código de imposição continuará.</p>
+      </li><li>
+        <p><b>SCPs do Organizations</b>: em seguida, o código de imposição avalia as políticas de controle de serviços (SCPs) do AWS Organizations que se aplicam à solicitação. As SCP aplicam-se às entidades principais da conta em que as SCP estão associadas. Se o código de imposição não encontrar uma declaração <code class="code">Allow</code> aplicável nas SCPs, a solicitação será negada implicitamente, mesmo que a negação seja implícita. O código de imposição retorna uma decisão final de <b>Deny</b> (Negação). Se não houver uma SCP ou se a SCP permitir a ação solicitada, a avaliação do código de imposição continuará.</p>
+      </li><li>
+        <p><b>Políticas baseadas em recursos</b>: na mesma conta, as políticas baseadas em recursos afetam a avaliação de política de maneira diferente, dependendo do tipo de entidade principal que está acessando o recurso e a entidade principal que é permitida na política baseada em recursos. Dependendo do tipo de entidade principal, um <code class="code">Allow</code> em uma política baseada em recursos pode resultar em uma decisão final de <code class="code">Allow</code>, mesmo se houver uma negação implícita em uma política baseada em identidade, limite de permissões ou política de sessão.</p>
+        <p>Para a maioria dos recursos, você só precisa de uma permissão explícita para a entidade principal em uma política baseada em identidade ou em recurso para conceder acesso. <a href="./id_roles_compare-resource-policies.html">Políticas de confiança de perfil do IAM</a> e <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html">políticas de chave do KMS</a> são exceções a essa lógica, porque devem permitir explicitamente o acesso para <a href="./reference_policies_elements_principal.html">entidades principais</a>.</p>
+        <p>A lógica de política baseada em recurso difere de outros tipos de política se a entidade principal especificada for um usuário do IAM, um perfil do IAM ou uma entidade principal de sessão. As entidades principais de sessão incluem as <a href="./reference_policies_elements_principal.html#principal-role-session">sessões de função do IAM</a> ou uma <a href="./reference_policies_elements_principal.html#sts-session-principals">sessão de usuário federado do IAM</a>. Se uma política baseada em recursos conceder permissão diretamente ao usuário do IAM ou à entidade principal de sessão que está fazendo a solicitação, uma negação implícita em uma política baseada em identidade, um limite de permissões ou uma política de sessão não afetará a decisão final.</p>
+        <p>A tabela a seguir ajuda a entender o impacto de políticas baseadas em recurso para diferentes tipos de entidades principais quando negações implícitas estão presentes em políticas baseadas em identidade, limites de permissões e políticas de sessão.</p>
+        <div class="table-container"><div class="table-contents"><table id="w339aac25c19c13c13c11b5b9"><thead><tr><th class="table-header" colspan="100"><div class="title">Políticas baseadas em recursos e negações implícitas em outros tipos de política (mesma conta)</div></th></tr>
+              <tr>
+                <th>Entidade principal fazendo a solicitação</th>
+                <th>Política baseada em recurso</th>
+                <th>Política baseada em identidade</th>
+                <th>Limite de permissões</th>
+                <th>Política de sessão</th>
+                <th>Result</th>
+                <th>Motivo</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>Perfil do IAM</td>
+                <td>Não aplicável</td>
+                <td>Não aplicável</td>
+                <td>Não aplicável</td>
+                <td>Não aplicável</td>
+                <td>Não aplicável</td>
+                <td>Uma função não pode fazer uma solicitação por conta própria. As solicitações são feitas com a sessão de função depois que uma função é assumida. </td>
+              </tr>
+              <tr>
+                <td>Sessão de função do IAM</td>
+                <td>Permite o ARN de função</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>DENY</td>
+                <td>O limite de permissões e a política de sessão são avaliados como parte da decisão final. Uma negação implícita em qualquer política resulta em uma decisão DENY (negar).</td>
+              </tr>
+              <tr>
+                <td>Sessão de função do IAM</td>
+                <td>Permite ARN de sessão de função</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>PERMISSÃO</td>
+                <td>As permissões são concedidas diretamente à sessão. Outros tipos de política não afetam a decisão.</td>
+              </tr>
+              <tr>
+                <td>Usuário do IAM</td>
+                <td>Permite o ARN de usuário do IAM</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>Não aplicável</td>
+                <td>PERMISSÃO</td>
+                <td>As permissões são concedidas diretamente ao usuário. Outros tipos de política não afetam a decisão.</td>
+              </tr>
+              <tr>
+                <td>Usuário federado do IAM (<code class="code">GetFederationToken</code>)</td>
+                <td>Permite o ARN de usuário do IAM</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>DENY</td>
+                <td>Uma negação implícita seja no limite de permissões ou na política de sessão resulta em DENY (negar).</td>
+              </tr>
+              <tr>
+                <td>Usuário federado do IAM (<code class="code">GetFederationToken</code>)</td>
+                <td>Permite ARN de sessão de usuário federado do IAM</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>Negação implícita</td>
+                <td>PERMISSÃO</td>
+                <td>As permissões são concedidas diretamente à sessão. Outros tipos de política não afetam a decisão.</td>
+              </tr>
+              <tr>
+                <td>usuário raiz</td>
+                <td>Permite o ARN de usuário raiz</td>
+                <td>Não aplicável</td>
+                <td>Não aplicável</td>
+                <td>Não aplicável</td>
+                <td>PERMISSÃO</td>
+                <td>O usuário raiz tem acesso completo e irrestrito a todos os recursos na sua Conta da AWS. Para aprender como controlar o acesso de usuários raiz em contas no AWS Organizations, consulte <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html">Políticas de controle de serviços (SCPs)</a>, no <em>Guia do usuário do Organizations</em>.</td>
+              </tr>
+              <tr>
+                <td>Principal do serviço da AWS</td>
+                <td>Permite uma entidade principal de serviço da AWS</td>
+                <td>Não aplicável</td>
+                <td>Não aplicável</td>
+                <td>Não aplicável</td>
+                <td>PERMISSÃO</td>
+                <td>Quando uma política baseada em recursos concede permissões diretamente a uma <a href="./reference_policies_elements_principal.html#principal-services">entidade principal de serviço da AWS</a>, outros tipos de política não afetam a decisão.</td>
+              </tr>
+            </table></div></div>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><b>Função do IAM</b>: as políticas baseadas em recursos que concedem permissões a um ARN de função do IAM são limitadas por uma negação implícita em um limite de permissões ou política de sessão.</p>
+            <p><b>Exemplo de ARN de função</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:role/examplerole</code></code></pre>
+          </li><li class="listitem">
+            <p><b>Sessão de função do IAM</b>: na mesma conta, as políticas baseadas em recursos que concedem permissões a um ARN de sessão de função do IAM concedem permissões diretamente para a sessão de função assumida. As permissões concedidas diretamente a uma sessão não são limitadas por uma negação implícita em uma política baseada em identidade, um limite de permissões ou uma política de sessão. Quando você assume uma função e faz uma solicitação, a entidade principal que faz a solicitação é o ARN da sessão de função do IAM e não o ARN da função em si.</p>
+            <p><b>Exemplo de ARN de sessão de função</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:assumed-role/examplerole/examplerolesessionname</code></code></pre>
+          </li><li class="listitem">
+            <p><b>Usuário do IAM</b>: na mesma conta, as políticas baseadas em recursos que concedem permissões a um ARN de usuário do IAM (que não é uma sessão de usuário federado) não são limitadas por uma negação implícita em uma política baseada em identidade ou limite de permissões.</p>
+            <p><b>Exemplo de ARN de usuário do IAM</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:user/exampleuser</code></code></pre>
+          </li><li class="listitem">
+            <p><b>Sessões de usuário federado do IAM</b>: uma sessão de usuário federado do IAM é uma sessão criada mediante o chamado de <a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a>. Quando um usuário federado faz uma solicitação, a entidade principal que faz a solicitação é o ARN do usuário federado e não o ARN do usuário do IAM que federou. Na mesma conta, as políticas baseadas em recursos que concedem permissões a um ARN de usuário federado concedem permissões diretamente para a sessão. As permissões concedidas diretamente a uma sessão não são limitadas por uma negação implícita em uma política baseada em identidade, um limite de permissões ou uma política de sessão.</p>
+            <p>No entanto, se uma política baseada em recursos conceder permissão ao ARN do usuário do IAM que federou, as solicitações feitas pelo usuário federado durante a sessão serão limitadas por uma negação implícita em um limite de permissão ou política de sessão.</p>
+            <p><b>Exemplo de ARN de sessão de usuário federado do IAM</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:federated-user/exampleuser</code></code></pre>
+          </li></ul></div>
+      </li><li>
+        <p><b>Políticas baseadas em identidade</b>: o código verifica as políticas baseadas em identidade para a entidade de segurança. Para um usuário do IAM, isso inclui políticas de usuário e políticas de grupos aos quais o usuário pertence. Se não houver políticas baseadas em identidade ou declarações em políticas baseadas em identidade que permitam a ação solicitada, a solicitação será implicitamente negada e o código retornará uma decisão final de <b>Deny</b> (Negar). Se uma declaração em qualquer política aplicável baseada em identidade permitir a ação solicitada, o código continuará.</p>
+      </li><li>
+        <p><b>Limites de permissões do IAM</b>: em seguida, o código confere se a entidade do IAM que é usada pela entidade principal tem um limite de permissões. Se a política que é usada para definir o limite de permissões não permitir a ação solicitada, a solicitação será implicitamente negada. O código retorna uma decisão final de <b>Negação</b>. Se não houver um limite de permissões ou se o limite de permissões permitir a ação solicitada, o código continuará.</p>
+      </li><li>
+        <p><b>Políticas de sessão</b>: em seguida, o código confere se a entidade principal é uma entidade principal de sessão. As entidades principais de sessão incluem uma sessão de função do IAM ou uma sessão de usuário federado do IAM. Se a entidade principal não for uma entidade principal de sessão, o código de imposição retornará uma decisão final de <b>Allow</b> (Permitir). </p>
+        <p>Para entidades principais de sessão, o código confere se uma política de sessão foi transmitida na solicitação. Você pode transmitir uma política de sessão enquanto usa a AWS CLI ou API da AWS para obter credenciais temporárias para uma função ou um usuário federado do IAM.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Se houver uma política de sessão presente e ela não permitir a ação solicitada, a solicitação será implicitamente negada. O código retorna uma decisão final de <b>Negação</b>.</p>
+          </li><li class="listitem">
+            <p>Se não houver política de sessão, o código vai conferir se a entidade principal é uma sessão de função. Se a entidade principal for uma sessão de função, a solicitação será <b>Permitida</b>. Caso contrário, a solicitação é implicitamente negada e o código retorna uma decisão final de <b>Deny</b> (Negar).</p>
+          </li><li class="listitem">
+            <p>Se houver uma política de sessão presente e ela permitir a ação solicitada, o código de imposição retorna uma decisão final de <b>Allow</b> (Permitir).</p>
+          </li></ul></div>
+      </li><li>
+        <p><b>Erros</b>: Se o código de aplicação da AWS encontrar um erro em qualquer ponto durante a avaliação, ele gerará uma exceção e será fechado.</p>
+      </li></ol></div>
+
+   
+    <h2 id="policies_evaluation_example">Exemplo de avaliação das políticas baseadas em identidade e políticas baseadas em recurso</h2>
+    <p>Os tipos de políticas mais comuns são políticas baseadas em identidade e políticas baseadas em recurso. Quando o acesso a um recurso é solicitado, a AWS avalia todas as permissões concedidas pelas políticas para <b>pelo menos uma permissão</b> na mesma conta. Uma negação explícita em qualquer uma das políticas substitui a permissão.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Importante</h6></div><div class="awsdocs-note-text"><p>Se a política baseada em identidade ou a política baseada em recursos na mesma conta permitir a solicitação, mas a outra política não, a solicitação ainda será permitida.</p></div></div>
+    <p>Suponha que Carlos tem o nome de usuário <code class="code">carlossalazar</code> e tente salvar um arquivo no bucket <code class="code">carlossalazar-logs</code> do Amazon S3. </p>
+    <p>Suponha também que a política a seguir esteja anexada ao usuário do IAM <code class="code">carlossalazar</code>.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowS3ListRead",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowS3Self",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::*log*"
+        }
+    ]
+}</code></pre>
+    <p>A instrução <code class="code">AllowS3ListRead</code> nessa política permite que Carlos visualize uma lista de todos os buckets da conta. A instrução <code class="code">AllowS3Self</code> permite a Carlos acesso total ao bucket com o mesmo nome que seu nome de usuário. A instrução <code class="code">DenyS3Logs</code> nega a Carlos acesso a qualquer bucket do S3 com <code class="code">log</code> em seu nome. </p>
+    <p>Além disso, a seguinte política baseada em recurso (chamada de política de bucket) está anexada ao bucket <code class="code">carlossalazar</code>. </p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:user/carlossalazar"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        }
+    ]
+}</code></pre>
+    <p>Essa política especifica que apenas o usuário <code class="code">carlossalazar</code> pode acessar o bucket <code class="code">carlossalazar</code>.</p>
+    <p>Quando Carlos faz sua solicitação para salvar um arquivo no bucket <code class="code">carlossalazar-logs</code>, a AWS determina quais políticas são aplicáveis à solicitação. Nesse caso, somente a política baseada em identidade e a política baseada em recurso são aplicáveis. Essas são duas políticas de permissões. Como nenhum limite de permissões se aplica, a lógica de avaliação é reduzida à lógica a seguir.</p>
+    <div class="mediaobject">
+       
+        <img src="images/EffectivePermissionsShort.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Fluxograma de avaliação&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>A AWS primeiro verifica se há uma instrução <code class="code">Deny</code> aplicável ao contexto da solicitação. Ele encontra uma, pois a política baseada em identidade nega explicitamente a Carlos o acesso a qualquer bucket do S3 usado para log. O acesso é negado a Carlos. </p>
+    <p>Suponha que ele perceba seu erro e tente salvar o arquivo no bucket <code class="code">carlossalazar</code>. A AWS verifica se há uma instrução <code class="code">Deny</code> e não encontra uma. Em seguida, ela verifica a políticas de permissões. Tanto a política baseada em identidade quanto a política baseada em recursos permitem a solicitação. Portanto, a AWS permite a solicitação. Se qualquer uma delas tivesse negado explicitamente a instrução, a solicitação teria sido negada. Se um dos tipos de política permitir a solicitação e o outro não, a solicitação ainda será permitida.</p>
+   
+    <h2 id="AccessPolicyLanguage_Interplay">A diferença entre negações explícitas e implícitas</h2>
+    <p>Uma solicitação resultará em uma negação explícita aplicável se uma política aplicável incluir uma instrução <code class="code">Deny</code>. Se as políticas aplicáveis a uma solicitação incluírem uma instrução <code class="code">Allow</code> e uma instrução <code class="code">Deny</code>, a instrução <code class="code">Deny</code> superará a instrução <code class="code">Allow</code>. A solicitação será negada explicitamente.</p>
+    <p>Uma negação implícita ocorre quando não há uma instrução <code class="code">Deny</code> aplicável, mas também nenhuma instrução <code class="code">Allow</code> aplicável. Como o acesso da entidade principal do IAM é negado por padrão, ela deve ter permissão explícita para executar uma ação. Caso contrário, o acesso será implicitamente negado.</p>
+    <p>Ao projetar sua estratégia de autorização, você deve criar políticas com instruções <code class="code">Allow</code> para permitir que suas entidades principais façam solicitações com êxito. No entanto, você pode escolher qualquer combinação de negações implícitas e explícitas. </p>
+    <p>Por exemplo, é possível criar a seguinte política que inclui ações permitidas, ações negadas implicitamente e ações negadas explicitamente. A declaração <code class="code">AllowGetList</code> <b>permite</b> acesso do tipo somente leitura a ações do IAM que comecem com os prefixos <code class="code">Get</code> e <code class="code">List</code>. Todas as outras ações no IAM, como <code class="code">iam:CreatePolicy</code>, são <b>negadas implicitamente</b>. A declaração <code class="code">DenyReports</code> <b>nega explicitamente</b> o acesso a relatórios do IAM, negando acesso a ações que incluem o sufixo <code class="code">Report</code>, como <code class="code">iam:GetOrganizationsAccessReport</code>. Se alguém adicionar outra política a essa entidade principal para conceder acesso a relatórios do IAM, como <code class="code">iam:GenerateCredentialReport</code>, solicitações relacionadas a relatórios ainda serão negadas por causa dessa negação explícita.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowGetList",
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "DenyReports",
+            "Effect": "Deny",
+            "Action": "iam:*Report",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Atenção" /> <strong>O Javascript está desativado ou não está disponível no seu navegador.</strong></p><p>Para usar a documentação da AWS, o Javascript deve estar ativado. Consulte as páginas de Ajuda do navegador para obter instruções.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenções do documento</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./reference_policies_elements_datatypes.html">Tipos de dados compatíveis</div><div id="next" class="next-link" accesskey="n" href="./reference_policies_evaluation-logic-cross-account.html">Lógica de avaliação de política entre contas</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Essa página foi útil? - Sim</div><div class="content"><p>Obrigado por nos informar que estamos fazendo um bom trabalho!</p><p>Se tiver tempo, conte-nos sobre o que você gostou para que possamos melhorar ainda mais.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Essa página foi útil? - Não</div><div class="content"><p>Obrigado por nos informar que precisamos melhorar a página. Lamentamos ter decepcionado você.</p><p>Se tiver tempo, conte-nos como podemos melhorar a documentação.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>IAM tutorial: Define permissions to access AWS resources based on tags - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="tutorial_attribute-based-access-control" /><meta name="default_state" content="tutorial_attribute-based-access-control" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" /><meta name="description" content="Implement a strategy that uses principal and resource tags for permissions management." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="IAM tutorial: Define permissions to access AWS resources based on tags" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>IAM tutorial: Define permissions to access AWS resources based on tags - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#tutorial_attribute-based-access-control" /><meta name="github" content="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/tutorial_attribute-based-access-control.md" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM tutorials",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorials.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM tutorial: Define permissions to access AWS resources based on tags",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorials.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#tutorial_attribute-based-access-control" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/tutorial_attribute-based-access-control.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#tutorial_attribute-based-access-control-overview">Tutorial
+            overview</a><a href="#tutorial_abac_prereqs">Prerequisites</a><a href="#tutorial_abac_step1">Step 1: Create test users</a><a href="#tutorial_abac_step2">Step 2: Create the ABAC policy</a><a href="#tutorial_abac_step3">Step 3: Create roles</a><a href="#tutorial_abac_step4">Step 4: Test creating secrets</a><a href="#tutorial_abac_step5">Step 5: Test viewing secrets</a><a href="#tutorial_abac_step6">Step 6: Test scalability</a><a href="#tutorial_abac_step7">Step 7: Test updating and deleting secrets</a><a href="#tutorial-abac-summary">Summary</a><a href="#tutorial_abac_related">Related resources</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="tutorial_attribute-based-access-control">IAM tutorial: Define permissions to
+         access AWS resources based on tags</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Attribute-based access control (ABAC) is an authorization strategy that defines permissions
+      based on attributes. In AWS, these attributes are called <em>tags</em>. You can attach tags to IAM resources, including IAM entities (users or
+      roles) and to AWS resources. You can define policies that use tag condition keys to grant
+      permissions to your principals based on their tags. When you use tags to control access to
+      your AWS resources, you allow your teams and resources to grow with fewer changes to AWS
+      policies. ABAC policies are more flexible than traditional AWS policies, which require you
+      to list each individual resource. For more information about ABAC and its advantage over
+      traditional policies, see <a href="./introduction_attribute-based-access-control.html">What is ABAC for AWS?</a>.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You must pass a single value for each session tag. AWS Security Token Service does not support multi-valued session tags.</p></div></div><div class="highlights"><h6>Topics</h6><ul><li><a href="#tutorial_attribute-based-access-control-overview">Tutorial
+            overview</a></li><li><a href="#tutorial_abac_prereqs">Prerequisites</a></li><li><a href="#tutorial_abac_step1">Step 1: Create test users</a></li><li><a href="#tutorial_abac_step2">Step 2: Create the ABAC policy</a></li><li><a href="#tutorial_abac_step3">Step 3: Create roles</a></li><li><a href="#tutorial_abac_step4">Step 4: Test creating secrets</a></li><li><a href="#tutorial_abac_step5">Step 5: Test viewing secrets</a></li><li><a href="#tutorial_abac_step6">Step 6: Test scalability</a></li><li><a href="#tutorial_abac_step7">Step 7: Test updating and deleting secrets</a></li><li><a href="#tutorial-abac-summary">Summary</a></li><li><a href="#tutorial_abac_related">Related resources</a></li><li><a href="./tutorial_abac-saml.html">IAM tutorial: Use SAML session tags for ABAC</a></li></ul></div>
+      <h2 id="tutorial_attribute-based-access-control-overview">Tutorial
+            overview</h2>
+      <p>This tutorial shows how to create and test a policy that allows IAM roles with
+         principal tags to access resources with matching tags. When a principal makes a request to
+         AWS, their permissions are granted based on whether the principal and resource tags
+         match. This strategy allows individuals to view or edit only the AWS resources required
+         for their jobs. </p>
+       
+         <h6>Scenario</h6>
+         <p>Assume that you're a lead developer at a large company named Example Corporation, and
+            you're an experienced IAM administrator. You're familiar with creating and managing
+            IAM users, roles, and policies. You want to ensure that your development engineers and
+            quality assurance team members can access the resources they need. You also need a
+            strategy that scales as your company grows.</p>
+       
+      <p>You choose to use AWS resource tags and IAM role principal tags to implement an ABAC
+         strategy for services that support it, beginning with AWS Secrets Manager. To
+         learn which services support authorization based on tags, see <a href="./reference_aws-services-that-work-with-iam.html">AWS services that work with
+      IAM</a>. To learn which tagging
+         condition keys you can use in a policy with each service's actions and resources, see
+            <a href="reference_policies_actions-resources-contextkeys.html" rel="noopener noreferrer" target="_blank">Actions, Resources, and
+            Condition Keys for AWS Services</a>. You can configure your SAML-based or web
+         identity provider to pass <a href="./id_session-tags.html">session tags</a> to AWS.
+         When your employees federate into AWS, their attributes are applied to their resulting
+         principal in AWS. You can then use ABAC to allow or deny permissions based on those
+         attributes. To learn how using session tags with a SAML federated identity differs from
+         this tutorial, see <a href="./tutorial_abac-saml.html">IAM tutorial: Use SAML session tags for ABAC</a>.</p>
+      <p>Your Engineering and Quality Assurance team members are on either the
+            <b>Pegasus</b> or <b>Unicorn</b> project. You choose the
+         following 3-character project and team tag values:</p>
+      <div class="itemizedlist">
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">access-project</code> = <code class="code">peg</code> for the
+                  <b>Pegasus</b> project</p>
+         </li><li class="listitem">
+            <p><code class="code">access-project</code> = <code class="code">uni</code> for the
+                  <b>Unicorn</b> project</p>
+         </li><li class="listitem">
+            <p><code class="code">access-team</code> = <code class="code">eng</code> for the Engineering team</p>
+         </li><li class="listitem">
+            <p><code class="code">access-team</code> = <code class="code">qas</code> for the Quality Assurance team</p>
+         </li></ul></div>
+      <p>Additionally, you choose to require the <code class="code">cost-center</code> cost allocation tag to
+         enable custom AWS billing reports. For more information, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation Tags</a> in the
+            <em>AWS Billing and Cost Management User Guide</em>.</p>
+      <div class="itemizedlist">
+         <h6>Summary of key decisions</h6>
+          
+          
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>Employees sign in with IAM user credentials and then assume the IAM role for
+               their team and project. If your company has its own identity system, you can set up
+               federation to allow employees to assume a role without IAM users. For more
+               information, see <a href="./tutorial_abac-saml.html">IAM tutorial: Use SAML session tags for ABAC</a>.</p>
+         </li><li class="listitem">
+            <p>The same policy is attached to all of the roles. Actions are allowed or denied
+               based on tags.</p>
+         </li><li class="listitem">
+            <p>Employees can create new resources, but only if they attach the same tags to the
+               resource that are applied to their role. This ensures that employees can view the
+               resource after they create it. Administrators are no longer required to update
+               policies with the ARN of new resources.</p>
+         </li><li class="listitem">
+            <p>Employees can read resources owned by their team, regardless of the
+               project.</p>
+         </li><li class="listitem">
+            <p>Employees can update and delete resources owned by their own team and project.
+            </p>
+         </li><li class="listitem">
+            <p>IAM administrators can add a new role for new projects. They can create and tag
+               a new IAM user to allow access to the appropriate role. Administrators are not
+               required to edit a policy to support a new project or team member.</p>
+         </li></ul></div>
+      <p>In this tutorial, you will tag each resource, tag your project roles, and add policies
+         to the roles to allow the behavior previously described. The resulting policy allows the
+         roles <code class="code">Create</code>, <code class="code">Read</code>, <code class="code">Update</code>, and <code class="code">Delete</code>
+         access to resources that are tagged with the same project and team tags. The policy also
+         allows cross-project <code class="code">Read</code> access for resources that are tagged with the same
+         team.</p>
+      <div class="mediaobject">
+          
+            <img src="/images/IAM/latest/UserGuide/images/tutorial-abac-cross-project.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;            ABAC Tutorial Permissions Design&#xA;         " style="max-width:100%" />
+          
+          
+      </div>
+    
+      <h2 id="tutorial_abac_prereqs">Prerequisites</h2>
+      <p>To perform the steps in this tutorial, you must already have the following:</p>
+      <div class="itemizedlist">
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>An AWS account that you can sign in to as a
+               user with administrative permissions.</p>
+         </li><li class="listitem">
+            <p>Your 12-digit account ID, which you use to create the roles in step 3.</p>
+            
+<p>To find your AWS account ID number using the AWS Management Console, choose <b>Support</b> on 
+  the navigation bar on the upper right, and then choose <b>Support Center</b>. The 
+  account number (ID) appears in the navigation pane on the left.</p>
+<div class="mediaobject">
+   
+    <img src="/images/IAM/latest/UserGuide/images/account-id-support-center.console.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+   
+</div>
+ </li><li class="listitem">
+            <p>Experience creating and editing IAM users, roles, and policies in the AWS Management Console.
+               However, if you need help remembering an IAM management process, this tutorial
+               provides links where you can view step-by-step instructions.</p>
+         </li></ul></div>
+    
+      <h2 id="tutorial_abac_step1">Step 1: Create test users</h2>
+      <p>For testing, create four IAM users with permissions to assume roles with the same
+         tags. This makes it easier to add more users to your teams. When you tag the users, they
+         automatically get access to assume the correct role. You don't have to add the users to the
+         trust policy of the role if they work on only one project and team.</p>
+      <div class="procedure"><ol><li>
+            <p>Create the following customer managed policy named
+               <code class="code">access-assume-role</code>. For more information about creating a JSON policy,
+               see <a href="./access_policies_create-console.html#access_policies_create-start">Creating IAM policies</a>.</p>
+             
+               <h6>ABAC policy: Assume any ABAC role, but only when the user and role tags
+                  match</h6>
+               <p>The following policy allows a user to assume any role in your account with the
+                     <code class="code">access-</code> name prefix. The role must also be tagged with the same
+                  project, team, and cost center tags as the user.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "TutorialAssumeRole",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "arn:aws:iam::<code class="replaceable">123456789012</code>:role/access-*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "iam:ResourceTag/access-project": "$<span>{</span>aws:PrincipalTag/access-project}",
+                    "iam:ResourceTag/access-team": "$<span>{</span>aws:PrincipalTag/access-team}",
+                    "iam:ResourceTag/cost-center": "$<span>{</span>aws:PrincipalTag/cost-center}"
+                }
+            }
+        }
+    ]
+}</code></pre>
+            <p>To scale this tutorial to a large number of users, you can attach the policy to a
+               group and add each user to the group. For more information, see <a href="./id_groups_create.html">Creating IAM user groups</a> and <a href="./id_groups_manage_add-remove-users.html">Adding and removing users in an IAM
+      user group</a>.</p>
+         </li><li>
+            <p>Create the following IAM users, attach the <code class="code">access-assume-role</code>
+               permissions policy, and add the following tags. For more information about creating
+               and tagging a new user, see <a href="./id_users_create.html#id_users_create_console">Creating IAM users (console)</a>.</p>
+            <div class="table-container"><div class="table-contents"><table id="w340aac13c15c13b5b3b3"><thead><tr><th class="table-header" colspan="100"><div class="title">ABAC users</div></th></tr>
+                     <tr>
+                        <th>User name</th>
+                        <th>User tags</th>
+                     </tr>
+                  </thead>
+                     <tr>
+                        <td>
+                           <p><code class="code">access-Arnav-peg-eng</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-project</code> = <code class="code">peg</code></p>
+                           <p><code class="code">access-team</code> = <code class="code">eng</code></p>
+                           <p><code class="code">cost-center</code> = <code class="code">987654</code>
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <p><code class="code">access-Mary-peg-qas</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-project</code> = <code class="code">peg</code></p>
+                           <p><code class="code">access-team</code> = <code class="code">qas</code></p>
+                           <p><code class="code">cost-center</code> = <code class="code">987654</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <p><code class="code">access-Saanvi-uni-eng</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-project</code> = <code class="code">uni</code></p>
+                           <p><code class="code">access-team</code> = <code class="code">eng</code></p>
+                           <p><code class="code">cost-center</code> = <code class="code">123456</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <p><code class="code">access-Carlos-uni-qas</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-project</code> = <code class="code">uni</code></p>
+                           <p><code class="code">access-team</code> = <code class="code">qas</code></p>
+                           <p><code class="code">cost-center</code> = <code class="code">123456</code>
+                           </p>
+                        </td>
+                     </tr>
+                  </table></div></div>
+         </li></ol></div>
+    
+      <h2 id="tutorial_abac_step2">Step 2: Create the ABAC policy</h2>
+      <p>Create the following policy named <code class="userinput">access-same-project-team</code>. You
+         will add this policy to the roles in a later step. For more information about creating a
+         JSON policy, see <a href="./access_policies_create-console.html#access_policies_create-start">Creating IAM policies</a>.</p>
+      <p>For additional policies that you can adapt for this tutorial, see the following
+         pages:</p>
+      <div class="itemizedlist">
+          
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p><a href="./access_iam-tags.html#access_iam-tags_control-principals">Controlling access for IAM
+            principals</a></p>
+         </li><li class="listitem">
+            <p><a href="./reference_policies_examples_ec2_tag-owner.html">Amazon EC2: Allows starting or stopping
+      EC2 instances a user has tagged, programmatically and in the console</a></p>
+         </li><li class="listitem">
+            <p><a href="./reference_policies_examples_ec2-start-stop-match-tags.html">EC2: Start or stop instances based
+            on matching principal and resource tags</a></p>
+         </li><li class="listitem">
+            <p><a href="./reference_policies_examples_ec2-start-stop-tags.html">EC2: Start or stop instances based on tags</a></p>
+         </li><li class="listitem">
+            <p><a href="./reference_policies_examples_iam-assume-tagged-role.html">IAM: Assume roles that have
+      a specific tag</a></p>
+         </li></ul></div>
+       
+         <h6>ABAC Policy: Access Secrets Manager Resources Only When the Principal and Resource Tags
+            Match</h6>
+         <p>The following policy allows principals to create, read, edit, and delete resources,
+            but only when those resources are tagged with the same key-value pairs as the principal.
+            When a principal creates a resource, they must add <code class="code">access-project</code>,
+               <code class="code">access-team</code>, and <code class="code">cost-center</code> tags with values that match
+            the principal's tags. The policy also allows adding optional <code class="code">Name</code> or
+               <code class="code">OwnedBy</code> tags.</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+ "Version": "2012-10-17",
+ "Statement": [
+     <span>{</span>
+         "Sid": "AllActionsSecretsManagerSameProjectSameTeam",
+         "Effect": "Allow",
+         "Action": "secretsmanager:*",
+         "Resource": "*",
+         "Condition": <span>{</span>
+             "StringEquals": <span>{</span>
+                 "aws:ResourceTag/access-project": "$<span>{</span>aws:PrincipalTag/access-project}",
+                 "aws:ResourceTag/access-team": "$<span>{</span>aws:PrincipalTag/access-team}",
+                 "aws:ResourceTag/cost-center": "$<span>{</span>aws:PrincipalTag/cost-center}"
+             },
+             "ForAllValues:StringEquals": <span>{</span>
+                 "aws:TagKeys": [
+                     "access-project",
+                     "access-team",
+                     "cost-center",
+                     "Name",
+                     "OwnedBy"
+                 ]
+             },
+             "StringEqualsIfExists": <span>{</span>
+                 "aws:RequestTag/access-project": "$<span>{</span>aws:PrincipalTag/access-project}",
+                 "aws:RequestTag/access-team": "$<span>{</span>aws:PrincipalTag/access-team}",
+                 "aws:RequestTag/cost-center": "$<span>{</span>aws:PrincipalTag/cost-center}"
+             }
+         }
+     },
+     <span>{</span>
+         "Sid": "AllResourcesSecretsManagerNoTags",
+         "Effect": "Allow",
+         "Action": [
+             "secretsmanager:GetRandomPassword",
+             "secretsmanager:ListSecrets"
+         ],
+         "Resource": "*"
+     },
+     <span>{</span>
+         "Sid": "ReadSecretsManagerSameTeam",
+         "Effect": "Allow",
+         "Action": [
+             "secretsmanager:Describe*",
+             "secretsmanager:Get*",
+             "secretsmanager:List*"
+         ],
+         "Resource": "*",
+         "Condition": <span>{</span>
+             "StringEquals": <span>{</span>
+                 "aws:ResourceTag/access-team": "$<span>{</span>aws:PrincipalTag/access-team}"
+             }
+         }
+     },
+     <span>{</span>
+         "Sid": "DenyUntagSecretsManagerReservedTags",
+         "Effect": "Deny",
+         "Action": "secretsmanager:UntagResource",
+         "Resource": "*",
+         "Condition": <span>{</span>
+             "ForAnyValue:StringLike": <span>{</span>
+                 "aws:TagKeys": "access-*"
+             }
+         }
+     },
+     <span>{</span>
+         "Sid": "DenyPermissionsManagement",
+         "Effect": "Deny",
+         "Action": "secretsmanager:*Policy",
+         "Resource": "*"
+     }
+ ]
+}</code></pre>
+      <p><b>What does this policy do?</b></p>
+      <div class="itemizedlist">
+          
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>The <code class="code">AllActionsSecretsManagerSameProjectSameTeam</code> statement allows all
+               of this service's actions on all related resources, but only if the resource tags
+               match the principal tags. By adding <code class="code">"Action": "secretsmanager:*"</code> to the
+               policy, the policy grows as Secrets Manager grows. If Secrets Manager adds a new API operation,
+               you are not required to add that action to the statement. The statement implements
+               ABAC using three condition blocks. The request is allowed only if all three blocks
+               return true.</p>
+            <div class="itemizedlist">
+                
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p>The first condition block of this statement returns true if the specified
+                     tag keys are present on the resource, and their values match the principal's
+                     tags. This block returns false for mismatched tags, or for actions that don't
+                     support resource tagging. To learn which actions are not allowed by this block,
+                     see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awssecretsmanager.html">Actions, Resources,
+                        and Condition Keys for AWS Secrets Manager</a>. That page shows that actions
+                     performed on the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awssecretsmanager.html#awssecretsmanager-resources-for-iam-policies"><b>Secret</b> resource type</a> support the
+                        <code class="code">secretsmanager:ResourceTag/tag-key</code> condition key. Some <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awssecretsmanager.html#awssecretsmanager-actions-as-permissions">Secrets Manager actions</a> don't support that resource type, including
+                        <code class="code">GetRandomPassword</code> and <code class="code">ListSecrets</code>. You must create
+                     additional statements to allow those actions.</p>
+               </li><li class="listitem">
+                  <p>The second condition block returns true if every tag key passed in the
+                     request is included in the specified list. This is done using
+                        <code class="code">ForAllValues</code> with the <code class="code">StringEquals</code> condition
+                     operator. If no keys or a subset of the set of keys is passed, then the
+                     condition returns true. This allows <code class="code">Get*</code> operations that do not
+                     allow passing tags in the request. If the requester includes a tag key that is
+                     not in the list, the condition returns false. Every tag key that is passed in
+                     the request must match a member of this list. For more information, see <a href="./reference_policies_multi-value-conditions.html#reference_policies_multi-key-or-value-conditions">Using multiple keys and
+            values</a>.</p>
+               </li><li class="listitem">
+                  <p>The third condition block returns true if the request supports passing tags,
+                     if all three of the tags are present, and if they match the principal tag
+                     values. This block also returns true if the request does not support passing
+                     tags. This is thanks to <a href="./reference_policies_elements_condition_operators.html#Conditions_IfExists">...IfExists</a> in the condition operator. The block
+                     returns false if there is no tag passed during an action that supports it, or
+                     if the tag keys and values don't match.</p>
+               </li></ul></div>
+         </li><li class="listitem">
+            <p>The <code class="code">AllResourcesSecretsManagerNoTags</code> statement allows the
+                  <code class="code">GetRandomPassword</code> and <code class="code">ListSecrets</code> actions that are not
+               allowed by the first statement.</p>
+         </li><li class="listitem">
+            <p>The <code class="code">ReadSecretsManagerSameTeam</code> statement allows read-only operations
+               if the principal is tagged with the same access-team tag as the resource. This is
+               allowed regardless of the project or cost-center tag. </p>
+         </li><li class="listitem">
+            <p>The <code class="code">DenyUntagSecretsManagerReservedTags</code> statement denies requests to
+               remove tags with keys that begin with "access-" from Secrets Manager. These tags are
+               used to control access to resources, therefore removing tags might remove
+               permissions.</p>
+         </li><li class="listitem">
+            <p>The <code class="code">DenyPermissionsManagement</code> statement denies access to create,
+               edit, or delete Secrets Manager resource-based policies. These policies could be used
+               to change the permissions of the secret. </p>
+         </li></ul></div>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>This policy uses a strategy to allow all actions for a service, but explicitly deny
+            permissions-altering actions. Denying an action overrides any other policy that allows
+            the principal to perform that action. This can have unintended results. As a best
+            practice, use explicit denies only when there is no circumstance that should allow that
+            action. Otherwise, allow a list of individual actions, and the unwanted actions are
+            denied by default.</p></div></div>
+    
+      <h2 id="tutorial_abac_step3">Step 3: Create roles</h2>
+      <p>Create the following IAM roles and attach the
+            <code class="userinput">access-same-project-team</code> policy that you created in the previous
+         step. For more information about creating IAM roles, see <a href="./id_roles_create_for-user.html">Creating a role to delegate permissions to an IAM
+      user</a>. If you
+         choose to use federation instead of IAM users and roles, see <a href="./tutorial_abac-saml.html">IAM tutorial: Use SAML session tags for ABAC</a>.</p>
+      <div class="table-container"><div class="table-contents"><table id="w340aac13c15c17b5"><thead><tr><th class="table-header" colspan="100"><div class="title">ABAC roles</div></th></tr>
+               <tr>
+                  <th>Job function</th>
+                  <th>Role tags</th>
+                  <th>Role name</th>
+                  <th>Role description</th>
+               </tr>
+            </thead>
+               <tr>
+                  <td>
+                     <p>Project Pegasus Engineering</p>
+                  </td>
+                  <td>
+                     <p><code class="code">access-project</code> = <code class="code">peg</code></p>
+                     <p><code class="code">access-team</code> = <code class="code">eng</code></p>
+                     <p><code class="code">cost-center</code> = <code class="code">987654</code>
+                     </p>
+                  </td>
+                  <td>
+                     <p><code class="code">access-peg-engineering</code></p>
+                  </td>
+                  <td>Allows engineers to read all engineering resources and create and manage
+                     Pegasus engineering resources.</td>
+               </tr>
+               <tr>
+                  <td>
+                     <p>Project Pegasus Quality Assurance</p>
+                  </td>
+                  <td>
+                     <p><code class="code">access-project</code> = <code class="code">peg</code></p>
+                     <p><code class="code">access-team</code> = <code class="code">qas</code></p>
+                     <p><code class="code">cost-center</code> = <code class="code">987654</code></p>
+                  </td>
+                  <td>
+                     <p><code class="code">access-peg-quality-assurance</code></p>
+                  </td>
+                  <td>
+                     <p>Allows the QA team to read all QA resources and create and manage all
+                        Pegasus QA resources.</p>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p>Project Unicorn Engineering</p>
+                  </td>
+                  <td>
+                     <p><code class="code">access-project</code> = <code class="code">uni</code></p>
+                     <p><code class="code">access-team</code> = <code class="code">eng</code></p>
+                     <p><code class="code">cost-center</code> = <code class="code">123456</code></p>
+                  </td>
+                  <td>
+                     <p><code class="code">access-uni-engineering</code></p>
+                  </td>
+                  <td>Allows engineers to read all engineering resources and create and manage
+                     Unicorn engineering resources.</td>
+               </tr>
+               <tr>
+                  <td>
+                     <p>Project Unicorn Quality Assurance</p>
+                  </td>
+                  <td>
+                     <p><code class="code">access-project</code> = <code class="code">uni</code></p>
+                     <p><code class="code">access-team</code> = <code class="code">qas</code></p>
+                     <p><code class="code">cost-center</code> = <code class="code">123456</code>
+                     </p>
+                  </td>
+                  <td>
+                     <p><code class="code">access-uni-quality-assurance</code></p>
+                  </td>
+                  <td>
+                     <p>Allows the QA team to read all QA resources and create and manage all
+                        Unicorn QA resources.</p>
+                  </td>
+               </tr>
+            </table></div></div>
+    
+      <h2 id="tutorial_abac_step4">Step 4: Test creating secrets</h2>
+      <p>The permissions policy attached to the roles allows the employees to create secrets.
+         This is allowed only if the secret is tagged with their project, team, and cost center.
+         Confirm that your permissions are working as expected by signing in as your users, assuming
+         the correct role, and testing activity in Secrets Manager.</p>
+      <div class="procedure"><h6>To test creating a secret with and without the required tags</h6><ol><li>
+            <p>In your main browser window, remain signed in as the administrator user so that
+               you can review users, roles, and policies in IAM. Use a browser incognito window or
+               separate browser for your testing. There, sign in as the
+                  <code class="code">access-Arnav-peg-eng</code> IAM user and open the Secrets Manager console at
+                  <a href="https://console.aws.amazon.com/secretsmanager/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/secretsmanager/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+         </li><li>
+            <p>Attempt to switch to the <code class="code">access-uni-engineering</code> role. For more
+               information about switching roles in the AWS Management Console, see <a href="./id_roles_use_switch-role-console.html">Switching to a role (console)</a>.</p>
+            <p>This operation fails because the <code class="code">access-project</code> and
+                  <code class="code">cost-center</code> tag values do not match for the
+                  <code class="code">access-Arnav-peg-eng</code> user and <code class="code">access-uni-engineering</code>
+               role.</p>
+         </li><li>
+            <p>Switch to the <code class="code">access-peg-engineering</code> role. For more information about
+               switching roles in the AWS Management Console, see <a href="./id_roles_use_switch-role-console.html">Switching to a role (console)</a>.</p>
+         </li><li>
+            <p>Store a new secret using the following information. To learn how to store a
+               secret, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html">Creating a Basic Secret</a> in the <em>AWS Secrets Manager User Guide</em>.</p>
+            <div class="orderedlist">
+                
+                
+                
+                
+            <ol><li>
+                  <p>In the <b>Select secret type</b> section, choose
+                        <b>Other type of secrets</b>. In the two text boxes, enter
+                        <code class="code">test-access-key</code> and <code class="code">test-access-secret</code>.</p>
+                  <p>You must have additional permissions to save credentials for specific AWS
+                     services. For example, to create credentials for an Amazon RDS database, you must
+                     have permission to describe RDS instances, RDS clusters, and Amazon Redshift
+                     clusters.</p>
+               </li><li>
+                  <p>Enter <code class="code">test-access-peg-eng</code> for the <b>Secret
+                        name</b> field. </p>
+               </li><li>
+                  <p>Add different tag combinations from the following table and view the
+                     expected behavior.</p>
+               </li><li>
+                  <p>Choose <b>Store</b> to attempt to create the secret. When the
+                     storage fails, return to the previous Secrets Manager console pages and use the next
+                     tag set from the following table. The last tag set is allowed and will
+                     successfully create the secret.</p>
+               </li></ol></div>
+            <div class="table-container"><div class="table-contents"><table id="w340aac13c15c19b5b8b5"><thead><tr><th class="table-header" colspan="100"><div class="title">ABAC tag combinations for <code class="code">test-access-peg-eng</code> role</div></th></tr>
+                     <tr>
+                        <th><code class="code">access-project</code> Tag value</th>
+                        <th><code class="code">access-team</code> Tag value</th>
+                        <th><code class="code">cost-center</code> Tag value</th>
+                        <th>Additional tags</th>
+                        <th>Expected behavior</th>
+                     </tr>
+                  </thead>
+                     <tr>
+                        <td>(none)</td>
+                        <td>(none)</td>
+                        <td>(none)</td>
+                        <td>(none)</td>
+                        <td>Denied because the <code class="code">access-project</code> tag value does
+                           not match the role's value of <code class="code">peg</code>.</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">uni</code>
+                        </td>
+                        <td><code class="code">eng</code>
+                        </td>
+                        <td><code class="code">987654</code>
+                        </td>
+                        <td>(none)</td>
+                        <td>Denied because the <code class="code">access-project</code> tag value does
+                           not match the role's value of <code class="code">peg</code>.</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">peg</code></td>
+                        <td><code class="code">qas</code></td>
+                        <td><code class="code">987654</code>
+                        </td>
+                        <td>(none)</td>
+                        <td>Denied because the <code class="code">access-team</code> tag value does not
+                           match the role's value of <code class="code">eng</code>.</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">peg</code></td>
+                        <td><code class="code">eng</code></td>
+                        <td><code class="code">123456</code>
+                        </td>
+                        <td>(none)</td>
+                        <td>Denied because the <code class="code">cost-center</code> tag value does not
+                           match the role's value of <code class="code">987654</code>. </td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">peg</code>
+                        </td>
+                        <td><code class="code">eng</code></td>
+                        <td><code class="code">987654</code>
+                        </td>
+                        <td><code class="code">owner</code> = <code class="code">Jane</code></td>
+                        <td>Denied because the additional tag <code class="code">owner</code> is not
+                           allowed by the policy, even though all three required tags are present
+                           and their values match the role's values. </td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">peg</code>
+                        </td>
+                        <td><code class="code">eng</code></td>
+                        <td><code class="code">987654</code>
+                        </td>
+                        <td><code class="code">Name</code> = <code class="code">Jane</code></td>
+                        <td>Allowed because all three required tags are present and their
+                           values match the role's values. You are also allowed to include the
+                           optional <code class="code">Name</code> tag.</td>
+                     </tr>
+                  </table></div></div>
+         </li><li>
+            <p>Sign out and repeat the first three steps of this procedure for each of the
+               following roles and tag values. In the fourth step in this procedure, test any set of
+               missing tags, optional tags, disallowed tags, and invalid tag values that you choose.
+               Then use the required tags to create a secret with the following tags and
+               name.</p>
+            <div class="table-container"><div class="table-contents"><table id="w340aac13c15c19b5c10b3"><thead><tr><th class="table-header" colspan="100"><div class="title">ABAC roles and tags</div></th></tr>
+                     <tr>
+                        <th>User name</th>
+                        <th>Role name</th>
+                        <th>Secret name</th>
+                        <th>Secret tags</th>
+                     </tr>
+                  </thead>
+                     <tr>
+                        <td>
+                           <p><code class="code">access-Mary-peg-qas</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-peg-quality-assurance</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">test-access-peg-qas</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-project</code> = <code class="code">peg</code></p>
+                           <p><code class="code">access-team</code> = <code class="code">qas</code></p>
+                           <p><code class="code">cost-center</code> = <code class="code">987654</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <p><code class="code">access-Saanvi-uni-eng</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-uni-engineering</code></p>
+                        </td>
+                        <td><code class="code">test-access-uni-eng</code></td>
+                        <td>
+                           <p><code class="code">access-project</code> = <code class="code">uni</code></p>
+                           <p><code class="code">access-team</code> = <code class="code">eng</code></p>
+                           <p><code class="code">cost-center</code> = <code class="code">123456</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <p><code class="code">access-Carlos-uni-qas</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-uni-quality-assurance</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">test-access-uni-qas</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">access-project</code> = <code class="code">uni</code></p>
+                           <p><code class="code">access-team</code> = <code class="code">qas</code></p>
+                           <p><code class="code">cost-center</code> = <code class="code">123456</code>
+                           </p>
+                        </td>
+                     </tr>
+                  </table></div></div>
+         </li></ol></div>
+    
+      <h2 id="tutorial_abac_step5">Step 5: Test viewing secrets</h2>
+      <p>The policy that you attached to each role allows the employees to view any secrets
+         tagged with their team name, regardless of their project. Confirm that your permissions are
+         working as expected by testing your roles in Secrets Manager. </p>
+      <div class="procedure"><h6>To test viewing a secret with and without the required tags</h6><ol><li>
+            <p>Sign in as one of the following IAM users:</p>
+            <div class="itemizedlist">
+                
+                
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p><code class="code">access-Arnav-peg-eng</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-Mary-peg-qas</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-Saanvi-uni-eng</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-Carlos-uni-qas</code></p>
+               </li></ul></div>
+         </li><li>
+            <p>Switch to the matching role:</p>
+            <div class="itemizedlist">
+                
+                
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p><code class="code">access-peg-engineering</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-peg-quality-assurance</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-uni-engineering</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-uni-quality-assurance</code></p>
+               </li></ul></div>
+            <p>For more information about switching roles in the AWS Management Console, see <a href="./id_roles_use_switch-role-console.html">Switching to a role (console)</a>.</p>
+         </li><li>
+            <p>In the navigation pane on the left, choose the menu icon to expand the menu and
+               then choose <b>Secrets</b>. </p>
+         </li><li>
+            <p>You should see all four secrets in the table, regardless of your current role.
+               This is expected because the policy named <code class="code">access-same-project-team</code>
+               allows the <code class="code">secretsmanager:ListSecrets</code> action for all resources.</p>
+         </li><li>
+            <p>Choose the name of one of the secrets.</p>
+         </li><li>
+            <p>On the details page for the secret, your role's tags determine whether you can
+               view the page content. Compare the name of your role to the name of your secret. If
+               they share the same team name, then the <code class="code">access-team</code> tags match. If they
+               don't match, then access is denied. </p>
+            <div class="table-container"><div class="table-contents"><table id="w340aac13c15c21b5c12b3"><thead><tr><th class="table-header" colspan="100"><div class="title">ABAC secret viewing behavior for each role</div></th></tr>
+                     <tr>
+                        <th>Role name</th>
+                        <th>Secret name</th>
+                        <th>Expected behavior</th>
+                     </tr>
+                  </thead>
+                     <tr>
+                        <td rowspan="4"><code class="code">access-peg-engineering</code>
+                        </td>
+                        <td><code class="code">test-access-peg-eng</code>
+                        </td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-peg-qas</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-eng</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-qas</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td rowspan="4"><code class="code">access-peg-quality-assurance</code>
+                        </td>
+                        <td><code class="code">test-access-peg-eng</code>
+                        </td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-peg-qas</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-eng</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-qas</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td rowspan="4"><code class="code">access-uni-engineering</code>
+                        </td>
+                        <td><code class="code">test-access-peg-eng</code>
+                        </td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-peg-qas</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-eng</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-qas</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td rowspan="4"><code class="code">access-uni-quality-assurance</code>
+                        </td>
+                        <td><code class="code">test-access-peg-eng</code>
+                        </td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-peg-qas</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-eng</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-qas</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                  </table></div></div>
+         </li><li>
+            <p>From the breadcrumbs at the top of the page, choose <b>Secrets</b>
+               to return to the list of secrets. Repeat the steps in this procedure using different
+               roles to test whether you can view each of the secrets.</p>
+         </li></ol></div>
+    
+      <h2 id="tutorial_abac_step6">Step 6: Test scalability</h2>
+      <p>An important reason for using attribute-based access control (ABAC) over role-based
+         access control (RBAC) is scalability. As your company adds new projects, teams, or people
+         to AWS, you don't need to update your ABAC-driven policies. For example, assume that
+         Example Company is funding a new project, code named <b>Centaur</b>. An
+         engineer named Saanvi Sarkar will be the lead engineer for <b>Centaur</b>
+         while continuing to work on the <b>Unicorn</b> project. Saanvi will also
+         review work for the <b>Peg</b> project. There are also several newly hired
+         engineers, including Nikhil Jayashankar, who will work on only the
+            <b>Centaur</b> project.</p>
+      <div class="procedure"><h6>To add the new project to AWS</h6><ol><li>
+            <p>Sign in as the IAM administrator user and open the IAM console at <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+         </li><li>
+            <p>In the navigation pane on the left, choose <b>Roles</b> and add an
+               IAM role named <code class="code">access-cen-engineering</code>. Attach the
+                  <code class="userinput">access-same-project-team</code> permissions policy to the role and
+               add the following tags:</p>
+            <div class="itemizedlist">
+                
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p><code class="code">access-project</code> = <code class="code">cen</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-team</code> = <code class="code">eng</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">cost-center</code> = <code class="code">101010</code></p>
+               </li></ul></div>
+         </li><li>
+            <p>In the navigation pane on the left, choose <b>Users</b>.</p>
+         </li><li>
+            <p>Add a new user named <code class="code">access-Nikhil-cen-eng</code>, and attach the policy
+               named <code class="code">access-assume-role</code>.</p>
+         </li><li>
+            <p>Use the procedures in <a href="#tutorial_abac_step4">Step 4: Test creating secrets</a> and <a href="#tutorial_abac_step5">Step 5: Test viewing secrets</a>. In another browser window, test that Nikhil
+               can create only <b>Centaur</b> engineering secrets, and that he can
+               view all engineering secrets.</p>
+         </li><li>
+            <p>In the main browser window where you signed in as the administrator, choose the
+               user <code class="code">access-Saanvi-uni-eng</code>.</p>
+         </li><li>
+            <p>On the <b>Permissions</b> tab, remove the
+                  <b>access-assume-role</b> permissions policy.</p>
+         </li><li>
+            <p>Add the following inline policy named <code class="code">access-assume-specific-roles</code>.
+               For more information about adding an inline policy to a user, see <a href="./access_policies_manage-attach-detach.html#embed-inline-policy-console">To embed an inline policy for a user or role
+        (console)</a>.</p>
+             
+               <h6>ABAC policy: Assume only specific roles</h6>
+               <p>This policy allows Saanvi to assume the engineering roles for the Pegasus or
+                     <b>Centaur</b> projects. It is necessary to create this custom
+                  policy because IAM does not support multivalued tags. You can't tag Saanvi's
+                  user with <code class="code">access-project</code> = <code class="code">peg</code> and
+                     <code class="code">access-project</code> = <code class="code">cen</code>. Additionally, the AWS
+                  authorization model can't match both values. For more information, see <a href="./id_tags.html#id_tags_rules">Rules for tagging in IAM and AWS STS</a>. Instead, you must
+                  manually specify the two roles that she can assume.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "TutorialAssumeSpecificRoles",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": [
+                "arn:aws:iam::<code class="replaceable">123456789012</code>:role/access-peg-engineering",
+                "arn:aws:iam::<code class="replaceable">123456789012</code>:role/access-cen-engineering"
+            ]
+        }
+    ]
+}</code></pre>
+         </li><li>
+            <p>Use the procedures in <a href="#tutorial_abac_step4">Step 4: Test creating secrets</a> and <a href="#tutorial_abac_step5">Step 5: Test viewing secrets</a>. In another browser window, confirm that
+               Saanvi can assume both roles. Check that she can create secrets for only her project,
+               team, and cost center, depending on the role's tags. Also confirm that she can view
+               details about any secrets owned by the engineering team, including the ones that she
+               just created.</p>
+         </li></ol></div>
+    
+      <h2 id="tutorial_abac_step7">Step 7: Test updating and deleting secrets</h2>
+      <p>The <code class="code">access-same-project-team</code> policy that is attached to the roles allows
+         the employees to update and delete any secrets tagged with their project, team, and cost
+         center. Confirm that your permissions are working as expected by testing your roles in
+         Secrets Manager.</p>
+      <div class="procedure"><h6>To test updating and deleting a secret with and without the required tags</h6><ol><li>
+            <p>Sign in as one of the following IAM users:</p>
+            <div class="itemizedlist">
+                
+                
+                
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p><code class="code">access-Arnav-peg-eng</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-Mary-peg-qas</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-Saanvi-uni-eng</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-Carlos-uni-qas</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-Nikhil-cen-eng</code></p>
+               </li></ul></div>
+         </li><li>
+            <p>Switch to the matching role:</p>
+            <div class="itemizedlist">
+                
+                
+                
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p><code class="code">access-peg-engineering</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-peg-quality-assurance</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-uni-engineering</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-peg-quality-assurance</code></p>
+               </li><li class="listitem">
+                  <p><code class="code">access-cen-engineering</code></p>
+               </li></ul></div>
+            <p>For more information about switching roles in the AWS Management Console, see <a href="./id_roles_use_switch-role-console.html">Switching to a role (console)</a>.</p>
+         </li><li>
+            <p>For each role, try to update the secret description and then try to delete the
+               following secrets. For more information, see <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_update-secret.html">Modifying a Secret</a> and <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_delete-restore-secret.html">Deleting and Restoring a Secret</a> in the <em>AWS Secrets Manager User Guide</em>.</p>
+            <div class="table-container"><div class="table-contents"><table id="w340aac13c15c25b5b6b3"><thead><tr><th class="table-header" colspan="100"><div class="title">ABAC secret updating and deleting behavior for each role</div></th></tr>
+                     <tr>
+                        <th>Role name</th>
+                        <th>Secret name</th>
+                        <th>Expected behavior</th>
+                     </tr>
+                  </thead>
+                     <tr>
+                        <td rowspan="3">
+                           <p><code class="code">access-peg-engineering</code></p>
+                        </td>
+                        <td>
+                           <p><code class="code">test-access-peg-eng</code></p>
+                        </td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-eng</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-qas</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td rowspan="2">
+                           <p><code class="code">access-peg-quality-assurance</code></p>
+                        </td>
+                        <td><code class="code">test-access-peg-qas</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-eng</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td rowspan="2">
+                           <p><code class="code">access-uni-engineering</code></p>
+                        </td>
+                        <td><code class="code">test-access-uni-eng</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                     <tr>
+                        <td><code class="code">test-access-uni-qas</code></td>
+                        <td>Denied</td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <p><code class="code">access-peg-quality-assurance</code></p>
+                        </td>
+                        <td><code class="code">test-access-uni-qas</code></td>
+                        <td>Allowed</td>
+                     </tr>
+                  </table></div></div>
+         </li></ol></div>
+    
+      <h2 id="tutorial-abac-summary">Summary</h2>
+      <p>You've now successfully completed all of the steps necessary to use tags for
+         attribute-based access control (ABAC). You've learned how to define a tagging strategy. You
+         applied that strategy to your principals and resources. You created and applied a policy
+         that enforces the strategy for Secrets Manager. You also learned that ABAC scales easily when
+         you add new projects and team members. As a result, you are able to sign in to the IAM
+         console with your test roles and experience how to use tags for ABAC in AWS.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You added policies that allow actions only under specific conditions. If you apply a
+            different policy to your users or roles that has broader permissions, then the actions
+            might not be limited to require tagging. For example, if you give a user full
+            administrative permissions using the <code class="code">AdministratorAccess</code> AWS managed
+            policy, then these policies don't restrict that access. For more information about how
+            permissions are determined when multiple policies are involved, see <a href="./reference_policies_evaluation-logic.html#policy-eval-denyallow">Determining whether a request is allowed or denied
+        within an account</a>.</p></div></div>
+    
+      <h2 id="tutorial_abac_related">Related resources</h2>
+      <p>For related information in the <em>IAM User Guide</em>, see
+         the following resources:</p>
+      <div class="itemizedlist">
+          
+          
+          
+          
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p><a href="./introduction_attribute-based-access-control.html">What is ABAC for AWS?</a></p>
+         </li><li class="listitem">
+            <p><a href="./reference_policies_condition-keys.html">AWS global condition context
+            keys</a></p>
+         </li><li class="listitem">
+            <p><a href="./id_users_create.html#id_users_create_console">Creating IAM users (console)</a></p>
+         </li><li class="listitem">
+            <p><a href="./id_roles_create_for-user.html">Creating a role to delegate permissions to an IAM
+      user</a></p>
+         </li><li class="listitem">
+            <p><a href="./id_tags.html">Tagging IAM resources</a></p>
+         </li><li class="listitem">
+            <p><a href="./access_tags.html">Controlling access to AWS resources using tags</a></p>
+         </li><li class="listitem">
+            <p><a href="./id_roles_use_switch-role-console.html">Switching to a role (console)</a></p>
+         </li><li class="listitem">
+            <p><a href="./tutorial_abac-saml.html">IAM tutorial: Use SAML session tags for ABAC</a></p>
+         </li></ul></div>
+      <p>To learn how to monitor the tags in your account, see <a href="http://aws.amazon.com/blogs/mt/monitor-tag-changes-on-aws-resources-with-serverless-workflows-and-amazon-cloudwatch-events/" rel="noopener noreferrer" target="_blank"><span>Monitor tag changes on AWS resources with serverless workflows and
+         Amazon CloudWatch Events</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+   <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./tutorial_managed-policies.html">Create a customer managed policy</div><div id="next" class="next-link" accesskey="n" href="./tutorial_abac-saml.html">Use SAML session tags for ABAC</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

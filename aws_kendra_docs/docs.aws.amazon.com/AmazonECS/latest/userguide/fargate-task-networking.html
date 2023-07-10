@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Task networking for tasks hosted on Fargate - Amazon ECS</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="fargate-task-networking" /><meta name="default_state" content="fargate-task-networking" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonECS/latest/userguide/fargate-task-networking.html" /><meta name="description" content="By default, every Amazon ECS task on Fargate is provided an elastic network interface (ENI) with a primary private IP address. When using a public subnet, you can optionally assign a public IP address to the task's ENI. If your VPC is enabled for dual-stack mode and you use a subnet with an IPv6 CIDR block, your task's ENI also receives an IPv6 address. A task can only have one ENI that's associated with it at a time. Containers that belong to the same task can also communicate over the" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon ECS" /><meta name="guide" content="User Guide for AWS Fargate" /><meta name="abstract" content="Describes key concepts of Amazon ECS on AWS Fargate and provides instructions for launching containers on the serverless infrastructure provided by Fargate." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonECS/latest/userguide/fargate-task-networking.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonECS/latest/userguide/fargate-task-networking.html" hreflang="x-default" /><meta name="feedback-item" content="AmazonEC2ContainerService" /><meta name="this_doc_product" content="Amazon ECS" /><meta name="this_doc_guide" content="User Guide for AWS Fargate" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'ecs'}"></script><meta id="panorama-serviceSubSection" value="User Guide for AWS Fargate" /><meta id="panorama-serviceConsolePage" value="Task networking for tasks hosted on Fargate" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Task networking for tasks hosted on Fargate - Amazon ECS</title><meta name="pdf" content="/pdfs/AmazonECS/latest/userguide/ecs-ug.pdf#fargate-task-networking" /><meta name="rss" content="amazon-ecs-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=187" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AmazonEC2ContainerService&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonECS/latest/userguide/fargate-task-networking.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonECS/latest/userguide/fargate-task-networking.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonECS/latest/userguide/fargate-task-networking.html" /><meta name="keywords" content="ECS,Amazon ECS,Amazon Elastic Container Service" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon ECS",
+        "item" : "https://docs.aws.amazon.com/ecs/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide for AWS Fargate",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon ECS task definitions",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/userguide/task_definitions.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Architecting your application for Amazon ECS",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/userguide/application_architecture.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Networking modes",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/userguide/networkng-mode-options.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Task networking for tasks hosted on Fargate",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/userguide/networkng-mode-options.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonECS/latest/userguide/ecs-ug.pdf#fargate-task-networking" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/ecs/index.html">Amazon ECS</a><a href="what-is-fargate.html">User Guide for AWS Fargate</a></div><div id="page-toc-src"><a href="#fargate-task-networking-considerations">Fargate task networking
+                considerations</a><a href="#fargate-task-networking-vpc-dual-stack">Using a VPC in dual-stack
+                mode</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="fargate-task-networking">Task networking for tasks hosted on Fargate</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>By default, every Amazon ECS task on Fargate is provided an elastic network interface (ENI)
+        with a primary private IP address. When using a public subnet, you can optionally assign a
+        public IP address to the task's ENI. If your VPC is enabled for dual-stack mode and you use
+        a subnet with an IPv6 CIDR block, your task's ENI also receives an IPv6 address. A task can
+        only have one ENI that's associated with it at a time. Containers that belong to the same
+        task can also communicate over the <code class="code">localhost</code> interface. For more information
+        about VPCs and subnets, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and subnets</a> in the
+            <em>Amazon VPC User Guide</em>.</p><p>For a task on Fargate to pull a container image, the task must have a route to the
+        internet. The following describes how you can verify that your task has a route to the
+        internet.</p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>When using a public subnet, you can assign a public IP address to the task
+                ENI.</p>
+        </li><li class="listitem">
+            <p>When using a private subnet, the subnet can have a NAT gateway attached.</p>
+        </li><li class="listitem">
+            <p>When using container images that are hosted in Amazon ECR, you can configure Amazon ECR to
+                use an interface VPC endpoint and the image pull occurs over the task's private IPv4
+                address. For more information, see <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/vpc-endpoints.html">Amazon ECR interface VPC
+                    endpoints (AWS PrivateLink)</a> in the
+                <em>Amazon Elastic Container Registry User Guide</em>.</p>
+        </li></ul></div><p>Because each task gets its own ENI, you can use networking features such as VPC Flow Logs,
+        which you can use to monitor traffic to and from your tasks. For more information, see
+            <a href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html">VPC Flow
+            Logs</a> in the <em>Amazon VPC User Guide</em>.</p><p>You can also take advantage of AWS PrivateLink. You can configure a VPC interface endpoint
+        so that you can access Amazon ECS APIs through private IP addresses. AWS PrivateLink restricts all
+        network traffic between your VPC and Amazon ECS to the Amazon network. You don't need an internet
+        gateway, a NAT device, or a virtual private gateway. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/bestpracticesguide/networking-connecting-vpc.html">AWS PrivateLink</a> in the <em>Amazon ECS Best Practices
+            Guide</em>.</p><p>For examples of how to use the <code class="code">NetworkConfiguration</code> resource with AWS CloudFormation, see
+            <a href="./creating-resources-with-cloudformation.html#create-separate">Creating Amazon ECS resources using separate
+                    stacks</a>.</p><p>The ENIs that are created are fully managed by AWS Fargate. Moreover, there's an
+        associated IAM policy that's used to grant permissions for Fargate. For
+        tasks using Fargate platform version <code class="code">1.4.0</code> or later, the task receives a
+        single ENI (referred to as the task ENI) and all network traffic flows through that ENI
+        within your VPC. This traffic is recorded in your VPC flow logs. For tasks that use
+        Fargate platform version <code class="code">1.3.0</code> and earlier, in addition to the task ENI, the
+        task also receives a separate Fargate owned ENI, which is used for some network traffic
+        that isn't visible in the VPC flow logs. The following table describes the network traffic
+        behavior and the required IAM policy for each platform version.</p><div class="table-container"><div class="table-contents"><table id="w256aac15c19c13b7c17"><thead>
+                <tr>
+                    <th>
+                        <p>Action</p>
+                    </th>
+                    <th>
+                        <p>Traffic flow with Linux platform version <code class="code">1.3.0</code> and
+                            earlier</p>
+                    </th>
+                    <th>
+                        <p>Traffic flow with Linux platform version <code class="code">1.4.0</code></p>
+                    </th>
+                    <th>
+                        <p>Traffic flow with Windows platform version <code class="code">1.0.0</code></p>
+                    </th>
+                    <th>
+                        <p>IAM permission</p>
+                    </th>
+                </tr>
+            </thead>
+                <tr>
+                    <td>
+                        <p>Retrieving Amazon ECR login credentials</p>
+                    </td>
+                    <td>
+                        <p>Fargate owned ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task execution IAM role</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Image pull</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task execution IAM role</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Sending logs through a log driver</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task execution IAM role</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Sending logs through FireLens for Amazon ECS</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task IAM role</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Retrieving secrets from Secrets Manager or Systems Manager</p>
+                    </td>
+                    <td>
+                        <p>Fargate owned ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task execution IAM role</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Amazon EFS file system traffic</p>
+                    </td>
+                    <td>
+                        <p>Not available</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task IAM role</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Application traffic</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task ENI</p>
+                    </td>
+                    <td>
+                        <p>Task IAM role</p>
+                    </td>
+                </tr>
+            </table></div></div>
+        <h2 id="fargate-task-networking-considerations">Fargate task networking
+                considerations</h2>
+        <p>Consider the following when using task networking.</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>The Amazon ECS service-linked role is required to provide Amazon ECS with the
+                    permissions to make calls to other AWS services on your behalf. This role is
+                    created for you when you create a cluster or if you create or update a service
+                    in the AWS Management Console. For more information, see <a href="./using-service-linked-roles.html">Using service-linked roles for
+            Amazon ECS</a>. You can also create the
+                    service-linked role using the following AWS CLI command.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-service-linked-role.html">create-service-linked-role</a> --aws-service-name ecs.amazonaws.com</code></code></pre>
+            </li><li class="listitem">
+                <p>Amazon ECS populates the hostname of the task with an Amazon provided DNS hostname
+                    when both the <code class="code">enableDnsHostnames</code> and <code class="code">enableDnsSupport</code>
+                    options are enabled on your VPC. If these options aren't enabled, the DNS
+                    hostname of the task is set to a random hostname. For more information about the
+                    DNS settings for a VPC, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html">Using DNS with Your VPC</a> in
+                    the <em>Amazon VPC User Guide</em>.</p>
+            </li><li class="listitem">
+                <p>You can only specify up to 16 subnets and 5 security groups for
+                        <code class="code">awsVpcConfiguration</code>. For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_AwsVpcConfiguration.html">AwsVpcConfiguration</a>
+                    in the <em>Amazon Elastic Container Service API Reference</em>.</p>
+            </li><li class="listitem">
+                <p>You can't manually detach or modify the ENIs that are created and attached by
+                    Fargate. This is to prevent the accidental deletion of an ENI that's
+                    associated with a running task. To release the ENIs for a task, stop the
+                    task.</p>
+            </li><li class="listitem">
+                <p>If a VPC subnet is updated to change the DHCP options set it uses, you can't
+                    also apply these changes to existing tasks that use the VPC. Start new tasks,
+                    which will receive the new setting to smoothly migrate while testing the new
+                    change and then stop the old ones, if no rollback is required.</p>
+            </li><li class="listitem">
+                <p>Tasks that are launched in subnets with IPv6 CIDR blocks only receive an IPv6
+                    address when using Fargate platform version <code class="code">1.4.0</code> or later for
+                    Linux or <code class="code">1.0.0</code> for Windows.</p>
+            </li><li class="listitem">
+                <p>For tasks that use platform version <code class="code">1.4.0</code> or later for Linux or
+                        <code class="code">1.0.0</code> for Windows, the task ENIs support jumbo frames. Network
+                    interfaces are configured with a maximum transmission unit (MTU), which is the
+                    size of the largest payload that fits within a single frame. The larger the MTU,
+                    the more application payload can fit within a single frame, which reduces
+                    per-frame overhead and increases efficiency. Supporting jumbo frames reduces
+                    overhead when the network path between your task and the destination supports
+                    jumbo frames.</p>
+            </li><li class="listitem">
+                <p>Services with tasks that use the Fargate launch type only
+                    support Application Load Balancer and Network Load Balancer. Classic Load Balancer isn't supported. When you create any target
+                    groups, you must choose <code class="code">ip</code> as the target type, not
+                        <code class="code">instance</code>. For more information, see <a href="./service-load-balancing.html">Service load balancing</a>.</p>
+            </li></ul></div>
+     
+        <h2 id="fargate-task-networking-vpc-dual-stack">Using a VPC in dual-stack
+                mode</h2>
+        <p>When using a VPC in dual-stack mode, your tasks can communicate over IPv4 or IPv6, or
+            both. IPv4 and IPv6 addresses are independent of each other and you must configure
+            routing and security in your VPC separately for IPv4 and IPv6. For more information
+            about configuring your VPC for dual-stack mode, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-migrate-ipv6.html">Migrating to IPv6</a> in the
+                <em>Amazon VPC User Guide</em>.</p>
+        <p>If the following conditions are met, Amazon ECS tasks on Fargate are assigned an IPv6
+            address:</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Your VPC and subnet are enabled for IPv6. For more information about how to
+                    configure your VPC for dual-stack mode, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-migrate-ipv6.html">Migrating to IPv6</a>
+                    in the <em>Amazon VPC User Guide</em>.</p>
+            </li><li class="listitem">
+                <p>The task or service uses Fargate platform version <code class="code">1.4.0</code> or
+                    later for Linux.</p>
+            </li><li class="listitem">
+                <p>The <code class="code">dualStackIPv6</code> account setting is enabled. For more
+                    information, see <a href="./ecs-account-settings.html">Account settings</a>.</p>
+            </li></ul></div>
+        <p>If you configure your VPC with an internet gateway or an outbound-only internet
+            gateway, Amazon ECS tasks on Fargate that are assigned an IPv6 address can access the
+            internet. NAT gateways aren't needed. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html">Internet
+                gateways</a> and <a href="https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html">Egress-only internet
+                gateways</a> in the <em>Amazon VPC User Guide</em>.</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./networkng-mode-options.html">Networking modes</div><div id="next" class="next-link" accesskey="n" href="./using_data_volumes.html">Using data volumes in tasks</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AmazonEC2ContainerService&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/userguide/fargate-task-networking.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AmazonEC2ContainerService&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/userguide/fargate-task-networking.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

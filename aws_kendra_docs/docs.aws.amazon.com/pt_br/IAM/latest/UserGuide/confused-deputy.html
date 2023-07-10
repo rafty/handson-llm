@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>O problema de "confused deputy" - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="confused-deputy" /><meta name="default_state" content="confused-deputy" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" /><meta name="description" content="O problema do substituto confuso é um problema de segurança em que uma entidade que não tem permissão para executar uma ação pode coagir uma entidade mais privilegiada a executar a ação. Para evitar isso, a AWS fornece ferramentas que ajudam você a proteger sua conta se você fornecer acesso aos recursos na sua conta a terceiros (conhecido como" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Guia do usuário" /><meta name="abstract" content="Controle o acesso aos recursos da AWS com identidade de usuário (autenticação) e com políticas que definem permissões específicas (autorização)." /><meta name="guide-locale" content="pt_br" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Guia do usuário" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Guia do usuário" /><meta id="panorama-serviceConsolePage" value="O problema de &#34;confused deputy&#34;" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>O problema de "confused deputy" - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#confused-deputy" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,Usuário do IAM,user,Grupo do IAM,grupo,Perfil do IAM,função,política de permissão,política de confiança,política,chave de acesso,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guia do usuário",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Identidades do IAM (usuários, grupos de usuários e funções)",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Perfis do IAM",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Cenários comuns para funções: usuários, aplicações e serviços",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "O problema de "confused deputy"",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#confused-deputy" target="_blank" rel="noopener noreferrer" title="Abrir em PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentação</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Guia do usuário</a></div><div id="page-toc-src"><a href="#mitigate-confused-deputy">Prevenção de substituto confuso entre contas</a><a href="#cross-service-confused-deputy-prevention">Prevenção do problema do substituto confuso entre serviços</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="confused-deputy">O problema de "confused deputy"</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>O problema do substituto confuso é um problema de segurança em que uma entidade que não tem permissão para executar uma ação pode coagir uma entidade mais privilegiada a executar a ação. Para evitar isso, a AWS fornece ferramentas que ajudam você a proteger sua conta se você fornecer acesso aos recursos na sua conta a terceiros (conhecido como <em>entre contas</em>) ou a outros serviços da AWS (conhecido como <em>entre serviços</em>).</p><p>Às vezes, poderá ser necessário conceder acesso aos recursos da AWS a terceiros (delegar acesso). Por exemplo, suponha que você decida contratar uma empresa terceirizada chamada Example Corp para monitorar sua Conta da AWS e ajudar a otimizar os custos. Para rastrear seus gastos diários, a Example Corp precisa de acesso aos seus recursos da AWS. A Example Corp também monitora muitas outras Contas da AWS para outros clientes. Você pode usar um perfil do IAM para estabelecer uma relação de confiança entre sua Conta da AWS e a conta da Example Corp. Um aspecto importante desse cenário é o <em>ID externo</em>, uma informação opcional que você pode usar em uma política de confiança de função do IAM para designar quem pode assumir a função. A função principal do ID externo é abordar e impedir o problema "confused deputy".</p><p>Na AWS, a personificação entre serviços pode resultar no problema do substituto confuso. A personificação entre serviços pode ocorrer quando um serviço (o <em>serviço de chamada</em>) chama outro serviço (o <em>serviço chamado</em>). O serviço de chamada pode ser manipulado de modo a usar suas permissões para atuar nos recursos de outro cliente de uma forma na qual ele não deveria ter permissão para acessar.</p>
+        <h2 id="mitigate-confused-deputy">Prevenção de substituto confuso entre contas</h2>
+        <p>O diagrama a seguir ilustra o problema do substituto confuso entre contas.</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputyproblem2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                A descrição de um problema confused deputy.&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <p>Este cenário supõe o seguinte:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>AWS1</b> é a sua Conta da AWS.</p>
+            </li><li class="listitem">
+                <p><b>AWS1:ExampleRole</b> é uma função em sua conta. Esta política de confiança da função confia na Example Corp especificando a conta da AWS da Example Corp como a conta que pode assumir a função.</p>
+            </li></ul></div>
+        <p>Veja o que acontece:</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>Ao começar a usar o serviço da Exemplo Corp, você fornece o ARN <b>AWS1:ExampleRole</b> à Exemplo Corp.</p>
+            </li><li>
+                <p>A Example Corp usa esse ARN de perfil para obter credenciais de segurança temporárias para acessar recursos na sua Conta da AWS. Dessa forma, confie na Example Corp como um "substituto" que pode agir em seu nome.</p>
+            </li><li>
+                <p>Outro cliente da AWS também começa a usar os serviços da Exemplo Corp e também fornece o ARN <b>AWS1:ExampleRole</b> para a Exemplo Corp usar. Provavelmente, o outro cliente soube ou adivinhou o <b>AWS1:ExampleRole</b>, que não é um segredo.</p>
+            </li><li>
+                <p>Quando o outro cliente pede à Exemplo Corp que acesse os recursos da AWS (o que ele afirma ser) em sua conta, a Exemplo Corp usa <b>AWSAWS1: ExampleRole</b> para acessar os recursos da sua conta.</p>
+            </li></ol></div>
+        <p>Dessa forma, o outro cliente pode obter acesso não autorizado aos seus recursos. Como esse outro cliente foi capaz de burlar a Example Corp para agir involuntariamente em seus recursos, a Example Corp agora é um "confused deputy."</p>
+        <p>A Example Corp pode abordar o problema do substituto confuso exigindo que você inclua a verificação de condição <code class="code">ExternalId</code> na política de confiança da função. A Example Corp gera um único valor de <code class="code">ExternalId</code> para cada cliente e usa esse valor em sua solicitação para assumir a função. O valor de <code class="code">ExternalId</code> deve ser exclusivo entre os clientes da Example Corp e controlado pela Example Corp, não por seus clientes. É por isso que ele é fornecido pela Example Corp e não é criado por você. Isso impede que a Example Corp seja um substituto confuso e conceda acesso a recursos da AWS de outra conta.</p>
+        <p>Em nosso cenário, imagine que seu identificador exclusivo da Example Corp seja 12345 e que o identificador do outro cliente seja 67890. Esses identificadores são simplificados para esse cenário. Em geral, esses identificadores são GUIDs. Supondo que esses identificadores sejam exclusivos entre os clientes da Example Corp, eles são valores confidenciais próprios para o ID externo. </p>
+        <p>A Example Corp atribui o valor do ID externo "12345" a você. É necessário adicionar um elemento <code class="code">Condition</code> à política de confiança da função que exige que o valor do <code class="code">sts:ExternalId</code> seja 12345, como:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "AWS": "<code class="replaceable">Example Corp's AWS Account ID</code>"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "StringEquals": <span>{</span>
+        "sts:ExternalId": "12345"
+      }
+    }
+  }
+}
+</code></pre>
+        <p>O elemento Condition (Condição) dessa política só permite que a Example Corp assuma a função quando a chamada de API AssumeRole incluir o valor do ID externo 12345. A Example Corp garante que sempre que assumir uma função em nome de um cliente, incluirá o valor do ID externo desse cliente em uma chamada AssumeRole. Mesmo que outro cliente forneça seu ARN à Example Corp, ele não poderá controlar o ID externo que a Example Corp inclui em sua solicitação para a AWS. Isso ajuda a evitar que um cliente não autorizado tenha acesso aos seus recursos.</p>
+        <p>O diagrama a seguir ilustra isso.</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputymitigation2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                Como mitigar um problema confused deputy.&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>Como antes, ao começar a usar o serviço da Exemplo Corp, você fornece o ARN <b>AWS1:ExampleRole</b> à Exemplo Corp.</p>
+            </li><li>
+                <p> Quando a Exemplo Corp usa esse ARN de perfil para assumir a função <b>AWS1:ExampleRole</b>, ela inclui o ID externo (12345) na chamada de API AssumeRole. O ID externo corresponde à política de confiança da perfil e, portanto, a chamada de API AssumeRole tem êxito, e a Example Corp obtém credenciais de segurança temporárias para acessar recursos na sua Conta da AWS.</p>
+            </li><li>
+                <p>Outro cliente da AWS também começa a usar os serviços da Exemplo Corp e, assim como antes, esse cliente também fornece o ARN <b>AWS1:ExampleRole</b> para a Exemplo Corp usar. </p>
+            </li><li>
+                <p>Mas, desta vez, quando a Exemplo Corp tenta assumir a função <b>AWS1:ExampleRole</b>, ela fornece o ID externo associado a outro cliente (67890). O outro cliente não tem como alterar isso. A Example Corp faz isso porque a solicitação para usar a função veio de outro cliente, portanto, 67890 indica a circunstância em que a Example Corp está atuando. Como você adicionou uma condição com seu próprio ID externo (12345) à política de confiança de <b>AWS1:ExampleRole</b>, a chamada de API AssumeRole não vai funcionar. O outro cliente será impedido de obter o acesso não autorizado aos recursos na sua conta (indicado pelo "X" vermelho no diagrama).</p>
+            </li></ol></div>
+        <p>O ID externo ajuda a prevenir que qualquer outro cliente engane a Example Corp a acessar seus recursos involuntariamente.</p>
+     
+        <h2 id="cross-service-confused-deputy-prevention">Prevenção do problema do substituto confuso entre serviços</h2>
+        <p>Recomendamos o uso das chaves de contexto de condição global <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn"><code class="code">aws:SourceArn</code></a> e <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount"><code class="code">aws:SourceAccount</code></a> em políticas baseadas em recursos para limitar as permissões que um serviço tem a um recurso específico. Use <code class="code">aws:SourceArn</code> se quiser que apenas um recurso seja associado ao acesso entre serviços. Use <code class="code">aws:SourceAccount</code> se quiser permitir que qualquer recurso nessa conta seja associado ao uso entre serviços.</p>
+        <p>A maneira mais eficaz de se proteger do problema do substituto confuso é usar a chave de contexto de condição global <code class="code">aws:SourceArn</code> com o ARN completo do recurso em suas políticas baseadas em recursos. Se você não souber o ARN completo do recurso ou estiver especificando vários recursos, use a chave de condição de contexto global <code class="code">aws:SourceArn</code> com curingas (<code class="code">*</code>) para as partes desconhecidas do ARN. Por exemplo, <code class="code">arn:aws:<code class="replaceable">servicename</code>:*:<code class="replaceable">123456789012</code>:*</code>.</p>
+        <p>Se o valor de <code class="code">aws:SourceArn</code> não contiver o ID da conta, como um ARN de bucket do Amazon S3, você deverá usar ambas as chaves de contexto de condição global para limitar as permissões.</p>
+
+         
+            <h3 id="cross-service-confused-deputy-prevention-sts">Prevenção do problema do substituto confuso entre serviços para AWS Security Token Service</h3>
+            <p>Muitos serviços da AWS exigem que você use funções para permitir que o serviço acesse recursos de outro serviço em seu nome. A <a href="./id_roles_terms-and-concepts.html#iam-term-service-role">função de serviço</a> é uma função que um serviço assume para realizar ações em seu nome. Uma função requer duas políticas: uma política de confiança de função que especifica qual entidade principal tem permissão para assumir a função e uma política de permissões que especifica o que pode ser feito com a função. Uma política de confiança de função é o único tipo de política baseada em recursos no IAM. Outros serviços da AWS têm políticas baseadas em recursos, como uma política de bucket do Amazon S3.</p>
+            <p>Quando um serviço assume uma função em seu nome, a entidade principal de serviço deve ter permissão para executar a ação <code class="code">sts:AssumeRole</code> na política de confiança de função. Quando um serviço chama <code class="code">sts:AssumeRole</code>, o AWS STS retorna um conjunto de credenciais temporárias de segurança usado pela entidade principal de serviço para acessar os recursos permitidos pela política de permissões da função. Quando um serviço assume uma função em sua conta, você pode incluir as chaves de contexto de condição global <code class="code">aws:SourceAccount</code> e <code class="code">aws:SourceArn</code> em sua política de confiança de função para limitar o acesso à função apenas a solicitações geradas pelos recursos esperados.</p>
+            <p>Por exemplo, no Incident Manager do AWS Systems Manager, você deve escolher uma função para permitir que o Incident Manager execute um documento de automação do Systems Manager em seu nome. O documento de automação pode incluir planos de resposta automatizados para incidentes iniciados por alarmes do CloudWatch ou eventos EventBridge. No exemplo de política de confiança de função a seguir, você pode usar a chave de condição <code class="code">aws:SourceArn</code> para restringir o acesso à função de serviço com base no ARN do registro de incidente. Somente registros de incidentes criados com base no recurso do plano de resposta <code class="code">myresponseplan</code> são capazes de usar essa função.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "Service": "ssm-incidents.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "ArnLike": <span>{</span>
+        "aws:SourceArn": "arn:aws:ssm-incidents:*:<code class="replaceable">111122223333</code>:incident-record/<code class="replaceable">myresponseplan</code>/*"
+      }
+    }
+  }
+}</code></pre>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Atenção" /> <strong>O Javascript está desativado ou não está disponível no seu navegador.</strong></p><p>Para usar a documentação da AWS, o Javascript deve estar ativado. Consulte as páginas de Ajuda do navegador para obter instruções.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenções do documento</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_common-scenarios_services.html">Fornecimento de acesso a produtos da AWS</div><div id="next" class="next-link" accesskey="n" href="./id_roles_common-scenarios_federated-users.html">Fornecer acesso por meio de federação de identidades</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Essa página foi útil? - Sim</div><div class="content"><p>Obrigado por nos informar que estamos fazendo um bom trabalho!</p><p>Se tiver tempo, conte-nos sobre o que você gostou para que possamos melhorar ainda mais.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Essa página foi útil? - Não</div><div class="content"><p>Obrigado por nos informar que precisamos melhorar a página. Lamentamos ter decepcionado você.</p><p>Se tiver tempo, conte-nos como podemos melhorar a documentação.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

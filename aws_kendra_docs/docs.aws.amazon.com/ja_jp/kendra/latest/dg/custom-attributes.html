@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>カスタムドキュメントフィールドの作成 - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="custom-attributes" /><meta name="default_state" content="custom-attributes" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html" /><meta name="description" content="特定のドキュメントに関連するカスタム属性またはメタデータフィールドを適用できます。例えば、「HR」、「Sales」、「manufacturing」という値を持つ「Department」というカスタムフィールドまたは「HR」、「Sales」、「manufacturing」という値を持つ「Department」というカスタムフィールドまたは属性を作成できます。例えば、これらのフィールドまたは属性を使用して、レスポンス (検索結果) を「HR」部門のドキュメントに制限できます。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="デベロッパーガイド" /><meta name="abstract" content="Amazon Kendra の概念的な概要について説明します。Amazon Kendra機能について学び、コンソール、CLI、API を使用してドキュメントのインデックス作成を始めましょう。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/custom-attributes.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/custom-attributes.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/custom-attributes.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/custom-attributes.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/custom-attributes.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/custom-attributes.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/custom-attributes.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/custom-attributes.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/custom-attributes.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/custom-attributes.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/custom-attributes.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/custom-attributes.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/custom-attributes.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/custom-attributes.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/custom-attributes.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/custom-attributes.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/custom-attributes.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/custom-attributes.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/custom-attributes.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="デベロッパーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="デベロッパーガイド" /><meta id="panorama-serviceConsolePage" value="カスタムドキュメントフィールドの作成" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>カスタムドキュメントフィールドの作成 - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#custom-attributes" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search (検索),インテリジェント検索,自然言語,インデックス,質問,キーワード,データソース,コネクタ,よくある質問" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "デベロッパーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "インデックスの作成",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/create-index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "カスタムドキュメントフィールドの作成",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/create-index.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#custom-attributes" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">デベロッパーガイド</a></div><div id="page-toc-src"><a href="#index-reserved-fields">Amazon Kendra の組み込みドキュメントフィールドを使用する</a><a href="#custom-attributes-batch"> BatchPutDocument API によるカスタム属性またはフィールドの追加</a><a href="#custom-attributes-s3">Amazon S3データソースへのカスタム属性またはフィールドの追加</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>翻訳は機械翻訳により提供されています。提供された翻訳内容と英語版の間で齟齬、不一致または矛盾がある場合、英語版が優先します。</p></awsui-alert><h1 class="topictitle" id="custom-attributes">カスタムドキュメントフィールドの作成</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>特定のドキュメントに関連するカスタム属性またはメタデータフィールドを適用できます。例えば、「HR」、「Sales」、「manufacturing」という値を持つ「Department」というカスタムフィールドまたは「HR」、「Sales」、「manufacturing」という値を持つ「Department」というカスタムフィールドまたは属性を作成できます。例えば、これらのフィールドまたは属性を使用して、レスポンス (検索結果) を「HR」部門のドキュメントに制限できます。</p><p>最大 500 のカスタムフィールドまたは属性を作成できます。</p><p>ほとんどのデータソースでは、外部データソースのフィールドを、Amazon Kendraの対応するフィールドにマッピングします。詳細については、「<a href="./field-mapping.html">データソースフィールドのマッピング</a>」を参照してください。S3 データソースの場合、メタデータファイルを使用してカスタムフィールドまたは属性を適用できます。</p><p>カスタムフィールドまたは属性を使用するには、まずインデックスにフィールドを作成する必要があります。コンソールまたは <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateIndex.html">UpdateIndex</a>API を使用してインデックスフィールドを作成します。フィールドを作成したら、フィールドのデータタイプを変更することはできません。</p><p>Amazon Kendraの組み込みフィールドまたは予約フィールドを使用することもできます。</p><p><code class="code">UpdateIndex</code>API では、<code class="code">DocumentMetadataConfigurationUpdates</code>パラメータを使用してカスタムフィールドまたは属性を追加します。</p><p>次の JSON の例では、「Department」<code class="code">DocumentMetadataConfigurationUpdates</code> というフィールドをインデックスに追加します。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"DocumentmetadataConfigurationUpdates": [
+   <span>{</span>
+       "Name": "Department",
+       "Type": "STRING_VALUE"
+   }
+]
+</code></pre>
+    <h2 id="index-reserved-fields">Amazon Kendra の組み込みドキュメントフィールドを使用する</h2>
+    
+    <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateIndex.html">UpdateIndex API</a> を使用すると、<code class="code">DocumentMetadataConfigurationUpdates</code>予約フィールド名を使用して予約フィールドまたは組み込みフィールドを作成し、対応するドキュメント属性またはドキュメントフィールドにマップできます。この方法でカスタムフィールドを作成することもできます。データソースコネクタを使用する場合、ほとんどの場合、Amazon Kendraデータソースドキュメントフィールドをインデックスフィールドにマップするフィールドマッピングが含まれます。フィールドを作成すると、そのフィールドを表示可能、ファセット可能、検索可能、<code class="code">Search</code>およびソート可能に設定するようにオブジェクトを設定できます。<code class="code">Relevance</code>オブジェクトを設定して、フィールドの関連性向上期間、鮮度、重要度、ランク順および重要度値を設定できます。フィールドを作成した後は、フィールドタイプを変更できません。</p>
+    <p>Amazon Kendraには、次の予約済みまたは組み込みのドキュメントフィールドを使用できます。</p>
+    <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+
+    <ul class="itemizedlist"><li class="listitem">
+            <p><code class="code">_authors</code>— ドキュメントの内容を担当する 1 人以上の作成者のリスト。</p>
+        </li><li class="listitem">
+            <p><code class="code">_category</code>—ドキュメントを特定のグループに配置するカテゴリ。</p>
+        </li><li class="listitem">
+            <p><code class="code">_created_at</code>—ドキュメントが作成された ISO 8601 形式の日付と時刻。例えば、2012-03-25T12:30:10+01:00 は、中央ヨーロッパ時間の 2012 年 3 月 25 日午後 12 時 30 分 (プラス 10 秒) の ISO 8601 の日付/時刻形式です。</p>
+        </li><li class="listitem">
+            <p><code class="code">_data_source_id</code>— ドキュメントを含むデータソースの識別子。</p>
+        </li><li class="listitem">
+            <p><code class="code">_document_body</code>—ドキュメントの内容。</p>
+        </li><li class="listitem">
+            <p><code class="code">_document_id</code>—ドキュメントの一意の識別子。</p>
+        </li><li class="listitem">
+            <p><code class="code">_document_title</code>— ドキュメントのタイトル。</p>
+        </li><li class="listitem">
+            <p><code class="code">_excerpt_page_number</code>—ドキュメントの抜粋が表示される PDF ファイルのページ番号。2020 年 9 月 8 日より前にインデックスが作成された場合、この属性を使用する前に、ドキュメントのインデックスを再作成する必要があります。</p>
+        </li><li class="listitem">
+            <p><code class="code">_faq_id</code>— これがよくある質問の質問と回答の場合は、それらの一意の識別子。</p>
+        </li><li class="listitem">
+            <p><code class="code">_file_type</code>—pdf や doc など、ドキュメントのファイルタイプ。</p>
+        </li><li class="listitem">
+            <p><code class="code">_last_updated_at</code>— ドキュメントが最後に更新された ISO 8601 形式の日時。例えば、2012-03-25T12:30:10+01:00 は、中央ヨーロッパ時間の 2012 年 3 月 25 日午後 12 時 30 分 (プラス 10 秒) の ISO 8601 の日付/時刻形式です。</p>
+        </li><li class="listitem">
+            <p><code class="code">_source_uri</code>—ドキュメントが利用可能な URI。例えば、会社のウェブサイト上のドキュメントの URI などです。</p>
+        </li><li class="listitem">
+            <p><code class="code">_version</code>—ドキュメントの特定のバージョンの識別子。</p>
+        </li><li class="listitem">
+            <p><code class="code">_view_count</code>— ドキュメントが表示された回数。</p>
+        </li><li class="listitem">
+            <p><code class="code">_language_code</code>(文字列) — ドキュメントに適用される言語のコード。言語を指定しないと、デフォルトで英語になります。コードを含む、サポートされている言語の詳細については、<a href="https://docs.aws.amazon.com/kendra/latest/dg/in-adding-languages.html">英語以外の言語でドキュメントを追加する</a>を参照してください。</p>
+        </li></ul></div>
+    <p>カスタムフィールドの場合、予約フィールドや組み込みフィールドを作成するときと同じように、<code class="code">UpdateIndex</code> API<code class="code">DocumentMetadataConfigurationUpdates</code> を使用してこれらのフィールドを作成します。カスタムフィールドに適切なデータ型を設定する必要があります。フィールドを作成した後は、フィールドタイプを変更できません。</p>
+    <p>カスタムフィールドに設定できるタイプは次のとおりです。</p>
+    <div class="itemizedlist">
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>日付</p>
+        </li><li class="listitem">
+            <p>数値</p>
+        </li><li class="listitem">
+            <p>文字列</p>
+        </li><li class="listitem">
+            <p>文字列リスト</p>
+        </li></ul></div>
+
+    <p>カスタムフィールドは、コンソールまたは <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateIndex.html">UpdateIndex</a>API を使用して作成します。カスタムフィールドを作成したら、予約フィールドの場合と同様に、ドキュメント属性にマッピングします。API を使用してドキュメントをインデックスに追加した場合、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API を使用して属性をマッピングします。Amazon S3データソースからインデックス作成されたドキュメントの場合、ドキュメント属性を記述する JSON 構造を含むメタデータファイルを使用して属性をマッピングします。フィールドマッピングが可能なデータベースまたはデータソースで索引付けされたドキュメントの場合、コンソールまたはデータソース設定を使用して属性をマッピングします。</p>
+ 
+            <h2 id="custom-attributes-batch"> BatchPutDocument API によるカスタム属性またはフィールドの追加</h2>
+            <p><a href="./API_BatchPutDocument.html">BatchPutDocument</a>API を使用してドキュメントをインデックスに追加する場合、カスタムフィールドまたはカスタムフィールドまたは属性をインデックスに追加する場合、カスタムフィールドまたは属性をインデックスに追加する場合、カスタムフィールドまたは属性を指定します<code class="code">Attributes</code>。API を呼び出すと、複数のフィールドまたは属性を追加できます。最大 500 のカスタムフィールドまたは属性を作成できます。次の例は、ドキュメントに「Department」を追加するカスタムフィールドまたは属性です。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Attributes": 
+    <span>{</span>
+        "Department": "HR",
+        "_category": "Vacation policy"
+    }
+</code></pre>
+         
+            <h2 id="custom-attributes-s3">Amazon S3データソースへのカスタム属性またはフィールドの追加</h2>
+            <p>S3 バケットをインデックスのデータソースとして使用する場合、コンパニオンメタデータファイルを使用してドキュメントにメタデータを追加します。メタデータ JSON ファイルは、ドキュメントと平行なディレクトリ構造に配置します。詳細については、「<a href="./s3-metadata.html">Amazon S3ドキュメントメタデータ</a>」を参照してください。</p>
+            <p><code class="code">Attributes</code>JSON 構造でカスタムフィールドまたは属性を指定します。最大 500 のカスタムフィールドまたは属性を作成できます。例えば、次の例では<code class="code">Attributes</code> 3 つのカスタムフィールドまたは属性と 1 つの予約済みフィーrドフィールドを定義しています。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Attributes": <span>{</span>
+        "brand": "Amazon Basics",
+        "price": 1595,
+        "_category": "sports",
+        "subcategories": ["outdoors", "electronics"]
+    }
+   </code></pre>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./in-creating-faq.html">よくある質問 (FAQ) はインデックスに直接追加できます。</div><div id="next" class="next-link" accesskey="n" href="./create-index-access-control.html">インデックスのドキュメントへのアクセスの制御</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-attributes.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

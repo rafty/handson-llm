@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>How AWS IoT Greengrass works with IAM - AWS IoT Greengrass</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="security_iam_service-with-iam" /><meta name="default_state" content="security_iam_service-with-iam" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/greengrass/v1/developerguide/security_iam_service-with-iam.html" /><meta name="description" content="Learn which IAM features that AWS IoT Greengrass supports." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS IoT Greengrass" /><meta name="guide" content="Developer Guide, Version 1" /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/greengrass/v1/developerguide/security_iam_service-with-iam.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/greengrass/v1/developerguide/security_iam_service-with-iam.html" hreflang="x-default" /><meta name="feedback-item" content="Greengrass Docs" /><meta name="this_doc_product" content="AWS IoT Greengrass" /><meta name="this_doc_guide" content="Developer Guide, Version 1" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'greengrass'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide, Version 1" /><meta id="panorama-serviceConsolePage" value="How AWS IoT Greengrass works with IAM" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>How AWS IoT Greengrass works with IAM - AWS IoT Greengrass</title><meta name="pdf" content="/pdfs/greengrass/v1/developerguide/gg-dg.pdf#security_iam_service-with-iam" /><meta name="github" content="https://github.com/awsdocs/aws-greengrass-developer-guide/tree/main/doc_source/security_iam_service-with-iam.md" /><meta name="rss" content="aws-greengrass-doc-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=254" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Greengrass%20Docs&amp;topic_url=http://docs.aws.amazon.com/en_us/greengrass/v1/developerguide/security_iam_service-with-iam.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/greengrass/v1/developerguide/security_iam_service-with-iam.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/greengrass/v1/developerguide/security_iam_service-with-iam.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS IoT Greengrass",
+        "item" : "https://docs.aws.amazon.com/greengrass/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide, Version 1",
+        "item" : "https://docs.aws.amazon.com/greengrass/v1/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in AWS IoT Greengrass",
+        "item" : "https://docs.aws.amazon.com/greengrass/v1/developerguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management for AWS IoT Greengrass",
+        "item" : "https://docs.aws.amazon.com/greengrass/v1/developerguide/security-iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "How AWS IoT Greengrass works with IAM",
+        "item" : "https://docs.aws.amazon.com/greengrass/v1/developerguide/security-iam.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/greengrass/v1/developerguide/gg-dg.pdf#security_iam_service-with-iam" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-greengrass-developer-guide/tree/main/doc_source/security_iam_service-with-iam.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/greengrass/index.html">AWS IoT Greengrass</a><a href="what-is-gg.html">Developer Guide, Version 1</a></div><div id="page-toc-src"><a href="#security_iam_service-with-iam-id-based-policies">
+               Identity-based policies</a><a href="#security_iam_service-with-iam-resource-based-policies">
+               Resource-based policies</a><a href="#security_iam_service-with-iam-acls">Access control lists (ACLs)</a><a href="#security_iam_service-with-iam-tags">Tags-based authorization</a><a href="#security_iam_service-with-iam-roles">IAM
+               roles for AWS IoT Greengrass</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>AWS IoT Greengrass Version 1 no longer receives feature updates, and will receive only
+			security patches and bug fixes until June 30, 2023. For more information, see the <a href="https://docs.aws.amazon.com/greengrass/v1/developerguide/maintenance-policy.html">AWS IoT Greengrass V1 maintenance policy</a>. We strongly recommend that you <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/move-from-v1.html">migrate to
+				AWS IoT Greengrass Version 2</a>, which adds <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/greengrass-v2-whats-new.html">significant new
+				features</a> and <a href="https://docs.aws.amazon.com/greengrass/v2/developerguide/operating-system-feature-support-matrix.html">support for additional platforms</a>.</p></awsui-alert><h1 class="topictitle" id="security_iam_service-with-iam">How AWS IoT Greengrass works with
+            IAM</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Before you use IAM to manage access to AWS IoT Greengrass, you should understand the 
+         IAM features that you can use with AWS IoT Greengrass.</p><div class="table-container"><div class="table-contents"><table id="w481aac42c28c21b7"><thead>
+               <tr>
+                  <th><p>IAM feature</p></th>
+                  <th><p>Supported by Greengrass?</p></th>
+               </tr>
+            </thead>
+               <tr>
+                  <td><p><a href="#security_iam_service-with-iam-id-based-policies">Identity-based policies with resource-level permissions</a></p></td>
+                  <td align="center" style="text-align: center;vertical-align: middle;">Yes</td>
+               </tr>
+               <tr>
+                  <td><p><a href="#security_iam_service-with-iam-resource-based-policies">Resource-based policies</a></p></td>
+                  <td align="center" style="text-align: center;vertical-align: middle;">No</td>
+               </tr>
+               <tr>
+                  <td><p><a href="#security_iam_service-with-iam-acls">Access control lists (ACLs)</a></p></td>
+                  <td align="center" style="text-align: center;vertical-align: middle;">No</td>
+               </tr>
+               <tr>
+                  <td><p><a href="#security_iam_service-with-iam-tags">Tags-based authorization</a></p></td>
+                  <td align="center" style="text-align: center;vertical-align: middle;">Yes</td>
+               </tr>
+               <tr>
+                  <td><p><a href="#security_iam_service-with-iam-roles-tempcreds">Temporary credentials</a></p></td>
+                  <td align="center" style="text-align: center;vertical-align: middle;">Yes</td>
+               </tr>
+               <tr>
+                  <td><p><a href="#security_iam_service-with-iam-roles-service-linked">Service-linked roles</a></p></td>
+                  <td align="center" style="text-align: center;vertical-align: middle;">No</td>
+               </tr>
+               <tr>
+                  <td><p><a href="#security_iam_service-with-iam-roles-service-linked">Service roles</a></p></td>
+                  <td align="center" style="text-align: center;vertical-align: middle;">Yes</td>
+               </tr>
+            </table></div></div><p>For a high-level view of how other AWS services work with IAM, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services that
+            work with IAM</a> in the <em>IAM User Guide</em>.</p>
+         <h2 id="security_iam_service-with-iam-id-based-policies">
+               Identity-based policies for AWS IoT Greengrass</h2>
+         <p>With IAM identity-based policies, you can specify allowed or denied actions and resources
+            and
+            the conditions under which actions are allowed or denied. AWS IoT Greengrass supports specific actions, resources, and
+            condition keys. To learn about all of the elements that you use in a policy, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html">IAM JSON policy elements reference</a> in the
+                <em>IAM User Guide</em>.</p>
+          
+            <h3 id="security_iam_service-with-iam-id-based-policies-actions">Actions</h3>
+            
+   
+            
+   
+      <p>Administrators can use AWS JSON policies to specify who has access to what. That is, which <b>principal</b> can perform 
+         <b>actions</b> on what <b>resources</b>, and under what <b>conditions</b>.</p>
+  
+            <p>The <code class="code">Action</code> element of a JSON policy describes the
+               actions that you can use to allow or deny access in a policy. Policy
+               actions usually have the same name as the associated AWS API operation. There are some exceptions, such as <em>permission-only 
+               actions</em> that don't have a matching API operation. There are also some operations that require multiple actions in a policy. 
+               These additional actions are called <em>dependent actions</em>.</p>
+            <p>Include actions in a policy to grant permissions to perform the associated operation.</p>
+  
+            <p>Policy actions for AWS IoT Greengrass use the <code class="code">greengrass:</code> prefix before the action.
+               For example, to allow someone to use the 
+                <code class="code">ListGroups</code> API operation to list the groups in their AWS account, 
+               you include the <code class="code">greengrass:ListGroups</code> action in their policy. Policy statements must
+               include either an <code class="code">Action</code> or <code class="code">NotAction</code> element.
+               AWS IoT Greengrass defines its own set of actions that describe tasks that you can
+               perform with this service.</p>
+            <p>To specify multiple actions in a single statement, list them between brackets (<code class="code">[</code> <code class="code">]</code>) 
+               and separate them with commas, as follows:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Action": [
+    "greengrass:<code class="replaceable">action1</code>",
+    "greengrass:<code class="replaceable">action2</code>",
+    "greengrass:<code class="replaceable">action3</code>"
+]</code></pre>
+             <p>You can use wildcards (<code class="code">*</code>) to specify multiple actions. For example, to specify all
+               actions that begin with the word <code class="code">List</code>, include the following
+               action:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Action": "greengrass:List*"</code></pre> 
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>We recommend that you avoid the use of wildcards to specify all available actions for a
+               service. As a best practice, you should grant least privilege and narrowly scope permissions
+               in a policy. For more information, see <a href="./security-best-practices.html#least-privilege">Grant minimum possible permissions</a>.</p></div></div>
+            <p>For the complete list of AWS IoT Greengrass actions, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiotgreengrass.html#awsiotgreengrass-actions-as-permissions">Actions Defined by AWS IoT Greengrass</a> in the
+                  <em>IAM User Guide</em>.</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-id-based-policies-resources">Resources</h3>
+            
+   
+            
+   
+      <p>Administrators can use AWS JSON policies to specify who has access to what. That is, which <b>principal</b> can perform 
+         <b>actions</b> on what <b>resources</b>, and under what <b>conditions</b>.</p>
+  
+            <p>The <code class="code">Resource</code> JSON policy element specifies the object or objects to which the action applies. Statements must include either a
+                  <code class="code">Resource</code> or a <code class="code">NotResource</code> element. As a best practice, specify a resource using its <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>. You can do this for actions that support a 
+                  specific resource type, known as <em>resource-level permissions</em>.</p>
+            <p>For actions that don't support resource-level permissions, such as listing operations,
+                  use a wildcard (*) to indicate that the statement applies to all resources.</p>
+         <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">"Resource": "*"</code></pre>
+  
+             <p>The following table contains the AWS IoT Greengrass resource ARNs that can be used in the <code class="code">Resource</code> element of a policy statement.
+                 For a mapping of supported resource-level permissions for AWS IoT Greengrass actions, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awsiotgreengrass.html#awsiotgreengrass-actions-as-permissions">Actions Defined by AWS IoT Greengrass</a> in the
+                 <em>IAM User Guide</em>.</p>
+            <div class="table-container"><div class="table-contents"><table id="w481aac42c28c21c11b7c17"><thead>
+                    <tr>
+                        <th>Resource</th>
+                        <th>ARN</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-group"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listgroups-get.html">Group</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/groups/$<span>{</span>GroupId}</code>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-groupVersion"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listgroupversions-get.html">GroupVersion</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/groups/$<span>{</span>GroupId}/versions/$<span>{</span>VersionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-certificateAuthority"></a>
+                           <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listgroupcertificateauthorities-get.html">CertificateAuthority</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/groups/$<span>{</span>GroupId}/certificateauthorities/$<span>{</span>CertificateAuthorityId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-deployment"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listdeployments-get.html">Deployment</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/groups/$<span>{</span>GroupId}/deployments/$<span>{</span>DeploymentId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-bulkDeployment"></a>
+                           <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listbulkdeployments-get.html">BulkDeployment</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/bulk/deployments/$<span>{</span>BulkDeploymentId}</code>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-connectorDefinition"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listconnectordefinitions-get.html">ConnectorDefinition</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/connectors/$<span>{</span>ConnectorDefinitionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-connectorDefinitionVersion"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listconnectordefinitionversions-get.html">ConnectorDefinitionVersion</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/connectors/$<span>{</span>ConnectorDefinitionId}/versions/$<span>{</span>VersionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-coreDefinition"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listcoredefinitions-get.html">CoreDefinition</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/cores/$<span>{</span>CoreDefinitionId}</code>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-coreDefinitionVersion"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listcoredefinitionversions-get.html">CoreDefinitionVersion</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/cores/$<span>{</span>CoreDefinitionId}/versions/$<span>{</span>VersionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-deviceDefinition"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listdevicedefinitions-get.html">DeviceDefinition</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/devices/$<span>{</span>DeviceDefinitionId}</code>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-deviceDefinitionVersion"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listdevicedefinitionversions-get.html">DeviceDefinitionVersion</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/devices/$<span>{</span>DeviceDefinitionId}/versions/$<span>{</span>VersionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-functionDefinition"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listfunctiondefinitions-get.html">FunctionDefinition</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/functions/$<span>{</span>FunctionDefinitionId}</code>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-functionDefinitionVersion"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listfunctiondefinitionversions-get.html">FunctionDefinitionVersion</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/functions/$<span>{</span>FunctionDefinitionId}/versions/$<span>{</span>VersionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-loggerDefinition"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listloggerdefinitions-get.html">LoggerDefinition</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/loggers/$<span>{</span>LoggerDefinitionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-loggerDefinitionVersion"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listloggerdefinitionversions-get.html">LoggerDefinitionVersion</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/loggers/$<span>{</span>LoggerDefinitionId}/versions/$<span>{</span>VersionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-resourceDefinition"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listresourcedefinitions-get.html">ResourceDefinition</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/resources/$<span>{</span>ResourceDefinitionId}</code>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-resourceDefinitionVersion"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listresourcedefinitionversions-get.html">ResourceDefinitionVersion</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/resources/$<span>{</span>ResourceDefinitionId}/versions/$<span>{</span>VersionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-subscriptionDefinition"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listsubscriptiondefinitions-get.html">SubscriptionDefinition</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/subscriptions/$<span>{</span>SubscriptionDefinitionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-subscriptionDefinitionVersion"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/listsubscriptiondefinitionversions-get.html">SubscriptionDefinitionVersion</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/definition/subscriptions/$<span>{</span>SubscriptionDefinitionId}/versions/$<span>{</span>VersionId}</code>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <a id="awsiotgreengrass-connectivityInfo"></a>
+                            <a href="https://docs.aws.amazon.com/greengrass/latest/apireference/definitions-connectivityinfo.html">ConnectivityInfo</a>
+                        </td>
+                        <td>
+                            <code class="code">arn:$<span>{</span>Partition}:greengrass:$<span>{</span>Region}:$<span>{</span>Account}:/greengrass/things/$<span>{</span>ThingName}/connectivityInfo</code>
+                        </td>                        
+                    </tr>
+                </table></div></div>
+            <p>The following example <code class="code">Resource</code> element specifies the ARN of a group in the US West (Oregon) Region in the AWS account <code class="code">123456789012</code>:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:greengrass:us-west-2:123456789012:/greengrass/groups/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code></pre>
+             <p>Or, to specify all groups that belong to an AWS account in a specific AWS Region, use the wildcard in place of the group ID:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "arn:aws:greengrass:us-west-2:123456789012:/greengrass/groups/*"</code></pre>
+            <p>Some AWS IoT Greengrass actions (for example, some list operations), cannot be
+               performed on a specific resource. In those cases, you must use the wildcard alone.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": "*"</code></pre>
+            <p>To specify multiple resource ARNs in a statement, list them between brackets (<code class="code">[</code> <code class="code">]</code>) 
+               and separate them with commas, as follows:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Resource": [
+    "<code class="replaceable">resource-arn1</code>",
+    "<code class="replaceable">resource-arn2</code>",
+    "<code class="replaceable">resource-arn3</code>"
+]</code></pre>
+            <p>For more information about ARN formats, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS service namespaces</a> in the <em>Amazon Web Services General Reference</em>.</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-id-based-policies-conditionkeys">Condition keys</h3>
+            
+   
+            
+   
+      <p>Administrators can use AWS JSON policies to specify who has access to what. That is, which <b>principal</b> can perform 
+         <b>actions</b> on what <b>resources</b>, and under what <b>conditions</b>.</p>
+  
+            <p>The <code class="code">Condition</code> element (or <code class="code">Condition</code>
+               <em>block</em>) lets you specify conditions in which a
+               statement is in effect. The <code class="code">Condition</code> element is optional. You can create
+               conditional expressions that use <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html">condition
+                  operators</a>, such as equals or less than, to match the condition in the
+               policy with values in the request. </p>
+            <p>If you specify multiple <code class="code">Condition</code> elements in a statement, or
+               multiple keys in a single <code class="code">Condition</code> element, AWS evaluates them using
+               a logical <code class="code">AND</code> operation. If you specify multiple values for a single
+               condition key, AWS evaluates the condition using a logical <code class="code">OR</code>
+               operation. All of the conditions must be met before the statement's permissions are
+               granted.</p>
+            <p> You can also use placeholder variables when you specify conditions. For example,
+               you can grant an IAM user permission to access a resource only if it is tagged with
+               their IAM user name. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html">IAM policy elements:
+                  variables and tags</a> in the <em>IAM User Guide</em>. </p>
+            <p>AWS supports global condition keys and service-specific condition keys. To see all AWS global
+               condition keys, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS global condition context keys</a> in the
+               <em>IAM User Guide</em>.</p>
+          
+             <p>AWS IoT Greengrass supports the following global condition keys.</p>
+             
+             <div class="table-container"><div class="table-contents"><table id="w481aac42c28c21c11b9c21"><thead>
+                         <tr>
+                             <th>Key</th>
+                             <th>Description</th>
+                         </tr>
+                     </thead>
+                         <tr>
+                             <td><code class="code">aws:CurrentTime</code> </td>
+                             <td>Filters access by checking date/time conditions for the current date and time.</td>                       
+                         </tr>
+                         <tr>
+                             <td><code class="code">aws:EpochTime</code></td>
+                             <td>Filters access by checking date/time conditions for the current date and time in epoch or Unix time.</td>                       
+                         </tr>
+                         <tr>
+                             <td><code class="code">aws:MultiFactorAuthAge</code></td>
+                             <td>Filters access by checking how long ago (in seconds) the security credentials validated by multi-factor authentication (MFA) in the request were issued using MFA.</td>                       
+                         </tr>
+                         <tr>
+                             <td><code class="code">aws:MultiFactorAuthPresent</code></td>
+                             <td> Filters access by checking whether multi-factor authentication (MFA) was used to validate the temporary security credentials that made the current request.</td>                       
+                         </tr>
+                         <tr>
+                             <td><code class="code">aws:RequestTag/$<span>{</span>TagKey}</code></td>
+                             <td>Filters create requests based on the allowed set of values for each of the mandatory tags.</td>                       
+                         </tr>
+                         <tr>
+                             <td><code class="code">aws:ResourceTag/$<span>{</span>TagKey}</code></td>
+                             <td>Filters actions based on the tag value associated with the resource.</td>                       
+                         </tr>
+                         <tr>
+                             <td><code class="code">aws:SecureTransport</code></td>
+                             <td>Filters access by checking whether the request was sent using SSL.</td>                       
+                         </tr>
+                         <tr>
+                             <td><code class="code">aws:TagKeys</code></td>
+                             <td>Filters create requests based on the presence of mandatory tags in the request.</td>                       
+                         </tr>
+                        <tr>
+                             <td><code class="code">aws:UserAgent</code></td>
+                             <td>Filters access by the requester's client application.</td>                       
+                         </tr>
+                     </table></div></div>
+             <p>For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS global condition
+                 context keys</a> in the <em>IAM User Guide</em>.</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-id-based-policies-examples">Examples</h3>
+            <p></p>
+            <p>To view examples of AWS IoT Greengrass identity-based policies, see <a href="./security_iam_id-based-policy-examples.html">Identity-based policy examples for
+            AWS IoT Greengrass</a>.</p>
+          
+       
+         <h2 id="security_iam_service-with-iam-resource-based-policies">
+               Resource-based policies for AWS IoT Greengrass</h2>
+         <p>AWS IoT Greengrass does not support <a href="./security-iam.html#security_iam_access-manage-resource-based-policies">resource-based policies</a>.</p>
+       
+         <h2 id="security_iam_service-with-iam-acls">Access control lists (ACLs)</h2>
+         <p>AWS IoT Greengrass does not support <a href="./security-iam.html#security_iam_access-manage-acl">ACLs</a>.</p>
+       
+         <h2 id="security_iam_service-with-iam-tags">Authorization based on
+               AWS IoT Greengrass tags</h2>
+         <p>You can attach tags to supported AWS IoT Greengrass resources or pass tags in a request to
+            AWS IoT Greengrass. To control access based on tags, you provide tag information in the
+               <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">Condition
+               element</a> of a policy using the
+             <code class="code">aws:ResourceTag/$<span>{</span>TagKey}</code>,
+             <code class="code">aws:RequestTag/$<span>{</span>TagKey}</code>, or
+               <code class="code">aws:TagKeys</code> condition keys. For more information, see <a href="./tagging.html">Tagging your AWS IoT Greengrass resources</a>.</p>
+         
+       
+         <h2 id="security_iam_service-with-iam-roles">IAM
+               roles for AWS IoT Greengrass</h2>
+         <p>An <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM role</a> is an entity within
+            your AWS account that has specific permissions.</p>
+          
+            <h3 id="security_iam_service-with-iam-roles-tempcreds">Using temporary
+                  credentials with AWS IoT Greengrass</h3>
+            <p>Temporary credentials are used to sign in with federation, assume an IAM
+               role, or to assume a cross-account role. You obtain temporary security credentials by
+               calling AWS STS API operations such as <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> or <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_GetFederationToken.html">GetFederationToken</a>.</p>
+			<p>On the Greengrass core, temporary credentials for the <a href="./group-role.html">group role</a> are made available to user-defined 
+			    Lambda functions and connectors. If your Lambda functions use the AWS SDK, you  
+			    don't need to add logic to obtain the credentials because the AWS SDK does this for you.</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-roles-service-linked">Service-linked
+                  roles</h3>
+            <p>AWS IoT Greengrass does not support <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">service-linked roles</a>.</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-roles-service">Service roles</h3>
+            <p>This feature allows a service to assume a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-role">service
+                  role</a> on your behalf. This role allows the service to access resources in
+               other services to complete an action on your behalf. Service roles appear in your
+               IAM account and are owned by the account. This means that an IAM administrator
+               can change the permissions for this role. However, doing so might break the
+               functionality of the service.</p>
+            <p>AWS IoT Greengrass uses a service role to access some of your AWS resources on your behalf. 
+               For more information, see <a href="./service-role.html">Greengrass service role</a>.</p>
+          
+         
+            <h3 id="security_iam_service-with-iam-roles-choose">Choosing an IAM role
+                    in the AWS IoT Greengrass console</h3>
+            <p>In the AWS IoT Greengrass console, you might need to choose a Greengrass service role or a Greengrass
+                group role from a list of IAM roles in your account.</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>The Greengrass service role allows AWS IoT Greengrass to access your AWS resources in
+                        other services on your behalf. Typically, you don't need to choose the
+                        service role because the console can create and configure it for you. For
+                        more information, see <a href="./service-role.html">Greengrass service role</a>.</p>
+                </li><li class="listitem">
+                    <p>The Greengrass group role is used to allow Greengrass Lambda functions and
+                        connectors in the group to access your AWS resources. It can also give
+                        AWS IoT Greengrass permissions to export streams to AWS services and write CloudWatch logs.
+                        For more information, see <a href="./group-role.html">Greengrass group role</a>.</p>
+                </li></ul></div>
+         
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./security-iam.html">Identity and access management</div><div id="next" class="next-link" accesskey="n" href="./service-role.html">Greengrass service role</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Greengrass Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/greengrass/v1/developerguide/security_iam_service-with-iam.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Greengrass Docs&amp;topic_url=https://docs.aws.amazon.com/en_us/greengrass/v1/developerguide/security_iam_service-with-iam.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>규칙에 대한 예약 표현식 - Amazon CloudWatch Events</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ScheduledEvents" /><meta name="default_state" content="ScheduledEvents" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="description" content="cron 또는 rate 표현식을 사용하여 Amazon CloudWatch Events를 통해 AWS를 자동화할 수 있는 방법을 설명합니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudWatch Events" /><meta name="guide" content="사용 설명서" /><meta name="abstract" content="Amazon CloudWatch Events를 사용하여 거의 실시간 스트림의 이벤트를 일치시켜 하나 이상의 대상 함수 또는 스트림으로 라우팅하는 단순한 규칙을 생성합니다. 대상 함수 및 스트림은 이벤트 트리거에 따라 적절한 작업을 자동으로 수행할 수 있습니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="x-default" /><meta name="feedback-item" content="EventBridge" /><meta name="this_doc_product" content="Amazon CloudWatch Events" /><meta name="this_doc_guide" content="사용 설명서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudwatch'}"></script><meta id="panorama-serviceSubSection" value="사용 설명서" /><meta id="panorama-serviceConsolePage" value="규칙에 대한 예약 표현식" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>규칙에 대한 예약 표현식 - Amazon CloudWatch Events</title><meta name="pdf" content="cwe-ug.pdf#ScheduledEvents" /><meta name="rss" content="amazon-cloudwatch-events-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=138" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=http://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudWatch",
+        "item" : "https://docs.aws.amazon.com/cloudwatch/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "사용 설명서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "규칙에 대한 예약 표현식",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="cwe-ug.pdf#ScheduledEvents" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/cloudwatch/index.html">Amazon CloudWatch</a><a href="WhatIsCloudWatchEvents.html">사용 설명서</a></div><div id="page-toc-src"><a href="#CronExpressions">Cron 표현식</a><a href="#RateExpressions">rate 식</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ScheduledEvents">규칙에 대한 예약 표현식</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="table-container"><div class="table-contents"><table id="w62aac13b3">
+				<tr>
+					<td><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>Amazon EventBridge는 이벤트를 관리하는 데 선호되는 방법입니다. CloudWatch Events와 EventBridge는 기본 서비스 및 API가 동일하지만 EventBridge가 더 많은 기능을 제공합니다. CloudWatch 또는 EventBridge에서 변경한 내용은 각 콘솔에 나타납니다. 자세한 내용은 <a href="https://docs.aws.amazon.com/eventbridge/index.html">Amazon EventBridge</a>를 참조하세요.</p></div></div></td>
+				</tr>
+			</table></div></div><p>Cron 또는 Rate 식을 사용하여 CloudWatch Events에서 자동 일정에 따라 자체 트리거되는 규칙을 생성할 수 있습니다. 예약된 모든 이벤트는 UTC 시간대를 사용하며 예약의 최소 단위는 1분입니다.</p><p>CloudWatch Events는 cron 표현식과 rate 표현식을 지원합니다. rate 표현식은 정의하기가 더 간단하지만 cron 표현식이 지원하는 세분화된 일정 관리는 제공하지 않습니다. 예를 들어, cron 표현식을 사용하여 매주 또는 매월 특정 요일의 지정된 시간에 트리거되는 규칙을 정의할 수 있습니다. 반대로 rate 표현식은 매 시간 한 번 또는 매일 한 번과 같이 정기적으로 규칙을 트리거합니다.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>CloudWatch Events는 일정 표현식에 초 단위의 정밀성을 제공하지 않습니다. Cron 표현식을 사용해 가장 정밀하게 설정할 수 있는 단위가 1분입니다. CloudWatch Events와 대상 서비스가 분산되어 있기 때문에 예약된 규칙이 트리거되는 시간과 대상 서비스가 대상 리소스 실행을 인식하는 시간 간에는 몇 초의 지연이 있을 수 있습니다. 예약된 규칙은 지정한 시간(분) 이내에 트리거되지만 정확한 초 단위로 트리거되지는 않습니다.</p></div></div><div class="highlights" id="inline-topiclist"><h6>형식</h6><ul><li><a href="#CronExpressions">Cron 표현식</a></li><li><a href="#RateExpressions">rate 식</a></li></ul></div><h2 id="CronExpressions">Cron 표현식</h2>
+        
+
+        <p>cron 표현식에는 각각 공백으로 구분되는 필수 필드 6개가 있습니다.</p>
+
+        <p><b>구문</b></p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">cron(<em>fields</em>)</code></pre>
+        
+        <div class="table-container"><div class="table-contents"><table id="w62aac13c13b8"><thead>
+                    <tr>
+                        <th><b>필드</b></th>
+                        <th><b>값</b></th>
+                        <th><b>와일드카드</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <p>분</p>
+                        </td>
+                        <td>
+                            <p>0~59</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>시간</p>
+                        </td>
+                        <td>
+                            <p>0~23</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>일</p>
+                        </td>
+                        <td>
+                            <p>1~31</p>
+                        </td>
+                        <td>
+                            <p>, - * ? / L W</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>월</p>
+                        </td>
+                        <td>
+                            <p>1-12 또는 JAN-DEC</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Day-of-week</p>
+                        </td>
+                        <td>
+                            <p>1-7 또는 SUN-SAT</p>
+                        </td>
+                        <td>
+                            <p>, - * ? L #</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>연도</p>
+                        </td>
+                        <td>
+                            <p>1970~2199</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+
+        <div class="itemizedlist">
+            <h6>Wildcards</h6>
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>,</b>(쉼표) 와일드카드에는 추가 값이 포함되어 있습니다. 예컨대, Month 필드에서 JAN, FEB, MAR은 1월, 2월, 3월을 포함한다는 의미입니다.</p>
+            </li><li class="listitem">
+                <p><b>-</b>(대시) 와일드카드로 범위를 지정할 수 있습니다. 예컨대, Day 필드에서 1-15는 지정된 달의 1일에서 15일까지 포함한다는 의미입니다.</p>
+            </li><li class="listitem">
+                <p><b>*</b>(별표) 와일드카드로 필드에 모든 값을 포함할 수 있습니다. '시간' 필드에서 <b>*</b>는 모든 시간을 포함한다는 의미입니다. '일' 및 '요일' 필드 모두에서 <b>*</b>를 사용할 수 없습니다. 필드 중 하나에 사용할 경우 다른 하나에는 반드시 <b>?</b>를 사용해야 합니다.</p>
+            </li><li class="listitem">
+                <p><b>/</b>(슬래시) 와일드카드로 증분을 지정할 수 있습니다. 예를 들어, '분' 필드에 1/10을 입력하면 지정한 시간의 1분부터 시작해서 매 10분 간격을 지정할 수 있습니다(즉, 11분, 21분, 31분 등).</p>
+            </li><li class="listitem">
+                <p><b>?</b>(물음표) 와일드카드로 어떤 것이나 지정할 수 있습니다. '일' 필드에 <b>7</b>을 입력하고 '요일' 필드에는 <b>?</b>을 입력하면 매월 7일이 무슨 요일이든 상관없이 7번째 되는 날을 지정한다는 의미입니다.</p>
+            </li><li class="listitem">
+                <p>'일' 또는 '요일' 필드에서 <b>L</b> 와일드카드로 해당 월 또는 주의 마지막 날을 지정할 수 있습니다.</p>
+            </li><li class="listitem">
+                <p>'일' 필드에서는 <code class="userinput">W</code> 와일드카드로 어떤 한 평일을 지정할 수 있습니다. 예를 들어 '일' 필드에 <code class="userinput">3W</code>를 입력하면 해당 월의 세 번째 평일에 가장 가까운 날을 지정할 수 있습니다.</p>
+            </li><li class="listitem">
+                <p>'요일' 필드의 <b>#</b> 와일드카드는 그 달에 속한 정해진 요일의 특정 인스턴스를 지정합니다. 예를 들어, 3#2는 그 달의 두 번째 화요일입니다. 3은 각 주의 셋째 날이므로 화요일을 나타내고 2는 그 달의 두 번째 해당 요일입니다.</p>
+                
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>'#' 문자를 사용하는 경우 요일(day-of-week) 필드에 하나의 표현식만 정의할 수 있습니다. 예를 들어 <code class="code">"3#1,6#3"</code>은(는) 두 개의 표현식으로 해석되기 때문에 유효하지 않습니다.</p></div></div>
+            </li></ul></div>
+
+        <div class="itemizedlist">
+            <h6>Restrictions</h6>
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>같은 cron 표현식에서 '일' 및 '요일' 필드를 지정할 수 없습니다. 이들 필드 중 하나에 값(또는 *)을 지정하는 경우에는 다른 필드에서 반드시 <b>?</b>(물음표)를 사용해야 합니다.</p>
+            </li><li class="listitem">
+                <p>1분보다 빠른 속도로 이어지는 cron 표현식은 지원되지 않습니다.</p>
+            </li></ul></div>
+
+         
+            <h6>Examples</h6>
+            <p>예약에 따라 규칙을 생성할 때는 다음과 같이 동일한 cron 문자열을 사용할 수 있습니다.</p>
+         
+
+        <div class="table-container"><div class="table-contents"><table id="w62aac13c13c16"><thead>
+                    <tr>
+                        <th>분</th>
+                        <th>시간</th>
+                        <th>일</th>
+                        <th>월</th>
+                        <th>요일</th>
+                        <th>연도</th>
+                        <th>의미</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>10</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>매일 오전 10시(UTC)에 실행</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>15</p>
+                        </td>
+                        <td>
+                            <p>12</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>매일 오후 12시 15분(UTC)에 실행</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>18</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>월-금</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>매주 월요일부터 금요일까지 오후 6시(UTC)에 실행</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>8</p>
+                        </td>
+                        <td>
+                            <p>1</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>매월 1일 오전 8시(UTC)에 실행</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/15</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>15분마다 실행</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/10</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>월-금</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>월요일부터 금요일까지 10분마다 실행</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/5</p>
+                        </td>
+                        <td>
+                            <p>8~17</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>월-금</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>월요일부터 금요일까지 오전 8시부터 오후 5시 55분(UTC) 사이에 5분마다 실행</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+
+        <p>다음 예제는 AWS CLI의 <a href="https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html">put-rule</a> 명령에서 cron 표현식을 사용하는 방법을 보여줍니다. 첫 번째 예제는 매일 12:00pm UTC에 트리거되는 규칙을 생성합니다.</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(0 12 * * ? *)" --name <code class="replaceable">MyRule1</code></code></pre>
+        
+        <p>다음 예제는 매일 2:00pm UTC 이후 5분 및 35분에 트리거되는 규칙을 생성합니다.</p>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(5,35 14 * * ? *)" --name <code class="replaceable">MyRule2</code></code></pre>
+        
+        <p>두 번째 예제는 2002년부터 2005년까지 매달 마지막 금요일 10:15am UTC에 트리거되는 규칙을 생성합니다.</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(15 10 ? * 6L 2002-2005)" --name <code class="replaceable">MyRule3</code></code></pre>
+    <h2 id="RateExpressions">rate 식</h2>
+        
+
+        <p>rate 표현식은 예약된 이벤트 규칙을 생성할 때 시작되며, 정의된 예약 일정에 따라 실행됩니다.</p>
+
+        <p>rate 표현식에는 필수 필드가 2개 있습니다. 각 필드는 공백으로 구분됩니다.</p>
+
+        <p><b>구문</b></p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">rate(<em>value</em> <em>unit</em>)</code></pre>
+
+        <div class="variablelist">
+             
+             
+        <dl>
+                <dt><span class="term">USD 상당</span></dt>
+                <dd>
+                    <p>양수.</p>
+                </dd>
+             
+                <dt><span class="term">unit</span></dt>
+                <dd>
+                    <p>시간 단위. 1의 값(예: <code class="code">minute</code>)과 1을 초과하는 값(예: <code class="code">minutes</code>)은 서로 다른 단위가 필요합니다.</p>
+                    <p>유효값: 분 | 분 | 시간 | 시간 | 일 | 일</p>
+                </dd>
+            </dl></div>
+
+         
+            <h6>Restrictions</h6>
+            <p>값이 1과 같을 경우에는 단위가 단수여야 합니다. 마찬가지로, 1보다 큰 값에 대해서는 단위가 복수여야 합니다. 예를 들어, rate(1 hours)와 rate(5 hour)는 잘못된 식이며, rate(1 hour)와 rate(5 hours)가 유효한 식입니다.</p>
+         
+
+         
+            <h6>Examples</h6>
+            <p>다음 예제는 AWS CLI의 <a href="https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html">put-rule</a> 명령에서 rate 표현식을 사용하는 방법을 보여줍니다. 첫 번째 예제는 1분, 두 번째 예제는 5분, 세 번째 예제는 한 시간, 마지막 예제는 하루에 한 번씩 규칙을 트리거합니다.</p>
+         
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 minute)" --name <code class="replaceable">MyRule2</code></code></pre>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(5 minutes)" --name <code class="replaceable">MyRule3</code></code></pre>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 hour)" --name <code class="replaceable">MyRule4</code></code></pre>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 day)" --name <code class="replaceable">MyRule5</code></code></pre>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./CloudWatch-Events-tutorial-CloudWatch-Logs.html">자습서: Amazon EC2 인스턴스의 상태 변경 로그</div><div id="next" class="next-link" accesskey="n" href="./CloudWatchEventsandEventPatterns.html">이벤트 패턴</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

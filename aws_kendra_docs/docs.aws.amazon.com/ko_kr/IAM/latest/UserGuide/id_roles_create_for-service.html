@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS 서비스에 대한 권한을 위임할 역할 생성 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_create_for-service" /><meta name="default_state" content="id_roles_create_for-service" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="description" content="어느 AWS 서비스에 대해 AWS 계정 리소스로 작업을 수행하도록 허용할지 결정하는 IAM 역할을 생성합니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="사용 설명서" /><meta name="abstract" content="사용자 자격 증명(인증)과 특정 권한을 정의하는 정책(권한 부여)을 사용하여 AWS 리소스에 대한 액세스를 제어합니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="사용 설명서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="사용 설명서" /><meta id="panorama-serviceConsolePage" value="AWS 서비스에 대한 권한을 위임할 역할 생성" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS 서비스에 대한 권한을 위임할 역할 생성 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_create_for-service" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 사용자,사용자,IAM 그룹,그룹,IAM 역할,역할,권한 정책,신뢰 정책,정책,액세스 키,암호" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "사용 설명서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM 자격 증명(사용자, 사용자 그룹 및 역할)",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 역할",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "IAM 역할 생성",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "AWS 서비스에 대한 권한을 위임할 역할 생성",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_create_for-service" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">사용 설명서</a></div><div id="page-toc-src"><a href="#id_roles_create_service-permissions">서비스 역할 권한</a><a href="#roles-creatingrole-service-console">AWS 서비스에 대한 역할 생성(콘솔)</a><a href="#roles-creatingrole-service-cli">서비스에 대한 역할 생성(AWS CLI)</a><a href="#roles-creatingrole-service-api">서비스에 대한 역할 생성(AWS API)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_create_for-service">AWS 서비스에 대한 권한을 위임할 역할 생성</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS 서비스는 역할을 사용하여 서비스가 사용자를 대신하여 다른 서비스의 리소스로 액세스할 수 있어야 합니다. 서비스가 사용자를 대신하여 작업을 수행하기 위해 수임한 역할을 <a href="./id_roles_terms-and-concepts.html#iam-term-service-role">서비스 역할</a>이라고 합니다. 역할이 서비스에 대해 특수한 목적을 수행하는 경우 <a href="./id_roles_terms-and-concepts.html#iam-term-service-role-ec2">EC2 인스턴스의 서비스 역할</a> 또는 <a href="./id_roles_terms-and-concepts.html#iam-term-service-linked-role">서비스 연결 역할</a>로 분류됩니다. 서비스 연결 역할을 사용하여 지원되는 서비스 또는 서비스가 임시 자격 증명의 형식을 지원하는지 여부를 확인하려면 <a href="./reference_aws-services-that-work-with-iam.html">AWS IAM으로 작업하는 서비스</a> 섹션을 참조하세요. 개별 서비스가 역할을 사용하는 방법을 알아보려면 테이블에서 서비스 이름을 선택하여 해당 서비스의 설명서를 확인합니다.</p><p>역할을 통해 권한을 위임하는 방법에 대한 자세한 내용은 <a href="./id_roles_terms-and-concepts.html">역할 용어 및 개념</a> 섹션을 참조하세요.</p>
+    <h2 id="id_roles_create_service-permissions">서비스 역할 권한</h2>
+    <p>IAM 엔터티(사용자 또는 역할)가 서비스 연결 역할을 작성하거나 편집할 수 있도록 권한을 구성해야 합니다.</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>서비스 연결 역할의 ARN에는 다음 정책에 <code class="code"><code class="replaceable">SERVICE-NAME</code>.amazonaws.com</code>으로 표시된 서비스 보안 주체가 포함됩니다. 서비스 보안 주체는 대소문자를 구분하고 AWS 서비스마다 형식이 다를 수 있으므로 추측하지 마세요. 서비스의 보안 주체를 보려면 해당 서비스 링크된 역할 설명서 섹션을 참조하세요.</p></div></div>
+    <p><b>IAM 엔터티가 특정 서비스 역할을 생성하도록 허용하려면</b></p>
+    <p>서비스 역할을 생성해야 하는 IAM 엔터티에 다음 정책을 추가합니다. 이 정책으로 특정 서비스에 대하여 구체적인 이름이 있는 서비스 역할을 만들 수 있습니다. 그런 다음 관리형 또는 인라인 정책을 해당 역할에 연결할 수 있습니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateRole",
+                "iam:PutRolePolicy"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        }
+    ]
+}</code></pre>
+    <p><b>IAM 엔터티가 모든 서비스 역할을 생성하도록 허용하려면</b></p>
+    <p>AWS에서는 관리 사용자만 서비스 역할을 생성할 수 있도록 허용하는 것이 좋습니다. 역할을 생성하고 정책을 연결할 수 있는 권한이 있는 사람은 자신의 권한을 에스컬레이션할 수 있습니다. 대신 필요한 역할만 생성하거나 관리자가 대신 서비스 역할을 생성하도록 허용하는 정책을 만듭니다.</p>
+    <p>관리자가 사용자 전체 AWS 계정에 액세스할 수 있도록 허용하는 정책을 연결하려면 <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS 관리형 정책을 사용합니다.</p>
+
+    <p><b>IAM 엔터티가 서비스 역할을 편집할 수 있도록 허용하려면</b></p>
+    <p>서비스 역할을 편집해야 하는 IAM 엔터티에 다음 정책을 추가합니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "EditSpecificServiceRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListRolePolicies",
+                "iam:PutRolePolicy",
+                "iam:UpdateRole",
+                "iam:UpdateRoleDescription"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        },
+        <span>{</span>
+            "Sid": "ViewRolesAndPolicies",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetPolicy",
+                "iam:ListRoles"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+    <p><b>IAM 엔터티가 특정 서비스 역할을 삭제하도록 허용하려면</b></p>
+    <p>특정 서비스 역할을 삭제해야 하는 IAM 엔터티의 권한 정책에 다음 명령문을 추가합니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Effect": "Allow",
+    "Action": "iam:DeleteRole",
+    "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+}</code></pre>
+    <p><b>IAM 엔터티가 모든 서비스 역할을 삭제하도록 허용하려면</b></p>
+    <p>AWS에서는 관리 사용자만 서비스 역할을 삭제할 수 있도록 허용하는 것이 좋습니다. 대신, 필요한 역할만 삭제하거나 관리자가 대신 서비스 역할을 삭제하도록 허용하는 정책을 만듭니다.</p>
+    <p>관리자가 사용자 전체 AWS 계정에 액세스할 수 있도록 허용하는 정책을 연결하려면 <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS 관리형 정책을 사용합니다.</p>
+   
+    <h2 id="roles-creatingrole-service-console">AWS 서비스에 대한 역할 생성(콘솔)</h2>
+    <p>AWS Management Console을 사용하여 서비스의 역할을 만들 수 있습니다. 일부 서비스는 두 개 이상의 서비스 역할을 지원하기 때문에 어떤 사용 사례를 선택할지 확인하려면 해당 서비스의 <a href="https://docs.aws.amazon.com/">AWS 설명서</a> 섹션을 참조하세요. 서비스에서 역할을 위임할 수 있도록 역할에 필요한 신뢰 정책과 권한 정책을 할당하는 방법을 알아볼 수 있습니다. 역할에 대한 권한을 관리할 수 절차는 서비스가 어떻게 사용 사례를 정의하느냐와 서비스 링크된 역할을 생성할 수 있는지 여부에 따라 다양할 수 있습니다.</p>
+
+    
+    <div class="procedure"><h6>AWS 서비스에 대한 역할을 만들려면(콘솔)</h6><ol><li><p>AWS Management Console에 로그인하여 <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>에서 IAM 콘솔을 엽니다.</p></li><li>
+        <p>IAM 콘솔의 탐색 창에서 <b>역할</b>을 선택하고 <b>역할 만들기</b>를 선택합니다.</p>
+      </li><li>
+        <p><b>신뢰할 수 있는 엔터티 선택(Select trusted entity)</b>에서 <b>AWS 서비스( service)</b>를 선택합니다.</p>
+      </li><li>
+        <p>서비스의 사용 사례를 선택합니다. 사용 사례는 서비스에 필요한 신뢰 정책을 포함하기 위해 서비스에서 정합니다. 그리고 <b>다음(Next)</b>을 선택합니다.</p>
+      </li><li>
+        <p>가능하다면, 권한 정책을 사용하기 위한 정책을 선택하거나 <b>정책 생성</b>을 선택하여 새 브라우저 탭을 열고 완전히 새로운 정책을 생성합니다. 자세한 내용은 <a href="./access_policies_create-console.html#access_policies_create-start">IAM 정책 생성</a> 섹션을 참조하세요. 정책을 생성하면 탭을 닫고 원래 탭으로 돌아갑니다. 서비스에게 부여하려는 권한 정책 옆의 확인란을 선택합니다.</p>
+        <p>선택한 사용 사례에 따라 서비스에서 다음을 수행할 수 있습니다.</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>서비스에서 역할에 대한 권한을 정의하기 때문에 아무것도 할 수 없습니다.</p>
+          </li><li class="listitem">
+            <p>제한된 권한 세트에서 선택할 수 있습니다.</p>
+          </li><li class="listitem">
+            <p>모든 권한 중에서 선택합니다.</p>
+          </li><li class="listitem">
+            <p>여기서 정책을 선택하지 않고, 나중에 정책을 만들어 역할에 연결할 수 있습니다.</p>
+          </li></ul></div>
+      </li><li>
+        <p>(선택 사항) <a href="./access_policies_boundaries.html">권한 경계</a>로서 설정됨. 이는 서비스 역할에서 가능한 고급 기능이며 서비스 링크된 역할은 아닙니다.</p>
+        <p><b>권한 경계(Permissions boundary)</b> 섹션을 열고 <b>최대 역할 권한을 관리하기 위한 권한 경계 사용(Use a permissions boundary to control the maximum role permissions)</b>을 선택합니다. IAM은 계정의 AWS 관리형 또는 고객 관리형 정책 목록을 포함합니다. 권한 경계를 사용하기 위한 정책을 선택하거나 <b>정책 생성(Create policy)</b>을 선택하여 새 브라우저 탭을 열고 처음부터 새 정책을 생성합니다. 자세한 내용은 <a href="./access_policies_create-console.html#access_policies_create-start">IAM 정책 생성</a> 섹션을 참조하세요. 정책을 생성하면 탭을 닫고 원래 탭으로 돌아와 권한 경계에 사용할 정책을 선택합니다.</p>
+      </li><li>
+        <p><b>다음(Next)</b>을 선택합니다.</p>
+      </li><li>
+        <p><b>역할 이름</b>의 경우 역할 이름 사용자 지정 수준은 서비스에서 정합니다. 서비스에서 역할 이름을 정한 경우 이 옵션을 편집할 수 없습니다. 다른 경우에는 서비스에서 역할 이름의 접두사를 정의하고 사용자가 선택적 접미사를 입력할 수 있습니다. 일부 서비스는 역할의 전체 이름을 지정할 수 있습니다.</p>
+        <p>가능한 경우 이 역할의 목적을 식별하는 데 도움이 되는 역할 이름이나 역할 이름 접미사를 입력합니다. 역할 이름은 AWS 계정 내에서 고유해야 합니다. 대소문자는 구별하지 않습니다. 예를 들어, 이름이 <code class="userinput">PRODROLE</code>과 <code class="userinput">prodrole</code>, 두 가지로 지정된 역할을 만들 수는 없습니다. 기타 AWS 리소스가 역할을 참조할 수 있기 때문에 역할이 생성된 후에는 역할 이름을 편집할 수 없습니다.</p>
+      </li><li>
+        <p>(선택 사항) <b>설명(Description)</b>에 새 역할에 대한 설명을 입력합니다.</p>
+      </li><li>
+        <p><b>1단계: 신뢰할 수 있는 엔터티 선택(Step 1: Select trusted entities)</b> 또는 <b>2단계: 권한 추가(Step 2: Add permissions)</b> 섹션에서 <b>편집(Edit)</b>을 선택하여 역할에 대한 사용 사례와 권한을 편집합니다.</p>
+      </li><li>
+        <p>(선택 사항) 태그를 키 값 페어로 연결하여 메타데이터를 역할에 추가합니다. IAM에서의 태그 사용에 대한 자세한 내용은 <a href="./id_tags.html">IAM 리소스에 태그 지정</a> 섹션을 참조하세요.</p>
+      </li><li>
+        <p>역할을 검토한 다음 [<b>Create role</b>]을 선택합니다.</p>
+      </li></ol></div>
+   
+    <h2 id="roles-creatingrole-service-cli">서비스에 대한 역할 생성(AWS CLI)</h2>
+    <p>AWS CLI에서 역할을 만들려면 여러 단계를 거쳐야 합니다. 콘솔을 사용하여 역할을 만들 때는 많은 단계가 자동으로 수행되지만 AWS CLI를 사용하면 각 단계를 직접 명시적으로 수행해야 합니다. 역할을 만든 다음 권한 정책을 역할에 할당해야 합니다. 작업 중인 서비스가 Amazon EC2인 경우에도 인스턴스 프로파일을 생성하여 거기에 역할을 추가해야 합니다. 선택적으로 역할에 대한 <a href="./access_policies_boundaries.html">권한 경계</a>를 설정할 수 있습니다.</p>
+    <div class="procedure"><h6>AWS CLI에서 AWS 서비스에 대한 역할을 만들려면</h6><ol><li>
+        <p>다음 <code class="code"><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html">create-role</a></code> 명령은 <em>Test-Role</em>이라는 역할을 생성하고 해당 역할에 신뢰 정책을 연결합니다.</p>
+        <p><code class="prompt">aws iam create-role --role-name Test-Role --assume-role-policy-document
+            file://Test-Role-Trust-Policy.json</code></p>
+
+      </li><li>
+        <p>역할에 관리형 권한 정책 연결: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/attach-role-policy.html">aws iam attach-role-policy</a>.</p>
+        <p>예를 들어 <code class="code">attach-role-policy</code> 명령은 <code class="code">ReadOnlyAccess</code>라는 AWS 관리형 정책을 <code class="code">ReadOnlyRole</code>이라는 IAM 역할에 연결합니다.</p>
+        <p><code class="prompt">aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+            --role-name ReadOnlyRole</code></p>
+        <p> 또는</p>
+        <p>역할을 위한 인라인 권한 정책 생성: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html">aws iam put-role-policy</a></p>
+        <p>인라인 권한 정책을 추가하려면 다음 예제를 참조하세요.</p>
+        <p>
+          <code class="prompt">aws iam put-role-policy --role-name Test-Role --policy-name ExamplePolicy
+            --policy-document file://AdminPolicy.json</code></p>
+      </li><li>
+        <p>(선택 사항) 태그를 연결하여 사용자 지정 속성을 역할에 추가: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/tag-role.html">aws iam tag-role</a></p>
+        <p>자세한 내용은 <a href="./id_tags_roles.html#id_tags_roles_procs-cli-api">IAM 역할의 태그 관리(AWS CLI 또는 AWS API)</a> 섹션을 참조하세요.</p>
+      </li><li>
+        <p>(선택 사항) 역할(<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-permissions-boundary.html">aws iam put-role-permissions-boundary</a>)에 대한 <a href="./access_policies_boundaries.html">권한 경계</a>를 설정합니다.</p>
+        <p>이 권한 경계는 역할이 가질 수 있는 최대 권한을 관리합니다. 권한 경계는 고급 AWS 기능입니다.</p>
+      </li></ol></div>
+    <p>Amazon EC2 또는 Amazon EC2를 사용하는 다른 AWS 서비스에 대해 역할을 사용할 경우 인스턴스 프로파일에 역할을 저장해야 합니다. 인스턴스 프로파일은 시작할 때 Amazon EC2 인스턴스에 연결할 수 있는 역할을 위한 컨테이너입니다. 하나의 인스턴스 프로파일은 하나의 역할만 포함할 수 있으며 이 제한은 늘릴 수 없습니다. AWS Management Console을 사용하여 역할을 생성한 경우 역할과 동일한 이름을 지닌 인스턴스 프로파일이 자동으로 생성됩니다. 인스턴스 프로파일에 대한 자세한 내용은 <a href="./id_roles_use_switch-role-ec2_instance-profiles.html">인스턴스 프로파일 사용</a> 섹션을 참조하세요. 역할을 사용하여 EC2 인스턴스를 시작하는 방법에 대한 자세한 내용은 <em>Linux 인스턴스용 Amazon EC2 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">Amazon EC2 리소스에 대한 액세스 제어</a>를 참조하세요.</p>
+    <div class="procedure"><h6>인스턴스 프로파일을 만들고 여기에 역할을 저장하려면(AWS CLI)</h6><ol><li>
+        <p>인스턴스 프로파일 생성: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-instance-profile.html">aws iam create-instance-profile</a></p>
+      </li><li>
+        <p>인스턴스 프로파일에 역할 추가: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/add-role-to-instance-profile.html">aws iam add-role-to-instance-profile</a></p>
+      </li></ol></div>
+    <p>아래 AWS CLI 예제 명령 집합은 역할을 생성하고 권한을 연결하는 첫 두 단계를 보여줍니다. 인스턴스 프로파일을 생성하고 프로필에 역할을 추가하는 두 단계를 보여주기도 합니다. 이 예제 신뢰 정책은 Amazon EC2 서비스가 역할을 수임하고 <code class="code">example_bucket</code> Amazon S3 버킷을 볼 수 있도록 허용합니다. 이 예제에서는 Windows를 실행하는 클라이언트 컴퓨터에서 실행 중이며 계정 자격 증명 및 리전으로 이미 명령줄 인터페이스를 구성했다고도 가정합니다. 자세한 내용은 <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">AWS 명령줄 인터페이스 구성</a> 단원을 참조하세요.</p>
+    <p>이 예제는 역할을 생성할 경우 첫 번째 명령의 다음 신뢰 정책을 포함합니다. 이 신뢰 정책은 Amazon EC2 서비스가 역할을 수임하도록 허용합니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>"Service": "ec2.amazonaws.com"},
+    "Action": "sts:AssumeRole"
+  }
+}</code></pre>
+    <p>두 번째 명령을 사용할 경우, 권한 정책을 역할에 연결해야 합니다. 다음 예제 권한 정책에서는 역할이 <code class="code">example_bucket</code> Amazon S3 버킷에서 <code class="code">ListBucket</code> 작업만 수행하도록 허용합니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "s3:ListBucket",
+    "Resource": "arn:aws:s3:::example_bucket"
+  }
+}</code></pre>
+    <p>이 <code class="code">Test-Role-for-EC2</code> 역할을 생성하기 위해서는 먼저 이전 신뢰 정책을 <code class="code">trustpolicyforec2.json</code> 이름으로, 이전 권한 정책을 <code class="code">permissionspolicyforec2.json</code> 이름으로 로컬 <code class="code">C:</code> 드라이브의 <code class="code">policies</code> 디렉터리에 저장해야 합니다. 그러고 나면 다음 명령을 사용하여 역할을 만들고 인라인 정책을 연결, 인스턴스 프로파일 생성 및 인스턴스 프로파일에 역할을 추가합니다.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false"># Create the role and attach the trust policy that allows EC2 to assume this role.
+$ </code><code class="userinput">aws iam create-role --role-name Test-Role-for-EC2 --assume-role-policy-document file://C:\policies\trustpolicyforec2.json</code>
+
+<code class="code" copy="false"># Embed the permissions policy (in this example an inline policy) to the role to specify what it is allowed to do.
+$ </code><code class="userinput">aws iam put-role-policy --role-name Test-Role-for-EC2 --policy-name Permissions-Policy-For-Ec2 --policy-document file://C:\policies\permissionspolicyforec2.json</code>
+
+<code class="code" copy="false"># Create the instance profile required by EC2 to contain the role
+$ </code><code class="userinput">aws iam create-instance-profile --instance-profile-name EC2-ListBucket-S3</code>
+
+<code class="code" copy="false"># Finally, add the role to the instance profile
+$ </code><code class="userinput">aws iam add-role-to-instance-profile --instance-profile-name EC2-ListBucket-S3 --role-name Test-Role-for-EC2</code></code></pre>
+    <p>EC2 인스턴스를 시작할 때 AWS 콘솔을 사용하는 경우 <b>인스턴스 세부 정보 구성</b> 페이지에 인스턴스 프로파일 이름을 지정합니다. <code class="code">aws ec2 run-instances</code> CLI 명령을 사용하는 경우 <code class="code">--iam-instance-profile</code> 파라미터를 지정합니다.</p>
+   
+    <h2 id="roles-creatingrole-service-api">서비스에 대한 역할 생성(AWS API)</h2>
+     
+      <p>AWS API에서 역할을 만들려면 여러 단계를 거쳐야 합니다. 콘솔을 사용하여 역할을 만들 때는 많은 단계가 자동으로 수행되지만 API를 사용하면 각 단계를 직접 명시적으로 수행해야 합니다. 역할을 만든 다음 권한 정책을 역할에 할당해야 합니다. 작업 중인 서비스가 Amazon EC2인 경우에도 인스턴스 프로파일을 생성하여 거기에 역할을 추가해야 합니다. 선택적으로 역할에 대한 <a href="./access_policies_boundaries.html">권한 경계</a>를 설정할 수 있습니다.</p>
+      <div class="procedure"><h6>AWS 서비스에 대한 역학을 생성하려면(AWS API)</h6><ol><li>
+          <p>역할 만들기: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a></p>
+          <p>역할의 신뢰 정책에 대해 파일 위치를 지정할 수 있습니다.</p>
+        </li><li>
+          <p>역할에 관리형 권한 정책 연결: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html">AttachRolePolicy</a></p>
+          <p> 또는</p>
+          <p>역할을 위한 인라인 권한 정책 생성: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html">PutRolePolicy</a></p>
+        </li><li>
+          <p>(선택 사항) 태그를 연결하여 사용자 지정 속성을 사용자에게 추가: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_TagRole.html">TagRole</a></p>
+          <p>자세한 내용은 <a href="./id_tags_users.html#id_tags_users_procs-cli-api">IAM 사용자의 태그 관리(AWS CLI 또는 AWS API)</a> 섹션을 참조하세요.</p>
+        </li><li>
+          <p>(선택 사항) 역할(<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePermissionsBoundary.html">PutRolePermissionsBoundary</a>)에 대한 <a href="./access_policies_boundaries.html">권한 경계</a>를 설정합니다.</p>
+          <p>이 권한 경계는 역할이 가질 수 있는 최대 권한을 관리합니다. 권한 경계는 고급 AWS 기능입니다.</p>
+        </li></ol></div>
+      <p>Amazon EC2 또는 Amazon EC2를 사용하는 다른 AWS 서비스에 대해 역할을 사용할 경우 인스턴스 프로파일에 역할을 저장해야 합니다. 인스턴스 프로파일은 역할에 대한 컨테이너입니다. 각 인스턴스 프로파일은 하나의 역할만 포함할 수 있으며 이 제한은 늘릴 수 없습니다. AWS Management Console에서 역할을 생성한 경우 역할과 동일한 이름을 지닌 인스턴스 프로파일이 자동으로 생성됩니다. 인스턴스 프로파일에 대한 자세한 내용은 <a href="./id_roles_use_switch-role-ec2_instance-profiles.html">인스턴스 프로파일 사용</a> 섹션을 참조하세요. 역할을 사용하여 Amazon EC2 인스턴스를 시작하는 방법에 대한 자세한 내용은 <em>Linux 인스턴스용 Amazon EC2 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">Amazon EC2 리소스에 대한 액세스 제어</a>를 참조하세요.</p>
+      <div class="procedure"><h6>인스턴스 프로파일을 만들고 여기에 역할을 저장하려면(AWS API)</h6><ol><li>
+          <p>인스턴스 프로파일 생성: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateInstanceProfile.html">CreateInstanceProfile</a></p>
+        </li><li>
+          <p>인스턴스 프로파일에 역할 추가: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AddRoleToInstanceProfile.html">AddRoleToInstanceProfile</a></p>
+        </li></ol></div>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_create_for-user.html">IAM 사용자의 역할 생성</div><div id="next" class="next-link" accesskey="n" href="./id_roles_create_for-idp.html">아이덴티티 페더레이션의 역할 만들기</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

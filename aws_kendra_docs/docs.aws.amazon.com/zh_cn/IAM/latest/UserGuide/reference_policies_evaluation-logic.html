@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>策略评估逻辑 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="reference_policies_evaluation-logic" /><meta name="default_state" content="reference_policies_evaluation-logic" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="description" content="了解如何在单个账户中评估 JSON 策略以返回允许或拒绝。要了解 AWS 如何评估跨账户访问策略，请参阅。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="用户指南" /><meta name="abstract" content="通过用户身份（身份验证）定义特定权限的策略（授权）控制对您的 AWS 资源的访问。" /><meta name="guide-locale" content="zh_cn" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="用户指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="用户指南" /><meta id="panorama-serviceConsolePage" value="策略评估逻辑" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>策略评估逻辑 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#reference_policies_evaluation-logic" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 用户,user,IAM 组,group,IAM 角色,role,权限策略,信任策略,策略,访问密钥,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "用户指南",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS Identity and Access Management 的参考信息",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM JSON 策略参考",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "策略评估逻辑",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#reference_policies_evaluation-logic" target="_blank" rel="noopener noreferrer" title="打开 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文档</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">用户指南</a></div><div id="page-toc-src"><a href="#policy-eval-reqcontext">处理请求上下文</a><a href="#policy-eval-basics">评估单个账户中的策略</a><a href="#policy-eval-denyallow">确定是允许还是拒绝账户内的请求</a><a href="#policies_evaluation_example">基于身份的策略和基于资源的策略评估示例</a><a href="#AccessPolicyLanguage_Interplay">显式拒绝和隐式拒绝之间的区别</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="reference_policies_evaluation-logic">策略评估逻辑</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>在主体尝试使用 AWS Management Console、AWS API 或 AWS CLI 时，该主体将向 AWS 发送<em>请求</em>。在 AWS 服务收到请求时，AWS 会完成几个步骤来确定是允许还是拒绝该请求。</p><div class="orderedlist">
+     
+     
+     
+     
+  <ol><li>
+      <p><b>身份验证</b> - AWS 首先对发出请求的主体进行身份验证（如有必要）。有一些服务（如 Amazon S3）不需要此步骤，它们允许来自匿名用户的某些请求。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-reqcontext">处理请求上下文</a></b> - AWS 处理在请求中收集的信息以确定应用于请求的策略。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-basics">评估单个账户中的策略</a></b> - AWS 评估所有策略类型，这会影响策略的评估顺序。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-denyallow">确定是允许还是拒绝账户内的请求</a></b> – AWS 然后根据请求上下文处理策略以确定是允许还是拒绝请求。</p>
+    </li></ol></div>
+    <h2 id="policy-eval-reqcontext">处理请求上下文</h2>
+    <p>AWS 处理请求以将以下信息收集到<em>请求上下文</em> 中：</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Actions (or operations）</b>（操作(或运营））- 主体希望执行的操作。</p>
+      </li><li class="listitem">
+        <p><b>Resources</b>（资源）- 对其执行操作的 AWS 资源对象。</p>
+      </li><li class="listitem">
+        <p><b>Principal</b>（主体）- 发送请求的用户、角色、联合身份用户或应用程序。有关主体的信息包括与该主体关联的策略。</p>
+      </li><li class="listitem">
+        <p><b>环境数据</b> – 有关 IP 地址、用户代理、SSL 启用状态或当天时间的信息。</p>
+      </li><li class="listitem">
+        <p><b>资源数据</b> – 与请求的资源相关的数据。这可能包括 DynamoDB 表名称或 Amazon EC2 实例上的标签等信息。</p>
+      </li></ul></div>
+    <p>AWS 随后使用此类信息来查找应用于请求上下文的策略。</p>
+   
+    <h2 id="policy-eval-basics">评估单个账户中的策略</h2>
+    <p>AWS 如何评估策略取决于适用于请求上下文的策略类型。可在单个 AWS 账户 中使用以下策略类型，它们按使用频率顺序列出。有关这些策略类型的更多信息，请参阅<a href="./access_policies.html">IAM 中的策略和权限。</a>。要了解 AWS 如何评估跨账户访问策略，请参阅<a href="./reference_policies_evaluation-logic-cross-account.html">跨账户策略评估逻辑</a>。</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+       
+    <ol><li>
+        <p><b>基于身份的策略</b> — 基于身份的策略附加到 IAM 身份（用户、用户组或角色）并向 IAM 实体（用户和角色）授予权限。如果仅基于身份的策略适用于请求，则 AWS 检查所有这些策略以找到至少一个 <code class="code">Allow</code> 。</p>
+      </li><li>
+        <p><b>Resource-based policies</b>（基于资源的策略）- 基于资源的策略将权限授予指定为主体的主体（账户、用户、角色和会话主体，如角色会话和 IAM 联邦用户）。权限定义主体可以对策略附加到的资源执行哪些操作。如果基于资源的策略和基于身份的策略同时适用于请求，则 AWS 检查所有这些策略以找到至少一个 <code class="code">Allow</code> 。评估基于资源的策略时，策略中指定的主体 ARN 决定了其他策略类型中的隐式拒绝是否适用于最终决策。</p>
+      </li><li>
+        <p><b>IAM 权限边界</b> - 权限边界是一项高级功能，借助该功能，您可以设置基于身份的策略可以授予 IAM 实体（用户或角色）的最大权限。当您设置实体的权限边界时，该实体只能执行其基于身份的策略和其权限边界同时允许的操作。某些情况下，权限边界中的隐式拒绝可能会限制由基于资源的策略所授予的权限。要了解更多信息，请稍后参阅本主题中的 <a href="#policy-eval-denyallow">确定是允许还是拒绝账户内的请求</a>。</p>
+      </li><li>
+        <p><b>AWS Organizations 服务控制策略 (SCP)</b> - Organizations SCP 指定企业或企业单元 (OU) 的最大权限。SCP 最大权限适用于成员账户中委托人的权限，包括每个 AWS 账户根用户。如果 SCP 存在，仅当基于身份的策略和基于资源的策略以及 SCP 允许该操作时，才向成员账户中的主体授予这些权限。如果权限边界和 SCP 同时存在，则边界、SCP 以及基于身份的策略必须全部允许操作。</p>
+      </li><li>
+        <p><b>Session policies</b>（会话策略）- 会话策略是高级策略，在以编程方式为角色或联合身份用户创建临时会话时，这些策略将作为参数进行传递。要以编程方式创建角色会话，请使用 <code class="code">AssumeRole*</code> API 操作之一。在执行该操作并传递会话策略时，生成的会话的权限是 IAM 实体的基于身份的策略与会话策略的交集。要创建联合用户会话，您需要使用 IAM 用户的访问密钥以编程方式调用 <code class="code">GetFederationToken</code> API 操作。基于资源的策略对会话策略权限评估具有不同的影响。这种差异取决于用户或角色的 ARN 还是会话的 ARN 在基于资源的策略中作为主体列出。有关更多信息，请参阅<a href="./access_policies.html#policies_session">会话策略</a>。</p>
+      </li></ol></div>
+    <p>请记住，任一项策略中的显式拒绝将覆盖允许。</p>
+     
+      <h3 id="policy-eval-basics-id-rdp">评估基于身份的策略以及基于资源的策略</h3>
+      <p>基于身份的策略和基于资源的策略向策略所附加到的身份或资源授予权限。在 IAM 实体（用户或角色）请求访问同一账户中的资源时，AWS 评估基于身份的策略和基于资源的策略授予的所有权限。生成的权限是指两种类型的权限的总和。如果基于身份的策略和/或基于资源的策略允许此操作，则 AWS 允许执行该操作。其中任一项策略中的显式拒绝将覆盖允许。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_policies_effective.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          评估基于身份的策略和基于资源的策略&#xA;        " />
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-bound">评估具有权限边界的基于身份的策略</h3>
+      <p>在 AWS 评估用户的基于身份的策略和权限边界时，生成的权限是这两种类别的交集。这意味着，当您通过现有基于身份的策略向用户添加权限边界时，您可能会减少用户可以执行的操作。或者，当您从用户删除权限边界时，您可能会增加用户可以执行的操作。其中任一项策略中的显式拒绝将覆盖允许。要查看有关如何使用权限边界评估其他策略类型的信息，请参阅<a href="./access_policies_boundaries.html#access_policies_boundaries-eval-logic">评估具有边界的有效权限</a>。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          评估基于身份的策略和权限边界&#xA;        " />
+          
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-scp">评估具有 Organizations SCP 的基于身份的策略</h3>
+      <p>在用户属于作为组织成员的账户时，生成的权限是用户的策略与 SCP 的交集。这意味着，操作必须由基于身份的策略和 SCP 同时允许。其中任一项策略中的显式拒绝将覆盖允许。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_scp-idp.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          评估基于身份的策略和 SCP&#xA;        " />
+          
+         
+         
+      </div>
+      <p>您可以在 AWS Organizations 中了解<a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">您的账户是否为某个组织的成员</a>。组织成员可能会受 SCP 的影响。要使用 AWS CLI 命令或 AWS API 操作查看该数据，您必须具有 Organizations 实体的 <code class="code">organizations:DescribeOrganization</code> 操作的权限。您必须具有额外的权限才能在 Organizations 控制台中执行该操作。要了解 SCP 是否拒绝访问特定的请求或更改您的有效权限，请与您的 AWS Organizations 管理员联系。</p>
+     
+   
+    <h2 id="policy-eval-denyallow">确定是允许还是拒绝账户内的请求</h2>
+    <p>假设主体向 AWS 发送请求以访问与主体的实体相同的账户中的资源。AWS 执行代码决定是应该允许还是拒绝请求。AWS 评估适用于请求上下文的所有策略。下面概括介绍了单个账户中有关这些策略的 AWS 评估逻辑。</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>默认情况下，除 AWS 账户根用户 外，所有请求都被隐式否定，具有完全访问权限。</p>
+      </li><li class="listitem">
+        <p>基于身份或基于资源的策略中的显式允许将覆盖此默认值。</p>
+      </li><li class="listitem">
+        <p>如果存在权限边界、Organizations SCP 或会话策略，它可能会使用隐式拒绝覆盖允许。</p>
+      </li><li class="listitem">
+        <p>任何策略中的显式拒绝将覆盖任何允许。</p>
+      </li></ul></div>
+    
+    <p>以下流程图提供了如何做出决定的详细信息。此流程图不涵盖基于资源的策略和其他类型策略中隐含拒绝的影响。</p>
+    <div class="mediaobject">
+       
+        <img src="images/PolicyEvaluationHorizontal111621.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        评估流程图&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+      
+
+       
+       
+       
+       
+    <ol><li>
+        <p><b>Deny evaluation</b>（拒绝评估）- 默认情况下，所有请求都被拒绝。这称为<a href="#AccessPolicyLanguage_Interplay">隐式拒绝</a>。AWS 执行代码评估账户中应用于请求的所有策略。其中包含 AWS Organizations SCP、基于资源的策略、基于身份的策略、IAM 权限边界和会话策略。在所有这些策略中，执行代码查找应用于请求的 <code class="code">Deny</code> 语句。这称为<a href="#AccessPolicyLanguage_Interplay">显式拒绝</a>。如果执行代码找到一个适用的显式拒绝，则代码将返回最终决定<b>拒绝</b>。如果没有显式拒绝，则执行代码评估会继续。</p>
+      </li><li>
+        <p><b>Organizations SCP</b> – 然后，执行代码会评估适用于请求的 AWS Organizations 服务控制策略（SCP）。SCP 适用于附加 SCP 的账户的主体。如果执行代码没有在 SCP 中找到任何适用的 <code class="code">Allow</code> 语句，则显式拒绝请求，即使拒绝是隐式的。执行代码将返回<b>拒绝</b>最终决定。如果没有 SCP，或者 SCP 允许所请求的操作，则执行代码评估继续。</p>
+      </li><li>
+        <p><b>基于资源的策略</b> — 在同一账户中，基于资源的策略会对策略评估产生不同的影响，具体取决于访问资源的主体类型以及基于资源的策略中允许的主体。根据主体的类型，<code class="code">Allow</code> 在基于资源的策略中可能会导致最终决定 <code class="code">Allow</code>，即使基于身份的策略、权限边界或会话策略中存在隐式拒绝。</p>
+        <p>对于大多数资源，您只需要在基于身份的策略或基于资源的策略中明确授予主体访问权限。<a href="./id_roles_compare-resource-policies.html">IAM 角色信任策略</a>和 <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html">KMS 密钥策略</a>是此逻辑的例外，因为它们必须明确允许<a href="./reference_policies_elements_principal.html">主体</a>的访问权限。</p>
+        <p>当指定的主体是 IAM 用户、IAM 角色或会话主体时，基于资源的策略逻辑会与其他策略类型有所不同。会话主体包括 IAM <a href="./reference_policies_elements_principal.html#principal-role-session">角色会话</a>或者 <a href="./reference_policies_elements_principal.html#sts-session-principals">IAM 联合身份用户会话</a>。如果基于资源的策略直接向提出请求的 IAM 用户或会话主体授予权限，则基于身份的策略、权限边界或会话策略中的隐式拒绝不会影响最终决策。</p>
+        <p>如果基于身份的策略、权限边界和会话策略中存在隐式拒绝，则下表有助于您了解基于资源的策略对不同主体类型的影响。</p>
+        <div class="table-container"><div class="table-contents"><table id="w339aac25c19c13c13c11b5b9"><thead><tr><th class="table-header" colspan="100"><div class="title">基于资源的策略和其他策略类型的隐式拒绝（同一账户）</div></th></tr>
+              <tr>
+                <th>提出请求的主体</th>
+                <th>基于资源的策略</th>
+                <th>基于身份的策略</th>
+                <th>权限边界</th>
+                <th>会话策略</th>
+                <th>结果</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>IAM 角色</td>
+                <td>不适用</td>
+                <td>不适用</td>
+                <td>不适用</td>
+                <td>不适用</td>
+                <td>不适用</td>
+                <td>角色本身无法提出请求。在担任角色之后，向角色会话发出请求。</td>
+              </tr>
+              <tr>
+                <td>IAM 角色会话</td>
+                <td>允许角色 ARN</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>DENY</td>
+                <td>权限边界和会话策略将作为最终决策的一部分进行评估。任何一项策略中的隐式拒绝都会导致拒绝决定。</td>
+              </tr>
+              <tr>
+                <td>IAM 角色会话</td>
+                <td>允许角色会话 ARN</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>允许</td>
+                <td>权限直接授予会话。其他策略类型不影响决策。</td>
+              </tr>
+              <tr>
+                <td>IAM 用户</td>
+                <td>允许 IAM 用户 ARN</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>不适用</td>
+                <td>允许</td>
+                <td>权限直接授予会话。其他策略类型不影响决策。</td>
+              </tr>
+              <tr>
+                <td>IAM 联合身份用户 (<code class="code">GetFederationToken</code>)</td>
+                <td>允许 IAM 用户 ARN</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>DENY</td>
+                <td>权限边界或会话策略中的隐式拒绝将导致 DENY。</td>
+              </tr>
+              <tr>
+                <td>IAM 联合身份用户 (<code class="code">GetFederationToken</code>)</td>
+                <td>允许 IAM 联合身份用户会话 ARN</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>隐式拒绝</td>
+                <td>允许</td>
+                <td>权限直接授予会话。其他策略类型不影响决策。</td>
+              </tr>
+              <tr>
+                <td>根用户</td>
+                <td>允许根用户 ARN</td>
+                <td>不适用</td>
+                <td>不适用</td>
+                <td>不适用</td>
+                <td>允许</td>
+                <td>根用户可以不受限制地访问 AWS 账户 中的所有资源。要了解如何在 AWS Organizations 中控制对账户的根用户的访问权限，请参阅《Organizations 用户指南》<em></em>中的<a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html">服务控制策略（SCP）</a>。</td>
+              </tr>
+              <tr>
+                <td>AWS 服务主体</td>
+                <td>允许 AWS 服务主体</td>
+                <td>不适用</td>
+                <td>不适用</td>
+                <td>不适用</td>
+                <td>允许</td>
+                <td>当基于资源的策略直接向 <a href="./reference_policies_elements_principal.html#principal-services">AWS 服务主体</a>，其他策略类型不会影响决策。</td>
+              </tr>
+            </table></div></div>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><b>IAM 角色</b>— 授予 IAM 角色 ARN 权限的基于资源的策略受权限边界或会话策略中隐式拒绝的限制。</p>
+            <p><b>角色示例 ARN</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:role/examplerole</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM 角色会话</b>— 在同一账户中，向 IAM 角色会话 ARN 授予权限的基于资源的策略直接向担任的角色会话授予权限。直接授予会话的权限不受基于身份的策略、权限边界或会话策略中的隐式拒绝的限制。当您担任角色并提出请求时，发出请求的主体是 IAM 角色会话 ARN，而不是角色本身的 ARN。</p>
+            <p><b>示例角色会话 ARN</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:assumed-role/examplerole/examplerolesessionname</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM 用户</b> – 在同一账户中，向 IAM 用户 ARN（不是联合身份用户会话）授予权限的基于资源的策略不受基于身份的策略或权限边界中隐式拒绝的限制。</p>
+            <p><b>示例 IAM 用户 ARN</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:user/exampleuser</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM 联合身份用户会话</b>— IAM 联合身份用户会话是通过调用 <a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a> 创建的会话。当联合身份用户发出请求时，发出请求的主体是联合身份用户 ARN，而不是联合身份的 IAM 用户的 ARN。在同一个账户中，将权限授予联合身份用户 ARN 的基于资源的策略直接将权限授予会话。直接授予会话的权限不受基于身份的策略、权限边界或会话策略中的隐式拒绝的限制。</p>
+            <p>但是，如果基于资源的策略向联合身份的 IAM 用户的 ARN 授予权限，则联合身份用户在会话期间发出的请求将受权限边界或会话策略中隐式拒绝的限制。</p>
+            <p><b>示例 IAM 联合身份用户会话 ARN</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:federated-user/exampleuser</code></code></pre>
+          </li></ul></div>
+      </li><li>
+        <p><b>Identity-based policies</b>（基于身份的策略）- 代码随后会检查主体的基于身份的策略。对于 IAM 用户，这包括用户策略和来自用户所属组的策略。如果没有基于身份的策略或者基于身份的策略中没有允许请求动作的语句，那么请求被隐式否定，代码返回 <b>Deny</b> 的一个最终决定。如果任何适用的基于身份的策略中的任何语句都允许请求的动作，则代码继续适用。</p>
+      </li><li>
+        <p><b>IAM 权限边界</b> - 代码随后会检查主体使用的 IAM 实体是否具有权限边界。如果用于设置权限边界的策略不允许所请求的操作，则请求会被隐式拒绝。代码将返回<b>拒绝</b>最终决定。如果没有权限边界，或者权限边界允许所请求的操作，则代码继续。</p>
+      </li><li>
+        <p><b>会话策略</b> – 然后代码检查主体是否为会话主体。会话主体包括 IAM 角色会话或者 IAM 联合身份用户会话。如果主体不是会话主体，执行代码将返回 <b>Allow</b> 的最终决定。</p>
+        <p>对于会话负责人，他的代码检查请求中是否传递了会话策略。您可以传递会话策略，同时使用 AWS CLI 或 AWS API 为某个角色或 IAM 联合身份用户获取临时凭证。</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>如果会话策略存在但不允许所请求的操作，则请求会被隐式拒绝。代码将返回<b>拒绝</b>最终决定。</p>
+          </li><li class="listitem">
+            <p>如果没有会话策略，则代码将检查主体是否为角色会话。如果主体是角色会话，那么请求是<b>已允许</b>。否则，请求被隐式拒绝，代码返回 <b>Deny</b> 的最终判决。</p>
+          </li><li class="listitem">
+            <p>如果会话策略在场并允许请求的动作，那么执行代码返回一个 <b>Allow</b> 的最终决策。</p>
+          </li></ul></div>
+      </li><li>
+        <p><b>Errors</b>（错误）- 如果 AWS 执行代码在评估过程中的任意点遇到错误，它将生成异常并关闭。</p>
+      </li></ol></div>
+
+   
+    <h2 id="policies_evaluation_example">基于身份的策略和基于资源的策略评估示例</h2>
+    <p>策略的最常见类型是基于身份的策略和基于资源的策略。当请求访问资源时，AWS 会评估策略为同一账户中<b>至少一个允许</b>所授予的所有权限。任一项策略中的显式拒绝将覆盖允许。</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>如果同一账户中基于身份的策略或基于资源的策略其中一个允许该请求，而另一个不允许，仍可允许该请求。</p></div></div>
+    <p>假定 Carlos 具有用户名 <code class="code">carlossalazar</code>，他尝试将文件保存到 <code class="code">carlossalazar-logs</code> Amazon S3 存储桶。</p>
+    <p>还假定将以下策略附加到 <code class="code">carlossalazar</code> IAM 用户。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowS3ListRead",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowS3Self",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::*log*"
+        }
+    ]
+}</code></pre>
+    <p>此策略中的 <code class="code">AllowS3ListRead</code> 语句允许 Carlos 查看账户中的所有存储桶的列表。<code class="code">AllowS3Self</code> 语句允许 Carlos 完全访问与其用户名同名的存储桶。<code class="code">DenyS3Logs</code> 语句拒绝 Carlos 访问名称中包含 <code class="code">log</code> 的任何 S3 存储桶。</p>
+    <p>此外，以下基于资源的策略（称为存储桶策略）附加到 <code class="code">carlossalazar</code> 存储桶。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:user/carlossalazar"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        }
+    ]
+}</code></pre>
+    <p>此策略指定只有 <code class="code">carlossalazar</code> 用户可以访问 <code class="code">carlossalazar</code> 存储桶。</p>
+    <p>当 Carlos 请求将文件保存到 <code class="code">carlossalazar-logs</code> 存储桶时，AWS 将确定应用于请求的策略。在此示例中，仅基于身份的策略和基于资源的策略适用。这些都是权限策略。由于没有任何权限边界适用，评估逻辑将减少为以下逻辑。</p>
+    <div class="mediaobject">
+       
+        <img src="images/EffectivePermissionsShort.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        评估流程图&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>AWS 首先检查应用于请求上下文的 <code class="code">Deny</code> 语句。它找到一个，因为基于身份的策略显式拒绝 Carlos 访问用于日志记录的任何 S3 存储桶。拒绝 Carlos 访问。</p>
+    <p>假设他随后意识到自己的错误，尝试将文件保存到 <code class="code">carlossalazar</code> 存储桶。AWS 检查 <code class="code">Deny</code> 语句，但未找到。然后，它检查权限策略。基于身份的策略和基于资源的策略均允许请求。因此，AWS 允许请求。如果其中任何一个显式拒绝了语句，则将拒绝请求。如果其中一种策略类型允许请求，而另一种不允许，则仍允许请求。</p>
+   
+    <h2 id="AccessPolicyLanguage_Interplay">显式拒绝和隐式拒绝之间的区别</h2>
+    <p>如果适用策略包含 <code class="code">Deny</code> 语句，则请求会导致显式拒绝。如果应用于请求的策略包含一个 <code class="code">Allow</code> 语句和一个 <code class="code">Deny</code> 语句，<code class="code">Deny</code> 语句优先于 <code class="code">Allow</code> 语句。将显式拒绝请求。</p>
+    <p>当没有适用的 <code class="code">Deny</code> 语句但也没有适用的 <code class="code">Allow</code> 语句时，会发生隐式拒绝。由于原定设置下拒绝访问 IAM 主体，因此必须显式允许他们执行操作。否则，将隐式拒绝他们访问。</p>
+    <p>在设计授权战略时，您必须创建包含 <code class="code">Allow</code> 语句的策略才能允许主体成功发出请求。但是，您可以选择显式拒绝和隐式拒绝的任意组合。</p>
+    <p>例如，您可以创建以下策略，其中包括允许的操作、隐式拒绝的操作和显式拒绝的操作。<code class="code">AllowGetList</code> 语句<b>允许</b>对 IAM 操作的只读权限，这些操作以 <code class="code">Get</code> 和 <code class="code">List</code> 为前缀。IAM 中的所有其他操作，例如 <code class="code">iam:CreatePolicy</code> 是<b>隐式拒绝</b>。<code class="code">DenyReports</code> 语句通过拒绝对包含 <code class="code">Report</code> 后缀（例如 <code class="code">iam:GetOrganizationsAccessReport</code>）的操作的访问权限，<b>显式拒绝</b>对 IAM 报告的访问权限。如果有人向此主体添加另一个策略以授予他们访问 IAM 报告的权限（例如 <code class="code">iam:GenerateCredentialReport</code>），由于这种明确拒绝，报告相关请求仍被拒绝。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowGetList",
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "DenyReports",
+            "Effect": "Deny",
+            "Action": "iam:*Report",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>Javascript 在您的浏览器中被禁用或不可用。</strong></p><p>要使用 Amazon Web Services 文档，必须启用 Javascript。请参阅浏览器的帮助页面以了解相关说明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文档惯例</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./reference_policies_elements_datatypes.html">支持的数据类型</div><div id="next" class="next-link" accesskey="n" href="./reference_policies_evaluation-logic-cross-account.html">跨账户策略评估逻辑</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此页面对您有帮助吗？- 是</div><div class="content"><p>感谢您对我们工作的肯定！</p><p>如果不耽误您的时间，请告诉我们做得好的地方，让我们做得更好。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此页面对您有帮助吗？- 否</div><div class="content"><p>感谢您告诉我们本页内容还需要完善。很抱歉让您失望了。</p><p>如果不耽误您的时间，请告诉我们如何改进文档。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

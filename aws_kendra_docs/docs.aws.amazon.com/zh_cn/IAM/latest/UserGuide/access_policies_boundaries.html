@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>IAM 实体的权限边界 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="access_policies_boundaries" /><meta name="default_state" content="access_policies_boundaries" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="description" content="了解策略如何可用于为用户或角色设置权限边界。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="用户指南" /><meta name="abstract" content="通过用户身份（身份验证）定义特定权限的策略（授权）控制对您的 AWS 资源的访问。" /><meta name="guide-locale" content="zh_cn" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="用户指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="用户指南" /><meta id="panorama-serviceConsolePage" value="IAM 实体的权限边界" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>IAM 实体的权限边界 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#access_policies_boundaries" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 用户,user,IAM 组,group,IAM 角色,role,权限策略,信任策略,策略,访问密钥,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "用户指南",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "适用于 AWS 资源的 Access Management",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 中的策略和权限。",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "IAM 实体的权限边界",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#access_policies_boundaries" target="_blank" rel="noopener noreferrer" title="打开 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文档</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">用户指南</a></div><div id="page-toc-src"><a href="#access_policies_boundaries-eval-logic">评估具有边界的有效权限</a><a href="#access_policies_boundaries-delegate">使用权限边界将责任委派给其他人</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="access_policies_boundaries">IAM 实体的权限边界</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS 对于 IAM 实体（用户或角色）支持<em>权限边界</em>。权限边界是一个高级功能，它使用托管策略设置基于身份的策略可以为 IAM 实体授予的最大权限。实体的权限边界仅允许实体执行其基于身份的策略和权限边界同时允许的操作。</p><p>有关策略类型的更多信息，请参阅<a href="./access_policies.html#access_policy-types">策略类型</a>。</p><p>您可以使用 AWS 托管策略或客户托管策略为 IAM 实体（用户或角色）设置边界。该策略限制用户或角色的最大权限。</p><p>例如，假设名为 <code class="code">ShirleyRodriguez</code> 的 IAM 用户应仅允许管理 Amazon S3、Amazon CloudWatch 和 Amazon EC2。要执行此规则，您可以使用以下策略为 <code class="code">ShirleyRodriguez</code> 用户设置权限边界：</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "cloudwatch:*",
+                "ec2:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre><p>当使用策略为用户设置权限边界时，它会限制用户的权限，但自己不提供权限。在本示例中，策略设置 <code class="code">ShirleyRodriguez</code> 的最大权限作为 Amazon S3、CloudWatch 和 Amazon EC2 中的所有操作。Shirley 无法在任何其他服务（包括 IAM）中执行操作，即使她有一个允许这样做的权限策略也是如此。例如，您可以将以下策略添加给 <code class="code">ShirleyRodriguez</code> 用户：</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "iam:CreateUser",
+    "Resource": "*"
+  }
+}</code></pre><p>此策略允许在 IAM 中创建用户。如果您将此权限策略附加到 <code class="code">ShirleyRodriguez</code> 用户，然后 Shirley 尝试创建用户，该操作会失败。它由于权限边界不允许执行 <code class="code">iam:CreateUser</code> 操作而失败。鉴于这两个策略，Shirley 无权在 AWS 中执行任何操作。您必须添加不同的权限策略以允许其他服务中的操作，例如 Amazon S3。或者，您也可以更新权限边界，以允许她在 IAM 中创建用户。</p>
+        <h2 id="access_policies_boundaries-eval-logic">评估具有边界的有效权限</h2>
+        <p>IAM 实体（用户或角色）的权限边界设置实体可以具有的最大权限。这可以更改该用户或角色的有效权限。实体的有效权限是影响用户或角色的所有策略所授予的权限。在账户中，基于身份的策略、基于资源的策略、权限边界、Organizations SCP 或会话策略可以影响实体的权限。有关不同类型的策略的更多信息，请参阅<a href="./access_policies.html">IAM 中的策略和权限。</a>。</p>
+        <p>如果以下任一策略类型显式拒绝操作的访问权限，则请求会被拒绝。多个权限类型向实体授予的权限更复杂。有关 AWS 如何评估策略的更多信息，请参阅<a href="./reference_policies_evaluation-logic.html">策略评估逻辑</a>。</p>
+        <p><b>基于身份的策略及边界</b> - 基于身份的策略是附加到用户、用户组或角色的内联或托管策略。基于身份的策略向实体授予权限，而权限边界限制这些权限。有效的权限是两种策略类型的交集。其中任一项策略中的显式拒绝将覆盖允许。</p>
+        <div class="mediaobject">
+             
+                <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                评估基于身份的策略和权限边界&#xA;            " />
+             
+             
+        </div>
+
+        <div class="variablelist">
+            <p><b>基于资源的策略</b> - 基于资源的策略控制指定的主体可以访问策略附加到的资源。</p>
+             
+             
+             
+        <dl>
+                <dt><span class="term"><em>针对 IAM 用户的基于资源的策略</em></span></dt>
+                <dd>
+                    <p>在同一账户中，向 IAM 用户 ARN（即非联合身份用户会话）授予权限的基于资源的策略不受基于身份的策略或权限边界中的隐式拒绝限制。</p>
+
+                    <div class="mediaobject">
+                         
+                            <img src="images/EffectivePermissions-rbp-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                            评估基于资源的策略、权限边界和基于身份的策略&#xA;                        " />
+                         
+                         
+                    </div>
+                </dd>
+             
+                <dt><span class="term"><em>针对 IAM 用户的基于资源的策略</em></span></dt>
+                <dd>
+                    <p><b>IAM 角色</b> — 授予 IAM 角色 ARN 权限的基于资源的策略受权限边界或会话策略中隐式拒绝的限制。</p>
+                    <p><b>IAM 角色会话</b> — 在同一账户中，向 IAM 角色会话 ARN 授予权限的基于资源的策略直接向所担任的角色会话授予权限。直接授予会话的权限不受基于身份的策略、权限边界或会话策略中的隐式拒绝的限制。当您担任角色并提出请求时，发出请求的主体是 IAM 角色会话 ARN，而不是角色本身的 ARN。</p>
+                </dd>
+             
+                <dt><span class="term"><em>针对 IAM 联合身份用户的基于资源的策略</em></span></dt>
+
+                <dd>
+                    <p><b>IAM 联合身份用户会话</b> — IAM 联合身份用户会话是通过调用 <a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a> 创建的会话。当联合身份用户发出请求时，发出请求的主体是联合身份用户 ARN，而不是联合身份的 IAM 用户的 ARN。在同一个账户中，将权限授予联合身份用户 ARN 的基于资源的策略直接将权限授予会话。直接授予会话的权限不受基于身份的策略、权限边界或会话策略中的隐式拒绝的限制。</p>
+                    <p>但是，如果基于资源的策略向联合身份的 IAM 用户的 ARN 授予权限，则联合身份用户在会话期间发出的请求将受权限边界或会话策略中隐式拒绝的限制。</p>
+                </dd>
+            </dl></div>
+        <p><b>Organizations SCP</b> – SCP 适用于整个 AWS 账户。它们限制账户中的主体所提出的每个请求的权限。IAM 实体（用户或角色）可能会发出受 SCP、权限边界和基于身份的策略影响的请求。在这种情况下，只有在所有三种策略类型都允许时，才允许发出该请求。有效的权限是的所有三种策略类型的交集。任一项策略中的显式拒绝将覆盖允许。</p>
+        <div class="mediaobject">
+             
+                <img src="images/EffectivePermissions-scp-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                评估 SCP、权限边界和基于身份的策略&#xA;            " />
+             
+             
+        </div>
+        <p>您可以在 AWS Organizations 中了解<a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">您的账户是否为某个组织的成员</a>。组织成员可能会受 SCP 的影响。要使用 AWS CLI 命令或 AWS API 操作查看该数据，您必须具有 Organizations 实体的 <code class="code">organizations:DescribeOrganization</code> 操作的权限。您必须具有额外的权限才能在 Organizations 控制台中执行该操作。要了解 SCP 是否拒绝访问特定的请求或更改您的有效权限，请与您的 AWS Organizations 管理员联系。</p>
+        <p><b>会话策略</b> – 会话策略是当您以编程方式为角色或联合身份用户创建临时会话时作为参数传递的高级策略。会话的权限来自用于创建会话的 IAM 实体（用户或角色）和会话策略。该实体的基于身份的策略权限受会话策略和权限边界所限制。这组策略类型的有效权限是所有三种策略类型的交集。任一项策略中的显式拒绝将覆盖允许。有关会话策略的更多信息，请参阅<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">会话策略</a>。</p>
+        <div class="mediaobject">
+             
+                <img src="images/EffectivePermissions-session-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                评估会话策略、权限边界和基于身份的策略&#xA;            " />
+             
+             
+        </div>
+     
+        <h2 id="access_policies_boundaries-delegate">使用权限边界将责任委派给其他人</h2>
+        <p>您可以使用权限边界将权限管理任务（如用户创建）委派给您账户中的 IAM 用户。这允许其他人在特定权限边界内代表您执行任务。</p>
+        <p>例如，假定 María 是 X 公司 AWS 账户 的管理员。她希望将用户创建责任委派给 Zhang。但是，她必须确保 Zhang 创建的用户符合以下公司规则：</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>用户不能使用 IAM 来创建或管理用户、组、角色或策略。</p>
+            </li><li class="listitem">
+                <p>拒绝用户访问 Amazon S3 <code class="code">logs</code> 存储桶，并且用户无法访问 <code class="code">i-1234567890abcdef0</code> Amazon EC2 实例。</p>
+            </li><li class="listitem">
+                <p>用户无法删除自己的边界策略。</p>
+            </li></ul></div>
+        <p>为执行这些规则，María 完成以下任务，下面包括其详细信息：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>María 创建 <code class="code">XCompanyBoundaries</code> 托管策略以用作账户中的所有新用户的权限边界。</p>
+            </li><li>
+                <p>María 创建 <code class="code">DelegatedUserBoundary</code> 托管策略并将其指定为 Zhang 的权限边界。Maria 记录了其管理员  用户的 ARN，并在策略中使用它来阻止 Zhang 访问它。</p>
+            </li><li>
+                <p>María 创建 <code class="code">DelegatedUserPermissions</code> 托管策略并将其作为 Zhang 的权限策略进行附加。</p>
+            </li><li>
+                <p>María 告诉 Zhang 他的新责任和限制。</p>
+            </li></ol></div>
+        <p><b>任务 1：</b>María 必须首先创建托管策略来为新用户定义边界。María 将允许 Zhang 向用户授予他们所需的权限策略，但她希望限制这些用户。为此，她创建以下名为 <code class="code">XCompanyBoundaries</code> 的客户托管策略。该策略执行以下操作：</p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>允许用户完全访问一些服务</p>
+            </li><li class="listitem">
+                <p>允许在 IAM 控制台中进行有限的自我管理访问。这意味着，他们可以在登录控制台后更改密码。他们不能设置初始密码。要允许此操作，请将 <code class="code">"*LoginProfile"</code> 操作添加到 <code class="code">AllowManageOwnPasswordAndAccessKeys</code> 语句。</p>
+            </li><li class="listitem">
+                <p>拒绝用户访问 Amazon S3 日志存储桶或 <code class="code">i-1234567890abcdef0</code> Amazon EC2 实例</p>
+            </li></ul></div>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "ServiceBoundaries",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "cloudwatch:*",
+                "ec2:*",
+                "dynamodb:*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "AllowIAMConsoleForCredentials",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListUsers",
+                "iam:GetAccountPasswordPolicy"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "AllowManageOwnPasswordAndAccessKeys",
+            "Effect": "Allow",
+            "Action": [
+                "iam:*AccessKey*",
+                "iam:ChangePassword",
+                "iam:GetUser",
+                "iam:*ServiceSpecificCredential*",
+                "iam:*SigningCertificate*"
+            ],
+            "Resource": ["arn:aws:iam::*:user/$<span>{</span>aws:username}"]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::logs",
+                "arn:aws:s3:::logs/*"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyEC2Production",
+            "Effect": "Deny",
+            "Action": "ec2:*",
+            "Resource": "arn:aws:ec2:*:*:instance/i-1234567890abcdef0"
+        }
+    ]
+}</code></pre>
+        <p>每个语句用于不同目的：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+        <ol><li>
+                <p>此策略的 <code class="code">ServiceBoundaries</code> 语句允许完全访问指定的 AWS 服务。这意味着，新用户在这些服务中的操作仅受附加到该用户的权限策略的限制。</p>
+            </li><li>
+                <p><code class="code">AllowIAMConsoleForCredentials</code> 语句允许访问以列出所有 IAM 用户。要在 AWS Management Console中导航<b>用户</b>页面，此访问权限是必需的。它还允许查看账户的密码要求，这在更改自己的密码时是必需的。</p>
+            </li><li>
+                <p><code class="code">AllowManageOwnPasswordAndAccessKeys</code> 语句允许用户仅管理其自己的控制台密码和编程访问密钥。如果 Zhang 或其他管理员为新用户提供具有完全 IAM 访问权限的权限策略，该语句是非常重要的。在这种情况下，该用户可能会更改自己或其他用户的权限。此语句可防止这种情况的发生。</p>
+            </li><li>
+                <p><code class="code">DenyS3Logs</code> 语句显式拒绝对 <code class="code">logs</code> 存储桶的访问。</p>
+            </li><li>
+                <p><code class="code">DenyEC2Production</code> 语句显式拒绝对 <code class="code">i-1234567890abcdef0</code> 实例的访问。</p>
+            </li></ol></div>
+        <p><b>任务 2：</b>María 希望允许 Zhang 创建所有 X 公司用户，但仅具有 <code class="code">XCompanyBoundaries</code> 权限边界。她创建以下名为 <code class="code">DelegatedUserBoundary</code> 的客户托管策略。此策略定义 Zhang 可以具有的最大权限。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "CreateOrChangeOnlyWithBoundary",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachUserPolicy",
+                "iam:CreateUser",
+                "iam:DeleteUserPolicy",
+                "iam:DetachUserPolicy",
+                "iam:PutUserPermissionsBoundary",
+                "iam:PutUserPolicy"
+            ],
+            "Resource": "*",
+            "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                 "iam:PermissionsBoundary": "arn:aws:iam::123456789012:policy/XCompanyBoundaries"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "CloudWatchAndOtherIAMTasks",
+            "Effect": "Allow",
+            "Action": [
+              "cloudwatch:*",
+              "iam:CreateAccessKey",
+              "iam:CreateGroup",
+              "iam:CreateLoginProfile",
+              "iam:CreatePolicy",
+              "iam:DeleteGroup",
+              "iam:DeletePolicy",
+              "iam:DeletePolicyVersion",
+              "iam:DeleteUser",
+              "iam:GetAccountPasswordPolicy",
+              "iam:GetGroup",
+              "iam:GetLoginProfile",
+              "iam:GetPolicy",
+              "iam:GetPolicyVersion",
+              "iam:GetRolePolicy",
+              "iam:GetUser",
+              "iam:GetUserPolicy",
+              "iam:ListAccessKeys",
+              "iam:ListAttachedRolePolicies",
+              "iam:ListAttachedUserPolicies",
+              "iam:ListEntitiesForPolicy",
+              "iam:ListGroups",
+              "iam:ListGroupsForUser",
+              "iam:ListMFADevices",
+              "iam:ListPolicies",
+              "iam:ListPolicyVersions",
+              "iam:ListRolePolicies",
+              "iam:ListSSHPublicKeys",
+              "iam:ListServiceSpecificCredentials",
+              "iam:ListSigningCertificates",
+              "iam:ListUserPolicies",
+              "iam:ListUsers",
+              "iam:SetDefaultPolicyVersion",
+              "iam:SimulateCustomPolicy",
+              "iam:SimulatePrincipalPolicy",
+              "iam:UpdateGroup",
+              "iam:UpdateLoginProfile",
+              "iam:UpdateUser"
+            ],
+            "NotResource": "arn:aws:iam::123456789012:user/Maria"
+        },
+        <span>{</span>
+            "Sid": "NoBoundaryPolicyEdit",
+            "Effect": "Deny",
+            "Action": [
+                "iam:CreatePolicyVersion",
+                "iam:DeletePolicy",
+                "iam:DeletePolicyVersion",
+                "iam:SetDefaultPolicyVersion"
+            ],
+            "Resource": [
+                "arn:aws:iam::123456789012:policy/XCompanyBoundaries",
+                "arn:aws:iam::123456789012:policy/DelegatedUserBoundary"
+            ]
+        },
+        <span>{</span>
+            "Sid": "NoBoundaryUserDelete",
+            "Effect": "Deny",
+            "Action": "iam:DeleteUserPermissionsBoundary",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+        <p>每个语句用于不同目的：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p><code class="code">CreateOrChangeOnlyWithBoundary</code> 语句允许 Zhang 创建 IAM 用户，但仅当他使用 <code class="code">XCompanyBoundaries</code> 策略设置权限边界时。此语句还允许他为现有用户设置权限边界，但仅使用该相同策略。最后，此语句允许 Zhang 管理设置了此权限边界的用户的权限策略。</p>
+            </li><li>
+                <p><code class="code">CloudWatchAndOtherIAMTasks</code> 语句允许 Zhang 完成其他用户、组和策略管理任务。他有权重置密码并为 <code class="code">NotResource</code> 策略元素中未列出的任何 IAM 用户创建访问密钥。这使他能够帮助用户解决登录问题。</p>
+            </li><li>
+                <p><code class="code">NoBoundaryPolicyEdit</code> 语句拒绝 Zhang 访问以更新 <code class="code">XCompanyBoundaries</code> 策略。不允许他更改用于为自己或其他用户设置权限边界的任何策略。</p>
+            </li><li>
+                <p><code class="code">NoBoundaryUserDelete</code> 语句拒绝 Zhang 访问以便为他或其他用户删除权限边界。</p>
+            </li></ol></div>
+        <p>María 然后将 <code class="code">DelegatedUserBoundary</code> 策略指定为 <code class="code">Zhang</code> 用户的<a href="./id_users_change-permissions.html#users_change_permissions-set-boundary-console">权限边界</a>。</p>
+        <p><b>任务 3：</b>由于权限边界限制最大权限，但自己不授予访问权限，Maria 必须为 Zhang 创建权限策略。她创建以下名为 <code class="code">DelegatedUserPermissions</code> 的策略。此策略定义 Zhang 在定义的边界内可以执行的操作。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "IAM",
+            "Effect": "Allow",
+            "Action": "iam:*",
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "CloudWatchLimited",
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:GetDashboard",
+                "cloudwatch:GetMetricData",
+                "cloudwatch:ListDashboards",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:ListMetrics"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "S3BucketContents",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::ZhangBucket"
+        }
+    ]
+}</code></pre>
+        <p>每个语句用于不同目的：</p>
+        <div class="orderedlist">
+             
+             
+             
+        <ol><li>
+                <p>此策略的 <code class="code">IAM</code> 语句允许 Zhang 完全访问 IAM。但是，由于他的权限边界只允许某些 IAM 操作，他的有效 IAM 权限仅受他的权限边界限制。</p>
+            </li><li>
+                <p><code class="code">CloudWatchLimited</code> 语句允许 Zhang 在 CloudWatch 中执行五种操作。他的权限边界允许 CloudWatch 中的所有操作，因此他的有效 CloudWatch 权限仅受他的权限策略限制。</p>
+            </li><li>
+                <p><code class="code">S3BucketContents</code> 语句允许 Zhang 列出 <code class="code">ZhangBucket</code> Amazon S3 存储桶。但是，他的权限边界不允许任何 Amazon S3 操作，因此无论他的权限策略如何，他都无法执行任何 S3 操作。</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>Zhang 的策略允许他创建一个用户，然后可以访问自己无法访问的 Amazon S3 资源。通过委托这些管理操作，Maria 实际上相信张能够访问 Amazon S3。</p></div></div>
+            </li></ol></div>
+        <p>María 然后将 <code class="code">DelegatedUserPermissions</code> 策略作为 <code class="code">Zhang</code> 用户的权限策略进行附加。</p>
+        <p><b>任务 4：</b>她向 Zhang 提供创建新用户的说明。她告诉他，他可以创建具有所需任何权限的新用户，但他必须为他们分配 <code class="code">XCompanyBoundaries</code> 策略作为权限边界。</p>
+        <p>Zhang 完成以下任务：</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+             
+             
+        <ol><li>
+                <p>Zhang 使用 AWS Management Console <a href="./id_users_create.html#id_users_create_console">创建用户</a>。他为该用户键入用户名 <code class="code">Nikhil</code> 并启用控制台访问。他清除 <b>Requires password reset</b>（需要重置密码）旁边的复选框，因为上述策略仅允许用户在登录到 IAM 控制台后才能更改密码。</p>
+            </li><li>
+                <p>在 <b>Set permissions (设置权限)</b> 页面上，Zhang 选择允许 Nikhil 执行其工作的 <b>IAMFullAccess</b> 和 <b>AmazonS3ReadOnlyAccess</b> 权限策略。</p>
+            </li><li>
+                <p>Zhang 跳过<b>设置权限边界</b>部分，忘记 María 的说明。</p>
+            </li><li>
+                <p>Zhang 查看用户详细信息并选择<b>创建用户</b>。</p>
+                <p>操作失败，并且拒绝访问。Zhang 的 <code class="code">DelegatedUserBoundary</code> 权限边界要求他创建的任何用户都将 <code class="code">XCompanyBoundaries</code> 策略用作权限边界。</p>
+            </li><li>
+                <p>Zhang 返回到上一页。在<b>设置权限边界</b>部分中，他选择了 <code class="code">XCompanyBoundaries</code> 策略。</p>
+            </li><li>
+                <p>Zhang 查看用户详细信息并选择<b>创建用户</b>。</p>
+                <p>将创建用户。</p>
+            </li></ol></div>
+        <p>当 Nikhil 登录时，他有权访问 IAM 和 Amazon S3，但权限边界拒绝的操作除外。例如，他可以在 IAM 中更改自己的密码，但无法创建另一个用户或编辑他的策略。Nikhil 具有对 Amazon S3 的只读访问权限。</p>
+        <p>如果某个人在 <code class="code">logs</code> 存储桶中添加基于资源的策略以允许 Nikhil 将对象放入该存储桶中，他仍然无法访问该存储桶。原因是，其权限边界显式拒绝对 <code class="code">logs</code> 存储桶执行的任何操作。任何策略类型中的显式拒绝都会导致请求被拒绝。不过，如果附加到 Secrets Manager 密钥的基于资源的策略允许 Nikhil 执行 <code class="code">secretsmanager:GetSecretValue</code> 操作，则 Nikhil 可以检索和解密该密钥。原因是，其权限边界未显式拒绝 Secrets Manager 操作，并且权限边界中的隐式拒绝不限制基于资源的策略。</p>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>Javascript 在您的浏览器中被禁用或不可用。</strong></p><p>要使用 Amazon Web Services 文档，必须启用 Javascript。请参阅浏览器的帮助页面以了解相关说明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文档惯例</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access_policies_managed-deprecated.html">已弃用的 AWS 托管策略</div><div id="next" class="next-link" accesskey="n" href="./access_policies_identity-vs-resource.html">身份与资源</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此页面对您有帮助吗？- 是</div><div class="content"><p>感谢您对我们工作的肯定！</p><p>如果不耽误您的时间，请告诉我们做得好的地方，让我们做得更好。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此页面对您有帮助吗？- 否</div><div class="content"><p>感谢您告诉我们本页内容还需要完善。很抱歉让您失望了。</p><p>如果不耽误您的时间，请告诉我们如何改进文档。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies_boundaries.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

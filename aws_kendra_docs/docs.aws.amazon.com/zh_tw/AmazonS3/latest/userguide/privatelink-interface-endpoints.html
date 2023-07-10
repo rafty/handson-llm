@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>適用於 Amazon S3 的 AWS PrivateLink - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="privatelink-interface-endpoints" /><meta name="default_state" content="privatelink-interface-endpoints" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="description" content="使用 虛擬私有雲端 (VPC) 中的 AWS PrivateLink 界面 VPC 端點，連線至 Amazon S3。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="使用者指南" /><meta name="abstract" content="了解如何使用 Amazon Simple Storage Service (Amazon S3) 從任何地方存放和擷取任何數量的資料。本指南說明 Amazon S3 概念 (例如儲存貯體、物件與相關組態)，並且包含常見操作的程式碼範例。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="使用者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="使用者指南" /><meta id="panorama-serviceConsolePage" value="適用於 Amazon S3 的 AWS PrivateLink" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>適用於 Amazon S3 的 AWS PrivateLink - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#privatelink-interface-endpoints" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="keywords" content="S3,Amazon S3,S3 使用者指南,Amazon S3 使用者指南,Amazon 使用者指南,s3 儲存貯體,s3 物件,雲端儲存空間,資料儲存體" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "使用者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 安全性",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "適用於 Amazon S3 的 AWS PrivateLink",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#privatelink-interface-endpoints" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">使用者指南</a></div><div id="page-toc-src"><a href="#types-of-vpc-endpoints-for-s3">VPC 端點的類型</a><a href="#privatelink-limitations">適用於 Amazon S3 之 AWS PrivateLink 的約束和限制</a><a href="#s3-creating-vpc">建立一個 VPC 端點</a><a href="#accessing-s3-interface-endpoints">存取 Amazon S3 介面端點</a><a href="#private-dns">私有 DNS</a><a href="#accessing-bucket-and-aps-from-interface-endpoints">從 S3 界面端點存取儲存貯體、存取點和 Amazon S3 控制 API 操作</a><a href="#updating-on-premises-dns-config">更新內部部署 DNS 組態</a><a href="#creating-vpc-endpoint-policy">建立 VPC 端點政策</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="privatelink-interface-endpoints">適用於 Amazon S3 的 AWS PrivateLink</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>透過 AWS PrivateLink for Amazon S3，您可以在 Virtual Private Cloud (VPC) 中佈建<em>介面 VPC 端點</em> (介面端點)。可以從 VPN 和 AWS Direct Connect 的內部部署或 VPC 對等互連上的不同 AWS 區域 的應用程式中，直接存取這些端點。</p><p>介面端點由一個或多個彈性網路介面 (ENI) 來表示，這些是在 VPC 的子網路中指派的私有 IP 地址。透過界面端點傳送到 Amazon S3 的請求會保留在 Amazon 網路。您也可以透過 AWS Direct Connect 或 AWS Virtual Private Network (AWS VPN)，從內部部署應用程式存取 VPC 中的介面端點。如需有關如何將 VPC 與內部部署網路連線的詳細資訊，請參閱<a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html">AWS Direct Connect《 使用者指南》</a>和<a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPN《 使用者指南》</a>。</p><p>如需有關介面端點的一般資訊，請參閱<em>《AWS PrivateLink 指南》</em>中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html">介面 VPC 端點 (AWS PrivateLink)</a>。</p><div class="highlights" id="inline-topiclist"><h6>主題</h6><ul><li><a href="#types-of-vpc-endpoints-for-s3">適用於 Amazon S3 的 VPC 端點類型</a></li><li><a href="#privatelink-limitations">適用於 Amazon S3 之 AWS PrivateLink 的約束和限制</a></li><li><a href="#s3-creating-vpc">建立一個 VPC 端點</a></li><li><a href="#accessing-s3-interface-endpoints">存取 Amazon S3 介面端點</a></li><li><a href="#private-dns">私有 DNS</a></li><li><a href="#accessing-bucket-and-aps-from-interface-endpoints">從 S3 界面端點存取儲存貯體、存取點和 Amazon S3 控制 API 操作</a></li><li><a href="#updating-on-premises-dns-config">更新內部部署 DNS 組態</a></li><li><a href="#creating-vpc-endpoint-policy">為 Amazon S3 建立 VPC 端點政策</a></li></ul></div>
+    <h2 id="types-of-vpc-endpoints-for-s3">適用於 Amazon S3 的 VPC 端點類型</h2>
+    <p>您可以使用兩種類型的 VPC 端點來存取 Amazon S3：<em>閘道端點</em>和<em>界面端點</em> (使用 AWS PrivateLink)。<em>閘道端點</em>是您在路由表中指定的閘道，用於透過 AWS 網路從您的 VPC 存取 Amazon S3。<em>界面端點</em>使用私有 IP 地址，將請求從您的 VPC 內部、內部部署或使用 VPC 對等互連或 AWS Transit Gateway 在其他 AWS 區域 的 VPC 路由至 Amazon S3，來擴展閘道端點的功能。如需詳細資訊，請參閱<a href="https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html">什麼是 VPC 對等互連？</a>和 <a href="https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/transit-gateway-vs-vpc-peering.html">Transit Gateway 與 VPC 對等互連</a>。</p>
+    <p>介面端點與閘道端點相容。如果 VPC 中具有現有的閘道端點，則可以在同一 VPC 中使用兩種類型的端點。</p>
+    <div class="table-container"><div class="table-contents"><table id="w1871aac19c23c11b7"><thead>
+          <tr>
+            <th>
+              <p>適用於 Amazon S3 的閘道端點</p>
+            </th>
+            <th>
+              <p>適用於 Amazon S3 的介面端點</p>
+            </th>
+          </tr>
+        </thead>
+          <tr>
+            <td colspan="2">
+              
+              <p>在這兩種情況下，您的網路流量都保留在 AWS 網路上。</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>使用 Amazon S3 公有 IP 地址</p>
+            </td>
+            <td>
+              <p>使用 VPC 中的私有 IP 地址來存取 Amazon S3</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>使用相同的 Amazon S3 DNS 名稱</p>
+            </td>
+            <td>
+              <p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#accessing-s3-interface-endpoints">需要端點特定 Amazon S3 DNS 名稱</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>不允許從內部部署存取</p>
+            </td>
+            <td>
+              <p>允許從內部部署存取</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>不允許從其他 AWS 區域 存取</p>
+            </td>
+            <td>
+              <p>允許使用 VPC 對等互連或 AWS Transit Gateway 從另一個 AWS 區域 的 VPC 存取</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>不計費</p>
+            </td>
+            <td>
+              <p>計費</p>
+            </td>
+          </tr>
+        </table></div></div>
+    <p>如需有關閘道端點的詳細資訊，請參閱<em>《AWS PrivateLink 指南》</em>中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">閘道 VPC 端點</a>。</p>
+     
+      <h2 id="privatelink-limitations">適用於 Amazon S3 之 AWS PrivateLink 的約束和限制</h2>
+      <p>VPC 限制適用於 Amazon S3 的 AWS PrivateLink。如需詳細資訊，請參閱《AWS PrivateLink 指南》<em></em>中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations">界面端點考量事項</a>和 <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-limits-endpoints.html">AWS PrivateLink 配額</a>。此外，適用下列限制。</p>
+    <p>適用於 Amazon S3 的 AWS PrivateLink 不支援下列項目：</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="http://aws.amazon.com/compliance/fips/" rel="noopener noreferrer" target="_blank"><span>聯邦資訊處理標準 (FIPS) 端點</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+      </li><li class="listitem">
+        <p><a href="./WebsiteEndpoints.html">網站端點</a></p>
+      </li><li class="listitem">
+        <p><a href="./VirtualHosting.html#deprecated-global-endpoint">舊版全域端點</a></p>
+      </li><li class="listitem">
+        <p>在不同 AWS 區域 的儲存貯體之間使用 <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html">CopyObject</a> 或 <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html">UploadPartCopy</a>。</p></li><li class="listitem">
+        <p>Transport Layer Security (TLS) 1.1</p>
+      </li></ul></div>
+     
+    <h2 id="s3-creating-vpc">建立一個 VPC 端點</h2>
+    <p>如要建立 VPC 介面端點，請參閱《<em>AWS PrivateLink 指南</em>》中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html#create-interface-endpoint-aws">建立 VPC 端點</a>。</p>
+   
+      <h2 id="accessing-s3-interface-endpoints">存取 Amazon S3 介面端點</h2>
+      
+      <p>在您建立介面端點時，Amazon S3 會產生兩種類型的端點特定 S3 DNS 名稱：<em>區域</em>和<em>地區</em>。</p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><em>區域</em> DNS 名稱包含唯一的 VPC 端點 ID、服務 ID、AWS 區域 及其名稱中的 <code class="code">vpce.amazonaws.com</code>。例如，針對 VPC 端點 ID<code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code>，產生的 DNS 名稱可能類似於 <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>.s3.us-east-1.vpce.amazonaws.com</code>。</p>
+        </li><li class="listitem">
+          <p><em>地區</em> DNS 名稱包含可用區域，例如 <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>-<b>us-east-1a.</b>s3.us-east-1.vpce.amazonaws.com</code>。如果您的架構可隔離可用區域，則可以使用此選項。例如，您可以將其用於故障遏止或降低區域資料傳輸成本。</p>
+        </li></ul></div>
+      <p>端點特定 S3 DNS 名稱可以從 S3 公有 DNS 網域解析。</p>
+      
+     
+    <h2 id="private-dns">私有 DNS</h2>
+    <p>VPC 界面端點的私有 DNS 選項會簡化透過 VPC 端點的 S3 流量路由，並協助您利用應用程式可用成本最低的網路路徑。您可以使用私有 DNS 選項路由區域 S3 流量，而無需更新 S3 用戶端，以使用界面端點的端點特定 DNS 名稱或管理 DNS 基礎設施。啟用私有 DNS 名稱後，區域 S3 DNS 查詢會針對下列端點解析 AWS PrivateLink 的私有 IP 地址：</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>區域儲存貯體端點 (例如，<code class="code">s3.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>控制端點 (例如，<code class="code">s3-control.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>存取點端點 (例如，<code class="code">s3-accesspoint.us-east-1.amazonaws.com</code>)</p>
+      </li></ul></div>
+    <p>若您的 VPC 中有閘道端點，您可以在界面端點，透過現有 S3 閘道端點和內部部署請求，自動路由 VPC 內請求。這種方法可讓您免費使用 VPC 內流量的閘道端點，針對 VPC 內流量來最佳化網路成本。您的內部部署應用程式可以在傳入 Resolver 端點的協助下使用 AWS PrivateLink。Amazon 會為您的 VPC 提供 DNS 伺服器，名為 Route 53 Resolver。傳入 Resolver 端點會將 DNS 查詢從內部部署網路轉送至 Route 53 Resolver。</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>若要在使用<b>僅針對輸入端點啟用私有 DNS</b> 時利用成本最低的網路路徑，VPC 中必須有閘道端點。選取<b>僅針對輸入端點啟用私有 DNS</b> 時，閘道端點的存在有助於確保 VPC 內流量皆是透過 AWS 私有網路路由。選取<b>僅針對輸入端點啟用私有 DNS</b> 選項時，必須維護此閘道端點。若要刪除閘道端點，必須先清除<b>僅針對輸入端點啟用私有 DNS</b>。</p><p>如果您想要將現有界面端點更新為<b>僅針對輸入端點啟用私有 DNS</b>，請先確認您的 VPC 具有 S3 閘道端點。如需有關閘道端點和管理私有 DNS 名稱的詳細資訊，請參閱《AWS PrivateLink 指南》<em></em>中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">閘道 VPC 端點</a>和<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/manage-dns-names.html">管理 DNS 名稱</a>。</p></div></div>
+    <p>只有支援閘道端點的服務才能使用<b>僅針對輸入端點啟用私有 DNS</b> 選項。</p>
+    <p>如需詳細了解使用<b>僅針對輸入端點啟用私有 DNS</b>建立的 VPC 端點，請參閱《AWS PrivateLink 指南》<em></em>中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html">建立界面端點</a>。</p>
+    <p><b>使用 VPC 主控台</b></p>
+    <p>在主控台中，您有兩個選項：<b>啟用 DNS 名稱</b>和<b>僅針對輸入端點啟用私有 DNS</b>。<b>啟用 DNS 名稱</b>是由 AWS PrivateLink 支援的選項。透過使用<b>啟用 DNS 名稱</b>選項，您可以使用 Amazon 與 Amazon S3 的私有連線，同時向預設公有端點 DNS 名稱傳送請求。啟用此選項後，客戶可以利用其應用程式可用的最低成本網路路徑。</p>
+    <p>在 Amazon S3 的現有或新 VPC 界面端點上啟用私有 DNS 名稱時，根據預設，系統會選取<b>僅針對輸入端點啟用私有 DNS</b> 選項。如果選取此選項，針對內部部署流量，您的應用程式只會使用界面端點。此 VPC 內流量會自動使用成本較低的閘道端點。或者，您可以清除<b>僅針對傳入端點啟用私有 DNS</b>，以透過界面端點路由所有 S3 請求。</p>
+    <p><b>使用 AWS CLI</b></p>
+    <p> 如果您不指定 <code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code> 的值，則會預設為 <code class="code">true</code>。但是，在 VPC 套用您的設定之前，會先執行檢查以確定 VPC 中存在閘道端點。如果 VPC 中存在閘道端點，則表示呼叫成功。若無，您看到以下錯誤訊息：</p>
+    <p><strong class="errortext"><code>若要將 PrivateDnsOnlyForInboundResolverEndpoint 設為 true，VPC <code class="replaceable">vpce_id</code> 必須針對服務擁有閘道端點。</code></strong></p>
+    <p><b>針對新的 VPC 界面端點</b></p>
+    <p>使用 <code class="code">private-dns-enabled</code> 和 <code class="code">dns-options</code> 屬性透過命令列啟用私有 DNS。<code class="code">dns-options</code> 屬性中的 <code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code> 選項必須設定為 <code class="code">true</code>。以您自己的資訊取代 <code class="code"><code class="replaceable">user input placeholders</code></code>。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 create-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--service-name <code class="replaceable">s3-service-name</code> \
+--vpc-id <code class="replaceable">client-vpc-id</code> \
+--subnet-ids <code class="replaceable">client-subnet-id</code> \ 
+--vpc-endpoint-type Interface  \
+--private-dns-enabled  \
+--ip-address-type <code class="replaceable">ip-address-type</code> \ 
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true \
+--security-group-ids <code class="replaceable">client-sg-id</code> 
+    </code></pre>
+    <p><b>針對現有 VPC 端點</b></p>
+    <p>如果您想對現有 VPC 端點使用私有 DNS，請使用下列範例命令，並以您自己的資訊取代 <code class="code"><code class="replaceable">user input placeholders</code></code>。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=false
+    </code></pre>
+    <p>如果您想要更新現有 VPC 端點，以僅針對傳入 Resolver 啟用私有 DNS，請使用下列範例，並以您自己的值取代範例值。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true
+    </code></pre>
+   
+    <h2 id="accessing-bucket-and-aps-from-interface-endpoints">從 S3 界面端點存取儲存貯體、存取點和 Amazon S3 控制 API 操作</h2>
+    <p>您可以使用 AWS CLI 或 AWS SDK，透過 S3 界面端點來存取儲存貯體、S3 存取點和 Amazon S3 控制 API 操作。</p>
+    <p>下圖顯示了 VPC 主控台<b>詳細資訊</b>標籤，您可以在其中找到 VPC 端點的 DNS 名稱。在此範例中，<em>VPC 端點 ID (vpce-id)</em> 為 <code class="code">vpce-0e25b8cdd720f900e</code>，<em>DNS 名稱</em>為 <code class="code">*.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code>。</p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <div class="mediaobject">
+       
+       
+        <img src="images/vpc-console-details-tab.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;        VPC 主控台的詳細資料標籤。&#xA;      " style="max-width:100%" />
+       
+    </div>
+    <p>使用 DNS 名稱存取資源時，請以適當的值取代 <code class="replaceable">*</code>。取代 <code class="code">*</code> 的適當值如下：</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">bucket</code></p>
+      </li><li class="listitem">
+        <p><code class="code">accesspoint</code></p>
+      </li><li class="listitem">
+        <p><code class="code">control</code></p>
+      </li></ul></div>
+    <p>例如，若要存取儲存貯體，請使用類似以下的 <em>DNS 名稱</em>：</p>
+    <p>
+      <code class="code">bucket.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code></p>
+    <p>如需相關範例，了解如何使用 DNS 名稱存取儲存貯體、存取點和 Amazon S3 控制 API 操作，請參閱以下 <a href="#privatelink-aws-cli-examples">AWS CLI 範例</a> 和 <a href="#privatelink-aws-sdk-examples">AWS SDK 範例</a> 章節。</p>
+    <p>如需如何檢視端點特定 DNS 名稱的詳細資訊，請參閱《VPC 使用者指南》<em></em>中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/view-vpc-endpoint-service-dns-name.html">檢視端點服務私有 DNS 名稱組態</a>。</p>
+     
+      <h3 id="privatelink-aws-cli-examples">AWS CLI 範例</h3>
+      <p>使用 <code class="code">--region</code> 和 <code class="code">--endpoint-url</code> 參數，可透過AWS CLI 命令的 S3 界面端點來存取 S3 儲存貯體、S3 存取點或 Amazon S3 控制 API 操作。</p>
+       
+        <h6>範例：使用端點 URL 列出儲存貯體中的物件</h6>
+        <p>在下列範例中，將儲存貯體名稱 <code class="code"><code class="replaceable">my-bucket</code></code>、區域 <code class="code"><code class="replaceable">us-east-1</code></code> 和 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 的 DNS 名稱取代為您自己的資訊。</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3 ls s3://<code class="replaceable">my-bucket</code>/ --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+      <p><b>範例：使用端點 URL 從存取點列出物件</b></p>
+      <div class="itemizedlist">
+                 
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>方法 1</b> — 搭配使用存取點的 Amazon Resource Name (ARN) 與存取點端點</p>
+          
+          <p>將 ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code></code>、區域 <code class="code"><code class="replaceable">us-east-1</code></code> 和 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 取代為您的資訊。</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+          <p>如果無法順利執行命令，請更新 AWS CLI 至最新版本，然後再試一次。如需更新相關指示，請參閱《AWS Command Line Interface 使用者指南》<em></em>中的<a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions">安裝或更新 AWS CLI 的最新版本</a>。</p>
+        </li><li class="listitem">
+          <p><b>方法 2</b> — 將存取點的別名與區域儲存貯體端點搭配使用</p>
+          <p>在下列範例中，將存取點別名 <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code>、區域 <code class="code"><code class="replaceable">us-east-1</code></code> 和 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 取代為您的資訊。</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li><li class="listitem">
+          <p><b>方法 3</b> — 將存取點的別名與存取點端點搭配使用</p>
+          <p>首先，若要使用包含在主機名稱中的儲存貯體來建構 S3 端點，請將 <code class="code">aws s3api</code> 的地址樣式設定為 <code class="code">virtual</code> 以供使用。如需 <code class="code">AWS configure</code> 相關資訊，請參閱《AWS Command Line Interface 使用者指南》<em></em>中的<a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html">組態和憑證檔案設定</a>。</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws configure set default.s3.addressing_style virtual</code></pre>
+          <p>接著，在下列範例中，將存取點別名 <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code>、區域 <code class="code"><code class="replaceable">us-east-1</code></code> 和 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 取代為您的資訊。如需存取點別名的詳細資訊，請參閱 <a href="./access-points-alias.html">針對您的 S3 儲存貯體存取點使用儲存貯體樣式別名</a></p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li></ul></div>     
+       
+        <h6>範例：使用端點 URL 列出具有 S3 控制 API 操作的任務</h6>
+        <p>在下列範例中，將區域 <code class="code"><code class="replaceable">us-east-1</code></code>、VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 和 帳戶 ID <code class="code"><code class="replaceable">12345678</code></code> 取代為您的資訊。</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3control --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code> list-jobs --account-id <code class="replaceable">12345678</code></code></pre>
+     
+     
+      <h3 id="privatelink-aws-sdk-examples">AWS SDK 範例</h3>
+      <p>若要在使用 AWS SDK 時，透過 S3 界面端點來存取儲存貯體、S3 存取點和 Amazon S3 控制 API 操作，請更新您的 SDK 至最新版本。接著，設定您的用戶端使用端點 URL，以透過 S3 界面端點來存取儲存貯體、存取點或 Amazon S3 控制 API 操作。</p>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>SDK for Python (Boto3)</dt><dd tab-id="sdk-for-python-(boto3)">
+             
+              <h6>範例：使用端點 URL 存取 S3 儲存貯體</h6>
+              <p>在下列範例中，將區域 <code class="code"><code class="replaceable">us-east-1</code></code> 和 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">s3_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>範例：使用端點 URL 存取 S3 存取點</h6>
+              <p>在下列範例中，將區域 <code class="code"><code class="replaceable">us-east-1</code></code> 和 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">ap_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>範例：使用端點 URL 存取 Amazon S3 控制 API</h6>
+              <p>在下列範例中，將區域 <code class="code"><code class="replaceable">us-east-1</code></code> 和 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">control_client = session.client(
+service_name='s3control',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+          </dd>
+        <dt>SDK for Java 1.x</dt><dd tab-id="sdk-for-java-1.x">
+             
+              <h6>範例：使用端點 URL 存取 S3 儲存貯體</h6>
+              <p>在下列範例中，將 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+List&lt;Bucket&gt; buckets = s3.listBuckets();</code></pre>
+             
+              <h6>範例：使用端點 URL 存取 S3 存取點</h6>
+              <p>在下列範例中，將 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 和 ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/prod</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+final AmazonS3 s3accesspoint = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+ObjectListing objects = s3accesspoint.listObjects("arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/prod</code>");</code></pre>
+             
+              <h6>範例：使用端點 URL 存取 Amazon S3 控制 API 操作</h6>
+              <p>在下列範例中，將 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+final AWSS3Control s3control = AWSS3ControlClient.builder().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+final ListJobsResult jobs = s3control.listJobs(new ListJobsRequest());</code></pre>
+          </dd>
+        <dt>SDK for Java 2.x</dt><dd tab-id="sdk-for-java-2.x">
+             
+              <h6>範例：使用端點 URL 存取 S3 儲存貯體</h6>
+              <p>在下列範例中，將 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 和區域 <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>範例：使用端點 URL 存取 S3 存取點</h6>
+              <p>在下列範例中，將 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 和區域 <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>範例：使用端點 URL 存取 Amazon S3 控制 API</h6>
+              <p>在下列範例中，將 VPC 端點 ID <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> 和區域 <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> 取代為您的資訊。</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3ControlClient = S3ControlClient.builder().region(region)
+                                 .endpointOverride(URI.create("https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                                 .build()</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+     
+   
+    <h2 id="updating-on-premises-dns-config">更新內部部署 DNS 組態</h2>
+      <p>使用端點特定 DNS 名稱來存取 Amazon S3 的介面端點時，您不必更新內部部署 DNS 解析器。您可以使用公有 Amazon S3 DNS 網域中介面端點的私有 IP 地址，來解析端點特定的 DNS 名稱。</p>
+
+       
+      <h3 id="using-interface-endpoints">使用介面端點來存取 Amazon S3，而不需要 VPC 中的閘道端點或網際網路閘道</h3>
+      <p>VPC 中的介面端點可以透過 Amazon 網路，將 VPC 內應用程式和內部部署應用程式路由至 Amazon S3，如下圖所示。</p>
+      <div class="mediaobject">
+         
+         
+          <img src="images/interface-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          資料流程圖顯示了使用界面端點和 AWS PrivateLink，透過內部部署和 VPC 內應用程式對 Amazon S3 的存取。&#xA;        " style="max-width:100%" />
+         
+      </div>
+      <p>此圖展示了以下要點：</p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>您的內部部署網路會使用 AWS Direct Connect 或 AWS VPN 連線到 VPC A。</p>
+        </li><li class="listitem">
+          <p>您的內部部署和 VPC A 中的應用程式使用端點特定的 DNS 名稱，透過 S3 介面端點存取 Amazon S3。</p>
+        </li><li class="listitem">
+          <p>內部部署應用程式在 VPC 中透過 AWS Direct Connect (或 AWS VPN) 傳送資料至介面端點。AWS PrivateLink 會透過 AWS 網路將資料從介面端點移至 Amazon S3。</p>
+        </li><li class="listitem">
+          <p>VPC 內應用程式也會傳送流量至介面端點。AWS PrivateLink 會透過 AWS 網路將資料從介面端點移至 Amazon S3。</p>
+        </li></ul></div>
+     
+       
+        <h3 id="using-gateway-and-interface-endpoints">在同一 VPC 中使用閘道端點和介面端點來存取 Amazon S3</h3>
+        <p>您可以建立介面端點，並將現有的閘道端點保留在同一 VPC 中，如下圖所示。使用這個方式，您可以允許 VPC 內應用程式繼續透過閘道端點來存取 Amazon S3，而無需支付費用。然後，只有您的內部部署應用程式才會使用控制 API 端點來存取 Amazon S3。若要以這種方式存取 Amazon S3，您必須更新內部部署應用程式，以使用 Amazon S3 端點特定 DNS 名稱。</p>
+        <div class="mediaobject">
+         
+         
+          <img src="images/interface-and-gateway-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          此資料流程圖顯示了同時使用閘道端點和界面端點對 Amazon S3 的存取。&#xA;        " style="max-width:100%" />
+         
+      </div>
+        <p>此圖展示了以下要點：</p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>內部部署應用程式在 VPC 中透過 AWS Direct Connect (或 AWS VPN) 使用端點特定的 DNS 名稱傳送資料至介面端點。AWS PrivateLink 會透過 AWS 網路將資料從介面端點移至 Amazon S3。</p>
+          </li><li class="listitem">
+            <p>VPC 內應用程式使用預設區域 Amazon S3 名稱，將資料傳送至透過 AWS 網路連線至 Amazon S3 的閘道端點。</p>
+          </li></ul></div>
+        <p>如需有關閘道端點的詳細資訊，請參閱《<em>VPC 使用者指南</em>》中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">閘道 VPC 端點</a>。</p>
+     
+   
+    <h2 id="creating-vpc-endpoint-policy">為 Amazon S3 建立 VPC 端點政策</h2>
+    <p>您可以將端點政策連接至控制 Amazon S3 存取權的 VPC 端點。此政策會指定下列資訊：</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>可執行動作的 AWS Identity and Access Management (IAM) 委託人 </p>
+      </li><li class="listitem">
+        <p>可執行的動作 </p>
+      </li><li class="listitem">
+        <p>可在其中執行動作的資源 </p>
+      </li></ul></div>
+    <p>您還可以利用 Amazon S3 儲存貯體政策，使用儲存貯體政策中的 <code class="code">aws:sourceVpce</code> 條件，來限制特定 VPC 端點對特定儲存貯體的存取。下列範例顯示了限制儲存貯體或端點存取權的政策。</p>
+    <div class="highlights" id="inline-topiclist"><h6>主題</h6><ul><li><a href="#privatelink-example-restrict-access-to-bucket">範例：限制從 VPC 端點對特定儲存貯體的存取</a></li><li><a href="#privatelink-example-access-bucket-in-specific-account-only">範例：限制從 VPC 端點對特定帳戶中儲存貯體的存取</a></li><li><a href="#privatelink-example-restrict-access-to-vpc-endpoint">範例：限制對 S3 儲存貯體政策中特定 VPC 端點的存取</a></li></ul></div>
+     
+      <h3 id="privatelink-example-restrict-access-to-bucket">範例：限制從 VPC 端點對特定儲存貯體的存取</h3>
+      <p>您可以建立端點政策，以限制只存取特定 Amazon S3 儲存貯體。如果您在 VPC 中具有使用儲存貯體的其他 AWS 服務，這個政策類型會十分有用。下列儲存貯體政策限制只存取 <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code>。若要使用此端點政策，請將 <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code> 取代為您的儲存貯體名稱。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909151",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-bucket-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>/*"]
+    }
+  ]
+}</code></pre>
+     
+     
+      <h3 id="privatelink-example-access-bucket-in-specific-account-only">範例：限制從 VPC 端點對特定帳戶中儲存貯體的存取</h3>
+      <p>您可以建立端點政策，限制僅存取特定 AWS 帳戶 中的 S3 儲存貯體。若要防止 VPC 內的用戶端存取您未擁有的儲存貯體，請在端點政策中使用下列陳述式。下列範例陳述式會建立政策，限制對單一 AWS 帳戶 ID <code class="replaceable"><code class="code">111122223333</code></code> 所擁有資源的存取。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-bucket-in-specific-account-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::*",
+      "Condition": <span>{</span>
+        "StringNotEquals": <span>{</span>
+          "aws:ResourceAccount": "<code class="replaceable">111122223333</code>"
+        }
+      }
+    }
+  ]
+}</code></pre>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>您可以使用 IAM 政策中的 <code class="code">aws:ResourceAccount</code> 或 <code class="code">s3:ResourceAccount</code> 金鑰，來指定正在受存取的資源 AWS 帳戶 ID。不過請注意，有些 AWS 服務 仰賴 AWS 受管儲存貯體的存取。因此，在 IAM 政策使用 <code class="code">aws:ResourceAccount</code> 或者 <code class="code">s3:ResourceAccount</code> 金鑰也可能影響對這些資源的存取。</p></div></div>
+     
+     
+      <h3 id="privatelink-example-restrict-access-to-vpc-endpoint">範例：限制對 S3 儲存貯體政策中特定 VPC 端點的存取</h3>
+      <p><a id="example-restrict-access-to-vpc-endpoint"></a><b>範例：限制對 S3 儲存貯體政策中特定 VPC 端點的存取</b></p>
+      <p>下列 Amazon S3 儲存貯體政策允許僅從 VPC 端點 <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> 存取特定儲存貯體 <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code>。如果未使用指定的端點，政策會拒絕所有對儲存貯體的存取。<code class="code">aws:sourceVpce</code> 條件會指定端點，且不需要 VPC 端點資源的 Amazon Resource Name (ARN)，只需要端點 ID。若要使用此儲存貯體政策，請將 <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code> 和 <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> 取代為您的儲存貯體名稱與端點。</p>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>套用下列 Amazon S3 儲存貯體政策以將存取限制為特定 VPC 端點時，您可能會意外封鎖對儲存貯體的存取。來自您 VPC 端點，旨在特別限制儲存貯體存取連線的儲存貯體政策，可能會封鎖所有對儲存貯體的連線。如需有關如何修復此問題的資訊，請參閱<a href="http://aws.amazon.com/premiumsupport/knowledge-center/s3-regain-access/" rel="noopener noreferrer" target="_blank"><span>我的儲存貯體政策有錯誤的 VPC 或 VPC 端點 ID。我該如何修復政策，讓我可以存取儲存貯體？(位於 </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a><em>AWS Support 知識中心</em>)。</p>
+          </li><li class="listitem">
+            <p>使用下列範例政策之前，請以適合您使用案例的適當值取代 VPC 端點 ID。否則，您將無法存取儲存貯體。</p>
+          </li><li class="listitem">
+            <p>此政策會停用對指定儲存貯體的<em>主控台</em>存取，因為主控台要求不是來自指定的 VPC 端點。</p>
+          </li></ul></div></div></div>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909152",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-VPCE-only",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code>/*</code>"],
+      "Condition": <span>{</span>"StringNotEquals": <span>{</span>"aws:sourceVpce": "<code class="replaceable">vpce-1a2b3c4d</code>"}}
+    }
+  ]
+}</code></pre>
+     
+    <p>如需更多政策範例，請參閱《<em>VPC 使用者指南</em>》中的<a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html#vpc-endpoints-policies-s3">適用於 Amazon S3 的端點</a>。</p>
+  <p>如需 VPC 連線能力的詳細資訊，請參與 AWS 白皮書 <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/welcome.html">Amazon Virtual Private Cloud 連線能力選項</a>中的<a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html">網路至 VPC 連線能力選項</a>。</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./inter-network-traffic-privacy.html">網際網路隱私權</div><div id="next" class="next-link" accesskey="n" href="./s3-access-control.html">Identity and Access Management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

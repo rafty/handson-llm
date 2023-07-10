@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>검색 서비스 결과의 의미론적 순위 지정 - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="search-service-rerank" /><meta name="default_state" content="search-service-rerank" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html" /><meta name="description" content="검색 서비스 결과의 순위를 의미론적으로 다시 매기는Amazon Kendra 데 사용하는 방법" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="개발자 안내서" /><meta name="abstract" content="Amazon Kendra에 대한 개념적 개요를 제공합니다. Amazon Kendra기능에 대해 알아보고 콘솔, CLI 및 API를 사용하여 문서 인덱싱을 시작하세요." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/search-service-rerank.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/search-service-rerank.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/search-service-rerank.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/search-service-rerank.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/search-service-rerank.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/search-service-rerank.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/search-service-rerank.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/search-service-rerank.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/search-service-rerank.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/search-service-rerank.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/search-service-rerank.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/search-service-rerank.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/search-service-rerank.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/search-service-rerank.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/search-service-rerank.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/search-service-rerank.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/search-service-rerank.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/search-service-rerank.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/search-service-rerank.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="개발자 안내서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="개발자 안내서" /><meta id="panorama-serviceConsolePage" value="검색 서비스 결과의 의미론적 순위 지정" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>검색 서비스 결과의 의미론적 순위 지정 - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#search-service-rerank" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html" /><meta name="keywords" content="Kendra,Amazon Kendra,검색,인텔리전트 검색,자연 언어,인덱스를 구축하고 배포할 것입니다,질문,핵심어,데이터 원본,커넥터,FAQ,시맨틱,지능형 검색 순위,지능형 검색 랭킹" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "개발자 안내서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Kendra인텔리전트 순위",
+        "item" : "https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/intelligent-rerank.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "검색 서비스 결과의 의미론적 순위 지정",
+        "item" : "https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/intelligent-rerank.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#search-service-rerank" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">개발자 안내서</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>기계 번역으로 제공되는 번역입니다. 제공된 번역과 원본 영어의 내용이 상충하는 경우에는 영어 버전이 우선합니다.</p></awsui-alert><h1 class="topictitle" id="search-service-rerank">검색 서비스 결과의 의미론적 순위 지정</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon Kendra인텔리전트Amazon Kendra 랭킹은 시맨틱 검색 기능을 사용하여 검색 서비스의 결과 순위를 다시 매깁니다. 검색 쿼리의 의도와 컨텍스트는 물론 검색 서비스 문서에서 제공되는 모든 정보를 고려하여 이 작업을 수행합니다. Amazon Kendra 지능형 랭킹은 간단한 키워드 매칭을 개선할 수 있습니다.</p><p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Ranking_CreateRescoreExecutionPlan.html">CreateRescoreExecutionPlan</a>API는 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Ranking_Rescore.html">Rescore</a> API를 프로비저닝하는 데 사용되는Amazon Kendra 인텔리전트 랭킹 리소스를 생성합니다. <code class="code">Rescore</code>API는 <a href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html">OpenSearch (자체 관리) 와 같은 검색 서비스의 검색 결과 순위를 다시 매깁니다</a>.</p><p>전화를<code class="code">CreateRescoreExecutionPlan</code> 걸면 검색 서비스 결과 순위를 다시 매기는 데 필요한 용량 단위를 설정합니다. 단일 단위 기본값 외에 더 많은 용량 단위가 필요하지 않은 경우 기본값을 변경하지 마십시오. 리스코어 실행 계획의 이름만 입력하십시오. 추가 단위를 최대 1000개까지 설정할 수 있습니다. 단일 용량 단위에 포함되는 항목에 대한 자세한 내용은 <a href="https://docs.aws.amazon.com/kendra/latest/dg/adjusting-capacity.html">용량 조정을</a> 참조하십시오. Amazon Kendra인텔리전트 랭킹을 프로비저닝하면 설정된 용량 단위를 기준으로 시간당 요금이 청구됩니다. <a href="http://aws.amazon.com/kendra/intelligent-ranking-pricing/" rel="noopener noreferrer" target="_blank"><span>프리 티어 및 가격 정보를</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 참조하십시오.</p><p>리스코어 실행 계획 ID가 생성되어 호출 시 응답에 반환됩니다<code class="code">CreateRescoreExecutionPlan</code>. <code class="code">Rescore</code>API는 rescore 실행 계획 ID를 사용하여 설정한 용량을 사용하여 검색 서비스 결과의 순위를 다시 매깁니다. 검색 서비스의 구성 파일에 rescore 실행 계획 ID를 포함합니다. 예를 들어 OpenSearch  (자체 관리형) 를 사용하는 경우 docker-compose.yml 또는 opensearch.yml 파일에 점수 재기록 실행 계획 ID를 포함해야 합니다. <a href="https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html">지능형 순위 지정 OpenSearch  (셀프 서비스) 결과를</a> 참조하십시오.</p><p>전화를 걸면 Amazon 리소스 이름 (ARN) 도 응답에 생성됩니다<code class="code">CreateRescoreExecutionPlan</code>. 이 ARN을 사용하여AWS Identity and Access Management (IAM) 에서 권한 정책을 생성하여 특정 Rescore 실행 계획의 특정 ARN에 대한 사용자 액세스를 제한할 수 있습니다.</p><p>다음은 용량 단위를 1로 설정한 상태에서 재채점 실행 계획을 생성하는 예제입니다.</p><awsdocs-tabs><dl style="display: none">
+        <dt>CLI</dt><dd tab-id="cli">
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra-ranking create-rescore-execution-plan \
+  --name MyRescoreExecutionPlan \ 
+  --capacity-units '<span>{</span>"RescoreCapacityUnits":1}'
+ 
+Response:
+ 
+<span>{</span>
+    "Id": "&lt;rescore execution plan ID&gt;",
+    "Arn": "arn:aws:kendra-ranking:&lt;region&gt;:&lt;account-id&gt;:rescore-execution-plan/&lt;rescore-execution-plan-id&gt;"
+}</code></pre>
+            </dd>
+        <dt>Python</dt><dd tab-id="python">
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3
+from botocore.exceptions import ClientError
+import pprint
+import time
+
+kendra_ranking = boto3.client("kendra-ranking")
+
+print("Create a rescore execution plan.")
+
+# Provide a name for the rescore execution plan
+name = "MyRescoreExecutionPlan"
+# Set your required additional capacity units
+# Don't set capacity units if you don't require more than 1 unit given by default
+capacity_units = 1
+
+try:
+    rescore_execution_plan_response = kendra_ranking.create_rescore_execution_plan(
+        Name = name,
+        CapacityUnits = <span>{</span>"RescoreCapacityUnits":capacity_units}
+    )
+
+    pprint.pprint(rescore_execution_plan_response)
+
+    rescore_execution_plan_id = rescore_execution_plan_response["Id"]
+
+    print("Wait for Amazon Kendra to create the rescore execution plan.")
+
+    while True:
+        # Get the details of the rescore execution plan, such as the status
+        rescore_execution_plan_description = kendra_ranking.describe_rescore_execution_plan(
+            Id = rescore_execution_plan_id
+        )
+        # When status is not CREATING quit.
+        status = rescore_execution_plan_description["Status"]
+        print(" Creating rescore execution plan. Status: "+status)
+        time.sleep(60)
+        if status != "CREATING":
+            break
+
+except ClientError as e:
+        print("%s" % e)
+
+print("Program ends.")</code></pre>
+            </dd>
+        <dt>Java</dt><dd tab-id="java">
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">import java.util.concurrent.TimeUnit;
+
+import software.amazon.awssdk.services.kendraranking.KendraRankingClient;
+import software.amazon.awssdk.services.kendraranking.model.CapacityUnitsConfiguration;
+import software.amazon.awssdk.services.kendraranking.model.CreateRescoreExecutionPlanRequest;
+import software.amazon.awssdk.services.kendraranking.model.CreateRescoreExecutionPlanResponse;
+import software.amazon.awssdk.services.kendraranking.model.DescribeRescoreExecutionPlanRequest;
+import software.amazon.awssdk.services.kendraranking.model.DescribeRescoreExecutionPlanResponse;
+import software.amazon.awssdk.services.kendraranking.model.RescoreExecutionPlanStatus;
+
+public class CreateRescoreExecutionPlanExample <span>{</span>
+
+  public static void main(String[] args) throws InterruptedException <span>{</span>
+
+    String rescoreExecutionPlanName = "MyRescoreExecutionPlan";
+    int capacityUnits = 1;
+
+    KendraRankingClient kendraRankingClient = KendraRankingClient.builder().build();
+
+    System.out.println(String.format("Creating a rescore execution plan named %s", rescoreExecutionPlanName));
+
+    CreateRescoreExecutionPlanResponse createResponse = kendraRankingClient.createRescoreExecutionPlan(
+        CreateRescoreExecutionPlanRequest.builder()
+            .name(rescoreExecutionPlanName)
+            .capacityUnits(
+                CapacityUnitsConfiguration.builder()
+                    .rescoreCapacityUnits(capacityUnits)
+                    .build()
+            )
+            .build()
+    );
+
+    String rescoreExecutionPlanId = createResponse.id();
+    System.out.println(String.format("Waiting for rescore execution plan with id %s to finish creating.", rescoreExecutionPlanId));
+    while (true) <span>{</span>
+      DescribeRescoreExecutionPlanResponse describeResponse = kendraRankingClient.describeRescoreExecutionPlan(
+          DescribeRescoreExecutionPlanRequest.builder()
+              .id(rescoreExecutionPlanId)
+              .build()
+      );
+      RescoreExecutionPlanStatus rescoreExecutionPlanStatus = describeResponse.status();
+      if (rescoreExecutionPlanStatus != RescoreExecutionPlanStatus.CREATING) <span>{</span>
+        break;
+      }
+      TimeUnit.SECONDS.sleep(60);
+    }
+
+    System.out.println("Rescore execution plan creation is complete.");
+  }
+}</code></pre>
+            </dd>
+    </dl></awsdocs-tabs><p>다음은 용량 단위를 2로 설정하도록 재스코어 실행 계획을 업데이트하는 예제입니다.</p><awsdocs-tabs><dl style="display: none">
+        <dt>CLI</dt><dd tab-id="cli">
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra-ranking update-rescore-execution-plan \
+  --id &lt;rescore execution plan ID&gt; \ 
+  --capacity-units '<span>{</span>"RescoreCapacityUnits":2}'</code></pre>
+            </dd>
+        <dt>Python</dt><dd tab-id="python">
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3
+from botocore.exceptions import ClientError
+import pprint
+import time
+
+kendra_ranking = boto3.client("kendra-ranking")
+                    
+print("Update a rescore execution plan.")
+                    
+# Provide the ID of the rescore execution plan
+id = &lt;rescore execution plan ID&gt;
+# Re-set your required additional capacity units
+capacity_units = 2
+                        
+try:
+    kendra_ranking.update_rescore_execution_plan(
+        Id = id,
+        CapacityUnits = <span>{</span>"RescoreCapacityUnits":capacity_units}
+    )
+                        
+    print("Wait for Amazon Kendra to update the rescore execution plan.")
+                        
+    while True:
+        # Get the details of the rescore execution plan, such as the status
+        rescore_execution_plan_description = kendra_ranking.describe_rescore_execution_plan(
+            Id = id
+        )
+        # When status is not UPDATING quit.
+        status = rescore_execution_plan_description["Status"]
+        print(" Updating rescore execution plan. Status: "+status)
+        time.sleep(60)
+        if status != "UPDATING":
+            break
+                        
+except ClientError as e:
+        print("%s" % e)
+                        
+print("Program ends.")</code></pre>
+            </dd>
+        <dt>Java</dt><dd tab-id="java">
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">import java.util.concurrent.TimeUnit;
+
+import software.amazon.awssdk.services.kendraranking.KendraRankingClient;
+import software.amazon.awssdk.services.kendraranking.model.CapacityUnitsConfiguration;
+import software.amazon.awssdk.services.kendraranking.model.DescribeRescoreExecutionPlanRequest;
+import software.amazon.awssdk.services.kendraranking.model.DescribeRescoreExecutionPlanResponse;
+import software.amazon.awssdk.services.kendraranking.model.RescoreExecutionPlanStatus;
+import software.amazon.awssdk.services.kendraranking.model.UpdateRescoreExecutionPlanRequest;
+import software.amazon.awssdk.services.kendraranking.model.UpdateRescoreExecutionPlanResponse;
+
+public class UpdateRescoreExecutionPlanExample <span>{</span>
+
+  public static void main(String[] args) throws InterruptedException <span>{</span>
+
+    String rescoreExecutionPlanId = &lt;rescore execution plan ID&gt;;
+    int newCapacityUnits = 2;
+
+    KendraRankingClient kendraRankingClient = KendraRankingClient.builder().build();
+
+    System.out.println(String.format("Updating a rescore execution plan named %s", rescoreExecutionPlanId));
+
+    UpdateRescoreExecutionPlanResponse updateResponse = kendraRankingClient.updateRescoreExecutionPlan(
+        UpdateRescoreExecutionPlanRequest.builder()
+            .id(rescoreExecutionPlanId)
+            .capacityUnits(
+                CapacityUnitsConfiguration.builder()
+                    .rescoreCapacityUnits(newCapacityUnits)
+                    .build()
+            )
+            .build()
+    );
+
+    System.out.println(String.format("Waiting for rescore execution plan with id %s to finish updating.", rescoreExecutionPlanId));
+    while (true) <span>{</span>
+      DescribeRescoreExecutionPlanResponse describeResponse = kendraRankingClient.describeRescoreExecutionPlan(
+          DescribeRescoreExecutionPlanRequest.builder()
+              .id(rescoreExecutionPlanId)
+              .build()
+      );
+      RescoreExecutionPlanStatus rescoreExecutionPlanStatus = describeResponse.status();
+      if (rescoreExecutionPlanStatus != RescoreExecutionPlanStatus.UPDATING) <span>{</span>
+        break;
+      }
+      TimeUnit.SECONDS.sleep(60);
+    }
+
+    System.out.println("Rescore execution plan update is complete.");
+  }
+}</code></pre>
+            </dd>
+    </dl></awsdocs-tabs><p>다음은<code class="code">Rescore</code> API 사용 예제입니다.</p><awsdocs-tabs><dl style="display: none">
+            <dt>CLI</dt><dd tab-id="cli">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra-ranking rescore \
+  --rescore-execution-plan-id &lt;rescore execution plan ID&gt; \
+  --search-query "intelligent systems" \
+  --documents "[<span>{</span>\"Id\": \"DocId1\",\"Title\": \"Smart systems\", \"Body\": \"intelligent systems in everyday life\",\"OriginalScore\": 2.0}, <span>{</span>\"Id\": \"DocId2\",\"Title\": \"Smarter systems\", \"Body\": \"living with intelligent systems\",\"OriginalScore\": 1.0}]"</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3
+from botocore.exceptions import ClientError
+import pprint
+
+kendra_ranking = boto3.client("kendra-ranking")
+                    
+print("Use the Rescore API.")
+                    
+# Provide the ID of the rescore execution plan
+id = &lt;rescore execution plan ID&gt;
+# The search query from the search service
+query = "intelligent systems"
+# The list of documents for Intelligent Ranking to rescore
+document_list = [
+    <span>{</span>"Id": "DocId1", "Title": "Smart systems", "Body": "intelligent systems in everyday life", "OriginalScore": 2.0},
+    <span>{</span>"Id": "DocId2", "Title": "Smarter systems", "Body": "living with intelligent systems", "OriginalScore": 1.0}
+]
+                        
+try:
+    rescore_response = kendra_ranking.rescore(
+        rescore_execution_plan_id = id,
+        search_query = query,
+        documents = document_list
+    )
+    
+    print(rescore_response["RescoreId"])
+    print(rescore_resposne["ResultItems"])
+	
+except ClientError as e:
+        print("%s" % e)
+
+print("Program ends.")</code></pre>
+                </dd>
+            <dt>Java</dt><dd tab-id="java">
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">import java.util.ArrayList;
+import java.util.List;
+
+import software.amazon.awssdk.services.kendraranking.KendraRankingClient;
+import software.amazon.awssdk.services.kendraranking.model.RescoreRequest;
+import software.amazon.awssdk.services.kendraranking.model.RescoreResponse;
+import software.amazon.awssdk.services.kendraranking.model.Document;
+
+public class RescoreExample <span>{</span>
+
+  public static void main(String[] args) <span>{</span>
+
+    String rescoreExecutionPlanId = &lt;rescore execution plan ID&gt;;
+    String query = "intelligent systems";
+
+    List&lt;Document&gt; documentList = new ArrayList&lt;&gt;();
+    documentList.add(
+        Document.builder()
+            .id("DocId1")
+            .originalScore(2.0F)
+            .body("intelligent systems in everyday life")
+            .title("Smart systems")
+            .build()
+    );
+    documentList.add(
+        Document.builder()
+            .id("DocId2")
+            .originalScore(1.0F)
+            .body("living with intelligent systems")
+            .title("Smarter systems")
+            .build()
+    );
+
+    KendraRankingClient kendraRankingClient = KendraRankingClient.builder().build();
+
+    RescoreResponse rescoreResponse = kendraRankingClient.rescore(
+        RescoreRequest.builder()
+            .rescoreExecutionPlanId(rescoreExecutionPlanId)
+            .searchQuery(query)
+            .documents(documentList)
+            .build()
+    );
+    
+    System.out.println(rescoreResponse.rescoreId());
+    System.out.println(rescoreResponse.resultItems());
+  }
+}</code></pre>
+            </dd>
+    </dl></awsdocs-tabs><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./opensearch-rerank.html">자체 관리를 위한 지능형 랭킹 OpenSearch</div><div id="next" class="next-link" accesskey="n" href="./doc-history.html">문서 기록</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/search-service-rerank.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

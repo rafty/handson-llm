@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>ユーザーコンテキストでのフィルタリング - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="user-context-filter" /><meta name="default_state" content="user-context-filter" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" /><meta name="description" content="Amazon Kendraドキュメントへのユーザーまたはグループのアクセス権に基づいて検索結果をフィルタリングする方法。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="デベロッパーガイド" /><meta name="abstract" content="Amazon Kendra の概念的な概要について説明します。Amazon Kendra機能について学び、コンソール、CLI、API を使用してドキュメントのインデックス作成を始めましょう。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/user-context-filter.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/user-context-filter.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/user-context-filter.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/user-context-filter.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/user-context-filter.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/user-context-filter.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/user-context-filter.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/user-context-filter.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/user-context-filter.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/user-context-filter.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/user-context-filter.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/user-context-filter.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/user-context-filter.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="デベロッパーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="デベロッパーガイド" /><meta id="panorama-serviceConsolePage" value="ユーザーコンテキストでのフィルタリング" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>ユーザーコンテキストでのフィルタリング - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#user-context-filter" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search (検索),インテリジェント検索,自然言語,インデックス,質問,キーワード,データソース,コネクタ,よくある質問,query,コンテキストフィルタリング,パーソナライズ検索" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "デベロッパーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "インデックスの検索",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/searching.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "ユーザーコンテキストでのフィルタリング",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/searching.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#user-context-filter" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">デベロッパーガイド</a></div><div id="page-toc-src"><a href="#context-filter-token">ユーザートークンによるフィルタリング</a><a href="#context-filter-user-incl-datasources">ユーザー ID とグループによるフィルタリング</a><a href="#context-filter-attribute">ユーザー属性でフィルタリングする</a><a href="#context-filter-batch">インデックスに直接追加されたドキュメントのユーザーコンテキストフィルタリング</a><a href="#context-filter-faq">よくある質問に対するユーザーコンテキストのフィルタリング</a><a href="#context-filter-alfresco">Alfresco データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-s3">Amazon S3データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-jdbc">データベースデータソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-fsx">Amazon FSxデータソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-workdocs">Amazon WorkDocsデータソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-box">Box データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-confluence">Confluence データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-dropbox">Dropbox データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-github"> GitHub データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-google">Google Drive データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-gmail">Gmail データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-jira">Jira データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-exchange">Microsoft Exchange データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-teams">Microsoft Teams データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-onedrive">Microsoft OneDrive  データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-onedrivev2">Microsoft OneDrive  v2.0 データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-yammer">Microsoft Yammer データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-sharepoint-online">Microsoft SharePoint  データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-quip">Quip データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-salesforce">Salesforce データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-servicenow"> ServiceNowデータソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-slack">Slack データソースのユーザーコンテキストフィルタリング</a><a href="#context-filter-zendesk">Zendesk データソースのユーザーコンテキストフィルタリング</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>翻訳は機械翻訳により提供されています。提供された翻訳内容と英語版の間で齟齬、不一致または矛盾がある場合、英語版が優先します。</p></awsui-alert><h1 class="topictitle" id="user-context-filter">ユーザーコンテキストでのフィルタリング</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>ドキュメントへのユーザーまたはグループのアクセス権に基づいて、ユーザーの検索結果をフィルタリングできます。ユーザートークン、ユーザー ID、またはユーザー属性を使用して、ドキュメントをフィルタリングできます。 Amazon Kendraユーザーを自分のグループにマッピングすることもできます。IDAWS IAM Identity Center (successor to AWS Single Sign-On) ストア/ソースとして使用することを選択できます。</p><p>ユーザーコンテキストフィルタリングは、ドキュメントへのアクセスを制御できるという利点を備えた一種のパーソナライズされた検索です。たとえば、企業ポータルで情報を検索するすべてのチームが極秘の企業文書にアクセスすべきではなく、これらの文書がすべてのユーザーに関係するわけでもありません。極秘文書へのアクセス権を与えられた特定のユーザーまたはチームグループのみが、これらの文書を検索結果に表示する必要があります。</p><p>ドキュメントがインデックス作成されるとAmazon Kendra、ほとんどのドキュメントの対応するアクセスコントロールリスト (ACL) が取り込まれます。ACL は、ドキュメントへのアクセスを許可または拒否するユーザー名とグループ名を指定します。ACL のないドキュメントはパブリックドキュメントです。</p><p>Amazon Kendraほとんどのデータソース内の各ドキュメントに関連するユーザーまたはグループの情報を自動的に抽出します。たとえば、Quip のドキュメントには、そのドキュメントへのアクセス権を与えられた特定のユーザーまたはグループの「共有」リストを含めることができます。S3 バケットをデータソースとして使用する場合は、ACL <a href="https://docs.aws.amazon.com/kendra/latest/dg/s3-acl.html">の JSON ファイルを提供し</a>、データソース設定の一部としてこのファイルへの S3 パスを含めます。ドキュメントをインデックスに直接追加する場合は、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API のドキュメントオブジェクトの一部として <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">Principal</a> オブジェクトの ACL を指定します。</p><p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateAccessControlConfiguration.html">CreateAccessControlConfiguration</a>API を使用すると、すべてのドキュメントを再度インデックスしなくても、既存のドキュメントレベルのアクセス制御を再設定できます。たとえば、インデックスには、特定の従業員またはユーザーのみがアクセスできる極秘の企業ドキュメントが含まれています。これらのユーザーの1人が会社を辞めたり、極秘文書へのアクセスをブロックすべきチームに異動したりします。ドキュメントが以前にインデックスされたときにアクセスできたため、ユーザーは引き続き極秘ドキュメントにアクセスできます。アクセスを拒否するユーザーには、特定のアクセス制御設定を作成できます。後でアクセス制御設定を更新して、ユーザーが会社に戻って「トップシークレット」チームに再参加した場合にアクセスを許可できます。状況の変化に応じて、ドキュメントのアクセス制御を再設定できます。</p><p>アクセス制御設定を特定のドキュメントに適用するには、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument<code class="code">AccessControlConfigurationId</code></a><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Document.html">ドキュメントオブジェクトに含まれるを使用して</a> API を呼び出します。S3 バケットをデータソースとして使用する場合は、<code class="code">.metadata.json</code><code class="code">AccessControlConfigurationId</code>をで更新しデータソースを同期します。 Amazon Kendra現在、<code class="code">BatchPutDocument</code> API を使用してインデックス化された S3 データソースとドキュメントのアクセス制御設定のみをサポートしています。</p>
+            <h2 id="context-filter-token">ユーザートークンによるフィルタリング</h2>
+            <p>インデックスに対してクエリを行う場合、ユーザートークンを使用して、ドキュメントへのユーザーまたはグループのアクセス権に基づいて検索結果をフィルタリングできます。クエリを発行すると、Amazon Kendraトークンを抽出して検証し、ユーザーとグループの情報を取得して確認し、クエリを実行します。パブリックドキュメントを含め、ユーザーがアクセスできるすべてのドキュメントが返されます。詳細については、「<a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index-access-control.html">トークンベースのユーザーアクセス制御</a>」を参照してください。</p>
+            <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserContext.html">UserContext</a>オブジェクトにユーザートークンを指定し、これを <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a> API に渡します。</p>
+            <p>次に、ユーザートークンを含める方法を示します。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+    QueryText = query,
+    IndexId = index,
+    UserToken = <span>{</span>
+        Token = "<code class="replaceable">token</code>"
+    })</code></pre>
+            <p>ユーザーをグループにマッピングできます。ユーザーコンテキストフィルタリングを使用する場合、クエリを発行するときに、ユーザーが属しているグループをすべて含める必要はありません。<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_PutPrincipalMapping.html">PutPrincipalMapping</a>API を使用すると、ユーザーをグループにマッピングできます。<code class="code">PutPrincipalMapping</code>API を使用しない場合は、クエリを発行するときに、ユーザー名とユーザーが属するすべてのグループを指定する必要があります。<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserGroupResolutionConfiguration.html">UserGroupResolutionConfiguration</a>オブジェクトを使用して、IAM Identity Center アイデンティティソースのグループおよびユーザーのアクセスレベルを取得することもできます。</p>
+         
+            <h2 id="context-filter-user-incl-datasources">ユーザー ID とグループによるフィルタリング</h2>
+            <p>インデックスをクエリする場合、ユーザー ID とグループを使用して、ユーザーまたはグループのドキュメントへのアクセス権に基づいて検索結果をフィルタリングできます。クエリを発行すると、Amazon Kendraユーザーとグループの情報を確認し、クエリを実行します。パブリックドキュメントを含め、ユーザーがアクセスできるクエリに関連するすべてのドキュメントが返されます。</p>
+            <p>また、ユーザーやグループがアクセスできるデータソースで検索結果をフィルタリングすることもできます。データソースの指定は、グループが複数のデータソースに関連付けられていても、特定のデータソースのドキュメントにのみアクセスできるようにする場合に便利です。例えば、「リサーチ」、「エンジニアリング」、および「セールスおよびマーケティング」のグループはすべて、Confluence および Salesforce のデータソースに保存されている企業のドキュメントに関連付けられています。ただし、「セールスおよびマーケティング」チームでは、Salesforce に保存されている顧客関連ドキュメントへのアクセスのみが必要です。そのため、営業およびマーケティングユーザーが顧客関連ドキュメントを検索すると、結果に Salesforce のドキュメントが表示されます。営業およびマーケティングで作業していないユーザーには、検索結果に Salesforce ドキュメントは表示されません。</p>
+            <p>ユーザー、グループ、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserContext.html">UserContext</a>データソースの情報をオブジェクトに指定し、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">これをクエリ</a> API に渡します。ユーザー ID、グループおよびデータソースのリストは、ユーザー、グループ、およびデータソースを識別するために、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">プリンシパルオブジェクトで指定する名前と一致する必要があります</a>。<code class="code">Principal</code>オブジェクトを使用すると、ドキュメントにアクセスするための許可リストまたは拒否リストに、ユーザー、グループ、またはデータソースを追加できます。</p>
+            <p>次のいずれかを提供する必要があります。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>ユーザーとグループの情報、および (オプション) データソース情報。</p>
+                </li><li class="listitem">
+                    <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_PutPrincipalMapping.html">PutPrincipalMapping</a>API を使用してユーザーをグループおよびデータソースにマッピングする場合は、ユーザー情報のみ。<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserGroupResolutionConfiguration.html">UserGroupResolutionConfiguration</a>オブジェクトを使用して、IAM Identity Center アイデンティティソースのグループおよびユーザーのアクセスレベルを取得することもできます。</p>
+                </li></ul></div>
+            <p>この情報がクエリに含まれていない場合は、Amazon Kendraすべてのドキュメントを返します。この情報を指定すると、ユーザー ID、グループ、およびデータソースが一致するドキュメントのみが返されます。</p>
+            <p>次に、ユーザー ID、グループ、およびデータソースを含める方法を示します。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+    QueryText = query,
+    IndexId = index,
+    UserId = <span>{</span>
+        UserId = "<code class="replaceable">user1</code>"
+    },
+    Groups = <span>{</span>
+        Groups = ["<code class="replaceable">Sales and Marketing</code>"]
+    },
+    DataSourceGroups = <span>{</span>
+        DataSourceGroups = [<span>{</span>"DataSourceId" : "<code class="replaceable">SalesforceCustomerDocsGroup</code>", "GroupId": "<code class="replaceable">Sales and Marketing</code>"}]
+    })</code></pre>
+         
+            <h2 id="context-filter-attribute">ユーザー属性でフィルタリングする</h2>
+            <p>インデックスをクエリする場合、<code class="code">_user_id</code>組み込みの属性を使用したり、<code class="code">_group_id</code>ドキュメントへのユーザーやグループのアクセス権に基づいて検索結果をフィルタリングしたりできます。最大 100 個のグループ識別子を設定できます。クエリを発行すると、Amazon Kendraユーザーとグループの情報を確認し、クエリを実行します。パブリックドキュメントを含め、ユーザーがアクセスできるクエリに関連するすべてのドキュメントが返されます。</p>
+            <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_AttributeFilter.html">AttributeFilter</a>オブジェクトにユーザー属性とグループ属性を指定し、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">これをクエリ</a> API に渡します。</p>
+            <p>次の例は、ユーザー ID とユーザーが属するグループ「HR」および「IT」に基づいてクエリレスポンスをフィルタリングするリクエストを示しています。このクエリは、許可リストにユーザー、または「HR」または「IT」のグループを含むすべてのドキュメントを返します。ユーザーまたはいずれかのグループがドキュメントの拒否リストに含まれている場合、ドキュメントは返されません。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+        QueryText = query,
+        IndexId = index,
+        AttributeFilter = <span>{</span>
+            "OrAllFilters": [
+                <span>{</span>
+                    "EqualsTo": <span>{</span>
+                        "Key": "_user_id",
+                        "Value": <span>{</span>
+                            "StringValue": "user1"
+                        }
+                     }
+                },
+                <span>{</span>
+                    "EqualsTo": <span>{</span>
+                        "Key": "_group_ids",
+                        "Value": <span>{</span>
+                            "StringListValue": ["HR", "IT"]
+                        }
+                    }
+                }
+            ]
+        }
+        )</code></pre>
+            <p>グループにアクセスできるデータソースは、<code class="code">Principal</code> オブジェクトにアクセスできます。</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>ユーザーコンテキストフィルタリングは、コンテンツの認証または認可コントロールではありません。API に送信されたユーザーおよびグループに対するユーザー認証は、API に送信されたユーザーおよびグループに対するユーザー認証は、<code class="code">Query</code> API に送信されたユーザーおよびグループに対するユーザー認証は、<code class="code">Query</code>API に送信されたユーザーおよびグループの情報が認証および認可されるか否かは、アプリケーションによって異なります。</p></div></div>
+        <p>各データソースのユーザコンテキストフィルタリングの実装があります。以下のセクションでは、各実装について説明します。</p><div class="highlights" id="inline-topiclist"><h6>トピック</h6><ul><li><a href="#context-filter-batch">インデックスに直接追加されたドキュメントのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-faq">よくある質問に対するユーザーコンテキストのフィルタリング</a></li><li><a href="#context-filter-alfresco">Alfresco データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-s3">Amazon S3データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-jdbc">データベースデータソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-fsx">Amazon FSxデータソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-workdocs">Amazon WorkDocsデータソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-box">Box データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-confluence">Confluence データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-dropbox">Dropbox データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-github"> GitHub データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-google">Google Drive データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-gmail">Gmail データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-jira">Jira データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-exchange">Microsoft Exchange データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-teams">Microsoft Teams データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-onedrive">Microsoft OneDrive  データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-onedrivev2">Microsoft OneDrive  v2.0 データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-yammer">Microsoft Yammer データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-sharepoint-online">Microsoft SharePoint  データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-quip">Quip データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-salesforce">Salesforce データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-servicenow"> ServiceNowデータソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-slack">Slack データソースのユーザーコンテキストフィルタリング</a></li><li><a href="#context-filter-zendesk">Zendesk データソースのユーザーコンテキストフィルタリング</a></li></ul></div>
+            <h2 id="context-filter-batch">インデックスに直接追加されたドキュメントのユーザーコンテキストフィルタリング</h2>
+            <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API を使用してドキュメントをインデックスに直接追加すると、Amazon Kendra<code class="code">AccessControlList</code>ドキュメントのフィールドからユーザーとグループの情報を取得します。ドキュメントにアクセス制御リスト (ACL) を指定すると、そのACLがドキュメントに取り込まれます。</p>
+            <p><code class="code">BatchPutDocument</code>API <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Document.html">のドキュメントオブジェクトの一部として</a>、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">プリンシパルオブジェクトの</a> ACL を指定します。これには、以下の情報を指定します。</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>ユーザーまたはグループが持つべきアクセス。<code class="code">ALLOW</code> または <code class="code">DENY</code> の返答が可能です。</p>
+                </li><li class="listitem">
+                    <p>エンティティのタイプ。<code class="code">USER</code> または <code class="code">GROUP</code> の返答が可能です。</p>
+                </li><li class="listitem">
+                    <p>ユーザーまたはグループの名前。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-faq">よくある質問に対するユーザーコンテキストのフィルタリング</h2>
+            <p>FAQ <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateFaq.html">をインデックスに追加すると、FAQ</a> JSONAmazon Kendra<code class="code">AccessControlList</code> ファイルのオブジェクト/フィールドからユーザーとグループの情報を取得します。アクセス制御用のカスタムフィールドまたは属性を含む FAQ CSV ファイルを使用することもできます。</p>
+            <p>これには、以下の情報を指定します。</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>ユーザーまたはグループが持つべきアクセス。<code class="code">ALLOW</code> または <code class="code">DENY</code> の返答が可能です。</p>
+                </li><li class="listitem">
+                    <p>エンティティのタイプ。<code class="code">USER</code> または <code class="code">GROUP</code> の返答が可能です。</p>
+                </li><li class="listitem">
+                    <p>ユーザーまたはグループの名前。</p>
+                </li></ul></div>
+            <p>詳細については、「<a href="https://docs.aws.amazon.com/kendra/latest/dg/in-creating-faq.html">FAQ ファイル</a>」を参照してください。</p>
+         
+            <h2 id="context-filter-alfresco">Alfresco データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Alfresco データソースを使用すると、AlfrescoAmazon Kendra インスタンスからユーザーおよびグループ情報を取得します。</p>
+            <p>グループ ID とユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループ ID は、アクセス許可が設定されているファイルに存在します。これらはAlfrescoのグループ（表示名ではない）のシステム名からマッピングされます。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザー ID は、アクセス許可が設定されているファイルに存在します。これらは Alfresco の ID としてユーザーの電子メールからマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-s3">Amazon S3データソースのユーザーコンテキストフィルタリング</h2>
+            <p>ドキュメントに関連付けられたメタデータファイルを使用して、Amazon S3データソース内のドキュメントにユーザーコンテキストフィルタリングを追加します。情報を JSON ドキュメント内の <code class="code">AccessControlList</code> フィールドに追加します。データソースからインデックス作成されたドキュメントにメタデータを追加する方法の詳細については、<a href="https://docs.aws.amazon.com/kendra/latest/dg/s3-metadata.html">S3Amazon S3 ドキュメントメタデータを参照してください</a>。</p>
+            <p>次の 3 つの情報を提供します。</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>エンティティが持つべきアクセス。<code class="code">ALLOW</code> または <code class="code">DENY</code> の返答が可能です。</p>
+                </li><li class="listitem">
+                    <p>エンティティのタイプ。<code class="code">USER</code> または <code class="code">GROUP</code> の返答が可能です。</p>
+                </li><li class="listitem">
+                    <p>エンティティの名前。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-jdbc">データベースデータソースのユーザーコンテキストフィルタリング</h2>
+            <p>データベースデータソースを使用すると、Amazon Kendraソーステーブルの列からユーザーおよびグループ情報を取得します。Amazon Aurora PostgreSQL<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_AclConfiguration.html">AclConfiguration</a>オブジェクト内のこの列は、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateDataSource.html">CreateDataSource</a>API <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_DatabaseConfiguration.html">DatabaseConfiguration</a>のオブジェクトの一部として指定します。</p>
+            <p>データベースデータソースには以下の制限があります。</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>データベースデータソースの許可リストのみを指定できます。拒否リストを指定することはできません。</p>
+                </li><li class="listitem">
+                    <p>グループのみを指定できます。許可リストに個別のユーザーを指定することはできません。</p>
+                </li><li class="listitem">
+                    <p>データベース列は、セミコロンで区切られたグループのリストを含む文字列である必要があります。</p>
+                </li></ul></div>
+         
+            <h2 id="context-filter-fsx">Amazon FSxデータソースのユーザーコンテキストフィルタリング</h2>
+            <p>Amazon FSxデータソースを使用する場合、Amazon KendraAmazon FSxインスタンスのディレクトリサービスからユーザーとグループの情報を取得します。</p>
+            <p>Amazon FSxグループIDとユーザーIDは、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループ ID は、Amazon FSxアクセス権限が設定されているファイル上に存在します。これらは、Amazon FSxのディレクトリサービス内のシステムグループ名からマップされます。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザ ID は、Amazon FSxアクセス権限が設定されているファイル上に存在します。これらは、Amazon FSxのディレクトリサービス内のシステムユーザー名からマップされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-workdocs">Amazon WorkDocsデータソースのユーザーコンテキストフィルタリング</h2>
+            <p>Amazon WorkDocsデータソースを使用すると、Amazon KendraAmazon WorkDocsインスタンスからユーザーとグループの情報を取得します。</p>
+            <p>Amazon WorkDocsグループIDとユーザーIDは、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループ ID は、Amazon WorkDocsアクセス権限が設定されているファイル上に存在します。これらは、のグループの名前からマッピングされますAmazon WorkDocs。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザ ID は、Amazon WorkDocsアクセス権限が設定されているファイル上に存在します。これらは、のユーザー名からマッピングされますAmazon WorkDocs。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-box">Box データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Box データソースを使用すると、BoxAmazon Kendra インスタンスからユーザーおよびグループ情報を取得します。</p>
+            <p>Box グループとユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループ ID は、アクセス許可が設定されているファイルに存在します。これらは Box のグループの名前からマッピングされます。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザー ID は、アクセス許可が設定されているファイルに存在します。これらは、ユーザーのメールからBoxのユーザーIDとしてマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-confluence">Confluence データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Confluence データソースを使用すると、ConfluenceAmazon Kendra インスタンスからユーザーおよびグループ情報を取得します。</p>
+            <p>[スペースアクセス許可] ページを使用して、スペースへのユーザーおよびグループアクセスを構成します。ページとブログの場合は、[制限] ページを使用します。スペースのアクセス許可の詳細については、Confluence Support ウェブサイトの<a href="https://confluence.atlassian.com/doc/space-permissions-overview-139521.html" rel="noopener noreferrer" target="_blank"><span>スペースアクセス許可の概要</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>を参照してください。ページおよびブログの制限の詳細については、Confluence Support ウェブサイトの<a href="https://confluence.atlassian.com/doc/page-restrictions-139414.html" rel="noopener noreferrer" target="_blank"><span>ページの制限</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>を参照してください。</p>
+            <p>Confluence グループ名とユーザー名は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループ名は、制限のあるスペース、ページ、ブログに存在します。これらは Confluence のグループの名前からマッピングされます。グループ名は常に小文字です。</p>
+                </li></ul></div>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザー名は、制限のあるスペース、ページ、ブログに存在します。これらは、使用している Confluence インスタンスのタイプに応じてマッピングされます。</p>
+
+                    <p><b>コンフルエンスコネクター v1.0 用</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>サーバー —<code class="code">_user_id</code> はユーザー名です。ユーザーネームは常に小文字です。</p>
+                        </li><li class="listitem">
+                            <p>クラウド —<code class="code">_user_id</code> ユーザーのアカウント ID です。</p>
+                        </li></ul></div>
+                    <p><b>コンフルエンスコネクター v2.0 用</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>サーバー —<code class="code">_user_id</code> はユーザー名です。ユーザーネームは常に小文字です。</p>
+                        </li><li class="listitem">
+                            <p>クラウド —<code class="code">_user_id</code> はユーザーの電子メール ID です。</p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-dropbox">Dropbox データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Dropbox データソースを使用すると、DropboxAmazon Kendra インスタンスからユーザーおよびグループ情報を取得します。</p>
+            <p>グループ ID とユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループ ID は、アクセス許可が設定されているファイルに存在します。これらは Dropbox のグループの名前からマッピングされます。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザー ID は、アクセス許可が設定されているファイルに存在します。これらは Dropbox の ID としてユーザーのメールからマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-github"> GitHub データソースのユーザーコンテキストフィルタリング</h2>
+            <p> GitHub データソースを使用する場合、Amazon Kendra GitHub インスタンスからユーザー情報を取得します。</p>
+            <p> GitHub ユーザー ID は次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザ ID は、 GitHub アクセス権限が設定されているファイル上に存在します。これらは、ユーザーの電子メールからの ID GitHub としてマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-google">Google Drive データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Google Workspace Drive データソースは、Google Drive のユーザーおよびグループのユーザー情報とグループ情報を返します。グループおよびドメインメンバーシップは、<code class="code">_group_ids</code> インデックスフィールドにマッピングされます。Google Drive のユーザー名は、<code class="code">_user_id</code> フィールドにマッピングされます。</p>
+            <p><code class="code">Query</code>API で 1 つ以上のユーザーの E メールアドレスを指定する場合、それらの E メールアドレスと共有されているドキュメントのみが返されます。以下の <code class="code">AttributeFilter</code> パラメータは、「martha@example.com」と共有されているドキュメントのみを返します。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_user_id", 
+                   "Value": <span>{</span>
+                       "StringValue": "martha@example.com"
+                   }
+               }
+           }</code></pre>
+            <p>クエリで 1 つ以上のグループの E メールアドレスを指定すると、グループと共有されているドキュメントのみが返されます。以下の <code class="code">AttributeFilter</code> パラメータは、「hr@example.com」グループと共有されているドキュメントのみを返します。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_group_ids", 
+                   "Value": <span>{</span>
+                       "StringListValue": ["hr@example.com"]
+                   }
+               }
+           }</code></pre>
+            <p>クエリでドメインを指定すると、ドメインで共有されているすべてのドキュメントが返されます。以下の <code class="code">AttributeFilter</code> パラメータは、「example.com」ドメインと共有されているドキュメントのみを返します。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_group_ids", 
+                   "Value": <span>{</span>
+                       "StringListValue": ["example.com"]
+                   }
+               }
+           }</code></pre>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+            <p></p>
+         
+            <h2 id="context-filter-gmail">Gmail データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Gmail データソースを使用する場合、GmailAmazon Kendra インスタンスからユーザー情報を取得します。</p>
+            <p>ユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>— ユーザー ID は、アクセス許可が設定されているファイルに存在します。これらは Gmail の ID としてユーザーのメールからマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-jira">Jira データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Jira データソースを使用すると、JiraAmazon Kendra インスタンスからユーザーおよびグループ情報を取得します。</p>
+            <p>Jira ユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザー ID は、アクセス許可が設定されているファイルに存在します。これらは Jira のユーザー ID としてユーザーのメールからマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-exchange">Microsoft Exchange データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Amazon Kendraサイト上のドキュメントのインデックス作成時に Microsoft Exchange からユーザー情報を取得します。ユーザー情報は、基盤の Microsoft Exchange ホストサイトから取得されます。</p>
+            <p>Exchange ユーザーをユーザーコンテキストフィルタリングに使用すると、Microsoft ExchangeAmazon Kendra インスタンスからユーザー情報を取得します。Exchange ID は次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_tenant_id</code>— Microsoft テナント ID は、各コネクタインスタンスを構成するために必要な、グローバルに一意の識別子です。テナント ID は組織名やドメインとは異なり、Microsoft アカウントダッシュボードのプロパティセクションで確認できます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-teams">Microsoft Teams データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Amazon Kendraサイト上のドキュメントのインデックス作成時に Microsoft Teams からユーザー情報を取得します。ユーザー情報は、基盤の Microsoft Teams ホストサイトから取得されます。</p>
+            <p>Teams ユーザーをユーザーコンテキストフィルタリングに使用すると、Microsoft TeamsAmazon Kendra インスタンスからユーザー情報を取得します。Teams テナント ID は次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_tenant_id</code>— Microsoft テナント ID は、各コネクタインスタンスを構成するために必要な、グローバルに一意の識別子です。テナント ID は組織名やドメインとは異なり、Microsoft アカウントダッシュボードのプロパティセクションで確認できます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-onedrive">Microsoft OneDrive  データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Amazon Kendra OneDriveサイト上のドキュメントのインデックス作成時に Microsoft からユーザーとグループの情報を取得します。ユーザーおよびグループの情報は、ホストする基盤の Microsoft SharePoint  OneDrive サイトから取得されます。</p>
+            <p> OneDrive ユーザーまたはグループをユーザーコンテキストのフィルタリングに使用する場合は、ID を次のように計算します。</p>
+            <div class="orderedlist">
+                 
+                 
+                 
+            <ol><li>
+                    <p>サイト名を取得します。例えば、<code class="code">https://host.onmicrosoft.com/sites/siteName.</code>。</p>
+                </li><li>
+                    <p>サイト名の MD5 ハッシュを取ります。例えば、<code class="code">430a6b90503eef95c89295c8999c7981</code>。</p>
+                </li><li>
+                    <p>MD5 ハッシュを縦棒 (|) と ID で連結して、ユーザーの E メールまたはグループ ID を作成します。例えば、グループ名が「サイト所有者」の場合、グループ ID は次のようになります。</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|site
+                        owners</code>"</code></p>
+                    <p>ユーザー名が「someone@host.onmicrosoft.com」の場合、ユーザー ID は次のようになります。</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|someone@host.onmicrosoft.com</code>"</code></p>
+                </li></ol></div>
+            <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a> API を呼び出すときに、ユーザー ID<code class="code">_user_id</code> またはグループ IDAmazon Kendra<code class="code">_group_ids</code> をまたは属性として送信します。例えば、グループを使用してクエリレスポンスをフィルタリングする AWS CLI コマンドは、次のようになります。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "430a6b90503eef95c89295c8999c7981|site owners"}
+                  }}'</code></pre>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-onedrivev2">Microsoft OneDrive  v2.0 データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Microsoft OneDrive  v2.0 データソースは、 OneDrive アクセスコントロールリスト (ACL) エンティティからセクションおよびページ情報を返します。 Amazon Kendra OneDrive OneDrive テナントドメインを使用してインスタンスに接続し、セクション名、ページタイプ、ファイル名、ファイルタイプ、およびファイルコンテンツに基づいてフィルタリングできます。</p>
+
+            <p>標準オブジェクトについては、<code class="code">_user_id</code> および <code class="code">_group_id</code> が次のように使用されます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>— Microsoft OneDrive  ユーザーの電子メール ID<code class="code">_user_id</code> がフィールドにマップされます。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_id</code>— Microsoft OneDrive <code class="code">_group_id</code> グループのメールアドレスがフィールドにマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-yammer">Microsoft Yammer データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Amazon Kendraサイト上のドキュメントのインデックス作成時に Microsoft Yammer からユーザーとグループの情報を取得します。ユーザーおよびグループ情報は、基盤の Microsoft Yammer ホストサイトから取得されます。</p>
+            <p>Yammer ユーザーをユーザーコンテキストフィルタリングに使用すると、Microsoft YammerAmazon Kendra インスタンスからユーザー情報を取得します。Microsoft Yammer ユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_email_id</code>— Microsoft 電子メール ID は、各コネクタインスタンスを構成するために必要な識別子です。電子メール ID は、Microsoft アカウントダッシュボードのプロパティセクションで確認できます。</p>
+                </li><li class="listitem">
+                    <p> <code class="code">_group_id</code>— グループ ID は、アクセス許可が設定されているMicrosoft Yammer インスタンスに存在します。これらは Microsoft Yammer のグループの名前からマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+            <p></p>
+         
+            <h2 id="context-filter-sharepoint-online">Microsoft SharePoint  データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Amazon Kendra SharePointサイト上のドキュメントのインデックス作成時に Microsoft からユーザーとグループの情報を取得します。ドキュメントをフィルタリングするには、<code class="code">Query</code> API を呼び出したときにユーザーとグループの情報を指定します。</p>
+            <p>ユーザー名を使用してフィルタリングするには、ユーザーの E メールアドレスを使用します。例えば、johnstiles@example.com。</p>
+
+            <p> SharePoint ユーザーコンテキストのフィルタリングにグループを使用する場合は、グループ ID を次のように計算します。</p>
+
+            <p><b>ローカルグループ向け</b></p>
+            <div class="orderedlist">
+                 
+                 
+                 
+            <ol><li>
+                    <p>サイト名を取得します。例えば、<code class="code">https://host.onmicrosoft.com/sites/siteName.</code>。</p>
+                </li><li>
+                    <p>サイト名の SHA256 ハッシュを取ります。例えば、<code class="code">430a6b90503eef95c89295c8999c7981</code>。</p>
+                </li><li>
+                    <p>SHA256 ハッシュを縦棒 (|) と ID で連結して、グループ ID を作成します。例えば、グループ名が「サイト所有者」の場合、グループ ID は次のようになります。</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|site
+                        owners</code>"</code></p>
+                </li></ol></div>
+            <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query API</a> を呼び出す場合にグループ IDAmazon Kendra<code class="code">_group_ids</code> を属性として送信します。例えば、AWS CLI コマンドは、次のようになります。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "430a6b90503eef95c89295c8999c7981|site owners"}
+                  }}'</code></pre>
+
+            <p><b>AD グループ用</b></p>
+            <div class="orderedlist">
+                 
+            <ol><li>
+                    <p>ユーザーコンテキストの設定には AD グループ ID を使用します。</p>
+                </li></ol></div>
+            <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a> API を呼び出す場合にグループ IDAmazon Kendra<code class="code">_group_ids</code> を属性として送信します。例えば、AWS CLI コマンドは、次のようになります。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "AD group"}
+                  }}'</code></pre>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-quip">Quip データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Quip データソースを使用する場合、QuipAmazon Kendra インスタンスからユーザー情報を取得します。</p>
+            <p>Quip ユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザ ID は、アクセス許可が設定されているファイルに存在します。これらは Quip の ID としてユーザーの電子メールからマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-salesforce">Salesforce データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Salesforce データソースは、Salesforce アクセスコントロールリスト (ACL) エンティティからユーザーおよびグループ情報を返します。Salesforce 標準オブジェクトおよび Chatter フィードにユーザーコンテキストフィルタリングを適用できます。ユーザーコンテキストフィルタリングは、Salesforce ナレッジ記事では使用できません。</p>
+            <p>標準オブジェクトについては、<code class="code">_user_id</code> および <code class="code">_group_ids</code> が次のように使用されます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Salesforce ユーザーのユーザー名。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_ids</code>—</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Salesforce <code class="code">Profile</code> の名前</p>
+                        </li><li class="listitem">
+                            <p>Salesforce <code class="code">Group</code> の名前</p>
+                        </li><li class="listitem">
+                            <p>Salesforce <code class="code">UserRole</code> の名前</p>
+                        </li><li class="listitem">
+                            <p>Salesforce <code class="code">PermissionSet</code> の名前</p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p>Chatter フィードの場合、<code class="code">_user_id</code> および <code class="code">_group_ids</code> は次のように使用されます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Salesforce ユーザーのユーザー名。項目がユーザーのフィードに投稿されている場合にのみ使用できます。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループ ID は、次のように使用されます。フィードフィードが Chatter またはコラボレーショングループに投稿されている場合にのみ使用できます。</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Chatter グループまたはコラボレーショングループの名前。</p>
+                        </li><li class="listitem">
+                            <p>グループが公開されている場合、<code class="code">PUBLIC:ALL</code>。</p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+            
+         
+            <h2 id="context-filter-servicenow"> ServiceNowデータソースのユーザーコンテキストフィルタリング</h2>
+            <p> ServiceNow のユーザーコンテキストフィルタリングは TemplateConfiguration  API と ServiceNow  Connector v2.0 でのみサポートされています。  ServiceNowConfiguration API ServiceNow  とコネクタ v1.0 はユーザーコンテキストフィルタリングをサポートしていません。</p>
+            <p> ServiceNow データソースを使用する場合、Amazon Kendra ServiceNow インスタンスからユーザーとグループの情報を取得します。</p>
+            <p>グループ ID とユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループ ID は、 ServiceNow アクセス権限が設定されているファイル上に存在します。<code class="code">sys_ids</code>これらはinのロール名からマッピングされます ServiceNow。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザ ID は、 ServiceNow アクセス権限が設定されているファイル上に存在します。これらは、ユーザーの電子メールからの ID ServiceNow としてマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-slack">Slack データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Slack データソースを使用する場合、SlackAmazon Kendra インスタンスからユーザー情報を取得します。</p>
+            <p>Slack ユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—ユーザー ID は、アクセス許可が設定されているメッセージやチャンネルには、アクセス許可が設定されているSlack これらは Slack の ID としてユーザーのメールからマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+         
+            <h2 id="context-filter-zendesk">Zendesk データソースのユーザーコンテキストフィルタリング</h2>
+            <p>Zendesk データソースを使用すると、ZendeskAmazon Kendra インスタンスからユーザーおよびグループ情報を取得します。</p>
+            <p>グループ ID とユーザー ID は、次のようにマッピングされます。</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—グループIDは、アクセス許可が設定されているZendeskのチケットや記事に存在します。これらは Zendesk のグループの名前からマッピングされます。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—グループIDは、アクセス許可が設定されているZendeskのチケットや記事に存在します。これらは、ユーザーのメールからZendeskのIDとしてマッピングされます。</p>
+                </li></ul></div>
+            <p><code class="code">AccessControlList</code> フィールドでは最大 200 個のエントリを追加できます。</p>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./filtering.html">フィルタリングとファセット検索</div><div id="next" class="next-link" accesskey="n" href="./query-responses-types.html">クエリレスポンスとレスポンスタイプ</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

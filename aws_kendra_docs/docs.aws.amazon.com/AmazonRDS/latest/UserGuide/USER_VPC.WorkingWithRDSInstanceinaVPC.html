@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Working with a DB instance in a VPC - Amazon Relational Database Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="USER_VPC.WorkingWithRDSInstanceinaVPC" /><meta name="default_state" content="USER_VPC.WorkingWithRDSInstanceinaVPC" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" /><meta name="description" content="Learn about working with an Amazon RDS DB instance in a VPC." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Relational Database Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Amazon Web Services (AWS) documentation to help you set up, operate, and scale a relational database in the AWS Cloud using Amazon Relational Database Service (Amazon RDS). You can create DB instances that run Amazon Aurora, MariaDB, Microsoft SQL Server, MySQL, Oracle, and PostgreSQL." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" hreflang="x-default" /><meta name="feedback-item" content="RDS" /><meta name="this_doc_product" content="Amazon Relational Database Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'rds'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Working with a DB instance in a VPC" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Working with a DB instance in a VPC - Amazon Relational Database Service</title><meta name="pdf" content="/pdfs/AmazonRDS/latest/UserGuide/rds-ug.pdf#USER_VPC.WorkingWithRDSInstanceinaVPC" /><meta name="github" content="https://github.com/awsdocs/amazon-rds-user-guide/tree/main/doc_source/USER_VPC.WorkingWithRDSInstanceinaVPC.md" /><meta name="rss" content="rdsupdates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=60" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html" /><meta name="keywords" content="Amazon Relational Database Service,RDS,DB Instance" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon RDS",
+        "item" : "https://docs.aws.amazon.com/rds/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon RDS",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon VPC VPCs and Amazon RDS",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Working with a DB instance in a VPC",
+        "item" : "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonRDS/latest/UserGuide/rds-ug.pdf#USER_VPC.WorkingWithRDSInstanceinaVPC" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-rds-user-guide/tree/main/doc_source/USER_VPC.WorkingWithRDSInstanceinaVPC.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/rds/index.html">Amazon RDS</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#Overview.RDSVPC.Create">Working with a DB 
+				instance in a VPC</a><a href="#USER_VPC.Subnets">Working with DB subnet groups</a><a href="#USER_VPC.IP_addressing">IP addressing</a><a href="#USER_VPC.Hiding">Hiding a DB instance 
+				in a VPC from the internet</a><a href="#USER_VPC.InstanceInVPC">Creating a DB 
+			instance in a VPC</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="USER_VPC.WorkingWithRDSInstanceinaVPC">Working with a DB 
+				<span>instance</span> in a VPC</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Your DB <span>instance</span>
+			is in a virtual private cloud (VPC). A VPC is a virtual network that is logically
+			isolated from other virtual networks in the AWS Cloud. Amazon VPC makes it possible for you
+			to launch AWS resources, such as an <span>Amazon RDS</span> DB <span>instance</span>
+			or Amazon EC2 instance, into a VPC. The VPC can either be a default VPC that comes with your
+			account or one that you create. All VPCs are associated with your AWS account. </p><p>Your default VPC has three subnets that you can use to isolate resources inside the VPC. The
+			default VPC also has an internet gateway that can be used to provide access to resources
+			inside the VPC from outside the VPC. </p><p>For a list of scenarios involving <span>Amazon RDS</span> DB <span>instances</span> in a VPC <span>and outside of a VPC</span>, see <a href="./USER_VPC.Scenarios.html">Scenarios for accessing a DB 
+				instance in a VPC</a>. </p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#Overview.RDSVPC.Create">Working with a DB 
+				instance in a VPC</a></li><li><a href="#USER_VPC.Subnets">Working with DB subnet groups</a></li><li><a href="#USER_VPC.IP_addressing">Amazon RDS IP addressing</a></li><li><a href="#USER_VPC.Hiding">Hiding a DB instance 
+				in a VPC from the internet</a></li><li><a href="#USER_VPC.InstanceInVPC">Creating a DB 
+			instance in a VPC</a></li></ul></div><p>In the following tutorials, you can learn to create a VPC that you can
+			use for a common <span>Amazon RDS</span> scenario:</p><div class="itemizedlist">
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p><a href="./CHAP_Tutorials.WebServerDB.CreateVPC.html">Tutorial: Create a VPC for use with a
+            DB instance (IPv4 only)</a></p>
+			</li><li class="listitem">
+				<p><a href="./CHAP_Tutorials.CreateVPCDualStack.html">Tutorial: Create a VPC for use with a DB
+                instance (dual-stack mode)</a></p>
+			</li></ul></div>
+		<h2 id="Overview.RDSVPC.Create">Working with a DB 
+				<span>instance</span> in a VPC</h2>
+			<p>Here are some tips on working with a DB <span>instance</span> 
+				in a VPC:</p> 
+		<div class="itemizedlist">
+			 
+			 
+			
+			 
+			
+			
+			 
+			 
+			 
+			
+			 			
+			
+			 
+			
+		<ul class="itemizedlist"><li class="listitem">
+				<p>Your VPC must have at least two subnets. These subnets must be in two different
+						Availability Zones in the AWS Region where you want to deploy your DB
+							<span>instance</span>. A <em>subnet</em> is a segment of a VPC's IP address range that you can
+						specify and that you can use to group DB <span>instances</span> based on
+						your security and operational needs. </p>
+				
+				<p>For Multi-AZ deployments, defining a subnet for two or more
+						Availability Zones in an AWS Region allows Amazon RDS to create a new standby
+						in another Availability Zone as needed. Make sure to do this even for
+						Single-AZ deployments, just in case you want to convert them to Multi-AZ
+						deployments at some point.</p>
+				
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The DB subnet group for a Local Zone can have only one subnet.</p></div></div>
+			</li><li class="listitem">
+				<p>If you want your DB <span>instance</span> in the VPC to be publicly
+						accessible, make sure to turn on the VPC attributes <em>DNS
+							hostnames</em> and <em>DNS resolution</em>. </p>
+			</li><li class="listitem">
+				<p>Your VPC must have a DB subnet group that you create. You create a DB subnet group by specifying the 
+					subnets you created. Amazon RDS chooses a subnet and an IP address within that subnet group to associate with your DB 
+					instance. The DB instance uses the Availability Zone that contains the subnet.</p>
+			</li><li class="listitem">
+				<p>Your VPC must have a VPC security group that allows access to the DB 
+					<span>instance</span>.</p>
+				<p>For more information, see <a href="./USER_VPC.Scenarios.html">Scenarios for accessing a DB 
+				instance in a VPC</a>.</p>
+			</li><li class="listitem">
+				<p>The CIDR blocks in each of your subnets must be large enough to accommodate spare IP
+					addresses for <span>Amazon RDS</span> to 
+					use during maintenance activities, including failover and compute scaling. For example, a range such 
+					as 10.0.0.0/24 and 10.0.1.0/24 is typically large enough.</p>
+			</li><li class="listitem">
+				<p>A VPC can have an <em>instance tenancy</em> attribute of either
+					<em>default</em> or <em>dedicated</em>. All default
+					VPCs have the instance tenancy attribute set to default, and a default VPC can
+					support any DB instance class.</p>			
+				<p>If you choose to have your DB <span>instance</span> 
+					    in a dedicated VPC where the instance tenancy
+					    attribute is set to dedicated, the DB instance class of your DB 
+					    <span>instance</span>
+						must be one of the approved Amazon EC2 dedicated instance types. For
+						example, the r5.large EC2 dedicated instance corresponds to the
+						db.r5.large DB instance class. For information about instance tenancy in a VPC, see 
+					    <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html">Dedicated 
+							instances</a> in the <em>Amazon Elastic Compute Cloud User Guide</em>.</p>
+				
+				
+				
+				<p>For more information about the instance types that can be in a dedicated instance, see 
+					<a href="https://aws.amazon.com/ec2/purchasing-options/dedicated-instances/" rel="noopener noreferrer" target="_blank"><span>Amazon EC2 dedicated instances</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> on the EC2 pricing page.
+				</p>    
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>When you set the instance tenancy attribute to dedicated for a DB 
+						<span>instance</span>, 
+						it doesn't guarantee that the DB 
+						<span>instance</span> 
+						will run on a dedicated host.</p></div></div>
+			</li><li class="listitem">
+				<p>When an option group is assigned to a DB instance, it's associated with the DB instance's
+						VPC. This linkage means that you can't use the option group assigned to a DB
+						instance if you attempt to restore the DB instance into a different
+						VPC.</p>				
+			</li><li class="listitem">
+				<p>If you restore a DB instance into a different VPC, make sure to either assign the default
+						option group to the DB instance, assign an option group that is linked to
+						that VPC, or create a new option group and assign it to the DB instance.
+						With persistent or permanent options, such as Oracle TDE, you must create a
+						new option group that includes the persistent or permanent option when
+						restoring a DB instance into a different VPC.</p>
+			</li></ul></div>
+
+	 
+		<h2 id="USER_VPC.Subnets">Working with DB subnet groups</h2>
+		
+		<p><em>Subnets</em> are segments of a VPC's IP address range that you
+				designate to group your resources based on security and operational needs. A
+					<em>DB subnet group</em> is a collection of subnets
+				(typically private) that you create in a VPC and that you then designate for your DB
+					<span>instances</span>. By using a DB subnet group, you can specify a particular VPC
+				when creating DB <span>instances</span> using the AWS CLI or RDS API. If you use the
+				console, you can choose the VPC and subnet groups you want to use.</p>
+		
+		<p>Each DB subnet group should have subnets in at least two Availability Zones in a given
+			AWS Region. When creating a DB <span>instance</span> 
+			    in a VPC, you choose a DB subnet group for it. From the DB subnet group, 
+			<span>Amazon RDS</span> chooses a subnet 
+			and an IP address within that subnet to associate with the DB 
+			instance. The DB uses the
+			Availability Zone that contains the subnet.</p> 
+		
+        		
+		<p>If the primary DB instance of a Multi-AZ
+				deployment fails, Amazon RDS can promote the corresponding standby and
+				later create a new standby using an IP address of the subnet in one of the other
+				Availability Zones.</p>
+
+		<p>The subnets in a DB subnet group are either public or private. The subnets are public or
+				private, depending on the configuration that you set for their network access
+				control lists (network ACLs) and routing tables. For a DB 
+			<span>instance</span> to be publicly
+				accessible, all of the subnets in its DB subnet group must be public. If a subnet
+				that's associated with a publicly accessible DB 
+			<span>instance</span> changes from public to
+			private, it can affect DB <span>instance</span> availability.</p>			
+			
+		<p>To create a DB subnet group that supports dual-stack mode, make sure that each subnet 
+			that you add to the DB subnet group has an Internet Protocol version 6 (IPv6) CIDR block associated with it. For more information, see 
+			<a href="#USER_VPC.IP_addressing">Amazon RDS IP addressing</a> 
+			and <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-migrate-ipv6.html">Migrating to IPv6</a> 
+			in the <em>Amazon VPC User Guide.</em></p>
+		
+		
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The DB subnet group for a Local Zone can have only one subnet.</p></div></div>
+		
+		<p>When <span>Amazon RDS</span> creates a DB <span>instance</span> in a VPC, it
+				assigns a network interface to your DB <span>instance</span> by using an IP
+				address from your DB subnet group. However, we strongly recommend that you use the
+				Domain Name System (DNS) name to connect to your DB <span>instance</span>. We recommend this
+				because the underlying IP address changes during failover. </p>
+		
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For each DB <span>instance</span> 
+				that you run in a VPC, make sure to reserve at least one address in
+				each subnet in the DB subnet group for use by 
+				<span>Amazon RDS</span> for recovery
+				actions. </p></div></div>
+		
+	 
+		<h2 id="USER_VPC.IP_addressing"><span>Amazon RDS</span> IP addressing</h2>
+		
+		<p>IP addresses enable resources in your VPC to communicate with each other, and with resources
+				over the internet. <span>Amazon RDS</span> support both the Internet Protocol version
+				4 (IPv4) and IPv6 addressing protocols. By default, <span>Amazon RDS</span> and Amazon VPC use the
+				IPv4 addressing protocol. You can't turn off this behavior. When you create a
+				VPC, make sure to specify an IPv4 CIDR block (a range of private IPv4 addresses).
+				You can optionally assign an IPv6 CIDR block to your VPC and subnets, and assign
+				IPv6 addresses from that block to DB <span>instances</span> in your
+				subnet.</p>
+		
+		<p>Support for the IPv6 protocol expands the number of supported IP addresses. By using the IPv6 protocol, 
+			you ensure that you have sufficient available addresses for the future growth of the internet. New
+			and existing RDS resources can use IPv4 and IPv6 addresses within your Amazon VPC. 
+			Configuring, securing, and translating network traffic between the two protocols used in different parts of an
+			application can cause operational overhead. You can standardize on the IPv6 protocol for Amazon RDS resources to 
+			simplify your network configuration.</p>	
+		
+		<div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#USER_VPC.IP_addressing.IPv4">IPv4 addresses</a></li><li><a href="#USER_VPC.IP_addressing.IPv6">IPv6 addresses</a></li><li><a href="#USER_VPC.IP_addressing.dual-stack-mode">Dual-stack mode</a></li></ul></div>
+		
+		 
+			<h3 id="USER_VPC.IP_addressing.IPv4">IPv4 addresses</h3>
+			
+			<p>When you create a VPC, you must specify a range of IPv4 addresses for the VPC in the form
+					of a CIDR block, such as <code class="code">10.0.0.0/16</code>. A <em>DB
+						subnet group</em> defines the range of IP addresses in this CIDR block
+					that a DB <span>instance</span> can use. These IP addresses can be
+					private or public.</p>		
+			<p>A private IPv4 address is an IP address that's not reachable over the internet. You can use private 
+				IPv4 addresses for communication between your DB <span>instance</span>
+				 and other resources, such as Amazon EC2 instances, in the same VPC. 
+				Each DB <span>instance</span>  has 
+				a private IP address for communication in the VPC.</p>	
+			<p>A public IP address is an IPv4 address that's reachable from the internet. You can use public addresses for 
+				communication between your DB <span>instance</span>
+				 and resources on the internet, such as a SQL client. 
+				You control whether your DB <span>instance</span>
+				 receives a public IP address.</p>
+			<p>For a tutorial that shows you how to create a VPC with only private IPv4 addresses that you can use for  
+				a common <span>Amazon RDS</span> scenario,
+				see <a href="./CHAP_Tutorials.WebServerDB.CreateVPC.html">Tutorial: Create a VPC for use with a
+            DB instance (IPv4 only)</a>.
+			</p>
+			
+		 
+		
+		 
+			<h3 id="USER_VPC.IP_addressing.IPv6">IPv6 addresses</h3>
+			
+			<p>You can optionally associate an IPv6 CIDR block with your VPC and subnets, and assign IPv6 addresses from 
+				that block to the resources in your VPC. Each IPv6 addresses is globally unique. </p>
+			<p>The IPv6 CIDR block for your VPC is automatically assigned from Amazon's pool of IPv6 addresses. 
+				You can't choose the range yourself.</p>
+			<p>When connecting to an IPv6 address, make sure that the following conditions are met:</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>The client is configured so that client to database traffic over IPv6 is allowed.</p>
+				</li><li class="listitem">
+					<p>RDS security groups used by the DB instance are configured correctly so that client 
+						to database traffic over IPv6 is allowed.</p>
+				</li><li class="listitem">
+					<p>The client operating system stack allows traffic on the IPv6 address, and operating system drivers and 
+						libraries are configured to choose the correct default DB instance endpoint (either IPv4 or IPv6).</p>
+				</li></ul></div>
+			<p>For more information about IPv6, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html#vpc-ip-addressing">
+				IP Addressing</a> in the <em>Amazon VPC User Guide</em>.</p>
+
+		 
+		
+		 
+			<h3 id="USER_VPC.IP_addressing.dual-stack-mode">Dual-stack mode</h3>
+			
+			<p>When a DB <span>instance</span> can communicate over both the IPv4 and IPv6 addressing
+					protocols, it's running in dual-stack mode. So, resources can communicate with
+					the DB <span>instance</span> over IPv4, IPv6, or both. RDS disables Internet Gateway
+					access for IPv6 endpoints of private dual-stack mode DB instances. RDS does this
+					to ensure that your IPv6 endpoints are private and can only be accessed from
+					within your VPC.</p>
+			
+			<div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#USER_VPC.IP_addressing.dual-stack-db-subnet-groups">Dual-stack mode and DB subnet groups</a></li><li><a href="#USER_VPC.IP_addressing.dual-stack-working-with">Working with dual-stack mode DB instances</a></li><li><a href="#USER_VPC.IP_addressing.dual-stack-modifying-ipv4">Modifying IPv4-only DB 
+						instances to use dual-stack mode</a></li><li><a href="#USER_VPC.IP_addressing.RegionVersionAvailability">Region and version availability</a></li><li><a href="#USER_VPC.IP_addressing.dual-stack-limitations">Limitations for dual-stack network DB 
+						instances</a></li></ul></div>
+			
+			<p>For a tutorial that shows you how to create a VPC with both IPv4 and IPv6 addresses that you can use for  
+				a common <span>Amazon RDS</span> scenario,
+				see <a href="./CHAP_Tutorials.CreateVPCDualStack.html">Tutorial: Create a VPC for use with a DB
+                instance (dual-stack mode)</a>.
+			</p>			
+					
+			 
+				<h4 id="USER_VPC.IP_addressing.dual-stack-db-subnet-groups">Dual-stack mode and DB subnet groups</h4>
+				
+				<p>To use dual-stack mode, make sure that each subnet in the DB subnet group that you
+						associate with the DB <span>instance</span> has an IPv6 CIDR block associated
+						with it. You can create a new DB subnet group or modify an existing DB
+						subnet group to meet this requirement. After a DB <span>instance</span>
+						 is in dual-stack mode, clients
+						can connect to it normally. Make sure that client security firewalls and RDS
+						DB instance security groups are accurately configured to allow traffic over
+						IPv6. To connect, clients use the <span>DB
+							instance's endpoint</span>
+						. Client applications can specify which protocol is
+						preferred when connecting to a database. In dual-stack mode, the DB <span>instance</span> detects the client's preferred network protocol,
+						either IPv4 or IPv6, and uses that protocol for the connection.</p>
+				
+				<p>If a DB subnet group stops supporting dual-stack mode because of subnet deletion or CIDR
+						disassociation, there's a risk of an incompatible network state for DB
+						instances that are associated with the DB subnet group. Also, you can't use
+						the DB subnet group when you create new dual-stack mode DB <span>instance</span>.</p>
+				
+				<p>To determine whether a DB subnet group supports dual-stack mode by using the AWS Management Console, view the <b>Network type</b> on 
+					the details page of the DB subnet group. To determine whether a DB subnet group supports dual-stack mode by using the AWS CLI, call the 
+					<a href="https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-subnet-groups.html">describe-db-subnet-groups</a> command 
+					and view <code class="code">SupportedNetworkTypes</code> in the output.</p>
+				
+				<p>Read replicas are treated as independent DB instances and can have a network type that's
+						different from the primary DB instance. If you change the network type of a
+						read replica's primary DB instance, the read replica isn't affected. When
+						you are restoring a DB instance, you can restore it to any network type
+						that's supported.</p>			
+			
+			 
+			
+			 
+				<h4 id="USER_VPC.IP_addressing.dual-stack-working-with">Working with dual-stack mode DB instances</h4>
+				
+				<p>When you create or modify a DB <span>instance</span>, 
+					you can specify <em>dual-stack mode</em> to allow your resources to communicate with your DB 
+					<span>instance</span> over IPv4, IPv6, or both.</p> 
+				
+				<p>When you use the AWS Management Console to create or modify a DB instance, you can specify dual-stack
+						mode in the <b>Network type</b> section. The following image
+						shows the <b>Network type</b> section in the console.</p>
+				
+				<div class="mediaobject">
+						 
+							<img src="/images/AmazonRDS/latest/UserGuide/images/dual-stack-mode.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Network type section in the console with&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Dual-stack mode selected&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;" style="max-width:100%" />
+						 
+						 
+					</div>
+				
+				<p>When you use the AWS CLI to create or modify a DB <span>instance</span>, 
+					set the <code class="code">--network-type</code> option to <code class="code">DUAL</code> to use dual-stack mode. When you use the RDS API to create or modify a DB 
+					<span>instance</span>, set the <code class="code">NetworkType</code> parameter to 
+					<code class="code">DUAL</code> to use dual-stack mode. When you are modifying the network type of a DB instance, downtime is possible. If dual-stack mode 
+					isn't supported by the specified DB engine version or DB subnet group, the <code class="code">NetworkTypeNotSupported</code> error is returned.</p>
+				
+				
+				<p>For more information about creating a DB instance, see <a href="./USER_CreateDBInstance.html">Creating an Amazon RDS DB instance</a>. For more information about modifying a DB instance, see <a href="./Overview.DBInstance.Modifying.html">Modifying an Amazon RDS DB instance</a>.</p>
+				
+				
+				
+				
+				<p>To determine whether a DB <span>instance</span> is in dual-stack mode by using the
+						console, view the <b>Network type</b> on the
+							<b>Connectivity &amp; security</b> tab for the DB <span>instance</span>.</p>
+				
+			 
+			
+			 
+				<h4 id="USER_VPC.IP_addressing.dual-stack-modifying-ipv4">Modifying IPv4-only DB 
+						<span>instances</span> to use dual-stack mode</h4>
+				
+				<p>You can modify an IPv4-only DB <span>instance</span> 
+					to use dual-stack mode. To do so, change the network type of the DB 
+					<span>instance</span>. 
+					The modification might result in downtime.</p>
+				
+				
+				<p>It is recommended that you change the network type of your <span>Amazon RDS instances</span>
+					 during a maintenance window. 
+					Setting the network type of new instances to dual stack by default is currently unsuspported. 
+					Set network type manually by using the <span>modify-db-instance</span> command. </p>
+				
+				
+				
+				<p>Before modifying a DB <span>instance</span> 
+					to use dual-stack mode, make sure that its DB subnet group
+					supports dual-stack mode. If the DB subnet group associated with the DB
+					<span>instance</span> 
+					doesn't support dual-stack mode, specify a different DB subnet
+					group that supports it when you modify the DB <span>instance</span>. 
+					Modifying the DB subnet group of a DB <span>instance</span>
+					 can cause downtime.</p>
+				
+				<p>If you modify the DB subnet group of a DB <span>instance</span>
+					 before you change the DB <span>instance</span>
+					 to use dual-stack mode, make sure that the DB subnet group is valid for the DB
+					<span>instance</span> before and after the change.
+				</p>
+				
+				
+				
+				<p>For exmaple:
+				</p>
+
+				
+				<p>For RDS for PostgreSQL, RDS for MySQL, RDS for Oracle, and RDS for MariaDB Single-AZ instances, we recommend that you call the 
+					<a href="https://docs.aws.amazon.com/cli/latest/reference/rds/modify-db-instance.html">modify-db-instance</a> 
+					command with just the <code class="code">--network-type</code> parameter with value <code class="code">DUAL</code> to change the network to dual stack. 
+					Adding other parameters along with the <code class="code">--network-type</code> parameter in the same API call could result in downtime. 
+					If you wish to modify multiple parameters, please ensure that the network type modification API action is successfully completed 
+					before sending another <code class="code">modify-db-instance</code> request with other parameters.
+				</p>
+				<p>Network type modifications for RDS for PostgreSQL, RDS for MySQL, RDS for Oracle, and RDS for MariaDB Multi-AZ instances cause a brief downtime 
+					and trigger a failover if you only use the <code class="code">--network-type</code> parameter or if you combine parameters 
+					in a modify-db-instance command.</p>
+				<p>Network type modifications on RDS for SQL Server Single-AZ or Multi-AZ instances cause downtime if you 
+					only use the <code class="code">--network-type</code> parameter or if you combine parameters 
+					in a modify-db-instance command. Network type modifications cause failover in an SQL Server Multi-AZ instance.</p>
+<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">aws rds modify-db-instance --db-instance-identifier my-instance --network-type "DUAL" 
+</code></pre>
+				
+				<p>If you can't connect to the DB <span>instance</span> 
+					after the change, make sure that the client and database security firewalls and route tables are accurately configured to
+					allow cross traffic to the database on the selected network (either IPv4 or IPv6). You might also need to modify 
+					operating system parameter, libraries, or drivers to connect using an IPv6 address.</p>
+				
+				<p>The following limitations apply to modifying a DB 
+					<span>instance</span> to use dual-stack mode:</p>
+				
+				<div class="itemizedlist">
+					 
+					 
+					
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>Dual-stack mode DB <span>instances</span> 
+							can't be publicly accessible.</p>
+					</li><li class="listitem">
+						<p>DB <span>instances</span> can't have an IPv6-only endpoint.</p>
+					</li><li class="listitem">
+						<p>There can't be a pending change from a Single-AZ deployment to a Multi-AZ deployment, or from a Multi-AZ deployment 
+							to a Single-AZ deployment.</p>
+					</li></ul></div>
+				
+				<div class="procedure"><h6>To modify an IPv4-only DB <span>instance</span> 
+						to use dual-stack mode</h6><ol><li>
+						<p>Modify a DB subnet group to support dual-stack mode, or create a DB subnet group that
+								supports dual-stack mode:</p>						
+						<ol><li>
+								<p>Associate an IPv6 CIDR block with your VPC.</p>
+								<p>For instructions, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html#vpc-associate-ipv6-cidr">
+									Associate an IPv6 CIDR block with your VPC</a> in the <em>Amazon VPC User Guide</em>.</p>
+							</li><li>
+								<p>Attach the IPv6 CIDR block to all of the subnets in your the DB subnet group.</p>
+								<p>For instructions, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/working-with-subnets.html#subnet-associate-ipv6-cidr">
+									Associate an IPv6 CIDR block with your subnet</a> in the <em>Amazon VPC User Guide</em>.</p>
+							</li><li>
+								<p>Confirm that the DB subnet group supports dual-stack mode.</p>
+								<p>If you are using the AWS Management Console, select the DB subnet group, and make sure that the
+									<b>Supported network types</b> value is
+									<b>Dual, IPv4</b>.</p>
+								<p>If you are using the AWS CLI, call the <a href="https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-subnet-groups.html">describe-db-subnet-groups</a> command, and make
+									sure that the <code class="code">SupportedNetworkType</code> value for
+									the DB instance is <code class="code">Dual, IPv4</code>.</p>
+							</li></ol>
+					</li><li>
+						<p>Modify the security group associated with the DB 
+							<span>instance</span> to allow 
+							IPv6 connections to the database, or create a new security group that allows IPv6 connections.</p>
+						<p>For instructions, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#SecurityGroupRules">
+							Security group rules</a> in the <em>Amazon VPC User Guide</em>.</p>
+					</li><li>
+						<p>Modify the DB <span>instance</span> 
+							to support dual-stack mode. To do so, set the <b>Network type</b> to <b>Dual-stack mode</b>.</p>
+						<p>If you are using the console, make sure that the following settings are correct:</p>
+						<div class="itemizedlist">
+							 
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem">
+								<p><b>Network type</b> – <b>Dual-stack mode</b></p>
+								<div class="mediaobject">
+										 
+											<img src="/images/AmazonRDS/latest/UserGuide/images/dual-stack-mode.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Network type section in the&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;console with Dual-stack mode&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;selected&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;" style="max-width:100%" />
+										 
+										 
+									</div>
+							</li><li class="listitem">
+								<p><b>DB subnet group</b> – The DB subnet group that you configured in
+										a previous step</p>
+							</li><li class="listitem">
+								<p><b>Security group</b> – The security that you configured in a
+										previous step</p>
+							</li></ul></div>
+						<p>If you are using the AWS CLI, make sure that the following settings are correct:</p>
+						<div class="itemizedlist">
+							 
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem">
+								<p><code class="code">--network-type</code> – <code class="code">dual</code></p>
+							</li><li class="listitem">
+								<p><code class="code">--db-subnet-group-name</code> – The DB subnet group that you configured
+										in a previous step</p>
+							</li><li class="listitem">
+								<p><code class="code">--vpc-security-group-ids</code> – The VPC security group that you
+										configured in a previous step</p>
+							</li></ul></div>
+					</li><li>
+						<p>Confirm that the DB <span>instance</span> 
+							supports dual-stack mode.</p>
+						<p>If you are using the console, choose the <span><b>Connectivity &amp;
+									security</b></span> tab for the DB
+									<span>instance</span>. On that tab, make sure that
+								the <b>Network type</b> value is <b>Dual-stack
+									mode</b>.</p>
+						
+						<p>If you are using the AWS CLI, call the <a href="https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-instances.html">
+							describe-db-instances</a> command, and make sure that the <code class="code">NetworkType</code> value for the DB instance is <code class="code">dual</code>.</p>
+						
+						
+						<p>Run the <code class="code">dig</code> command on the DB instance endpoint 
+							to identify the IPv6 address associated with it.</p>
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">dig <code class="replaceable">db-instance-endpoint</code> AAAA</code></pre>
+						<p>Use the DB instance endpoint, not the IPv6 address, to connect to the DB 
+							<span>instance</span>.</p>
+					</li></ol></div>				
+				
+			 
+			
+			 
+				<h4 id="USER_VPC.IP_addressing.RegionVersionAvailability">Region and version availability</h4>
+				<p>Feature availability and support varies across specific versions of each database engine, and across AWS Regions.  
+					For more information on version and Region availability with dual stack mode, see 
+					<a href="./Concepts.RDS_Fea_Regions_DB-eng.Feature.DualStackMode.html">Dual-stack mode</a>.
+				</p>
+			 
+
+			
+
+			
+			 
+				<h4 id="USER_VPC.IP_addressing.dual-stack-limitations">Limitations for dual-stack network DB 
+						<span>instances</span></h4>
+				<p>The following limitations apply to dual-stack network DB 
+					<span>instances</span>:</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+					 
+					
+					 
+					 
+					
+					 
+					
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>DB <span>instances</span> can't use 
+							the IPv6 protocol exclusively. They can use IPv4 exclusively, or they can use the IPv4 and IPv6 protocol (dual-stack mode).</p>
+					</li><li class="listitem">
+						<p>Amazon RDS doesn't support native IPv6 subnets.</p>
+					</li><li class="listitem">
+						<p>DB <span>instances</span> that use 
+							dual-stack mode must be private. They can't be publicly accessible.</p>
+					</li><li class="listitem">
+						<p>Dual-stack mode doesn't support the <span>db.m3 and </span>db.r3 DB instance classes.</p>
+					</li><li class="listitem">
+						<p>For RDS for SQL Server, dual-stack mode DB instances that use Always On AGs availability group listener endpoints 
+							only present IPv4 addresses.</p>
+					</li><li class="listitem">
+						<p>You can't use RDS Proxy with dual-stack mode DB 
+							<span>instances</span>.</p>
+					</li><li class="listitem">
+						<p>You can't use dual-stack mode with RDS on AWS Outposts DB instances.</p>
+					</li><li class="listitem">
+						<p>You can't use dual-stack mode with DB instances in a Local Zone.</p>
+					</li></ul></div>
+				
+			 
+			
+		 
+					
+	 
+		<h2 id="USER_VPC.Hiding">Hiding a DB <span>instance</span> 
+				in a VPC from the internet</h2>
+		
+		<p>One common <span>Amazon RDS</span> scenario is to have a VPC in which you have an EC2 instance
+				with a public-facing web application and a DB <span>instance</span> with a database
+				that isn't publicly accessible. For example, you can create a VPC that has a public
+				subnet and a private subnet. Amazon EC2 instances that function as web servers can be
+				deployed in the public subnet. The DB <span>instances</span> are deployed in
+				the private subnet. In such a deployment, only the web servers have access to the DB
+					<span>instances</span>. For an illustration of this scenario, see <a href="./USER_VPC.Scenarios.html#USER_VPC.Scenario1">A DB instance 
+				in a VPC accessed by an EC2 instance in the same VPC</a>. </p>
+
+		<p>When you launch a DB <span>instance</span> inside a VPC, the DB <span>instance</span> has a private IP address for traffic inside the VPC. This
+				private IP address isn't publicly accessible. You can use the <b>Public
+					access</b> option to designate whether the DB <span>instance</span> also has a public IP address in addition to the private IP
+				address. If the DB <span>instance</span> is designated as publicly accessible, its
+				DNS endpoint resolves to the private IP address from within the VPC. It resolves to
+				the public IP address from outside of the VPC. Access to the DB <span>instance</span> is ultimately controlled by the security group it uses. That
+				public access is not permitted if the security group assigned to the DB <span>instance</span> doesn't include inbound rules that permit it. In addition, for
+				a DB <span>instance</span> to be publicly accessible, the subnets in its DB subnet group
+				must have an internet gateway. For more information, see <a href="./CHAP_Troubleshooting.html#CHAP_Troubleshooting.Connecting">Can't connect to Amazon RDS DB instance</a></p>
+
+		<p>You can modify a DB <span>instance</span> 
+			to turn on or off public accessibility by modifying the <b>Public access</b> option. 
+			The following illustration shows the <b>Public access</b>
+			option in the <b>Additional connectivity configuration</b> section. To 
+			set the option, open the <b>Additional connectivity configuration</b> section 
+			in the <b>Connectivity</b> section.
+		</p>
+
+		<div class="mediaobject">
+			 
+				<img src="/images/AmazonRDS/latest/UserGuide/images/VPC-example4.png" class="aws-docs-img-whiteBg aws-docs-img-padding" style="max-width:100%" />
+			 
+		</div>
+		
+		
+		<p>For information about modifying a DB instance to set the <b>Public access</b>
+			option, see <a href="./Overview.DBInstance.Modifying.html">Modifying an Amazon RDS DB instance</a>.</p>
+		
+		
+		
+		
+	 
+		<h2 id="USER_VPC.InstanceInVPC">Creating a DB 
+			<span>instance</span> in a VPC</h2>	
+
+		<p>The following procedures help you create a DB <span>instance</span> 
+			in a VPC. To use the default VPC, you can begin with step 2, and use the VPC and DB subnet group have already been created for you. 
+			If you want to create an additional VPC, you can create a new VPC.				
+		</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you want your DB <span>instance</span> 
+					in the VPC to be publicly accessible, you must update
+					the DNS information for the VPC by enabling the VPC attributes <em>DNS
+					hostnames</em> and <em>DNS resolution</em>. For information
+					about updating the DNS information for a VPC instance, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html">Updating DNS support for your VPC</a>.
+				</p></div></div>
+	<p>Follow these steps to create a DB instance in a VPC:</p>
+	<div class="itemizedlist">
+		 
+		 
+		 
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p><a href="#USER_VPC.CreatingVPC">Step 1: Create a VPC</a> </p>
+		</li><li class="listitem">		
+			<p> <a href="#USER_VPC.CreateDBSubnetGroup">Step 2: Create a DB subnet group</a></p>
+		</li><li class="listitem">
+			<p> <a href="#USER_VPC.CreateVPCSecurityGroup">Step 3: Create a VPC security group</a></p>
+		</li><li class="listitem">
+			<p> <a href="#USER_VPC.CreateDBInstanceInVPC">Step 4: Create a DB instance in the VPC</a> </p>
+		</li></ul></div>
+	
+	 
+		<h3 id="USER_VPC.CreatingVPC">Step 1: Create a VPC</h3>
+			
+		<p>Create a VPC with subnets in at least two Availability Zones.
+			You use these subnets when you create a DB subnet group. If you have a default VPC, a subnet is automatically 
+			created for you in each Availability Zone in the AWS Region.</p>
+		<p>For more information, see <a href="./CHAP_Tutorials.WebServerDB.CreateVPC.html#CHAP_Tutorials.WebServerDB.CreateVPC.VPCAndSubnets">Create a VPC with
+                private and public subnets</a>, or see 
+			<a href="https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html#Create-VPC">Create a VPC</a> in the  
+			<em>Amazon VPC User Guide</em>.
+		</p>
+	 
+
+	 
+		<h3 id="USER_VPC.CreateDBSubnetGroup">Step 2: Create a DB subnet group</h3>
+		
+		<p>A DB subnet group is a collection of subnets (typically private) that you create for a VPC
+			and that you then designate for your DB <span>instances</span>. 
+			A DB subnet group allows you to specify a particular VPC when you create DB 
+			<span>instances</span> using the AWS CLI or RDS API.
+			If you use the console, you can just choose the VPC and subnets you want to use.
+			Each DB subnet group must have at least one subnet in at least two Availability
+			Zones in the AWS Region. As a best practice, each DB subnet group should have at least one subnet 
+			for every Availability Zone in the AWS Region.</p>
+		
+		
+		<p>For Multi-AZ deployments, defining a subnet for all Availability Zones in an AWS Region  
+			enables Amazon RDS to create a new standby replica in another Availability Zone if necessary. You can follow this 
+			best practice even for Single-AZ deployments, because you might convert them to Multi-AZ deployments 
+			in the future.</p>
+		
+		<p>For a DB <span>instance</span> to be publicly accessible, 
+			the subnets in the DB subnet group must have an internet gateway. For more information about internet gateways for subnets,
+			see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html">Connect to the internet using an internet gateway</a> in the  
+			<em>Amazon VPC User Guide</em>. </p>
+		
+		
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The DB subnet group for a Local Zone can have only one subnet.</p></div></div>
+		
+		<p>When you create a DB <span>instance</span> 
+			in a VPC, you can choose a DB subnet group. <span>Amazon RDS</span> chooses 
+			a subnet and an IP address within that subnet to associate with your DB 
+			<span>instance</span>. If no 
+	    	DB subnet groups exist, <span>Amazon RDS</span>  
+	    	creates a default subnet group when you create a DB <span>instance</span>. 
+	        <span>Amazon RDS</span> 
+			creates and associates an Elastic Network Interface to your DB 
+			<span>instance</span> with that IP address. 
+			The DB <span>instance</span> uses the 
+			Availability Zone that contains the subnet.</p>
+		
+		
+		<p>For Multi-AZ deployments, defining a subnet for two or more Availability Zones in an AWS Region allows 
+			Amazon RDS to create a new standby in another Availability Zone should the need arise. You need to do this even 
+	    	For Single-AZ deployments, just in case you want to convert them to Multi-AZ deployments at some point.</p>
+		
+		 <p>In this step, you create a DB subnet group and add the subnets that you created for your VPC.</p>
+
+			<div class="procedure"><h6>To create a DB subnet group</h6><ol><li>
+					<p>Open the Amazon RDS console at
+         <a href="https://console.aws.amazon.com/rds/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/rds/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+				</li><li>
+					<p>In the navigation pane, choose <b>Subnet groups</b>.</p>
+				</li><li>
+					<p>Choose <b>Create DB Subnet Group</b>.</p>
+				</li><li>
+					<p>For <b>Name</b>, type the name of your DB subnet group.</p>
+				</li><li>
+					<p>For <b>Description</b>, type a description for your DB subnet group. </p>
+				</li><li>
+					<p>For <b>VPC</b>, choose the default VPC or the VPC that you created.</p>
+				</li><li>
+					<p>In the <b>Add subnets</b> section, choose the Availability Zones that 
+						include the subnets from <b>Availability Zones</b>, and then choose the 
+						subnets from <b>Subnets</b>.</p>				
+					<div class="mediaobject">
+						 
+							<img src="/images/AmazonRDS/latest/UserGuide/images/RDSVPC101.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Create DB Subnet Group button&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;" style="max-width:100%" />
+						 
+						 
+					</div>
+					
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you have enabled a Local Zone, you can choose an Availability Zone group on the 
+							<b>Create DB subnet group</b> page. In this case, 
+							choose the <b>Availability Zone group</b>, <b>Availability
+							Zones</b>, and <b>Subnets</b>.</p></div></div>
+				</li><li>
+					<p>Choose <b>Create</b>. </p>
+					<p>Your new DB subnet group appears in the DB subnet groups list on the RDS console. You
+						can choose the DB subnet group to see details, including all of the
+						subnets associated with the group, in the details pane at the bottom of the window. </p>
+				</li></ol></div>
+	 
+
+	 	
+		<h3 id="USER_VPC.CreateVPCSecurityGroup">Step 3: Create a VPC security group</h3>
+			
+		<p>Before you create your DB <span>instance</span>, 
+			you can create a VPC security group to associate with your DB 
+			<span>instance</span>. If you don't create a VPC security group, 
+			you can use the default security group when you create a DB <span>instance</span>.  				
+			For instructions on how to create a security group for your DB <span>instance</span>, 
+				see <a href="./CHAP_Tutorials.WebServerDB.CreateVPC.html#CHAP_Tutorials.WebServerDB.CreateVPC.SecurityGroupDB">Create a VPC
+                security group for a private DB instance</a>, 
+			or see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html">Control traffic to resources using security groups</a> 
+			in the <em>Amazon VPC User Guide</em>.
+		</p>			
+	 
+		
+	 
+		<h3 id="USER_VPC.CreateDBInstanceInVPC">Step 4: Create a DB instance in the VPC</h3>
+		
+		<p>In this step, you create a DB <span>instance</span> 
+			and use the VPC name, the DB subnet group, and the VPC security group you created in the previous steps.</p>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If you want your DB <span>instance</span> 
+				in the VPC to be publicly accessible, you must enable the VPC attributes <em>DNS hostnames</em> and <em>DNS
+				resolution</em>. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html">DNS attributes for your VPC</a> in the  
+		        <em>Amazon VPC User Guide</em>.</p></div></div>
+		<p>For details on how to create a DB <span>instance</span>, see <span><a href="./USER_CreateDBInstance.html">Creating an Amazon RDS DB instance</a></span>.</p>
+		<p>When prompted in the <b>Connectivity</b> section, enter the VPC
+			name, the DB subnet group, and the VPC security group.</p>
+		
+	 
+	<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./USER_VPC.html">Using Amazon RDS with Amazon VPC</div><div id="next" class="next-link" accesskey="n" href="./USER_VPC.VPC2VPC.html">Updating the VPC for a DB instance</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=RDS&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

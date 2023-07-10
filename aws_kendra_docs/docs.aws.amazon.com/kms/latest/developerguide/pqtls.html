@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using hybrid post-quantum TLS with AWS KMS - AWS Key Management Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="pqtls" /><meta name="default_state" content="pqtls" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html" /><meta name="description" content="Learn how to use hybrid post-quantum key agreement algorithms for your AWS KMS transactions." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Key Management Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Learn how to use AWS Key Management Service (AWS KMS) to securely store and manage encryption keys and perform encryption and decryption of user data." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/pqtls.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/pqtls.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/pqtls.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/pqtls.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/pqtls.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/pqtls.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/pqtls.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/pqtls.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/pqtls.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/pqtls.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/pqtls.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/pqtls.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/pqtls.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/pqtls.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/pqtls.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/pqtls.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/pqtls.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kms/latest/developerguide/pqtls.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html" hreflang="x-default" /><meta name="feedback-item" content="Key Management Service (KMS)" /><meta name="this_doc_product" content="AWS Key Management Service" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kms'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Using hybrid post-quantum TLS with AWS KMS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using hybrid post-quantum TLS with AWS KMS - AWS Key Management Service</title><meta name="pdf" content="/pdfs/kms/latest/developerguide/kms-dg.pdf#pqtls" /><meta name="github" content="https://github.com/awsdocs/aws-kms-developer-guide/tree/master/doc_source/pqtls.md" /><meta name="rss" content="aws-kms-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=182" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key%20Management%20Service%20%28KMS%29&amp;topic_url=http://docs.aws.amazon.com/en_us/kms/latest/developerguide/pqtls.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/kms/latest/developerguide/pqtls.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/kms/latest/developerguide/pqtls.html" /><meta name="keywords" content="KMS,key management service,encryption key management,encryption key,,envelope encryption" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Authentication and access control for AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Using hybrid post-quantum TLS with AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/kms/latest/developerguide/kms-dg.pdf#pqtls" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-kms-developer-guide/tree/master/doc_source/pqtls.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/kms/index.html">AWS KMS</a><a href="overview.html">Developer Guide</a></div><div id="page-toc-src"><a href="#PQTLS-concepts">About post-quantum TLS</a><a href="#pqtls-details">How to use it</a><a href="#pqtls-how-to">How to configure it</a><a href="#pqtls-testing">How to test it</a><a href="#pqtls-see-also">Learn more</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="pqtls">Using hybrid post-quantum TLS with AWS KMS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS Key Management Service (AWS KMS) supports a hybrid post-quantum key exchange option for the Transport Layer
+    Security (TLS) network encryption protocol. You can use this TLS option when you connect to
+    AWS KMS API endpoints. We're offering this feature before post-quantum algorithms are standardized
+    so you can begin testing the effect of these key exchange protocols on AWS KMS calls. These
+    optional hybrid post-quantum key exchange features are at least as secure as the TLS encryption
+    we use today and are likely to provide additional long-term security benefits. However, they
+    affect latency and throughput compared to the classic key exchange protocols in use
+    today.</p><p>The data that you send to AWS Key Management Service (AWS KMS) is protected in transit by the encryption
+    provided by a Transport Layer Security (TLS) connection. The classic cipher suites that AWS KMS
+    supports for TLS sessions make brute force attacks on the key exchange mechanisms infeasible
+    with current technology. However, if large-scale quantum computing becomes practical in the
+    future, the classic cipher suites used in TLS key exchange mechanisms will be susceptible to
+    these attacks. If you’re developing applications that rely on the long-term confidentiality of
+    data passed over a TLS connection, you should consider a plan to migrate to post-quantum
+    cryptography before large-scale quantum computers become available for use. AWS is working to
+    prepare for this future, and we want you to be well-prepared, too.</p><p>To protect data encrypted today against potential future attacks, AWS is participating
+    with the cryptographic community in the development of quantum-resistant or <em>post-quantum</em> algorithms. We've implemented <em>hybrid</em> post-quantum key exchange cipher suites in AWS KMS that combine classic and
+    post-quantum elements to ensure that your TLS connection is at least as strong as it would be
+    with classic cipher suites.</p><p>These hybrid cipher suites are available for use on your production workloads in <a href="#pqtls-regions">most AWS Regions</a>. However, because the performance
+    characteristics and bandwidth requirements of hybrid cipher suites are different from those of
+    classic key exchange mechanisms, we recommend that you <a href="#pqtls-testing">test them
+      on your AWS KMS API calls</a> under different conditions. </p><p><a id="pqtls-feedback"></a><b>Feedback</b></p><p>As always, we welcome your feedback and participation in our open-source repositories. We’d
+    especially like to hear how your infrastructure interacts with this new variant of TLS traffic. </p><div class="itemizedlist">
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p>To provide feedback on this topic, use the <b>Feedback</b> link in the
+        upper right corner of this page.</p>
+    </li><li class="listitem">
+      <p>We're developing these hybrid cipher suites in open source in the <a href="https://github.com/aws/s2n-tls" rel="noopener noreferrer" target="_blank"><span>s2n-tls</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> repository on GitHub. To provide feedback
+        on the usability of the cipher suites, or share novel test conditions or results, <a href="https://github.com/aws/s2n-tls/issues" rel="noopener noreferrer" target="_blank"><span>create an issue</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the s2n-tls
+        repository.</p>
+    </li><li class="listitem">
+      <p>We're writing code samples for using hybrid post-quantum TLS with AWS KMS in the <a href="https://github.com/aws-samples/aws-kms-pq-tls-example" rel="noopener noreferrer" target="_blank"><span>aws-kms-pq-tls-example</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> GitHub
+        repository. To ask questions or share ideas about configuring your HTTP client or AWS KMS
+        client to use the hybrid cipher suites, <a href="https://github.com/aws-samples/aws-kms-pq-tls-example/issues" rel="noopener noreferrer" target="_blank"><span>create an issue</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the
+          aws-kms-pq-tls-example repository.</p>
+    </li></ul></div><p><a id="pqtls-regions"></a><b>Supported AWS Regions</b></p><p>Post-quantum TLS for AWS KMS is available in all AWS Regions that AWS KMS supports except for AWS GovCloud (US-East),
+    AWS GovCloud (US-West), China (Beijing), and China (Ningxia). </p><p>For a list of AWS KMS endpoints for each AWS Region, see <a href="https://docs.aws.amazon.com/general/latest/gr/kms.html">AWS Key Management Service endpoints and quotas</a> in the <em>Amazon Web Services General Reference</em>. For information about FIPS endpoints, see <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#FIPS-endpoints">FIPS endpoints</a> in the <em>Amazon Web Services General Reference</em>.</p>
+    <h2 id="PQTLS-concepts">About hybrid post-quantum key exchange in TLS</h2>
+    <p>AWS KMS supports hybrid post-quantum key exchange cipher suites. You can use the
+      AWS SDK for Java 2.x and AWS Common Runtime on Linux systems to configure an HTTP client that uses
+      these cipher suites. Then, whenever you connect to an AWS KMS endpoint with your HTTP client,
+      the hybrid cipher suites are used.</p>
+
+    <p>This HTTP client uses <a href="https://github.com/aws/s2n-tls" rel="noopener noreferrer" target="_blank"><span>s2n-tls</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>,
+      which is an open source implementation of the TLS protocol. The hybrid cipher suites that
+        s2n-tls uses are implemented only for key exchange, not for direct data
+      encryption. During <em>key exchange</em>, the client and server
+      calculate the key they will use to encrypt and decrypt the data on the wire.</p>
+
+    <p>The algorithms that s2n-tls uses are a <em>hybrid</em> that combines <a href="https://en.wikipedia.org/wiki/Elliptic-curve_Diffie%E2%80%93Hellman" rel="noopener noreferrer" target="_blank"><span>Elliptic Curve
+        Diffie-Hellman</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> (ECDH), a classic key exchange algorithm used today in TLS, with
+        <a href="https://pq-crystals.org/kyber/" rel="noopener noreferrer" target="_blank"><span>Kyber</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, a public-key
+      encryption and key-establishment algorithm that the National Institute for Standards and
+      Technology (NIST) <a href="https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413.pdf" rel="noopener noreferrer" target="_blank"><span> has
+        designated as its first standard</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> post-quantum key-agreement algorithm. This hybrid
+      uses each of the algorithms independently to generate a key. Then it combines the two keys
+      cryptographically. With s2n-tls, you can <a href="#pqtls-how-to">configure
+        an HTTP client</a> to prefer post-quantum TLS, which places ECDH with
+        Kyber first in the preference list. Classic key exchange algorithms are
+      included in the preference list to ensure compatibility, but they are lower in the preference
+      order.</p>
+    <p>If ongoing research reveals that the Kyber algorithm lacks the anticipated
+      post-quantum strength, the hybrid key is still at least as strong as the single ECDH key
+      currently in use. Until research on post-quantum algorithms is complete, we recommend using
+      hybrid algorithms, rather than using post-quantum algorithms alone.</p>
+   
+    <h2 id="pqtls-details">Using hybrid post-quantum TLS with AWS KMS</h2>
+    <p>You can use hybrid post-quantum TLS for your calls to AWS KMS. When setting up your HTTP
+      client test environment, be aware of the following information:</p>
+
+    <p><b>Encryption in Transit</b></p>
+    <p>The hybrid cipher suites in s2n-tls are used only for encryption in transit. They protect your
+      data while it is traveling from your client to the AWS KMS endpoint. AWS KMS does not use these
+      cipher suites to encrypt data under AWS KMS keys. </p>
+    <p>Instead, when AWS KMS encrypts your data under KMS keys, it uses symmetric cryptography with
+      256-bit keys and the Advanced Encryption Standard in Galois Counter Mode (AES-GCM) algorithm,
+      which is already quantum resistant. Theoretical future, large-scale quantum computing attacks
+      on ciphertexts created under 256-bit AES-GCM keys <a href="https://www.etsi.org/images/files/ETSIWhitePapers/QuantumSafeWhitepaper.pdf" rel="noopener noreferrer" target="_blank"><span>reduce the
+        effective security of the key to 128 bits</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. This security level is sufficient to make
+      brute force attacks on AWS KMS ciphertexts infeasible.
+      </p>
+
+    <p><b>Supported Systems</b></p>
+    <p>Use of the hybrid cipher suites in s2n-tls is currently supported only on Linux systems. In
+      addition, these cipher suites are supported only in SDKs that support the AWS Common
+      Runtime, such as the AWS SDK for Java 2.x. For an example, see <a href="#pqtls-how-to">How to configure hybrid post-quantum TLS</a>.</p>
+
+    <p><b>AWS KMS Endpoints</b></p>
+    <p>When using the hybrid cipher suites, use the standard AWS KMS endpoint. The hybrid cipher
+      suites in s2n-tls are not compatible with the <a href="https://docs.aws.amazon.com/general/latest/gr/kms.html">FIPS 140-2 validated endpoints for AWS KMS</a>. </p>
+
+    <p>When you configure a HTTP client to prefer post-quantum TLS connections with
+        s2n-tls, the post-quantum ciphers are first in the cipher preference list.
+      However, the preference list includes the classic, non-hybrid ciphers lower in the preference
+      order for compatibility. When you configure an HTTP client to prefer post-quantum TLS with an AWS KMS FIPS 140-2
+      validated endpoint, s2n-tls negotiates a classic, non-hybrid key exchange
+      cipher.</p>
+    <p>For a list of AWS KMS endpoints for each AWS Region, see <a href="https://docs.aws.amazon.com/general/latest/gr/kms.html">AWS Key Management Service endpoints and quotas</a> in the <em>Amazon Web Services General Reference</em>. For information about FIPS endpoints, see <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#FIPS-endpoints">FIPS endpoints</a> in the <em>Amazon Web Services General Reference</em>.</p>
+
+    <p><b>Expected Performance</b></p>
+    <p>Our early benchmark testing shows that the hybrid cipher suites in s2n-tls
+      are slower than classic TLS cipher suites. The effect varies based on the network profile, CPU
+      speed, the number of cores, and your call rate. For performance test results, see <a href="http://aws.amazon.com/blogs/security/how-to-tune-tls-for-hybrid-post-quantum-cryptography-with-kyber/" rel="noopener noreferrer" target="_blank"><span>How to tune TLS for hybrid post-quantum cryptography with Kyber</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+
+   
+    <h2 id="pqtls-how-to">How to configure hybrid post-quantum TLS</h2>
+    <p>In this procedure, add a Maven dependency for the AWS Common Runtime HTTP Client.
+      Next, configure an HTTP client that prefers post-quantum TLS. Then, create an AWS KMS client that uses the HTTP client.</p>
+    <p>To see a complete working examples of configuring and using hybrid post-quantum TLS with
+      AWS KMS, see the <a href="https://github.com/aws-samples/aws-kms-pq-tls-example" rel="noopener noreferrer" target="_blank"><span>aws-kms-pq-tls-example</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> repository.</p>    
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The AWS Common Runtime HTTP Client, which has been available as a preview, became
+        generally available in February 2023. In that release, the <code class="code">tlsCipherPreference</code>
+        class and the <code class="code">tlsCipherPreference()</code> method parameter are replaced by the
+          <code class="code">postQuantumTlsEnabled()</code> method parameter. If you were using this example
+        during the preview, you need to update your code.</p></div></div>
+    <div class="procedure"><ol><li>
+        <p>Add the AWS Common Runtime client to your Maven dependencies. We recommend using the
+          latest available version. </p>
+        <p>For example, this statement adds version <code class="code">2.20.0</code> of the AWS Common
+          Runtime client to your Maven dependencies. </p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="xml ">&lt;dependency&gt;
+    &lt;groupId&gt;software.amazon.awssdk&lt;/groupId&gt;
+    &lt;artifactId&gt;aws-crt-client&lt;/artifactId&gt;
+    &lt;version&gt;2.20.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+      </li><li>
+        <p>To enable the hybrid post-quantum cipher suites, add the AWS SDK for Java 2.x to your project
+          and initialize it. Then enable the hybrid post-quantum cipher suites on your HTTP client
+          as shown in the following example.</p>
+        <p>This code uses the <code class="code">postQuantumTlsEnabled()</code> method parameter to configure
+          an <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/http-configuration-crt.html">AWS common runtime HTTP
+            client</a> that prefers the recommended hybrid post-quantum cipher suite, ECDH with
+          Kyber. Then it uses the configured HTTP client to build an instance of the AWS KMS
+          asynchronous client, <a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/kms/KmsAsyncClient.html" rel="noopener noreferrer" target="_blank"><span><code class="code">KmsAsyncClient</code></span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. After this code completes, all <a href="https://docs.aws.amazon.com/kms/latest/APIReference/">AWS KMS API</a> requests on the <code class="code">KmsAsyncClient</code>
+          instance use hybrid post-quantum TLS.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// Configure HTTP client
+SdkAsyncHttpClient awsCrtHttpClient = AwsCrtAsyncHttpClient.builder()
+          .postQuantumTlsEnabled(true)
+          .build();
+
+// Create the AWS KMS async client
+KmsAsyncClient kmsAsync = KmsAsyncClient.builder()
+         .httpClient(awsCrtHttpClient)
+         .build();</code></pre>
+      </li><li>
+        <p>Test your AWS KMS calls with hybrid post-quantum TLS.</p>
+        <p>When you call AWS KMS API operations on the configured AWS KMS client, your calls are
+          transmitted to the AWS KMS endpoint using hybrid post-quantum TLS. To test your
+          configuration, call an AWS KMS API, such as <code class="code"><a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html">ListKeys</a></code>.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight ">ListKeysReponse keys = kmsAsync.listKeys().get();</code></pre>
+      </li></ol></div>
+   
+    <h2 id="pqtls-testing">Testing hybrid post-quantum TLS with AWS KMS</h2>
+    <p>Consider running the following tests with hybrid cipher suites on your applications that
+      call AWS KMS.</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Run load tests and benchmarks. The hybrid cipher suites perform differently than
+          traditional key exchange algorithms. You might need to adjust your connection timeouts to
+          allow for the longer handshake times. If you’re running inside an AWS Lambda function,
+          extend the execution timeout setting.</p>
+      </li><li class="listitem">
+        <p>Try connecting from different locations. Depending on the network path your request
+          takes, you might discover that intermediate hosts, proxies, or firewalls with deep packet
+          inspection (DPI) block the request. This might result from using the new cipher suites in
+          the <a href="https://tools.ietf.org/html/rfc5246#section-7.4.1.2" rel="noopener noreferrer" target="_blank"><span>ClientHello</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+          part of the TLS handshake, or from the larger key exchange messages. If you have trouble
+          resolving these issues, work with your security team or IT administrators to update the
+          relevant configuration and unblock the new TLS cipher suites. </p>
+      </li></ul></div>
+   
+    <h2 id="pqtls-see-also">Learn more about post-quantum TLS in AWS KMS</h2>
+
+    <p>For more information about using hybrid post-quantum TLS in AWS KMS, see the following
+      resources.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>To learn about post-quantum cryptography at AWS, including links to blog posts and
+          research papers, see <a href="https://aws.amazon.com/security/post-quantum-cryptography/" rel="noopener noreferrer" target="_blank"><span>Post-Quantum
+            Cryptography</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      </li><li class="listitem">
+        <p>For information about s2n-tls, see <a href="http://aws.amazon.com/blogs/security/introducing-s2n-a-new-open-source-tls-implementation/" rel="noopener noreferrer" target="_blank"><span>Introducing s2n-tls, a New Open Source TLS Implementation</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and
+            <a href="https://github.com/aws/s2n-tls/blob/main/docs/USAGE-GUIDE.md" rel="noopener noreferrer" target="_blank"><span>Using
+              s2n-tls</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      </li><li class="listitem">
+        <p>For information about the AWS Common Runtime HTTP Client, see <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/http-configuration-crt.html">Configuring the AWS CRT-based HTTP client</a> in the <em>AWS SDK for Java 2.x Developer Guide</em>.</p>
+      </li><li class="listitem">
+        <p>For information about the post-quantum cryptography project at the National Institute
+          for Standards and Technology (NIST), see <a href="https://csrc.nist.gov/Projects/Post-Quantum-Cryptography" rel="noopener noreferrer" target="_blank"><span>Post-Quantum
+            Cryptography</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      </li><li class="listitem">
+        <p>For information about NIST post-quantum cryptography standardization, see <a href="https://csrc.nist.gov/Projects/post-quantum-cryptography/post-quantum-cryptography-standardization." rel="noopener noreferrer" target="_blank"><span>Post-Quantum Cryptography Standardization</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./using-service-linked-roles.html">Service-linked roles</div><div id="next" class="next-link" accesskey="n" href="./determining-access.html">Determining access</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/pqtls.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/en_us/kms/latest/developerguide/pqtls.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

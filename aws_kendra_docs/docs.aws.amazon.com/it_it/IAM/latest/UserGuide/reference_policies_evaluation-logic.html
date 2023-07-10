@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="it-IT"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Logica di valutazione delle policy - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="reference_policies_evaluation-logic" /><meta name="default_state" content="reference_policies_evaluation-logic" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="description" content="Informazioni su come le policy JSON vengono valutate in un singolo account per restituire Consenti o Nega. Per informazioni su come AWS valuta le policy per l'accesso tra account, consulta ." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Guida per l'utente" /><meta name="abstract" content="Controlla l'accesso alle risorse AWS con identità utente (autenticazione) e con policy che definiscono autorizzazioni specifiche (autorizzazione)." /><meta name="guide-locale" content="it_it" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Guida per l'utente" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Guida per l'utente" /><meta id="panorama-serviceConsolePage" value="Logica di valutazione delle policy" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Logica di valutazione delle policy - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#reference_policies_evaluation-logic" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,Utente IAM,user,Gruppo IAM,gruppo,Ruolo IAM,ruolo,policy di autorizzazione,policy di attendibilità,policy,chiave di accesso,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guida per l'utente",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Informazioni di riferimento per AWS Identity and Access Management.",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Riferimento alla policy JSON IAM",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Logica di valutazione delle policy",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#reference_policies_evaluation-logic" target="_blank" rel="noopener noreferrer" title="Apri PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentazione</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Guida per l'utente</a></div><div id="page-toc-src"><a href="#policy-eval-reqcontext">Elaborazione del contesto della richiesta</a><a href="#policy-eval-basics">Valutazione delle policy in un singolo account</a><a href="#policy-eval-denyallow">Determinazione se una richiesta è consentita o rifiutata in un account</a><a href="#policies_evaluation_example">Esempio di valutazione delle policy basate su identità e delle policy basate su risorse</a><a href="#AccessPolicyLanguage_Interplay">Differenza tra rifiuto esplicito e implicito</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="reference_policies_evaluation-logic">Logica di valutazione delle policy</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Quando un'entità principale cerca di utilizzare la AWS Management Console, l'API AWS o l'AWS CLI, invia una <em>richiesta</em> ad AWS. Quando un servizio AWS riceve una richiesta, AWS completa diversi passi per determinare se consentire o negare la richiesta.</p><div class="orderedlist">
+     
+     
+     
+     
+  <ol><li>
+      <p><b>Autenticazione</b>: AWS autentica prima il principale che effettua la richiesta, se necessario. Questo passaggio non è necessario per alcuni servizi, ad esempio Amazon S3, che consentono alcune richieste da parte di utenti anonimi.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-reqcontext">Elaborazione del contesto della richiesta</a></b>: AWS elabora le informazioni raccolte nella richiesta per determinare quali policy applicare alla richiesta.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-basics">Valutazione delle policy in un singolo account</a></b>: AWS valuta tutti i tipi di policy e questo influisce sull'ordine con cui le policy vengono valutate.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-denyallow">Determinazione se una richiesta è consentita o rifiutata in un account</a></b>: AWS elabora quindi le policy in base al contesto della richiesta per determinare se consentire o rifiutare la richiesta.</p>
+    </li></ol></div>
+    <h2 id="policy-eval-reqcontext">Elaborazione del contesto della richiesta</h2>
+    <p>AWS elabora la richiesta per raccogliere le informazioni seguenti in un <em>contesto della richiesta</em>:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Azioni o operazioni</b>: le azioni o le operazioni che il principale vuole eseguire.</p>
+      </li><li class="listitem">
+        <p><b>Risorse</b>: l'oggetto risorsa AWS su cui vengono eseguite le azioni o le operazioni.</p>
+      </li><li class="listitem">
+        <p><b>Principale</b>: l'utente, il ruolo, l'utente federato o l'applicazione che ha inviato la richiesta. Le informazioni sull'entità principale includono le policy associate a tale entità principale. </p>
+      </li><li class="listitem">
+        <p><b>Dati di ambiente</b>: informazioni sull'indirizzo IP, l'agente utente, lo stato SSL abilitato o l'ora del giorno.</p>
+      </li><li class="listitem">
+        <p><b>Dati sulla risorsa</b> – I dati correlati alla risorsa che viene richiesta. Possono essere incluse informazioni quali un nome di tabella di DynamoDB o un tag su un'istanza Amazon EC2.</p>
+      </li></ul></div>
+    <p>AWS utilizza quindi queste informazioni per trovare policy applicabili al contesto della richiesta.</p>
+   
+    <h2 id="policy-eval-basics">Valutazione delle policy in un singolo account</h2>
+    <p>Il modo in cui AWS valuta le policy dipende dal tipo di policy applicabile al contesto della richiesta. I tipi di policy elencati di seguito in ordine di frequenza possono essere utilizzati in un singolo Account AWS. Per ulteriori informazioni su questi tipi di policy, consulta <a href="./access_policies.html">Policy e autorizzazioni in IAM</a>. Per informazioni su come AWS valuta le policy per l'accesso tra account, consulta <a href="./reference_policies_evaluation-logic-cross-account.html">Logica di valutazione della policy multiaccount</a>.</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+       
+    <ol><li>
+        <p><b>Policy basate su identità</b>: le policy basate su identità sono collegate a un'identità IAM (utente, gruppo di utenti o ruolo) e concede le autorizzazioni per entità IAM (utenti e ruoli). Se a una richiesta si applicano solo le policy basate su identità, AWS verifica tutte queste policy per almeno un <code class="code">Allow</code>.</p>
+      </li><li>
+        <p><b>Policy basate sulle risorse</b> - Le policy basate sulle risorse concedono autorizzazioni al principale (account, utente, ruolo e principali di sessione come sessioni di ruolo e utenti federati IAM) specificato come principale. Le autorizzazioni definiscono ciò che l'entità principale può fare con la risorsa a cui è collegata la policy. Se a una richiesta si applicano sia policy basate su risorse che policy basate su identità, AWS verifica tutte le policy per almeno un <code class="code">Allow</code>. Quando vengono valutate le policy sulle risorse, l'ARN del principale specificato nella policy determina se le negazioni implicite in altri tipi di policy sono applicabili alla decisione finale.</p>
+      </li><li>
+        <p><b>Limiti delle autorizzazioni IAM</b>: i limiti delle autorizzazioni sono una funzione avanzata nella quale si imposta il numero massimo di autorizzazioni che una policy basata su identità può concedere a un'entità IAM (utente o ruolo). Quando si imposta un limite delle autorizzazioni per un'entità, l'entità può eseguire solo le operazioni consentite dalle sue policy basate su identità e dai suoi limiti delle autorizzazioni. In alcuni casi, un rifiuto implicito in un limite delle autorizzazioni può limitare le autorizzazioni concesse da una policy basata sulle risorse. Per ulteriori informazioni, consulta <a href="#policy-eval-denyallow">Determinazione se una richiesta è consentita o rifiutata in un account</a> più avanti in questo argomento.</p>
+      </li><li>
+        <p><b>Policy di controllo dei servizi (SCP) AWS Organizations</b>: le SCP di Organizations specificano il numero massimo di autorizzazioni per un'organizzazione o unità organizzativa (OU). Il numero massimo di SCP si applica alle entità negli account membri, compreso ogni Utente root dell'account AWS. Se una SCP è presente, le policy basate su identità e le policy basate su risorse concedono autorizzazioni alle entità negli account dei membri solo se tali policy e l'SCP consentono l'operazione. Se sono presenti sia un limite delle autorizzazioni sia una SCP, il limite, l'SCP e la policy basata su identità devono tutti consentire l'operazione.</p>
+      </li><li>
+        <p><b>Policy di sessione</b>: le policy di sessione sono policy avanzate che si inviano come parametro quando si crea in modo programmatico una sessione temporanea per un ruolo o un utente federato. Per creare una sessione del ruolo in modo programmatico, è possibile utilizzare una delle operazioni API <code class="code">AssumeRole*</code>. Quando esegui questa operazione e passi le policy di sessione, le autorizzazioni della sessione risultante sono l'intersezione della policy basata su identità dell'utente dell'entità IAM e delle policy di sessione. Per creare una sessione per l'utente federato, si utilizzano le chiavi di accesso dell'utente IAM per chiamare in modo programmatico l'operazione API <code class="code">GetFederationToken</code>. Una policy basata sulle risorse ha un effetto diverso sulla valutazione delle autorizzazioni della policy di sessione. La differenza dipende dal fatto che l'ARN dell'utente o del ruolo o l'ARN della sessione sia elencato come il principale nella policy basata sulle risorse. Per ulteriori informazioni, consulta <a href="./access_policies.html#policies_session">Policy di sessione</a>.</p>
+      </li></ol></div>
+    <p>Occorre ricordare che un rifiuto esplicito in una qualsiasi di queste policy sostituisce l'autorizzazione.</p>
+     
+      <h3 id="policy-eval-basics-id-rdp">Valutazione delle policy basate su identità con policy basate su risorse</h3>
+      <p>Le policy basate su identità e le policy basate su risorse concedono autorizzazioni alle identità o alle risorse a cui sono collegate. Quando un'entità IAM (utente o ruolo) richiede accesso a una risorsa all'interno dello stesso account, AWS valuta tutte le autorizzazioni concesse dalle policy basate su identità e sulle risorse. Le autorizzazioni risultanti sono le autorizzazioni totali dei due tipi. Se un'azione è consentita da una policy basata su identità, da una policy basata su risorse o da entrambe, AWS consente l'operazione. Un rifiuto esplicito in una di queste policy sostituisce l'autorizzazione.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_policies_effective.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Valutazione delle policy basate su identità e delle policy basate su risorse&#xA;        " />
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-bound">Valutazione delle policy basate su identità con i limiti delle autorizzazioni</h3>
+      <p>Quando AWS valuta le policy basate su identità e i limiti delle autorizzazioni per un utente, le autorizzazioni risultanti sono la combinazione delle due categorie. Ciò significa che quando aggiungi un limite delle autorizzazioni a un utente con policy basate su identità esistenti, potresti ridurre il numero di operazioni che l'utente può eseguire. Di contro, quando rimuovi un limite delle autorizzazioni da un utente, potresti aumentare il numero di operazioni che può eseguire. Un rifiuto esplicito in una di queste policy sostituisce l'autorizzazione. Per informazioni su come altri tipi di policy vengono valutati con i limiti delle autorizzazioni, consulta <a href="./access_policies_boundaries.html#access_policies_boundaries-eval-logic">Valutazione delle autorizzazioni valide con i limiti</a>.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Valutazione delle policy basate su identità e dei limiti delle autorizzazioni&#xA;        " />
+          
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-scp">Valutazione delle policy basate su identità con le SCP di Organizations</h3>
+      <p>Quando un utente appartiene a un account che è un membro di un'organizzazione, le autorizzazioni risultanti sono l'intersezione delle policy dell'utente e dell'SCP. Ciò significa che un'operazione deve essere consentita sia dalla policy basata su identità sia dall'SCP. Un rifiuto esplicito in una di queste policy sostituisce l'autorizzazione.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_scp-idp.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Valutazione delle policy basate su identità e delle SCP&#xA;        " />
+          
+         
+         
+      </div>
+      <p>Puoi scoprire <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">se il tuo account è un membro di un'organizzazione</a> in AWS Organizations. I membri dell'organizzazione potrebbero essere influenzati da una SCP. Per visualizzare questi dati utilizzando il comando AWS CLI o l'operazione API AWS, è necessario disporre delle autorizzazioni per l'operazione <code class="code">organizations:DescribeOrganization</code> per l'entità di Organizations. È necessario disporre delle autorizzazioni aggiuntive per eseguire l'operazione nella console Organizations. Per scoprire se una SCP nega l'accesso a una richiesta specifica o per modificare le autorizzazioni effettive, contatta il tuo amministratore AWS Organizations.</p>
+     
+   
+    <h2 id="policy-eval-denyallow">Determinazione se una richiesta è consentita o rifiutata in un account</h2>
+    <p>Supponiamo che un principale invii una richiesta ad AWS per accedere a una risorsa nello stesso account dell'entità principale. Il codice di attuazione AWS decide se la richiesta deve essere consentita o rifiutata. AWS valute tutte le policy applicabili al contesto della richiesta. Di seguito è riportato un riepilogo della logica di valutazione di AWS per le policy all'interno di un singolo account.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Per impostazione predefinita, tutte le richieste vengono negate implicitamente con l'eccezione dell'Utente root dell'account AWS, che ha accesso completo.</p>
+      </li><li class="listitem">
+        <p>Un'autorizzazione esplicita in una policy basata su identità o basata su risorse sostituisce questa impostazione predefinita.</p>
+      </li><li class="listitem">
+        <p>Se è presente un limite delle autorizzazioni, una SCP  di Organizations oppure una policy di sessione, potrebbe sovrascrivere l'autorizzazione con un rifiuto implicito.</p>
+      </li><li class="listitem">
+        <p>Un rifiuto esplicito in una policy sostituisce qualsiasi permesso.</p>
+      </li></ul></div>
+    
+    <p>Il seguente diagramma di flusso fornisce i dettagli su come la decisione viene presa. Questo diagramma di flusso non copre l'impatto delle policy basate sulle risorse e le negazioni implicite in altri tipi di policy. </p>
+    <div class="mediaobject">
+       
+        <img src="images/PolicyEvaluationHorizontal111621.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Diagramma di flusso della valutazione&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+      
+
+       
+       
+       
+       
+    <ol><li>
+        <p><b>Rifiuta valutazione</b>: per impostazione predefinita, tutte le richieste vengono rifiutate. Si tratta del cosiddetto <a href="#AccessPolicyLanguage_Interplay">rifiuto implicito</a>. Il codice di attuazione AWS valuta tutte le policy all'interno dell'account applicabili alla richiesta. Sono inclusi le SCP AWS Organizations, le policy basate sulle risorse, le policy basate sulle identità, i limiti delle autorizzazioni IAM e le policy di sessione. In tutte le policy, il codice di attuazione cerca un'istruzione <code class="code">Deny</code> applicabile alla richiesta. Questa azione si chiama <a href="#AccessPolicyLanguage_Interplay">rifiuto esplicito</a>. Se il codice di attuazione trova anche un solo rifiuto esplicito applicabile, restituisce <b>Deny</b> (Rifiuta) come decisione finale. Se non c'è un rifiuto esplicito, la valutazione del codice di attuazione continua.</p>
+      </li><li>
+        <p><b>SCP di Organizations</b>: quindi il codice di attuazione valuta le policy di controllo dei servizi (SCP) AWS Organizations che si applicano alla richiesta. Le SCP si applicano alle entità dell'account in cui sono collegate le SCP. Se il codice di attuazione non trova istruzioni <code class="code">Allow</code> applicabili nelle SCP, la richiesta viene rifiutata esplicitamente, anche se il rifiuto è implicito. Il codice di attuazione restituisce <b>Deny</b> (Rifiuta) come decisione finale. Se non c'è alcuna SCP oppure se l'SCP consente l'operazione richiesta, la valutazione del codice di attuazione continua.</p>
+      </li><li>
+        <p><b>Policy basate sulle risorse</b>: all'interno dello stesso account, le policy basate sulle risorse influiscono sulla valutazione delle policy in modo diverso a seconda del tipo di principale che accede alla risorsa e al principale consentito nella policy basata sulle risorse. A seconda del tipo di principale, un <code class="code">Allow</code> in una policy basata sulle risorse può comportare una decisione definitiva di <code class="code">Allow</code>, anche se è presente un rifiuto implicito in una policy basata su identità, un limite delle autorizzazioni o una policy di sessione.</p>
+        <p>Per la maggior parte delle risorse, è necessario solo un permesso esplicito per il principale in una policy basata sulle identità o una policy basata sulle risorse per concedere l'accesso. <a href="./id_roles_compare-resource-policies.html">Le policy di affidabilità dei ruoli IAM</a> e <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html">le policy delle chiavi KMS</a> sono eccezioni a questa logica, perché devono consentire esplicitamente l'accesso per <a href="./reference_policies_elements_principal.html">i principali</a>.</p>
+        <p>La policy basata sulle risorse differisce dagli altri tipi di policy se il principale specificato è un utente IAM, un ruolo IAM o un principale di sessione. I principi della sessione includono <a href="./reference_policies_elements_principal.html#principal-role-session">sessioni come ruolo</a> IAM o una <a href="./reference_policies_elements_principal.html#sts-session-principals">sessione come utente federato IAM</a>. Se una policy basata sulle risorse concede l'autorizzazione direttamente all'utente IAM o al principale di sessione che sta effettuando la richiesta, un rifiuto implicito in una policy basata sull'identità, un limite di autorizzazioni o una policy di sessione non influiscono sulla decisione finale.</p>
+        <p>La seguente tabella consente di comprendere l'impatto delle policy basate sulle risorse per diversi tipi di principali quando i rifiuti impliciti sono presenti nelle policy basate su identità, nei limiti delle autorizzazioni e nelle policy di sessione.</p>
+        <div class="table-container"><div class="table-contents"><table id="w339aac25c19c13c13c11b5b9"><thead><tr><th class="table-header" colspan="100"><div class="title">Policy basate sulle risorse e rifiuti impliciti in altri tipi di policy (stesso account)</div></th></tr>
+              <tr>
+                <th>Principale che effettua la richiesta</th>
+                <th>Policy basata su risorse</th>
+                <th>Policy basata su identità</th>
+                <th>Limite delle autorizzazioni</th>
+                <th>Policy di sessione</th>
+                <th>Risultato</th>
+                <th>Motivo</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>Ruolo IAM</td>
+                <td>Non applicabile</td>
+                <td>Non applicabile</td>
+                <td>Non applicabile</td>
+                <td>Non applicabile</td>
+                <td>Non applicabile</td>
+                <td>Un ruolo di per sé non può effettuare una richiesta. Le richieste vengono effettuate con la sessione come ruolo dopo l'assunzione di un ruolo. </td>
+              </tr>
+              <tr>
+                <td>Sessione come ruolo IAM</td>
+                <td>Consente il ruolo ARN</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>DENY</td>
+                <td>Il limite delle autorizzazioni e le policy di sessione vengono valutati come parte della decisione finale. Una negazione implicita in entrambe le policy si traduce in una decisione DENY.</td>
+              </tr>
+              <tr>
+                <td>Sessione come ruolo IAM</td>
+                <td>Consente l'ARN della sessione come ruolo</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>PERMETTI</td>
+                <td>Le autorizzazioni sono concesse direttamente alla sessione. Altri tipi di policy non influiscono sulla decisione.</td>
+              </tr>
+              <tr>
+                <td>Utente IAM</td>
+                <td>Consente l'ARN dell'utente IAM</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>Non applicabile</td>
+                <td>PERMETTI</td>
+                <td>Le autorizzazioni vengono concesse direttamente all'utente. Altri tipi di policy non influiscono sulla decisione.</td>
+              </tr>
+              <tr>
+                <td>Utente federato IAM (<code class="code">GetFederationToken</code>)</td>
+                <td>Consente l'ARN dell'utente IAM</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>DENY</td>
+                <td>Un rifiuto implicito nel limite delle autorizzazioni o nella policy di sessione determina un RIFIUTA.</td>
+              </tr>
+              <tr>
+                <td>Utente federato IAM (<code class="code">GetFederationToken</code>)</td>
+                <td>Consente l'ARN della sessione come utente federato IAM</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>Rifiuto implicito</td>
+                <td>PERMETTI</td>
+                <td>Le autorizzazioni sono concesse direttamente alla sessione. Altri tipi di policy non influiscono sulla decisione.</td>
+              </tr>
+              <tr>
+                <td>utente root</td>
+                <td>Consente l'ARN dell'utente root</td>
+                <td>Non applicabile</td>
+                <td>Non applicabile</td>
+                <td>Non applicabile</td>
+                <td>PERMETTI</td>
+                <td>L'utente root dispone di accesso completo e illimitato a tutte le risorse nell'Account AWS. Per informazioni su come controllare l'accesso dell'utente root per gli account in AWS Organizations, consultare le <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html">Policy di controllo dei servizi (SCP)</a> nella <em>Guida per l'utente di Organizations</em>.</td>
+              </tr>
+              <tr>
+                <td>Principale del servizio AWS</td>
+                <td>Consente un principale di servizio AWS</td>
+                <td>Non applicabile</td>
+                <td>Non applicabile</td>
+                <td>Non applicabile</td>
+                <td>PERMETTI</td>
+                <td>Quando una policy basata sulle risorse concede le autorizzazioni direttamente a un <a href="./reference_policies_elements_principal.html#principal-services">principale di servizio AWS</a>, altri tipi di policy non influiscono sulla decisione.</td>
+              </tr>
+            </table></div></div>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><b>Ruolo IAM</b>: i criteri basati sulle risorse che concedono le autorizzazioni a un ARN del ruolo IAM sono limitati da un rifiuto implicito in un limite delle autorizzazioni o in una policy di sessione.</p>
+            <p><b>Esempio di ARN di ruolo</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:role/examplerole</code></code></pre>
+          </li><li class="listitem">
+            <p><b>Sessione come ruolo IAM</b>: all'interno dello stesso account, le policy basate sulle risorse che concedono le autorizzazioni all'ARN della sessione come ruolo IAM concedono le autorizzazioni direttamente alla sessione come ruolo assunto. Le autorizzazioni concesse direttamente a una sessione non sono limitate da un rifiuto implicito in una policy basata su identità, da un limite delle autorizzazioni o da una policy di sessione. Quando si assume un ruolo e si effettua una richiesta, il principale che effettua la richiesta è l'ARN della sessione come ruolo IAM e non l'ARN del ruolo stesso.</p>
+            <p><b>Esempio di ARN della sessione come ruolo</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:assumed-role/examplerole/examplerolesessionname</code></code></pre>
+          </li><li class="listitem">
+            <p><b>Utente IAM</b>: all'interno dello stesso account, le politiche basate sulle risorse che concedono autorizzazioni all'ARN di un utente IAM (ovvero, non una sessione come utente federato) non sono limitate da un rifiuto implicito in una policy basata su identità o in un limite delle autorizzazioni.</p>
+            <p><b>Esempio di ARN dell'utente IAM</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:user/exampleuser</code></code></pre>
+          </li><li class="listitem">
+            <p><b>Sessioni come utente federato IAM</b>: una sessione come utente federato IAM è una sessione creata chiamando <a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a>. Quando un utente federato effettua una richiesta, il principale che effettua la richiesta è l'ARN dell'utente federato e non l'ARN dell'utente IAM che ha eseguito la federazione. All'interno dello stesso account, le policy basate sulle risorse che concedono le autorizzazioni all'ARN dell'utente federato concedono le autorizzazioni direttamente alla sessione. Le autorizzazioni concesse direttamente a una sessione non sono limitate da un rifiuto implicito in una policy basata su identità, da un limite delle autorizzazioni o da una policy di sessione.</p>
+            <p>Tuttavia, se una policy basata sulle risorse concede l'autorizzazione all'ARN dell'utente IAM che ha eseguito la federazione, le richieste fatte dall'utente federato durante la sessione sono limitate da un rifiuto implicito in un limite di autorizzazione o in una policy di sessione.</p>
+            <p><b>Esempio di ARN della sessione come utente federato IAM</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:federated-user/exampleuser</code></code></pre>
+          </li></ul></div>
+      </li><li>
+        <p><b>Policy basate su identità</b>: il codice verifica quindi le policy basate su identità per il principale. Per un utente IAM, queste includono le policy utente e le policy dei gruppi a cui appartiene l'utente. Se non ci sono policy basate su identità o istruzioni nelle policy basata su identità che consentono l'operazione richiesta, la richiesta viene rifiutata implicitamente e il codice restituisce <b>Deny (Rifiuta)</b> come decisione finale. Se un'istruzione in qualsiasi policy basata su identità applicabile consente l'operazione richiesta, il codice continua.</p>
+      </li><li>
+        <p><b>Limiti delle autorizzazioni IAM</b>: il codice controlla quindi se l'entità IAM utilizzata dall'entità ha un limite di autorizzazioni. Se la policy utilizzata per impostare il limite delle autorizzazioni non consente l'operazione richiesta, la richiesta viene rifiutata implicitamente. Il codice restituisce <b>Deny (Rifiuta)</b> come decisione finale. Se non c'è alcun limite delle autorizzazioni oppure se il limite delle autorizzazioni consente l'operazione richiesta, il codice continua.</p>
+      </li><li>
+        <p><b>Policy di sessione</b>: il codice verifica quindi se il principale è un principale di sessione. I principali di sessione includono una sessione come ruolo IAM o una sessione come utente federato IAM. Se il principale non è un principale di sessione, il codice di attuazione restituisce <b>Allow (Consenti)</b> come decisione finale. </p>
+        <p>Per i principali di sessione, il codice verifica se una policy di sessione è passata nella richiesta. Puoi passare una policy di sessione utilizzando l'AWS CLI o l'API AWS per ottenere le credenziali temporanee per un ruolo o un utente federato IAM.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Se una policy di sessione è presente e non consente l'operazione richiesta, la richiesta viene rifiutata implicitamente. Il codice restituisce <b>Deny (Rifiuta)</b> come decisione finale.</p>
+          </li><li class="listitem">
+            <p>Se non esiste una policy di sessione, il codice verifica se il principale è una sessione come ruolo. Se il principale è una sessione come ruolo, la richiesta è <b>autorizzata</b>. In caso contrario, la richiesta viene negata implicitamente e iI codice restituisce <b>Rifiuta</b> come decisione finale.</p>
+          </li><li class="listitem">
+            <p>Se una policy di sessione è presente e consente l'operazione richiesta, il codice di attuazione restituisce <b>Consenti</b> come decisione finale.</p>
+          </li></ul></div>
+      </li><li>
+        <p><b>Errori</b>: se il codice di attuazione AWS rileva un errore in qualsiasi momento durante la valutazione, genera un'eccezione e viene chiuso.</p>
+      </li></ol></div>
+
+   
+    <h2 id="policies_evaluation_example">Esempio di valutazione delle policy basate su identità e delle policy basate su risorse</h2>
+    <p>I tipi di policy più comuni sono quelle basate su identità e quelle basate su risorse. Quando viene richiesto l'accesso a una risorsa, AWS valuta tutte le autorizzazioni concesse dalle policy per <b>almeno un permesso</b> all'interno dello stesso account. Un rifiuto esplicito in una qualsiasi di queste policy sostituisce l'autorizzazione.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Importante</h6></div><div class="awsdocs-note-text"><p>Se la policy basata sull'identità o la policy basata sulle risorse all'interno dello stesso account consente la richiesta e l'altra no, la richiesta è comunque consentita.</p></div></div>
+    <p>Supponiamo che Carlos, con il nome utente <code class="code">carlossalazar</code>, voglia salvare un file nel bucket <code class="code">carlossalazar-logs</code> di Amazon S3. </p>
+    <p>Supponi inoltre che la policy seguente sia collegata all'utente IAM <code class="code">carlossalazar</code>.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowS3ListRead",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowS3Self",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::*log*"
+        }
+    ]
+}</code></pre>
+    <p>L'istruzione <code class="code">AllowS3ListRead</code> in questa policy consente a Carlos di visualizzare un elenco di tutti i bucket nell'account. L'istruzione <code class="code">AllowS3Self</code> consente a Carlos l'accesso completo al bucket con lo stesso nome usato per il nome utente. L'istruzione <code class="code">DenyS3Logs</code> nega a Carlos l'accesso a qualsiasi bucket di S3 il cui nome includa <code class="code">log</code>. </p>
+    <p>Inoltre, la seguente policy basata su risorse (detta policy del bucket) viene collegata al bucket <code class="code">carlossalazar</code>. </p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:user/carlossalazar"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        }
+    ]
+}</code></pre>
+    <p>Questa policy specifica che solo l'utente <code class="code">carlossalazar</code> può accedere al bucket <code class="code">carlossalazar</code>.</p>
+    <p>Quando Carlos esegue la richiesta di salvataggio di un file nel bucket <code class="code">carlossalazar-logs</code>, AWS determina quali siano le policy applicabili alla richiesta. In questo caso, sono applicabili solo la policy basata su identità e la policy basata su risorse. Entrambe sono policy di autorizzazione. Poiché non ci sono limiti di autorizzazione applicabili, la logica di valutazione viene ridotta a quanto segue.</p>
+    <div class="mediaobject">
+       
+        <img src="images/EffectivePermissionsShort.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Diagramma di flusso della valutazione&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>AWS cerca prima di tutto un'istruzione <code class="code">Deny</code> applicabile al contesto della richiesta. Ne trova una, perché la policy basata su identità rifiuta esplicitamente a Carlos l'accesso a qualsiasi bucket di S3 utilizzato per la creazione di log. A Carlos viene negato l'accesso. </p>
+    <p>Supponi che Carlos si renda poi conto dell'errore e tenti di salvare il file nel bucket <code class="code">carlossalazar</code>. AWS cerca un'istruzione <code class="code">Deny</code> e non la trova. Verifica quindi le policy di autorizzazione. Sia la policy basata sull'identità che la policy basata sulle risorse consentono la richiesta. Pertanto, anche AWS accetta la richiesta. Se uno dei due avesse rifiutato esplicitamente l'istruzione, la richiesta sarebbe stata negata. Se uno dei tipi di policy consente la richiesta e l'altro no, la richiesta è comunque consentita.</p>
+   
+    <h2 id="AccessPolicyLanguage_Interplay">Differenza tra rifiuto esplicito e implicito</h2>
+    <p>Una richiesta genera un rifiuto esplicito se policy applicabile include un'istruzione <code class="code">Deny</code>. Se le policy applicabili a una richiesta includono un'istruzione <code class="code">Allow</code> e un'istruzione <code class="code">Deny</code>, l'istruzione <code class="code">Deny</code> prevale sull'istruzione <code class="code">Allow</code>. La richiesta viene rifiutata esplicitamente.</p>
+    <p>Una rifiuto implicito si verifica quando non c'è un'istruzione <code class="code">Deny</code> applicabile ma non c'è neanche un'istruzione <code class="code">Allow</code> applicabile. Poiché a un principale IAM viene rifiutato l'accesso per impostazione predefinita, questo deve essere autorizzato esplicitamente a eseguire un'operazione. In caso contrario, l'accesso viene negato implicitamente.</p>
+    <p>Quando progetti una strategia di autorizzazione, devi creare policy con istruzioni <code class="code">Allow</code> per consentire alle entità principali di eseguire richieste. Tuttavia, puoi scegliere qualsiasi combinazione di rifiuti espliciti e impliciti. </p>
+    <p>Ad esempio, è possibile creare la seguente policy che include operazioni consentite, operazioni rifiutate implicitamente e operazioni rifiutate esplicitamente. La dichiarazione <code class="code">AllowGetList</code> <b>permette</b> l'accesso in sola lettura alle operazioni IAM che iniziano con i prefissi <code class="code">Get</code> e <code class="code">List</code>. Tutte le altre azioni in IAM, come <code class="code">iam:CreatePolicy</code>, sono <b>rifiutate implicitamente</b>. La dichiarazione <code class="code">DenyReports</code> <b>impedisce esplicitamente</b> l'accesso ai report IAM impedendo l'accesso alle operazioni che includono il suffisso <code class="code">Report</code>, come <code class="code">iam:GetOrganizationsAccessReport</code>. Se qualcuno aggiunge un'altra policy a questo principale per concedere l'accesso ai report IAM, come <code class="code">iam:GenerateCredentialReport</code>, le richieste relative ai report vengono ancora rifiutate a causa di questo rifiuto esplicito.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowGetList",
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "DenyReports",
+            "Effect": "Deny",
+            "Action": "iam:*Report",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avvertimento" /> <strong>JavaScript è disabilitato o non è disponibile nel tuo browser.</strong></p><p>Per usare la documentazione AWS, JavaScript deve essere abilitato. Consulta le pagine della guida del browser per le istruzioni.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenzioni dei documenti</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./reference_policies_elements_datatypes.html">Tipi di dati supportati</div><div id="next" class="next-link" accesskey="n" href="./reference_policies_evaluation-logic-cross-account.html">Logica di valutazione della policy multiaccount</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Questa pagina ti è stata utile? - Sì</div><div class="content"><p>Grazie per averci comunicato che stiamo facendo un buon lavoro!</p><p>Se hai un momento, ti invitiamo a dirci che cosa abbiamo fatto che ti è piaciuto così possiamo offrirti altri contenuti simili.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Questa pagina ti è stata utile? - No</div><div class="content"><p>Grazie per averci comunicato che questa pagina ha bisogno di essere modificata. Siamo spiacenti di non aver soddisfatto le tue esigenze.</p><p>Se hai un momento, ti invitiamo a dirci come possiamo migliorare la documentazione.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

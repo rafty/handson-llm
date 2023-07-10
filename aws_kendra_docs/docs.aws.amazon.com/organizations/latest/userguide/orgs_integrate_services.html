@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using AWS Organizations with other AWS services - AWS Organizations</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="orgs_integrate_services" /><meta name="default_state" content="orgs_integrate_services" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html" /><meta name="description" content="Learn how AWS Organizations uses a service-linked role to enable trusted AWS services to perform tasks within an organization's member accounts." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Organizations" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Combine all of your AWS accounts into an organization to consolidate billing and to achieve new levels of control over your AWS accounts." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/organizations/latest/userguide/orgs_integrate_services.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/organizations/latest/userguide/orgs_integrate_services.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/organizations/latest/userguide/orgs_integrate_services.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/organizations/latest/userguide/orgs_integrate_services.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/organizations/latest/userguide/orgs_integrate_services.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/organizations/latest/userguide/orgs_integrate_services.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/organizations/latest/userguide/orgs_integrate_services.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/organizations/latest/userguide/orgs_integrate_services.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/organizations/latest/userguide/orgs_integrate_services.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/organizations/latest/userguide/orgs_integrate_services.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/organizations/latest/userguide/orgs_integrate_services.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/organizations/latest/userguide/orgs_integrate_services.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/organizations/latest/userguide/orgs_integrate_services.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/organizations/latest/userguide/orgs_integrate_services.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/organizations/latest/userguide/orgs_integrate_services.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/organizations/latest/userguide/orgs_integrate_services.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/organizations/latest/userguide/orgs_integrate_services.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/organizations/latest/userguide/orgs_integrate_services.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html" hreflang="x-default" /><meta name="feedback-item" content="Organizations" /><meta name="this_doc_product" content="AWS Organizations" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'organizations'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Using AWS Organizations with other AWS services" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using AWS Organizations with other AWS services - AWS Organizations</title><meta name="pdf" content="/pdfs/organizations/latest/userguide/organizations-userguide.pdf#orgs_integrate_services" /><meta name="github" content="https://github.com/awsdocs/aws-organizations-docs/tree/main/doc_source/orgs_integrate_services.md" /><meta name="rss" content="aws-organizations-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=219" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Organizations&amp;topic_url=http://docs.aws.amazon.com/en_us/organizations/latest/userguide/orgs_integrate_services.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/organizations/latest/userguide/orgs_integrate_services.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/organizations/latest/userguide/orgs_integrate_services.html" /><meta name="keywords" content="organization,management account,member account,consolidated billing,consolidated billing family,organizational unit,OU,root,service control policy" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Organizations",
+        "item" : "https://docs.aws.amazon.com/organizations/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/organizations/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Using AWS Organizations with other AWS services",
+        "item" : "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/organizations/latest/userguide/organizations-userguide.pdf#orgs_integrate_services" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-organizations-docs/tree/main/doc_source/orgs_integrate_services.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/organizations/index.html">AWS Organizations</a><a href="orgs_introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#orgs_trusted_access_perms">Permissions required to enable trusted
+                access</a><a href="#orgs_trusted_access_disable_perms">Permissions required to disable
+                trusted access</a><a href="#orgs_how-to-enable-disable-trusted-access">How to enable or disable
+                trusted access</a><a href="#orgs_integrate_services-using_slrs">AWS Organizations and service-linked
+                roles</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="orgs_integrate_services">Using AWS Organizations with other AWS services</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use <em>trusted access</em> to enable a supported AWS service that
+        you specify, called the <em>trusted service</em>, to perform tasks
+        in your organization and its accounts on your behalf. This involves granting permissions to
+        the trusted service but does <em>not</em> otherwise affect the
+        permissions for users or roles. When you enable access, the trusted service can create
+        an IAM role called a <em>service-linked role</em> in every account in your
+        organization whenever that role is needed. That role has a permissions policy that allows
+        the trusted service to do the tasks that are described in that service's documentation. This
+        enables you to specify settings and configuration details that you would like the trusted
+        service to maintain in your organization's accounts on your behalf. The trusted service only
+        creates service-linked roles when it needs to perform management actions on accounts, and
+        not necessarily in all accounts of the organization. </p><a id="important-note-about-integration"></a><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>We <b><em>strongly recommend</em></b> that you
+            enable and disable trusted access by using <b><em>only</em></b> the trusted service's console, or its AWS CLI or API
+            operation equivalents. This lets the trusted service perform any required initialization
+            when enabling trusted access, such as creating any required resources and any required
+            clean up of resources when disabling trusted access.</p><p>For information about how to enable or disable trusted service access to your
+            organization using the trusted service, see the <b>Learn
+                more</b> link under the <b>Supports Trusted
+                Access</b> column at <a href="./orgs_integrate_services_list.html">AWS services that you can use with
+            AWS Organizations</a>. </p><p>If you disable access by using the Organizations console, CLI commands, or API
+            operations, it causes the following actions to occur:</p><div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>The service can no longer create a service-linked role in the accounts in your
+                    organization. This means that the service can't perform operations on your
+                    behalf on any new accounts in your organization. The service can still perform
+                    operations in older accounts until the service completes its clean-up from
+                    AWS Organizations. </p>
+            </li><li class="listitem">
+                <p>The service can no longer perform tasks in the member accounts in the
+                    organization, unless those operations are explicitly permitted by the IAM
+                    policies that are attached to your roles. This includes any data aggregation
+                    from the member accounts to the management account, or to a delegated
+                    administrator account, where relevant.</p>
+            </li><li class="listitem">
+                <p>Some services detect this and clean up any remaining data or resources related
+                    to the integration, while other services stop accessing the organization but
+                    leave any historical data and configuration in place to support a possible
+                    re-enabling of the integration.</p>
+            </li></ul></div><p>Instead, using the other service's console or commands to disable the integration
+            ensures that the other service can clean up any resources that are required only for the
+            integration. How the service cleans up its resources in the organization's accounts
+            depends on that service. For more information, see the documentation for the other AWS
+            service. </p></div></div>
+        <h2 id="orgs_trusted_access_perms">Permissions required to enable trusted
+                access</h2>
+        <p>Trusted access requires permissions for two services: AWS Organizations and the trusted
+            service. To enable trusted access, choose one of the following scenarios:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>If you have credentials with permissions in both AWS Organizations and the trusted
+                    service, enable access by using the tools (console or AWS CLI) provided by the
+                    trusted service. This allows the service to enable trusted access in AWS Organizations on
+                    your behalf and to create any resources required for the service to operate in
+                    your organization.</p>
+                <p>The minimum permissions for these credentials are the following:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">organizations:EnableAWSServiceAccess</code>. You can also use
+                            the <code class="code">organizations:ServicePrincipal</code> condition key with this
+                            operation to limit requests that those operations make to a list of
+                            approved service principal names. For more information, see <a href="./orgs_permissions_overview.html#orgs_permissions_conditionkeys">Condition keys</a>.</p>
+                    </li><li class="listitem">
+                        <p><code class="code">organizations:ListAWSServiceAccessForOrganization</code>
+                            – Required if you use the AWS Organizations console.</p>
+                    </li><li class="listitem">
+                        <p>The minimum permissions that are required by the trusted service
+                            depend on the service. For more information, see the trusted service's
+                            documentation.</p>
+                    </li></ul></div>
+            </li><li class="listitem">
+                <p>If one person has credentials with permissions in AWS Organizations but someone else
+                    has credentials with permissions in the trusted service, perform these steps in
+                    the following order:</p>
+                <div class="orderedlist">
+                     
+                     
+                <ol><li>
+                        <p>The person who has credentials with permissions in AWS Organizations should use
+                            the AWS Organizations console, the AWS CLI, or an AWS SDK to enable trusted
+                            access for the trusted service. This grants permission to the other
+                            service to perform its required configuration in the organization when
+                            the following step (step 2) is performed.</p>
+                        <p>The minimum AWS Organizations permissions are the following:</p>
+                        <div class="itemizedlist">
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p><code class="code">organizations:EnableAWSServiceAccess</code></p>
+                            </li><li class="listitem">
+                                <p><code class="code">organizations:ListAWSServiceAccessForOrganization</code>
+                                    – Required only if you use the AWS Organizations console</p>
+                            </li></ul></div>
+                        <p>For the steps to enable trusted access in AWS Organizations, see <a href="#orgs_how-to-enable-disable-trusted-access">How to enable or disable
+                trusted access</a>.</p>
+                    </li><li>
+                        <p>The person who has credentials with permissions in the trusted service
+                            enables that service to work with AWS Organizations. This instructs the service
+                            to perform any required initialization, such as creating any resources
+                            that are required for the trusted service to operate in the
+                            organization. For more information, see the service-specific
+                            instructions at <a href="./orgs_integrate_services_list.html">AWS services that you can use with
+            AWS Organizations</a>.</p>
+                    </li></ol></div>
+            </li></ul></div>
+     
+        <h2 id="orgs_trusted_access_disable_perms">Permissions required to disable
+                trusted access</h2>
+        <p>When you no longer want to allow the trusted service to operate on your organization
+            or its accounts, choose one of the following scenarios.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Disabling trusted service access does <b><em>not</em></b> prevent users and roles with
+                appropriate permissions from using that service. To completely block users and roles
+                from accessing an AWS service, you can remove the IAM permissions that grant
+                that access, or you can use <a href="./orgs_manage_policies_scps.html">service
+                    control policies (SCPs)</a> in AWS Organizations.</p><p>You can apply SCPs to only member accounts. SCPs don't apply to the management
+                account. We recommend that you <a href="./orgs_best-practices_mgmt-acct.html#bp_mgmt-acct_use-mgmt">don’t run
+                    services in the management account.</a> Instead, run them in member accounts
+                where you can control the security by using SCPs.</p></div></div>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>If you have credentials with permissions in both AWS Organizations and the trusted
+                    service, disable access by using the tools (console or AWS CLI) that are available
+                    for the trusted service. The service then cleans up by removing resources that
+                    are no longer required and by disabling trusted access for the service in
+                    AWS Organizations on your behalf. </p>
+                <p>The minimum permissions for these credentials are the following:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">organizations:DisableAWSServiceAccess</code>. You can also use
+                            the <code class="code">organizations:ServicePrincipal</code> condition key with this
+                            operation to limit requests that those operations make to a list of
+                            approved service principal names. For more information, see <a href="./orgs_permissions_overview.html#orgs_permissions_conditionkeys">Condition keys</a>.</p>
+                    </li><li class="listitem">
+                        <p><code class="code">organizations:ListAWSServiceAccessForOrganization</code>
+                            – Required if you use the AWS Organizations console.</p>
+                    </li><li class="listitem">
+                        <p>The minimum permissions required by the trusted service depend on the
+                            service. For more information, see the trusted service's
+                            documentation.</p>
+                    </li></ul></div>
+            </li><li class="listitem">
+                <p>If the credentials with permissions in AWS Organizations aren't the credentials with
+                    permissions in the trusted service, perform these steps in the following
+                    order:</p>
+                <div class="orderedlist">
+                     
+                     
+                <ol><li>
+                        <p>The person with permissions in the trusted service first disables
+                            access using that service. This instructs the trusted service to clean
+                            up by removing the resources required for trusted access. For more
+                            information, see the service-specific instructions at <a href="./orgs_integrate_services_list.html">AWS services that you can use with
+            AWS Organizations</a>.</p>
+                    </li><li>
+                        <p>The person with permissions in AWS Organizations can then use the AWS Organizations
+                            console, AWS CLI, or an AWS SDK to disable access for the trusted
+                            service. This removes the permissions for the trusted service from the
+                            organization and its accounts. </p>
+                        <p>The minimum AWS Organizations permissions are the following:</p>
+                        <div class="itemizedlist">
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p><code class="code">organizations:DisableAWSServiceAccess</code></p>
+                            </li><li class="listitem">
+                                <p><code class="code">organizations:ListAWSServiceAccessForOrganization</code>
+                                    – Required only if you use the AWS Organizations console</p>
+                            </li></ul></div>
+                        <p>For the steps to disable trusted access in AWS Organizations, see <a href="#orgs_how-to-enable-disable-trusted-access">How to enable or disable
+                trusted access</a>.</p>
+                    </li></ol></div>
+            </li></ul></div>
+     
+        <h2 id="orgs_how-to-enable-disable-trusted-access">How to enable or disable
+                trusted access</h2>
+        <p>If you have permissions only for AWS Organizations and you want to enable or disable trusted
+            access to your organization on behalf of the administrator of the other AWS service,
+            use the following procedure.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>We <b><em>strongly recommend</em></b> that
+                you enable and disable trusted access by using <b><em>only</em></b> the trusted service's console, or
+                its AWS CLI or API operation equivalents. This lets the trusted service perform any
+                required initialization when enabling trusted access, such as creating any required
+                resources and any required clean up of resources when disabling trusted
+                access.</p><p>For information about how to enable or disable trusted service access to your
+                organization using the trusted service, see the <b>Learn
+                    more</b> link under the <b>Supports Trusted
+                    Access</b> column at <a href="./orgs_integrate_services_list.html">AWS services that you can use with
+            AWS Organizations</a>. </p><p>If you disable access by using the Organizations console, CLI commands, or API
+                operations, it causes the following actions to occur:</p><div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>The service can no longer create a service-linked role in the accounts in
+                        your organization. This means that the service can't perform operations on
+                        your behalf on any new accounts in your organization. The service can still
+                        perform operations in older accounts until the service completes its
+                        clean-up from AWS Organizations. </p>
+                </li><li class="listitem">
+                    <p>The service can no longer perform tasks in the member accounts in the
+                        organization, unless those operations are explicitly permitted by the IAM
+                        policies that are attached to your roles. This includes any data aggregation
+                        from the member accounts to the management account, or to a delegated
+                        administrator account, where relevant.</p>
+                </li><li class="listitem">
+                    <p>Some services detect this and clean up any remaining data or resources
+                        related to the integration, while other services stop accessing the
+                        organization but leave any historical data and configuration in place to
+                        support a possible re-enabling of the integration.</p>
+                </li></ul></div><p>Instead, using the other service's console or commands to disable the integration
+                ensures that the other service can clean up any resources that are required only for
+                the integration. How the service cleans up its resources in the organization's
+                accounts depends on that service. For more information, see the documentation for
+                the other AWS service. </p></div></div>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>AWS Management Console</dt><dd tab-id="aws-management-console">
+                    <div class="procedure"><h6>To enable trusted service access</h6><ol><li>
+                            <p>Sign in to the <a href="https://console.aws.amazon.com/organizations/v2" rel="noopener noreferrer" target="_blank"><span>AWS Organizations console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. You must sign in as an IAM user, assume an IAM role, or 
+                    sign in as the root user (<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials">not 
+                    recommended</a>) in the organization’s management account.</p>
+                        </li><li>
+                            <p>On the <b><a href="https://console.aws.amazon.com/organizations/v2/home/services" rel="noopener noreferrer" target="_blank"><span>Services</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></b> page, find the row for the service that you want
+                                to enable, and choose its name.</p>
+                        </li><li>
+                            <p>Choose <b>Enable trusted access</b>.</p>
+                        </li><li>
+                            <p>In the confirmation dialog box, check the box to <b>Show
+                                    the option to enable trusted access</b>, enter
+                                    <code class="userinput">enable</code> in the box, and then choose
+                                    <b>Enable trusted access</b>.</p>
+                        </li><li>
+                            <p>If you are <em>enabling</em> access,
+                                tell the administrator of the other AWS service that they can now
+                                enable the other service to work with AWS Organizations.</p>
+                        </li></ol></div>
+                    <div class="procedure"><h6>To disable trusted service access</h6><ol><li>
+                            <p>Sign in to the <a href="https://console.aws.amazon.com/organizations/v2" rel="noopener noreferrer" target="_blank"><span>AWS Organizations console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. You must sign in as an IAM user, assume an IAM role, or 
+                    sign in as the root user (<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials">not 
+                    recommended</a>) in the organization’s management account.</p>
+                        </li><li>
+                            <p>On the <b><a href="https://console.aws.amazon.com/organizations/v2/home/services" rel="noopener noreferrer" target="_blank"><span>Services</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></b> page, find the row for the service that you want
+                                to disable, and choose its name.</p>
+                        </li><li>
+                            <p>Wait until the administrator of the other service tells you that
+                                the service is disabled and that its resources have been cleaned
+                                up.</p>
+                        </li><li>
+                            <p>In the confirmation dialog box, enter
+                                    <code class="userinput">disable</code> in the box, and then choose
+                                    <b>Disable trusted access</b>.</p>
+                        </li></ol></div>
+                </dd>
+            <dt>AWS CLI, AWS API</dt><dd tab-id="aws-cli,-aws-api">
+                     
+                        <h6>To enable or disable trusted service access</h6>
+                        <p>You can use the following AWS CLI commands or API operations to enable
+                            or disable trusted service access:</p>
+                     
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>AWS CLI: AWS organizations <a href="https://docs.aws.amazon.com/cli/latest/reference/organizations/enable-aws-service-access.html">enable-aws-service-access</a></p>
+                        </li><li class="listitem">
+                            <p>AWS CLI: AWS organizations <a href="https://docs.aws.amazon.com/cli/latest/reference/organizations/disable-aws-service-access.html">disable-aws-service-access</a></p>
+                        </li><li class="listitem">
+                            <p>AWS API: <a href="https://docs.aws.amazon.com/organizations/latest/APIReference/API_EnableAWSServiceAccess.html">EnableAWSServiceAccess</a></p>
+                        </li><li class="listitem">
+                            <p>AWS API: <a href="https://docs.aws.amazon.com/organizations/latest/APIReference/API_DisableAWSServiceAccess.html">DisableAWSServiceAccess</a></p>
+                        </li></ul></div>
+                </dd>
+        </dl></awsdocs-tabs>
+     
+        <h2 id="orgs_integrate_services-using_slrs">AWS Organizations and service-linked
+                roles</h2>
+        <p>AWS Organizations uses <a href="http://aws.amazon.com/blogs/security/introducing-an-easier-way-to-delegate-permissions-to-aws-services-service-linked-roles/" rel="noopener noreferrer" target="_blank"><span>IAM service-linked roles</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> to enable trusted services to perform tasks on
+            your behalf in your organization's member accounts. When you configure a trusted service
+            and authorize it to integrate with your organization, that service can request that
+            AWS Organizations create a service-linked role in its member account. The trusted service does
+            this asynchronously as needed and not necessarily in all accounts in the organization at
+            the same time. The service-linked role has predefined IAM permissions that allow the
+            trusted service to perform only specific tasks within that account. In general, AWS
+            manages all service-linked roles, which means that you typically can't alter the roles
+            or the attached policies. </p>
+        <p>To make all of this possible, when you create an account in an organization or you
+            accept an invitation to join your existing account to an organization, AWS Organizations
+            provisions the member account with a service-linked role named
+                <code class="code">AWSServiceRoleForOrganizations</code>. Only the AWS Organizations service itself can
+            assume this role. The role has permissions that allow AWS Organizations to create service-linked
+            roles for other AWS services. This service-linked role is present in all
+            organizations.</p>
+        <p>Although we don't recommend it, if your organization has only <a href="./orgs_getting-started_concepts.html#feature-set-cb-only">consolidated billing features</a> enabled, the
+            service-linked role named <code class="code">AWSServiceRoleForOrganizations</code> is never used, and
+            you can delete it. If you later want to enable <a href="./orgs_getting-started_concepts.html#feature-set-all">all
+                features</a> in your organization, the role is required, and you must restore it.
+            The following checks occur when you begin the process to enable all features:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>For each member account that was <em>invited to
+                            join</em> the organization</b> – The account
+                    administrator receives a request to agree to enable all features. To
+                    successfully agree to the request, the administrator must have both
+                        <code class="code">organizations:AcceptHandshake</code>
+                    <em>and</em>
+                    <code class="code">iam:CreateServiceLinkedRole</code> permissions if the service-linked role
+                        (<code class="code">AWSServiceRoleForOrganizations</code>) doesn't already exist. If the
+                        <code class="code">AWSServiceRoleForOrganizations</code> role already exists, the
+                    administrator needs only the <code class="code">organizations:AcceptHandshake</code>
+                    permission to agree to the request. When the administrator agrees to the
+                    request, AWS Organizations creates the service-linked role if it doesn't already exist.
+                </p>
+            </li><li class="listitem">
+                <p><b>For each member account that was
+                            <em>created</em> in the organization</b> – The
+                    account administrator receives a request to recreate the service-linked role.
+                    (The administrator of the member account doesn't receive a request to enable all
+                    features because the administrator of the management account (formerly known as
+                    the "master account") is considered the owner of the created member accounts.)
+                    AWS Organizations creates the service-linked role when the member account administrator
+                    agrees to the request. The administrator must have both
+                        <code class="code">organizations:AcceptHandshake</code>
+                    <em>and</em>
+                    <code class="code">iam:CreateServiceLinkedRole</code> permissions to successfully accept the
+                    handshake.</p>
+            </li></ul></div>
+        <p>After you enable all features in your organization, you no longer can delete the
+                <code class="code">AWSServiceRoleForOrganizations</code> service-linked role from any
+            account.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>AWS Organizations SCPs never affect service-linked roles. These roles are exempt from any
+                SCP restrictions.</p></div></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./orgs_tagging.html">Tagging resources</div><div id="next" class="next-link" accesskey="n" href="./orgs_integrate_services_list.html">Services that work with Organizations</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Organizations&amp;topic_url=https://docs.aws.amazon.com/en_us/organizations/latest/userguide/orgs_integrate_services.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Organizations&amp;topic_url=https://docs.aws.amazon.com/en_us/organizations/latest/userguide/orgs_integrate_services.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

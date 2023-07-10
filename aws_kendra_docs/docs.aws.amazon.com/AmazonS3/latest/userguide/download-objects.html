@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Downloading an object - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="download-objects" /><meta name="default_state" content="download-objects" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/download-objects.html" /><meta name="description" content="This section explains how to download objects from an S3 bucket." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/download-objects.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/download-objects.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/download-objects.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/download-objects.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/download-objects.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/download-objects.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/download-objects.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/download-objects.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/download-objects.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/download-objects.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/download-objects.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/download-objects.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/download-objects.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/download-objects.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/download-objects.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/download-objects.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/download-objects.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/download-objects.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/download-objects.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/download-objects.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/download-objects.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/download-objects.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Downloading an object" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Downloading an object - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#download-objects" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/download-objects.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/download-objects.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/download-objects.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/download-objects.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Uploading, downloading, and working with objects in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Downloading an object",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#download-objects" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/download-objects.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="download-objects">Downloading an object</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>This section explains how to download objects from an S3
+    bucket.</p><p>Data transfer fees apply when you download objects. For information about Amazon S3 features, and
+    pricing, see <a href="https://aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>Amazon S3</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p><p>You can download a single object per request using the Amazon S3 console. To download multiple objects, use the AWS CLI,
+    AWS SDKs, or REST API. </p><p>When you download an object programmatically, its metadata is returned in the response
+    headers. There are times when you want to override certain response header values returned in a
+    GET response. For example, you might override the <code class="code">Content-Disposition</code> response
+    header value in your GET request. The REST GET Object API (see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GET Object</a>) allows you to specify query string
+    parameters in your GET request to override these values. The AWS SDKs for Java, .NET, and PHP
+    also provide necessary objects you can use to specify values for these response headers in your
+    GET request. </p><p>When retrieving objects that are stored encrypted using server-side encryption, you must
+    provide appropriate request headers. For more information, see <a href="./UsingEncryption.html">Protecting data with encryption</a>.</p><div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the S3 console" id="download-objects-console" expanded="false"><p>This section explains how to use the Amazon S3 console to download an object from an S3 bucket
+        using a presigned URL.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>You can only download one object at a time.</p>
+            </li><li class="listitem">
+                <p>Objects with key names ending with period(s) "." downloaded using the Amazon S3
+                    console will have the period(s) "." removed from the key name of the downloaded
+                    object. To download an object with the key name ending in period(s) "." retained
+                    in the downloaded object, you must use the AWS Command Line Interface (AWS CLI), AWS SDKs, or
+                    REST API. For AWS CLI, REST API, and AWS SDK information and examples, see
+                        <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/download-objects.html">Downloading an
+                        object</a>.</p>
+            </li></ul></div></div></div><div class="procedure"><h6>To download an object from an S3 bucket</h6><ol><li> <p>Sign in to the AWS Management Console and open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p> </li><li>
+            <p>In the <b>Buckets</b> list, choose the name of the bucket that you
+                want to download an object from.</p>
+            <p> </p>
+        </li><li>
+            <p>You can download an object from an S3 bucket in any of the following ways:</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Select the object and choose <b>Download</b> or choose
+                            <b>Download as</b> from the <b>Actions</b>
+                        menu if you want to download the object to a specific folder.</p>
+                </li><li class="listitem">
+                    <p>If you want to download a specific version of the object, select the
+                            <b>Show versions</b> button. Select the version of the
+                        object that you want and choose <b>Download</b> or choose
+                            <b>Download as</b> from the <b>Actions</b>
+                        menu if you want to download the object to a specific folder.</p>
+                </li></ul></div>
+        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS SDKs" id="download-object-sdk" expanded="false"><awsdocs-tabs><dl style="display: none">
+        
+        <dt>SDK for Java</dt><dd tab-id="sdk-for-java">
+                <p>When you download an object through the AWS SDK for Java, Amazon S3 returns all of the object's
+                    metadata and an input stream from which to read the object's contents.</p>
+                <p>To retrieve an object, you do the following:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Execute the <code class="code">AmazonS3Client.getObject()</code> method, providing the bucket
+                            name and object key in the request.</p>
+                    </li><li class="listitem">
+                        <p>Execute one of the <code class="code">S3Object</code> instance methods to process the input
+                            stream.</p>
+                    </li></ul></div>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Your network connection remains open until you read all of the data or close the
+                        input stream. We recommend that you read the content of the stream as quickly as
+                        possible.</p></div></div>
+                <p>The following are some variations you might use:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Instead of reading the entire object, you can read only a portion of the object
+                            data by specifying the byte range that you want in the request.</p>
+                    </li><li class="listitem">
+                        <p>You can optionally override the response header values by
+                            using a <code class="code">ResponseHeaderOverrides</code> object and setting the corresponding
+                            request property. For example, you can use this feature to indicate that the object
+                            should be downloaded into a file with a different file name than the object key
+                            name.</p>
+                    </li></ul></div>
+                <p>The following example retrieves an object from an Amazon S3 bucket three ways: first, as a
+                    complete object, then as a range of bytes from the object, then as a complete object with
+                    overridden response header values. For more information about getting objects from Amazon S3,
+                    see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GET Object</a>. For instructions on
+                    creating and testing a working sample, see <a href="./UsingTheMPJavaAPI.html#TestingJavaSamples">Testing the Amazon S3 Java Code Examples</a>.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
+import com.amazonaws.services.s3.model.S3Object;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class GetObject2 <span>{</span>
+
+    public static void main(String[] args) throws IOException <span>{</span>
+        Regions clientRegion = Regions.DEFAULT_REGION;
+        String bucketName = "*** Bucket name ***";
+        String key = "*** Object key ***";
+
+        S3Object fullObject = null, objectPortion = null, headerOverrideObject = null;
+        try <span>{</span>
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(clientRegion)
+                    .withCredentials(new ProfileCredentialsProvider())
+                    .build();
+
+            // Get an object and print its contents.
+            System.out.println("Downloading an object");
+            fullObject = s3Client.getObject(new GetObjectRequest(bucketName, key));
+            System.out.println("Content-Type: " + fullObject.getObjectMetadata().getContentType());
+            System.out.println("Content: ");
+            displayTextInputStream(fullObject.getObjectContent());
+
+            // Get a range of bytes from an object and print the bytes.
+            GetObjectRequest rangeObjectRequest = new GetObjectRequest(bucketName, key)
+                    .withRange(0, 9);
+            objectPortion = s3Client.getObject(rangeObjectRequest);
+            System.out.println("Printing bytes retrieved.");
+            displayTextInputStream(objectPortion.getObjectContent());
+
+            // Get an entire object, overriding the specified response headers, and print the object's content.
+            ResponseHeaderOverrides headerOverrides = new ResponseHeaderOverrides()
+                    .withCacheControl("No-cache")
+                    .withContentDisposition("attachment; filename=example.txt");
+            GetObjectRequest getObjectRequestHeaderOverride = new GetObjectRequest(bucketName, key)
+                    .withResponseHeaders(headerOverrides);
+            headerOverrideObject = s3Client.getObject(getObjectRequestHeaderOverride);
+            displayTextInputStream(headerOverrideObject.getObjectContent());
+        } catch (AmazonServiceException e) <span>{</span>
+            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // it, so it returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) <span>{</span>
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        } finally <span>{</span>
+            // To ensure that the network connection doesn't remain open, close any open input streams.
+            if (fullObject != null) <span>{</span>
+                fullObject.close();
+            }
+            if (objectPortion != null) <span>{</span>
+                objectPortion.close();
+            }
+            if (headerOverrideObject != null) <span>{</span>
+                headerOverrideObject.close();
+            }
+        }
+    }
+
+    private static void displayTextInputStream(InputStream input) throws IOException <span>{</span>
+        // Read the text input stream one line at a time and display each line.
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        String line = null;
+        while ((line = reader.readLine()) != null) <span>{</span>
+            System.out.println(line);
+        }
+        System.out.println();
+    }
+}
+
+</code></pre>
+            </dd>
+        <dt>SDK for JavaScript</dt><dd tab-id="sdk-for-javascript">
+                <p>The following SDK for JavaScript code example retrieves an object from an Amazon S3 bucket. When you run the code, the object inside the bucket is returned as <code class="code">ReadableStream</code>, which is then converted into a string. For more information about getting objects from Amazon S3,
+                    see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">GET Object</a>. For instructions on
+                    creating and testing a working sample, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-aws-javascript.html">Testing the AWS SDK for JavaScript</a>.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascript ">import <span>{</span> GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+
+const client = new S3Client(<span>{</span>})
+
+export const main = async () =&gt; <span>{</span>
+  const command = new GetObjectCommand(<span>{</span>
+    Bucket: "test-bucket",
+    Key: "hello-s3.txt"
+  });
+
+  try <span>{</span>
+    const response = await client.send(command);
+    // The Body object also has 'transformToByteArray' and 'transformToWebStream' methods.
+    const str = await response.Body.transformToString();
+    console.log(str);
+  } catch (err) <span>{</span>
+    console.error(err);
+  }
+};
+</code></pre>
+            </dd>
+        <dt>.NET</dt><dd tab-id=".net">
+                <p>When you download an object, you get all of the object's metadata and a stream from
+                    which to read the contents. You should read the content of the stream as quickly as
+                    possible because the data is streamed directly from Amazon S3 and your network connection will
+                    remain open until you read all the data or close the input stream. You do the following to
+                    get an object:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Execute the <code class="code">getObject</code> method by providing bucket name and object key
+                            in the request.</p>
+                    </li><li class="listitem">
+                        <p>Execute one of the <code class="code">GetObjectResponse</code> methods to process the
+                            stream.</p>
+                    </li></ul></div>
+                <p>The following are some variations you might use:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Instead of reading the entire object, you can read only the portion of the object
+                            data by specifying the byte range in the request, as shown in the following C#
+                            example:</p>
+                        <div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">GetObjectRequest request = new GetObjectRequest 
+<span>{</span>
+    BucketName = bucketName,
+    Key = keyName,
+    ByteRange = new ByteRange(0, 10)
+};</code></pre></div></div>
+                    </li><li class="listitem">
+                        <p>When retrieving an object, you can optionally override the response header values
+                            (see <a href="./download-objects.html">Downloading an object</a>) by using the <code class="code">ResponseHeaderOverrides</code> object and setting the
+                            corresponding request property. The following C# code example shows how to do this.
+                            For example, you can use this feature to indicate that the object should be downloaded
+                            into a file with a different file name than the object key name. </p>
+                        <div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">GetObjectRequest request = new GetObjectRequest 
+<span>{</span>
+    BucketName = bucketName,
+    Key = keyName
+};
+
+ResponseHeaderOverrides responseHeaders = new ResponseHeaderOverrides();
+responseHeaders.CacheControl = "No-cache";
+responseHeaders.ContentDisposition = "attachment; filename=testing.txt";
+
+request.ResponseHeaderOverrides = responseHeaders;</code></pre></div></div>
+                    </li></ul></div>
+                <p></p>
+                
+                <div class="example"><div class="example-contents"><p>The following C# code example retrieves an object from an Amazon S3 bucket. From the
+                        response, the example reads the object data using the
+                        <code class="code">GetObjectResponse.ResponseStream</code> property. The example also shows how you
+                        can use the <code class="code">GetObjectResponse.Metadata</code> collection to read object metadata.
+                        If the object you retrieve has the <code class="code">x-amz-meta-title</code> metadata, the code
+                        prints the metadata value.</p><p>For instructions on how to create and test a working sample, see <a href="./UsingTheMPDotNetAPI.html#TestingDotNetApiSamples">Running the Amazon S3 .NET Code Examples</a>.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace Amazon.DocSamples.S3
+<span>{</span>
+    class GetObjectTest
+    <span>{</span>
+        private const string bucketName = "*** bucket name ***";
+        private const string keyName = "*** object key ***";
+        // Specify your bucket region (an example region is shown).
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
+        private static IAmazonS3 client;
+
+        public static void Main()
+        <span>{</span>
+            client = new AmazonS3Client(bucketRegion);
+            ReadObjectDataAsync().Wait();
+        }
+
+        static async Task ReadObjectDataAsync()
+        <span>{</span>
+            string responseBody = "";
+            try
+            <span>{</span>
+                GetObjectRequest request = new GetObjectRequest
+                <span>{</span>
+                    BucketName = bucketName,
+                    Key = keyName
+                };
+                using (GetObjectResponse response = await client.GetObjectAsync(request))
+                using (Stream responseStream = response.ResponseStream)
+                using (StreamReader reader = new StreamReader(responseStream))
+                <span>{</span>
+                    string title = response.Metadata["x-amz-meta-title"]; // Assume you have "title" as medata added to the object.
+                    string contentType = response.Headers["Content-Type"];
+                    Console.WriteLine("Object metadata, Title: <span>{</span>0}", title);
+                    Console.WriteLine("Content type: <span>{</span>0}", contentType);
+
+                    responseBody = reader.ReadToEnd(); // Now you process the response body.
+                }
+            }
+            catch (AmazonS3Exception e)
+            <span>{</span>
+                // If bucket or object does not exist
+                Console.WriteLine("Error encountered ***. Message:'<span>{</span>0}' when reading object", e.Message);
+            }
+            catch (Exception e)
+            <span>{</span>
+                Console.WriteLine("Unknown encountered on server. Message:'<span>{</span>0}' when reading object", e.Message);
+            }
+        }
+    }
+}
+</code></pre></div></div>
+                
+            </dd>
+        <dt>PHP</dt><dd tab-id="php">
+                <p>This topic explains how to use a class from the AWS SDK for PHP to retrieve an Amazon S3 object.
+                    You can retrieve an entire object or a byte range from the object. We assume that you are
+                    already following the instructions for <a href="./UsingTheMPphpAPI.html">Using the AWS SDK for PHP and Running PHP Examples</a> and have the AWS SDK for PHP properly installed. </p>
+                
+                
+                
+                
+                <p>When retrieving an object, you can optionally override the response header values by
+                    adding the response keys, <code class="code">ResponseContentType</code>,
+                    <code class="code">ResponseContentLanguage</code>, <code class="code">ResponseContentDisposition</code>,
+                    <code class="code">ResponseCacheControl</code>, and <code class="code">ResponseExpires</code>, to the
+                    <code class="code">getObject()</code> method, as shown in the following PHP code example:</p>
+                <div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="php ">$result = $s3-&gt;getObject([
+    'Bucket'                     =&gt; $bucket,
+    'Key'                        =&gt; $keyname,
+    'ResponseContentType'        =&gt; 'text/plain',
+    'ResponseContentLanguage'    =&gt; 'en-US',
+    'ResponseContentDisposition' =&gt; 'attachment; filename=testing.txt',
+    'ResponseCacheControl'       =&gt; 'No-cache',
+    'ResponseExpires'            =&gt; gmdate(DATE_RFC2822, time() + 3600),
+]);</code></pre></div></div>
+                <p>For more information about retrieving objects, see <a href="./download-objects.html">Downloading an object</a>. </p>
+                
+                <p>The following PHP example retrieves an object and displays the content of the object
+                    in the browser. The example shows how to use the <code class="code">getObject()</code> method. For
+                    information about running the PHP examples in this guide, see <a href="./UsingTheMPphpAPI.html#running-php-samples">Running PHP Examples</a>. </p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="PHP "> require 'vendor/autoload.php';
+
+use Aws\S3\S3Client;
+use Aws\S3\Exception\S3Exception;
+
+$bucket = '*** Your Bucket Name ***';
+$keyname = '*** Your Object Key ***';
+
+$s3 = new S3Client([
+    'version' =&gt; 'latest',
+    'region'  =&gt; 'us-east-1'
+]);
+
+try <span>{</span>
+    // Get the object.
+    $result = $s3-&gt;getObject([
+        'Bucket' =&gt; $bucket,
+        'Key'    =&gt; $keyname
+    ]);
+
+    // Display the object in the browser.
+    header("Content-Type: <span>{</span>$result['ContentType']}");
+    echo $result['Body'];
+} catch (S3Exception $e) <span>{</span>
+    echo $e-&gt;getMessage() . PHP_EOL;
+}
+</code></pre>  
+            </dd>
+     
+    </dl></awsdocs-tabs></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the REST API" id="download-object-rest" expanded="false"><p>You can use the AWS SDK to retrieve object keys from a bucket. However, if your
+        application requires it, you can send REST requests directly. You can send a GET request to
+        retrieve object keys. </p><p>For more information about the request and response format, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html">Get Object</a>.</p></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS CLI" id="download-object-cli" expanded="false"><p>The example below shows you how you can use the AWS CLI to download an object from Amazon S3.
+        This command gets the object <code class="code">dir/my_images.tar.bz2</code> from the bucket
+        <code class="replaceable">DOC-EXAMPLE-BUCKET1</code>. The object will output to a file named 
+        <code class="code">my_downloaded_image.tar.bz2</code>.
+        For more information and examples, see <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/get-object.html" rel="noopener noreferrer" target="_blank"><span>get-object</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> in the <em>AWS CLI Command Reference</em>.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api get-object --bucket <code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code> --key dir/my_images.tar.bz2 my_downloaded_image.tar.bz2</code></pre></awsui-expandable-section></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./copy-object.html">Copying objects</div><div id="next" class="next-link" accesskey="n" href="./checking-object-integrity.html">Checking object integrity</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/download-objects.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/download-objects.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>排程規則表達式 - Amazon CloudWatch Events</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ScheduledEvents" /><meta name="default_state" content="ScheduledEvents" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="description" content="描述如何使用 cron 或 rate 表達式透過 Amazon CloudWatch Events 來自動化 AWS。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon CloudWatch Events" /><meta name="guide" content="使用者指南" /><meta name="abstract" content="建立簡單的規則以符合近乎即時串流中的事件，並使用 Amazon CloudWatch Events 將它們路由至一或多個目標函數或串流。目標函數和串流個自動採取適合事件觸發的動作。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html" hreflang="x-default" /><meta name="feedback-item" content="EventBridge" /><meta name="this_doc_product" content="Amazon CloudWatch Events" /><meta name="this_doc_guide" content="使用者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'cloudwatch'}"></script><meta id="panorama-serviceSubSection" value="使用者指南" /><meta id="panorama-serviceConsolePage" value="排程規則表達式" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>排程規則表達式 - Amazon CloudWatch Events</title><meta name="pdf" content="cwe-ug.pdf#ScheduledEvents" /><meta name="rss" content="amazon-cloudwatch-events-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=138" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=http://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon CloudWatch",
+        "item" : "https://docs.aws.amazon.com/cloudwatch/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "使用者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "排程規則表達式",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="cwe-ug.pdf#ScheduledEvents" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/cloudwatch/index.html">Amazon CloudWatch</a><a href="WhatIsCloudWatchEvents.html">使用者指南</a></div><div id="page-toc-src"><a href="#CronExpressions">Cron 表達式</a><a href="#RateExpressions">Rate 運算式</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ScheduledEvents">排程規則表達式</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="table-container"><div class="table-contents"><table id="w61aac13b3">
+				<tr>
+					<td><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>Amazon EventBridge 是管理事件的首選方式。CloudWatch Events 和 EventBridge 是相同的基礎服務和 API，但 EventBridge 提供了更多功能。您在 CloudWatch 或 EventBridge 中所做的變更將會出現在每個主控台中。如需詳細資訊，請參閱 <a href="https://docs.aws.amazon.com/eventbridge/index.html">Amazon EventBridge</a>。</p></div></div></td>
+				</tr>
+			</table></div></div><p>您可以使用 cron 或 rate 表達式在 CloudWatch Events 中建立在自動排程中自行觸發的規則。所有使用 UTC 時區的排程事件，且排程的最小精度為 1 分鐘。</p><p>CloudWatch Events 支援 cron 表達式和 rate 表達式。Rate 表達式的定義方式比較簡單，但無法提供 cron 表達式支援的細部排程控制。例如，透過 cron 表達式，您可以定義一條規則，在每週或每個月的特定某一天中指定的時間觸發。相對的，rate 表達式會以固定的頻率觸發規則，例如每個小時一次或是每天一次。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>CloudWatch Events 在排程表達式中不提供第二層級的精確度。使用 cron 表達式的最佳解析是一分鐘。由於 CloudWatch Events 和目標服務的分散式特性，觸發排程規則的時間，與目標服務遵守執行目標資源的時間，之間的延遲可能是幾秒鐘。您的排程規則會在此一分鐘內觸發，但不會精確地在第 0 秒時觸發。</p></div></div><div class="highlights" id="inline-topiclist"><h6>格式</h6><ul><li><a href="#CronExpressions">Cron 表達式</a></li><li><a href="#RateExpressions">Rate 運算式</a></li></ul></div><h2 id="CronExpressions">Cron 表達式</h2>
+        
+
+        <p>Cron 表達式有六個必要欄位，以空格隔開。</p>
+
+        <p><b>語法</b></p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">cron(<em>fields</em>)</code></pre>
+        
+        <div class="table-container"><div class="table-contents"><table id="w61aac13c13b8"><thead>
+                    <tr>
+                        <th><b>欄位</b></th>
+                        <th><b>值</b></th>
+                        <th><b>萬用字元</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <p>分鐘</p>
+                        </td>
+                        <td>
+                            <p>0-59</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>小時</p>
+                        </td>
+                        <td>
+                            <p>0-23</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>月中的日</p>
+                        </td>
+                        <td>
+                            <p>1-31</p>
+                        </td>
+                        <td>
+                            <p>, - * ? / L W</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>月</p>
+                        </td>
+                        <td>
+                            <p>1-12 或 JAN-DEC</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>週中的日</p>
+                        </td>
+                        <td>
+                            <p>1-7 或 SUN-SAT</p>
+                        </td>
+                        <td>
+                            <p>, - * ? L #</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>年</p>
+                        </td>
+                        <td>
+                            <p>1970-2199</p>
+                        </td>
+                        <td>
+                            <p>, - * /</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+
+        <div class="itemizedlist">
+            <h6>Wildcards</h6>
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>,</b> (逗號) 萬用字元包含額外的值。在 Month (月) 欄位，JAN、FEB、MAR 包括 January (一月)、February (二月) 與 March (三月)。</p>
+            </li><li class="listitem">
+                <p><b>-</b> (破折號) 萬用字元用於指定範圍。在 Day (日) 欄位，1-15 包含指定月份的 1 至 15 號。</p>
+            </li><li class="listitem">
+                <p><b>*</b> (星號) 包含欄位中所有的值。在 Hours (小時) 欄位，<b>*</b> 包含每個小時。您無法在月中的特定一天和週中的特定一天兩個欄位同時使用 <b>*</b>。若您在其中一個欄位使用它，您必須在另一個欄位使用 <b>?</b>。</p>
+            </li><li class="listitem">
+                <p><b>/</b> (斜線) 萬用字元用於指定增量。在 Minutes (分鐘) 欄位，您可以輸入 1/10 指定每十分鐘的間隔，從小時的第一分鐘開始 (例如第 11、第 21、第 31 分鐘等)。</p>
+            </li><li class="listitem">
+                <p><b>?</b> (問號) 萬用字元用於表示不限定任何一個。在 Day-of-month (月中的日) 欄位，您可以輸入 <b>7</b>，如果您不在意這個月的 7 號是星期幾，就可以在 Day-of-month (月中的日) 欄位中輸入 <b>?</b>​。</p>
+            </li><li class="listitem">
+                <p><b>L</b> 萬用字元在 Day-of-month (月中的日) 或 Day-of-week (週中的日) 欄位可指定月份或週的最後一天。</p>
+            </li><li class="listitem">
+                <p><code class="userinput">W</code> 萬用字元在 Day-of-month (月中的日) 欄位可指定工作日。在 Day-of-month (月中的日) 欄位，<code class="userinput">3W</code> 指定的是月份中最接近第三個工作日的日子。</p>
+            </li><li class="listitem">
+                <p><b>#</b> 萬用字元在 Day-of-week (週中的日) 欄位可指定某個月中某週特定日子的特定執行個體。例如，3#2 代表則該月的第二個星期二：3 是指星期二，因為它是每週的第三天，2 指的是一個月內該類型的第二天。</p>
+                
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>如果您使用 '#' 字元，則只能在星期幾欄位中定義一個表達式。例如：<code class="code">"3#1,6#3"</code> 是無效的，因為它被轉譯為兩個表達式。</p></div></div>
+            </li></ul></div>
+
+        <div class="itemizedlist">
+            <h6>Restrictions</h6>
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>您無法在同一個 cron 表達式中指定 Day-of-month (月中的日) 和 Day-of-week (週中的日) 欄位。如果您在其中一個欄位指定了數值 (或者一個 *)，就必須在另一個欄位中使用 <b>?</b> (問號)​。</p>
+            </li><li class="listitem">
+                <p>不支援頻率多於 1 分鐘的 Cron 表達式。</p>
+            </li></ul></div>
+
+         
+            <h6>Examples</h6>
+            <p>使用排程建立規則時，您可以使用下列 cron 字串範例。</p>
+         
+
+        <div class="table-container"><div class="table-contents"><table id="w61aac13c13c16"><thead>
+                    <tr>
+                        <th>分鐘</th>
+                        <th>小時</th>
+                        <th>月中的日</th>
+                        <th>月</th>
+                        <th>週中的日</th>
+                        <th>年</th>
+                        <th>意義</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>10</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>在每天上午 10:00 (UTC) 執行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>15</p>
+                        </td>
+                        <td>
+                            <p>12</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>在每天下午 12:15 (UTC) 執行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>18</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>在每週一至週五下午 6:00 (UTC) 執行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0</p>
+                        </td>
+                        <td>
+                            <p>8</p>
+                        </td>
+                        <td>
+                            <p>1</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>在每個月第 1 天上午 8:00 (UTC) 執行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/15</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>每 15 分鐘執行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/10</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>在週一至週五每 10 分鐘執行</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>0/5</p>
+                        </td>
+                        <td>
+                            <p>8-17</p>
+                        </td>
+                        <td>
+                            <p>?</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>MON-FRI</p>
+                        </td>
+                        <td>
+                            <p>*</p>
+                        </td>
+                        <td>
+                            <p>在週一至週五上午 8:00 至下午 5:55 (UTC) 之間每 5 分鐘執行</p>
+                        </td>
+                    </tr>
+                </table></div></div>
+
+        <p>以下範例說明如何透過 AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html">put-rule</a> 命令使用 Cron 表達式。第一個範例會建立規則，會在每天 UTC 時間中午 12:00 時觸發。</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(0 12 * * ? *)" --name <code class="replaceable">MyRule1</code></code></pre>
+        
+        <p>下一個範例會建立規則，會在每天 UTC 時間下午 2:05 與 2:35 時觸發。</p>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(5,35 14 * * ? *)" --name <code class="replaceable">MyRule2</code></code></pre>
+        
+        <p>下一個範例會建立規則，並在 2002 年至 2005 年每個月的最後一個週五每天 UTC 時間上午 10:15 觸發。</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "cron(15 10 ? * 6L 2002-2005)" --name <code class="replaceable">MyRule3</code></code></pre>
+    <h2 id="RateExpressions">Rate 運算式</h2>
+        
+
+        <p>Rate 表達式在您建立排程事件規則時開始，然後在其定義的排程上執行。</p>
+
+        <p>Rate 表達式有兩個必要欄位。欄位是以空格隔開。</p>
+
+        <p><b>語法</b></p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">rate(<em>value</em> <em>unit</em>)</code></pre>
+
+        <div class="variablelist">
+             
+             
+        <dl>
+                <dt><span class="term">值</span></dt>
+                <dd>
+                    <p>正數。</p>
+                </dd>
+             
+                <dt><span class="term">單位</span></dt>
+                <dd>
+                    <p>時間的單位。所需單位可能不同，若值為 1，則需要 <code class="code">minute</code>；若值超過 1，則需要 <code class="code">minutes</code>。</p>
+                    <p>有效值：minute | minutes | hour | hours | day | days (分鐘、數分鐘、小時、數小時、天、數天)</p>
+                </dd>
+            </dl></div>
+
+         
+            <h6>Restrictions</h6>
+            <p>如果值等於 1，則單位必須為單數。同樣地，對於大於 1 的數值，單位必須為複數。例如，rate (1 小時) 和 rate (5 小時) 為無效，但 rate (1 小時) 和 rate (5 小時) 為有效。</p>
+         
+
+         
+            <h6>Examples</h6>
+            <p>以下範例說明如何透過 AWS CLI <a href="https://docs.aws.amazon.com/cli/latest/reference/events/put-rule.html">put-rule</a> 命令使用 rate 表達式。第一個範例會每 1 分鐘觸發規則，第二個範例會每 5 分鐘觸發一次，第三個會每小時觸發一次，最後一個範例則會每天觸發一次。</p>
+         
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 minute)" --name <code class="replaceable">MyRule2</code></code></pre>
+        
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(5 minutes)" --name <code class="replaceable">MyRule3</code></code></pre>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 hour)" --name <code class="replaceable">MyRule4</code></code></pre>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws events put-rule --schedule-expression "rate(1 day)" --name <code class="replaceable">MyRule5</code></code></pre>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./CloudWatch-Events-tutorial-CloudWatch-Logs.html">教學：記錄 Amazon EC2 執行個體的狀態變更</div><div id="next" class="next-link" accesskey="n" href="./CloudWatchEventsandEventPatterns.html">事件模式</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EventBridge&amp;topic_url=https://docs.aws.amazon.com/zh_tw/AmazonCloudWatch/latest/events/ScheduledEvents.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

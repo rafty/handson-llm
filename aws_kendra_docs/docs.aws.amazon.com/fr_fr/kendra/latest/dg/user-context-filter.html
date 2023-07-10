@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Filtrage en fonction du contexte utilisateur - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="user-context-filter" /><meta name="default_state" content="user-context-filter" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" /><meta name="description" content="Comment filtrer les résultats de recherche enAmazon Kendra fonction de l'accès des utilisateurs ou de leur groupe aux documents." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="Guide du développeur" /><meta name="abstract" content="Propose une présentation conceptuelle de Amazon Kendra. Découvrez lesAmazon Kendra fonctionnalités et commencez à indexer vos documents à l'aide de la console, de l'interface de ligne de commande et de l'API." /><meta name="guide-locale" content="fr_fr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/user-context-filter.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/user-context-filter.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/user-context-filter.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/user-context-filter.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/user-context-filter.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/user-context-filter.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/user-context-filter.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/user-context-filter.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/user-context-filter.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/user-context-filter.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/user-context-filter.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/user-context-filter.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/user-context-filter.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="Guide du développeur" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="Guide du développeur" /><meta id="panorama-serviceConsolePage" value="Filtrage en fonction du contexte utilisateur" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Filtrage en fonction du contexte utilisateur - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#user-context-filter" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search,recherche intelligente,langage naturel,index,question,mot-clé,source de données,connector,FAQ,question fréquemment posée,query,filtrage contextuel,recherche personnalisée" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guide du développeur",
+        "item" : "https://docs.aws.amazon.com/fr_fr/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Recherche dans les index",
+        "item" : "https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/searching.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Filtrage en fonction du contexte utilisateur",
+        "item" : "https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/searching.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#user-context-filter" target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">Guide du développeur</a></div><div id="page-toc-src"><a href="#context-filter-token">Filtrage par jeton utilisateur</a><a href="#context-filter-user-incl-datasources">Filtrage par nom d'utilisateur et groupe</a><a href="#context-filter-attribute">Filtrage par attribut d'utilisateur</a><a href="#context-filter-batch">Filtrage du contexte utilisateur pour les documents ajoutés directement à un index</a><a href="#context-filter-faq">Filtrage contextuel des utilisateurs pour les questions fréquemment posées</a><a href="#context-filter-alfresco">Filtrage du contexte utilisateur pour les sources de données Alfresco</a><a href="#context-filter-s3">Filtrage du contexte utilisateur pour les sourcesAmazon S3 de données</a><a href="#context-filter-jdbc">Filtrage du contexte utilisateur pour les sources de données de base de données</a><a href="#context-filter-fsx">Filtrage du contexte utilisateur pour les sourcesAmazon FSx de données</a><a href="#context-filter-workdocs">Filtrage du contexte utilisateur pour les sourcesAmazon WorkDocs de données</a><a href="#context-filter-box">Filtrage du contexte utilisateur pour les sources de données Box</a><a href="#context-filter-confluence">Filtrage du contexte utilisateur pour les sources de données Confluence</a><a href="#context-filter-dropbox">Filtrage du contexte utilisateur pour les sources de données Dropbox</a><a href="#context-filter-github">Filtrage du contexte utilisateur pour les sources GitHub  de données</a><a href="#context-filter-google">Filtrage du contexte utilisateur pour les sources de données Google Drive</a><a href="#context-filter-gmail">Filtrage du contexte utilisateur pour les sources de données Gmail</a><a href="#context-filter-jira">Filtrage du contexte utilisateur pour les sources de données Jira</a><a href="#context-filter-exchange">Filtrage du contexte utilisateur pour les sources de données Microsoft Exchange</a><a href="#context-filter-teams">Filtrage du contexte utilisateur pour les sources de données Microsoft Teams</a><a href="#context-filter-onedrive">Filtrage du contexte utilisateur pour les sources OneDrive  de données Microsoft</a><a href="#context-filter-onedrivev2">Filtrage du contexte utilisateur pour les sources de données Microsoft OneDrive  v2.0</a><a href="#context-filter-yammer">Filtrage du contexte utilisateur pour les sources de données Microsoft Yammer</a><a href="#context-filter-sharepoint-online">Filtrage du contexte utilisateur pour les sources SharePoint  de données Microsoft</a><a href="#context-filter-quip">Filtrage du contexte utilisateur pour les sources de données Quip</a><a href="#context-filter-salesforce">Filtrage du contexte utilisateur pour les sources de données Salesforce</a><a href="#context-filter-servicenow">Filtrage du contexte utilisateur pour les sources ServiceNow de données</a><a href="#context-filter-slack">Filtrage du contexte utilisateur pour les sources de données Slack</a><a href="#context-filter-zendesk">Filtrage du contexte utilisateur pour les sources de données Zendesk</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>Les traductions sont fournies par des outils de traduction automatique. En cas de conflit entre le contenu d'une traduction et celui de la version originale en anglais, la version anglaise prévaudra.</p></awsui-alert><h1 class="topictitle" id="user-context-filter">Filtrage en fonction du contexte utilisateur</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Vous pouvez filtrer les résultats de recherche d'un utilisateur en fonction de son accès aux documents ou de son groupe. Vous pouvez utiliser un jeton utilisateur, un identifiant utilisateur ou un attribut utilisateur pour filtrer les documents. Amazon Kendrapeut également associer les utilisateurs à leurs groupes. Vous pouvez choisir de l'utiliserAWS IAM Identity Center (successor to AWS Single Sign-On) comme magasin/source d'identité.</p><p>Le filtrage contextuel utilisateur est une sorte de recherche personnalisée qui a l'avantage de contrôler l'accès aux documents. Par exemple, toutes les équipes qui recherchent des informations sur le portail de l'entreprise ne doivent pas accéder aux documents top secrets de l'entreprise, et ces documents ne sont pas pertinents pour tous les utilisateurs. Seuls certains utilisateurs ou groupes d'équipes ayant accès à des documents top secrets devraient voir ces documents dans leurs résultats de recherche.</p><p>Lorsqu'un document est indexéAmazon Kendra, une liste de contrôle d'accès (ACL) correspondante est ingérée pour la plupart des documents. L'ACL indique quels noms d'utilisateur et noms de groupe sont autorisés ou refusés à l'accès au document. Les documents sans ACL sont des documents publics.</p><p>Amazon Kendraextrait automatiquement les informations relatives à l'utilisateur ou au groupe associées à chaque document dans la plupart des sources de données. Par exemple, un document dans Quip peut inclure une liste de « partage » d'utilisateurs ou de groupes sélectionnés ayant accès au document. Si vous utilisez un compartiment S3 comme source de données, vous fournissez un <a href="https://docs.aws.amazon.com/kendra/latest/dg/s3-acl.html">fichier JSON</a> pour votre ACL et vous incluez le chemin S3 vers ce fichier dans le cadre de la configuration de la source de données. Si vous ajoutez des documents directement à un index, vous spécifiez l'ACL dans l'objet <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">principal</a> en tant que partie intégrante de l'objet document de l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API.</p><p>Vous pouvez utiliser l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateAccessControlConfiguration.html">CreateAccessControlConfiguration</a>API pour reconfigurer le contrôle d'accès existant au niveau des documents sans devoir indexer à nouveau tous vos documents. Par exemple, votre index contient des documents d'entreprise top secrets auxquels seuls certains employés ou utilisateurs peuvent accéder. L'un de ces utilisateurs quitte l'entreprise ou rejoint une équipe qui devrait être empêchée d'accéder à des documents top secrets. L'utilisateur a toujours accès aux documents top secrets, car il y avait accès lorsque vos documents étaient précédemment indexés. Vous pouvez créer une configuration de contrôle d'accès spécifique pour l'utilisateur dont l'accès est refusé. Vous pouvez ultérieurement mettre à jour la configuration du contrôle d'accès pour autoriser l'accès au cas où l'utilisateur reviendrait dans l'entreprise et rejoindrait l'équipe « top secrète ». Vous pouvez reconfigurer le contrôle d'accès à vos documents en fonction de l'évolution des circonstances.</p><p>Pour appliquer votre configuration de contrôle d'accès à certains documents, vous appelez l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API à l'aide de l'objet <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Document.html">Document<code class="code">AccessControlConfigurationId</code></a> inclus. Si vous utilisez un compartiment S3 comme source de données, vous le mettez à jour<code class="code">.metadata.json</code> avec la source de données<code class="code">AccessControlConfigurationId</code> et vous la synchronisez. Amazon Kendrane prend actuellement en charge la configuration du contrôle d'accès que pour les sources de données S3 et les documents indexés à l'aide de l'<code class="code">BatchPutDocument</code>API.</p>
+            <h2 id="context-filter-token">Filtrage par jeton utilisateur</h2>
+            <p>Lorsque vous interrogez un index, vous pouvez utiliser un jeton utilisateur pour filtrer les résultats de recherche en fonction de l'accès de l'utilisateur ou de son groupe aux documents. Lorsque vous émettez une requête,Amazon Kendra extrait et validez le jeton, extrait et vérifie les informations relatives à l'utilisateur et au groupe, puis exécute la requête. Tous les documents auxquels l'utilisateur a accès, y compris les documents publics, sont renvoyés. Pour de plus amples informations, veuillez consulter <a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index-access-control.html">Contrôle d'accès utilisateur à base</a> de jeton.</p>
+            <p>Vous fournissez le jeton utilisateur dans l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserContext.html">UserContext</a>objet et vous le transmettez à l'API <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a>.</p>
+            <p>Ce qui suit montre comment inclure un jeton utilisateur. </p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+    QueryText = query,
+    IndexId = index,
+    UserToken = <span>{</span>
+        Token = "<code class="replaceable">token</code>"
+    })</code></pre>
+            <p>Vous pouvez associer des utilisateurs à des groupes. Lorsque vous utilisez le filtrage contextuel utilisateur, il n'est pas nécessaire d'inclure tous les groupes auxquels appartient un utilisateur lorsque vous émettez la requête. L'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_PutPrincipalMapping.html">PutPrincipalMapping</a>API vous permet de mapper les utilisateurs à leurs groupes. Si vous ne souhaitez pas utiliser l'<code class="code">PutPrincipalMapping</code>API, vous devez fournir le nom d'utilisateur et tous les groupes auxquels il appartient lorsque vous envoyez une requête. Vous pouvez également récupérer les niveaux d'accès des groupes et des utilisateurs dans votre source d'identité IAM Identity Center à l'aide de l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserGroupResolutionConfiguration.html">UserGroupResolutionConfiguration</a>objet.</p>
+         
+            <h2 id="context-filter-user-incl-datasources">Filtrage par nom d'utilisateur et groupe</h2>
+            <p>Lorsque vous interrogez un index, vous pouvez utiliser le nom d'utilisateur et le groupe pour filtrer les résultats de recherche en fonction de l'accès de l'utilisateur ou de son groupe aux documents. Lorsque vous émettez une requête,Amazon Kendra vérifie les informations relatives à l'utilisateur et au groupe et exécute la requête. Tous les documents relatifs à la requête auxquels l'utilisateur a accès, y compris les documents publics, sont renvoyés.</p>
+            <p>Vous pouvez également filtrer les résultats de recherche en fonction des sources de données auxquelles les utilisateurs et les groupes ont accès. Il est utile de spécifier une source de données si un groupe est lié à plusieurs sources de données, mais que vous souhaitez uniquement que le groupe accède aux documents d'une certaine source de données. Par exemple, les groupes « Recherche », « Ingénierie » et « Ventes et marketing » sont tous liés aux documents de l'entreprise stockés dans les sources de données Confluence et Salesforce. Toutefois, l'équipe « Ventes et marketing » n'a besoin d'accéder qu'aux documents relatifs aux clients stockés dans Salesforce. Ainsi, lorsque les utilisateurs des ventes et du marketing recherchent des documents relatifs aux clients, ils peuvent voir des documents provenant de Salesforce dans leurs résultats. Les utilisateurs qui ne travaillent pas dans le secteur des ventes et du marketing ne voient pas les documents Salesforce dans leurs résultats de recherche.</p>
+            <p>Vous fournissez des informations sur l'utilisateur, les groupes et les sources de données dans l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserContext.html">UserContext</a>objet et vous les transmettez à l'API <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a>. L'ID utilisateur et la liste des groupes et des sources de données doivent correspondre au nom que vous spécifiez dans l'objet <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">principal</a> afin d'identifier l'utilisateur, les groupes et les sources de données. Avec l'<code class="code">Principal</code>objet, vous pouvez ajouter un utilisateur, un groupe ou une source de données à une liste d'autorisation ou de refus pour accéder à un document.</p>
+            <p>Vous devez fournir l'un des éléments suivants :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Informations sur les utilisateurs et les groupes, et informations (facultatives) sur les sources de données.</p>
+                </li><li class="listitem">
+                    <p>Uniquement les informations utilisateur si vous mappez vos utilisateurs à des groupes et à des sources de données à l'aide de l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_PutPrincipalMapping.html">PutPrincipalMapping</a>API. Vous pouvez également récupérer les niveaux d'accès des groupes et des utilisateurs dans votre source d'identité IAM Identity Center à l'aide de l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserGroupResolutionConfiguration.html">UserGroupResolutionConfiguration</a>objet.</p>
+                </li></ul></div>
+            <p>Si ces informations ne sont pas incluses dans la requête,Amazon Kendra renvoie tous les documents. Si vous fournissez ces informations, seuls les documents dont les ID utilisateur, les groupes et les sources de données correspondent sont renvoyés.</p>
+            <p>Ce qui suit montre comment inclure l'ID utilisateur, les groupes et les sources de données.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+    QueryText = query,
+    IndexId = index,
+    UserId = <span>{</span>
+        UserId = "<code class="replaceable">user1</code>"
+    },
+    Groups = <span>{</span>
+        Groups = ["<code class="replaceable">Sales and Marketing</code>"]
+    },
+    DataSourceGroups = <span>{</span>
+        DataSourceGroups = [<span>{</span>"DataSourceId" : "<code class="replaceable">SalesforceCustomerDocsGroup</code>", "GroupId": "<code class="replaceable">Sales and Marketing</code>"}]
+    })</code></pre>
+         
+            <h2 id="context-filter-attribute">Filtrage par attribut d'utilisateur</h2>
+            <p>Lorsque vous interrogez un index, vous pouvez utiliser des attributs intégrés<code class="code">_user_id</code> et filtrer<code class="code">_group_id</code> les résultats de recherche en fonction de l'accès aux documents par l'utilisateur et son groupe. Vous pouvez définir jusqu'à 100 identifiants de groupe. Lorsque vous émettez une requête,Amazon Kendra vérifie les informations relatives à l'utilisateur et au groupe et exécute la requête. Tous les documents relatifs à la requête auxquels l'utilisateur a accès, y compris les documents publics, sont renvoyés.</p>
+            <p>Vous fournissez les attributs d'utilisateur et de groupe dans l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_AttributeFilter.html">AttributeFilter</a>objet et vous les transmettez à l'API <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a>.</p>
+            <p>L'exemple suivant montre une demande qui filtre la réponse à la requête en fonction de l'ID utilisateur et des groupes « HR » et « IT » auxquels appartient l'utilisateur. La requête renverra tout document dont l'utilisateur ou les groupes « HR » ou « IT » figurent dans la liste des documents autorisés. Si l'utilisateur ou l'un des groupes figure dans la liste des documents refusés, le document n'est pas renvoyé.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+        QueryText = query,
+        IndexId = index,
+        AttributeFilter = <span>{</span>
+            "OrAllFilters": [
+                <span>{</span>
+                    "EqualsTo": <span>{</span>
+                        "Key": "_user_id",
+                        "Value": <span>{</span>
+                            "StringValue": "user1"
+                        }
+                     }
+                },
+                <span>{</span>
+                    "EqualsTo": <span>{</span>
+                        "Key": "_group_ids",
+                        "Value": <span>{</span>
+                            "StringListValue": ["HR", "IT"]
+                        }
+                    }
+                }
+            ]
+        }
+        )</code></pre>
+            <p>Vous pouvez également spécifier à quelle source de données un groupe peut accéder dans l'<code class="code">Principal</code>objet.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Le filtrage du contexte utilisateur ne constitue pas un contrôle d'authentification ou d'autorisation pour votre contenu. Il n'authentifie pas les utilisateurs et les groupes envoyés à l'<code class="code">Query</code>API. Il appartient à votre application de s'assurer que les informations sur les utilisateurs et les groupes envoyées à<code class="code">Query</code> l'API sont authentifiées et autorisées.</p></div></div>
+        <p>Il existe une implémentation du filtrage du contexte utilisateur pour chaque source de données. La section suivante décrit chaque implémentation. </p><div class="highlights" id="inline-topiclist"><h6>Rubriques</h6><ul><li><a href="#context-filter-batch">Filtrage du contexte utilisateur pour les documents ajoutés directement à un index</a></li><li><a href="#context-filter-faq">Filtrage contextuel des utilisateurs pour les questions fréquemment posées</a></li><li><a href="#context-filter-alfresco">Filtrage du contexte utilisateur pour les sources de données Alfresco</a></li><li><a href="#context-filter-s3">Filtrage du contexte utilisateur pour les sourcesAmazon S3 de données</a></li><li><a href="#context-filter-jdbc">Filtrage du contexte utilisateur pour les sources de données de base de données</a></li><li><a href="#context-filter-fsx">Filtrage du contexte utilisateur pour les sourcesAmazon FSx de données</a></li><li><a href="#context-filter-workdocs">Filtrage du contexte utilisateur pour les sourcesAmazon WorkDocs de données</a></li><li><a href="#context-filter-box">Filtrage du contexte utilisateur pour les sources de données Box</a></li><li><a href="#context-filter-confluence">Filtrage du contexte utilisateur pour les sources de données Confluence</a></li><li><a href="#context-filter-dropbox">Filtrage du contexte utilisateur pour les sources de données Dropbox</a></li><li><a href="#context-filter-github">Filtrage du contexte utilisateur pour les sources GitHub  de données</a></li><li><a href="#context-filter-google">Filtrage du contexte utilisateur pour les sources de données Google Drive</a></li><li><a href="#context-filter-gmail">Filtrage du contexte utilisateur pour les sources de données Gmail</a></li><li><a href="#context-filter-jira">Filtrage du contexte utilisateur pour les sources de données Jira</a></li><li><a href="#context-filter-exchange">Filtrage du contexte utilisateur pour les sources de données Microsoft Exchange</a></li><li><a href="#context-filter-teams">Filtrage du contexte utilisateur pour les sources de données Microsoft Teams</a></li><li><a href="#context-filter-onedrive">Filtrage du contexte utilisateur pour les sources OneDrive  de données Microsoft</a></li><li><a href="#context-filter-onedrivev2">Filtrage du contexte utilisateur pour les sources de données Microsoft OneDrive  v2.0</a></li><li><a href="#context-filter-yammer">Filtrage du contexte utilisateur pour les sources de données Microsoft Yammer</a></li><li><a href="#context-filter-sharepoint-online">Filtrage du contexte utilisateur pour les sources SharePoint  de données Microsoft</a></li><li><a href="#context-filter-quip">Filtrage du contexte utilisateur pour les sources de données Quip</a></li><li><a href="#context-filter-salesforce">Filtrage du contexte utilisateur pour les sources de données Salesforce</a></li><li><a href="#context-filter-servicenow">Filtrage du contexte utilisateur pour les sources ServiceNow de données</a></li><li><a href="#context-filter-slack">Filtrage du contexte utilisateur pour les sources de données Slack</a></li><li><a href="#context-filter-zendesk">Filtrage du contexte utilisateur pour les sources de données Zendesk</a></li></ul></div>
+            <h2 id="context-filter-batch">Filtrage du contexte utilisateur pour les documents ajoutés directement à un index</h2>
+            <p>Lorsque vous ajoutez des documents directement à un index à l'aide de l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API, vousAmazon Kendra obtenez des informations sur les utilisateurs et les groupes à partir du<code class="code">AccessControlList</code> champ du document. Vous fournissez une liste de contrôle d'accès (ACL) pour vos documents et l'ACL est ingérée avec vos documents.</p>
+            <p>Vous spécifiez l'ACL dans l'objet <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">Principal</a> dans le cadre de l'objet <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Document.html">Document</a> de l'<code class="code">BatchPutDocument</code>API. Vous devez fournir les informations suivantes :</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>L'accès que l'utilisateur ou le groupe doit avoir. Tu peux dire<code class="code">ALLOW</code> ou<code class="code">DENY</code>.</p>
+                </li><li class="listitem">
+                    <p>Type d'entité. Tu peux dire<code class="code">USER</code> ou<code class="code">GROUP</code>.</p>
+                </li><li class="listitem">
+                    <p>Nom de l'utilisateur ou du groupe.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200<code class="code">AccessControlList</code> entrées.</p>
+         
+            <h2 id="context-filter-faq">Filtrage contextuel des utilisateurs pour les questions fréquemment posées</h2>
+            <p>Lorsque vous <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateFaq.html">ajoutez une FAQ</a> à un index,Amazon Kendra vous obtenez des informations sur les utilisateurs et les groupes à partir de l'<code class="code">AccessControlList</code>objet/du champ du fichier JSON de la FAQ. Vous pouvez également utiliser un fichier CSV de FAQ avec des champs ou des attributs personnalisés pour le contrôle d'accès.</p>
+            <p>Vous devez fournir les informations suivantes :</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>L'accès que l'utilisateur ou le groupe doit avoir. Tu peux dire<code class="code">ALLOW</code> ou<code class="code">DENY</code>.</p>
+                </li><li class="listitem">
+                    <p>Type d'entité. Tu peux dire<code class="code">USER</code> ou<code class="code">GROUP</code>.</p>
+                </li><li class="listitem">
+                    <p>Nom de l'utilisateur ou du groupe.</p>
+                </li></ul></div>
+            <p>Pour de plus amples informations, veuillez consulter <a href="https://docs.aws.amazon.com/kendra/latest/dg/in-creating-faq.html">les fichiers FAQ</a>.</p>
+         
+            <h2 id="context-filter-alfresco">Filtrage du contexte utilisateur pour les sources de données Alfresco</h2>
+            <p>Lorsque vous utilisez une source de données Alfresco,Amazon Kendra obtient les informations sur les utilisateurs et les groupes à partir de l'instance Alfresco.</p>
+            <p>Les identifiants de groupe et d'utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Les identifiants de groupe existent dans Alfresco sur les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms système des groupes (et non des noms d'affichage) dans Alfresco.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—Les identifiants utilisateur existent dans Alfresco sur les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant qu'identifiants dans Alfresco.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200<code class="code">AccessControlList</code> entrées.</p>
+         
+            <h2 id="context-filter-s3">Filtrage du contexte utilisateur pour les sourcesAmazon S3 de données</h2>
+            <p>Vous ajoutez un filtrage contextuel utilisateur à un document dans une source deAmazon S3 données à l'aide d'un fichier de métadonnées associé au document. Vous ajoutez les informations au<code class="code">AccessControlList</code> champ du document JSON. Pour plus d'informations sur l'ajout de métadonnées aux documents indexés à partir d'une source deAmazon S3 données, consultez la section <a href="https://docs.aws.amazon.com/kendra/latest/dg/s3-metadata.html">Métadonnées des documents S3</a>.</p>
+            <p>Vous fournissez trois informations :</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>L'accès que l'entité doit avoir. Tu peux dire<code class="code">ALLOW</code> ou<code class="code">DENY</code>.</p>
+                </li><li class="listitem">
+                    <p>Type d'entité. Tu peux dire<code class="code">USER</code> ou<code class="code">GROUP</code>.</p>
+                </li><li class="listitem">
+                    <p>Nom de l'entité.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200<code class="code">AccessControlList</code> entrées.</p>
+         
+            <h2 id="context-filter-jdbc">Filtrage du contexte utilisateur pour les sources de données de base de données</h2>
+            <p>Lorsque vous utilisez une base de données, une source de données, telle queAmazon Aurora PostgreSQL,Amazon Kendra permet d'obtenir des informations sur les utilisateurs et les groupes à partir d'une colonne de la table source. Vous spécifiez cette colonne dans l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_AclConfiguration.html">AclConfiguration</a>objet en tant que partie intégrante de l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_DatabaseConfiguration.html">DatabaseConfiguration</a>objet de l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateDataSource.html">CreateDataSource</a>API.</p>
+            <p>Une source de données présente les limitations suivantes :</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Vous pouvez uniquement spécifier une liste d'autorisation pour une source de données de base de données. Vous ne pouvez pas spécifier de liste de refus. </p>
+                </li><li class="listitem">
+                    <p>Vous pouvez uniquement spécifier des groupes. Vous ne pouvez pas spécifier d'utilisateurs de la liste d'autorisation.</p>
+                </li><li class="listitem">
+                    <p>La colonne de base de données doit être une chaîne contenant une liste de groupes séparés par des points-virgules.</p>
+                </li></ul></div>
+         
+            <h2 id="context-filter-fsx">Filtrage du contexte utilisateur pour les sourcesAmazon FSx de données</h2>
+            <p>Lorsque vous utilisez une source deAmazon FSx données,Amazon Kendra obtient des informations sur les utilisateurs et les groupes à partir du service d'annuaire de l'Amazon FSxinstance.</p>
+            <p>Les identifiants deAmazon FSx groupe et d'utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Les identifiants de groupe existent dansAmazon FSx les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms de groupes système dans le service d'annuaire deAmazon FSx.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—Des identifiants d'utilisateur existent dansAmazon FSx les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms d'utilisateur du système dans le service d'annuaire deAmazon FSx.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200<code class="code">AccessControlList</code> entrées.</p>
+         
+            <h2 id="context-filter-workdocs">Filtrage du contexte utilisateur pour les sourcesAmazon WorkDocs de données</h2>
+            <p>Lorsque vous utilisez une source deAmazon WorkDocs données,Amazon Kendra obtient des informations sur les utilisateurs et les groupes à partir de l'Amazon WorkDocsinstance.</p>
+            <p>Les identifiants deAmazon WorkDocs groupe et d'utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Les identifiants de groupe existent dansAmazon WorkDocs les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms des groupes dansAmazon WorkDocs.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—Des identifiants d'utilisateur existent dansAmazon WorkDocs les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms d'utilisateur dansAmazon WorkDocs.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-box">Filtrage du contexte utilisateur pour les sources de données Box</h2>
+            <p>Lorsque vous utilisez une source de données Box,Amazon Kendra vous obtenez des informations sur les utilisateurs et les groupes à partir de l'instance Box.</p>
+            <p>Le groupe Box et les identifiants utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Les identifiants de groupe existent dans Box sur les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms des groupes dans Box.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—Les identifiants utilisateur existent dans Box sur les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant que noms d'utilisateur dans Box.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-confluence">Filtrage du contexte utilisateur pour les sources de données Confluence</h2>
+            <p>Lorsque vous utilisez une source de données Confluence,Amazon Kendra vous obtenez des informations sur les utilisateurs et les groupes à partir de l'instance Confluence.</p>
+            <p>Vous configurez l'accès des utilisateurs et des groupes aux espaces à l'aide de la page des autorisations des espaces. Pour les pages et les blogs, vous utilisez la page des restrictions. Pour plus d'informations sur les autorisations d'espace, consultez la section <a href="https://confluence.atlassian.com/doc/space-permissions-overview-139521.html" rel="noopener noreferrer" target="_blank"><span>Présentation des autorisations d'espace</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> sur le site Web d'Support de Confluence. Pour plus d'informations sur les restrictions relatives aux pages et aux blogs, consultez la section <a href="https://confluence.atlassian.com/doc/page-restrictions-139414.html" rel="noopener noreferrer" target="_blank"><span>Restrictions relatives aux pages</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> sur le site Web d'Support de Confluence.</p>
+            <p>Les noms de groupe et d'utilisateur Confluence sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Les noms des groupes sont présents dans les espaces, les pages et les blogs soumis à des restrictions. Ils sont mappés à partir du nom du groupe dans Confluence. Les noms de groupes sont toujours en minuscules.</p>
+                </li></ul></div>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Les noms d'utilisateur sont présents sur l'espace, la page ou le blog soumis à des restrictions. Ils sont mappés en fonction du type d'instance Confluence que vous utilisez.</p>
+
+                    <p><b>Pour Confluence v1.0</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Serveur : il<code class="code">_user_id</code> s'agit du nom d'utilisateur. Le nom d'utilisateur est toujours en minuscules.</p>
+                        </li><li class="listitem">
+                            <p>Cloud : il<code class="code">_user_id</code> s'agit de l'identifiant de compte de l'utilisateur.</p>
+                        </li></ul></div>
+                    <p><b>Pour le connecteur Confluence v2.0</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Serveur : il<code class="code">_user_id</code> s'agit du nom d'utilisateur. Le nom d'utilisateur est toujours en minuscules.</p>
+                        </li><li class="listitem">
+                            <p>Cloud : il<code class="code">_user_id</code> s'agit de l'adresse e-mail de l'utilisateur.</p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-dropbox">Filtrage du contexte utilisateur pour les sources de données Dropbox</h2>
+            <p>Lorsque vous utilisez une source de données Dropbox,Amazon Kendra vous obtenez les informations relatives à l'utilisateur et au groupe à partir de l'instance Dropbox.</p>
+            <p>Les identifiants de groupe et d'utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Des identifiants de groupe existent dans Dropbox pour les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms des groupes dans Dropbox.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—Des identifiants utilisateur existent dans Dropbox pour les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant qu'identifiants dans Dropbox.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-github">Filtrage du contexte utilisateur pour les sources GitHub  de données</h2>
+            <p>Lorsque vous utilisez une source de GitHub  données,Amazon Kendra obtient des informations utilisateur à partir de l' GitHub instance.</p>
+            <p>Les identifiants GitHub  utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Des identifiants d'utilisateur existent dans GitHub  les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant que identifiants GitHub.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-google">Filtrage du contexte utilisateur pour les sources de données Google Drive</h2>
+            <p>Une source de données Google Workspace Drive renvoie des informations sur les utilisateurs et les groupes d'utilisateurs et de groupes Google Drive. L'appartenance au groupe et au domaine est mappée au champ d'<code class="code">_group_ids</code>index. Le nom d'utilisateur Google Drive est associé au<code class="code">_user_id</code> champ.</p>
+            <p>Lorsque vous fournissez une ou plusieurs adresses e-mail utilisateur dans l'<code class="code">Query</code>API, seuls les documents qui ont été partagés avec ces adresses e-mail sont renvoyés. Le<code class="code">AttributeFilter</code> paramètre suivant renvoie uniquement les documents partagés avec "martha@example.com ».</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_user_id", 
+                   "Value": <span>{</span>
+                       "StringValue": "martha@example.com"
+                   }
+               }
+           }</code></pre>
+            <p>Si vous fournissez une ou plusieurs adresses e-mail de groupe dans la requête, seuls les documents partagés avec les groupes sont renvoyés. Le<code class="code">AttributeFilter</code> paramètre suivant renvoie uniquement les documents partagés avec le groupe « hr@example.com ».</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_group_ids", 
+                   "Value": <span>{</span>
+                       "StringListValue": ["hr@example.com"]
+                   }
+               }
+           }</code></pre>
+            <p>Si vous indiquez le domaine dans la requête, tous les documents partagés avec le domaine sont renvoyés. Le<code class="code">AttributeFilter</code> paramètre suivant renvoie les documents partagés avec le domaine « example.com ».</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_group_ids", 
+                   "Value": <span>{</span>
+                       "StringListValue": ["example.com"]
+                   }
+               }
+           }</code></pre>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+            <p></p>
+         
+            <h2 id="context-filter-gmail">Filtrage du contexte utilisateur pour les sources de données Gmail</h2>
+            <p>Lorsque vous utilisez une source de données Gmail,Amazon Kendra obtient les informations utilisateur à partir de l'instance Gmail.</p>
+            <p>Les identifiants utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>— Les identifiants utilisateur existent dans Gmail sur les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant qu'identifiants dans Gmail.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-jira">Filtrage du contexte utilisateur pour les sources de données Jira</h2>
+            <p>Lorsque vous utilisez une source de données Jira,Amazon Kendra vous obtenez des informations sur les utilisateurs et les groupes à partir de l'instance Jira.</p>
+            <p>Les identifiants utilisateur Jira sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Des identifiants utilisateur existent dans Jira sur les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant qu'identifiants utilisateur dans Jira.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-exchange">Filtrage du contexte utilisateur pour les sources de données Microsoft Exchange</h2>
+            <p>Amazon Kendrarécupère les informations utilisateur à partir de Microsoft Exchange lorsqu'il indexe les documents du site. Les informations utilisateur sont extraites du site d'hôte Microsoft Exchange sous-jacent.</p>
+            <p>Lorsque vous utilisez un utilisateur Exchange pour le filtrage du contexte utilisateur,Amazon Kendra obtient les informations utilisateur à partir de l'instance Microsoft Exchange. Les identifiants Exchange sont mappés comme suit : </p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_tenant_id</code>— Votre ID de client Microsoft est un identifiant unique au niveau mondial qui est nécessaire pour configurer chaque instance de connecteur. Votre identifiant de locataire est différent du nom ou du domaine de votre organisation et se trouve dans la section des propriétés du tableau de bord de votre compte Microsoft. </p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-teams">Filtrage du contexte utilisateur pour les sources de données Microsoft Teams</h2>
+            <p>Amazon Kendrarécupère les informations utilisateur à partir de Microsoft Teams lorsqu'il indexe les documents du site. Les informations utilisateur sont extraites du site d'hôte Microsoft Teams sous-jacent.</p>
+            <p>Lorsque vous utilisez un utilisateur Teams pour le filtrage du contexte utilisateur, vousAmazon Kendra obtenez les informations utilisateur à partir de l'instance Microsoft Teams. Les identifiants des clients Teams sont mappés comme suit : </p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_tenant_id</code>— Votre ID de client Microsoft est un identifiant unique au niveau mondial qui est nécessaire pour configurer chaque instance de connecteur. Votre identifiant de locataire est différent du nom ou du domaine de votre organisation et se trouve dans la section des propriétés du tableau de bord de votre compte Microsoft. </p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-onedrive">Filtrage du contexte utilisateur pour les sources OneDrive  de données Microsoft</h2>
+            <p>Amazon Kendrarécupère les informations sur les utilisateurs et les groupes auprès de Microsoft OneDrive lorsqu'il indexe les documents du site. Les informations sur les utilisateurs et les groupes proviennent du SharePoint  site Microsoft sous-jacent qui héberge OneDrive.</p>
+            <p>Lorsque vous utilisez un OneDrive  utilisateur ou un groupe pour le filtrage du contexte utilisateur, calculez l'ID comme suit :</p>
+            <div class="orderedlist">
+                 
+                 
+                 
+            <ol><li>
+                    <p>Obtenez le nom du site. Par exemple, <code class="code">https://host.onmicrosoft.com/sites/siteName.</code></p>
+                </li><li>
+                    <p>Prenez le hachage MD5 du nom du site. Par exemple, <code class="code">430a6b90503eef95c89295c8999c7981</code>.</p>
+                </li><li>
+                    <p>Créez l'adresse e-mail de l'utilisateur ou l'identifiant de groupe en concaténant le hachage MD5 avec une barre verticale (|) et l'identifiant. Par exemple, si le nom d'un groupe est « propriétaires du site », l'identifiant du groupe serait :</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|site
+                        owners</code>"</code></p>
+                    <p>Pour le nom d'utilisateur « someone@host.onmicrosoft.com », l'ID utilisateur serait le suivant :</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|someone@host.onmicrosoft.com</code>"</code></p>
+                </li></ol></div>
+            <p>Envoyez l'ID d'utilisateur ou de groupe àAmazon Kendra sous forme d'<code class="code">_group_ids</code>attribut<code class="code">_user_id</code> ou lorsque vous appelez l'API <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a>. Par exemple, laAWS CLI commande qui utilise un groupe pour filtrer la réponse à la requête se présente comme suit :</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "430a6b90503eef95c89295c8999c7981|site owners"}
+                  }}'</code></pre>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-onedrivev2">Filtrage du contexte utilisateur pour les sources de données Microsoft OneDrive  v2.0</h2>
+            <p>Une source de données Microsoft OneDrive  v2.0 renvoie des informations de section et de page à partir d'entités de liste de contrôle d' OneDrive accès (ACL). Amazon Kendrautilise le domaine du OneDrive locataire pour se connecter à l' OneDrive instance et peut filtrer en fonction du nom de section, du type de page, du nom du fichier, du type de fichier et du contenu du fichier. </p>
+
+            <p>Pour les objets standard, les<code class="code">_user_id</code> et<code class="code">_group_id</code> sont utilisés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>— Votre adresse e-mail OneDrive  utilisateur Microsoft est mappée au<code class="code">_user_id</code> champ.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_id</code>— L'adresse e-mail de votre OneDrive  groupe Microsoft est mappée au<code class="code">_group_id</code> champ.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-yammer">Filtrage du contexte utilisateur pour les sources de données Microsoft Yammer</h2>
+            <p>Amazon Kendrarécupère les informations sur les utilisateurs et les groupes à partir de Microsoft Yammer lorsqu'il indexe les documents du site. Les informations sur les utilisateurs et les groupes proviennent du site hôte Microsoft Yammer sous-jacent.</p>
+            <p>Lorsque vous utilisez un utilisateur Yammer pour le filtrage du contexte utilisateur, vousAmazon Kendra obtenez les informations utilisateur à partir de l'instance Microsoft Yammer. Les identifiants utilisateur Microsoft Yammer sont mappés comme suit : </p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_email_id</code>— Votre identifiant de messagerie Microsoft est un identifiant nécessaire pour configurer chaque instance de connecteur. Votre adresse e-mail se trouve dans la section des propriétés du tableau de bord de votre compte Microsoft. </p>
+                </li><li class="listitem">
+                    <p> <code class="code">_group_id</code>— Les identifiants de groupe existent dans les instances Microsoft Yammer où des autorisations d'accès sont définies. Ils sont mappés à partir des noms des groupes dans Microsoft Yammer. </p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+            <p></p>
+         
+            <h2 id="context-filter-sharepoint-online">Filtrage du contexte utilisateur pour les sources SharePoint  de données Microsoft</h2>
+            <p>Amazon Kendrarécupère les informations sur les utilisateurs et les groupes auprès de Microsoft SharePoint lorsqu'il indexe les documents du site. Pour filtrer vos documents, fournissez des informations sur les utilisateurs et les groupes lorsque vous appelez l'<code class="code">Query</code>API.</p>
+            <p>Pour filtrer à l'aide d'un nom d'utilisateur, utilisez l'adresse e-mail de l'utilisateur. Par exemple, johnstiles@example.com.</p>
+
+            <p>Lorsque vous utilisez un SharePoint  groupe pour filtrer le contexte des utilisateurs, calculez l'ID du groupe comme suit :</p>
+
+            <p><b>Pour les groupes locaux</b></p>
+            <div class="orderedlist">
+                 
+                 
+                 
+            <ol><li>
+                    <p>Obtenez le nom du site. Par exemple, <code class="code">https://host.onmicrosoft.com/sites/siteName.</code></p>
+                </li><li>
+                    <p>Prenez le hachage SHA256 du nom du site. Par exemple, <code class="code">430a6b90503eef95c89295c8999c7981</code>.</p>
+                </li><li>
+                    <p>Créez l'identifiant du groupe en concaténant le hachage SHA256 avec une barre verticale (|) et le nom du groupe. Par exemple, si le nom du groupe est « propriétaires du site », l'identifiant du groupe serait :</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|site
+                        owners</code>"</code></p>
+                </li></ol></div>
+            <p>Envoyez l'ID du groupe enAmazon Kendra tant qu'<code class="code">_group_ids</code>attribut lorsque vous appelez l'<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">API Query</a>. Par exemple, laAWS CLI commande se présente comme suit :</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "430a6b90503eef95c89295c8999c7981|site owners"}
+                  }}'</code></pre>
+
+            <p><b>Pour les groupes AD</b></p>
+            <div class="orderedlist">
+                 
+            <ol><li>
+                    <p>Utilisez l'ID du groupe AD pour configurer le contexte utilisateur.</p>
+                </li></ol></div>
+            <p>Envoyez l'ID du groupe enAmazon Kendra tant qu'<code class="code">_group_ids</code>attribut lorsque vous appelez l'API <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">Query</a>. Par exemple, laAWS CLI commande se présente comme suit :</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "AD group"}
+                  }}'</code></pre>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-quip">Filtrage du contexte utilisateur pour les sources de données Quip</h2>
+            <p>Lorsque vous utilisez une source de données Quip,Amazon Kendra obtient les informations utilisateur à partir de l'instance Quip.</p>
+            <p>Les identifiants utilisateur Quip sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Des identifiants utilisateur existent dans Quip sur les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant qu'identifiants dans Quip.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-salesforce">Filtrage du contexte utilisateur pour les sources de données Salesforce</h2>
+            <p>Une source de données Salesforce renvoie des informations sur les utilisateurs et les groupes à partir des entités de la liste de contrôle d'accès (ACL) Salesforce. Vous pouvez appliquer le filtrage du contexte utilisateur aux objets standard et aux flux Chatter de Salesforce. Le filtrage du contexte utilisateur n'est pas disponible pour les articles de connaissance de Salesforce.</p>
+            <p>Pour les objets standard, les<code class="code">_user_id</code> et<code class="code">_group_ids</code> sont utilisés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Nom d'utilisateur de Salesforce.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_ids</code>—</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Nom de la Salesforce<code class="code">Profile</code></p>
+                        </li><li class="listitem">
+                            <p>Nom de la Salesforce<code class="code">Group</code></p>
+                        </li><li class="listitem">
+                            <p>Nom de la Salesforce<code class="code">UserRole</code></p>
+                        </li><li class="listitem">
+                            <p>Nom de la Salesforce<code class="code">PermissionSet</code></p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p>Pour les fils Chatter, les<code class="code">_user_id</code> et<code class="code">_group_ids</code> sont utilisés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Nom d'utilisateur de Salesforce. Disponible uniquement si l'élément est publié dans le flux de l'utilisateur.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Les identifiants de groupe sont utilisés comme suit. Disponible uniquement si l'élément du fil est publié dans un groupe de discussion ou de collaboration.</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Nom du groupe de discussion ou de collaboration.</p>
+                        </li><li class="listitem">
+                            <p>Si le groupe est public,<code class="code">PUBLIC:ALL</code>.</p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+            
+         
+            <h2 id="context-filter-servicenow">Filtrage du contexte utilisateur pour les sources ServiceNow de données</h2>
+            <p>Le filtrage du contexte utilisateur pour n' ServiceNow est pris en charge que pour l' TemplateConfiguration API et ServiceNow  Connector v2.0.  ServiceNowConfiguration L'API et le ServiceNow  Connector v1.0 ne prennent pas en charge le filtrage du contexte utilisateur.</p>
+            <p>Lorsque vous utilisez une source de ServiceNow  données,Amazon Kendra obtient les informations relatives à l'utilisateur et au groupe à partir de l' ServiceNow instance.</p>
+            <p>Les identifiants de groupe et d'utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Les identifiants de groupe existent dans ServiceNow  les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms de rôle de<code class="code">sys_ids</code> in ServiceNow.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—Des identifiants d'utilisateur existent dans ServiceNow  les fichiers pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant que identifiants ServiceNow.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-slack">Filtrage du contexte utilisateur pour les sources de données Slack</h2>
+            <p>Lorsque vous utilisez une source de données Slack,Amazon Kendra les informations utilisateur proviennent de l'instance Slack.</p>
+            <p>Les identifiants utilisateur Slack sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—Des identifiants utilisateur existent dans Slack pour les messages et les chaînes pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant qu'identifiants dans Slack.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+         
+            <h2 id="context-filter-zendesk">Filtrage du contexte utilisateur pour les sources de données Zendesk</h2>
+            <p>Lorsque vous utilisez une source de données Zendesk, vous obtenezAmazon Kendra les informations sur les utilisateurs et les groupes à partir de l'instance Zendesk.</p>
+            <p>Les identifiants de groupe et d'utilisateur sont mappés comme suit :</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—Les identifiants de groupe existent dans les tickets et les articles Zendesk pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des noms des groupes dans Zendesk.</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—Les identifiants de groupe existent dans les tickets et les articles Zendesk pour lesquels des autorisations d'accès sont définies. Ils sont mappés à partir des e-mails des utilisateurs en tant qu'identifiants dans Zendesk.</p>
+                </li></ul></div>
+            <p>Vous pouvez ajouter jusqu'à 200 entrées dans le<code class="code">AccessControlList</code> champ.</p>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avertissement" /> <strong>JavaScript est désactivé ou n'est pas disponible dans votre navigateur.</strong></p><p>Pour que vous puissiez utiliser la documentation AWS, Javascript doit être activé. Vous trouverez des instructions sur les pages d'aide de votre navigateur.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Conventions de rédaction</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./filtering.html">Filtrage et recherche par facettes</div><div id="next" class="next-link" accesskey="n" href="./query-responses-types.html">Réponses aux requêtes et types de réponses</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Oui</div><div class="content"><p>Merci de nous avoir fait part de votre satisfaction.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer ce qui vous a plu afin que nous puissions nous améliorer davantage.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Non</div><div class="content"><p>Merci de nous avoir avertis que cette page avait besoin d'être retravaillée. Nous sommes désolés de ne pas avoir répondu à vos attentes.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer comment nous pourrions améliorer cette documentation.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

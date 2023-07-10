@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Controlling access to AWS resources using policies - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="access_controlling" /><meta name="default_state" content="access_controlling" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_controlling.html" /><meta name="description" content="Learn how to control access using policies." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_controlling.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_controlling.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_controlling.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_controlling.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_controlling.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_controlling.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_controlling.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_controlling.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_controlling.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_controlling.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_controlling.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_controlling.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_controlling.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_controlling.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_controlling.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_controlling.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_controlling.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_controlling.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_controlling.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_controlling.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_controlling.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_controlling.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Controlling access to AWS resources using policies" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Controlling access to AWS resources using policies - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#access_controlling" /><meta name="github" content="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/access_controlling.md" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_controlling.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_controlling.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_controlling.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Access management for AWS resources",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Policies and permissions in IAM",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Controlling access to AWS resources using policies",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#access_controlling" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/access_controlling.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#access_controlling-principals">Controlling access for principals</a><a href="#access_controlling-identities">Controlling access to identities</a><a href="#access_controlling-policies">Controlling access to policies</a><a href="#access_controlling-resources">Controlling access to resources</a><a href="#access_controlling-principal-accounts">Controlling access to principals in
+            a specific account</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="access_controlling">Controlling access to AWS resources using
+         policies</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>You can use a policy to control access to resources within IAM or all of AWS. </p><p>To use a <a href="./access_policies.html">policy</a> to control access in AWS, you must
+      understand how AWS grants access. AWS is composed of collections of <em>resources</em>. An IAM user is a resource. An Amazon S3 bucket is a
+      resource. When you use the AWS API, the AWS CLI, or the AWS Management Console to perform an operation
+      (such as creating a user), you send a <em>request</em> for that
+      operation. Your request specifies an action, a resource, a <em>principal
+         entity</em> (user or role), a <em>principal account</em>,
+      and any necessary request information. All of this information provides <em>context</em>.</p><p>AWS then checks that you (the principal) are authenticated (signed in) and authorized
+      (have permission) to perform the specified action on the specified resource. During
+      authorization, AWS checks all the policies that apply to the context of your request. Most
+      policies are stored in AWS as <a href="./access_policies.html#access_policies-json">JSON documents</a> and
+      specify the permissions for principal entities. For more information about policy types and
+      uses, see <a href="./access_policies.html">Policies and permissions in IAM</a>.</p><p>AWS authorizes the request only if each part of your request is allowed by the policies.
+      To view a diagram of this process, see <a href="./intro-structure.html">How IAM works</a>. For details about how AWS determines whether a request
+      is allowed, see <a href="./reference_policies_evaluation-logic.html">Policy evaluation logic</a>. </p><p>When you create an IAM policy, you can control access to the following:</p><div class="itemizedlist">
+       
+       
+       
+       
+       
+   <ul class="itemizedlist"><li class="listitem">
+         <p><b><a href="#access_controlling-principals">Principals</a></b> – Control what the person making the request
+            (the <a href="./intro-structure.html#intro-structure-principal">principal</a>) is allowed to do.
+         </p>
+      </li><li class="listitem">
+         <p><b><a href="#access_controlling-identities">IAM
+                  Identities</a></b> – Control which IAM identities (user groups,
+            users, and roles) can be accessed and how.</p>
+      </li><li class="listitem">
+         <p><b><a href="#access_controlling-policies">IAM
+                  Policies</a></b> – Control who can create, edit, and delete
+            customer managed policies, and who can attach and detach all managed policies.</p>
+      </li><li class="listitem">
+         <p><b><a href="#access_controlling-resources">AWS
+                  Resources</a></b> – Control who has access to resources using an
+            identity-based policy or a resource-based policy.</p>
+      </li><li class="listitem">
+         <p><b><a href="#access_controlling-principal-accounts">AWS
+                  Accounts</a></b> – Control whether a request is allowed only for
+            members of a specific account.</p>
+      </li></ul></div><p>Policies let you specify who has access to AWS resources, and what actions they can
+      perform on those resources. Every IAM user starts with no permissions. In other words,
+      by default, users can do nothing, not even view their own access keys. To give a user
+      permission to do something, you can add the permission to the user (that is, attach a policy
+      to the user). Or you can add the user to a user group that has the intended permission.</p><p>For example, you might grant a user permission to list his or her own access keys. You
+      might also expand that permission and also let each user create, update, and delete their own
+      keys. </p><p>When you give permissions to a user group, all users in that user group get those
+      permissions. For example, you can give the Administrators user group permission to perform any
+      of the IAM actions on any of the AWS account resources. Another example: You can give
+      the Managers user group permission to describe the Amazon EC2 instances of the AWS account.</p><p>For information about how to delegate basic permissions to your users, user groups, and
+      roles, see <a href="./access_permissions-required.html">Permissions required to access IAM
+      resources</a>. For additional examples of policies that
+      illustrate basic permissions, see <a href="./id_credentials_delegate-permissions_examples.html">Example policies for
+      administering IAM resources</a>.</p>
+      <h2 id="access_controlling-principals">Controlling access for principals</h2>
+      <p>You can use policies to control what the person making the request (the principal) is
+         allowed to do. To do this, you must attach an identity-based policy to that person's
+         identity (user, user group, or role). You can also use a <a href="./access_policies_boundaries.html">permissions boundary</a> to set the maximum
+         permissions that an entity (user or role) can have.</p>
+      <p>For example, assume that you want the user Zhang Wei to have full access to CloudWatch,
+         Amazon DynamoDB, Amazon EC2, and Amazon S3. You can create two different policies so that you can later
+         break them up if you need one set of permissions for a different user. Or you can put both
+         the permissions together in a single policy, and then attach that policy to the IAM user
+         that is named Zhang Wei. You could also attach a policy to a user group to which Zhang
+         belongs, or a role that Zhang can assume. As a result, when Zhang views the contents of an
+         S3 bucket, his requests are allowed. If he tries to create a new IAM user, his request is
+         denied because he doesn't have permission. </p>
+      <p>You can use a permissions boundary on Zhang to make sure that he is never given access
+         to the <code class="code"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code> S3 bucket. To do this, determine the
+            <em>maximum</em> permissions that you want Zhang to have. In this case, you
+         control what he does using his permissions policies. Here, you only care that he doesn't
+         access the confidential bucket. So you use the following policy to define Zhang's boundary
+         to allow all AWS actions for Amazon S3 and a few other services but deny access to the
+            <code class="code"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code> S3 bucket. Because the permissions boundary does not
+         allow any IAM actions, it prevents Zhang from deleting his (or anyone's) boundary.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "PermissionsBoundarySomeServices",
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:*",
+                "dynamodb:*",
+                "ec2:*",
+                "s3:*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "PermissionsBoundaryNoConfidentialBucket",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>",
+                "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>/*"
+            ]
+        }
+    ]
+}</code></pre>
+      <p>When you assign a policy like this as a permissions boundary for a user, remember that
+         it does not grant any permissions. It sets the maximum permissions that an identity-based
+         policy can grant to an IAM entity. For more information about permissions boundaries, see
+            <a href="./access_policies_boundaries.html">Permissions boundaries for IAM
+            entities</a>.</p>
+      <p>For detailed information about the procedures mentioned previously, refer to these
+         resources:</p>
+      <div class="itemizedlist">
+          
+          
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>To learn more about creating an IAM policy that you can attach to a principal,
+               see <a href="./access_policies_create.html">Creating IAM policies</a>.</p>
+         </li><li class="listitem">
+            <p>To learn how to attach an IAM policy to a principal, see <a href="./access_policies_manage-attach-detach.html">Adding and removing IAM identity
+      permissions</a>.</p>
+         </li><li class="listitem">
+            <p>To see an example policy for granting full access to EC2, see <a href="./reference_policies_examples_ec2_region.html">Amazon EC2: Allows full EC2 access within a
+      specific Region, programmatically and in the console</a>.</p>
+         </li><li class="listitem">
+            <p>To allow read-only access to an S3 bucket, use the first two statements of the
+               following example policy: <a href="./reference_policies_examples_s3_rw-bucket-console.html">Amazon S3: Allows read and write
+            access to objects in an S3 Bucket, programmatically and in the console</a>.</p>
+         </li><li class="listitem">
+            <p>To see an example policy for allowing users to set or rotate their credentials,
+               such as their console password, their programmatic access keys, and their MFA
+               devices, see <a href="./reference_policies_examples_aws_my-sec-creds-self-manage.html">AWS: Allows
+            MFA-authenticated IAM users to manage their own credentials on the My security
+            credentials page</a>.</p>
+         </li></ul></div>
+    
+      <h2 id="access_controlling-identities">Controlling access to identities</h2>
+      <p>You can use IAM policies to control what your users can do to an identity by creating
+         a policy that you attach to all users through a user group. To do this, create a policy
+         that limits what can be done to an identity, or who can access it.</p>
+      <p>For example, you can create a user group named <b>AllUsers</b>, and then
+         attach that user group to all users. When you create the user group, you might give all
+         your users access to rotate their credentials as described in the previous section. You can
+         then create a policy that denies access to change the user group unless the user name is
+         included in the condition of the policy. But that part of the policy only denies access to
+         anyone except those users listed. You also have to include permissions to allow all the
+         user group management actions for everyone in the user group. Finally, you attach this
+         policy to the user group so that it is applied to all users. As a result, when a user not
+         specified in the policy tries to make changes to the user group, the request is denied. </p>
+      <div class="procedure"><h6>To create this policy with the visual editor</h6><ol><li><p>Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+            <p>In the navigation pane on the left, choose <b>Policies</b>. </p>
+            <p>If this is your first time choosing <b>Policies</b>, the
+                  <b>Welcome to Managed Policies</b> page appears. Choose
+                  <b>Get Started</b>.</p>
+         </li><li>
+            <p>Choose <b>Create policy</b>.</p>
+         </li><li>
+            <p>On the <b>Policy editor</b> section, choose the
+                  <b>Visual</b> option.</p>
+         </li><li>
+            <p>In <b>Select a service</b>  choose <b>IAM</b>.</p>
+         </li><li>
+            <p>In <b>Actions allowed</b>, type <code class="userinput">group</code> in the
+               search box. The visual editor shows all the IAM actions that contain the word
+                  <code class="code">group</code>. Select all of the check boxes.</p>
+         </li><li>
+            <p>Choose <b>Resources</b> to specify resources for your policy. Based
+               on the actions you chose, you should see <b>group</b> and
+                  <b>user</b> resource types.</p>
+            <div class="itemizedlist">
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p><b>group</b> – Choose <b>Add ARNs</b>.
+                     For <b>Resource in</b>, select the  <b>Any
+                        account</b> option. Select the <b>Any group name with
+                        path</b> check box and then type the user group name
+                        <code class="userinput">AllUsers</code>. Then choose <b>Add
+                     ARNs</b>.</p>
+               </li><li class="listitem">
+                  <p><b>user</b> – Select the check box next to
+                        <b>Any in this account</b>.</p>
+               </li></ul></div>
+            <p>One of the actions that you chose, <code class="code">ListGroups</code>, does not support using
+               specific resources. You do not have to choose <b>All resources</b> for
+               that action. When you save your policy or view the policy in the
+                  <b>JSON</b> editor, you can see that IAM automatically creates a
+               new permission block granting this action permission on all resources.</p>
+         </li><li>
+            <p>To add another permission block, choose <b>Add more
+               permissions</b>.</p>
+         </li><li>
+            <p>Choose <b>Select a service</b> and then choose
+                  <b>IAM</b>.</p>
+         </li><li>
+            <p>Choose <b>Actions allowed</b> and then choose <b>Switch to
+                  deny permissions</b>. When you do that, the entire block is used to deny
+               permissions.</p>
+         </li><li>
+            <p>Type <code class="userinput">group</code> in the search box. The visual editor shows you
+               all the IAM actions that contain the word <code class="code">group</code>. Select the check
+               boxes next to the following actions:</p>
+            <div class="itemizedlist">
+                
+                
+                
+                
+                
+                
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p><b>CreateGroup</b></p>
+               </li><li class="listitem">
+                  <p><b>DeleteGroup</b></p>
+               </li><li class="listitem">
+                  <p><b>RemoveUserFromGroup</b></p>
+               </li><li class="listitem">
+                  <p><b>AttachGroupPolicy</b></p>
+               </li><li class="listitem">
+                  <p><b>DeleteGroupPolicy</b></p>
+               </li><li class="listitem">
+                  <p><b>DetachGroupPolicy</b></p>
+               </li><li class="listitem">
+                  <p><b>PutGroupPolicy</b></p>
+               </li><li class="listitem">
+                  <p><b>UpdateGroup</b></p>
+               </li></ul></div>
+         </li><li>
+            <p>Choose <b>Resources</b> to specify the resources for your policy.
+               Based on the actions that you chose, you should see the <b>group</b>
+               resource type. Choose <b>Add ARNs</b>. For <b>Resource
+                  in</b>, select the <b>Any account</b> option. For
+                  <b>Any group name with path</b>, type the user group name
+                  <code class="userinput">AllUsers</code>. Then choose <b>Add ARNs</b>.</p>
+         </li><li>
+            <p>Choose <b>Request conditions - <em>optional</em></b> and
+               then choose <b>Add another condition</b>. Complete the form with the
+               following values:</p>
+            <div class="itemizedlist">
+                
+                
+                
+                
+            <ul class="itemizedlist"><li class="listitem">
+                  <p><b>Condition key</b> – Choose
+                        <b>aws:username</b></p>
+               </li><li class="listitem">
+                  <p><b>Qualifier</b> – Choose
+                     <b>Default</b></p>
+               </li><li class="listitem">
+                  <p><b>Operator</b> – Choose
+                        <b>StringNotEquals</b></p>
+               </li><li class="listitem">
+                  <p><b>Value</b> – Type <code class="userinput">srodriguez</code>
+                     and then choose <b>Add</b> to add another value. Type
+                        <code class="userinput">mjackson</code> and then choose <b>Add</b> to
+                     add another value. Type <code class="userinput">adesai</code> and then choose
+                        <b>Add condition</b>.</p>
+               </li></ul></div>
+            <p>This condition ensures that access will be denied to the specified user group
+               management actions when the user making the call is not included in the list. Because
+               this explicitly denies permission, it overrides the previous block that allowed those
+               users to call the actions. Users on the list are not denied access, and they are
+               granted permission in the first permission block, so they can fully manage the user
+               group.</p>
+         </li><li>
+            <p>When you are finished, choose <b>Next</b>.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>You can switch between the <b>Visual</b> and
+                     <b>JSON</b> editor options any time. However, if you make changes
+                  or choose <b>Next</b> in the <b>Visual</b> editor
+                  option, IAM might restructure your policy to optimize it for the visual editor.
+                  For more information, see <a href="./troubleshoot_policies.html#troubleshoot_viseditor-restructure">Policy restructuring</a>.</p></div></div>
+         </li><li>
+            <p>On the <b>Review and create</b> page, for the <b>Policy
+                  Name</b>, type <code class="userinput">LimitAllUserGroupManagement</code>. For the
+                  <b>Description</b>, type <code class="userinput">Allows all users read-only
+                  access to a specific user group, and allows only specific users access to make
+                  changes to the user group</code>. Review <b>Permissions defined in
+                  this policy</b> to make sure that you have granted the intended
+               permissions. Then choose <b>Create policy</b> to save your new
+               policy.</p>
+         </li><li>
+            <p>Attach the policy to your user group. For more information, see <a href="./access_policies_manage-attach-detach.html">Adding and removing IAM identity
+      permissions</a>.</p>
+         </li></ol></div>
+      <p>Alternatively, you can create the same policy using this example JSON policy document.
+         To view this JSON policy, see <a href="./reference_policies_examples_iam_users-manage-group.html">IAM: Allows specific
+      IAM users to manage a group programmatically and in the console</a>. For detailed
+         instructions for creating a policy using a JSON document, see <a href="./access_policies_create-console.html#access_policies_create-json-editor">Creating policies using the JSON
+        editor</a>.</p>
+    
+      <h2 id="access_controlling-policies">Controlling access to policies</h2>
+      <p>You can control how your users can apply AWS managed policies. To do this, attach this
+         policy to all your users. Ideally, you can do this using a user group.</p>
+      <p>For example, you might create a policy that allows users to attach only the <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/job-function/IAMUserChangePassword" rel="noopener noreferrer" target="_blank"><span>IAMUserChangePassword</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/job-function/PowerUserAccess" rel="noopener noreferrer" target="_blank"><span>PowerUserAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS managed policies to a new IAM user, user group, or
+         role.</p>
+      <p>For customer managed policies, you can control who can create, update, and delete these
+         policies. You can control who can attach and detach policies to and from principal entities
+         (user groups, users, and roles). You can also control which policies a user can attach or
+         detach, and to and from which entities.</p>
+      <p>For example, you can give permissions to an account administrator to create, update, and
+         delete policies. Then you give permissions to a team leader or other limited administrator
+         to attach and detach these policies to and from principal entities that the limited
+         administrator manages.</p>
+      <p>For more information, refer to these resources:</p>
+      <div class="itemizedlist">
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>To learn more about creating an IAM policy that you can attach to a principal,
+               see <a href="./access_policies_create.html">Creating IAM policies</a>.</p>
+         </li><li class="listitem">
+            <p>To learn how to attach an IAM policy to a principal, see <a href="./access_policies_manage-attach-detach.html">Adding and removing IAM identity
+      permissions</a>.</p>
+         </li><li class="listitem">
+            <p>To see an example policy for limiting the use of managed policies, see <a href="./reference_policies_examples_iam_limit-managed.html">IAM: Limits managed policies
+            that can be applied to an IAM user, group, or role</a>.</p>
+         </li></ul></div>
+       
+         <h3 id="policies-controlling-access-create-update-delete">Controlling
+               permissions for creating, updating, and deleting customer managed policies</h3>
+         <p>You can use <a href="./access_policies.html">IAM policies</a> to control who is
+            allowed to create, update, and delete customer managed policies in your AWS account.
+            The following list contains API operations that pertain directly to creating, updating,
+            and deleting policies or policy versions: </p>
+         <div class="itemizedlist">
+             
+             
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicy.html">CreatePolicy</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreatePolicyVersion.html">CreatePolicyVersion</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeletePolicy.html">DeletePolicy</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeletePolicyVersion.html">DeletePolicyVersion</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_SetDefaultPolicyVersion.html">SetDefaultPolicyVersion</a></p>
+            </li></ul></div>
+         <p>The API operations in the preceding list correspond to actions that you can allow or
+            deny—that is, permissions that you can grant—using an IAM policy. </p>
+         <p>Consider the following example policy. It allows a user to create, update (that is,
+            create a new policy version), delete, and set a default version for all customer managed
+            policies in the AWS account. The example policy also allows the user to list policies
+            and get policies. To learn how to create a policy using this example JSON policy
+            document, see <a href="./access_policies_create-console.html#access_policies_create-json-editor">Creating policies using the JSON
+        editor</a>.</p>
+         <div class="example"><h6>Example policy that allows creating, updating, deleting, listing, getting, and
+               setting the default version for all policies</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": [
+      "iam:CreatePolicy",
+      "iam:CreatePolicyVersion",
+      "iam:DeletePolicy",
+      "iam:DeletePolicyVersion",
+      "iam:GetPolicy",
+      "iam:GetPolicyVersion",
+      "iam:ListPolicies",
+      "iam:ListPolicyVersions",
+      "iam:SetDefaultPolicyVersion"
+    ],
+    "Resource": "*"
+  }
+}</code></pre></div></div>
+         <p>You can create policies that limit the use of these API operations to affect only the
+            managed policies that you specify. For example, you might want to allow a user to set
+            the default version and delete policy versions, but only for specific customer managed
+            policies. You do this by specifying the policy ARN in the <code class="code">Resource</code> element
+            of the policy that grants these permissions. </p>
+         <p>The following example shows a policy that allows a user to delete policy versions and
+            set the default version. But these actions are only allowed for the customer managed
+            policies that include the path /TEAM-A/. The customer managed policy ARN is specified in
+            the <code class="code">Resource</code> element of the policy. (In this example the ARN includes a
+            path and a wildcard and thus matches all customer managed policies that include the path
+            /TEAM-A/). To learn how to create a policy using this example JSON policy document, see
+               <a href="./access_policies_create-console.html#access_policies_create-json-editor">Creating policies using the JSON
+        editor</a>.</p>
+         <p>For more information about using paths in the names of customer managed policies, see
+               <a href="./reference_identifiers.html#identifiers-friendly-names">Friendly names and paths</a>. </p>
+         <div class="example"><h6>Example policy that allows deleting policy versions and setting the default
+               version for only specific policies</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": [
+      "iam:DeletePolicyVersion",
+      "iam:SetDefaultPolicyVersion"
+    ],
+    "Resource": "arn:aws:iam::<code class="replaceable">account-id</code>:policy/TEAM-A/*"
+  }
+}</code></pre></div></div>
+       
+       
+         <h3 id="policies-controlling-access-attach-detach">Controlling permissions for
+               attaching and detaching managed policies</h3>
+         <p>You can also use IAM policies to allow users to work with only specific managed
+            policies. In effect, you can control which permissions a user is allowed to grant to
+            other principal entities. </p>
+         <p>The following list shows API operations that pertain directly to attaching and
+            detaching managed policies to and from principal entities:</p>
+         <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p>
+                  <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachGroupPolicy.html">AttachGroupPolicy</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html">AttachRolePolicy</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachUserPolicy.html">AttachUserPolicy</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DetachGroupPolicy.html">DetachGroupPolicy</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DetachRolePolicy.html">DetachRolePolicy</a></p>
+            </li><li class="listitem">
+               <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_DetachUserPolicy.html">DetachUserPolicy</a></p>
+            </li></ul></div>
+         <p>You can create policies that limit the use of these API operations to affect only the
+            specific managed policies and/or principal entities that you specify. For example, you
+            might want to allow a user to attach managed policies, but only the managed policies
+            that you specify. Or, you might want to allow a user to attach managed policies, but
+            only to the principal entities that you specify. </p>
+         <p>The following example policy allows a user to attach managed policies to only the
+            user groups and roles that include the path /TEAM-A/. The user group and role ARNs are
+            specified in the <code class="code">Resource</code> element of the policy. (In this example the ARNs
+            include a path and a wildcard character and thus match all user groups and roles that
+            include the path /TEAM-A/). To learn how to create a policy using this example JSON
+            policy document, see <a href="./access_policies_create-console.html#access_policies_create-json-editor">Creating policies using the JSON
+        editor</a>.</p>
+         <div class="example"><h6>Example policy that allows attaching managed policies to only specific user
+               groups or roles</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": [
+      "iam:AttachGroupPolicy",
+      "iam:AttachRolePolicy"
+    ],
+    "Resource": [
+      "arn:aws:iam::<code class="replaceable">account-id</code>:group/TEAM-A/*",
+      "arn:aws:iam::<code class="replaceable">account-id</code>:role/TEAM-A/*"
+    ]
+  }
+}</code></pre></div></div>
+         <p>You can further limit the actions in the preceding example to affect only specific
+            policies. That is, you can control which permissions a user is allowed to attach to
+            other principal entities—by adding a condition to the policy. </p>
+         <p>In the following example, the condition ensures that the
+               <code class="code">AttachGroupPolicy</code> and <code class="code">AttachRolePolicy</code> permissions are
+            allowed only when the policy being attached matches one of the specified policies. The
+            condition uses the <code class="code">iam:PolicyARN</code>
+            <a href="./reference_policies_elements_condition.html">condition key</a> to
+            determine which policy or policies are allowed to be attached. The following example
+            policy expands on the previous example. It allows a user to attach only the managed
+            policies that include the path /TEAM-A/ to only the user groups and roles that include
+            the path /TEAM-A/. To learn how to create a policy using this example JSON policy
+            document, see <a href="./access_policies_create-console.html#access_policies_create-json-editor">Creating policies using the JSON
+        editor</a>.</p>
+         <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": [
+      "iam:AttachGroupPolicy",
+      "iam:AttachRolePolicy"
+    ],
+    "Resource": [
+      "arn:aws:iam::<code class="replaceable">account-id</code>:group/TEAM-A/*",
+      "arn:aws:iam::<code class="replaceable">account-id</code>:role/TEAM-A/*"
+    ],
+    "Condition": <span>{</span>"ArnLike": 
+      <span>{</span>"iam:PolicyARN": "arn:aws:iam::<code class="replaceable">account-id</code>:policy/TEAM-A/*"}
+    }
+  }
+}</code></pre>
+       
+      <p>This policy uses the <code class="code">ArnLike</code> condition operator, but you can also use the
+            <code class="code">ArnEquals</code> condition operator because these two condition operators behave
+         identically. For more information about <code class="code">ArnLike</code> and <code class="code">ArnEquals</code>,
+         see <a href="./reference_policies_elements_condition_operators.html#Conditions_ARN">Amazon Resource Name (ARN) condition operators</a> in the
+            <em>Condition Types</em> section of the <em>Policy Element
+            Reference</em>. </p>
+      <p>For example, you can limit the use of actions to involve only the managed policies that
+         you specify. You do this by specifying the policy ARN in the <code class="code">Condition</code> element
+         of the policy that grants these permissions. For example, to specify the ARN of a customer
+         managed policy:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Condition": <span>{</span>"ArnEquals": 
+  <span>{</span>"iam:PolicyARN": "arn:aws:iam::<code class="replaceable">123456789012</code>:policy/<code class="replaceable">POLICY-NAME</code>"}
+}</code></pre>
+      <p>You can also specify the ARN of an AWS managed policy in a policy's
+            <code class="code">Condition</code> element. The ARN of an AWS managed policy uses the special
+         alias <code class="code">aws</code> in the policy ARN instead of an account ID, as in this
+         example:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Condition": <span>{</span>"ArnEquals": 
+  <span>{</span>"iam:PolicyARN": "arn:aws:iam::<b>aws</b>:policy/AmazonEC2FullAccess"}
+}</code></pre>
+    
+      <h2 id="access_controlling-resources">Controlling access to resources</h2>
+      <p>You can control access to resources using an identity-based policy or a resource-based
+         policy. In an identity-based policy, you attach the policy to an identity and specify what
+         resources that identity can access. In a resource-based policy, you attach a policy to the
+         resource that you want to control. In the policy, you specify which principals can access
+         that resource. For more information about both types of policies, see <a href="./access_policies_identity-vs-resource.html">Identity-based policies and
+         resource-based policies</a>.</p>
+      <p>For more information, refer to these resources:</p>
+      <div class="itemizedlist">
+          
+          
+          
+      <ul class="itemizedlist"><li class="listitem">
+            <p>To learn more about creating an IAM policy that you can attach to a principal,
+               see <a href="./access_policies_create.html">Creating IAM policies</a>.</p>
+         </li><li class="listitem">
+            <p>To learn how to attach an IAM policy to a principal, see <a href="./access_policies_manage-attach-detach.html">Adding and removing IAM identity
+      permissions</a>.</p>
+         </li><li class="listitem">
+            <p>Amazon S3 supports using resource-based policies on their buckets. For more
+               information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html">Bucket Policy
+                  Examples</a>.</p>
+         </li></ul></div>
+       
+         <h6>Resource Creators Do Not Automatically Have
+            Permissions</h6>
+         <p>If you sign in using the AWS account root user credentials, you have permission to perform any
+            action on resources that belong to the account. However, this isn't true for IAM
+            users. An IAM user might be granted access to create a resource, but the user's
+            permissions, even for that resource, are limited to what's been explicitly granted. This
+            means that just because you create a resource, such as an IAM role, you do not
+            automatically have permission to edit or delete that role. Additionally, your permission
+            can be revoked at any time by the account owner or by another user who has been granted
+            access to manage your permissions.</p>
+       
+    
+      <h2 id="access_controlling-principal-accounts">Controlling access to principals in
+            a specific account</h2>
+      <p>You can directly grant IAM users in your own account access to your resources. If
+         users from another account need access to your resources, you can create an IAM role.
+         A role is an entity that includes permissions but isn't associated with a specific user.
+         Users from other accounts can then assume the role and access resources according to the
+         permissions you've assigned to the role. For more information, see <a href="./id_roles_common-scenarios_aws-accounts.html">Providing access to an IAM user in
+      another AWS account that you own</a>.</p>
+      
+<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Some services support resource-based policies as described in <a href="./access_policies_identity-vs-resource.html">Identity-based policies and
+         resource-based policies</a> (such as Amazon S3, Amazon SNS, and Amazon SQS). For those services, an alternative to using roles is to attach a policy to the resource (bucket, topic, or queue) 
+    that you want to share. The resource-based policy can specify the AWS account that has 
+    permissions to access the resource.</p></div></div>
+
+   <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access_policies_identity-vs-resource.html">Identity vs resource</div><div id="next" class="next-link" accesskey="n" href="./access_iam-tags.html">Control access to IAM users and roles using tags</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_controlling.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access_controlling.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

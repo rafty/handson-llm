@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Configuring ACLs - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="managing-acls" /><meta name="default_state" content="managing-acls" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-acls.html" /><meta name="description" content="Add grants to your resource ACL using the console, the REST API, or one of the AWS SDKs." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-acls.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/managing-acls.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/managing-acls.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/managing-acls.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/managing-acls.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-acls.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-acls.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/managing-acls.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/managing-acls.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/managing-acls.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/managing-acls.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/managing-acls.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/managing-acls.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/managing-acls.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/managing-acls.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/managing-acls.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/managing-acls.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/managing-acls.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/managing-acls.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/managing-acls.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/managing-acls.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-acls.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Configuring ACLs" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Configuring ACLs - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#managing-acls" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/managing-acls.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/managing-acls.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/managing-acls.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/managing-acls.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 security",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management in Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Managing access with ACLs",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/acls.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Access control list (ACL) overview",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Configuring ACLs",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#managing-acls" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/managing-acls.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="managing-acls">Configuring ACLs</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>This section explains how to manage access permissions for S3 buckets and objects using access control lists (ACLs). You can add grants to your resource ACL using the AWS Management Console, AWS Command Line Interface (CLI), REST API, or
+		AWS SDKs.</p><p>Bucket and object permissions are independent of each other. An object does not inherit the
+		permissions from its bucket. For example, if you create a bucket and grant write access to a
+		user, you can't access that user’s objects unless the user explicitly grants you access.</p><p>You can grant permissions to other AWS account users or to predefined groups. The
+		user or group that you are granting permissions to is called the
+		<em>grantee</em>. By default, the owner, which is the AWS account
+		that created the bucket, has full permissions.</p><p>Each permission you grant for a user or group adds an entry in the ACL that is associated
+		with the bucket. The ACL lists grants, which identify the grantee and the permission
+		granted.</p><p>S3 Object Ownership is an Amazon S3 bucket-level setting that you can use to both control ownership of the objects that are 
+    uploaded to your bucket and to disable or enable ACLs. By default, Object Ownership is set to the bucket owner enforced setting, 
+    and all ACLs are disabled. When ACLs are disabled, the bucket owner owns all the objects in the bucket and manages access to them 
+    exclusively by using access-management policies.</p><p> A majority of modern use cases in Amazon S3 no longer require the use of ACLs. We recommend that you keep ACLs disabled, except 
+	in unusual circumstances where you need to control access for each object individually. With ACLs disabled, you can use policies 
+	to control access to all objects in your bucket, regardless of who uploaded the objects to your bucket. 
+	For more information, see <a href="./about-object-ownership.html">Controlling ownership of objects and disabling ACLs
+			for your bucket</a>.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, you must use policies to 
+         grant access to your bucket and the objects in it. With the bucket owner enforced setting enabled, requests to set 
+         access control lists (ACLs) or update ACLs fail and return the <code class="code">AccessControlListNotSupported</code> error code. 
+         Requests to read ACLs are still supported.</p></div></div><div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>We highly recommend that you avoid granting write access to the <b>Everyone (public access)</b> or <b>Authenticated
+				Users group (all AWS authenticated users)</b> groups. For more
+			information about the effects of granting write access to these groups, see <a href="./acl-overview.html#specifying-grantee-predefined-groups">Amazon S3 predefined
+						groups</a>.</p></div></div><div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="Using the S3 console to set ACL permissions for a bucket" id="set-bucket-permissions" expanded="false"><p>The console displays combined access grants for duplicate grantees. To see the
+				full list of ACLs, use the Amazon S3 REST API, AWS CLI, or AWS SDKs.</p><p>The following table shows the ACL permissions that you can configure for buckets in the Amazon S3 console.</p><div class="table-container"><div class="table-contents"><table id="w1877aac20c27c29c17c39c12c19b1b7"><thead><tr><th class="table-header" colspan="100"><div class="title">Amazon S3 console ACL permissions for buckets</div></th></tr>
+							<tr>
+								<th>Console permission</th>
+								<th>ACL permission</th>
+								<th>Access</th>
+							</tr>
+						</thead>
+							<tr>
+								<td>Objects - List</td>
+								<td><code class="code">READ</code></td>
+								<td>Allows grantee to list the objects in the bucket.</td>
+							</tr>
+							<tr>
+								<td>Objects - Write</td>
+								<td><code class="code">WRITE</code></td>
+								<td>Allows grantee to create new objects in the bucket. For the bucket and object owners
+								of existing objects, also allows deletions and overwrites of those
+								objects.</td>
+							</tr>
+							<tr>
+								<td>Bucket ACL - Read</td>
+								<td><code class="code">READ_ACP</code></td>
+								<td>Allows grantee to read the bucket ACL.</td>
+							</tr>
+							<tr>
+								<td>Bucket ACL - Write</td>
+								<td><code class="code">WRITE_ACP</code></td>
+								<td>Allows grantee to write the ACL for the applicable bucket.</td>
+							</tr>
+							<tr>
+								<td>Everyone (public access): Objects - List</td>
+								<td><code class="code">READ</code></td>
+								<td>Grants public read access for the objects in the bucket. When you grant list access
+								to <b>Everyone (public access)</b>, anyone in the
+								world can access the objects in the bucket.</td>
+							</tr>
+							<tr>
+								<td>Everyone (public access): Bucket ACL - Read</td>
+								<td><code class="code">READ_ACP</code></td>
+								<td>Grants public read access for the bucket ACL. When you grant read access to
+									<b>Everyone (public access)</b>, anyone in the
+								world can access the bucket ACL.</td>
+							</tr>
+						</table></div></div><p>For more information about ACL permissions, see <a href="./acl-overview.html">Access control list (ACL) overview</a>.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, you must use policies to 
+         grant access to your bucket and the objects in it. With the bucket owner enforced setting enabled, requests to set 
+         access control lists (ACLs) or update ACLs fail and return the <code class="code">AccessControlListNotSupported</code> error code. 
+         Requests to read ACLs are still supported.</p></div></div><div class="procedure"><h6>To set ACL permissions for a bucket</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+					<p>In the <b>Buckets</b> list, choose the name of the bucket that you want to
+						set permissions for.</p>
+				</li><li>
+					<p>Choose <b>Permissions</b>.</p>
+				</li><li>
+					<p>Under <b>Access control
+						list</b>, choose <b>Edit</b>.</p>
+					<p>You can edit the following ACL permissions for the bucket:</p>
+					<div class="itemizedlist">
+						<h6>Objects</h6>
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>List</b> – Allows a grantee to list the objects in the bucket.</p>	
+						</li><li class="listitem">
+							<p><b>Write</b> – Allows grantee to create new objects in the bucket.
+								For the bucket and object owners of existing objects, also allows
+								deletions and overwrites of those objects. </p>
+							<p>In the S3 console, you can only grant write access to the S3 log
+								delivery group and the bucket owner (your AWS account). We highly
+								recommend that you do not grant write access for other grantees.
+								However, if you need to grant write access, you can use the AWS CLI,
+								AWS SDKs, or the REST API. </p>	
+						</li></ul></div>
+					<div class="itemizedlist">
+						<h6>Bucket ACL</h6>
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>Read</b> – Allows grantee to read the bucket ACL.</p>	
+						</li><li class="listitem">
+							<p><b>Write</b> – Allows grantee to write the ACL for the applicable bucket.</p>	
+						</li></ul></div>
+				</li><li>
+					<p>To change the bucket owner's permissions, beside <b>Bucket owner (your AWS account)</b>, clear or select from the following ACL
+						permissions:</p>
+							<div class="itemizedlist">
+								 
+								 
+							<ul class="itemizedlist"><li class="listitem">
+									<p><b>Objects</b> – <b>List</b> or <b>Write</b></p>
+								</li><li class="listitem">
+									<p><b>Bucket ACL</b> – <b>Read</b> or <b>Write</b></p>
+								</li></ul></div>
+							<p>The <em>owner</em> refers to the AWS account root user, not an AWS Identity and Access Management
+								IAM user. For more information about the root user, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html">The AWS account root user</a> in the
+								<em>IAM User Guide</em>.</p>
+						</li><li>
+							<p>To grant or undo permissions for the general public (everyone on the internet), beside
+							<b>Everyone (public access)</b>, clear or select from the
+						following ACL permissions:</p>
+					<div class="itemizedlist">
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>Objects</b> –
+								<b>List</b></p>
+						</li><li class="listitem">
+							<p><b>Bucket ACL</b> –
+								<b>Read</b></p>
+						</li></ul></div>
+							<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>Use caution when granting the <b>Everyone</b> group public access to
+									your S3 bucket. When you grant access to this group, anyone in the world can access
+									your bucket. We highly recommend that you never grant any kind of public write access
+									to your S3 bucket.</p></div></div>
+						</li><li>
+					<p>To grant or undo permissions for anyone with an AWS account, beside
+							<b>Authenticated Users group (anyone with an AWS account)</b>, clear or select from the following ACL
+						permissions:</p>
+					<div class="itemizedlist">
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>Objects</b> –
+								<b>List</b></p>
+						</li><li class="listitem">
+							<p><b>Bucket ACL</b> –
+								<b>Read</b></p>
+						</li></ul></div>
+				</li><li>
+					<p>To grant or undo permissions for Amazon S3 to write server access logs to the bucket, under
+							<b>S3 log delivery group</b>, clear or select from the
+						following ACL permissions:</p>
+
+							<div class="itemizedlist">
+								 
+								 
+							<ul class="itemizedlist"><li class="listitem">
+									<p><b>Objects</b> – <b>List</b> or
+									<b>Write</b>
+							</p>
+								</li><li class="listitem">
+									<p><b>Bucket ACL</b> – <b>Read</b> or
+									<b>Write</b>
+							</p>
+							<p>If a bucket is set up as the target bucket to receive access logs,
+								the bucket permissions must allow the <b>Log
+									Delivery</b> group write access to the bucket. When you
+								enable server access logging on a bucket, the Amazon S3 console grants
+								write access to the <b>Log Delivery</b> group for the
+								target bucket that you choose to receive the logs. For more
+								information about server access logging, see <a href="./enable-server-access-logging.html">Enabling Amazon S3 server access logging</a>.</p>
+								</li></ul></div>
+				</li><li>
+					<p>To grant access to another AWS account, do the following:</p>
+							<ol><li>
+									<p>Choose <b>Add grantee</b>.</p>
+								</li><li>
+									<p>In the <b>Grantee</b> box, enter the canonical ID of the other AWS account.</p>
+								</li><li>
+									<p>Select from the following ACL permissions:</p>
+									<div class="itemizedlist">
+										 
+										 
+									<ul class="itemizedlist"><li class="listitem">
+											<p><b>Objects</b> – <b>List</b> or <b>Write</b></p>
+										</li><li class="listitem">
+											<p><b>Bucket ACL</b> – <b>Read</b> or <b>Write</b></p>
+										</li></ul></div>
+								</li></ol>
+							<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>When you grant other AWS accounts access to your resources, be aware that the AWS accounts can delegate their permissions to users under their accounts. This is known
+									as <em>cross-account access</em>. For information about using
+									cross-account access, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html">
+										Creating a Role to Delegate Permissions to an IAM User</a> in the
+									<em>IAM User Guide</em>. </p></div></div>
+				</li><li>
+					<p>To remove access to another AWS account, under <b>Access for other AWS accounts</b>, choose <b>Remove</b>.</p>
+				</li><li>
+					<p>To save your changes, choose <b>Save changes</b>.</p>
+				</li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the S3 console to set ACL permissions for an object" id="set-object-permissions" expanded="false"><p>The console displays combined access grants for duplicate grantees. To see the full list
+				of ACLs, use the Amazon S3 REST API, AWS CLI, or AWS SDKs. The following table shows the
+				ACL permissions that you can configure for objects in the Amazon S3 console.</p><div class="table-container"><div class="table-contents"><table id="w1877aac20c27c29c17c39c12c19b3b5"><thead><tr><th class="table-header" colspan="100"><div class="title">Amazon S3 console ACL permissions for objects</div></th></tr>
+							<tr>
+								<th>Console permission</th>
+								<th>ACL permission</th>
+								<th>Access</th>
+							</tr>
+						</thead>
+							<tr>
+								<td>Object - Read</td>
+								<td><code class="code">READ</code></td>
+								<td>Allows grantee to read the object data and its metadata.</td>
+							</tr>
+							<tr>
+								<td>Object ACL - Read</td>
+								<td><code class="code">READ_ACP</code></td>
+								<td>Allows grantee to read the object ACL.</td>
+							</tr>
+							<tr>
+								<td>Object ACL - Write</td>
+								<td><code class="code">WRITE_ACP</code></td>
+								<td>Allows grantee to write the ACL for the applicable object</td>
+							</tr>
+						</table></div></div><p>For more information about ACL permissions, see <a href="./acl-overview.html">Access control list (ACL) overview</a>.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, you must use policies to 
+         grant access to your bucket and the objects in it. With the bucket owner enforced setting enabled, requests to set 
+         access control lists (ACLs) or update ACLs fail and return the <code class="code">AccessControlListNotSupported</code> error code. 
+         Requests to read ACLs are still supported.</p></div></div><div class="procedure"><h6>To set ACL permissions for an object</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+					<p>In the <b>Buckets</b> list, choose the name of the bucket that contains the
+						object.</p>
+				</li><li>
+					<p>In the <b>objects</b> list, choose the name of the object for which you
+						want to set permissions.</p>
+				</li><li>
+					<p>Choose <b>Permissions</b>.</p>
+				</li><li>
+					<p>Under Access control list (ACL), choose <b>Edit</b>.</p>
+					<p>You can edit the following ACL permissions for the object:</p>
+					<div class="itemizedlist">
+						<h6>Object</h6>
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>Read</b> – Allows grantee to read the object data and its metadata.</p>	
+						</li></ul></div>
+					<div class="itemizedlist">
+						<h6>Object ACL</h6>
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem">
+							<p><b>Read</b> – Allows grantee to read the object ACL.</p>	
+						</li><li class="listitem">
+							<p><b>Write</b> – Allows grantee to write the ACL for the applicable object. In the S3 console, you can only grant write access to the bucket owner (your AWS account). We highly recommend that you do not grant write access for other
+								grantees. However, if you need to grant write access, you can use the AWS CLI, AWS SDKs, or the REST API. </p>	
+						</li></ul></div>
+				</li><li>
+					<p>You can manage object access permissions for the following: </p>
+					<ol><li>
+							<h6>Access for object owner</h6>
+							<p>The <em>owner</em> refers to the AWS account root user, and not an
+								AWS Identity and Access Management IAM user. For more information about the root user, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html">The AWS account root user</a> in the
+								<em>IAM User Guide</em>.</p>
+							<p>To change the owner's object access permissions, under <b>Access for object
+								owner</b>, choose <b>Your AWS Account (owner)</b>.</p>
+							<p>Select the check boxes for the permissions that you want to change, and then choose
+								<b>Save</b>.</p>
+						</li><li>
+							<h6>Access for other AWS accounts</h6>
+							<p>To grant permissions to an AWS user from a different AWS account, under
+								<b>Access for other AWS accounts</b>, choose <b>Add
+									account</b>. In the <b>Enter an ID</b> field, enter the canonical
+								ID of the AWS user that you want to grant object permissions to. For information about
+								finding a canonical ID, see <a href="https://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html">Your AWS account
+									identifiers</a> in the <em>Amazon Web Services General Reference</em>. You can add as many
+								as 99 users.</p>
+							<p>Select the check boxes for the permissions that you want to grant to the user, and
+								then choose <b>Save</b>. To display information about the permissions,
+								choose the Help icons. </p>  
+						</li><li>
+							<h6>Public access</h6>
+							<p>To grant access to your object to the general public (everyone in the world), under
+								<b>Public access</b>, choose <b>Everyone</b>. Granting
+								public access permissions means that anyone in the world can access the object.</p>
+							<p>Select the check boxes for the permissions that you want to grant, and
+								then choose <b>Save</b>. </p>
+							<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+									 
+									 
+								<ul class="itemizedlist"><li class="listitem"><p>Use caution when granting the <b>Everyone</b> group anonymous access
+										to your Amazon S3 objects. When you grant access to this group, anyone in the world can
+										access your object. If you need to grant access to everyone, we highly recommend that
+										you only grant permissions to <b>Read objects</b>.</p></li><li class="listitem"><p>We highly recommend that you <em>do not</em> grant the
+										<b>Everyone</b> group write object permissions. Doing so allows anyone
+										to overwrite the ACL permissions for the object.</p></li></ul></div></div></div>
+						</li></ol>
+				</li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS SDKs" id="acl-using-sdk" expanded="false"><p>This section provides examples of how to configure access control list (ACL) grants on
+				buckets and objects.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, you must use policies to 
+         grant access to your bucket and the objects in it. With the bucket owner enforced setting enabled, requests to set 
+         access control lists (ACLs) or update ACLs fail and return the <code class="code">AccessControlListNotSupported</code> error code. 
+         Requests to read ACLs are still supported.</p></div></div><awsdocs-tabs><dl style="display: none">
+				<dt>Java</dt><dd tab-id="java">
+						<p>This section provides examples of how to configure access control list (ACL) grants on
+							buckets and objects. The first example creates a bucket with a canned ACL (see <a href="./acl-overview.html#canned-acl">Canned ACL</a>), creates a list of custom
+							permission grants, and then replaces the canned ACL with an ACL containing the
+							custom grants. The second example shows how to modify an ACL using the <code class="code">AccessControlList.grantPermission()</code> method.</p>
+						<div class="example"><h6>Example Create a bucket and specify a canned ACL that grants permission to the S3 log delivery group</h6><div class="example-contents"><p>This example creates a bucket. In the request, the example specifies a canned ACL that
+								grants the Log Delivery group permission to write logs to the bucket. </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class CreateBucketWithACL <span>{</span>
+
+    public static void main(String[] args) throws IOException <span>{</span>
+        Regions clientRegion = Regions.DEFAULT_REGION;
+        String bucketName = "*** Bucket name ***";
+        String userEmailForReadPermission = "*** user@example.com ***";
+
+        try <span>{</span>
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(clientRegion)
+                    .build();
+
+            // Create a bucket with a canned ACL. This ACL will be replaced by the setBucketAcl()
+            // calls below. It is included here for demonstration purposes.
+            CreateBucketRequest createBucketRequest = new CreateBucketRequest(bucketName, clientRegion.getName())
+                    .withCannedAcl(CannedAccessControlList.LogDeliveryWrite);
+            s3Client.createBucket(createBucketRequest);
+
+            // Create a collection of grants to add to the bucket.
+            ArrayList&lt;Grant&gt; grantCollection = new ArrayList&lt;Grant&gt;();
+
+            // Grant the account owner full control.
+            Grant grant1 = new Grant(new CanonicalGrantee(s3Client.getS3AccountOwner().getId()), Permission.FullControl);
+            grantCollection.add(grant1);
+
+            // Grant the LogDelivery group permission to write to the bucket.
+            Grant grant2 = new Grant(GroupGrantee.LogDelivery, Permission.Write);
+            grantCollection.add(grant2);
+
+            // Save grants by replacing all current ACL grants with the two we just created.
+            AccessControlList bucketAcl = new AccessControlList();
+            bucketAcl.grantAllPermissions(grantCollection.toArray(new Grant[0]));
+            s3Client.setBucketAcl(bucketName, bucketAcl);
+
+            // Retrieve the bucket's ACL, add another grant, and then save the new ACL.
+            AccessControlList newBucketAcl = s3Client.getBucketAcl(bucketName);
+            Grant grant3 = new Grant(new EmailAddressGrantee(userEmailForReadPermission), Permission.Read);
+            newBucketAcl.grantAllPermissions(grant3);
+            s3Client.setBucketAcl(bucketName, newBucketAcl);
+        } catch (AmazonServiceException e) <span>{</span>
+            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // it and returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) <span>{</span>
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        }
+    }
+}
+
+</code></pre></div></div>
+						<div class="example"><h6>Example Update ACL on an existing object</h6><div class="example-contents"><p>This example updates the ACL on an object. The example performs the following tasks: </p><div class="itemizedlist">
+								 
+								 
+								 
+								 
+							<ul class="itemizedlist"><li class="listitem">
+									<p>Retrieves an object's ACL</p>
+								</li><li class="listitem">
+									<p>Clears the ACL by removing all existing permissions</p>
+								</li><li class="listitem">
+									<p>Adds two permissions: full access to the owner, and WRITE_ACP (see <a href="./acl-overview.html#permissions">What permissions can I grant?</a>) to a user
+										identified by an email address</p>
+								</li><li class="listitem">
+									<p>Saves the ACL to the object</p>
+								</li></ul></div><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.AccessControlList;
+import com.amazonaws.services.s3.model.CanonicalGrantee;
+import com.amazonaws.services.s3.model.EmailAddressGrantee;
+import com.amazonaws.services.s3.model.Permission;
+
+import java.io.IOException;
+
+public class ModifyACLExistingObject <span>{</span>
+
+    public static void main(String[] args) throws IOException <span>{</span>
+        Regions clientRegion = Regions.DEFAULT_REGION;
+        String bucketName = "*** Bucket name ***";
+        String keyName = "*** Key name ***";
+        String emailGrantee = "*** user@example.com ***";
+
+        try <span>{</span>
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withCredentials(new ProfileCredentialsProvider())
+                    .withRegion(clientRegion)
+                    .build();
+
+            // Get the existing object ACL that we want to modify.
+            AccessControlList acl = s3Client.getObjectAcl(bucketName, keyName);
+
+            // Clear the existing list of grants.
+            acl.getGrantsAsList().clear();
+
+            // Grant a sample set of permissions, using the existing ACL owner for Full Control permissions.
+            acl.grantPermission(new CanonicalGrantee(acl.getOwner().getId()), Permission.FullControl);
+            acl.grantPermission(new EmailAddressGrantee(emailGrantee), Permission.WriteAcp);
+
+            // Save the modified ACL back to the object.
+            s3Client.setObjectAcl(bucketName, keyName, acl);
+        } catch (AmazonServiceException e) <span>{</span>
+            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // it, so it returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) <span>{</span>
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        }
+    }
+}
+
+</code></pre></div></div>
+					</dd>
+				<dt>.NET</dt><dd tab-id=".net">
+						<div class="example"><h6>Example Create a bucket and specify a canned ACL that grants permission to the S3 log delivery group</h6><div class="example-contents"><p>This C# example creates a bucket. In the request, the code also specifies a canned ACL
+								that grants the Log Delivery group permissions to write the logs to the
+								bucket.</p><p> For instructions on creating and testing a working example, see <a href="./UsingTheMPDotNetAPI.html#TestingDotNetApiSamples">Running the Amazon S3 .NET Code Examples</a>. </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="cs ">using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System;
+using System.Threading.Tasks;
+
+namespace Amazon.DocSamples.S3
+<span>{</span>
+    class ManagingBucketACLTest
+    <span>{</span>
+        private const string newBucketName = "*** bucket name ***"; 
+        // Specify your bucket region (an example region is shown).
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
+        private static IAmazonS3 client;
+
+        public static void Main()
+        <span>{</span>
+            client = new AmazonS3Client(bucketRegion);
+            CreateBucketUseCannedACLAsync().Wait();
+        }
+
+        private static async Task CreateBucketUseCannedACLAsync()
+        <span>{</span>
+            try
+            <span>{</span>
+                // Add bucket (specify canned ACL).
+                PutBucketRequest putBucketRequest = new PutBucketRequest()
+                <span>{</span>
+                    BucketName = newBucketName,
+                    BucketRegion = S3Region.EUW1, // S3Region.US,
+                                                  // Add canned ACL.
+                    CannedACL = S3CannedACL.LogDeliveryWrite
+                };
+                PutBucketResponse putBucketResponse = await client.PutBucketAsync(putBucketRequest);
+
+                // Retrieve bucket ACL.
+                GetACLResponse getACLResponse = await client.GetACLAsync(new GetACLRequest
+                <span>{</span>
+                    BucketName = newBucketName
+                });
+            }
+            catch (AmazonS3Exception amazonS3Exception)
+            <span>{</span>
+                Console.WriteLine("S3 error occurred. Exception: " + amazonS3Exception.ToString());
+            }
+            catch (Exception e)
+            <span>{</span>
+                Console.WriteLine("Exception: " + e.ToString());
+            }
+        }
+    }
+}
+</code></pre></div></div>
+						<div class="example"><h6>Example Update ACL on an existing object</h6><div class="example-contents"><p>This C# example updates the ACL on an existing object. The example performs the following
+								tasks:</p><div class="itemizedlist">
+								 
+								 
+								 
+								 
+							<ul class="itemizedlist"><li class="listitem">
+									<p>Retrieves an object's ACL.</p>
+								</li><li class="listitem">
+									<p>Clears the ACL by removing all existing permissions.</p>
+								</li><li class="listitem">
+									<p>Adds two permissions: full access to the owner, and WRITE_ACP to a user identified by
+										email address.</p>
+								</li><li class="listitem">
+									<p>Saves the ACL by sending a <code class="code">PutAcl</code> request.</p>
+								</li></ul></div><p> For instructions on creating and testing a working example, see <a href="./UsingTheMPDotNetAPI.html#TestingDotNetApiSamples">Running the Amazon S3 .NET Code Examples</a>. </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="cs ">using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Amazon.DocSamples.S3
+<span>{</span>
+    class ManagingObjectACLTest
+    <span>{</span>
+        private const string bucketName = "*** bucket name ***"; 
+        private const string keyName = "*** object key name ***"; 
+        private const string emailAddress = "*** email address ***";
+        // Specify your bucket region (an example region is shown).
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
+        private static IAmazonS3 client;
+        public static void Main()
+        <span>{</span>
+            client = new AmazonS3Client(bucketRegion);
+            TestObjectACLTestAsync().Wait();
+        }
+        private static async Task TestObjectACLTestAsync()
+        <span>{</span>
+            try
+            <span>{</span>
+                    // Retrieve the ACL for the object.
+                    GetACLResponse aclResponse = await client.GetACLAsync(new GetACLRequest
+                    <span>{</span>
+                        BucketName = bucketName,
+                        Key = keyName
+                    });
+
+                    S3AccessControlList acl = aclResponse.AccessControlList;
+
+                    // Retrieve the owner (we use this to re-add permissions after we clear the ACL).
+                    Owner owner = acl.Owner;
+
+                    // Clear existing grants.
+                    acl.Grants.Clear();
+
+                    // Add a grant to reset the owner's full permission (the previous clear statement removed all permissions).
+                    S3Grant fullControlGrant = new S3Grant
+                    <span>{</span>
+                        Grantee = new S3Grantee <span>{</span> CanonicalUser = owner.Id },
+                        Permission = S3Permission.FULL_CONTROL
+                        
+                    };
+
+                    // Describe the grant for the permission using an email address.
+                    S3Grant grantUsingEmail = new S3Grant
+                    <span>{</span>
+                        Grantee = new S3Grantee <span>{</span> EmailAddress = emailAddress },
+                        Permission = S3Permission.WRITE_ACP
+                    };
+                    acl.Grants.AddRange(new List&lt;S3Grant&gt; <span>{</span> fullControlGrant, grantUsingEmail });
+ 
+                    // Set a new ACL.
+                    PutACLResponse response = await client.PutACLAsync(new PutACLRequest
+                    <span>{</span>
+                        BucketName = bucketName,
+                        Key = keyName,
+                        AccessControlList = acl
+                    });
+            }
+            catch (AmazonS3Exception amazonS3Exception)
+            <span>{</span>
+                Console.WriteLine("An AmazonS3Exception was thrown. Exception: " + amazonS3Exception.ToString());
+            }
+            catch (Exception e)
+            <span>{</span>
+                Console.WriteLine("Exception: " + e.ToString());
+            }
+        }
+    }
+}
+</code></pre></div></div>
+					</dd>
+			</dl></awsdocs-tabs></awsui-expandable-section><awsui-expandable-section variant="container" header="Using the REST API" id="acl-using-rest-api" expanded="false"><p>Amazon S3 APIs enable you to set an ACL when you create a bucket or an object. Amazon S3 also
+					provides API to set an ACL on an existing bucket or an object. These APIs provide
+					the following methods to set an ACL:</p><div class="itemizedlist">
+					
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><span class="topcom">Set ACL using request headers—</span>
+							When you send a request to create a resource (bucket or object), you set
+							an ACL using the request headers. Using these headers, you can either
+							specify a canned ACL or specify grants explicitly (identifying grantee
+							and permissions explicitly). </p>
+					</li><li class="listitem">
+						<p><span class="topcom">Set ACL using request body—</span> When you send a request
+							to set an ACL on an existing resource, you can set the ACL either in the
+							request header or in the body. </p>
+					</li></ul></div><p>For information on the REST API support for managing ACLs, see the following
+				sections in the <em>Amazon Simple Storage Service API Reference</em>:</p><div class="itemizedlist">
+				 
+				 
+				 
+				 
+				 
+				 
+				
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>
+						<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETacl.html">GET Bucket acl</a>
+					</p>
+				</li><li class="listitem">
+					<p>
+						<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTacl.html">PUT Bucket acl</a>
+					</p>
+				</li><li class="listitem">
+					<p>
+						<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGETacl.html">GET Object acl</a>
+					</p>
+				</li><li class="listitem">
+					<p>
+						<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUTacl.html">PUT Object acl</a>
+					</p>
+				</li><li class="listitem">
+					<p>
+						<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUT.html">PUT Object</a>
+					</p>
+				</li><li class="listitem">
+					<p>
+						<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUT.html">PUT Bucket</a>
+					</p>
+				</li><li class="listitem">
+					<p>
+						<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectCOPY.html">PUT Object - Copy</a>
+					</p>
+				</li><li class="listitem">
+					<p>
+						<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadInitiate.html">Initiate Multipart
+							Upload</a>
+					</p>
+				</li></ul></div><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, you must use policies to 
+         grant access to your bucket and the objects in it. With the bucket owner enforced setting enabled, requests to set 
+         access control lists (ACLs) or update ACLs fail and return the <code class="code">AccessControlListNotSupported</code> error code. 
+         Requests to read ACLs are still supported.</p></div></div>
+				<h4 id="acl-headers-rest-api">Access Control List (ACL)-Specific Request Headers</h4>
+				<p>You can use headers to grant access control list (ACL)-based permissions. By default, all
+				objects are private. Only the owner has full access control. When adding a new object, you
+				can grant permissions to individual AWS accounts or to predefined groups defined by Amazon
+				S3. These permissions are then added to the Access Control List (ACL) on the object. For more information, see <a href="./acl-overview.html">Access control list (ACL) overview</a>.</p>
+			<p>With this operation, you can grant access permissions using one these two
+				methods:</p>
+			<div class="itemizedlist">
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><b>Canned ACL (<code class="code">x-amz-acl</code>)</b> — Amazon S3 supports a set of predefined ACLs, known as
+						canned ACLs. Each canned ACL has a predefined set of grantees and permissions. For
+						more information, see <a href="./acl-overview.html#canned-acl">Canned ACL</a>.</p>
+				</li><li class="listitem">
+					<p><b>Access Permissions</b> — To explicitly grant access permissions to specific AWS accounts or groups, use the following headers. Each header maps to specific
+						permissions that Amazon S3 supports in an ACL. For more information, see <a href="./acl-overview.html">Access control list (ACL) overview</a>. In
+						the header, you specify a list of grantees who get the specific permission. </p>
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem"><p>x-amz-grant-read</p></li><li class="listitem"><p>x-amz-grant-write</p></li><li class="listitem"><p>x-amz-grant-read-acp</p></li><li class="listitem"><p>x-amz-grant-write-acp</p></li><li class="listitem"><p>x-amz-grant-full-control</p></li></ul></div>
+				</li></ul></div>
+			</awsui-expandable-section><awsui-expandable-section variant="container" header="Using the AWS CLI" id="using-acl-cli" expanded="false"><p>For more information about managing ACLs using the AWS CLI, see <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/put-bucket-acl.html" rel="noopener noreferrer" target="_blank"><span>put-bucket-acl</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 
+					in the <em>AWS CLI Command Reference</em>.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>If your bucket uses the bucket owner enforced setting for S3 Object Ownership, you must use policies to 
+         grant access to your bucket and the objects in it. With the bucket owner enforced setting enabled, requests to set 
+         access control lists (ACLs) or update ACLs fail and return the <code class="code">AccessControlListNotSupported</code> error code. 
+         Requests to read ACLs are still supported.</p></div></div></awsui-expandable-section></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/managing-acls.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/managing-acls.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Criar uma função para delegar permissões a um serviço da AWS - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_create_for-service" /><meta name="default_state" content="id_roles_create_for-service" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="description" content="Crie um perfil do IAM que determine o que um produto da AWS pode fazer com os recursos da Conta da AWS." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Guia do usuário" /><meta name="abstract" content="Controle o acesso aos recursos da AWS com identidade de usuário (autenticação) e com políticas que definem permissões específicas (autorização)." /><meta name="guide-locale" content="pt_br" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Guia do usuário" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Guia do usuário" /><meta id="panorama-serviceConsolePage" value="Criar uma função para delegar permissões a um serviço da AWS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Criar uma função para delegar permissões a um serviço da AWS - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_create_for-service" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,Usuário do IAM,user,Grupo do IAM,grupo,Perfil do IAM,função,política de permissão,política de confiança,política,chave de acesso,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guia do usuário",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Identidades do IAM (usuários, grupos de usuários e funções)",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Perfis do IAM",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Criação de funções do IAM",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Criar uma função para delegar permissões a um serviço da AWS",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_create_for-service" target="_blank" rel="noopener noreferrer" title="Abrir em PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentação</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Guia do usuário</a></div><div id="page-toc-src"><a href="#id_roles_create_service-permissions">Permissões de função de serviço</a><a href="#roles-creatingrole-service-console">Criar uma função para um serviço da AWS (console)</a><a href="#roles-creatingrole-service-cli">Criar uma função para um serviço (AWS CLI)</a><a href="#roles-creatingrole-service-api">Criar uma função para um serviço (API da AWS)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_create_for-service">Criar uma função para delegar permissões a um serviço da AWS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Muitos serviços da AWS exigem que você use funções para permitir que o serviço acesse recursos em outros serviços em seu nome. A <a href="./id_roles_terms-and-concepts.html#iam-term-service-role">função de serviço</a> é uma função que um serviço assume para realizar ações em seu nome. Quando uma função atende a uma finalidade especial de um serviço, ela é categorizada como uma <a href="./id_roles_terms-and-concepts.html#iam-term-service-role-ec2">função de serviço para instâncias do EC2</a> (por exemplo) ou uma <a href="./id_roles_terms-and-concepts.html#iam-term-service-linked-role">função vinculada ao serviço</a>. Para ver quais serviços oferecem suporte ao uso de funções vinculadas a serviços, ou se um serviço oferece suporte a qualquer forma de credenciais temporárias, consulte <a href="./reference_aws-services-that-work-with-iam.html">Serviços da AWS que funcionam com o IAM</a>. Para saber como determinado serviço usa funções, escolha o nome do serviço na tabela para visualizar a documentação dele.</p><p>Para obter informações sobre como as funções ajudam você a delegar permissões, consulte <a href="./id_roles_terms-and-concepts.html">Termos e conceitos das funções</a>.</p>
+    <h2 id="id_roles_create_service-permissions">Permissões de função de serviço</h2>
+    <p>Configure permissões para que uma entidade do IAM (usuário ou função) crie ou edite uma função de serviço.</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p>O ARN de uma função vinculado ao serviço inclui uma entidade principal do serviço que é indicada nas políticas a seguir como <code class="code"><code class="replaceable">SERVICE-NAME</code>.amazonaws.com</code>. Não tente adivinhar a entidade principal do serviço, pois ela faz distinção entre maiúsculas e minúsculas, e o formato pode variar entre os serviços da AWS. Para visualizar a entidade principal do serviço, consulte a documentação da função vinculada ao serviço.</p></div></div>
+    <p><b>Para permitir que uma entidade do IAM crie uma função de serviço específica</b></p>
+    <p>Adicione a seguinte política à entidade do IAM que precisa criar a função de serviço. Essa política permite que você crie uma função de serviço para o serviço especificado e com um nome específico. Em seguida, você poderá anexar políticas em linha ou gerenciadas a essa função. </p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateRole",
+                "iam:PutRolePolicy"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        }
+    ]
+}</code></pre>
+    <p><b>Para permitir que uma entidade do IAM crie qualquer função de serviço</b></p>
+    <p>A AWS recomenda permitir apenas que usuários administrativos criem qualquer perfil de serviço. Uma pessoa com permissões para criar uma função e anexar qualquer política pode aumentar as próprias permissões. Em vez disso, crie uma política que permita criar apenas as funções necessárias ou peça para um administrador criar a função de serviço no nome dessas pessoas.</p>
+    <p>Para anexar uma política que permita que um administrador acesse toda a sua Conta da AWS, use a política gerenciada <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> da AWS.</p>
+
+    <p><b>Para permitir que uma entidade do IAM edite uma função de serviço</b></p>
+    <p>Adicione a seguinte política à entidade do IAM que precisa editar a função de serviço.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "EditSpecificServiceRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListRolePolicies",
+                "iam:PutRolePolicy",
+                "iam:UpdateRole",
+                "iam:UpdateRoleDescription"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        },
+        <span>{</span>
+            "Sid": "ViewRolesAndPolicies",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetPolicy",
+                "iam:ListRoles"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+    <p><b>Para permitir que uma entidade do IAM exclua uma função de serviço específica</b></p>
+    <p>Adicione a seguinte instrução à política de permissões à entidade do IAM que precisa excluir a função de serviço especificada.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Effect": "Allow",
+    "Action": "iam:DeleteRole",
+    "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+}</code></pre>
+    <p><b>Para permitir que uma entidade do IAM exclua qualquer função de serviço</b></p>
+    <p>A AWS recomenda permitir apenas que usuários administrativos excluam qualquer perfil de serviço. Em vez disso, crie uma política que permita excluir apenas as funções necessárias ou peça para um administrador excluir a função de serviço no nome dessas pessoas.</p>
+    <p>Para anexar uma política que permita que um administrador acesse toda a sua Conta da AWS, use a política gerenciada <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> da AWS.</p>
+   
+    <h2 id="roles-creatingrole-service-console">Criar uma função para um serviço da AWS (console)</h2>
+    <p>Você pode usar o AWS Management Console para criar uma função para um serviço. Como alguns serviços oferecem suporte a mais de uma função de serviço, consulte a <a href="https://docs.aws.amazon.com/">Documentação da AWS</a> para o seu serviço para ver qual caso de uso escolher. Você pode saber como atribuir as políticas de confiança e as permissões necessárias à função para que o serviço possa assumir a função em seu nome. As etapas que podem se usadas para controlar as permissões para a sua função podem variar, dependendo de como o serviço define os casos de uso e de se você cria ou não uma função vinculada ao serviço.</p>
+
+    
+    <div class="procedure"><h6>Para criar uma função para um serviço da AWS (console)</h6><ol><li><p>Faça login no AWS Management Console e abra o console do IAM em <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+        <p>No painel de navegação do console do IAM, escolha <b>Roles</b> (Funções) e, em seguida, <b>Create role</b> (Criar função).</p>
+      </li><li>
+        <p>Em <b>Select trusted entity</b> (Selecionar entidade confiável), escolha <b>AWS Service</b> (Serviço). </p>
+      </li><li>
+        <p>Escolha o caso de uso para o seu serviço. Casos de uso são definidos pelo serviço para incluir a política de confiança exigida pelo serviço. Em seguida, escolha <b>Next</b> (Próximo).</p>
+      </li><li>
+        <p>Se possível, selecione a política a ser usada para a política de permissões ou escolha <b>Create policy (Criar política)</b> para abrir uma nova guia no navegador e criar uma nova política a partir do zero. Para obter mais informações, consulte <a href="./access_policies_create-console.html#access_policies_create-start">Criação de políticas do IAM</a>. Depois de criar a política, feche essa guia e retorne à guia original. Marque a caixa de seleção ao lado das políticas de permissões que você deseja que o serviço tenha.</p>
+        <p>Dependendo do caso de uso que você selecionou, o serviço pode permitir que você realize uma das seguintes ações:</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Nada, porque o serviço define as permissões para a função.</p>
+          </li><li class="listitem">
+            <p>Escolher um conjunto limitado de permissões.</p>
+          </li><li class="listitem">
+            <p>Escolha entre todas as permissões.</p>
+          </li><li class="listitem">
+            <p>Não selecione nenhum apolítica nesse momento, crie as políticas mais tarde e, depois, anexe-as à função.</p>
+          </li></ul></div>
+      </li><li>
+        <p>(Opcional) Defina um <a href="./access_policies_boundaries.html">limite de permissões</a>. Esse é um recurso avançado que está disponível para funções de serviço, mas não para funções vinculadas ao serviço. </p>
+        <p>Expanda a seção <b>Permissions boundary</b> (Limite de permissões) e escolha <b>Use a permissions boundary to control the maximum role permissions</b> (Usar um limite de permissões para controlar o número máximo de permissões de funções). O IAM inclui uma lista das políticas gerenciadas pela AWS e pelo cliente em sua conta. Selecione a política a ser usada para o limite de permissões ou escolha <b>Create policy</b> (Criar política) para abrir uma nova guia no navegador e criar uma nova política a partir do zero. Para obter mais informações, consulte <a href="./access_policies_create-console.html#access_policies_create-start">Criação de políticas do IAM</a>. Depois de criar a política, feche essa guia e retorne à guia original para selecionar a política a ser usada para o limite de permissões.</p>
+      </li><li>
+        <p>Escolha <b>Next</b> (Próximo).</p>
+      </li><li>
+        <p>Para <b>Role name (Nome da função)</b>, o grau de personalização do nome da função é definido pelo serviço. Se o serviço definir o nome da função, essa opção não será editável. Em outros casos, o serviço pode definir um prefixo para a função e permitir que você informe um sufixo opcional. Alguns serviços permitem que você especifique todo o nome de sua função.</p>
+        <p>Se possível, insira um nome de função ou sufixo de nome de função para ajudar a identificar o propósito desta função. Os nomes de função devem ser exclusivos em sua Conta da AWS. Eles não são diferenciados por letras maiúsculas e minúsculas. Por exemplo, não é possível criar funções chamadas <code class="userinput">PRODROLE</code> e <code class="userinput">prodrole</code>. Como outros recursos da AWS podem fazer referência à função, não é possível editar o nome da função depois de ela ser criada.</p>
+      </li><li>
+        <p>(Opcional) Em <b>Description</b> (Descrição), insira uma descrição para a nova função.</p>
+      </li><li>
+        <p>Escolha <b>Edit</b> (Editar) nas seções <b>Etapa 1: selecionar entidades confiáveis</b> ou na <b>Etapa 2: adicionar permissões</b> para editar os casos de uso e as permissões para a função. </p>
+      </li><li>
+        <p>(Opcional) Adicione metadados à função anexando tags como pares de chave-valor. Para obter mais informações sobre como usar etiquetas no IAM, consulte <a href="./id_tags.html">Recursos de etiquetas do IAM</a>.</p>
+      </li><li>
+        <p>Revise a função e escolha <b>Create role</b> (Criar função).</p>
+      </li></ol></div>
+   
+    <h2 id="roles-creatingrole-service-cli">Criar uma função para um serviço (AWS CLI)</h2>
+    <p>A criação de uma função a partir da AWS CLI envolve várias etapas. Quando o console é usado para criar uma função, muitas das etapas são concluídas por você, mas com a AWS CLI, é necessário executar explicitamente cada etapa. Você deve criar a função e atribuir uma política de permissões à função. Se o serviço com o qual você está trabalhando for o Amazon EC2, você também deverá criar um perfil de instância e adicionar a função a ele. Opcionalmente, você também pode definir o <a href="./access_policies_boundaries.html">limite de permissões</a> para sua função.</p>
+    <div class="procedure"><h6>Para criar uma função para um serviço da AWS na AWS CLI</h6><ol><li>
+        <p>O seguinte comando <code class="code"><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html">create-role</a></code> cria uma função chamada <em>Test-Role</em> e anexa uma política de confiança a ela:</p>
+        <p><code class="prompt">aws iam create-role --role-name Test-Role --assume-role-policy-document
+            file://Test-Role-Trust-Policy.json</code></p>
+
+      </li><li>
+        <p>Anexe uma política de permissões gerenciadas à função: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/attach-role-policy.html">aws iam attach-role-policy</a>.</p>
+        <p>Por exemplo, o seguinte comando <code class="code">attach-role-policy</code> anexa a política gerenciada pela AWS chamada <code class="code">ReadOnlyAccess</code> à função do IAM chamada <code class="code">ReadOnlyRole</code>:</p>
+        <p><code class="prompt">aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+            --role-name ReadOnlyRole</code></p>
+        <p> or</p>
+        <p>Criar uma política de permissões em linha para a função: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html">aws iam put-role-policy</a></p>
+        <p>Para adicionar uma política de permissões em linha, consulte o seguinte exemplo:</p>
+        <p>
+          <code class="prompt">aws iam put-role-policy --role-name Test-Role --policy-name ExamplePolicy
+            --policy-document file://AdminPolicy.json</code></p>
+      </li><li>
+        <p>(Opcional) Adicione atributos personalizados à função anexando tags: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/tag-role.html">aws iam tag-role</a></p>
+        <p>Para obter mais informações, consulte <a href="./id_tags_roles.html#id_tags_roles_procs-cli-api">Gerenciar etiquetas em funções do IAM  (AWS CLI ou API da AWS)</a>.</p>
+      </li><li>
+        <p>(Opcional) Definir o <a href="./access_policies_boundaries.html">limite de permissões</a> para a função: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-permissions-boundary.html">aws iam put-role-permissions-boundary</a></p>
+        <p>Um limite de permissões controla o número máximo de permissões que uma função pode ter. Os limites de permissões são um recurso avançado da AWS.</p>
+      </li></ol></div>
+    <p>Se você for usar a função com o Amazon EC2 ou outro produto da AWS que use o Amazon EC2, armazene a função em um perfil de instância. Um perfil da instância é um contêiner para uma função que pode ser anexado a uma instância do Amazon EC2 quando iniciada. Um perfil de instância pode conter somente uma função do  e esse limite não pode ser aumentado. Se você criar a função usando o AWS Management Console, o perfil da instância será criado com o mesmo nome que a função. Para obter mais informações sobre os perfis da instância, consulte <a href="./id_roles_use_switch-role-ec2_instance-profiles.html">Usar perfis de instância</a>. Para obter informações sobre como executar uma instância do EC2 com uma função, consulte <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">Controlar o acesso aos recursos do Amazon EC2</a> no <em>Guia do usuário do Amazon EC2 para instâncias do Linux</em>.</p>
+    <div class="procedure"><h6>Para criar um perfil de instância e armazenar a função nele (AWS CLI)</h6><ol><li>
+        <p>Criar um perfil da instância: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-instance-profile.html">aws iam create-instance-profile</a></p>
+      </li><li>
+        <p>Adicionar a função ao perfil da instância: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/add-role-to-instance-profile.html">aws iam add-role-to-instance-profile</a></p>
+      </li></ol></div>
+    <p>O comando da AWS CLI de exemplo definido a seguir demonstra as duas primeiras etapas para criar uma função e anexar permissões. Também mostra as duas etapas para criar um perfil de instância e adicionar a função ao perfil. Este exemplo de política de confiança permite que o serviço Amazon EC2 assuma a função e visualize o bucket <code class="code">example_bucket</code> do Amazon S3. O exemplo também presume que você está executando em um computador cliente com o Windows e já configurou a interface de linha de comando com as credenciais de sua conta e região. Para obter mais informações, consulte <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">Configurar a interface de linha de comando da AWS</a>.</p>
+    <p>Neste exemplo, inclua a seguinte política de confiança no primeiro comando ao criar a função. Essa política de confiança permite que o serviço Amazon EC2 assuma a função. </p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>"Service": "ec2.amazonaws.com"},
+    "Action": "sts:AssumeRole"
+  }
+}</code></pre>
+    <p>Quando usa o segundo comando, você deve anexar uma política de permissões à função. A política de permissões de exemplo a seguir permite que a função execute apenas a ação <code class="code">ListBucket</code> no bucket <code class="code">example_bucket</code> do Amazon S3.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "s3:ListBucket",
+    "Resource": "arn:aws:s3:::example_bucket"
+  }
+}</code></pre>
+    <p>Para criar essa função <code class="code">Test-Role-for-EC2</code>, você deve primeiro salvar a política de confiança anterior com o nome <code class="code">trustpolicyforec2.json</code> e a política de permissões anterior com o nome <code class="code">permissionspolicyforec2.json</code> no diretório <code class="code">policies</code> na unidade <code class="code">C:</code> local. Em seguida, você pode usar os seguintes comandos para criar a função, anexar a política, criar o perfil da instância e adicionar a função ao perfil da instância.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false"># Create the role and attach the trust policy that allows EC2 to assume this role.
+$ </code><code class="userinput">aws iam create-role --role-name Test-Role-for-EC2 --assume-role-policy-document file://C:\policies\trustpolicyforec2.json</code>
+
+<code class="code" copy="false"># Embed the permissions policy (in this example an inline policy) to the role to specify what it is allowed to do.
+$ </code><code class="userinput">aws iam put-role-policy --role-name Test-Role-for-EC2 --policy-name Permissions-Policy-For-Ec2 --policy-document file://C:\policies\permissionspolicyforec2.json</code>
+
+<code class="code" copy="false"># Create the instance profile required by EC2 to contain the role
+$ </code><code class="userinput">aws iam create-instance-profile --instance-profile-name EC2-ListBucket-S3</code>
+
+<code class="code" copy="false"># Finally, add the role to the instance profile
+$ </code><code class="userinput">aws iam add-role-to-instance-profile --instance-profile-name EC2-ListBucket-S3 --role-name Test-Role-for-EC2</code></code></pre>
+    <p>Quando você ativar a instância do EC2, especifique o nome do perfil da instância na página <b>Configure Instance Details</b> se você usar o console da AWS. Se você usar o comando CLI <code class="code">aws ec2 run-instances</code>, especifique o parâmetro <code class="code">--iam-instance-profile</code>.</p>
+   
+    <h2 id="roles-creatingrole-service-api">Criar uma função para um serviço (API da AWS)</h2>
+     
+      <p>A criação de uma função na API da AWS envolve várias etapas. Quando o console é usado para criar uma função, muitas das etapas são concluídas por você, mas com a API, é necessário executar explicitamente cada etapa. Você deve criar a função e atribuir uma política de permissões à função. Se o serviço com o qual você está trabalhando for o Amazon EC2, você também deverá criar um perfil de instância e adicionar a função a ele. Opcionalmente, você também pode definir o <a href="./access_policies_boundaries.html">limite de permissões</a> para sua função.</p>
+      <div class="procedure"><h6>Para criar uma função para um serviço da AWS (API da AWS)</h6><ol><li>
+          <p>Criar uma função: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a></p>
+          <p>Para a política de confiança da função, você pode especificar um local de arquivo.</p>
+        </li><li>
+          <p>Anexar uma política de permissões gerenciada à função: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html">AttachRolePolicy</a></p>
+          <p> or</p>
+          <p>Criar uma política de permissões em linha para a função: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html">PutRolePolicy</a></p>
+        </li><li>
+          <p>(Opcional) Adicione atributos personalizados ao usuário anexando tags: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_TagRole.html">TagRole</a></p>
+          <p>Para obter mais informações, consulte <a href="./id_tags_users.html#id_tags_users_procs-cli-api">Gerenciamento de etiquetas em usuários do IAM (AWS CLI ou API da AWS)</a>.</p>
+        </li><li>
+          <p>(Opcional) Definir o <a href="./access_policies_boundaries.html">limite de permissões</a> para a função: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePermissionsBoundary.html">PutRolePermissionsBoundary</a></p>
+          <p>Um limite de permissões controla o número máximo de permissões que uma função pode ter. Os limites de permissões são um recurso avançado da AWS.</p>
+        </li></ol></div>
+      <p>Se você for usar a função com o Amazon EC2 ou outro produto da AWS que use o Amazon EC2, armazene a função em um perfil de instância. Um perfil da instância é um contêiner para uma função. Cada perfil da instância pode conter somente uma função e esse limite não pode ser aumentado. Se você criar a função no AWS Management Console, o perfil da instância será criado para você com o mesmo nome da função. Para obter mais informações sobre os perfis da instância, consulte <a href="./id_roles_use_switch-role-ec2_instance-profiles.html">Usar perfis de instância</a>. Para obter informações sobre como executar uma instância do Amazon EC2 com uma função, consulte <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">Controlar o acesso aos recursos do Amazon EC2</a> no <em>Guia do usuário do Amazon EC2 para instâncias do Linux</em>. </p>
+      <div class="procedure"><h6>Para criar um perfil de instância e armazenar a função nele (API da AWS)</h6><ol><li>
+          <p>Criar um perfil da instância: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateInstanceProfile.html">CreateInstanceProfile</a></p>
+        </li><li>
+          <p>Adicionar a função ao perfil da instância: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AddRoleToInstanceProfile.html">AddRoleToInstanceProfile</a></p>
+        </li></ol></div>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Atenção" /> <strong>O Javascript está desativado ou não está disponível no seu navegador.</strong></p><p>Para usar a documentação da AWS, o Javascript deve estar ativado. Consulte as páginas de Ajuda do navegador para obter instruções.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenções do documento</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_create_for-user.html">Criação de uma função para um usuário do IAM</div><div id="next" class="next-link" accesskey="n" href="./id_roles_create_for-idp.html">Criar uma função para federação de identidades</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Essa página foi útil? - Sim</div><div class="content"><p>Obrigado por nos informar que estamos fazendo um bom trabalho!</p><p>Se tiver tempo, conte-nos sobre o que você gostou para que possamos melhorar ainda mais.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Essa página foi útil? - Não</div><div class="content"><p>Obrigado por nos informar que precisamos melhorar a página. Lamentamos ter decepcionado você.</p><p>Se tiver tempo, conte-nos como podemos melhorar a documentação.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

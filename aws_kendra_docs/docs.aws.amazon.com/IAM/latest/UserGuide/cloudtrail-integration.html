@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Logging IAM and AWS STS API calls with AWS CloudTrail - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cloudtrail-integration" /><meta name="default_state" content="cloudtrail-integration" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html" /><meta name="description" content="Learn about logging IAM and AWS STS with AWS CloudTrail." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Logging IAM and AWS STS API calls with AWS CloudTrail" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Logging IAM and AWS STS API calls with AWS CloudTrail - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#cloudtrail-integration" /><meta name="github" content="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/cloudtrail-integration.md" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/cloudtrail-integration.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/cloudtrail-integration.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/cloudtrail-integration.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM Identities (users, user groups, and roles)",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Logging IAM and AWS STS API calls with AWS CloudTrail",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#cloudtrail-integration" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/cloudtrail-integration.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#iam-info-in-cloudtrail">IAM and AWS STS information in
+        CloudTrail</a><a href="#cloudtrail-integration_apis">Logging IAM and AWS STS API requests</a><a href="#cloudtrail-integration_api-other-services">Logging API requests to other AWS
+        services</a><a href="#cloudtrail-integration_signin-users">Logging user sign-in events</a><a href="#cloudtrail-integration_signin-tempcreds">Logging sign-in events for temporary
+        credentials</a><a href="#cloudtrail-integration_examples-iam-api">Example IAM API events in CloudTrail
+        log</a><a href="#cloudtrail-integration_examples-sts-api">Example AWS STS API events in CloudTrail
+        log</a><a href="#cloudtrail-integration_examples-signin">Example sign-in events in CloudTrail
+        log</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="cloudtrail-integration">Logging IAM and AWS STS API calls
+      with AWS CloudTrail</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>IAM and AWS STS are integrated with AWS CloudTrail, a service that provides a
+    record of actions taken by an IAM user or role. CloudTrail captures all API calls for
+    IAM and AWS STS as events, including calls from the console and from API
+    calls. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3
+    bucket. If you don't configure a trail, you can still view the most recent events in the CloudTrail
+    console in <b>Event history</b>. You can use CloudTrail to get information about the
+    request that was made to IAM or AWS STS. For example, you can view the IP
+    address from which the request was made, who made the request, when it was made, and additional
+    details. </p><p>To learn more about CloudTrail, see the <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/">AWS CloudTrail User Guide</a>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#iam-info-in-cloudtrail">IAM and AWS STS information in
+        CloudTrail</a></li><li><a href="#cloudtrail-integration_apis">Logging IAM and AWS STS API requests</a></li><li><a href="#cloudtrail-integration_api-other-services">Logging API requests to other AWS
+        services</a></li><li><a href="#cloudtrail-integration_signin-users">Logging user sign-in events</a></li><li><a href="#cloudtrail-integration_signin-tempcreds">Logging sign-in events for temporary
+        credentials</a></li><li><a href="#cloudtrail-integration_examples-iam-api">Example IAM API events in CloudTrail
+        log</a></li><li><a href="#cloudtrail-integration_examples-sts-api">Example AWS STS API events in CloudTrail
+        log</a></li><li><a href="#cloudtrail-integration_examples-signin">Example sign-in events in CloudTrail
+        log</a></li></ul></div>
+    <h2 id="iam-info-in-cloudtrail">IAM and AWS STS information in
+        CloudTrail</h2>
+    <p>CloudTrail is enabled on your AWS account when you create the account. When activity occurs in
+      IAM or AWS STS, that activity is recorded in a CloudTrail event along with other
+      AWS service events in <b>Event history</b>. You can view, search, and download
+      recent events in your AWS account. For more information, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html">Viewing Events with CloudTrail Event
+        History</a>. </p>
+
+    <p>For an ongoing record of events in your AWS account, including events for IAM
+      and AWS STS, create a trail. A trail enables CloudTrail to deliver log files to an Amazon S3
+      bucket. By default, when you create a trail in the console, the trail applies to all Regions.
+      The trail logs events from all Regions in the AWS partition and delivers the log files to
+      the Amazon S3 bucket that you specify. Additionally, you can configure other AWS services to
+      further analyze and act upon the event data collected in CloudTrail logs. For more information, see: </p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-and-update-a-trail.html">Overview for
+            Creating a Trail</a></p>
+      </li><li class="listitem">
+        <p><a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-aws-service-specific-topics.html#cloudtrail-aws-service-specific-topics-integrations">CloudTrail Supported Services and Integrations</a></p>
+      </li><li class="listitem">
+        <p><a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/getting_notifications_top_level.html">Configuring Amazon SNS
+            Notifications for CloudTrail</a></p>
+      </li><li class="listitem">
+        <p><a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html">Receiving CloudTrail Log Files from Multiple Regions</a> and <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html">Receiving CloudTrail
+            Log Files from Multiple Accounts</a></p>
+      </li></ul></div>
+
+    <p>All IAM and AWS STS actions are logged by CloudTrail and are documented in the
+        <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_Operations.html">IAM API Reference</a> and the <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_Operations.html">AWS Security Token Service API Reference</a>.</p>
+   
+    <h2 id="cloudtrail-integration_apis">Logging IAM and AWS STS API requests</h2>
+    <p>CloudTrail logs all authenticated API requests (made with credentials) to IAM and AWS STS API
+      operations. CloudTrail also logs non-authenticated requests to the AWS STS actions,
+        <code class="code">AssumeRoleWithSAML</code> and <code class="code">AssumeRoleWithWebIdentity</code>, and logs
+      information provided by the identity provider. You can use this information to map calls made
+      by a federated user with an assumed role back to the originating external federated caller. In
+      the case of <code class="code">AssumeRole</code>, you can map calls back to the originating AWS service
+      or to the account of the originating user. The <code class="code">userIdentity</code> section of the JSON
+      data in the CloudTrail log entry contains the information that you need to map the AssumeRole*
+      request with a specific federated user. For more information, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html">CloudTrail userIdentity
+        Element</a> in the <em>AWS CloudTrail User Guide</em>.</p>
+    <p>For example, calls to the IAM <code class="code">CreateUser</code>, <code class="code">DeleteRole</code>,
+        <code class="code">ListGroups</code>, and other API operations are all logged by CloudTrail. </p>
+    <p>Examples for this type of log entry are presented later in this topic. </p>
+   
+    <h2 id="cloudtrail-integration_api-other-services">Logging API requests to other AWS
+        services</h2>
+    <p>Authenticated requests to other AWS service API operations are logged by CloudTrail, and these
+      log entries contain information about who generated the request. </p>
+    <p>For example, assume that you made a request to list Amazon EC2 instances or create an AWS CodeDeploy
+      deployment group. Details about the person or service that made the request are contained in
+      the log entry for that request. This information helps you determine whether the request was
+      made by the AWS account root user, an IAM user, a role, or another AWS service. </p>
+    <p>For more details about the user identity information in CloudTrail log entries, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/event_reference_user_identity.html">userIdentity Element</a> in the
+        <em>AWS CloudTrail User Guide</em>. </p>
+   
+    <h2 id="cloudtrail-integration_signin-users">Logging user sign-in events</h2>
+    <p>CloudTrail logs sign-in events to the AWS Management Console, the AWS discussion forums, and AWS Marketplace. CloudTrail
+      logs successful and failed sign-in attempts for IAM users and federated users. </p>
+    <p> To view sample CloudTrail events for successful and unsuccessful root user sign-ins, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-aws-console-sign-in-events.html#cloudtrail-event-reference-aws-console-sign-in-events-root">Example event records for root users</a> in the
+      <em>AWS CloudTrail User Guide</em>.</p>
+    <p>As a security best practice, AWS does not log the entered IAM user name text when the
+      sign-in failure is caused by <em>an incorrect user name</em>. The user name text
+      is masked by the value <code class="code">HIDDEN_DUE_TO_SECURITY_REASONS</code>. For an example of this,
+      see <a href="#hiddensecurity">Example sign-in failure event caused by incorrect user
+          name</a>, later in this topic. The
+      user name text is obscured because such failures might be caused by user errors. Logging these
+      errors could expose potentially sensitive information. For example:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>You accidentally type your password in the user name box.</p>
+      </li><li class="listitem">
+        <p>You choose the link for the sign-in page of one AWS account, but then type the account
+          number for a different AWS account.</p>
+      </li><li class="listitem">
+        <p>You forget which account you are signing in to and accidentally type the account name
+          of your personal email account, your bank sign-in identifier, or some other private ID.
+        </p>
+      </li></ul></div>
+   
+    <h2 id="cloudtrail-integration_signin-tempcreds">Logging sign-in events for temporary
+        credentials</h2>
+    <p>When a principal requests temporary credentials, the principal type determines how CloudTrail
+      logs the event. This can be complicated when a principal assumes a role in another account.
+      There are multiple API calls to perform operations related to role cross-account operations.
+      First, the principal calls an AWS STS API to retrieve the temporary credentials. That operation
+      is logged in the calling account and the account where the AWS STS operation is performed. Then
+      the principal then uses the role to perform other API calls in the assumed role's
+      account.</p>
+    <p>You can use the <code class="code">sts:SourceIdentity</code> condition key in the role trust policy to
+      require users to specify an identity when they assume a role. For example, you can require
+      that IAM users specify their own user name as their source identity. This can help you
+      determine which user performed a specific action in AWS. For more information, see <a href="./reference_policies_iam-condition-keys.html#ck_sourceidentity">sts:SourceIdentity</a>. You can also use <a href="./reference_policies_iam-condition-keys.html#ck_rolesessionname">sts:RoleSessionName</a> to require users to
+      specify a session name when they assume a role. This can help you differentiate between role
+      sessions for a role that is used by different principals when you review AWS CloudTrail logs.</p>
+    <p>The following table shows how CloudTrail logs different information for each of the API calls
+      that generate temporary credentials.</p>
+    <div class="table-container"><div class="table-contents"><table id="w340aac16c41c17b9"><thead>
+          <tr>
+            <th>Principal type</th>
+            <th>STS API</th>
+            <th>User identity in CloudTrail log for caller's account</th>
+            <th>User identity in CloudTrail log for the assumed role's account</th>
+            <th>User identity in CloudTrail log for the role's subsequent API calls</th>
+          </tr>
+        </thead>
+          <tr>
+            <td>AWS account root user credentials</td>
+            <td>GetSessionToken</td>
+            <td>Root user identity</td>
+            <td>Role owner account is same as calling account</td>
+            <td>Root user identity</td>
+          </tr>
+          <tr>
+            <td>IAM user</td>
+            <td>GetSessionToken</td>
+            <td>IAM user identity</td>
+            <td>Role owner account is same as calling account</td>
+            <td>IAM user identity</td>
+          </tr>
+          <tr>
+            <td>IAM user</td>
+            <td>GetFederationToken</td>
+            <td>IAM user identity</td>
+            <td>Role owner account is same as calling account</td>
+            <td>IAM user identity</td>
+          </tr>
+          <tr>
+            <td>IAM user</td>
+            <td>AssumeRole</td>
+            <td>IAM user identity</td>
+            <td>Account number and principal ID (if a user), or AWS service principal</td>
+            <td>Role identity only (no user)</td>
+          </tr>
+          <tr>
+            <td>Externally authenticated user</td>
+            <td>AssumeRoleWithSAML</td>
+            <td>n/a</td>
+            <td>SAML user identity</td>
+            <td>Role identity only (no user)</td>
+          </tr>
+          <tr>
+            <td>Externally authenticated user</td>
+            <td>AssumeRoleWithWebIdentity</td>
+            <td>n/a</td>
+            <td>OIDC/Web user identity</td>
+            <td>Role identity only (no user)</td>
+          </tr>
+        </table></div></div>
+   
+    <h2 id="cloudtrail-integration_examples-iam-api">Example IAM API events in CloudTrail
+        log</h2>
+    <p>CloudTrail log files contain events that are formatted using JSON. An API event represents a
+      single API request and includes information about the principal, the requested action, any
+      parameters, and the date and time of the action. </p>
+     
+      <h3 id="cloudtrail-integration-iam-api-events">Example IAM API event in CloudTrail log
+          file</h3>
+
+      <p><a id="cloudtrail-integration-understanding-records"></a>The following example shows a
+        CloudTrail log entry for a request made for the IAM <code class="code">GetUserPolicy</code> action. </p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+  "eventVersion": "1.05",
+  "userIdentity": <span>{</span>
+    "type": "IAMUser",
+    "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+    "arn": "arn:aws:iam::444455556666:user/JaneDoe",
+    "accountId": "444455556666",
+    "accessKeyId": "AKIAI44QH8DHBEXAMPLE",
+    "userName": "JaneDoe",
+    "sessionContext": <span>{</span>
+      "attributes": <span>{</span><span>
+        "mfaAuthenticated": "false",</span>
+        "creationDate": "2014-07-15T21:39:40Z"
+      }
+    },
+    "invokedBy": "signin.amazonaws.com"
+  },
+  "eventTime": "2014-07-15T21:40:14Z",
+  "eventSource": "iam.amazonaws.com",
+  "eventName": "GetUserPolicy",
+  "awsRegion": "us-east-2",
+  "sourceIPAddress": "signin.amazonaws.com",
+  "userAgent": "signin.amazonaws.com",
+  "requestParameters": <span>{</span>
+    "userName": "JaneDoe",
+    "policyName": "ReadOnlyAccess-JaneDoe-201407151307"
+  },
+  "responseElements": null,
+  "requestID": "9EXAMPLE-0c68-11e4-a24e-d5e16EXAMPLE",
+  "eventID": "cEXAMPLE-127e-4632-980d-505a4EXAMPLE"
+} </code></pre>
+      <p>From this event information, you can determine that the request was made to get a user
+        policy named <code class="code">ReadOnlyAccess-JaneDoe-201407151307</code> for user <code class="code">JaneDoe</code>,
+        as specified in the <code class="code">requestParameters</code> element. You can also see that the
+        request was made by an IAM user named <code class="code">JaneDoe</code> on July 15, 2014 at 9:40 PM
+        (UTC). In this case, the request originated in the AWS Management Console, as you can tell from the
+          <code class="code">userAgent</code> element. </p>
+     
+   
+    <h2 id="cloudtrail-integration_examples-sts-api">Example AWS STS API events in CloudTrail
+        log</h2>
+    <p>CloudTrail log files contain events that are formatted using JSON. An API event represents a
+      single API request and includes information about the principal, the requested action, any
+      parameters, and the date and time of the action. </p>
+     
+      <h3 id="stscloudtrailexample">Example cross-account AWS STS API events in CloudTrail
+          log files</h3>
+      <p>The IAM user named <code class="code">JohnDoe</code> in account 777788889999 calls the
+        AWS STS <code class="code">AssumeRole</code> action to assume the role <code class="code">EC2-dev</code> in account
+        111122223333. The account administrator requires users to set a source identity
+        equal to their user name when assuming the role. The user passes in the source identity
+        value of <code class="code">JohnDoe</code>.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+  "eventVersion": "1.05",
+  "userIdentity": <span>{</span>
+    "type": "IAMUser",
+    "principalId": "AIDAQRSTUVWXYZEXAMPLE",
+    "arn": "arn:aws:iam::777788889999:user/JohnDoe",
+    "accountId": "777788889999",
+    "accessKeyId": "AKIAQRSTUVWXYZEXAMPLE",
+    "userName": "JohnDoe"
+  },
+  "eventTime": "2014-07-18T15:07:39Z",
+  "eventSource": "sts.amazonaws.com",
+  "eventName": "AssumeRole",
+  "awsRegion": "us-east-2",
+  "sourceIPAddress": "192.0.2.101",
+  "userAgent": "aws-cli/1.11.10 Python/2.7.8 Linux/3.2.45-0.6.wd.865.49.315.metal1.x86_64 botocore/1.4.67",
+  "requestParameters": <span>{</span>
+    "roleArn": "arn:aws:iam::111122223333:role/EC2-dev",
+    "roleSessionName": "JohnDoe-EC2-dev",
+    "sourceIdentity": "JohnDoe",<span>
+    "serialNumber": "arn:aws:iam::777788889999:mfa"</span>
+  },
+  "responseElements": <span>{</span>
+    "credentials": <span>{</span>
+      "sessionToken": "<code class="replaceable">&lt;encoded session token blob&gt;</code>",
+      "accessKeyId": "AKIAQRSTUVWXYZEXAMPLE",
+      "expiration": "Jul 18, 2023, 4:07:39 PM"
+      },
+    "assumedRoleUser": <span>{</span>
+      "assumedRoleId": "AIDAQRSTUVWXYZEXAMPLE:JohnDoe-EC2-dev",
+      "arn": "arn:aws:sts::111122223333:assumed-role/EC2-dev/JohnDoe-EC2-dev"
+    },
+  "sourceIdentity": "JohnDoe"
+  },
+  "resources": [
+    <span>{</span>
+      "ARN": "arn:aws:iam::111122223333:role/EC2-dev",
+      "accountId": "111122223333",
+      "type": "AWS::IAM::Role"
+    }
+  ],
+  "requestID": "4EXAMPLE-0e8d-11e4-96e4-e55c0EXAMPLE",
+  "sharedEventID": "bEXAMPLE-efea-4a70-b951-19a88EXAMPLE",
+  "eventID": "dEXAMPLE-ac7f-466c-a608-4ac8dEXAMPLE",
+  "eventType": "AwsApiCall",   
+  "recipientAccountId": "111122223333"
+}</code></pre>
+      <p>The second example shows the assumed role account's (111122223333) CloudTrail log
+        entry for the same request.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span> 
+  "eventVersion": "1.05",
+  "userIdentity": <span>{</span>
+    "type": "AWSAccount",
+    "principalId": "AIDAQRSTUVWXYZEXAMPLE",
+    "accountId": "777788889999"
+  },
+  "eventTime": "2014-07-18T15:07:39Z",
+  "eventSource": "sts.amazonaws.com",
+  "eventName": "AssumeRole",
+  "awsRegion": "us-east-2",
+  "sourceIPAddress": "192.0.2.101",
+  "userAgent": "aws-cli/1.11.10 Python/2.7.8 Linux/3.2.45-0.6.wd.865.49.315.metal1.x86_64 botocore/1.4.67",
+  "requestParameters": <span>{</span>   
+    "roleArn": "arn:aws:iam::111122223333:role/EC2-dev",
+    "roleSessionName": "JohnDoe-EC2-dev",
+    "sourceIdentity": "JohnDoe", <span> 
+    "serialNumber": "arn:aws:iam::777788889999:mfa"</span>
+  }, 
+  "responseElements": <span>{</span>
+    "credentials": <span>{</span>
+      "sessionToken": "<code class="replaceable">&lt;encoded session token blob&gt;</code>",     
+      "accessKeyId": "AKIAQRSTUVWXYZEXAMPLE",     
+      "expiration": "Jul 18, 2014, 4:07:39 PM"     
+    },   
+    "assumedRoleUser": <span>{</span>     
+      "assumedRoleId": "AIDAQRSTUVWXYZEXAMPLE:JohnDoe-EC2-dev",     
+      "arn": "arn:aws:sts::111122223333:assumed-role/EC2-dev/JohnDoe-EC2-dev"   
+      },
+  "sourceIdentity": "JohnDoe"
+  },
+  "requestID": "4EXAMPLE-0e8d-11e4-96e4-e55c0EXAMPLE",
+  "sharedEventID": "bEXAMPLE-efea-4a70-b951-19a88EXAMPLE",
+  "eventID": "dEXAMPLE-ac7f-466c-a608-4ac8dEXAMPLE"
+}</code></pre>
+     
+     
+      <h3 id="stscloudtrailexample-assumerole">Example AWS STS role chaining API event
+          in CloudTrail log file</h3>
+      <p>The following example shows a CloudTrail log entry for a request made by John Doe in account
+        111111111111. John previously used his <code class="code">JohnDoe</code> user to assume the
+          <code class="code">JohnRole1</code> role. For this request, he uses the credentials from that role to
+        assume the <code class="code">JohnRole2</code> role. This is known as <a href="./id_roles_terms-and-concepts.html#iam-term-role-chaining">role chaining</a>. The source identity that he set
+        when he assumed the <code class="code">JohnDoe1</code> role persists in the request to assume
+          <code class="code">JohnRole2</code>. If John tries to set a different source identity when assuming the
+        role, the request is denied. John passes two <a href="./id_session-tags.html">session
+          tags</a> into the request. He sets those two tags as transitive. The request inherits
+        the <code class="code">Department</code> tag as transitive because John set it as transitive when he
+        assumed <code class="code">JohnRole1</code>. For more information about source identity, see <a href="./id_credentials_temp_control-access_monitor.html">Monitor and control actions
+            taken with assumed roles</a>. For more information about
+        transitive keys in role chains, see <a href="./id_session-tags.html#id_session-tags_role-chaining">Chaining roles with session tags</a>.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+    "eventVersion": "1.05",
+    "userIdentity": <span>{</span>
+        "type": "AssumedRole",
+        "principalId": "AROAIN5ATK5U7KEXAMPLE:JohnRole1",
+        "arn": "arn:aws:sts::111111111111:assumed-role/JohnDoe/JohnRole1",
+        "accountId": "111111111111",
+        "accessKeyId": "AKIAI44QH8DHBEXAMPLE",
+        "sessionContext": <span>{</span>
+            "attributes": <span>{</span>
+                "mfaAuthenticated": "false",
+                "creationDate": "2019-10-02T21:50:54Z"
+            },
+                "sessionIssuer": <span>{</span>
+                "type": "Role",
+               "principalId": "AROAIN5ATK5U7KEXAMPLE",
+                "arn": "arn:aws:iam::111111111111:role/JohnRole1",
+                "accountId": "111111111111",
+                "userName": "JohnDoe"
+            },
+            "sourceIdentity": "JohnDoe"
+        }
+    },
+    "eventTime": "2019-10-02T22:12:29Z",
+    "eventSource": "sts.amazonaws.com",
+    "eventName": "AssumeRole",
+    "awsRegion": "us-east-2",
+    "sourceIPAddress": "123.145.67.89",
+    "userAgent": "aws-cli/1.16.248 Python/3.4.7 Linux/4.9.184-0.1.ac.235.83.329.metal1.x86_64 botocore/1.12.239",
+    "requestParameters": <span>{</span>
+        "incomingTransitiveTags": <span>{</span>
+            "Department": "Engineering"
+        },
+        "tags": [
+            <span>{</span>
+                "value": "johndoe@example.com",
+                "key": "Email"
+            },
+            <span>{</span>
+                "value": "12345",
+                "key": "CostCenter"
+            }
+        ],
+        "roleArn": "arn:aws:iam::111111111111:role/JohnRole2",
+        "roleSessionName": "Role2WithTags",
+        "sourceIdentity": "JohnDoe",
+        "transitiveTagKeys": [
+            "Email",
+            "CostCenter"
+        ],
+        "durationSeconds": 3600
+    },
+    "responseElements": <span>{</span>
+        "credentials": <span>{</span>
+            "accessKeyId": "ASIAWHOJDLGPOEXAMPLE",
+            "expiration": "Oct 2, 2019, 11:12:29 PM",
+            "sessionToken": "AgoJb3JpZ2luX2VjEB4aCXVzLXdlc3QtMSJHMEXAMPLETOKEN+//rJb8Lo30mFc5MlhFCEbubZvEj0wHB/mDMwIgSEe9gk/Zjr09tZV7F1HDTMhmEXAMPLETOKEN/iEJ/rkqngII9///////////ARABGgw0MjgzMDc4NjM5NjYiDLZjZFKwP4qxQG5sFCryASO4UPz5qE97wPPH1eLMvs7CgSDBSWfonmRTCfokm2FN1+hWUdQQH6adjbbrVLFL8c3jSsBhQ383AvxpwK5YRuDE1AI/+C+WKFZb701eiv9J5La2EXAMPLETOKEN/c7S5Iro1WUJ0q3Cxuo/8HUoSxVhQHM7zF7mWWLhXLEQ52ivL+F6q5dpXu4aTFedpMfnJa8JtkWwG9x1Axj0Ypy2ok8v5unpQGWych1vwdvj6ez1Dm8Xg1+qIzXILiEXAMPLETOKEN/vQGqu8H+nxp3kabcrtOvTFTvxX6vsc8OGwUfHhzAfYGEXAMPLETOKEN/L6v1yMM3B1OwFOrQBno1HEjf1oNI8RnQiMNFdUOtwYj7HUZIOCZmjfN8PPHq77N7GJl9lzvIZKQA0Owcjg+mc78zHCj8y0siY8C96paEXAMPLETOKEN/E3cpksxWdgs91HRzJWScjN2+r2LTGjYhyPqcmFzzo2mCE7mBNEXAMPLETOKEN/oJy+2o83YNW5tOiDmczgDzJZ4UKR84yGYOMfSnF4XcEJrDgAJ3OJFwmTcTQICAlSwLEXAMPLETOKEN"
+        },
+        "assumedRoleUser": <span>{</span>
+            "assumedRoleId": "AROAIFR7WHDTSOYQYHFUE:Role2WithTags",
+            "arn": "arn:aws:sts::111111111111:assumed-role/test-role/Role2WithTags"
+        },
+    "sourceIdentity": "JohnDoe"
+    },
+    "requestID": "b96b0e4e-e561-11e9-8b3f-7b396EXAMPLE",
+    "eventID": "1917948f-3042-46ec-98e2-62865EXAMPLE",
+    "resources": [
+        <span>{</span>
+            "ARN": "arn:aws:iam::111111111111:role/JohnRole2",
+            "accountId": "111111111111",
+            "type": "AWS::IAM::Role"
+        }
+    ],
+    "eventType": "AwsApiCall",
+    "recipientAccountId": "111111111111"
+}
+</code></pre>
+     
+     
+      <h3 id="stscloudtrailexample_service">Example AWS service AWS STS API event in
+          CloudTrail log file</h3>
+      <p>The following example shows a CloudTrail log entry for a request made by an AWS service
+        calling another service API using permissions from a service role. It shows the CloudTrail log
+        entry for the request made in account 777788889999.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+  "eventVersion": "1.04",
+  "userIdentity": <span>{</span>
+    "type": "AssumedRole",
+    "principalId": "AIDAQRSTUVWXYZEXAMPLE:devdsk",
+    "arn": "arn:aws:sts::777788889999:assumed-role/AssumeNothing/devdsk",
+    "accountId": "777788889999",
+    "accessKeyId": "AKIAQRSTUVWXYZEXAMPLE",
+    "sessionContext": <span>{</span>
+      "attributes": <span>{</span><span>
+        "mfaAuthenticated": "false",</span>
+        "creationDate": "2016-11-14T17:25:26Z"
+      },
+      "sessionIssuer": <span>{</span>
+        "type": "Role",
+        "principalId": "AIDAQRSTUVWXYZEXAMPLE",
+        "arn": "arn:aws:iam::777788889999:role/AssumeNothing",
+        "accountId": "777788889999",
+        "userName": "AssumeNothing"
+      }
+    }
+  },
+  "eventTime": "2016-11-14T17:25:45Z",
+  "eventSource": "s3.amazonaws.com",
+  "eventName": "DeleteBucket",
+  "awsRegion": "us-east-2",
+  "sourceIPAddress": "192.0.2.1",
+  "userAgent": "[aws-cli/1.11.10 Python/2.7.8 Linux/3.2.45-0.6.wd.865.49.315.metal1.x86_64 botocore/1.4.67]",
+  "requestParameters": <span>{</span>
+    "bucketName": "my-test-bucket-cross-account"
+  },
+  "responseElements": null,
+  "requestID": "EXAMPLE463D56D4C",
+  "eventID": "dEXAMPLE-265a-41e0-9352-4401bEXAMPLE",
+  "eventType": "AwsApiCall",
+  "recipientAccountId": "777788889999"
+}</code></pre>
+     
+     
+      <h3 id="stscloudtrailexample_saml">Example SAML AWS STS API event in CloudTrail log
+          file</h3>
+      <p>The following example shows a CloudTrail log entry for a request made for the AWS STS
+          <code class="code">AssumeRoleWithSAML</code> action. The request includes the SAML attributes
+          <code class="code">CostCenter</code> and <code class="code">Project</code> that are passed through the SAML
+        assertion as <a href="./id_session-tags.html">session tags</a>. Those tags are set as
+        transitive so that they <a href="./id_session-tags.html#id_session-tags_role-chaining">persist in role
+          chaining scenarios</a>. The request includes the SAML attribute
+          <code class="code">sourceIdentity</code>, which is passed in the SAML assertion. If someone uses the
+        resulting role session credentials to assume another role, this source identity
+        persists.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+    "eventVersion": "1.05",
+    "userIdentity": <span>{</span>
+        "type": "SAMLUser",
+        "principalId": "SampleUkh1i4+ExamplexL/jEvs=:SamlExample",
+        "userName": "SamlExample",
+        "identityProvider": "bdGOnTesti4+ExamplexL/jEvs="
+    },
+    "eventTime": "2019-11-01T19:14:36Z",
+    "eventSource": "sts.amazonaws.com",
+    "eventName": "AssumeRoleWithSAML",
+    "awsRegion": "us-east-2",
+    "sourceIPAddress": "192.0.2.101",
+    "userAgent": "aws-cli/1.16.263 Python/3.4.7 Linux/4.9.184-0.1.ac.235.83.329.metal1.x86_64 botocore/1.12.253",
+    "requestParameters": <span>{</span>
+        "sAMLAssertionID": "_c0046cEXAMPLEb9d4b8eEXAMPLE2619aEXAMPLE",
+        "roleSessionName": "MyAssignedRoleSessionName",
+        "sourceIdentity": "MySAMLUser",
+        "principalTags": <span>{</span>
+            "CostCenter": "987654",
+            "Project": "Unicorn",
+            "Department": "Engineering"
+        },
+        "transitiveTagKeys": [
+            "CostCenter",
+            "Project"
+        ],
+        "durationSeconds": 3600,
+        "roleArn": "arn:aws:iam::444455556666:role/SAMLTestRoleShibboleth",
+        "principalArn": "arn:aws:iam::444455556666:saml-provider/Shibboleth"
+    },
+    "responseElements": <span>{</span>
+        "subjectType": "transient",
+        "issuer": "https://server.example.com/idp/shibboleth",
+        "sourceIdentity": "MySAMLUser"
+        "credentials": <span>{</span>
+            "accessKeyId": "AKIAIOSFODNN7EXAMPLE",
+            "expiration": "Mar 23, 2016, 2:39:57 AM",
+            "sessionToken": "<code class="replaceable">&lt;encoded session token blob&gt;</code>"
+        },
+        "nameQualifier": "bdGOnTesti4+ExamplexL/jEvs=",
+        "assumedRoleUser": <span>{</span>
+            "assumedRoleId": "AROAD35QRSTUVWEXAMPLE:MyAssignedRoleSessionName",
+            "arn": "arn:aws:sts::444455556666:assumed-role/SAMLTestRoleShibboleth/MyAssignedRoleSessionName"
+        },
+        "subject": "SamlExample",
+        "audience": "https://signin.aws.amazon.com/saml"
+    },
+    "resources": [
+        <span>{</span>
+            "ARN": "arn:aws:iam::444455556666:role/SAMLTestRoleShibboleth",
+            "accountId": "444455556666",
+            "type": "AWS::IAM::Role"
+        },
+        <span>{</span>
+            "ARN": "arn:aws:iam::444455556666:saml-provider/test-saml-provider",
+            "accountId": "444455556666",
+            "type": "AWS::IAM::SAMLProvider"
+        }
+    ],
+    "requestID": "6EXAMPLE-e595-11e5-b2c7-c974fEXAMPLE",
+    "eventID": "dEXAMPLE-265a-41e0-9352-4401bEXAMPLE",
+    "eventType": "AwsApiCall",
+    "recipientAccountId": "444455556666"
+}</code></pre>
+     
+     
+      <h3 id="stscloudtrailexample_web-identity">Example web identity AWS STS API
+          event in CloudTrail log file</h3>
+      <p>The following example shows a CloudTrail log entry for a request made for the AWS STS
+          <code class="code">AssumeRoleWithWebIdentity</code> action. The request includes the attributes
+          <code class="code">CostCenter</code> and <code class="code">Project</code> that are passed through the identity
+        provider token as <a href="./id_session-tags.html">session tags</a>. Those tags are set as
+        transitive so that they <a href="./id_session-tags.html#id_session-tags_role-chaining">persist in role
+          chaining</a>. The request includes the <code class="code">sourceIdentity</code> attribute from the
+        identity provider token. If someone uses the resulting role session credentials to assume
+        another role, this source identity persists.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+  "eventVersion": "1.05",
+  "userIdentity": <span>{</span>
+    "type": "WebIdentityUser",
+    "principalId": "accounts.google.com:<code class="replaceable">&lt;id-of-application&gt;</code>.apps.googleusercontent.com:<code class="replaceable">&lt;id-of-user&gt;</code>",
+    "userName": "<code class="replaceable">&lt;id of user&gt;</code>",
+    "identityProvider": "accounts.google.com"
+  },
+  "eventTime": "2016-03-23T01:39:51Z",
+  "eventSource": "sts.amazonaws.com",
+  "eventName": "AssumeRoleWithWebIdentity",
+  "awsRegion": "us-east-2",
+  "sourceIPAddress": "192.0.2.101",
+  "userAgent": "aws-cli/1.3.23 Python/2.7.6 Linux/2.6.18-164.el5",
+  "requestParameters": <span>{</span>
+    "sourceIdentity": "MyWebIdentityUser", 
+    "durationSeconds": 3600,
+    "roleArn": "arn:aws:iam::444455556666:role/FederatedWebIdentityRole",
+    "roleSessionName": "MyAssignedRoleSessionName"
+        "principalTags": <span>{</span>
+            "CostCenter": "24680",
+            "Project": "Pegasus"
+        },
+        "transitiveTagKeys": [
+            "CostCenter",
+            "Project"
+        ],
+  },
+  "responseElements": <span>{</span>
+    "provider": "accounts.google.com",
+    "subjectFromWebIdentityToken": "<code class="replaceable">&lt;id of user&gt;</code>",
+    "sourceIdentity": "MyWebIdentityUser",    
+    "audience": "<code class="replaceable">&lt;id of application&gt;</code>.apps.googleusercontent.com",
+    "credentials": <span>{</span>
+      "accessKeyId": "ASIACQRSTUVWRAOEXAMPLE",
+      "expiration": "Mar 23, 2016, 2:39:51 AM",
+      "sessionToken": "<code class="replaceable">&lt;encoded session token blob&gt;</code>"
+    },
+    "assumedRoleUser": <span>{</span>
+      "assumedRoleId": "AROACQRSTUVWRAOEXAMPLE:MyAssignedRoleSessionName",
+      "arn": "arn:aws:sts::444455556666:assumed-role/FederatedWebIdentityRole/MyAssignedRoleSessionName"
+    }
+  },
+  "resources": [
+    <span>{</span>
+      "ARN": "arn:aws:iam::444455556666:role/FederatedWebIdentityRole",
+      "accountId": "444455556666",
+      "type": "AWS::IAM::Role" 
+    }
+  ],
+  "requestID": "6EXAMPLE-e595-11e5-b2c7-c974fEXAMPLE",
+  "eventID": "bEXAMPLE-0b30-4246-b28c-e3da3EXAMPLE",
+  "eventType": "AwsApiCall",
+  "recipientAccountId": "444455556666"
+}</code></pre>
+     
+   
+    <h2 id="cloudtrail-integration_examples-signin">Example sign-in events in CloudTrail
+        log</h2>
+    <p>CloudTrail log files contain events that are formatted using JSON. A sign-in event represents a
+      single sign-in request and includes information about the sign-in principal, the Region, and
+      the date and time of the action. </p>
+     
+      <h3 id="cloudtrail-integration-signin-success">Example sign-in success event in
+          CloudTrail log file</h3>
+      <p>The following example shows a CloudTrail log entry for a successful sign-in event.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+  "eventVersion": "1.05",
+  "userIdentity": <span>{</span>
+    "type": "IAMUser",
+    "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+    "arn":"arn:aws:iam::111122223333:user/JohnDoe",
+    "accountId": "111122223333",
+    "userName": "JohnDoe"
+  },
+  "eventTime": "2014-07-16T15:49:27Z",
+  "eventSource": "signin.amazonaws.com",
+  "eventName": "ConsoleLogin",
+  "awsRegion": "us-east-2",
+  "sourceIPAddress": "192.0.2.110",
+  "userAgent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0",
+  "requestParameters": null,
+  "responseElements": <span>{</span>
+    "ConsoleLogin": "Success"
+  },
+  "additionalEventData": <span>{</span>
+    "MobileVersion": "No",
+    "LoginTo": "<a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span></a>"<span>,
+    "MFAUsed": "No"</span>
+  },
+  "eventID": "3fcfb182-98f8-4744-bd45-10a395ab61cb"
+}</code></pre>
+      <p>For more details about the information contained in CloudTrail log files, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/eventreference.html">CloudTrail Event Reference</a> in the
+          <em>AWS CloudTrail User Guide</em>.</p>
+     
+     
+      <h3 id="cloudtrail-integration-signin-failure">Example sign-in failure event in
+          CloudTrail log file</h3>
+      <p>The following example shows a CloudTrail log entry for a failed sign-in event.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+  "eventVersion": "1.05",
+  "userIdentity": <span>{</span>
+    "type": "IAMUser",
+    "principalId": "AIDACKCEVSQ6C2EXAMPLE",
+    "arn":"arn:aws:iam::111122223333:user/JaneDoe",
+    "accountId": "111122223333",
+    "userName": "JaneDoe"
+  },
+  "eventTime": "2014-07-08T17:35:27Z",
+  "eventSource": "signin.amazonaws.com",
+  "eventName": "ConsoleLogin",
+  "awsRegion": "us-east-2",
+  "sourceIPAddress": "192.0.2.100",
+  "userAgent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0",
+  "errorMessage": "Failed authentication",
+  "requestParameters": null,
+  "responseElements": <span>{</span>
+    "ConsoleLogin": "Failure"
+  },
+  "additionalEventData": <span>{</span>
+    "MobileVersion": "No",
+    "LoginTo": "https://console.aws.amazon.com/sns"<span>,
+    "MFAUsed": "No"</span>
+  },
+  "eventID": "11ea990b-4678-4bcd-8fbe-62509088b7cf"
+}</code></pre>
+      <p>From this information, you can determine that the sign-in attempt was made by an IAM
+        user named <code class="code">JaneDoe</code>, as shown in the <code class="code">userIdentity</code> element. You can
+        also see that the sign-in attempt failed, as shown in the <code class="code">responseElements</code>
+        element. You can see that <code class="code">JaneDoe</code> tried to sign in to the Amazon SNS console at 5:35
+        PM (UTC) on July 8, 2014.</p>
+     
+     
+      <h3 id="hiddensecurity">Example sign-in failure event caused by incorrect user
+          name</h3>
+      <p>The following example shows a CloudTrail log entry for an unsuccessful sign-in event caused by
+        the user entering an incorrect user name. AWS masks the <code class="code">userName</code> text with
+          <code class="code">HIDDEN_DUE_TO_SECURITY_REASONS</code> to help prevent exposing potentially sensitive
+        information.</p>
+      <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+  "eventVersion": "1.05",
+  "userIdentity": <span>{</span>
+    "type": "IAMUser",
+    "accountId": "123456789012",
+    "accessKeyId": "",
+    "userName": "HIDDEN_DUE_TO_SECURITY_REASONS"
+  },
+  "eventTime": "2015-03-31T22:20:42Z",
+  "eventSource": "signin.amazonaws.com",
+  "eventName": "ConsoleLogin",
+  "awsRegion": "us-east-2",
+  "sourceIPAddress": "192.0.2.101",
+  "userAgent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0",
+  "errorMessage": "No username found in supplied account",
+  "requestParameters": null,
+  "responseElements": <span>{</span>
+    "ConsoleLogin": "Failure"
+  },
+  "additionalEventData": <span>{</span>
+    "LoginTo": "https://console.aws.amazon.com/console/home?state=hashArgs%23&amp;isauthcode=true",
+    "MobileVersion": "No"<span>,
+    "MFAUsed": "No"</span>
+  },
+  "eventID": "a7654656-0417-45c6-9386-ea8231385051",
+  "eventType": "AwsConsoleSignin",
+  "recipientAccountId": "123456789012"
+}</code></pre>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_root-user.html">AWS account root user</div><div id="next" class="next-link" accesskey="n" href="./access.html">Access management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/cloudtrail-integration.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/cloudtrail-integration.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

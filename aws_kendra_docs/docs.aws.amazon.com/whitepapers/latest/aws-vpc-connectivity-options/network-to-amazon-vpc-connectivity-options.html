@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Network-to-Amazon VPC connectivity options - Amazon Virtual Private Cloud Connectivity Options</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="network-to-amazon-vpc-connectivity-options" /><meta name="default_state" content="network-to-amazon-vpc-connectivity-options" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" /><meta name="description" content="This section provides design patterns for connecting remote networks with your Amazon VPC environment. These options are useful for integrating AWS resources with your existing on-site services (for example, monitoring, authentication, security, data or other systems) by extending your internal networks into the AWS Cloud." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Virtual Private Cloud Connectivity Options" /><meta name="guide" content="AWS Whitepaper" /><meta name="abstract" content="Amazon Virtual Private Cloud (Amazon VPC) lets customers provision a private, isolated section of the Amazon Web Services (AWS) Cloud where they can launch AWS resources in a virtual network using customer-defined IP address ranges. Amazon VPC provides customers with several options for connecting their AWS virtual networks with other remote networks. This document describes several common network connectivity options available to our customers. These include connectivity options for integrating remote customer networks with Amazon VPC and connecting multiple Amazon VPCs into a contiguous virtual network." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" hreflang="x-default" /><meta name="feedback-folder" content="a0d18259-7974-4e8f-8382-0a4be53f4374" /><meta name="this_doc_product" content="Amazon Virtual Private Cloud Connectivity Options" /><meta name="this_doc_guide" content="AWS Whitepaper" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'whitepapers'}"></script><meta id="panorama-serviceSubSection" value="AWS Whitepaper" /><meta id="panorama-serviceConsolePage" value="Network-to-Amazon VPC connectivity options" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Network-to-Amazon VPC connectivity options - Amazon Virtual Private Cloud Connectivity Options</title><meta name="pdf" content="/pdfs/whitepapers/latest/aws-vpc-connectivity-options/aws-vpc-connectivity-options.pdf#network-to-amazon-vpc-connectivity-options" /><meta name="rss" content="aws-vpc-connectivity-options.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=a0d18259-7974-4e8f-8382-0a4be53f4374&amp;topic_url=http://docs.aws.amazon.com/en_us/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Whitepapers",
+        "item" : "https://docs.aws.amazon.comhttps://aws.amazon.com/whitepapers/"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "AWS Whitepaper",
+        "item" : "https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Network-to-Amazon VPC connectivity options",
+        "item" : "https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/whitepapers/latest/aws-vpc-connectivity-options/aws-vpc-connectivity-options.pdf#network-to-amazon-vpc-connectivity-options" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="https://aws.amazon.com/whitepapers/">AWS Whitepapers</a><a href="welcome.html">AWS Whitepaper</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="network-to-amazon-vpc-connectivity-options">Network-to-Amazon VPC connectivity options</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>
+    This section provides design patterns for connecting remote networks
+    with your Amazon VPC environment. These options are useful for
+    integrating AWS resources with your existing on-site services (for
+    example, monitoring, authentication, security, data or other
+    systems) by extending your internal networks into the AWS Cloud.
+    This network extension also allows your internal users to seamlessly
+    connect to resources hosted on AWS just like any other internally
+    facing resource.
+  </p><p>
+    VPC connectivity to remote customer networks is best achieved when
+    using non-overlapping IP ranges for each network being connected.
+    For example, if you’d like to connect one or more VPCs to your corporate
+    network, make sure they are configured with unique Classless
+    Inter-Domain Routing (CIDR) ranges. We recommend allocating a
+    single, contiguous, non-overlapping CIDR block to be used by each
+    VPC. For additional information about Amazon VPC routing and
+    constraints, see the
+    <a href="http://aws.amazon.com/vpc/faqs/" rel="noopener noreferrer" target="_blank"><span>Amazon VPC
+    Frequently Asked Questions</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+  </p><div class="table-container"><div class="table-contents"><table id="w163aab9b7"><thead>
+        <tr>
+          <th>
+            Option
+          </th>
+          <th>
+            Use Case
+          </th>
+          <th>
+            Advantages
+          </th>
+          <th>
+            Limitations
+          </th>
+        </tr>
+      </thead>
+        <tr>
+          <td>
+            
+              
+              <p><a href="./aws-site-to-site-vpn.html">AWS Site-to-Site VPN</a>
+            </p>
+            
+          </td>
+          <td>
+            AWS managed IPsec VPN connection over the internet to
+            individual VPC
+          </td>
+          <td>
+            <p>
+              Reuse existing VPN equipment and processes
+            </p>
+            <p>
+              Reuse existing internet connections
+            </p>
+            <p>
+              AWS managed high availability VPN service
+            </p>
+            <p>
+              Supports static routes or dynamic Border Gateway Protocol
+              (BGP) peering and routing policies
+            </p>
+          </td>
+          <td>
+            <p>
+              Network latency, variability, and availability are
+              dependent on internet conditions
+            </p>
+            <p>
+              You are responsible for implementing
+              redundancy and failover (if required)
+            </p>
+            <p>
+              Remote device must support single-hop BGP (when
+              leveraging BGP for dynamic routing)
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            
+              <p><a href="./aws-transit-gateway-vpn.html">AWS Transit Gateway + AWS Site-to-Site VPN</a>
+            </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                AWS managed IPsec VPN connection over the internet to
+                regional router for multiple VPCs
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Same as the previous option
+              </p>
+              <p>
+                AWS managed high availability and scalability regional
+                network hub for up to 5,000 attachments
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Same as the previous option
+              </p>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            
+              <p><a href="./aws-direct-connect.html">AWS Direct Connect</a>
+            </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Dedicated network connection over private lines
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                More predictable network performance
+              </p>
+              <p>
+                Reduced bandwidth costs
+              </p>
+              <p>
+                Supports BGP peering and routing policies
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Might require additional telecom and hosting provider
+                relationships or new network circuits to be provisioned
+              </p>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            
+              <p><a href="./aws-direct-connect-aws-transit-gateway.html">AWS Direct Connect + AWS Transit Gateway</a></p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Dedicated network connection over private lines to
+                regional router for multiple VPCs
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Same as the previous option
+              </p>
+              <p>
+                AWS managed high availability and scalability regional
+                network hub for up to 5,000 attachments
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Same as previous option
+              </p>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            
+            <p><a href="./aws-direct-connect-site-to-site-vpn.html">AWS Direct Connect + AWS Site-to-Site VPN</a>
+            </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                IPsec VPN connection over private lines
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                More predictable network performance
+              </p>
+              <p>
+                Reduced bandwidth costs
+              </p>
+              <p>
+                Supports BGP peering and routing policies on AWS Direct Connect
+              </p>
+              <p>
+                Reuse existing VPN equipment and processes
+              </p>
+              <p>
+                AWS managed high availability VPN service
+              </p>
+              <p>
+                Supports static routes or dynamic Border Gateway
+                Protocol (BGP) peering and routing policies on VPN
+                connection
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                May require additional telecom and hosting provider
+                relationships or new network circuits to be provisioned
+              </p>
+              <p>
+                You are responsible for
+                implementing redundancy and failover (if required)
+              </p>
+              <p>
+                Remote device must support single-hop BGP (when
+                leveraging BGP for dynamic routing)
+              </p>
+            
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./aws-direct-connect-aws-transit-gateway-vpn.html">AWS Direct Connect + AWS Transit Gateway + AWS Site-to-Site VPN</a></td>
+          <td>
+            
+              <p>
+                IPsec VPN connection over private lines to regional
+                router for multiple VPCs
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Same as previous option
+              </p>
+              <p>
+                AWS managed high availability and scalability regional
+                network hub for up to 5,000 attachments
+              </p>
+            
+          </td>
+          <td>
+            Same as previous option
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><a href="./aws-vpn-cloudhub.html">AWS VPN CloudHub</a>
+            </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Connect remote branch offices in a hub-and-spoke model
+                for primary or backup connectivity
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Reuse existing internet connections and AWS VPN
+                connections
+              </p>
+              <p>
+                AWS managed high availability VPN service
+              </p>
+              <p>
+                Supports BGP for exchanging routes and routing
+                priorities
+              </p>
+            
+          </td>
+          <td>
+            <p>
+              Network latency, variability, and availability are
+              dependent on the internet
+            </p>
+            <p>
+              User managed branch office endpoints are responsible for
+              implementing redundancy and failover (if required)
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><a href="./aws-transit-gateway-sd-wan.html">AWS Transit Gateway + SD-WAN solutions</a></p>
+          </td>
+          <td>
+            <p>
+              Connect remote branches and offices with a software-defined wide area network by using the 
+              AWS backbone or the internet as a transit network.
+            </p>
+          </td>
+          <td>
+            <p>
+              Supports a wider array of SD-WAN vendors, products, and protocols
+            </p>
+            <p>
+              Some vendor solutions have integration with AWS native services.
+            </p>
+          </td>
+          <td>
+            <p>
+              You are responsible for implementing HA (high availability) of the SD-WAN appliances 
+              if they are placed in an Amazon VPC.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><a href="./software-vpn.html">Software VPN</a></p>
+ 
+          </td>
+          <td>
+            
+              <p>
+                Software appliance-based VPN connection over the
+                internet
+              </p>
+            
+          </td>
+          <td>
+            
+              <p>
+                Supports a wider array of VPN vendors, products, and
+                protocols
+              </p>
+              <p>
+                Fully customer-managed solution
+              </p>
+            
+          </td>
+          <td>
+            You are responsible for implementing HA (high
+            availability) solutions for all VPN endpoints (if required)
+          </td>
+        </tr>
+      </table></div></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./introduction.html">Introduction</div><div id="next" class="next-link" accesskey="n" href="./aws-site-to-site-vpn.html">AWS Site-to-Site VPN</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=a0d18259-7974-4e8f-8382-0a4be53f4374&amp;topic_url=https://docs.aws.amazon.com/en_us/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=a0d18259-7974-4e8f-8382-0a4be53f4374&amp;topic_url=https://docs.aws.amazon.com/en_us/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

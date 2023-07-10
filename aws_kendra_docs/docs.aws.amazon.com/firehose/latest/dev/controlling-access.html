@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Controlling Access with Amazon Kinesis Data Firehose - Amazon Kinesis Data Firehose</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="controlling-access" /><meta name="default_state" content="controlling-access" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html" /><meta name="description" content="Control access to and from your Kinesis Data Firehose resources by using IAM." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kinesis Data Firehose" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Kinesis Data Firehose. Kinesis Data Firehose is the easiest way to load streaming data into AWS. It can capture, transform, and load streaming data into Amazon Kinesis Data Analytics, Amazon Simple Storage Service (Amazon S3), Amazon Redshift, and Amazon OpenSearch Service, enabling near real-time analytics with existing business intelligence tools and dashboards you’re already using today. Kinesis Data Firehose is a fully managed service that automatically scales to match the throughput of your data and requires no ongoing administration. It can also batch, compress, and encrypt the data before loading it, minimizing the amount of storage used at the destination and increasing security. This guide provides a conceptual overview of Kinesis Data Firehose and includes detailed instructions for using the service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/firehose/latest/dev/controlling-access.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/firehose/latest/dev/controlling-access.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/firehose/latest/dev/controlling-access.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/firehose/latest/dev/controlling-access.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/firehose/latest/dev/controlling-access.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/firehose/latest/dev/controlling-access.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/firehose/latest/dev/controlling-access.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/firehose/latest/dev/controlling-access.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/firehose/latest/dev/controlling-access.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/firehose/latest/dev/controlling-access.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/firehose/latest/dev/controlling-access.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/firehose/latest/dev/controlling-access.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/firehose/latest/dev/controlling-access.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/firehose/latest/dev/controlling-access.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/firehose/latest/dev/controlling-access.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/firehose/latest/dev/controlling-access.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/firehose/latest/dev/controlling-access.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/firehose/latest/dev/controlling-access.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html" hreflang="x-default" /><meta name="feedback-item" content="Firehose" /><meta name="this_doc_product" content="Amazon Kinesis Data Firehose" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kinesis'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Controlling Access with Amazon Kinesis Data Firehose" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Controlling Access with Amazon Kinesis Data Firehose - Amazon Kinesis Data Firehose</title><meta name="pdf" content="/pdfs/firehose/latest/dev/firehose-dg.pdf#controlling-access" /><meta name="github" content="https://github.com/awsdocs/amazon-kinesis-data-firehose-developer-guide/tree/master/doc_source/controlling-access.md" /><meta name="rss" content="akf-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=3" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Firehose&amp;topic_url=http://docs.aws.amazon.com/en_us/firehose/latest/dev/controlling-access.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/firehose/latest/dev/controlling-access.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/firehose/latest/dev/controlling-access.html" /><meta name="keywords" content="Firehose,Kinesis Data Firehose,Amazon Kinesis Data Firehose,delivery stream,AWS" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kinesis Firehose",
+        "item" : "https://docs.aws.amazon.com/kinesis/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/firehose/latest/dev"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon Kinesis Data Firehose",
+        "item" : "https://docs.aws.amazon.com/firehose/latest/dev/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Controlling Access with Amazon Kinesis Data Firehose",
+        "item" : "https://docs.aws.amazon.com/firehose/latest/dev/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/firehose/latest/dev/firehose-dg.pdf#controlling-access" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-kinesis-data-firehose-developer-guide/tree/master/doc_source/controlling-access.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/kinesis/index.html">Amazon Kinesis Firehose</a><a href="what-is-this-service.html">Developer Guide</a></div><div id="page-toc-src"><a href="#access-to-firehose">Grant Your Application Access to Your Kinesis Data Firehose
+                Resources</a><a href="#firehose-assume-role">Allow Kinesis Data Firehose to Assume an IAM Role</a><a href="#using-iam-glue">Grant Kinesis Data Firehose Access to AWS Glue for Data Format
+                Conversion</a><a href="#using-iam-s3">Grant Kinesis Data Firehose Access to an Amazon S3 Destination</a><a href="#using-iam-rs">Grant Kinesis Data Firehose Access to an Amazon Redshift Destination </a><a href="#using-iam-es">Grant Kinesis Data Firehose Access to a Public OpenSearch Service
+                Destination</a><a href="#using-iam-es-vpc">Grant Kinesis Data Firehose Access to an OpenSearch Service
+                Destination in a VPC</a><a href="#using-iam-serverless">Grant Kinesis Data Firehose Access to a Public OpenSearch
+                Serverless Destination</a><a href="#using-iam-serverless-vpc">Grant Kinesis Data Firehose Access to an OpenSearch
+                Serverless Destination in a VPC</a><a href="#using-iam-splunk">Grant Kinesis Data Firehose Access to a Splunk Destination</a><a href="#using-iam-splunk-vpc">Access to Splunk in VPC</a><a href="#using-iam-http">Grant Kinesis Data Firehose Access to an HTTP Endpoint
+                Destination</a><a href="#cross-account-delivery-s3">Cross-Account Delivery to an Amazon S3
+                Destination</a><a href="#cross-account-delivery-es">Cross-Account Delivery to an OpenSearch
+                Service Destination</a><a href="#tag-based-access-control">Using Tags to Control Access</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="controlling-access">Controlling Access with Amazon Kinesis Data Firehose </h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The following sections cover how to control access to and from your Kinesis Data Firehose resources. The
+        information they cover includes how to grant your application access so it can send data to
+        your Kinesis Data Firehose delivery stream. They also describe how you can grant Kinesis Data Firehose access to your
+        Amazon Simple Storage Service (Amazon S3) bucket, Amazon Redshift cluster, or Amazon OpenSearch Service cluster, as well as the
+        access permissions you need if you use Datadog, Dynatrace, LogicMonitor, MongoDB, New Relic,
+        Splunk, or Sumo Logic as your destination. Finally, you'll find in this topic guidance on
+        how to configure Kinesis Data Firehose so it can deliver data to a destination that belongs to a different
+        AWS account. The technology for managing all these forms of access is AWS Identity and Access Management (IAM).
+        For more information about IAM, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_Introduction.html">What
+            is IAM?</a>.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><a href="#access-to-firehose">Grant Your Application Access to Your Kinesis Data Firehose
+                Resources</a></li><li><a href="#firehose-assume-role">Allow Kinesis Data Firehose to Assume an IAM Role</a></li><li><a href="#using-iam-glue">Grant Kinesis Data Firehose Access to AWS Glue for Data Format
+                Conversion</a></li><li><a href="#using-iam-s3">Grant Kinesis Data Firehose Access to an Amazon S3 Destination</a></li><li><a href="#using-iam-rs">Grant Kinesis Data Firehose Access to an Amazon Redshift Destination </a></li><li><a href="#using-iam-es">Grant Kinesis Data Firehose Access to a Public OpenSearch Service
+                Destination</a></li><li><a href="#using-iam-es-vpc">Grant Kinesis Data Firehose Access to an OpenSearch Service
+                Destination in a VPC</a></li><li><a href="#using-iam-serverless">Grant Kinesis Data Firehose Access to a Public OpenSearch
+                Serverless Destination</a></li><li><a href="#using-iam-serverless-vpc">Grant Kinesis Data Firehose Access to an OpenSearch
+                Serverless Destination in a VPC</a></li><li><a href="#using-iam-splunk">Grant Kinesis Data Firehose Access to a Splunk Destination</a></li><li><a href="#using-iam-splunk-vpc">Access to Splunk in VPC</a></li><li><a href="#using-iam-http">Grant Kinesis Data Firehose Access to an HTTP Endpoint
+                Destination</a></li><li><a href="#cross-account-delivery-s3">Cross-Account Delivery to an Amazon S3
+                Destination</a></li><li><a href="#cross-account-delivery-es">Cross-Account Delivery to an OpenSearch
+                Service Destination</a></li><li><a href="#tag-based-access-control">Using Tags to Control Access</a></li></ul></div>
+        <h2 id="access-to-firehose">Grant Your Application Access to Your Kinesis Data Firehose
+                Resources</h2>
+        <p>To give your application access to your Kinesis Data Firehose delivery stream, use a policy similar to
+            this example. You can adjust the individual API operations to which you grant access by
+            modifying the <code class="code">Action</code> section, or grant access to all operations with
+                <code class="code">"firehose:*"</code>.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "firehose:DeleteDeliveryStream",
+                "firehose:PutRecord",
+                "firehose:PutRecordBatch",
+                "firehose:UpdateDestination"
+            ],
+            "Resource": [
+                "arn:aws:firehose:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:deliverystream/<code class="replaceable">delivery-stream-name</code>"
+            ]
+        }
+    ]
+}</code></pre>
+     
+        <h2 id="firehose-assume-role">Allow Kinesis Data Firehose to Assume an IAM Role</h2>
+        <p>If you use the console to create a delivery stream and choose the option to create a
+            new role, AWS attaches the required trust policy to the role. If you want Kinesis Data Firehose to use
+            an existing IAM role or if you create a role on your own, attach the following trust
+            policy to that role so that Kinesis Data Firehose can assume it. Edit the policy to replace
+                <code class="replaceable">account-id</code> with your AWS account ID.</p>
+
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "Service": "firehose.amazonaws.com"
+      },
+     "Action": "sts:AssumeRole",
+	       "Condition": <span>{</span>
+	         "StringEquals": <span>{</span>
+	           "sts:ExternalId": "<code class="replaceable">account-id</code>"
+	         }
+	       }
+    }
+  ]
+}</code></pre>
+        <p>This policy uses the <code class="code">sts:ExternalId</code> condition context key to ensure that
+            only Kinesis Data Firehose activity originating from your AWS account can assume this IAM role. For
+            more information about preventing unauthorized use of IAM roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html">The confused deputy
+                problem</a> in the <em>IAM User Guide</em>.</p>
+        <p>For information about how to modify the trust relationship of a role, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_modify.html">Modifying a Role</a>.</p>
+     
+        <h2 id="using-iam-glue">Grant Kinesis Data Firehose Access to AWS Glue for Data Format
+                Conversion</h2>
+        <p>If your delivery stream performs data-format conversion, Kinesis Data Firehose references table
+            definitions stored in AWS Glue. To give Kinesis Data Firehose the necessary access to AWS Glue, add the
+            following statement to your policy. For information on how to find the ARN of the table,
+            see <a href="https://docs.aws.amazon.com/glue/latest/dg/glue-specifying-resource-arns.html">Specifying AWS Glue Resource ARNs</a>.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Effect": "Allow",
+  "Action": [
+    "glue:GetTable",
+    "glue:GetTableVersion",
+    "glue:GetTableVersions"
+  ],
+  "Resource": "<code class="replaceable">table-arn</code>"
+}</code></pre>
+
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Currently, AWS Glue is not supported in the Asia Pacific (Jakarta),
+                Middle East (UAE), Europe (Spain), Europe (Zurich), and
+                Asia Pacific (Hyderabad) regions. If you are working with Kinesis Data Firehose in the
+                Asia Pacific (Jakarta), Middle East (UAE), Europe (Spain),
+                Europe (Zurich), and/or Asia Pacific (Hyderabad) regions, make sure to give your
+                Kinesis Data Firehose access to AWS Glue in one of the regions where AWS Glue is currently supported.
+                Cross-region interoperability between Data Firehose and AWS Glue is supported. For more
+                information on regions where AWS Glue is supported, see <a href="https://docs.aws.amazon.com/general/latest/gr/glue.html">https://docs.aws.amazon.com/general/latest/gr/glue.html</a></p></div></div>
+     
+        <h2 id="using-iam-s3">Grant Kinesis Data Firehose Access to an Amazon S3 Destination</h2>
+        <p>When you're using an Amazon S3 destination, Kinesis Data Firehose delivers data to your S3 bucket and can
+            optionally use an AWS KMS key that you own for data encryption. If error logging is
+            enabled, Kinesis Data Firehose also sends data delivery errors to your CloudWatch log group and streams. You
+            are required to have an IAM role when creating a delivery stream. Kinesis Data Firehose assumes that
+            IAM role and gains access to the specified bucket, key, and CloudWatch log group and
+            streams.</p>
+
+        <p>Use the following access policy to enable Kinesis Data Firehose to access your S3 bucket and AWS KMS
+            key. If you don't own the S3 bucket, add <code class="code">s3:PutObjectAcl</code> to the list of
+            Amazon S3 actions. This grants the bucket owner full access to the objects delivered by
+            Kinesis Data Firehose. This policy also has a statement that allows access to Amazon Kinesis Data Streams. If you don't
+            use Kinesis Data Streams as your data source, you can remove that statement.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",  
+    "Statement":
+    [    
+        <span>{</span>      
+            "Effect": "Allow",      
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject"
+            ],      
+            "Resource": [        
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>",
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>/*"		    
+            ]    
+        },        
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "kinesis:DescribeStream",
+                "kinesis:GetShardIterator",
+                "kinesis:GetRecords",
+                "kinesis:ListShards"
+            ],
+            "Resource": "arn:aws:kinesis:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:stream/<code class="replaceable">stream-name</code>"
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kms:Decrypt",
+               "kms:GenerateDataKey"
+           ],
+           "Resource": [
+               "arn:aws:kms:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:key/<code class="replaceable">key-id</code>"           
+           ],
+           "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                   "kms:ViaService": "s3.<code class="replaceable">region</code>.amazonaws.com"
+               },
+               "StringLike": <span>{</span>
+                   "kms:EncryptionContext:aws:s3:arn": "arn:aws:s3:::<code class="replaceable">bucket-name/prefix</code>*"
+               }
+           }
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "logs:PutLogEvents"
+           ],
+           "Resource": [
+               "arn:aws:logs:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:log-group:<code class="replaceable">log-group-name</code>:log-stream:<code class="replaceable">log-stream-name</code>"
+           ]
+        },
+        <span>{</span>
+           "Effect": "Allow", 
+           "Action": [
+               "lambda:InvokeFunction", 
+               "lambda:GetFunctionConfiguration" 
+           ],
+           "Resource": [
+               "arn:aws:lambda:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:function:<code class="replaceable">function-name</code>:<code class="replaceable">function-version</code>"
+           ]
+        }
+    ]
+}</code></pre>
+        <p>For more information about allowing other AWS services to access your AWS
+            resources, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating a
+                Role to Delegate Permissions to an AWS Service</a> in the
+                <em>IAM User Guide</em>.</p>
+        <p>To learn how to grant Kinesis Data Firehose access to an Amazon S3 destination in another account, see
+                <a href="#cross-account-delivery-s3">Cross-Account Delivery to an Amazon S3
+                Destination</a>.</p>
+     
+        <h2 id="using-iam-rs">Grant Kinesis Data Firehose Access to an Amazon Redshift Destination </h2>
+        <p>Refer to the following when you are granting access to Kinesis Data Firehose when using an Amazon Redshift
+            destination.</p>
+        <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#using-iam-rs-policy">IAM Role and Access Policy</a></li><li><a href="#using-iam-rs-vpc">VPC Access to an Amazon Redshift Cluster</a></li></ul></div>
+         
+            <h3 id="using-iam-rs-policy">IAM Role and Access Policy</h3>
+            <p>When you're using an Amazon Redshift destination, Kinesis Data Firehose delivers data to your S3 bucket
+                as an intermediate location. It can optionally use an AWS KMS key you own for data
+                encryption. Kinesis Data Firehose then loads the data from the S3 bucket to your Amazon Redshift cluster.
+                If error logging is enabled, Kinesis Data Firehose also sends data delivery errors to your CloudWatch log
+                group and streams. Kinesis Data Firehose uses the specified Amazon Redshift user name and password to
+                access your cluster, and uses an IAM role to access the specified bucket, key,
+                CloudWatch log group, and streams. You are required to have an IAM role when creating a
+                delivery stream.</p>
+            <p>Use the following access policy to enable Kinesis Data Firehose to access your S3 bucket and AWS KMS
+                key. If you don't own the S3 bucket, add <code class="code">s3:PutObjectAcl</code> to the list of
+                Amazon S3 actions, which grants the bucket owner full access to the objects delivered by
+                Kinesis Data Firehose. This policy also has a statement that allows access to Amazon Kinesis Data Streams. If you
+                don't use Kinesis Data Streams as your data source, you can remove that statement.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+"Version": "2012-10-17",  
+    "Statement":
+    [    
+        <span>{</span>      
+            "Effect": "Allow",
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject"
+            ],      
+            "Resource": [        
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>",
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>/*"		    
+            ]    
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kms:Decrypt",
+               "kms:GenerateDataKey"
+           ],
+           "Resource": [
+               "arn:aws:kms:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:key/<code class="replaceable">key-id</code>"           
+           ],
+           "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                   "kms:ViaService": "s3.<code class="replaceable">region</code>.amazonaws.com"
+               },
+               "StringLike": <span>{</span>
+                   "kms:EncryptionContext:aws:s3:arn": "arn:aws:s3:::<code class="replaceable">bucket-name/prefix</code>*"
+               }
+           }
+        },        
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kinesis:DescribeStream",
+               "kinesis:GetShardIterator",
+               "kinesis:GetRecords",
+               "kinesis:ListShards"
+           ],
+           "Resource": "arn:aws:kinesis:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:stream/<code class="replaceable">stream-name</code>"
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "logs:PutLogEvents"
+           ],
+           "Resource": [
+               "arn:aws:logs:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:log-group:<code class="replaceable">log-group-name</code>:log-stream:<code class="replaceable">log-stream-name</code>"
+           ]
+        },
+        <span>{</span>
+           "Effect": "Allow", 
+           "Action": [
+               "lambda:InvokeFunction", 
+               "lambda:GetFunctionConfiguration" 
+           ],
+           "Resource": [
+               "arn:aws:lambda:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:function:<code class="replaceable">function-name</code>:<code class="replaceable">function-version</code>"
+           ]
+        }
+    ]
+}</code></pre>
+            <p>For more information about allowing other AWS services to access your AWS
+                resources, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating
+                    a Role to Delegate Permissions to an AWS Service</a> in the
+                    <em>IAM User Guide</em>.</p>
+         
+         
+            <h3 id="using-iam-rs-vpc">VPC Access to an Amazon Redshift Cluster</h3>
+            <p>If your Amazon Redshift cluster is in a virtual private cloud (VPC), it must be publicly
+                accessible with a public IP address. Also, grant Kinesis Data Firehose access to your Amazon Redshift cluster
+                by unblocking the Kinesis Data Firehose IP addresses. Kinesis Data Firehose currently uses one CIDR block for each
+                available Region: </p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">13.58.135.96/27</code> for US East (Ohio)</p>
+                </li><li class="listitem">
+                    <p><code class="code">52.70.63.192/27</code> for US East (N. Virginia)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.57.135.192/27</code> for US West (N. California)</p>
+                </li><li class="listitem">
+                    <p><code class="code">52.89.255.224/27</code> for US West (Oregon)</p>
+                </li><li class="listitem">
+                    <p><code class="code">18.253.138.96/27</code> for AWS GovCloud (US-East)</p>
+                </li><li class="listitem">
+                    <p><code class="code">52.61.204.160/27</code> for AWS GovCloud (US-West)</p>
+                </li><li class="listitem">
+                    <p><code class="code">35.183.92.128/27</code> for Canada (Central)</p>
+                </li><li class="listitem">
+                    <p><code class="code">18.162.221.32/27</code> for Asia Pacific (Hong Kong)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.232.67.32/27</code> for Asia Pacific (Mumbai)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.209.1.64/27</code> for Asia Pacific (Seoul)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.228.64.192/27</code> for Asia Pacific (Singapore)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.210.67.224/27</code> for Asia Pacific (Sydney)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.113.196.224/27</code> for Asia Pacific (Tokyo)</p>
+                </li><li class="listitem">
+                    <p><code class="code">52.81.151.32/27</code> for China (Beijing)</p>
+                </li><li class="listitem">
+                    <p><code class="code">161.189.23.64/27</code> for China (Ningxia)</p>
+                </li><li class="listitem">
+                    <p><code class="code">35.158.127.160/27</code> for Europe (Frankfurt)</p>
+                </li><li class="listitem">
+                    <p><code class="code">52.19.239.192/27</code> for Europe (Ireland)</p>
+                </li><li class="listitem">
+                    <p><code class="code">18.130.1.96/27</code> for Europe (London)</p>
+                </li><li class="listitem">
+                    <p><code class="code">35.180.1.96/27</code> for Europe (Paris)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.53.63.224/27</code> for Europe (Stockholm)</p>
+                </li><li class="listitem">
+                    <p><code class="code">15.185.91.0/27</code> for Middle East (Bahrain)</p>
+                </li><li class="listitem">
+                    <p><code class="code">18.228.1.128/27</code> for South America (São Paulo)</p>
+                </li><li class="listitem">
+                    <p><code class="code">15.161.135.128/27</code> for Europe (Milan)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.244.121.224/27</code> for Africa (Cape Town)</p>
+                </li><li class="listitem">
+                    <p><code class="code">13.208.177.192/27</code> for Asia Pacific (Osaka)</p>
+                </li><li class="listitem">
+                    <p><code class="code">108.136.221.64/27</code> for Asia Pacific (Jakarta)</p>
+                </li><li class="listitem">
+                    <p><code class="code">3.28.159.32/27</code> for Middle East (UAE)</p>
+                </li><li class="listitem">
+                    <p><code class="code">18.100.71.96/27</code> for Europe (Spain)</p>
+                </li><li class="listitem">
+                    <p><code class="code">16.62.183.32/27</code> for Europe (Zurich)</p>
+                </li><li class="listitem">
+                    <p><code class="code">18.60.192.128/27</code> for Asia Pacific (Hyderabad)</p>
+                </li><li class="listitem">
+                    <p><code class="code">16.50.161.128/27</code> for Asia Pacific (Melbourne)</p>
+                </li></ul></div>
+            <p>For more information about how to unblock IP addresses, see the step <a href="https://docs.aws.amazon.com/redshift/latest/gsg/rs-gsg-authorize-cluster-access.html">Authorize Access to the
+                    Cluster</a> in the <em>Amazon Redshift Getting Started Guide</em> guide. </p>
+         
+     
+        <h2 id="using-iam-es">Grant Kinesis Data Firehose Access to a Public OpenSearch Service
+                Destination</h2>
+        <p>When you're using an OpenSearch Service destination, Kinesis Data Firehose delivers data to your
+            OpenSearch Service cluster, and concurrently backs up failed or all documents to your S3
+            bucket. If error logging is enabled, Kinesis Data Firehose also sends data delivery errors to your CloudWatch
+            log group and streams. Kinesis Data Firehose uses an IAM role to access the specified OpenSearch
+            Service domain, S3 bucket, AWS KMS key, and CloudWatch log group and streams. You are required
+            to have an IAM role when creating a delivery stream.</p>
+        <p>Use the following access policy to enable Kinesis Data Firehose to access your S3 bucket, OpenSearch
+            Service domain, and AWS KMS key. If you do not own the S3 bucket, add
+                <code class="code">s3:PutObjectAcl</code> to the list of Amazon S3 actions, which grants the bucket
+            owner full access to the objects delivered by Kinesis Data Firehose. This policy also has a statement
+            that allows access to Amazon Kinesis Data Streams. If you don't use Kinesis Data Streams as your data source, you can
+            remove that statement.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",  
+    "Statement": [    
+        <span>{</span>      
+            "Effect": "Allow",      
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject"
+            ],      
+            "Resource": [        
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>",
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>/*"		    
+            ]    
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kms:Decrypt",
+               "kms:GenerateDataKey"
+           ],
+           "Resource": [
+               "arn:aws:kms:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:key/<code class="replaceable">key-id</code>"           
+           ],
+           "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                   "kms:ViaService": "s3.<code class="replaceable">region</code>.amazonaws.com"
+               },
+               "StringLike": <span>{</span>
+                   "kms:EncryptionContext:aws:s3:arn": "arn:aws:s3:::<code class="replaceable">bucket-name/prefix</code>*"
+               }
+           }
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "es:DescribeDomain",
+               "es:DescribeDomains",
+               "es:DescribeDomainConfig",
+               "es:ESHttpPost",
+               "es:ESHttpPut"
+           ],
+          "Resource": [
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/*"
+          ]
+       },
+       <span>{</span>
+          "Effect": "Allow",
+          "Action": [
+              "es:ESHttpGet"
+          ],
+          "Resource": [
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/_all/_settings",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/_cluster/stats",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/<code class="replaceable">index-name</code>*/_mapping/<code class="replaceable">type-name</code>",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/_nodes",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/_nodes/stats",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/_nodes/*/stats",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/_stats",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/<code class="replaceable">index-name</code>*/_stats",
+              "arn:aws:es:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:domain/<code class="replaceable">domain-name</code>/"
+          ]
+       },        
+       <span>{</span>
+          "Effect": "Allow",
+          "Action": [
+              "kinesis:DescribeStream",
+              "kinesis:GetShardIterator",
+              "kinesis:GetRecords",
+              "kinesis:ListShards"
+          ],
+          "Resource": "arn:aws:kinesis:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:stream/<code class="replaceable">stream-name</code>"
+       },
+       <span>{</span>
+          "Effect": "Allow",
+          "Action": [
+              "logs:PutLogEvents"
+          ],
+          "Resource": [
+              "arn:aws:logs:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:log-group:<code class="replaceable">log-group-name</code>:log-stream:<code class="replaceable">log-stream-name</code>"
+          ]
+       },
+       <span>{</span>
+          "Effect": "Allow", 
+          "Action": [
+              "lambda:InvokeFunction", 
+              "lambda:GetFunctionConfiguration" 
+          ],
+          "Resource": [
+              "arn:aws:lambda:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:function:<code class="replaceable">function-name</code>:<code class="replaceable">function-version</code>"
+          ]
+       }
+    ]
+}</code></pre>
+        <p>For more information about allowing other AWS services to access your AWS
+            resources, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating a
+                Role to Delegate Permissions to an AWS Service</a> in the
+                <em>IAM User Guide</em>.</p>
+        <p>To learn how to grant Kinesis Data Firehose access to an OpenSearch Service cluster in another
+            account, see <a href="#cross-account-delivery-es">Cross-Account Delivery to an OpenSearch
+                Service Destination</a>.</p>
+     
+        <h2 id="using-iam-es-vpc">Grant Kinesis Data Firehose Access to an OpenSearch Service
+                Destination in a VPC</h2>
+        <p>If your OpenSearch Service domain is in a VPC, make sure you give Kinesis Data Firehose the
+            permissions that are described in the previous section. In addition, you need to give
+            Kinesis Data Firehose the following permissions to enable it to access your OpenSearch Service domain's
+            VPC.</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><code class="code">ec2:DescribeVpcs</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DescribeVpcAttribute</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DescribeSubnets</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DescribeSecurityGroups</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DescribeNetworkInterfaces</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:CreateNetworkInterface</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:CreateNetworkInterfacePermission</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DeleteNetworkInterface</code></p>
+            </li></ul></div>
+
+        <p>If you revoke these permissions after you create the delivery stream, Kinesis Data
+            Firehose can't scale out by creating more ENIs when necessary. You might therefore see a
+            degradation in performance.</p>
+        <p>When you create or update your delivery stream, you specify a security group for Kinesis Data Firehose
+            to use when it sends data to your OpenSearch Service domain. You can use the same
+            security group that the OpenSearch Service domain uses or a different one. If you
+            specify a different security group, ensure that it allows outbound HTTPS traffic to the
+            OpenSearch Service domain's security group. Also ensure that the OpenSearch Service
+            domain's security group allows HTTPS traffic from the security group you specified when
+            you configured your delivery stream. If you use the same security group for both your
+            delivery stream and the OpenSearch Service domain, make sure the security group inbound
+            rule allows HTTPS traffic. For more information about security group rules, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#SecurityGroupRules">Security group rules</a> in the Amazon VPC documentation.</p>
+     
+        <h2 id="using-iam-serverless">Grant Kinesis Data Firehose Access to a Public OpenSearch
+                Serverless Destination</h2>
+        <p>When you're using an OpenSearch Serverless destination, Kinesis Data Firehose delivers data to your
+            OpenSearch Serverless collection, and concurrently backs up failed or all documents to
+            your S3 bucket. If error logging is enabled, Kinesis Data Firehose also sends data delivery errors to
+            your CloudWatch log group and streams. Kinesis Data Firehose uses an IAM role to access the specified
+            OpenSearch Serverless collection, S3 bucket, AWS KMS key, and CloudWatch log group and streams.
+            You are required to have an IAM role when creating a delivery stream.</p>
+        <p>Use the following access policy to enable Kinesis Data Firehose to access your S3 bucket, OpenSearch
+            Serverless domain, and AWS KMS key. If you do not own the S3 bucket, add
+                <code class="code">s3:PutObjectAcl</code> to the list of Amazon S3 actions, which grants the bucket
+            owner full access to the objects delivered by Kinesis Data Firehose. This policy also has a statement
+            that allows access to Amazon Kinesis Data Streams. If you don't use Kinesis Data Streams as your data source, you can
+            remove that statement.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",  
+    "Statement": [    
+        <span>{</span>      
+            "Effect": "Allow",      
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject"
+            ],      
+            "Resource": [        
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>",
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>/*"		    
+            ]    
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kms:Decrypt",
+               "kms:GenerateDataKey"
+           ],
+           "Resource": [
+               "arn:aws:kms:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:key/<code class="replaceable">key-id</code>"           
+           ],
+           "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                   "kms:ViaService": "s3.<code class="replaceable">region</code>.amazonaws.com"
+               },
+               "StringLike": <span>{</span>
+                   "kms:EncryptionContext:aws:s3:arn": "arn:aws:s3:::<code class="replaceable">bucket-name/prefix</code>*"
+               }
+           }
+        },    
+       <span>{</span>
+          "Effect": "Allow",
+          "Action": [
+              "kinesis:DescribeStream",
+              "kinesis:GetShardIterator",
+              "kinesis:GetRecords",
+              "kinesis:ListShards"
+          ],
+          "Resource": "arn:aws:kinesis:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:stream/<code class="replaceable">stream-name</code>"
+       },
+       <span>{</span>
+          "Effect": "Allow",
+          "Action": [
+              "logs:PutLogEvents"
+          ],
+          "Resource": [
+              "arn:aws:logs:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:log-group:<code class="replaceable">log-group-name</code>:log-stream:<code class="replaceable">log-stream-name</code>"
+          ]
+       },
+       <span>{</span>
+          "Effect": "Allow", 
+          "Action": [
+              "lambda:InvokeFunction", 
+              "lambda:GetFunctionConfiguration" 
+          ],
+          "Resource": [
+              "arn:aws:lambda:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:function:<code class="replaceable">function-name</code>:<code class="replaceable">function-version</code>"
+          ]
+       }
+    ]
+}</code></pre>
+        <p>In addition to the policy above, you must also configure Kinesis Data Firehose to have
+            the following minimum permissions assigned in a data access policy:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+[
+   <span>{</span>
+      "Rules":[
+         <span>{</span>
+            "ResourceType":"index",
+            "Resource":[
+               "index/target-collection/target-index"
+            ],
+            "Permission":[
+               "aoss:WriteDocument",
+               "aoss:CreateIndex"
+            ]
+         }
+      ],
+      "Principal":[
+         "arn:aws:sts::<code class="replaceable">account-id</code>:assumed-role/<code class="replaceable">firehose-delivery-role-name</code>/*"
+      ]
+   }
+]
+        </code></pre>
+        <p>For more information about allowing other AWS services to access your AWS
+            resources, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating a
+                Role to Delegate Permissions to an AWS Service</a> in the
+                <em>IAM User Guide</em>.</p>
+     
+        <h2 id="using-iam-serverless-vpc">Grant Kinesis Data Firehose Access to an OpenSearch
+                Serverless Destination in a VPC</h2>
+        <p>If your OpenSearch Serverless collection is in a VPC, make sure you give Kinesis Data Firehose the
+            permissions that are described in the previous section. In addition, you need to give
+            Kinesis Data Firehose the following permissions to enable it to access your OpenSearch Serverless
+            collection's VPC.</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><code class="code">ec2:DescribeVpcs</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DescribeVpcAttribute</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DescribeSubnets</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DescribeSecurityGroups</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DescribeNetworkInterfaces</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:CreateNetworkInterface</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:CreateNetworkInterfacePermission</code></p>
+            </li><li class="listitem">
+                <p><code class="code">ec2:DeleteNetworkInterface</code></p>
+            </li></ul></div>
+
+        <p>If you revoke these permissions after you create the delivery stream, Kinesis Data
+            Firehose can't scale out by creating more ENIs when necessary. You might therefore see a
+            degradation in performance.</p>
+        <p>When you create or update your delivery stream, you specify a security group for Kinesis Data Firehose
+            to use when it sends data to your OpenSearch Serverless collection. You can use the same
+            security group that the OpenSearch Serverless collection uses or a different one. If you
+            specify a different security group, ensure that it allows outbound HTTPS traffic to the
+            OpenSearch Serverless collection's security group. Also ensure that the OpenSearch
+            Serverless collection's security group allows HTTPS traffic from the security group you
+            specified when you configured your delivery stream. If you use the same security group
+            for both your delivery stream and the OpenSearch Serverless collection, make sure the
+            security group inbound rule allows HTTPS traffic. For more information about security
+            group rules, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#SecurityGroupRules">Security group rules</a> in the Amazon VPC documentation.</p>
+     
+        <h2 id="using-iam-splunk">Grant Kinesis Data Firehose Access to a Splunk Destination</h2>
+        <p>When you're using a Splunk destination, Kinesis Data Firehose delivers data to your Splunk HTTP Event
+            Collector (HEC) endpoint. It also backs up that data to the Amazon S3 bucket that you
+            specify, and you can optionally use an AWS KMS key that you own for Amazon S3 server-side
+            encryption. If error logging is enabled, Kinesis Data Firehose sends data delivery errors to your CloudWatch
+            log streams. You can also use AWS Lambda for data transformation. If you use an AWS
+            load balancer, make sure that it is a Classic Load Balancer. Kinesis Data Firehose supports neither Application Load Balancers nor Network Load Balancers.
+            Also, enable duration-based sticky sessions with cookie expiration disabled. For
+            information about how to do this, see <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-duration">Duration-Based Session Stickiness</a>.</p>
+        <p>You are required to have an IAM role when creating a delivery stream. Kinesis Data Firehose assumes
+            that IAM role and gains access to the specified bucket, key, and CloudWatch log group and
+            streams.</p>
+        <p>Use the following access policy to enable Kinesis Data Firehose to access your S3 bucket. If you don't
+            own the S3 bucket, add <code class="code">s3:PutObjectAcl</code> to the list of Amazon S3 actions, which
+            grants the bucket owner full access to the objects delivered by Kinesis Data Firehose. This policy also
+            grants Kinesis Data Firehose access to CloudWatch for error logging and to AWS Lambda for data transformation.
+            The policy also has a statement that allows access to Amazon Kinesis Data Streams. If you don't use Kinesis Data Streams
+            as your data source, you can remove that statement. Kinesis Data Firehose doesn't use IAM to access
+            Splunk. For accessing Splunk, it uses your HEC token.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",  
+    "Statement":
+    [    
+        <span>{</span>      
+            "Effect": "Allow",      
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject"
+            ],      
+            "Resource": [        
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>",
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>/*"		    
+            ]     
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kms:Decrypt",
+               "kms:GenerateDataKey"
+           ],
+           "Resource": [
+               "arn:aws:kms:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:key/<code class="replaceable">key-id</code>"           
+           ],
+           "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                   "kms:ViaService": "s3.<code class="replaceable">region</code>.amazonaws.com"
+               },
+               "StringLike": <span>{</span>
+                   "kms:EncryptionContext:aws:s3:arn": "arn:aws:s3:::<code class="replaceable">bucket-name/prefix</code>*"
+               }
+           }
+        },     
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kinesis:DescribeStream",
+               "kinesis:GetShardIterator",
+               "kinesis:GetRecords",
+               "kinesis:ListShards"
+           ],
+           "Resource": "arn:aws:kinesis:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:stream/<code class="replaceable">stream-name</code>"
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "logs:PutLogEvents"
+           ],
+           "Resource": [
+               "arn:aws:logs:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:log-group:<code class="replaceable">log-group-name</code>:log-stream:*"
+           ]
+        },
+        <span>{</span>
+           "Effect": "Allow", 
+           "Action": [
+               "lambda:InvokeFunction", 
+               "lambda:GetFunctionConfiguration" 
+           ],
+           "Resource": [
+               "arn:aws:lambda:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:function:<code class="replaceable">function-name</code>:<code class="replaceable">function-version</code>"
+           ]
+        }
+    ]
+}</code></pre>
+        <p>For more information about allowing other AWS services to access your AWS
+            resources, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating a
+                Role to Delegate Permissions to an AWS Service</a> in the
+                <em>IAM User Guide</em>.</p>
+     
+        <h2 id="using-iam-splunk-vpc">Access to Splunk in VPC</h2>
+
+        <p>If your Splunk platform is in a VPC, it must be publicly accessible with a public IP
+            address. Also, grant Kinesis Data Firehose access to your Splunk platform by unblocking the Kinesis Data Firehose IP
+            addresses. Kinesis Data Firehose currently uses the following CIDR blocks.</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+
+
+             
+             
+             
+             
+
+
+        <ul class="itemizedlist"><li class="listitem">
+                <p><code class="code">18.216.68.160/27, 18.216.170.64/27, 18.216.170.96/27</code> for
+                    US East (Ohio)</p>
+            </li><li class="listitem">
+                <p><code class="code">34.238.188.128/26, 34.238.188.192/26, 34.238.195.0/26</code> for
+                    US East (N. Virginia)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.57.180.0/26</code> for US West (N. California)</p>
+            </li><li class="listitem">
+                <p><code class="code">34.216.24.32/27, 34.216.24.192/27, 34.216.24.224/27</code> for
+                    US West (Oregon)</p>
+            </li><li class="listitem">
+                <p><code class="code">18.253.138.192/26</code> for AWS GovCloud (US-East)</p>
+            </li><li class="listitem">
+                <p><code class="code">52.61.204.192/26</code> for AWS GovCloud (US-West)</p>
+            </li><li class="listitem">
+                <p><code class="code">18.162.221.64/26</code> for Asia Pacific (Hong Kong)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.232.67.64/26</code> for Asia Pacific (Mumbai)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.209.71.0/26</code> for Asia Pacific (Seoul)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.229.187.128/26</code> for Asia Pacific (Singapore)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.211.12.0/26</code> for Asia Pacific (Sydney)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.230.21.0/27, 13.230.21.32/27</code> for
+                    Asia Pacific (Tokyo)</p>
+            </li><li class="listitem">
+                <p><code class="code">35.183.92.64/26</code> for Canada (Central)</p>
+            </li><li class="listitem">
+                <p><code class="code">18.194.95.192/27, 18.194.95.224/27, 18.195.48.0/27</code> for
+                    Europe (Frankfurt)</p>
+            </li><li class="listitem">
+                <p><code class="code">34.241.197.32/27, 34.241.197.64/27, 34.241.197.96/27</code> for
+                    Europe (Ireland)</p>
+            </li><li class="listitem">
+                <p><code class="code">18.130.91.0/26</code> for Europe (London)</p>
+            </li><li class="listitem">
+                <p><code class="code">35.180.112.0/26</code> for Europe (Paris)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.53.191.0/26</code> for Europe (Stockholm)</p>
+            </li><li class="listitem">
+                <p><code class="code">15.185.91.64/26</code> for Middle East (Bahrain)</p>
+            </li><li class="listitem">
+                <p><code class="code">18.228.1.192/26</code> for South America (São Paulo)</p>
+            </li><li class="listitem">
+                <p><code class="code">15.161.135.192/26</code> for Europe (Milan)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.244.165.128/26</code> for Africa (Cape Town)</p>
+            </li><li class="listitem">
+                <p><code class="code">13.208.217.0/26</code> for Asia Pacific (Osaka)</p>
+            </li><li class="listitem">
+                <p><code class="code">52.81.151.64/26</code> for China (Beijing)</p>
+            </li><li class="listitem">
+                <p><code class="code">161.189.23.128/26</code> for China (Ningxia)</p>
+            </li><li class="listitem">
+                <p><code class="code">108.136.221.128/26</code> for Asia Pacific (Jakarta)</p>
+            </li><li class="listitem">
+                <p><code class="code">3.28.159.64/26</code> for Middle East (UAE)</p>
+            </li><li class="listitem">
+                <p><code class="code">18.100.194.0/26</code> for Europe (Spain)</p>
+            </li><li class="listitem">
+                <p><code class="code">16.62.183.64/26</code> for Europe (Zurich)</p>
+            </li><li class="listitem">
+                <p><code class="code">18.60.192.192/26</code> for Asia Pacific (Hyderabad)</p>
+            </li><li class="listitem">
+                <p><code class="code">16.50.161.192/26</code> for Asia Pacific (Melbourne)</p>
+            </li></ul></div>
+     
+        <h2 id="using-iam-http">Grant Kinesis Data Firehose Access to an HTTP Endpoint
+                Destination</h2>
+
+        <p>You can use Kinesis Data Firehose to deliver data to any HTTP endpoint destination. Kinesis Data Firehose also backs
+            up that data to the Amazon S3 bucket that you specify, and you can optionally use an AWS KMS
+            key that you own for Amazon S3 server-side encryption. If error logging is enabled, Kinesis Data Firehose
+            sends data delivery errors to your CloudWatch log streams. You can also use AWS Lambda for data
+            transformation. </p>
+        <p>You are required to have an IAM role when creating a delivery stream. Kinesis Data Firehose assumes
+            that IAM role and gains access to the specified bucket, key, and CloudWatch log group and
+            streams.</p>
+        <p>Use the following access policy to enable Kinesis Data Firehose to access the S3 bucket that you
+            specified for data backup. If you don't own the S3 bucket, add
+                <code class="code">s3:PutObjectAcl</code> to the list of Amazon S3 actions, which grants the bucket
+            owner full access to the objects delivered by Kinesis Data Firehose. This policy also grants Kinesis Data Firehose
+            access to CloudWatch for error logging and to AWS Lambda for data transformation. The policy
+            also has a statement that allows access to Amazon Kinesis Data Streams. If you don't use Kinesis Data Streams as your
+            data source, you can remove that statement. </p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Kinesis Data Firehose doesn't use IAM to access HTTP endpoint destinations owned by supported
+                third-party service providers, including Datadog, Dynatrace, LogicMonitor, MongoDB,
+                New Relic, Splunk, or Sumo Logic. For accessing a specified HTTP endpoint
+                destination owned by a supported third-party service provider, contact that service
+                provider to obtain the API key or the access key that is required to enable data
+                delivery to that service from Kinesis Data Firehose.</p></div></div>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",  
+    "Statement":
+    [    
+        <span>{</span>      
+            "Effect": "Allow",      
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject"
+            ],      
+            "Resource": [        
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>",
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>/*"		    
+            ]     
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kms:Decrypt",
+               "kms:GenerateDataKey"
+           ],
+           "Resource": [
+               "arn:aws:kms:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:key/<code class="replaceable">key-id</code>"           
+           ],
+           "Condition": <span>{</span>
+               "StringEquals": <span>{</span>
+                   "kms:ViaService": "s3.<code class="replaceable">region</code>.amazonaws.com"
+               },
+               "StringLike": <span>{</span>
+                   "kms:EncryptionContext:aws:s3:arn": "arn:aws:s3:::<code class="replaceable">bucket-name/prefix</code>*"
+               }
+           }
+        },     
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "kinesis:DescribeStream",
+               "kinesis:GetShardIterator",
+               "kinesis:GetRecords",
+               "kinesis:ListShards"
+           ],
+           "Resource": "arn:aws:kinesis:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:stream/<code class="replaceable">stream-name</code>"
+        },
+        <span>{</span>
+           "Effect": "Allow",
+           "Action": [
+               "logs:PutLogEvents"
+           ],
+           "Resource": [
+               "arn:aws:logs:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:log-group:<code class="replaceable">log-group-name</code>:log-stream:*"
+           ]
+        },
+        <span>{</span>
+           "Effect": "Allow", 
+           "Action": [
+               "lambda:InvokeFunction", 
+               "lambda:GetFunctionConfiguration" 
+           ],
+           "Resource": [
+               "arn:aws:lambda:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:function:<code class="replaceable">function-name</code>:<code class="replaceable">function-version</code>"
+           ]
+        }
+    ]
+}</code></pre>
+        <p>For more information about allowing other AWS services to access your AWS
+            resources, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating a
+                Role to Delegate Permissions to an AWS Service</a> in the
+                <em>IAM User Guide</em>.</p>
+
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Currently Kinesis Data Firehose does NOT support data delivery to HTTP endpoints in a VPC.</p></div></div>
+     
+        <h2 id="cross-account-delivery-s3">Cross-Account Delivery to an Amazon S3
+                Destination</h2>
+
+        <p>You can use the AWS CLI or the Kinesis Data Firehose APIs to create a delivery stream in one AWS
+            account with an Amazon S3 destination in a different account. The following procedure shows
+            an example of configuring a Kinesis Data Firehose delivery stream owned by account A to deliver data to
+            an Amazon S3 bucket owned by account B.</p>
+
+        <div class="procedure"><ol><li>
+                <p>Create an IAM role under account A using steps described in <a href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant Kinesis
+                        Firehose Access to an Amazon S3 Destination</a>. </p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The Amazon S3 bucket specified in the access policy is owned by account B in
+                        this case. Make sure you add <code class="code">s3:PutObjectAcl</code> to the list of
+                        Amazon S3 actions in the access policy, which grants account B full access to the
+                        objects delivered by Amazon Kinesis Data Firehose. This permission is
+                        required for cross account delivery. Kinesis Data Firehose sets the "x-amz-acl" header on
+                        the request to "bucket-owner-full-control".</p></div></div>
+            </li><li>
+                <p>To allow access from the IAM role previously created, create an S3 bucket
+                    policy under account B. The following code is an example of the bucket policy.
+                    For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html">Using
+                        Bucket Policies and User Policies</a>. </p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+
+    "Version": "2012-10-17",
+    "Id": "PolicyID",
+    "Statement": [
+        <span>{</span>
+            "Sid": "StmtID",
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": "arn:aws:iam::<code class="replaceable">accountA-id</code>:role/<code class="replaceable">iam-role-name</code>"
+            },
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>",
+                "arn:aws:s3:::<code class="replaceable">bucket-name</code>/*"
+            ]
+        }
+    ]
+}
+                        </code></pre>
+            </li><li>
+                <p>Create a Kinesis Data Firehose delivery stream under account A using the IAM role that you
+                    created in step 1.</p>
+            </li></ol></div>
+     
+        <h2 id="cross-account-delivery-es">Cross-Account Delivery to an OpenSearch
+                Service Destination</h2>
+
+        <p>You can use the AWS CLI or the Kinesis Data Firehose APIs to create a delivery stream in one AWS
+            account with an OpenSearch Service destination in a different account. The following
+            procedure shows an example of how you can create a Kinesis Data Firehose delivery stream under account A
+            and configure it to deliver data to an OpenSearch Service destination owned by account
+            B.</p>
+
+        <div class="procedure"><ol><li>
+                <p>Create an IAM role under account A using the steps described in <a href="#using-iam-es">Grant Kinesis Data Firehose Access to a Public OpenSearch Service
+                Destination</a>. </p>
+            </li><li>
+                <p>To allow access from the IAM role that you created in the previous step,
+                    create an OpenSearch Service policy under account B. The following JSON is an
+                    example.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": "arn:aws:iam::<code class="replaceable">Account-A-ID</code>:role/firehose_delivery_role "
+      },
+      "Action": "es:ESHttpGet",
+      "Resource": [
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/_all/_settings",
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/_cluster/stats",
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/roletest*/_mapping/roletest",
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/_nodes",
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/_nodes/stats",
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/_nodes/*/stats",
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/_stats",
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/roletest*/_stats",
+        "arn:aws:es:us-east-1:<code class="replaceable">Account-B-ID</code>:domain/cross-account-cluster/"
+      ]
+    }
+  ]
+}                   </code></pre>
+            </li><li>
+                <p>Create a Kinesis Data Firehose delivery stream under account A using the IAM role that you
+                    created in step 1. When you create the delivery stream, use the AWS CLI or the
+                    Kinesis Data Firehose APIs and specify the <code class="code">ClusterEndpoint</code> field instead of
+                        <code class="code">DomainARN</code> for OpenSearch Service.</p>
+            </li></ol></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To create a delivery stream in one AWS account with an OpenSearch Service
+                destination in a different account, you must use the AWS CLI or the Kinesis Data Firehose APIs. You
+                can't use the AWS Management Console to create this kind of cross-account configuration.</p></div></div>
+     
+        <h2 id="tag-based-access-control">Using Tags to Control Access</h2>
+        <p>You can use the optional <code class="code">Condition</code> element (or <code class="code">Condition</code>
+            <em>block</em>) in an IAM policy to fine-tune access to Kinesis Data Firehose operations
+            based on tag keys and values. The following subsections describe how to do this for the
+            different Kinesis Data Firehose operations. For more on the use of the <code class="code">Condition</code> element
+            and the operators that you can use within it, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">IAM JSON Policy Elements: Condition</a>.</p>
+         
+            <h3 id="aws-requesttag">CreateDeliveryStream</h3>
+            <p>For the <code class="code">CreateDeliveryStream</code> operation, use the
+                    <code class="code">aws:RequestTag</code> condition key. In the following example,
+                    <code class="code">MyKey</code> and <code class="code">MyValue</code> represent the key and corresponding
+                value for a tag.</p>
+
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "firehose:CreateDeliveryStream",
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "aws:RequestTag/MyKey": "MyValue"
+                }
+            }
+        }
+    ]
+}</code></pre>
+         
+
+
+
+
+
+         
+            <h3 id="aws-tagkeys">TagDeliveryStream</h3>
+            <p>For the <code class="code">TagDeliveryStream</code> operation, use the <code class="code">aws:TagKeys</code>
+                condition key. In the following example, <code class="code">MyKey</code> is an example tag
+                key.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "firehose:TagDeliveryStream",
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "ForAnyValue:StringEquals": <span>{</span>
+                    "aws:TagKeys": "MyKey"
+                 }
+            }
+        }
+    ]
+}</code></pre>
+         
+
+
+
+
+         
+            <h3 id="aws-untagkeys">UntagDeliveryStream</h3>
+            <p>For the <code class="code">UntagDeliveryStream</code> operation, use the
+                    <code class="code">aws:TagKeys</code> condition key. In the following example,
+                    <code class="code">MyKey</code> is an example tag key.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "firehose:UntagDeliveryStream",
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "ForAnyValue:StringEquals": <span>{</span>
+                    "aws:TagKeys": "MyKey"
+                 }
+            }
+        }
+    ]
+}</code></pre>
+         
+
+
+
+         
+            <h3 id="list-delivery-streams">ListDeliveryStreams</h3>
+            <p>You can't use tag-based access control with
+                <code class="code">ListDeliveryStreams</code>.</p>
+         
+         
+            <h3 id="firehose-resourcetag">Other Kinesis Data Firehose Operations</h3>
+            <p>For all Kinesis Data Firehose operations other than <code class="code">CreateDeliveryStream</code>,
+                    <code class="code">TagDeliveryStream</code>, <code class="code">UntagDeliveryStream</code>, and
+                    <code class="code">ListDeliveryStreams</code>, use the <code class="code">aws:RequestTag</code> condition
+                key. In the following example, <code class="code">MyKey</code> and <code class="code">MyValue</code> represent
+                the key and corresponding value for a tag.</p>
+            <p><code class="code">ListDeliveryStreams</code>, use the <code class="code">firehose:ResourceTag</code>
+                condition key to control access based on the tags on that delivery stream.</p>
+
+            <p>In the following example, <code class="code">MyKey</code> and <code class="code">MyValue</code> represent
+                the key and corresponding value for a tag. The policy would only apply to Data
+                Firehose delivery streams having a tag named <code class="code">MyKey</code> with a value of
+                    <code class="code">MyValue</code>. For more information about controlling access based on
+                resource tags, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html#access_tags_control-resources">Controlling access to AWS resources using tags</a> in the
+                    <em>IAM User Guide</em>.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+      <span>{</span>
+            "Effect": "Deny",
+            "Action": "firehose:DescribeDeliveryStream",
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+	                     "firehose:ResourceTag/MyKey": "MyValue"
+	                 }
+            }
+        }
+    ]
+}</code></pre>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./encryption.html">Data Protection</div><div id="next" class="next-link" accesskey="n" href="./security-monitoring.html">Monitoring</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Firehose&amp;topic_url=https://docs.aws.amazon.com/en_us/firehose/latest/dev/controlling-access.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Firehose&amp;topic_url=https://docs.aws.amazon.com/en_us/firehose/latest/dev/controlling-access.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Comportamiento de reintentar - AWSSDK y herramientas</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="feature-retry-behavior" /><meta name="default_state" content="feature-retry-behavior" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><meta name="description" content="El comportamiento de reintento incluye la configuración relativa a la forma en que los SDK intentan recuperarse de los errores derivados de las solicitudes realizadas aServicios de AWS. Configure esta función mediante los siguientes ajustes." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWSSDK y herramientas" /><meta name="guide" content="Guía de referencia" /><meta name="abstract" content="Una guía sobre las características y funcionalidades comunes de los AWS SDK y las herramientas para desarrolladores. Incluye políticas de mantenimiento y soporte, así como una referencia completa para configurar sus AWS credenciales y otros parámetros." /><meta name="guide-locale" content="es_es" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdkref/latest/guide/feature-retry-behavior.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sdkref/latest/guide/feature-retry-behavior.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdkref/latest/guide/feature-retry-behavior.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sdkref/latest/guide/feature-retry-behavior.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdkref/latest/guide/feature-retry-behavior.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sdkref/latest/guide/feature-retry-behavior.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sdkref/latest/guide/feature-retry-behavior.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdkref/latest/guide/feature-retry-behavior.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sdkref/latest/guide/feature-retry-behavior.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/sdkref/latest/guide/feature-retry-behavior.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/sdkref/latest/guide/feature-retry-behavior.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/sdkref/latest/guide/feature-retry-behavior.html" hreflang="x-default" /><meta name="feedback-item" content="AWS Docs SDK Reference" /><meta name="this_doc_product" content="AWSSDK y herramientas" /><meta name="this_doc_guide" content="Guía de referencia" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sdkref'}"></script><meta id="panorama-serviceSubSection" value="Guía de referencia" /><meta id="panorama-serviceConsolePage" value="Comportamiento de reintentar" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Comportamiento de reintentar - AWSSDK y herramientas</title><meta name="pdf" content="aws-sdk-ref.pdf#feature-retry-behavior" /><meta name="rss" content="aws-sdk-ref.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20Docs%20SDK%20Reference&amp;topic_url=http://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "none",
+        "item" : "https://docs.aws.amazon.com/sdkref/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guía de referencia",
+        "item" : "https://docs.aws.amazon.com/es_es/sdkref/latest/guide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Referencia de ajustes de configuración y autenticación",
+        "item" : "https://docs.aws.amazon.com/es_es/sdkref/latest/guide/settings-reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Funciones estandarizadas",
+        "item" : "https://docs.aws.amazon.com/es_es/sdkref/latest/guide/standardized-features.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Comportamiento de reintentar",
+        "item" : "https://docs.aws.amazon.com/es_es/sdkref/latest/guide/standardized-features.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="aws-sdk-ref.pdf#feature-retry-behavior" target="_blank" rel="noopener noreferrer" title="Abrir PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentación</a><a href="overview.html">Guía de referencia</a></div><div id="page-toc-src"><a href="#feature-retry-behavior-sdk-compat">Compatibilidad conAWS SDKS</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>Las traducciones son generadas a través de traducción automática. En caso de conflicto entre la traducción y la version original de inglés, prevalecerá la version en inglés.</p></awsui-alert><h1 class="topictitle" id="feature-retry-behavior">Comportamiento de reintentar</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>El comportamiento de reintento incluye la configuración relativa a la forma en que los SDK intentan recuperarse de los errores derivados de las solicitudes realizadas aServicios de AWS. </p><div class="variablelist"><p>Configure esta funcionalidad mediante lo siguiente:</p>
+         
+         
+
+
+    <dl>
+            <dt><b><span class="term"><code class="code">max_attempts</code>- configuración deAWS<code>config</code> archivos compartidos</span></b></dt>
+            <dt><b><span class="term"><code class="code">AWS_MAX_ATTEMPTS</code>- variable de entorno</span></b></dt>
+            <dd>
+                <p>Especifica el número máximo de intentos que se deben realizar en una solicitud.</p>
+
+                <p><b>Valor predeterminado:</b> si no se especifica este valor, su valor predeterminado depende del valor de la<code class="code">retry_mode</code> configuración: </p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Si<code class="code">retry_mode</code> es así<code class="code">legacy</code>, usa un valor predeterminado específico de tu SDK (consulta la guía específica del SDK o la base de códigos del SDK para conocer los valores<code class="code">max_attempts</code> predeterminados). </p>
+                    </li><li class="listitem">
+                        <p>Si<code class="code">retry_mode</code> es<code class="code">standard</code> así, hace tres intentos.</p>
+                    </li><li class="listitem">
+                        <p>Si<code class="code">retry_mode</code> es<code class="code">adaptive</code> así, hace tres intentos.</p>
+                    </li></ul></div>
+                <p><b>Valores válidos:</b> número mayor que 0. </p>
+            </dd>
+        
+            <dt><b><span class="term"><code class="code">retry_mode</code>- configuración deAWS<code>config</code> archivos compartidos</span></b></dt>
+            <dt><b><span class="term"><code class="code">AWS_RETRY_MODE</code>- variable de entorno</span></b></dt>
+            <dd>
+                <p>Especifica la forma en que el SDK o la herramienta de desarrollador intentan volver a intentarlo.</p>
+
+                <p><b>Valor predeterminado:</b><code class="code">legacy</code> es la estrategia de reintento predeterminada. </p>
+                <p><b>Valores válidos</b>: </p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">legacy</code>— Específico para tu SDK (consulta la guía específica del SDK o la base de código de tu SDK).</p>
+                    </li><li class="listitem">
+                        <p><code class="code">standard</code>— El conjunto estándar de reglas de reintento en todosAWS los SDK. Este modo incluye un conjunto estándar de errores que se reintentan y admite cuotas de reintentos. El número máximo predeterminado de intentos con este modo es de tres, a menos que<code class="code">max_attempts</code> esté configurado explícitamente.</p>
+                    </li><li class="listitem">
+                        <p><code class="code">adaptive</code>— Un modo de reintento experimental que incluye la funcionalidad del modo estándar, pero incluye la limitación automática del lado del cliente. Dado que este modo es experimental, podría cambiar su comportamiento en el future.</p>
+                    </li></ul></div>
+            </dd>
+        </dl></div><p>A continuación se muestra el pseudocódigo de alto nivel para los modos<code class="code">standard</code> y<code class="code">adaptive</code> reintento:</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">MakeSDKRequest() <span>{</span>
+  attempts = 0
+  loop <span>{</span>
+    GetSendToken()
+    response = SendHTTPRequest()
+    RequestBookkeeping(response)
+    if not Retryable(response)
+      return response
+    attempts += 1
+    if attempts &gt;= MAX_ATTEMPTS:
+      return response
+    if not HasRetryQuota(response)
+      return response
+    delay = ExponentialBackoff(attempts)
+    sleep(delay)
+  }
+}</code></pre><p>A continuación se muestran más detalles sobre los componentes que se utilizan en el pseudocódigo:</p><p><b><code class="code">GetSendToken</code>:</b></p><p> Los depósitos de fichas solo se utilizan en el modo de<code class="code">adaptive</code> reintento. Los depósitos de tokens imponen una tasa máxima de solicitudes al requerir que un token esté disponible para iniciar una solicitud. El cliente del SDK se puede configurar para anular rápidamente la solicitud o bloquearla hasta que haya un token disponible.</p><p>La <em>limitación de velocidad del lado del cliente</em> es un algoritmo que inicialmente permite realizar solicitudes a cualquier velocidad hasta el límite permitido por el token. Sin embargo, una vez que se detecta una respuesta restringida, el cliente rate-of-request  se limita en consecuencia. La asignación de fichas también se incrementa en consecuencia si se reciben respuestas satisfactorias. </p><p>Con la limitación de velocidad adaptativa, los SDK pueden reducir la velocidad a la que se envían las solicitudes para adaptarse mejor a la capacidad deServicios de AWS. </p><p><b><code class="code">SendHTTPRequest</code>:</b></p><p>La mayoría deAWS los SDK utilizan una biblioteca HTTP que usa grupos de conexiones para que puedas reutilizar una conexión existente al realizar una solicitud HTTP. Por lo general, las conexiones se reutilizan al reintentar las solicitudes debido a errores de limitación. Las solicitudes no se reutilizan al volver a intentarlo debido a errores transitorios. </p><p><b><code class="code">RequestBookkeeping</code>:</b></p><p> La cuota de reintentos debe actualizarse si la solicitud se realiza correctamente. Solo para el modo de<code class="code">adaptive</code> reintento, la variable de estado<code class="code">maxsendrate</code> se actualiza en función del tipo de respuesta recibida. </p><p><b><code class="code">Retryable</code>:</b></p><p> Este paso determina si se puede volver a intentar una respuesta en función de lo siguiente: </p><div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>El código de estado HTTP . </p>
+        </li><li class="listitem">
+            <p>El código de error devuelto por el servicio.</p>
+        </li><li class="listitem">
+            <p>Errores de conexión, definidos como cualquier error recibido por el SDK en el que no se reciba una respuesta HTTP del servicio. </p>
+        </li></ul></div><p>Es posible que se vuelvan a intentar los errores transitorios (códigos de estado HTTP 400, 408, 500, 502, 503 y 504) y los errores de limitación (códigos de estado HTTP 400, 403, 429, 502, 503 y 509). El comportamiento de reintento del SDK se determina en combinación con códigos de error u otros datos del servicio.</p><p><b><code class="code">MAX_ATTEMPTS</code>:</b></p><p> Especificado por la configuración del<code class="code">config</code> archivo o la variable de entorno. </p><p><b><code class="code">HasRetryQuota</code></b></p><p>Este paso reduce las solicitudes de reintentos al requerir que haya un token disponible en el depósito de cuotas de reintentos. Los cubos de cuotas de reintentos son un mecanismo para evitar reintentos que probablemente no tengan éxito. Estas cuotas dependen del SDK, suelen depender del cliente y, a veces, incluso de los puntos finales del servicio. Los tokens de cuota de reintentos disponibles se eliminan cuando las solicitudes fallan por diversos motivos y se reponen cuando tienen éxito. Cuando no quede ningún identificador, se cierra el ciclo de reintentos. </p><p><b><code class="code">ExponentialBackoff</code></b></p><p> En el caso de un error que se pueda volver a intentar, el retraso en el reintento se calcula mediante un retraso exponencial truncado. Los SDK utilizan un retroceso exponencial binario truncado con fluctuación. El siguiente algoritmo muestra cómo se define la cantidad de tiempo de sueño, en segundos, para una respuesta a una solicitud<code class="code">i</code>: </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">seconds_to_sleep_i = min(b*r^i, MAX_BACKOFF)</code></pre><p>En el algoritmo anterior, se aplican los siguientes valores:</p><p><code class="code">b = random number within the range of: 0 &lt;= b &lt;= 1</code></p><p><code class="code">r = 2</code></p><p><code class="code">MAX_BACKOFF = 20 seconds</code>para la mayoría de los SDK. Consulte la guía específica del SDK o el código fuente para confirmarlo.</p>
+        <h2 id="feature-retry-behavior-sdk-compat">Compatibilidad conAWS SDKS</h2>
+        <p>Los siguientes SDK admiten las funciones y la configuración que se describen en esta página; se indican las excepciones parciales:</p>
+        <div class="table-container"><div class="table-contents"><table id="w181aac11c19c27c59b5"><thead>
+                    <tr>
+                        <th>SDK</th>
+                        <th>Compatible</th>
+                        <th>Notas o más información</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/cli/latest/userguide/">AWS CLI v2</a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-cpp/latest/developer-guide/">SDK for C++</a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://aws.github.io/aws-sdk-go-v2/docs" rel="noopener noreferrer" target="_blank"><span>SDK for Go V2 (1.x)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-go/latest/developer-guide/">SDK for Go 1.x (V1)</a></td>
+                        <td align="center" style="text-align: center;">No</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/">SDK for Java 2.x</a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/">SDK for Java 1.x</a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-javascript/latest/developer-guide/">SDK para JavaScript  3.x</a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/">SDK para JavaScript  2.x</a></td>
+                        <td align="center" style="text-align: center;">No</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/">SDK for .NET 3.x</a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-php/latest/developer-guide/">SDK for PHP 3.x</a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html" rel="noopener noreferrer" target="_blank"><span>SDK for Python (Boto3)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://docs.aws.amazon.com/sdk-for-ruby/latest/developer-guide/">SDK for Ruby 3.x</a></td>
+                        <td align="center" style="text-align: center;">Sí</td>
+                        <td></td>
+                    </tr>
+
+                </table></div></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Aviso" /> <strong>JavaScript está desactivado o no está disponible en su navegador.</strong></p><p>Para utilizar la documentación de AWS, debe estar habilitado JavaScript. Para obtener más información, consulte las páginas de ayuda de su navegador.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenciones del documento</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./feature-imds-client.html">cliente IMDS</div><div id="next" class="next-link" accesskey="n" href="./feature-smart-config-defaults.html">Valores predeterminados de configuración inteligente</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">¿Le ha servido de ayuda esta página? - Sí</div><div class="content"><p>Gracias por hacernos saber que estamos haciendo un buen trabajo.</p><p>Si tiene un momento, díganos qué es lo que le ha gustado para que podamos seguir trabajando en esa línea.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Comentarios" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Docs SDK Reference&amp;topic_url=https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">¿Le ha servido de ayuda esta página? - No</div><div class="content"><p>Gracias por informarnos de que debemos trabajar en esta página. Lamentamos haberle defraudado.</p><p>Si tiene un momento, díganos cómo podemos mejorar la documentación.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Comentarios" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Docs SDK Reference&amp;topic_url=https://docs.aws.amazon.com/es_es/sdkref/latest/guide/feature-retry-behavior.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>HTTP クエリリクエストを使用した IAM API の呼び出し - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="programming" /><meta name="default_state" content="programming" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html" /><meta name="description" content="AWS Identity and Access Management (IAM) および AWS Security Token Service 用 Query API を使用してプログラムでリクエストを作成する方法を説明します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="ユーザー ID (認証) および特定のアクセス許可 (承認) を定義するポリシーで AWS リソースへのアクセスを制限します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/programming.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/programming.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/programming.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/programming.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/programming.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/programming.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/programming.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/programming.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/programming.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/programming.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/programming.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/programming.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/programming.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/programming.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/programming.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/programming.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="HTTP クエリリクエストを使用した IAM API の呼び出し" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>HTTP クエリリクエストを使用した IAM API の呼び出し - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#programming" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM ユーザー,user,IAM グループ,グループ,[IAM role] (IAM ロール),ロール,アクセス許可ポリシー,信頼ポリシー,ポリシー,アクセスキー,パスワード" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "HTTP クエリリクエストを使用した IAM API の呼び出し",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#programming" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#IAMEndpoints">エンドポイント</a><a href="#IAMHTTPSRequired">HTTPS の必要性</a><a href="#SigVersion">IAM API リクエストのサインアップ</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="programming">HTTP クエリリクエストを使用した IAM API の呼び出し</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><div class="highlights" id="inline-topiclist"><h6>内容</h6><ul><li><a href="#IAMEndpoints">エンドポイント</a></li><li><a href="#IAMHTTPSRequired">HTTPS の必要性</a></li><li><a href="#SigVersion">IAM API リクエストのサインアップ</a></li></ul></div><p>クエリ API を使用して、プログラムで IAM および AWS STS サービスにアクセスできます。Query API リクエストは、HTTPS リクエストであり、実行するべきアクションを示す <code class="code">Action</code> パラメータを含める必要があります。IAM および AWS STS は、すべてのアクションの GET リクエストおよび POST リクエストをサポートしています。つまり、API は、あるアクションに対しては GET を、他のアクションに対しては POST をといった使い分けを必要としません。しかしながら、GET リクエストは URL のサイズに制限があります。この制限はブラウザによって異なり、通常は 2048 バイトです。したがって、大きなサイズを必要とする Query API リクエストにおいては、POST リクエストを使用する必要があります。</p><p>レスポンスは XML 文書です。応答の詳細については、<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/">IAM API リファレンス</a> または <a href="https://docs.aws.amazon.com/STS/latest/APIReference/">AWS Security Token Service API リファレンス</a> にある個別の アクションページを参照してください。</p><div class="awsdocs-note awsdocs-tip"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>ヒント</h6></div><div class="awsdocs-note-text"><p>IAM または AWS STS API オペレーションを直接呼び出す代わりに、AWS SDK のいずれかを使用することができます。AWS SDK は、さまざまなプログラム言語およびプラットフォームのライブラリやサンプルコード (Java、Ruby、.NET、iOS、Android など) から成ります。SDK は、IAM や AWS へのプログラムによるアクセス権限を作成する際に役立ちます。例えば、SDK は暗号化された署名リクエスト（下記参照）、エラー管理、リクエストの自動再試行といったタスクに対応します。AWS SDK のダウンロードやインストールなどの詳細については、「<a href="http://aws.amazon.com/tools/" rel="noopener noreferrer" target="_blank"><span>アマゾン ウェブ サービスのツール</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>」ページを参照してください。</p></div></div><p>API のアクションやエラーの詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/">IAM API リファレンス</a>」または「<a href="https://docs.aws.amazon.com/STS/latest/APIReference/">AWS Security Token Service API リファレンス</a>」を参照してください。</p><h2 id="IAMEndpoints">エンドポイント</h2>
+    
+    <p>IAM および AWS STS にはそれぞれ 1 つずつグローバルエンドポイントがあります。</p>
+
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>(IAM)<a href="https://iam.amazonaws.com" rel="noopener noreferrer" target="_blank"><span>https://iam.amazonaws.com</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+      </li><li class="listitem">
+        <p>(AWS STS)<a href="https://sts.amazonaws.com" rel="noopener noreferrer" target="_blank"><span>https://sts.amazonaws.com</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+      </li></ul></div>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>AWS STS は、グローバルエンドポイント以外に、リージョンのエンドポイントへのリクエストの送信もサポートします。リージョンの AWS STS を使用する前に、AWS アカウント のそのリージョンで STS をアクティブ化する必要があります。AWS STS のその他のリージョンのアクティブ化については、「<a href="./id_credentials_temp_enable-regions.html">AWS リージョン での AWS STS の管理</a>」を参照してください。</p></div></div>
+
+    <p>すべてのサービスの AWS エンドポイントとリージョンの詳細については、「AWS 全般のリファレンス」の「<a href="https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html">サービスのエンドポイントとクォータ</a>」を参照してください。</p>
+  <h2 id="IAMHTTPSRequired">HTTPS の必要性</h2>
+    
+    <p>クエリ API は認証情報のような取扱いに注意が必要な情報を応答返信するため、すべての API リクエストに HTTPS を必ず使用しなければなりません。</p>
+  <h2 id="SigVersion">IAM API リクエストのサインアップ</h2>
+    
+    <p>リクエストには、アクセスキー ID およびシークレットアクセスキーによる署名が必要です。IAM での日常業務には、AWS アカウントのルートユーザー 認証情報を使用しないよう強くお勧めします。IAM ユーザーの認証情報を使用できます。また、AWS STS を使用して一時的セキュリティ認証情報を生成することもできます。</p>
+
+    <p>API リクエストをサインアップする際には、AWS 署名バージョン 4 の使用が推奨されます。<a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">署名バージョン 4 の使用については、『</a> 全般のリファレンス<em>』の「AWS署名バージョン 4 の署名プロセス</em>」を参照してください。</p>
+
+    <p>署名バージョン 2 を使用する必要がある場合には、「<a href="https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html">AWS 全般のリファレンス</a>」を参照してください。</p>
+
+    <p>詳細については、次を参照してください。</p>
+
+    <div class="itemizedlist">
+       
+
+       
+
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p> <a href="https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html">AWS セキュリティ認証情報</a>。AWS へのアクセスに使用された認証情報の種類に関する一般的情報を提供します。</p>
+      </li><li class="listitem">
+        <p><a href="./best-practices.html">IAM でのセキュリティのベストプラクティス</a>. AWS リソースの安全を確保するため、IAM サービスを使用するにあたっての提案事項のリストを表示します。</p>
+      </li><li class="listitem">
+        <p><a href="./id_credentials_temp.html">IAM の一時的な認証情報</a>. 一時的な認証情報の作成方法と使用方法を説明します。</p>
+      </li></ul></div>
+
+
+
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./resources.html">リソース</div><div id="next" class="next-link" accesskey="n" href="./document-history.html">ドキュメント履歴</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/programming.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

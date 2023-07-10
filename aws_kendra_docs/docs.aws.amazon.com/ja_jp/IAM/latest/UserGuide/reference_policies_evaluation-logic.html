@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>ポリシーの評価論理 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="reference_policies_evaluation-logic" /><meta name="default_state" content="reference_policies_evaluation-logic" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="description" content="単一アカウント で JSON ポリシーを評価し、許可または拒否を返す方法について説明します。AWS がクロスアカウントアクセスのポリシーを評価する方法については、「」を参照してください。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="ユーザー ID (認証) および特定のアクセス許可 (承認) を定義するポリシーで AWS リソースへのアクセスを制限します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="ポリシーの評価論理" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>ポリシーの評価論理 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#reference_policies_evaluation-logic" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM ユーザー,user,IAM グループ,グループ,[IAM role] (IAM ロール),ロール,アクセス許可ポリシー,信頼ポリシー,ポリシー,アクセスキー,パスワード" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS Identity and Access Management のリファレンス情報",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM JSON ポリシーリファレンス",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "ポリシーの評価論理",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#reference_policies_evaluation-logic" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#policy-eval-reqcontext">リクエストコンテキストの処理</a><a href="#policy-eval-basics">単一アカウント内のポリシーを評価する</a><a href="#policy-eval-denyallow">アカウント内でのリクエストの許可または拒否の決定</a><a href="#policies_evaluation_example">アイデンティティベースのポリシーおよびリソースベースのポリシーの評価の例</a><a href="#AccessPolicyLanguage_Interplay">明示的な拒否と暗黙的な拒否の違い</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="reference_policies_evaluation-logic">ポリシーの評価論理</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>プリンシパルが AWS Management Console、AWS API、または AWS CLI を使用しようとすると、プリンシパルは AWS に<em>リクエスト</em>を送信します。AWS サービスが、リクエストを受け取ると、AWS は、いくつかのステップを実行してリクエストの許可または拒否を決定します。</p><div class="orderedlist">
+     
+     
+     
+     
+  <ol><li>
+      <p><b>認証</b> – AWS は、必要に応じて、最初にリクエストを行ったプリンシパルを認証します。このステップは、匿名ユーザーからの一部のリクエストを許可するいくつかのサービス (Amazon S3 など) では不要です。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-reqcontext">リクエストコンテキストの処理</a></b> – AWS は、リクエスト内で収集した情報を処理し、リクエストに適用するポリシーを決定します。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-basics">単一アカウント内のポリシーを評価する</a></b> – AWS は、すべてのポリシータイプを評価します。ポリシータイプは、ポリシーを評価する順序に影響を与えます。</p>
+    </li><li>
+      <p><b><a href="#policy-eval-denyallow">アカウント内でのリクエストの許可または拒否の決定</a></b> – AWS 次にリクエストコンテキストに対してポリシーを処理して、リクエストが許可されているか拒否されているかを判断します。</p>
+    </li></ol></div>
+    <h2 id="policy-eval-reqcontext">リクエストコンテキストの処理</h2>
+    <p>AWS はリクエストを処理して、以下の情報を<em>リクエストコンテキスト</em>内に取り込みます。</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>アクション (またはオペレーション)</b> – プリンシパルが実行するアクションまたはオペレーション。</p>
+      </li><li class="listitem">
+        <p><b>リソース</b> – アクションまたはオペレーションを実行する対象の AWS リソースオブジェクト。</p>
+      </li><li class="listitem">
+        <p><b>プリンシパル</b> – リクエストの送信元のユーザー、ロール、フェデレーティッドユーザー、またはアプリケーション。プリンシパルに関する情報には、そのプリンシパルに関連付けられたポリシーが含まれます。</p>
+      </li><li class="listitem">
+        <p><b>環境データ</b> – IP アドレス、ユーザーエージェント、SSL 有効化ステータス、または時刻に関する情報。</p>
+      </li><li class="listitem">
+        <p><b>リソースデータ</b> – リクエストされているリソースに関連するデータ。これには、DynamoDB テーブル名、Amazon EC2 インスタンスのタグなどの情報が含まれる場合があります。</p>
+      </li></ul></div>
+    <p>次に、AWS は以上の情報を使用してリクエストコンテキストに適用するポリシーを見つけます。</p>
+   
+    <h2 id="policy-eval-basics">単一アカウント内のポリシーを評価する</h2>
+    <p>AWS によるポリシーの評価方法は、リクエストコンテキストに適用するポリシーのタイプによって異なります。以下のポリシータイプ (使用頻度の高い順に表示) は、単一の AWS アカウント で使用することができます。これらのポリシータイプの詳細については、「<a href="./access_policies.html">IAM でのポリシーとアクセス許可</a>」をご参照ください。AWS がクロスアカウントアクセスのポリシーを評価する方法については、「<a href="./reference_policies_evaluation-logic-cross-account.html">クロスアカウントポリシーの評価論理</a>」を参照してください。</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+       
+    <ol><li>
+        <p><b>ID ベースのポリシー</b> — アイデンティティベースのポリシーは IAM ID (ユーザー、ユーザーのグループ、またはロール) にアタッチされており、アクセス許可を IAM エンティティ (ユーザーおよびロール) にアタッチします。リクエストにアイデンティティベースのポリシーのみ、リクエストに適用された場合、AWS では、それらのすべてのポリシーに少なくとも 1 つ <code class="code">Allow</code> がないか確認します。</p>
+      </li><li>
+        <p><b>リソースベースのポリシー</b> – リソースベースのポリシーは、プリンシパルとして指定されたプリンシパル (アカウント、ユーザー、ロール、ロールセッションなどのセッションプリンシパル、IAM フェデレーションユーザー) にアクセス許可を付与します。このアクセス許可では、ポリシーがアタッチされているリソースに対してプリンシパルが実行できる操作を定義します。リソースベースのポリシーとアイデンティティのポリシーの両方がリクエストに適用された場合、AWS では、それらのすべてのポリシーに少なくとも 1 つ <code class="code">Allow</code> がないか確認します。リソースベースのポリシーが評価されると、ポリシーで指定されたプリンシパル ARN によって、他のポリシータイプの暗黙的な拒否が、最終的な決定に適用されるかどうかが決まります。</p>
+      </li><li>
+        <p><b>IAM アクセス許可の境界</b> – アクセス許可の境界は、アイデンティティベースのポリシーが IAM エンティティ (ユーザーまたはロール) に付与できるアクセス許可の上限を設定する高度な機能です。エンティティのアクセス許可の境界を設定した場合、エンティティは、アイデンティティベースのポリシーとそのアクセス許可の境界の両方で許可されているアクセス許可のみ実行できます。アクセス許可の境界で暗黙的に拒否しても、リソースベースのポリシーによって付与されるアクセス許可は制限される場合もあります。詳細については、このトピックの後半の「<a href="#policy-eval-denyallow">アカウント内でのリクエストの許可または拒否の決定</a>」を参照してください。</p>
+      </li><li>
+        <p><b>AWS Organizations サービスコントロールポリシー (SCP)</b> – Organizations SCP は、組織または組織単位 (OU) のアクセス許可の上限を指定します。最大 SCP はメンバーアカウントのプリンシパルに適用されます (各 AWS アカウントのルートユーザー など)。SCP が存在する場合、アイデンティティのポリシーおよびリソースベースのポリシーは、それらのポリシーと SCP によってアクションが許可されている場合にのみ、メンバーアカウントのプリンシパルにアクセス許可を付与します。アクセス許可の境界と SCP が両方存在する場合は、アクセス許可の境界、SCP、およびアイデンティティのポリシーによって、すべてのアクションが許可されます。</p>
+      </li><li>
+        <p><b>セッションポリシー</b> – セッションポリシーは、ロールまたはフェデレーティッドユーザーの一時セッションをプログラムで作成する際にパラメータとして渡す高度なポリシーです。ロールセッションをプログラムで作成するには、<code class="code">AssumeRole*</code> API オペレーションのいずれかを使用します。これを行い、セッションポリシーに合格すると、結果として得られるセッションのアクセス許可は、IAM エンティティの ID ベースのポリシーとセッションポリシーの共通部分です。フェデレーションユーザーのセッションを作成するには、IAM ユーザーのアクセスキーを使用して、API の <code class="code">GetFederationToken</code> オペレーションをプログラムで呼び出します。リソースベースのポリシーは、セッションポリシーのアクセス許可ポリシーの評価に異なる影響を与えます。この違いは、ユーザーまたはロールの ARN またはセッションの ARN がリソースベースのポリシーでプリンシパルとして表示されているかどうかによって異なります。詳細については、「<a href="./access_policies.html#policies_session">セッションポリシー</a>」を参照してください。</p>
+      </li></ol></div>
+    <p>これらのポリシーのいずれかを明示的に拒否した場合、その許可は無効になる点に注意してください。</p>
+     
+      <h3 id="policy-eval-basics-id-rdp">リソースベースのポリシーを使用したアイデンティティベースのポリシーの評価</h3>
+      <p>アイデンティティのポリシーとリソースベースのポリシーは、それらが関連付けられているアイデンティティまたはリソースにアクセス許可を付与します。IAM エンティティ (ユーザーまたはロール) が同じアカウントのリソースへのアクセスをリクエストした場合、AWS は、アイデンティティのポリシーおよびリソースベースのポリシーによって付与されているすべてのアクセス許可を評価します。結果として、合計 2 種類のアクセス許可が付与されます。アクションがアイデンティティのポリシーかリソースベースのポリシー、または両方で許可されている場合、AWS はそのアクションを許可します。これらのポリシーのいずれかを明示的に拒否した場合、その許可は無効になります。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_policies_effective.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          アイデンティティベースのポリシーおよびリソースベースのポリシーの評価&#xA;        " />
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-bound">アクセス許可の境界を使用したアイデンティティベースのポリシーの評価</h3>
+      <p>AWS でユーザーのアイデンティティベースのポリシーとアクセス許可の境界を評価する場合は、2 つのカテゴリーの共通部分に基づいてアクセス許可が決定されます。つまり、既存のアイデンティティベースのポリシーを使用してアクセス許可の境界をユーザーに追加すると、ユーザーが実行できるアクションが制限される場合があります。逆に、ユーザーからアクセス許可の境界を削除すると、ユーザーが実行できるアクションが増える場合があります。これらのポリシーのいずれかを明示的に拒否した場合、その許可は無効になります。他のポリシータイプがアクセス許可の境界で評価される方法について確認するには、「<a href="./access_policies_boundaries.html#access_policies_boundaries-eval-logic">境界を設定した場合の有効なアクセス許可の評価</a>」を参照してください。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          アイデンティティベースのポリシーとアクセス許可の境界の評価&#xA;        " />
+          
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-scp"> SCP を使用したアイデンティティベースのポリシーの評価</h3>
+      <p>ユーザーが組織のメンバーであるアカウントに所属している場合、結果として得られるアクセス許可はユーザーのポリシーと SCP の共通部分です。つまり、アクションは、アイデンティティベースのポリシーと SCP の両方で許可されます。これらのポリシーのいずれかを明示的に拒否した場合、その許可は無効になります。</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_scp-idp.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          アイデンティティベースのポリシーと SCP の評価&#xA;        " />
+          
+         
+         
+      </div>
+      <p><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">自分のアカウントが AWS Organizations の組織のメンバーであるかどうか</a>を確認できます。組織のメンバーは、SCP による影響を受ける可能性があります。AWS CLI コマンドまたは AWS API オペレーションを使用してこのデータを表示するには、Organizations エンティティに対する <code class="code">organizations:DescribeOrganization</code> アクションのアクセス許可が必要です。Organizations コンソールでオペレーションを実行するには、追加のアクセス許可が必要です。SCP が特定のリクエストへのアクセスを拒否しているかどうかを確認する、または有効なアクセス権限を変更するには、AWS Organizations 管理者に連絡してください。</p>
+     
+   
+    <h2 id="policy-eval-denyallow">アカウント内でのリクエストの許可または拒否の決定</h2>
+    <p>プリンシパルが、プリンシパルのエンティティと同じアカウントのリソースにアクセスするためのリクエストを AWS に送信するとします。AWS エンフォースメントコードは、リクエストを許可するか拒否するかどうかを決定します。AWS は、リクエストコンテキストに適用されるすべてのポリシーを評価します。単一アカウントでのポリシーの AWS 評価ロジックの概要を次に示します。</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>デフォルトでは、フルアクセスを持つ AWS アカウントのルートユーザー 以外は、すべてのリクエストが暗示的に拒否されます。</p>
+      </li><li class="listitem">
+        <p>アイデンティティベースのポリシーまたはリソースベースのポリシーに明示的な許可が含まれている場合、このデフォルト設定は上書きされます。</p>
+      </li><li class="listitem">
+        <p>アクセス許可の境界、Organizations SCP、またはセッションポリシーがある場合、この許可は明示的な拒否で上書きされる場合があります。</p>
+      </li><li class="listitem">
+        <p>ポリシー内の明示的な拒否は、すべての許可に優先します。</p>
+      </li></ul></div>
+    
+    <p>以下のフローチャートは、決定が下されるまでの詳細な流れを示しています。このフローチャートでは、リソースベースのポリシーと他のタイプのポリシーでの暗黙的な拒否による影響はカバーしていません。</p>
+    <div class="mediaobject">
+       
+        <img src="images/PolicyEvaluationHorizontal111621.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        評価フローチャート&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+      
+
+       
+       
+       
+       
+    <ol><li>
+        <p><b>拒否の評価</b> – デフォルトでは、すべてのリクエストが拒否されます。これは<a href="#AccessPolicyLanguage_Interplay">暗黙的な拒否</a>と呼ばれます。AWS エンフォースメントコードでは、リクエストに適用されるアカウント内のすべてのポリシーを評価します。このポリシータイプには、AWS Organizations SCP、リソースベースのポリシー、ID ベースのポリシー、IAM 許可の境界、セッションポリシーなどがあります。エンフォースメントコードでは、すべての該当するポリシーでリクエストに適用される <code class="code">Deny</code> ステートメントを探します。このプロセスは<a href="#AccessPolicyLanguage_Interplay">明示的な拒否</a>と呼ばれています。エンフォースメントコードにより、適用される明示的な拒否が 1 つでも見つかると、<b>拒否</b>の最終決定が返されます。明示的な拒否がない場合は、エンフォースメントコードの評価は続行されます。</p>
+      </li><li>
+        <p><b>Organizations SCP</b> - その後、エンフォースメントコードは、リクエストに適用する AWS Organizations サービスコントロールポリシー (SCP) を評価します。SCP は、SCP がアタッチされているアカウントのプリンシパルに適用されます。エンフォースメントコードで SCP に <code class="code">Allow</code> ステートメントが見つからなかった場合、例え暗黙の否定であっても、リクエストは明示的に拒否されます。エンフォースメントコードにより、<b>拒否</b>の最終決定が返ります。SCP がない場合、または SCP により、リクエストされたアクションが許可された場合は、エンフォースメントコードが続行されます。</p>
+      </li><li>
+        <p><b>リソースベースのポリシー</b> - 同じアカウント内でも、リソースにアクセスするプリンシパルのタイプと、リソースベースのポリシーで許可されるプリンシパルに応じて、リソースベースのポリシーはポリシーの評価に異なる影響を与えます。リソースベースのポリシーの <code class="code">Allow</code> は、ID ベースのポリシー、アクセス許可の境界、またはセッションポリシーに潜在的な拒否があったとしても、プリンシパルのタイプに応じて最終的には <code class="code">Allow</code> に決定されます。</p>
+        <p>ほとんどのリソースでは、ID ベースのポリシーまたはリソースベースのポリシーのいずれかでプリンシパルを明示的に許可するだけで、アクセス権を付与できます。<a href="./id_roles_compare-resource-policies.html">IAM ロール信頼ポリシー</a>と <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html">KMS キーポリシー</a>は、<a href="./reference_policies_elements_principal.html">プリンシパル</a>へのアクセスを明示的に許可する必要があるため、このロジックの例外です。</p>
+        <p>指定されたプリンシパルが IAM ユーザー、IAM ロール、またはセッションプリンシパルである場合、リソースベースのポリシーのロジックは他のポリシータイプとは異なります。セッションプリンシパルには、IAM <a href="./reference_policies_elements_principal.html#principal-role-session">ロールセッション</a>または<a href="./reference_policies_elements_principal.html#sts-session-principals">IAM フェデレーティッドユーザーセッション</a>が含まれます。リソースベースのポリシーが、リクエストを作成している IAM ユーザーまたはセッションプリンシパルに直接アクセス許可を付与する場合、ID ベースのポリシー、アクセス許可の境界、またはセッションポリシーで暗黙的な拒否が最終的な決定に影響を与えることはありません。</p>
+        <p>次の表は、ID ベースのポリシー、アクセス許可の境界、セッションポリシーで暗黙的な拒否が存在する場合に、さまざまなプリンシパルタイプに対する、リソースベースのポリシーの影響を理解するのに役立ちます。</p>
+        <div class="table-container"><div class="table-contents"><table id="w338aac25c19c13c13c11b5b9"><thead><tr><th class="table-header" colspan="100"><div class="title">リソースベースのポリシーと他のポリシータイプでの暗黙的な拒否 (同じアカウント)</div></th></tr>
+              <tr>
+                <th>リクエストを実行するプリンシパル</th>
+                <th>リソースベースのポリシー</th>
+                <th>ID ベースのポリシー</th>
+                <th>アクセス許可の境界</th>
+                <th>セッションポリシー</th>
+                <th>結果</th>
+                <th>理由</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>[IAM role] (IAM ロール)</td>
+                <td>該当しない</td>
+                <td>該当しない</td>
+                <td>該当しない</td>
+                <td>該当しない</td>
+                <td>該当しない</td>
+                <td>ロール自体がリクエストを行うことはできません。リクエストは、ロールを引き受けた後に、ロールセッションで行われます。</td>
+              </tr>
+              <tr>
+                <td>IAM ロールセッション</td>
+                <td>ロール ARN を許可する</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>DENY</td>
+                <td>アクセス許可の境界とセッションポリシーは、最終決定の一部として評価されます。いずれかのポリシーで暗黙的な拒否があると、DENY と決定されます。</td>
+              </tr>
+              <tr>
+                <td>IAM ロールセッション</td>
+                <td>ロールセッション ARN を許可する</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>許可</td>
+                <td>アクセス許可は、セッションに直接付与されます。他のポリシータイプは、決定に影響しません。</td>
+              </tr>
+              <tr>
+                <td>IAM ユーザー</td>
+                <td>IAM ユーザーの ARN を許可する</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>該当しない</td>
+                <td>許可</td>
+                <td>アクセス許可は、ユーザーに直接付与されます。他のポリシータイプは、決定に影響しません。</td>
+              </tr>
+              <tr>
+                <td>IAM フェデレーティッドユーザー (<code class="code">GetFederationToken</code>)</td>
+                <td>IAM ユーザーの ARN を許可する</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>DENY</td>
+                <td>アクセス許可の境界またはセッションポリシーで暗黙的な拒否があると、DENY と決定されます。</td>
+              </tr>
+              <tr>
+                <td>IAM フェデレーティッドユーザー (<code class="code">GetFederationToken</code>)</td>
+                <td>IAM フェデレーティッドユーザーセッション ARN を許可する</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>暗黙的な拒否</td>
+                <td>許可</td>
+                <td>アクセス許可は、セッションに直接付与されます。他のポリシータイプは、決定に影響しません。</td>
+              </tr>
+              <tr>
+                <td>ルートユーザー</td>
+                <td>ルートユーザーの ARN を許可する</td>
+                <td>該当しない</td>
+                <td>該当しない</td>
+                <td>該当しない</td>
+                <td>許可</td>
+                <td>ルートユーザーは、AWS アカウント のすべてのリソースに完全かつ無制限にアクセスできます。AWS Organizations のアカウントのルートユーザーへのアクセスを制御する方法については、「Organizations ユーザーガイド」の「<a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html">サービスコントロールポリシー (SCP)</a>」を参照してください。</td>
+              </tr>
+              <tr>
+                <td>AWS サービスプリンシパル</td>
+                <td>AWS サービスプリンシパルを許可する</td>
+                <td>該当しない</td>
+                <td>該当しない</td>
+                <td>該当しない</td>
+                <td>許可</td>
+                <td>リソースベースのポリシーが、<a href="./reference_policies_elements_principal.html#principal-services">AWS サービスプリンシパル</a>にアクセス許可を直接付与する場合、他のポリシータイプは決定に影響しません。</td>
+              </tr>
+            </table></div></div>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><b>IAM ロール</b>— IAM ロール ARN にアクセス許可を与えるリソースベースのポリシーは、アクセス許可の境界またはセッションポリシーの暗黙的な拒否によって制限されます。</p>
+            <p><b>ロール ARN の例</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:role/examplerole</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM ロールセッション</b> — 同じアカウント内で、IAM ロールセッション ARN にアクセス許可を与えるリソースベースのポリシーは、引き受けたロールセッションに、直接アクセス許可を与えます。セッションに直接付与されるアクセス許可は、ID ベースのポリシー、アクセス許可の境界、またはセッションポリシーの暗黙的な拒否によって制限されません。ロールを引き受けてリクエストを行う場合、リクエストを行うプリンシパルは IAM ロールセッション ARN であり、ロールそれ自体の ARN ではありません。</p>
+            <p><b>ロールセッション ARN の例</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:assumed-role/examplerole/examplerolesessionname</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM ユーザー</b> — 同じアカウント内では、IAM ユーザー ARN (フェデレーティッドユーザーセッションではない) へのアクセス許可を与えているリソースベースのポリシーは、ID ベースのポリシーまたはアクセス許可の境界による、暗黙的な拒否によって制限されません。</p>
+            <p><b>IAM ユーザー ARNの例</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:user/exampleuser</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM フェデレーティッドユーザーセッション</b> — IAM フェデレーティッドユーザーセッションは、<a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a> を呼び出して作成されたセッションです。フェデレーティッドユーザーがリクエストを行う場合、リクエストを行うプリンシパルはフェデレーティッドユーザー ARN であり、フェデレーションした IAM ユーザーの ARN ではありません。同じアカウント内で、フェデレーティッドユーザー ARN にアクセス許可を与えるリソースベースのポリシーは、セッションに直接アクセス許可を与えます。セッションに直接付与されるアクセス許可は、ID ベースのポリシー、アクセス許可の境界、またはセッションポリシーの暗黙的な拒否によって制限されません。</p>
+            <p>ただし、リソースベースのポリシーがフェデレーションした IAM ユーザーの ARN にアクセス許可を与える場合、セッション中にフェデレーティッドユーザーによって行われたリクエストは、アクセス許可の境界またはセッションポリシーの、暗黙的な拒否によって制限されます。</p>
+            <p><b>IAM フェデレーティッドユーザーセッション ARN の例</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:federated-user/exampleuser</code></code></pre>
+          </li></ul></div>
+      </li><li>
+        <p><b>アイデンティティベースのポリシー</b> – コードを使用して、プリンシパルのアイデンティティベースのポリシーを確認します。IAM ユーザーの場合は、ユーザーポリシーや、ユーザーが属するグループのポリシーが含まれます。ID ベースのポリシーが無いか、ID ベースのポリシーにリクエストされたアクションを許可するステートメントがない場合、そのリクエストは暗黙的に拒否され、<b>拒否</b>の最終決定がコードで返ります。該当する ID ベースのポリシーのステートメントで、リクエストされたアクションが許可されている場合は、コードが継続します。</p>
+      </li><li>
+        <p><b>IAM アクセス許可の境界</b> – その後コードで、プリンシパルによって使用されている IAM エンティティにアクセス許可の境界があるかどうかが確認されます。アクセス許可の境界の設定に使用されているポリシーで、リクエストされたアクションが許可されていない場合、リクエストは明示的に拒否されます。この場合、<b>拒否</b>の最終決定が返ります。アクセス許可の境界がない場合、またはアクセス許可の境界で、リクエストされたアクションが許可されている場合、コードは続行されます。</p>
+      </li><li>
+        <p><b>セッションポリシー</b> — その後、コードは、プリンシパルがセッションプリンシパルかどうかをチェックします。セッションプリンシパルには、IAM ロールセッションか IAM フェデレーティッドユーザーセッションが含まれます。プリンシパルがセッションプリンシパルでない場合、エンフォースメントコードは最終決定で<b>許可</b>を返します。</p>
+        <p>セッションプリンシパルの場合、コードは、セッションポリシーがリクエストによって渡されたかどうかをチェックします。セッションポリシーは、AWS CLI または AWS API を使用して、ロールまたは IAM フェデレーティッドユーザーの一時認証情報を取得する場合に渡すことができます。</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>セッションポリシーが存在し、リクエストされたアクションが許可されていない場合、そのリクエストは暗示的に拒否されます。この場合、<b>拒否</b>の最終決定が返ります。</p>
+          </li><li class="listitem">
+            <p>セッションポリシーがない場合、プリンシパルがロールセッションかどうかをコードがチェックします。プリンシパルがロールセッションだった場合、リクエストは<b>許可</b>になります。それ以外の場合は、リクエストは暗黙的に拒否され、コードは最終決定で<b>拒否</b>を返します。</p>
+          </li><li class="listitem">
+            <p>セッションポリシーが存在し、リクエストされたアクションが許可されている場合は、エンフォースメントコードは最終決定で<b>許可</b>を返します。</p>
+          </li></ul></div>
+      </li><li>
+        <p><b>エラー</b> – 評価中に AWS エンフォースメントコードでエラーが発生すると、例外が生成され、終了します。</p>
+      </li></ol></div>
+
+   
+    <h2 id="policies_evaluation_example">アイデンティティベースのポリシーおよびリソースベースのポリシーの評価の例</h2>
+    <p>最も一般的なポリシータイプは、アイデンティティベースのポリシーとリソースベースのポリシーです。リソースへのアクセスがリクエストされると、同じアカウント内の<b>少なくとも 1 つの許可</b>について、AWS はポリシーによって付与されたすべてのアクセス許可を評価します。これらのポリシーのいずれかが明示的に拒否された場合、許可は無効になります。</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>同じアカウント内の ID ベースのポリシーまたはリソースベースのポリシーの一方がリクエストを許可し、他方が許可しない場合でも、リクエストは許可されます。</p></div></div>
+    <p>Carlos のユーザー名が <code class="code">carlossalazar</code> で、ファイルを Amazon S3 バケット <code class="code">carlossalazar-logs</code> に保存するとします。</p>
+    <p>また、次のポリシーを IAM ユーザー <code class="code">carlossalazar</code> にアタッチするとします。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowS3ListRead",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowS3Self",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::*log*"
+        }
+    ]
+}</code></pre>
+    <p>このポリシーの <code class="code">AllowS3ListRead</code> ステートメントでは、アカウント内のすべてのバケットを一覧表示することを Carlos に許可します。<code class="code">AllowS3Self</code> ステートメントでは、Carlos のユーザー名と同じ名前のバケットに対するフルアクセスを Carlos に許可します。<code class="code">DenyS3Logs</code> ステートメントでは、名前に <code class="code">log</code> が含まれている S3 バケットへのアクセスを Carlos に拒否します。</p>
+    <p>さらに、次のリソースベースのポリシー (バケットポリシー) を <code class="code">carlossalazar</code> バケットにアタッチします。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:user/carlossalazar"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        }
+    ]
+}</code></pre>
+    <p>このポリシーでは、<code class="code">carlossalazar</code> ユーザーのみが <code class="code">carlossalazar</code> バケットにアクセスできることを指定します。</p>
+    <p>Carlos がファイルを <code class="code">carlossalazar-logs</code> バケットに保存することをリクエストすると、AWS はこのリクエストに適用されるポリシーを決定します。この例では、アイデンティティベースのポリシーとリソースベースのポリシーのみが適用されます。これらは両方ともアクセス許可ポリシーです。アクセス許可の境界は適用されないため、評価ロジックは次のロジックに限定されます。</p>
+    <div class="mediaobject">
+       
+        <img src="images/EffectivePermissionsShort.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        評価フローチャート&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>AWS は、最初にリクエストのコンテキストに適用される <code class="code">Deny</code> ステートメントの有無を確認します。アイデンティティベースのポリシーでは、Carlos に対してログ記録用の S3 バケットへのアクセスが明示的に拒否されるため、該当するステートメントが見つかります。Carlos はアクセスが拒否されます。</p>
+    <p>彼は間違いに気が付いて、ファイルを <code class="code">carlossalazar</code> バケットに保存しようとします。AWS は <code class="code">Deny</code> ステートメントを探しますが、1 つも見つかりません。次に、アクセス許可ポリシーを確認します。ID ベースのポリシーとリソースベースのポリシーの両方で、リクエストが許可されます。従って、AWS でリクエストが許可されます。どちらでもステートメントが明示的に拒否された場合、リクエストは拒否されます。いずれかのポリシータイプでリクエストが許可され、もう一方では許可されない場合でも、リクエストは許可されます。</p>
+   
+    <h2 id="AccessPolicyLanguage_Interplay">明示的な拒否と暗黙的な拒否の違い</h2>
+    <p>該当するポリシーに <code class="code">Deny</code> ステートメントが含まれている場合、リクエストは明示的に拒否されます。リクエストに適用されるポリシーに <code class="code">Allow</code> ステートメントと <code class="code">Deny</code> ステートメントが含まれている場合は、<code class="code">Deny</code> ステートメントが <code class="code">Allow</code> ステートメントより優先されます。リクエストは明示的に拒否されます。</p>
+    <p>該当する <code class="code">Deny</code> ステートメントがなく、該当する <code class="code">Allow</code> ステートメントもない場合は、暗黙的な拒否が発生します。IAM プリンシパルは、デフォルトでアクセスが拒否されされるため、アクションを実行するには明示的に許可を受ける必要があります。そうでない場合は、アクセスは暗黙的に拒否されます。</p>
+    <p>承認戦略を設計する場合、プリンシパルのリクエストを成功させるには、作成するポリシーに <code class="code">Allow</code> ステートメントを含める必要があります。ただし、明示的な拒否と暗黙的な拒否の任意の組み合わせを選択できます。</p>
+    <p>例えば、許可されたアクション、暗黙的に拒否されたアクション、および明示的に拒否されたアクションを含む、次のポリシーを作成できます。<code class="code">AllowGetList</code> ステートメントは、<code class="code">Get</code> または <code class="code">List</code> プレフィックスで始まる IAM アクションに対して、読み取り専用のアクセスを<b>許可</b>します。<code class="code">iam:CreatePolicy</code> など、IAM の他のすべてのアクションは、<b>暗黙的に拒否</b>されます。<code class="code">DenyReports</code> ステートメントは、<code class="code">iam:GetOrganizationsAccessReport</code> などの<code class="code">Report</code> サフィックスを含むアクションへのアクセスを拒否することで、IAM レポートへのアクセスを<b>明示的に拒否</b>します。誰かがこのプリンシパルに別のポリシーを追加して、<code class="code">iam:GenerateCredentialReport</code> などのIAM レポートへのアクセス許可を付与した場合は、この明示的拒否のために、レポート関連のリクエストは引き続き拒否されます。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowGetList",
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "DenyReports",
+            "Effect": "Deny",
+            "Action": "iam:*Report",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./reference_policies_elements_datatypes.html">サポートされているデータ型</div><div id="next" class="next-link" accesskey="n" href="./reference_policies_evaluation-logic-cross-account.html">クロスアカウントポリシーの評価論理</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

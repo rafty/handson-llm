@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>アクセスコントロールリスト (ACL) の概要 - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="acl-overview" /><meta name="default_state" content="acl-overview" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" /><meta name="description" content="Amazon S3 のアクセスコントロールリスト (ACL) では、バケットとオブジェクトへのアクセスを管理できます。各バケットとオブジェクトには、サブリソースとして ACL がアタッチされています。これにより、アクセスが許可される AWS アカウントまたはグループと、アクセスの種類が定義されます。リソースに対するリクエストを受け取ると、Amazon S3 は該当する ACL を確認して、リクエスタに必要なアクセス許可があることを確かめます。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="Amazon Simple Storage Service (Amazon S3) を使用して、任意の量のデータをどこからでも保存および取得する方法について説明します。このガイドでは、Amazon S3 のバケット、オブジェクト、関連設定などの概念について説明し、一般的なオペレーションのコード例をいくつか示します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/acl-overview.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/acl-overview.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/acl-overview.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/acl-overview.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/acl-overview.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/acl-overview.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/acl-overview.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/acl-overview.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/acl-overview.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/acl-overview.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/acl-overview.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="アクセスコントロールリスト (ACL) の概要" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>アクセスコントロールリスト (ACL) の概要 - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#acl-overview" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" /><meta name="keywords" content="S3,Amazon S3,S3 ユーザーガイド,Amazon S3 ユーザーガイド,Amazon ユーザーガイド,s3 バケット,s3 オブジェクト,クラウドストレージ,データストレージ" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 のセキュリティ",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon S3 での Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/s3-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "ACL によるアクセス管理",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acls.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "アクセスコントロールリスト (ACL) の概要",
+        "item" : "https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acls.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#acl-overview" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#specifying-grantee">被付与者とは</a><a href="#permissions">付与できるアクセス許可</a><a href="#sample-acl">サンプル ACL</a><a href="#canned-acl">既定 ACL</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="acl-overview">アクセスコントロールリスト (ACL) の概要</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon S3 のアクセスコントロールリスト (ACL) では、バケットとオブジェクトへのアクセスを管理できます。各バケットとオブジェクトには、サブリソースとして ACL がアタッチされています。これにより、アクセスが許可される AWS アカウントまたはグループと、アクセスの種類が定義されます。リソースに対するリクエストを受け取ると、Amazon S3 は該当する ACL を確認して、リクエスタに必要なアクセス許可があることを確かめます。</p><p>S3 オブジェクト所有権は、Amazon S3 バケットレベルの設定で、バケットにアップロードされる新しいオブジェクト所有権を制御し、ACL を無効にするのに使用できます。デフォルトでは、オブジェクト所有権はバケット所有者強制設定に設定されており、ALC はすべて無効になっています。ACL を無効にすると、バケット所有者はバケット内のすべてのオブジェクトを所有し、アクセス管理ポリシーのみを使用してデータへのアクセスを管理します。</p><p> Amazon S3 の最新のユースケースの大部分では ACL を使用する必要がなくなっています。オブジェクトごとに個別に制御する必要がある通常ではない状況を除き、ACL は無効にしておくことをお勧めします。ACL を無効にすると、誰がオブジェクトをバケットにアップロードしたかに関係なく、ポリシーを使用してバケット内のすべてのオブジェクトへのアクセスを制御できます。詳細については、「<a href="./about-object-ownership.html">オブジェクトの所有権の制御とバケットの ACL の無効化。</a>」を参照してください。</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>バケットが S3 オブジェクト所有権のバケット所有者強制設定を使用している場合、ポリシーを使用してバケットとその中のオブジェクトへのアクセスを許可する必要があります。バケット所有者強制設定が有効なとき、アクセスコントロールリスト (ACL) の設定または ACL の更新の要求は失敗し、<code class="code">AccessControlListNotSupported</code> エラーコードを返します。ACL の読み取り要求は引き続きサポートされています。</p></div></div><p>バケットまたはオブジェクトを作成すると、Amazon S3 はリソースのフルコントロールをリソースの所有者に付与するデフォルトの ACL を作成します。これを、以下のバケット ACL のサンプルで示します (デフォルトのオブジェクト ACL は同じ構造です)。</p><div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+  &lt;Owner&gt;
+    &lt;ID&gt;*** Owner-Canonical-User-ID ***&lt;/ID&gt;
+    &lt;DisplayName&gt;owner-display-name&lt;/DisplayName&gt;
+  &lt;/Owner&gt;
+  &lt;AccessControlList&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:type="Canonical User"&gt;
+        &lt;ID&gt;*** Owner-Canonical-User-ID ***&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;FULL_CONTROL&lt;/Permission&gt;
+    &lt;/Grant&gt;
+  &lt;/AccessControlList&gt;
+&lt;/AccessControlPolicy&gt; </code></pre></div></div><p>サンプル ACL には、<code class="code">Owner</code> の正規ユーザー ID を通じて所有者を識別する AWS アカウント エレメントが含まれています。正規ユーザー ID を見つける方法については、<a href="#finding-canonical-id">AWS アカウントの正規ユーザー ID の検索</a> を参照してください。<code class="code">Grant</code> エレメントは、被付与者 (AWS アカウント またはあらかじめ定義されたグループ) と付与されたアクセス許可を識別します。このデフォルトの ACL には、所有者に対する 1 つの <code class="code">Grant</code> エレメントがあります。<code class="code">Grant</code> エレメントを追加してアクセス許可を付与します。各許可は被付与者とアクセス許可を識別します。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>1 つの ACL には最大 100 個の許可を指定することができます。</p></div></div><div class="highlights" id="inline-topiclist"><h6>トピック</h6><ul><li><a href="#specifying-grantee">被付与者とは</a></li><li><a href="#permissions">付与できるアクセス許可</a></li><li><a href="#sample-acl">サンプル ACL</a></li><li><a href="#canned-acl">既定 ACL</a></li></ul></div><h2 id="specifying-grantee">被付与者とは</h2>
+			
+			<p>被付与者とは、AWS アカウントまたは事前定義済みのいずれかの Amazon S3 グループです。E メールアドレスまたは正規ユーザー ID を使用して AWS アカウントに許可を付与します。ただし、付与のリクエストでメールアドレスを指定すると、Amazon S3 はそのアカウントの正規ユーザー ID を確認して ACL に追加します。その結果、ACL には AWS アカウントの E メールアドレスではなく、常に AWS アカウントの正規ユーザー ID が含まれます。</p>
+			<p>アクセス許可を付与する場合は、各被付与者を type=value のペアとして指定します。タイプは次のいずれかです。</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem"><p><code class="code">id</code> – 指定された値が AWS アカウントの正規ユーザー ID である場合</p></li><li class="listitem"><p><code class="code">uri</code> — 事前定義されたグループにアクセス許可を付与する場合</p></li><li class="listitem"><p><code class="code">emailAddress</code> – 指定された値が AWS アカウントの E メールアドレスである場合</p></li></ul></div>
+			    
+	<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>E メールアドレスを使用した被付与者の指定は、次の AWS リージョンでのみサポートされています。</p><div class="itemizedlist">
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>米国東部(バージニア北部)</p>
+				</li><li class="listitem">
+					<p>米国西部 (北カリフォルニア)</p>
+				</li><li class="listitem">
+					<p>米国西部 (オレゴン)</p>
+				</li><li class="listitem">
+					<p>アジアパシフィック (シンガポール)</p>
+				</li><li class="listitem">
+					<p>アジアパシフィック (シドニー)</p>
+				</li><li class="listitem">
+					<p>アジアパシフィック (東京)</p>
+				</li><li class="listitem">
+					<p>欧州 (アイルランド)</p>
+				</li><li class="listitem">
+					<p>南米 (サンパウロ)</p>
+				</li></ul></div><p>Amazon S3 でサポートされているリージョンとエンドポイントの一覧については、<em>Amazon Web Services 全般のリファレンス</em> の「<a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">リージョンとエンドポイント</a>」を参照してください。</p></div></div>
+<div class="example"><h6>例: E メールアドレス</h6><div class="example-contents"><p>例えば、次の <code class="code">x-amz-grant-read</code> ヘッダーは、E メールアドレスによって識別される AWS アカウント に、オブジェクトデータとそのメタデータを読み取るアクセス許可を付与します。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="">x-amz-grant-read: emailAddress="xyz@amazon.com", emailAddress="abc@amazon.com"</code></pre></div></div>		
+	<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>警告</h6></div><div class="awsdocs-note-text"><p>他の AWS アカウントに自分のリソースへのアクセスを許可した場合、その AWS アカウントはアカウント内のユーザーに許可を委任できることに注意してください。これは<em>クロスアカウントアクセス</em>と呼ばれています。クロスアカウントアクセスの使用については、<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html">IAM ユーザーガイド</a>の <em>IAM ユーザーにアクセス許可を委任するロールの作成</em>を参照してください。</p></div></div> 
+			
+			<h3 id="finding-canonical-id">AWS アカウントの正規ユーザー ID の検索</h3>
+				
+				<p>正規ユーザー ID は、AWS アカウントに関連付けられています。この ID は、<code class="code">79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be</code> のような長い文字列です。アカウントの正規ユーザー ID を確認する方法については、<a href="./finding-canonical-user-id.html">AWS アカウントの正規ユーザー ID を検索するには</a> を参照してください。</p>
+				<p>また、AWS アカウントがアクセス許可を持つバケットまたはオブジェクトの ACL を読み取って、AWS アカウントの正規ユーザー ID を検索することもできます。許可リクエストによって個別の AWS アカウントに許可が付与された場合、ACL にはアカウントの正規ユーザー ID が含まれた許可エントリが追加されます。</p>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>バケットをパブリックにした場合 (非推奨)、認証されていないどのユーザーもバケットにオブジェクトをアップロードできます。これらの匿名ユーザーは AWS アカウントを持っていません。匿名ユーザーがバケットにオブジェクトをアップロードすると、Amazon S3 によって特殊な正規ユーザー ID (<code class="code">65a011a29cdf8ec533ec3d1ccaae921c</code>) がそのオブジェクトの所有者として ACL で追加されます。詳細については、<a href="./access-control-overview.html#about-resource-owner">Amazon S3 のバケットとオブジェクトの所有権</a> を参照してください。</p></div></div>
+			 
+
+			 
+				<h3 id="specifying-grantee-predefined-groups">Amazon S3 の事前定義済みのグループ</h3>
+				
+				<p>Amazon S3 には、事前定義済みの一連のグループがあります。グループにアカウントアクセスを許可するときは、正規ユーザー ID の代わりに当社のいずれかの URI を指定します。あらかじめ定義された以下のグループが用意されています。</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><b><span class="topcom">Authenticated Users グループ</span></b> – <code class="code">http://acs.amazonaws.com/groups/global/AuthenticatedUsers</code> で表されます。</p>
+						<p>このグループはすべて AWS アカウントを表しています。<b>このグループへのアクセス許可により、AWS アカウント がリソースにアクセスできます。</b>ただし、すべてのリクエストは署名(認証)されている必要があります。</p>
+						<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>警告</h6></div><div class="awsdocs-note-text"><p><b>Authenticated Users グループ</b>にアクセス許可を付与すると、世界中の認証された AWS ユーザーがリソースにアクセスできます。</p></div></div> 
+						</li><li class="listitem">
+						<p><span class="topcom"><b>All Users グループ</b></span> – <code class="code">http://acs.amazonaws.com/groups/global/AllUsers</code> で表されます。</p>
+						<p><b>このグループへのアクセス許可により、世界中の誰でもリソースにアクセスすることが許可されます。</b>リクエストは署名(認証)済み、または署名なし(匿名)とすることができます。署名なしのリクエストでは、リクエストの Authentication ヘッダーが省略されます。</p>
+						<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>警告</h6></div><div class="awsdocs-note-text"><p><b>All Users グループ</b>には、<code class="code">WRITE</code>、<code class="code">WRITE_ACP</code>、または <code class="code">FULL_CONTROL</code> アクセス許可を一切付与しないことを強くお勧めします。例えば、<code class="code">WRITE</code> のアクセス権限は所有者以外のユーザーが既存のオブジェクトを上書きまたは削除することを許可しませんが、<code class="code">WRITE</code> のアクセス権限はすべてのユーザーがバケットにオブジェクトを格納することを許可し、これについてはお客様が請求されます。これらのアクセス許可の詳細については、次のセクション <a href="#permissions">付与できるアクセス許可</a> を参照してください。</p></div></div>
+					</li><li class="listitem">
+						<p><span class="topcom"><b>Log Delivery グループ</b></span> – <code class="code">http://acs.amazonaws.com/groups/s3/LogDelivery</code> で表されます。</p>
+						<p>バケットの WRITE 許可により、このグループはサーバーアクセスログ (<a href="./ServerLogs.html">サーバーアクセスログを使用したリクエストのログ記録</a> を参照) をバケットに書き込むことができます。</p>
+					</li></ul></div>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>ACL を使用する場合、被付与者は AWS アカウントまたは事前定義済みのいずれかの Amazon S3 グループです。被付与者を IAM ユーザーとすることはできません。IAM 内の AWS ユーザーおよびアクセス許可の詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/">AWS Identity and Access Management の使用</a>」を参照してください。</p></div></div>
+			 
+		 
+			<h2 id="permissions">付与できるアクセス許可</h2>
+			
+			<p>以下の表に、Amazon S3 の ACL でサポートされている一連のアクセス許可を示します。ACL アクセス許可のセットは、オブジェクト ACL とバケット ACL で同じです。ただし、コンテキスト (バケット ACL かオブジェクト ACL か) に応じて、これらの ACL アクセス許可は特定のバケットまたはオブジェクトオペレーションのためのアクセス許可を付与します。この表では、アクセス許可の一覧と、オブジェクトとバケットにおけるその意味について説明しています。</p>
+			<p>Amazon S3 コンソールでの ACL アクセス権限の詳細については、<a href="./managing-acls.html">ACL の設定</a> を参照してください。</p>
+			<div class="table-container"><div class="table-contents"><table id="w1866aac19c25c29c17c23b7"><thead><tr><th class="table-header" colspan="100"><div class="title">ACL アクセス許可</div></th></tr>
+						<tr>
+							<th>アクセス許可</th>
+							<th>バケット上で付与された場合</th>
+							<th>オブジェクト上で付与された場合</th>
+						</tr>
+					</thead>
+						<tr>
+							<td><code class="code">READ</code></td>
+							<td>被付与者がバケット内のオブジェクトをリストすることを許可します。</td>
+							<td>被付与者がオブジェクトデータとそのメタデータを読み込むことを許可します</td>
+						</tr>
+						<tr>
+							<td><code class="code">WRITE</code></td>
+							<td>被付与者がバケット内に新しいオブジェクトを作成できるようにします。既存のオブジェクトのバケット所有者およびオブジェクト所有者については、これらのオブジェクトの削除と上書きも許可します。</td>
+							<td>該当しません</td>
+						</tr>
+						<tr>
+							<td><code class="code">READ_ACP</code></td>
+							<td>被付与者がバケット ACL を読み込むことを許可します</td>
+							<td>被付与者がオブジェクト ACL を読み込むことを許可します</td>
+						</tr>
+						<tr>
+							<td><code class="code">WRITE_ACP</code></td>
+							<td>被付与者が該当するバケットの ACL を書き込むことを許可します</td>
+							<td>被付与者が該当するオブジェクトの ACL を書き込むことを許可します</td>
+						</tr>
+						<tr>
+							<td><code class="code">FULL_CONTROL</code></td>
+							<td>バケット上の READ、WRITE、READ_ACP、WRITE_ACP アクセス許可を被付与者に許可します</td>
+							<td>オブジェクト上の READ、READ_ACP、WRITE_ACP アクセス許可を被付与者に許可します</td>
+						</tr>
+						
+					</table></div></div>
+			<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>警告</h6></div><div class="awsdocs-note-text"><p>S3 バケットとオブジェクトにアクセス許可を付与するときは注意が必要です。例えば、あるバケットに対する <code class="code">WRITE</code> のアクセス権を付与すると、被付与者はそのバケットにオブジェクトを作成できます。アクセス許可を付与する前に、この <a href="./acl-overview.html">アクセスコントロールリスト (ACL) の概要</a> セクション全体を読むことを強くお勧めします。</p></div></div>	 
+						
+			 
+				<h3 id="acl-access-policy-permission-mapping">ACL アクセス許可とアクセスポリシーのアクセス許可のマッピング</h3>
+				
+				<p>前の表に示したように、ACL で使用できるアクセス許可のセットは、アクセスポリシーで設定できるアクセス許可に比べると限定されています (<a href="./using-with-s3-actions.html">Amazon S3 のアクション</a> を参照してください)。これらのアクセス許可はそれぞれ、Amazon S3 の 1 つ以上のオペレーションを許可します。</p>
+				<p>次の表は、ACL アクセス権限のそれぞれが、対応するアクセスポリシーのアクセス許可にどのようにマッピングされるかを示します。ご覧のように、アクセスポリシーでは ACL よりも多くのアクセス許可が付与されています。ACL は主に、ファイルシステムのアクセス許可と同様に、基本的な読み取り/書き込みアクセス許可を付与するために使用されます。ACL の使用が適している場合の詳細については、<a href="./access-policy-alternatives-guidelines.html">アクセスポリシーのガイドライン</a> を参照してください。</p>
+				<p>Amazon S3 コンソールでの ACL アクセス権限の詳細については、<a href="./managing-acls.html">ACL の設定</a> を参照してください。</p>
+				<div class="table-container"><div class="table-contents"><table id="w1866aac19c25c29c17c23c11b9"><thead>
+							<tr>
+								<th>ACL アクセス許可</th>
+								<th>ACL アクセス許可がバケットに付与される場合の、対応するアクセスポリシーのアクセス許可 </th>
+								<th>ACL アクセス許可がオブジェクトに付与される場合の、対応するアクセスポリシーのアクセス許可</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><code class="code">READ</code></td>
+
+								<td><code class="code">s3:ListBucket</code>、<code class="code">s3:ListBucketVersions</code>、および <code class="code">s3:ListBucketMultipartUploads</code> </td>
+								<td><code class="code">s3:GetObject</code> および <code class="code">s3:GetObjectVersion</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">WRITE</code></td>
+
+								<td><p>
+										<code class="code">s3:PutObject</code></p>
+									<p>バケット所有者は、バケット内の任意のオブジェクトを作成、上書き、削除でき、オブジェクト所有者はそのオブジェクトに対する <code class="code">FULL_CONTROL</code> を有します。</p> 
+									<p>さらに、被付与者がバケット所有者であるときは、バケットの ACL で <code class="code">WRITE</code> アクセス許可を付与すると、そのバケット内の任意のバージョンに対して <code class="code">s3:DeleteObjectVersion</code> アクションを実行できるようになります。</p>
+								</td>
+								<td>該当しません</td>
+							</tr>
+							<tr>
+								<td><code class="code">READ_ACP</code></td>
+
+								<td><code class="code">s3:GetBucketAcl</code>
+								</td>
+								<td><code class="code">s3:GetObjectAcl</code> および <code class="code">s3:GetObjectVersionAcl</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">WRITE_ACP</code></td>
+
+								<td><code class="code">s3:PutBucketAcl</code></td>
+								<td><code class="code">s3:PutObjectAcl</code> および <code class="code">s3:PutObjectVersionAcl</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">FULL_CONTROL</code></td>
+
+								<td>これは、<code class="code">READ</code>、<code class="code">WRITE</code>、<code class="code">READ_ACP</code>、および <code class="code">WRITE_ACP</code> ACL アクセス許可を付与するのと同等です。したがって、この ACL アクセス許可は、対応するアクセスポリシーのアクセス許可の組み合わせにマッピングされます。</td>
+								<td>これは、<code class="code">READ</code>、<code class="code">READ_ACP</code>、および <code class="code">WRITE_ACP</code> ACL アクセス許可を付与するのと同等です。したがって、この ACL アクセス許可は、対応するアクセスポリシーのアクセス許可の組み合わせにマッピングされます。</td>
+							</tr>
+							
+						</table></div></div>
+			 
+				<h4 id="acl-specific-condition-keys">条件キー</h4>
+				<p>アクセスポリシー権限を付与する場合、条件キーを使用して、バケットポリシーを使用するオブジェクトの ACL の値を制限できます。次のコンテキストキーは ACL に対応しています。これらのコンテキストキーを使用して、リクエストで特定の ACL の使用を強制することができます。</p>
+
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem"><p><code class="code">s3:x-amz-grant-read</code> ‐ 読み取りアクセスが必要です。</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-write</code> ‐ 書き込みアクセスが必要です。</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-read-acp</code> ‐ バケットの ACL への読み取りアクセスが必要です。</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-write-acp</code> ‐ バケットの ACL への書き込みアクセスが必要です。</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-full-control</code> ‐ フルコントロールが必要です。</p></li><li class="listitem"><p><code class="code">s3:x-amz-acl</code> ‐ <a href="#canned-acl">既定 ACL</a> が必要です。</p></li></ul></div>
+
+				<p>ACL 固有のヘッダーを含むポリシーの例については、<a href="./amazon-s3-policy-keys.html#grant-putobject-conditionally-1">例 1: バケット所有者にフルコントロールを与えることを条件として s3:PutObject のアクセス許可を付与する</a> を参照してください。Amazon S3 固有の条件キーの一覧については、<a href="./list_amazons3.html">Amazon S3 のアクション、リソース、条件キー</a> を参照してください。</p>
+			 
+			 
+		<h2 id="sample-acl">サンプル ACL</h2>
+			
+			<p>バケットの以下のサンプル ACL は、リソース所有者と一連の許可を識別します。形式は Amazon S3 REST API の ACL の XML 表現です。バケット所有者はリソースに対する <code class="code">FULL_CONTROL</code> が許可されます。また、この ACL には、正規ユーザー ID で示されている 2 つの AWS アカウントと、前のセクションで説明した事前定義済みの 2 つの Amazon S3 グループに対して、リソースへの許可がどのように付与されるかが示されています。</p>
+			<div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+  &lt;Owner&gt;
+    &lt;ID&gt;Owner-canonical-user-ID&lt;/ID&gt;
+    &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+  &lt;/Owner&gt;
+  &lt;AccessControlList&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;Owner-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;FULL_CONTROL&lt;/Permission&gt;
+    &lt;/Grant&gt;
+    
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;user1-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;WRITE&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;user2-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;READ&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"&gt;
+        &lt;URI&gt;http://acs.amazonaws.com/groups/global/AllUsers&lt;/URI&gt; 
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;READ&lt;/Permission&gt;
+    &lt;/Grant&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"&gt;
+        &lt;URI&gt;http://acs.amazonaws.com/groups/s3/LogDelivery&lt;/URI&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;WRITE&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+  &lt;/AccessControlList&gt;
+&lt;/AccessControlPolicy&gt;</code></pre></div></div>
+		<h2 id="canned-acl">既定 ACL</h2>
+			
+			<p>Amazon S3 では、<em>既定 ACL</em> と呼ばれる事前定義済みの一連の許可がサポートされています。各既定 ACL には、あらかじめ定義された一連の被付与者とアクセス権限が含まれています。以下の表に、一連の既定 ACL と、関連するあらかじめ定義された許可を示します。</p>
+			
+				<div class="table-container"><div class="table-contents"><table id="w1866aac19c25c29c17c27b4"><thead>
+							<tr>
+								<th>既定 ACL</th>
+								<th>Applies to</th>
+								<th>ACL に追加されるアクセス許可</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><code class="code">private</code></td>
+								<td>バケットとオブジェクト</td>
+								<td>所有者は <code class="code">FULL_CONTROL</code> を取得します。他のユーザーにはアクセス許可は付与されません (デフォルト)。</td>
+							</tr>
+							<tr>
+								<td><code class="code">public-read</code></td>
+								<td>バケットとオブジェクト</td>
+								<td>所有者は <code class="code">FULL_CONTROL</code> を取得します。<code class="code">AllUsers</code> グループ (<a href="#specifying-grantee">被付与者とは</a> を参照) は <code class="code">READ</code> アクセス許可を取得します。</td>
+							</tr>
+							<tr>
+								<td><code class="code">public-read-write</code></td>
+								<td>バケットとオブジェクト</td>
+								<td>所有者は <code class="code">FULL_CONTROL</code> を取得します。<code class="code">AllUsers</code> グループは <code class="code">READ</code> および <code class="code">WRITE</code> アクセス許可を取得します。通常、これをバケットで付与することはお勧めしません。</td>
+							</tr>
+						  <tr>
+						    <td><code class="code">aws-exec-read</code></td>
+						    <td>バケットとオブジェクト</td>
+						    <td>所有者は <code class="code">FULL_CONTROL</code> を取得します。Amazon EC2 には、Amazon S3 から Amazon マシンイメージ (AMI) バンドルを <code class="code">GET</code> するための <code class="code">READ</code> アクセスが許可されます。</td>
+						  </tr>
+							<tr>
+								<td><code class="code">authenticated-read</code></td>
+								<td>バケットとオブジェクト</td>
+								<td>所有者は <code class="code">FULL_CONTROL</code> を取得します。<code class="code">AuthenticatedUsers</code> グループは <code class="code">READ</code> アクセス許可を取得します。</td>
+							</tr>
+							<tr>
+								<td><code class="code">bucket-owner-read</code></td>
+								<td>オブジェクト</td>
+								<td>オブジェクト所有者は <code class="code">FULL_CONTROL</code> を取得します。バケット所有者は <code class="code">READ</code> を取得します。バケットの作成時にこの既定 ACL を指定しても、Amazon S3 には無視されます。</td>
+							</tr>
+							<tr>
+								<td><code class="code">bucket-owner-full-control</code></td>
+								<td>オブジェクト </td>
+								<td>オブジェクト所有者とバケット所有者はオブジェクトに対する <code class="code">FULL_CONTROL</code> を取得します。バケットの作成時にこの既定 ACL を指定しても、Amazon S3 には無視されます。</td>
+							</tr>
+							<tr>
+								<td><code class="code">log-delivery-write</code></td>
+								<td>バケット </td>
+								<td><code class="code">LogDelivery</code> グループはバケットに対する <code class="code">WRITE</code> および <code class="code">READ_ACP</code> アクセス許可を取得します。ログの詳細については、<a href="./ServerLogs.html">サーバーアクセスログを使用したリクエストのログ記録</a> を参照してください。</td>
+							</tr>
+						</table></div></div>
+			
+
+
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>リクエストではこれらの既定 ACL を 1 つのみ指定できます。</p></div></div>
+
+			<p><code class="code">x-amz-acl</code> リクエストヘッダーを使用して、既定 ACL をリクエストで指定できます。Amazon S3 が既定 ACL を含むリクエストを受信すると、あらかじめ定義された許可がリソースの ACL に追加されます。</p>
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./acls.html">ACL によるアクセス管理</div><div id="next" class="next-link" accesskey="n" href="./finding-canonical-user-id.html">正規 ID の検索</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

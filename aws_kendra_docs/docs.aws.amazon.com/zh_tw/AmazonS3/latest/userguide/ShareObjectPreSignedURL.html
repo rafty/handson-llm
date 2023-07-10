@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>使用預先簽章的 URL 共用物件 - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ShareObjectPreSignedURL" /><meta name="default_state" content="ShareObjectPreSignedURL" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="description" content="說明如何透過建立下載物件的預先簽章 URL，來設定可與其他人共享的物件。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="使用者指南" /><meta name="abstract" content="了解如何使用 Amazon Simple Storage Service (Amazon S3) 從任何地方存放和擷取任何數量的資料。本指南說明 Amazon S3 概念 (例如儲存貯體、物件與相關組態)，並且包含常見操作的程式碼範例。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="使用者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="使用者指南" /><meta id="panorama-serviceConsolePage" value="使用預先簽章的 URL 共用物件" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>使用預先簽章的 URL 共用物件 - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#ShareObjectPreSignedURL" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="keywords" content="S3,Amazon S3,S3 使用者指南,Amazon S3 使用者指南,Amazon 使用者指南,s3 儲存貯體,s3 物件,雲端儲存空間,資料儲存體" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "使用者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "在 Amazon S3 中上傳、下載和使用物件",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "使用預先簽章的 URL",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/using-presigned-url.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "使用預先簽章的 URL 共用物件",
+        "item" : "https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/using-presigned-url.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#ShareObjectPreSignedURL" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">使用者指南</a></div><div id="page-toc-src"><a href="#generating-presigned-url">產生預先簽章的 URL 來共用物件</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ShareObjectPreSignedURL">使用預先簽章的 URL 共用物件</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>所有 S3 物件預設皆為私有。只有物件擁有者才具有存取這些物件的許可。但物件擁有者可以選擇性地與其他人共享物件，方法是使用自己的安全憑證建立預先簽章的 URL，然後授予有限時間的許可供其下載物件。</p><p>在為物件建立預先簽章 URL 時，必須提供安全憑證，然後指定儲存貯體名稱、物件索引鍵、HTTP 方法 (GET 以下載物件)，還有過期日期及時間。預先簽章的 URL 只有在指定的期間內才有效。如果使用暫時字符建立了預先簽章的 URL，則 URL 會在字符過期時過期，即使 URL 使用較晚的過期時間建立。</p><p>收到預先簽章 URL 的任何人，皆可存取物件。例如，若儲存貯體中有一段影片且儲存貯體與物件皆為私有，即可透過產生預先簽章的 URL 來與其他人分享這段影片。由於預先簽章 URL 會將 Amazon S3 儲存貯體的存取權授予擁有 URL 的任何人，因此我們建議您妥善保護這些 URL。如需有關保護預先簽署 URL 的詳細資訊，請參閱<a href="./using-presigned-url.html#PresignedUrlUploadObject-LimitCapabilities">限制預先簽章的 URL 功能</a>。</p><p>如需誰可以建立預先簽章的 URL 的詳細資訊，請參閱<a href="./using-presigned-url.html#who-presigned-url">誰可以建立預先簽章的 URL</a>。</p>
+            <h2 id="generating-presigned-url">產生預先簽章的 URL 來共用物件</h2>
+            <p>您可使用 S3 主控台或 AWS Explorer for Visual Studio 為物件產生預先簽章的 URL，而無須撰寫任何程式碼。您可以使用適用於 Java、.NET、<a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Presigner.html">Ruby</a>、<a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.S3.S3Client.html#_createPresignedRequest">PHP</a>、<a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getSignedUrl-property">Node.js</a>、<a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url" rel="noopener noreferrer" target="_blank"><span>Python</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 和 <a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/s3-example-presigned-urls.html">Go</a> 的 AWS SDK，以程式設計方式產生預先簽章的 URL。</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>當您產生預先簽章的 URL 時，請確定請求中的參數與簽章完全相符。例如，如果在產生 URL 時未指定內容類型，則您必須在上傳物件時省略內容類型。此外，不支援萬用字元，而且若在預先簽章的 URL 中使用萬用字元，則會產生錯誤。</p></div></div>
+            <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="使用 S3 主控台" id="ShareObjectPreSignedURLConsole" expanded="false"><p> 您可以執行以下步驟，使用 AWS Management Console 為物件產生預先簽章 URL。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>在 Amazon S3 主控台中，預先簽章的 URL 的最長過期時間為自建立時間起算 12 小時。</p></div></div><div class="procedure"><h6>使用 AWS Management Console 產生預先簽章的物件 URL</h6><ol><li><p>登入 AWS Management Console，並開啟位於 <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 的 Amazon S3 主控台。</p></li><li>
+                            <p>在 <b>Buckets</b> (儲存貯體) 清單中，選擇儲存貯體名稱，該儲存貯體包含您要為其建立預先簽章 URL 的物件。</p>
+                        </li><li>
+                            <p>在 <b>Objects</b> (物件) 清單中，選取要為其建立預先簽章 URL 的物件。</p>
+                        </li><li>
+                            <p>在 <b>Actions</b> (動作) 選單中，選擇 <b>Share with a presigned URL</b> (使用預先簽章的 URL 來共用)。</p>
+                        </li><li>
+                            <p>指定預先簽章 URL 的有效期限。</p>
+                        </li><li>
+                            <p>選擇 <b>Create presigned URL</b> (建立預先簽章的 URL)。</p>
+                        </li><li>
+                            <p>出現確認提示時，URL 會自動複製到剪貼簿。如果您需要再次複製預先簽章的 URL，您將會看到一個複製按鈕。</p>
+                        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="使用 AWS Explorer for Visual Studio" id="ShareObjectPreSignedURLVSExplorer" expanded="false"><p>若您使用 Visual Studio，則可以使用適用於 Visual Studio 的 AWS Explorer 為物件產生預先簽章的 URL，而無須撰寫任何程式碼。具有此 URL 的所有人皆可下載該物件。如需詳細資訊，請參閱<a href="https://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/using-s3.html">從 AWS Explorer 使用 Amazon S3</a>。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>使用 AWS Explorer for Visual Studio，預先簽章的 URL 的最長過期時間為自建立時間起算 7 天。</p></div></div><p>如需如何安裝 AWS Explorer 的說明，請參閱 <a href="./UsingAWSSDK.html">使用 AWS SDK 和 Explorer 來透過 Amazon S3 進行開發</a>。</p></awsui-expandable-section><awsui-expandable-section variant="container" header="使用 AWS SDK" id="ShareObjectPreSignedURLSDK" expanded="false"><p>以下範例會產生預先簽章 URL，您可以將其提供給其他人，讓其他人擷取物件。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>使用 AWS SDK，預先簽章的 URL 的最長過期時間為自建立時間起算 7 天。</p></div></div><awsdocs-tabs><dl style="display: none">
+                        <dt>Java</dt><dd tab-id="java">
+                                <div class="example"><div class="example-contents"><p>以下範例會產生預先簽章的 URL，您可以將其提供給其他人，讓他們可以從 S3 儲存貯體擷取物件。如需更多詳細資訊，請參閱 <a href="./ShareObjectPreSignedURL.html">使用預先簽章的 URL 共用物件</a>。</p><p> 如需建立及測試可行範例的說明，請參閱 <a href="./UsingTheMPJavaAPI.html#TestingJavaSamples">測試 Amazon S3 Java 程式碼範例</a>。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.Instant;
+
+public class GeneratePresignedURL <span>{</span>
+
+    public static void main(String[] args) throws IOException <span>{</span>
+        Regions clientRegion = Regions.DEFAULT_REGION;
+        String bucketName = "*** Bucket name ***";
+        String objectKey = "*** Object key ***";
+
+        try <span>{</span>
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(clientRegion)
+                    .withCredentials(new ProfileCredentialsProvider())
+                    .build();
+
+            // Set the presigned URL to expire after one hour.
+            java.util.Date expiration = new java.util.Date();
+            long expTimeMillis = Instant.now().toEpochMilli();
+            expTimeMillis += 1000 * 60 * 60;
+            expiration.setTime(expTimeMillis);
+
+            // Generate the presigned URL.
+            System.out.println("Generating pre-signed URL.");
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(bucketName, objectKey)
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+            URL url = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+
+            System.out.println("Pre-Signed URL: " + url.toString());
+        } catch (AmazonServiceException e) <span>{</span>
+            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // it, so it returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) <span>{</span>
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        }
+    }
+}
+
+</code></pre></div></div>
+                            </dd>
+                        <dt>.NET</dt><dd tab-id=".net">
+                                <div class="example"><div class="example-contents"><p>如需建立及測試可行範例的說明，請參閱 <a href="./UsingTheMPDotNetAPI.html#TestingDotNetApiSamples">執行 Amazon S3 .NET 程式碼範例</a>。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="cs ">using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System;
+
+namespace Amazon.DocSamples.S3
+<span>{</span>
+    class GenPresignedURLTest
+    <span>{</span>
+        private const string bucketName = "*** bucket name ***"; 
+        private const string objectKey = "*** object key ***";
+        // Specify how long the presigned URL lasts, in hours
+        private const double timeoutDuration = 12;
+        // Specify your bucket region (an example region is shown).
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
+        private static IAmazonS3 s3Client;
+
+        public static void Main()
+        <span>{</span>
+            s3Client = new AmazonS3Client(bucketRegion);
+            string urlString = GeneratePreSignedURL(timeoutDuration);
+        }
+        static string GeneratePreSignedURL(double duration)
+        <span>{</span>
+            string urlString = "";
+            try
+            <span>{</span>
+                GetPreSignedUrlRequest request1 = new GetPreSignedUrlRequest
+                <span>{</span>
+                    BucketName = bucketName,
+                    Key = objectKey,
+                    Expires = DateTime.UtcNow.AddHours(duration)
+                };
+                urlString = s3Client.GetPreSignedURL(request1);
+            }
+            catch (AmazonS3Exception e)
+            <span>{</span>
+                Console.WriteLine("Error encountered on server. Message:'<span>{</span>0}' when writing an object", e.Message);
+            }
+            catch (Exception e)
+            <span>{</span>
+                Console.WriteLine("Unknown encountered on server. Message:'<span>{</span>0}' when writing an object", e.Message);
+            }
+            return urlString;
+        }
+    }
+}
+</code></pre></div></div>
+                            </dd>
+                        <dt>JavaScript</dt><dd tab-id="javascript">
+                                <div class="example"><div class="example-contents"><p>下列範例會建立儲存貯體、放置物件、為該物件建立已簽署的 URL、擷取 URL，然後刪除該物件和儲存貯體。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascript ">import <span>{</span> GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import <span>{</span> fromIni } from "@aws-sdk/credential-providers";
+import <span>{</span> HttpRequest } from "@aws-sdk/protocol-http";
+import <span>{</span>
+  getSignedUrl,
+  S3RequestPresigner,
+} from "@aws-sdk/s3-request-presigner";
+import <span>{</span> parseUrl } from "@aws-sdk/url-parser";
+import <span>{</span> formatUrl } from "@aws-sdk/util-format-url";
+import <span>{</span> Hash } from "@aws-sdk/hash-node";
+
+const createPresignedUrlWithoutClient = async (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const url = parseUrl(`https://$<span>{</span>bucket}.s3.$<span>{</span>region}.amazonaws.com/$<span>{</span>key}`);
+  const presigner = new S3RequestPresigner(<span>{</span>
+    credentials: fromIni(),
+    region,
+    sha256: Hash.bind(null, "sha256"),
+  });
+
+  const signedUrlObject = await presigner.presign(new HttpRequest(url));
+  return formatUrl(signedUrlObject);
+};
+
+const createPresignedUrlWithClient = (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const client = new S3Client(<span>{</span> region });
+  const command = new GetObjectCommand(<span>{</span> Bucket: bucket, Key: key });
+  return getSignedUrl(client, command, <span>{</span> expiresIn: 3600 });
+};
+
+export const main = async () =&gt; <span>{</span>
+  const REGION = "us-east-1";
+  const BUCKET = "example_bucket";
+  const KEY = "example_file.jpg";
+
+  try <span>{</span>
+    const noClientUrl = await createPresignedUrlWithoutClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    const clientUrl = await createPresignedUrlWithClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    console.log("Presigned URL without client");
+    console.log(noClientUrl);
+    console.log("\n");
+
+    console.log("Presigned URL with client");
+    console.log(clientUrl);
+  } catch (err) <span>{</span>
+    console.error(err);
+  }
+};
+</code></pre></div></div>
+                            </dd>
+                        <dt>PHP</dt><dd tab-id="php">
+                                <p>如需有關使用 AWS SDK for PHP 第 3 版產生預先簽章的 URL 的詳細資訊，請參閱《AWS SDK for PHP 開發人員指南》<em></em>中的<a href="https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-presigned-url.html">使用 AWS SDK for PHP 第 3 版的 Amazon S3 預先簽章的 URL</a>。</p>
+                            </dd>
+                        <dt>Python</dt><dd tab-id="python">
+                                <p>使用 SDK for Python (Boto3) 產生預先簽章的 URL 來共用物件。例如，使用 Boto3 用戶端和 <code class="code">generate_presigned_url</code> 函數來產生 GET 物件的預先簽章 URL。</p>
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="Python ">import boto3
+    url = boto3.client('s3').generate_presigned_url(
+    ClientMethod='get_object', 
+    Params=<span>{</span>'Bucket': 'BUCKET_NAME', 'Key': 'OBJECT_KEY'},
+    ExpiresIn=3600)</code></pre>
+                                <p>如需有關使用 SDK for Python (Boto3) 產生預先簽章的 URL 的詳細資訊，請參閱 <em>AWS SDK for Python (Boto) API 參考</em>中的 <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url" rel="noopener noreferrer" target="_blank"><span>Python</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。</p>
+                            </dd>
+                    </dl></awsdocs-tabs></awsui-expandable-section><awsui-expandable-section variant="container" header="使用 AWS CLI" id="ShareObjectPresignedCLI" expanded="false"><p>若要產生預先簽章的 URL 以使用 AWS CLI 共享物件，請參閱 <em>《AWS CLI命令參考》</em>中的<a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/presign.html" rel="noopener noreferrer" target="_blank"><span>預先簽章</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>使用 AWS CLI，預先簽章的 URL 的最長過期時間為自建立時間起算 7 天。</p></div></div></awsui-expandable-section></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./using-presigned-url.html">使用預先簽章的 URL</div><div id="next" class="next-link" accesskey="n" href="./PresignedUrlUploadObject.html">上傳物件</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

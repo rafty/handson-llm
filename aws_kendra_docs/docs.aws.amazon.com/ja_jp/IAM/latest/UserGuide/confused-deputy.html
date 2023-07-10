@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>混乱する代理問題 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="confused-deputy" /><meta name="default_state" content="confused-deputy" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" /><meta name="description" content="混乱した代理問題とは、アクションを実行する許可を持たないエンティティが、より高い特権を持つエンティティにそのアクションの実行を強制できるというセキュリティ問題です。これを防ぐために、サードパーティー ( クロスアカウント ) や 他の AWS サービス ( クロスサービス )に対して、お客様のアカウント内のリソースへのアクセス権を提供してしまった場合に、お客様のアカウントの保護に役立つツールを AWS が提供します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="ユーザー ID (認証) および特定のアクセス許可 (承認) を定義するポリシーで AWS リソースへのアクセスを制限します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="混乱する代理問題" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>混乱する代理問題 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#confused-deputy" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM ユーザー,user,IAM グループ,グループ,[IAM role] (IAM ロール),ロール,アクセス許可ポリシー,信頼ポリシー,ポリシー,アクセスキー,パスワード" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM ID (ユーザー、ユーザーグループ、ロール)",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM ロール",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "ロールの一般的なシナリオ: ユーザー、アプリケーション、およびサービス",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "混乱する代理問題",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#confused-deputy" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#mitigate-confused-deputy">クロスアカウントでの混乱した代理</a><a href="#cross-service-confused-deputy-prevention">サービス間の混乱した代理の防止</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="confused-deputy">混乱する代理問題</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>混乱した代理問題とは、アクションを実行する許可を持たないエンティティが、より高い特権を持つエンティティにそのアクションの実行を強制できるというセキュリティ問題です。これを防ぐために、サードパーティー (<em>クロスアカウント</em>) や 他の AWS サービス (<em>クロスサービス</em>)に対して、お客様のアカウント内のリソースへのアクセス権を提供してしまった場合に、お客様のアカウントの保護に役立つツールを AWS が提供します。</p><p>お客様の AWS リソースへのアクセス権をサードパーティーに付与 (委任) することが必要になる場合があります。例えば、Example Corp という第三者企業を雇って、コストを最適化するためにお客様の AWS アカウント をモニタリングする業務を依頼するとします。Example Corp がお客様の毎日の支出を追跡するには、お客様の AWS リソースにアクセスする必要があります。また、Example Corp は他の顧客について他の多くの AWS アカウント をモニタリングしています。IAM ロールを使用して AWS アカウント と Example Corp アカウントと間の信頼関係を確立できます。このシナリオで重要なのは、オプションの情報としての<em>外部 ID</em> です。この ID を IAM ロールの信頼ポリシーで使用することで、ロールを引き受けることができるユーザーを指定できます。外部 ID の最も重要な機能は、混乱した代理問題の防止と対処です。</p><p>AWS では、サービス間でのなりすましが、混乱した代理問題を生じさせることがあります。サービス間でのなりすましは、1 つのサービス (<em>呼び出し元サービス</em>) が、別のサービス (<em>呼び出し対象サービス</em>) を呼び出すときに発生する可能性があります。呼び出し元サービスは、本来ならアクセスすることが許可されるべきではない方法でその許可を使用して、別の顧客のリソースに対する処理を実行するように操作される場合があります。</p>
+        <h2 id="mitigate-confused-deputy">クロスアカウントでの混乱した代理</h2>
+        <p>次の図は、クロスアカウントでの「混乱した代理」問題を示しています。</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputyproblem2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                「混乱した代理」問題の説明&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <p>このシナリオでは、次のことを前提としています。</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>AWS1</b> はあなたの AWS アカウント。</p>
+            </li><li class="listitem">
+                <p><b>AWS1:ExampleRole</b> は、お客様のアカウントのロールである。このロールの信頼ポリシーは、Example Corp の AWS アカウントを、ロールを引き受けることができるアカウントとして指定することによって、Example Corp を信頼しています。</p>
+            </li></ul></div>
+        <p>次の状況が発生します。</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>お客様は、Example Corp のサービスの使用を開始するとき、<b>AWS1:ExampleRole</b> の ARN を Example Corp に提供します。</p>
+            </li><li>
+                <p>Example Corp はそのロールの ARN を使用して、お客様の AWS アカウント のリソースにアクセスするために必要な一時的なセキュリティ認証情報を入手します。この方法では、お客様に代わって操作を実行できる "代理" として Example Corp を信頼します。</p>
+            </li><li>
+                <p>別の AWS ユーザーも Example Corp のサービスを利用し始め、このユーザーも <b>AWS1:ExampleRole</b> の ARN を Example Corp が使用できるように提供するとします。この別のユーザーは、秘密ではない <b>AWS1:ExampleRole</b> を知った、または推測した可能性があります。</p>
+            </li><li>
+                <p>その別のユーザーが Example Corp に自分のアカウントの AWS リソース (そう自称しているリソース) へのアクセスを依頼すると、Example Corp は <b>AWS1:ExampleRole</b> を使用してお客様のアカウントのリソースにアクセスします。</p>
+            </li></ol></div>
+        <p>このようにして、その別のユーザーはお客様のリソースに不正にアクセスできます。Example Corp は、この別のユーザーによって操られ、無意識にお客様のリソースにアクセスしたため、"混乱した代理" になります。</p>
+        <p>Example Corp は、ロールの信頼ポリシーに <code class="code">ExternalId</code> の条件の確認を含めることを必須とすることで、「混乱した代理」問題に対応できます。Example Corp は、顧客ごとに一意の <code class="code">ExternalId</code> 値を生成して、ロールを引き受けるリクエストでその値を使用します。<code class="code">ExternalId</code> 値は、Example Corp の顧客の間で一意でなければならず、Example Corp の顧客ではなく、Example Corp によって管理されます。そのため、外部 ID は Example Corp から取得するものであり、自分では用意できません。これにより、Example Corp が混乱した代理人になることを防ぎ、別のアカウントの AWS リソースへのアクセスを許可してしまうことを防ぎます。</p>
+        <p>このシナリオでは、Example Corp がお客様に割り当てた一意の ID は 12345 であり、もう一方のお客様に割り当てた ID は 67890 であるとします。これらの ID は、このシナリオで使用することのみを目的としているため、簡略化されています。通常、これらの ID は GUID です。これらの ID が Example Corp の顧客の間で一意であることを考慮すると、これらの値を外部 ID として使用することは賢明です。</p>
+        <p>Example Corp はお客様に 12345 という外部 ID 値を提供します。お客様は、<code class="code">Condition</code> 値が 12345 であることを必須とする以下のような <code class="code">sts:ExternalId</code> 要素をロールの信頼ポリシーに追加する必要があります。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "AWS": "<code class="replaceable">Example Corp's AWS Account ID</code>"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "StringEquals": <span>{</span>
+        "sts:ExternalId": "12345"
+      }
+    }
+  }
+}
+</code></pre>
+        <p>このポリシーの Condition 要素により、AssumeRole API 呼び出しに 12345 という外部 ID 値が含まれている場合にのみ Example Corp はロールを引き受けることができます。Example Corp は、顧客に代わってロールを引き受けるたびに、その顧客の外部 ID 値を AssumeRole 呼び出しに含めます。別の顧客がお客様の ARN を Example Corp に提供した場合でも、Example Corp が AWS へのリクエストに含める外部 ID を顧客がコントロールすることはできません。これにより、権限のない顧客がお客様のリソースにアクセスすることを防止できます。</p>
+        <p>次の図は、このプロセスを示したものです。</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputymitigation2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                「混乱した代理」問題を解消する方法&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>前述と同様に、お客様は、Example Corp のサービスを利用し始めるとき、<b>AWS1:ExampleRole</b> の ARN を Example Corp に提供します。</p>
+            </li><li>
+                <p> Example Corp がそのロールの ARN を使用して <b>AWS1:ExampleRole</b> ロールを引き受けるとき、Example Corp は AssumeRole API コールにお客様の外部 ID (12345) を含めます。この外部 ID はロールの信頼ポリシーと一致するため、AssumeRole API 呼び出しは正常に実行され、Example Corp はお客様の AWS アカウント のリソースにアクセスするための一時的なセキュリティ認証情報を取得します。</p>
+            </li><li>
+                <p>別の AWS ユーザーも Example Corp のサービスを利用し始め、先ほどと同様、このユーザーも <b>AWS1:ExampleRole</b> の ARN を Example Corp が使用できるように提供するとします。</p>
+            </li><li>
+                <p>しかし、今回は、Example Corp が <b>AWS1:ExampleRole</b> ロールを引き受けるとき、もう一方のお客様に関連付けられている外部 ID (67890) が提供されます。その別の顧客がこの ID を変更することはできません。Example Corp がこれを行うのは、ロールを使用するリクエストがもう一方のお客様から来たからであり、67890 は Example Corp が業務を遂行する環境を示すからです。お客様は自身の外部 ID (12345) を使用する条件を <b>AWS1:ExampleRole</b> の信頼ポリシーに追加したため、AssumeRole API コールは失敗します。別の顧客がお客様のアカウントのリソースに不正にアクセスすることが防止されます (図の赤色の「X」で示しています)。</p>
+            </li></ol></div>
+        <p>外部 ID により、Example Corp が他の顧客によって操られ、無意識にお客様のリソースにアクセスすることを防止します。</p>
+     
+        <h2 id="cross-service-confused-deputy-prevention">サービス間の混乱した代理の防止</h2>
+        <p>リソースベースのポリシー内では <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn"><code class="code">aws:SourceArn</code></a> および <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount"><code class="code">aws:SourceAccount</code></a> のグローバル条件コンテキストキーを使用して、サービスが持つ特定のリソースへのアクセス許可を制限することをお勧めします。クロスサービスのアクセスにリソースを 1 つだけ関連付けたい場合は、<code class="code">aws:SourceArn</code> を使用します。クロスサービスが使用できるように、アカウント内の任意のリソースを関連づけたい場合は、<code class="code">aws:SourceAccount</code> を使用します。</p>
+        <p>混乱した代理問題から保護するための最も効果的な方法は、リソースベースポリシー内のリソースの完全な ARN を指定しながら、グローバル条件コンテキストキー <code class="code">aws:SourceArn</code> を使用することです。リソースの完全な ARN が不明な場合や、複数のリソースを指定する場合には、グローバル条件コンテキストキー <code class="code">aws:SourceArn</code> で、ARN の未知部分を示すためにワイルドカード (<code class="code">*</code>) を使用します。例えば、<code class="code">arn:aws:<code class="replaceable">servicename</code>:*:<code class="replaceable">123456789012</code>:*</code> です。</p>
+        <p><code class="code">aws:SourceArn</code> の値に Amazon S3 バケット ARN などのアカウント ID が含まれていない場合は、両方のグローバル条件コンテキストキーを使用して、アクセス許可を制限する必要があります。</p>
+
+         
+            <h3 id="cross-service-confused-deputy-prevention-sts">AWS Security Token Service のクロスサービスでの混乱した代理の防止</h3>
+            <p>AWS の多くのサービスでは、ロールを使用して、ユーザーに代わって該当サービスが他のサービスのリソースにアクセスすることを許可する必要があります。サービスがお客様に代わってアクションを実行するために引き受けるロールは、<a href="./id_roles_terms-and-concepts.html#iam-term-service-role">サービスロール</a>と呼ばれます。ロールには 2 つのポリシーが必要です。ロールを引き受けることができるプリンシパルを指定する、ロールの信頼ポリシーと、ロールで実行できる操作を指定する、アクセス許可ポリシーです。IAM においては、ロールの信頼ポリシーがリソースベースのポリシーの唯一のタイプです。その他の AWS サービスには、Amazon S3 バケットポリシーなどのリソースベースのポリシーがあります。</p>
+            <p>サービスがユーザーに代わってロールを引き受ける場合、サービスプリンシパルが <code class="code">sts:AssumeRole</code> アクションを実行できるように、ロールの信頼ポリシーで許可されている必要があります。サービスが <code class="code">sts:AssumeRole</code> を呼び出すとき、ロールのアクセス許可ポリシーで許可されているリソースに、サービスプリンシパルがアクセスするために使用する、一時的なセキュリティー認証情報のセットを、AWS STS が返します。アカウント内でサービスがロールを引き受ける場合は、ロール信頼ポリシーに <code class="code">aws:SourceAccount</code> または <code class="code">aws:SourceArn</code> のグローバル条件コンテキストキーを含めることで、期待するリソースによって生成されたリクエストのみに、ロールのアクセスを制限できます。</p>
+            <p>例えば、AWS Systems Manager Incident Manager の場合、お客様の代わりに Incident Manager が Systems Manager Automation ドキュメント を実行できるように、ロールを選択する必要があります。オートメーションドキュメントには、CloudWatch アラームまたは EventBridge イベントによって開始される、インシデントの自動化された応答プランを含めることができます。次のロール信頼ポリシーの例では、<code class="code">aws:SourceArn</code> 条件キーを使用して、インシデントレコードの ARN をもとに、サービスロールへのアクセスを制限できます。応答プランリソース <code class="code">myresponseplan</code> から作成されたインシデントレコードのみが、このロールを使用できます。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "Service": "ssm-incidents.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "ArnLike": <span>{</span>
+        "aws:SourceArn": "arn:aws:ssm-incidents:*:<code class="replaceable">111122223333</code>:incident-record/<code class="replaceable">myresponseplan</code>/*"
+      }
+    }
+  }
+}</code></pre>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_common-scenarios_services.html">AWS サービスへのアクセスの許可</div><div id="next" class="next-link" accesskey="n" href="./id_roles_common-scenarios_federated-users.html">ID フェデレーションを介したアクセスの許可</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

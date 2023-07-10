@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS KMS에 대한 인증 및 액세스 제어 - AWS Key Management Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="control-access" /><meta name="default_state" content="control-access" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" /><meta name="description" content="AWS Key Management Service(AWS KMS)에서 인증 및 액세스 제어(권한 부여)에 대해 이해합니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Key Management Service" /><meta name="guide" content="개발자 안내서" /><meta name="abstract" content="AWS Key Management Service(AWS KMS)를 이용해 암호화 키를 안전하게 저장, 관리하고 사용자 데이터의 암호화와 해독을 수행하는 방법을 알아봅니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/control-access.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/control-access.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/control-access.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/control-access.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/control-access.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/control-access.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/control-access.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/control-access.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/control-access.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/control-access.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/control-access.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/control-access.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kms/latest/developerguide/control-access.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="x-default" /><meta name="feedback-item" content="Key Management Service (KMS)" /><meta name="this_doc_product" content="AWS Key Management Service" /><meta name="this_doc_guide" content="개발자 안내서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kms'}"></script><meta id="panorama-serviceSubSection" value="개발자 안내서" /><meta id="panorama-serviceConsolePage" value="AWS KMS에 대한 인증 및 액세스 제어" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS KMS에 대한 인증 및 액세스 제어 - AWS Key Management Service</title><meta name="pdf" content="kms-dg.pdf#control-access" /><meta name="rss" content="aws-kms-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=182" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key%20Management%20Service%20%28KMS%29&amp;topic_url=http://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" /><meta name="keywords" content="KMS,키 관리 서비스,암호화 키 관리,암호화 키,,봉투 암호화" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "개발자 안내서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS KMS에 대한 인증 및 액세스 제어",
+        "item" : "https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kms-dg.pdf#control-access" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/kms/index.html">AWS KMS</a><a href="overview.html">개발자 안내서</a></div><div id="page-toc-src"><a href="#permission-concepts">개념</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>기계 번역으로 제공되는 번역입니다. 제공된 번역과 원본 영어의 내용이 상충하는 경우에는 영어 버전이 우선합니다.</p></awsui-alert><h1 class="topictitle" id="control-access">AWS KMS에 대한 인증 및 액세스 제어</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS KMS를 사용하려면 AWS에서 요청을 인증하기 위해 사용할 수 있는 자격 증명이 있어야 합니다. 이러한 자격 증명은 AWS 리소스인 <a href="./concepts.html#kms_keys">AWS KMS keys</a> 및 <a href="./kms-alias.html">별칭</a>에 액세스할 수 있는 권한을 포함해야 합니다. 해당 권한을 명시적으로 제공하고 절대 거부되지 않은 경우를 제외하고 KMS 키에 대한 권한이 있는 AWS 주체는 없습니다. KMS 키를 사용하거나 관리하기 위한 묵시적 권한이나 자동 권한은 없습니다.</p><p>AWS KMS 리소스에 대한 액세스를 관리하는 주된 방법은 <em>정책</em>을 이용하는 것입니다. 정책은 어떤 보안 주체가 어떤 리소스에 액세스 할 수 있는지를 설명하는 문서입니다. IAM 자격 증명에 연결된 정책을 <em>자격 증명 기반 정책</em>(또는 <em>IAM 정책</em>)이라 하고 다른 종류의 리소스에 연결된 정책을 <em>리소스 정책</em>이라고 합니다. KMS 키에 대한 AWS KMS 리소스 정책은 <em>키 정책</em>이라고 합니다. 모든 KMS 키에는 키 정책이 있습니다.</p><p>AWS KMS 별칭을 제어하려면 IAM 정책을 사용합니다. 보안 주체가 별칭을 생성하도록 허용하려면 IAM 정책의 별칭에 대한 권한과 키 정책의 키에 대한 권한을 제공해야 합니다. 세부 정보는 <a href="./alias-access.html">별칭에 대한 액세스 제어</a>을 참조하세요.</p><p>KMS 키에 대한 액세스를 제어하는 데 다음 정책 메커니즘을 사용할 수 있습니다.</p><div class="itemizedlist">
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p><b>키 정책</b> - 모든 KMS 키에는 키 정책이 있습니다. 키 정책은 KMS 키에 대한 액세스를 제어하는 기본적인 방법입니다. 키 정책만 사용하여 액세스를 제어할 수 있습니다. 즉 KMS 키에 대한 전체 액세스 범위가 단일 문서(키 정책)에 정의됩니다. 키 정책 사용에 대한 자세한 내용은 <a href="./key-policies.html">키 정책</a> 섹션을 참조하세요.</p>
+    </li><li class="listitem">
+      <p><b>IAM 정책</b> – 키 정책과 함께 IAM 정책을 사용하여 KMS 키에 대한 액세스를 제어하는 권한을 부여할 수 있습니다. 이러한 방식으로 액세스를 제어하면 IAM에서 IAM 자격 증명에 대한 모든 권한을 관리할 수 있습니다. IAM 정책을 사용하여 KMS 키에 대한 액세스를 허용하려면 키 정책에서 명시적으로 허용해야 합니다. IAM 정책 사용에 대한 자세한 내용은 <a href="./iam-policies.html">IAM 정책</a> 섹션을 참조하세요.</p>
+    </li><li class="listitem">
+      <p><b>권한 부여</b> – 키 정책 및 IAM 정책과 함께 권한 부여를 사용하여 KMS 키에 대한 액세스를 허용할 수 있습니다. 이와 같이 액세스를 제어하면 키 정책에서 KMS 키에 대한 액세스를 허용하고 ID가 다른 사람에게 액세스를 위임하도록 허용할 수 있습니다. 권한 부여 사용에 대한 자세한 내용은 <a href="./grants.html">AWS KMS의 권한 부여</a>를 참조하세요.</p>
+    </li></ul></div><p>KMS 키는 해당 키가 생성된 AWS 계정에 속합니다. 그러나 해당 권한이 키 정책, IAM 정책에 명시적으로 제공되거나 부여된 경우를 제외하고 AWS 계정 루트 사용자를 포함하여 KMS 키를 사용하거나 관리할 권한이 있는 ID나 주체는 없습니다. KMS 키를 생성하는 IAM ID는 키 소유자로 간주되지 않으며, 사용자가 생성한 KMS 키를 사용하거나 관리할 수 있는 권한이 자동으로 부여되지 않습니다. 다른 ID와 마찬가지로 키 생성자는 키 정책, IAM 정책 또는 권한 부여를 통해 허가를 받아야 합니다. 그러나, <code class="code">kms:CreateKey</code> 권한이 있는 ID는 초기 키 정책을 설정하고 키를 사용하거나 관리할 권한을 자신에게 부여할 수 있습니다.</p><p>다음 주제에서는 리소스에 액세스할 수 있는지 대상을 제어하여 리소스를 보호할 수 있도록 AWS Identity and Access Management(IAM) 및 AWS KMS 인증 사용 방법을 자세히 설명합니다.</p><div class="highlights"><h6>주제</h6><ul><li><a href="#permission-concepts">개념</a></li><li><a href="./key-policies.html">키 정책</a></li><li><a href="./iam-policies.html">IAM 정책</a></li><li><a href="./grants.html">지원금</a></li><li><a href="./kms-vpc-endpoint.html">VPC 엔드포인트</a></li><li><a href="./policy-conditions.html">조건 키</a></li><li><a href="./abac.html">속성 기반 액세스 제어(ABAC)</a></li><li><a href="./key-policy-modifying-external-accounts.html">교차 계정 액세스</a></li><li><a href="./using-service-linked-roles.html">서비스 연결 역할</a></li><li><a href="./pqtls.html">하이브리드 포스트 양자 TLS</a></li><li><a href="./determining-access.html">액세스 결정</a></li><li><a href="./kms-api-permissions-reference.html">권한 참조</a></li></ul></div>
+    <h2 id="permission-concepts">AWS KMS 액세스 제어의 개념</h2>
+
+    <p>액세스 제어에 대한 설명에 사용된 개념은 AWS KMS에서 자세히 알아보세요.</p>
+    <div class="highlights" id="inline-topiclist"><h6>주제</h6><ul><li><a href="#permission-concept-authentication">인증</a></li><li><a href="#permission-concept-authorization">승인</a></li><li><a href="#security_iam_authentication">자격 증명을 통한 인증</a></li><li><a href="#security_iam_access-manage">정책을 사용하여 액세스 관리</a></li><li><a href="#kms-resources-operations">AWS KMS 리소스</a></li></ul></div>
+    
+     
+      <h3 id="permission-concept-authentication">인증</h3>
+      <p><em></em>인증은 ID를 확인하는 프로세스입니다. 로 요청을 전송하기AWS KMS 위해서는AWS 보안 인증 정보를AWS 사용하여 에 로그인해야 합니다.</p>
+     
+    
+     
+      <h3 id="permission-concept-authorization">승인</h3>
+      <p><em></em>권한 부여는 AWS KMS 리소스의 생성, 관리 또는 사용에 대한 요청을 전송할 수 있는 권한을 제공합니다. 예를 들어 암호화 작업에 KMS 키를 사용할 권한이 있어야 합니다.</p>
+      <p>AWS KMS 리소스에 대한 액세스를 제어하려면 <a href="./key-policies.html">키 정책</a>, <a href="./iam-policies.html">IAM 정책</a> 및 <a href="./grants.html">권한 부여</a>를 사용하세요. 모든 KMS 키에는 키 정책이 있어야 합니다. 키 정책에서 허용되는 경우 IAM 정책 및 권한 부여를 사용하여 보안 주체에게 KMS 키에 대한 액세스 권한을 부여할 수도 있습니다. 권한 부여를 구체화하기 위해서는 요청 또는 리소스가 지정한 조건을 충족하는 경우에만 액세스를 허용하거나 거부하는 <a href="./policy-conditions.html">조건 키</a>를 사용할 수 있습니다. <a href="./key-policy-modifying-external-accounts.html">다른 AWS 계정</a>에서 신뢰하는 보안 주체에 대한 액세스를 허용할 수도 있습니다.</p>
+     
+    
+    
+    
+     
+      <h3 id="security_iam_authentication">자격 증명을 통한 인증</h3> 
+      
+   
+<p>인증은 ID 자격 증명을 사용하여 AWS에 로그인하는 방식입니다. AWS 계정 루트 사용자나 IAM 사용자로 또는 IAM 역할을 수임하여 <em>인증</em>(AWS에 로그인)되어야 합니다.</p>
+
+<p>자격 증명 소스를 통해 제공된 보안 인증 정보를 사용하여 페더레이션형 ID로 AWS에 로그인할 수 있습니다. AWS IAM Identity Center (successor to AWS Single Sign-On) (IAM Identity Center) 사용자, 회사의 Single Sign-On 인증, Google 또는 Facebook 자격 증명이 페더레이션형 ID의 예입니다. 페더레이션형 ID로 로그인할 때 관리자가 이전에 IAM 역할을 사용하여 아이덴티티 페더레이션을 설정했습니다. 페더레이션을 사용하여 AWS에 액세스하면 간접적으로 역할을 수임합니다.</p>
+
+<p>사용자 유형에 따라AWS Management Console 또는AWS 액세스 포털에 로그인할 수 있습니다. AWS에 로그인하는 방법에 대한 자세한 내용은 <em>AWS 로그인 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/signin/latest/userguide/how-to-sign-in.html">AWS 계정에 로그인하는 방법</a>을 참조하세요.</p>
+
+<p>AWS프로그래밍 방식으로 액세스하는 경우, 자격 증명을 사용하여 요청에 암호화 방식으로 서명할 수 있는 소프트웨어 개발 키트 (SDK) 및 명령줄 인터페이스 (CLI) 를AWS 제공합니다. AWS 도구를 사용하지 않는다면 요청에 직접 서명해야 합니다. 권장 방법을 사용하여 요청에 직접 서명하는 방법에 대한 자세한 내용은 <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"><em>AWS 일반 참조</em> API 요청에 서명</a>을 참조하세요.</p>
+
+<p>사용하는 인증 방법에 상관 없이 추가 보안 정보를 제공해야 할 수도 있습니다. 예를 들어, AWS는 멀티 팩터 인증(MFA)을 사용하여 계정의 보안을 강화하는 것을 권장합니다. 자세한 내용은 <em>AWS IAM Identity Center (successor to AWS Single Sign-On) 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/enable-mfa.html">다중 인증</a> 및 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html">AWS에서 다중 인증(MFA) 사용</a>을 참조하세요.</p>
+
+
+   
+       
+        <h4 id="security_iam_authentication-rootuser">AWS 계정 루트 사용자</h4>
+        <p> AWS 계정을 생성할 때는 해당 계정의 모든 AWS 서비스 및 리소스에 대한 완전한 액세스 권한이 있는 단일 로그인 ID로 시작합니다. 이 자격 증명은 AWS 계정 <em>루트 사용자</em>라고 하며, 계정을 생성할 때 사용한 이메일 주소와 암호로 로그인하여 액세스합니다. 일상적인 태스크에 루트 사용자를 사용하지 않을 것을 강력히 권장합니다. 루트 사용자 보안 인증 정보를 보호하고 루트 사용자만 수행할 수 있는 작업을 수행하는 데 사용합니다. 루트 사용자로 로그인해야 하는 태스크의 전체 목록은 <em>AWS Account Management 참조 안내서</em>의 <a href="https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html">루트 사용자 보안 인증이 필요한 태스크</a>를 참조하세요.</p>
+       
+       
+        <h4 id="security_iam_authentication-federated">연동 자격 증명</h4> 
+        
+
+<p>가장 좋은 방법은 관리자 액세스가 필요한 사용자를 포함한 사용자가 자격 증명 공급자와의 페더레이션을 사용하여 임시 보안 인증 정보를 사용하여 AWS 서비스에 액세스하도록 요구합니다.</p>
+
+<p><em>연동 자격 증명</em>은 엔터프라이즈 사용자 디렉터리, 웹 자격 증명 공급자, AWS Directory Service, <span>Identity Center 디렉터리</span>의 사용자 또는 자격 증명 소스를 통해 제공된 자격 증명을 사용하여 AWS 서비스에 액세스하는 모든 사용자입니다. 연동 자격 증명은 AWS 계정에 액세스할 때 역할을 수임하고 역할은 임시 자격 증명을 제공합니다.</p>
+
+<p>중앙 집중식 액세스 관리를 위해 AWS IAM Identity Center (successor to AWS Single Sign-On)를 사용하는 것이 좋습니다. IAM Identity Center에서 사용자 및 그룹을 생성하거나 모든 AWS 계정 및 애플리케이션에서 사용하기 위해 고유한 자격 증명 소스의 사용자 및 그룹 집합에 연결하고 동기화할 수 있습니다. IAM Identity Center에 대한 자세한 내용은 <em>AWS IAM Identity Center (successor to AWS Single Sign-On) 사용 설명서</em>에서 <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">IAM Identity Center란 무엇입니까?</a>를 참조하세요.</p>
+ 
+       
+       
+        <h4 id="security_iam_authentication-iamuser">IAM 사용자 및 그룹</h4> 
+        
+   
+         <p><em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html">IAM 사용자</a></em>는 단일 개인 또는 애플리케이션에 대한 특정 권한을 가지고 있는 AWS 계정 내 자격 증명입니다. 가능하면 암호 및 액세스 키와 같은 장기 보안 인증 정보가 있는 IAM 사용자를 생성하는 대신 임시 보안 인증을 사용하는 것이 좋습니다. 하지만 IAM 사용자의 장기 보안 인증이 필요한 특정 사용 사례가 있는 경우 액세스 키를 교체하는 것이 좋습니다. 자세한 내용은 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#rotate-credentials">장기 보안 인증이 필요한 사용 사례의 경우 정기적으로 액세스 키 교체</a>를 참조하세요.</p>
+         
+         <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html"><em>IAM 그룹</em></a>은 IAM 사용자 컬렉션을 지정하는 자격 증명입니다. 귀하는 그룹으로 로그인할 수 없습니다. 그룹을 사용하여 여러 사용자의 권한을 한 번에 지정할 수 있습니다. 그룹을 사용하면 대규모 사용자 집합의 권한을 더 쉽게 관리할 수 있습니다. 예를 들어, <em>IAMAdmins</em>라는 그룹이 있고 이 그룹에 IAM 리소스를 관리할 권한을 부여할 수 있습니다.</p>
+         <p>사용자는 역할과 다릅니다. 사용자는 한 사람 또는 애플리케이션과 고유하게 연결되지만, 역할은 해당 역할이 필요한 사람이라면 누구나 수임할 수 있습니다. 사용자는 영구적인 장기 자격 증명을 가지고 있지만, 역할은 임시 자격 증명만 제공합니다. 자세한 정보는 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html#id_which-to-choose">IAM 사용자를 만들어야 하는 경우(역할이 아님)</a>를 참조하세요.</p>
+   
+       
+      
+       
+        <h4 id="security_iam_authentication-iamrole">IAM 역할</h4> 
+        
+   
+         <p><em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM 역할</a></em>은 특정 권한을 가지고 있는 AWS 계정 계정 내 ID입니다. IAM 사용자와 유사하지만, 특정 개인과 연결되지 않습니다. <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html">역할을 전환</a>하여 AWS Management Console에서 IAM 역할을 임시로 수임할 수 있습니다. AWS CLI 또는 AWS API 태스크를 호출하거나 사용자 지정 URL을 사용하여 역할을 수임할 수 있습니다. 역할 사용 방법에 대한 자세한 정보는 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">IAM 역할 사용</a>을 참조하세요.</p>
+         <p>임시 자격 증명이 있는 IAM 역할은 다음과 같은 상황에서 유용합니다.</p>
+         <div class="itemizedlist">
+            
+             
+             
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p><b>페더레이션 사용자 액세스</b> - 페더레이션 아이덴티티에 권한을 부여하려면 역할을 생성하고 해당 역할의 권한을 정의합니다. 페더레이션 아이덴티티가 인증되면 역할이 연결되고 역할에 정의된 권한이 부여됩니다. 페더레이션 역할에 대한 자세한 내용은 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html"> Creating a role for a third-party Identity Provider</a>(서드 파티 자격 증명 공급자의 역할 만들기) 부분을 참조하세요. <span>IAM Identity Center를 사용하는 경우 권한 집합을 구성합니다. 인증 후 아이덴티티가 액세스할 수 있는 항목을 제어하기 위해 IAM Identity Center는 권한 세트를 IAM의 역할과 연관짓습니다. 권한 세트에 대한 자세한 내용은 <em>AWS IAM Identity Center (successor to AWS Single Sign-On) 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html">권한 세트</a>를 참조하세요.</span></p>
+            </li><li class="listitem">
+               <p><b>임시 IAM 사용자 권한</b> - IAM 사용자 또는 역할은 IAM 역할을 수임하여 특정 작업에 대한 다양한 권한을 임시로 받을 수 있습니다.</p>
+            </li><li class="listitem">
+               <p><b>크로스 계정 액세스</b> - IAM 역할을 사용하여 다른 계정의 사용자(신뢰할 수 있는 보안 주체)가 내 계정의 리소스에 액세스하도록 허용할 수 있습니다. 역할은 크로스 계정 액세스를 부여하는 기본적인 방법입니다. 그러나 일부 AWS 서비스를 사용하면 역할을 (프록시로 사용하는 대신) 리소스에 정책을 직접 연결할 수 있습니다. 교차 계정 액세스를 위한 역할과 리소스 기반 정책의 차이점을 알아보려면 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">IAM 역할과 리소스 기반 정책의 차이</a>를 참조하세요.</p>
+            </li><li class="listitem">
+               <p><b>교차 서비스 액세스</b> – 일부 AWS 서비스는 다른 AWS 서비스의 기능을 사용합니다. 예를 들어 서비스에서 호출을 수행하면 일반적으로 해당 서비스는 Amazon EC2에서 애플리케이션을 실행하거나 Amazon S3에 객체를 저장합니다. 서비스는 호출하는 보안 주체의 권한을 사용하거나, 서비스 역할을 사용하거나, 또는 서비스 연결 역할을 사용하여 이 태스크를 수행할 수 있습니다.</p>
+                  <div class="itemizedlist">
+                      
+                      
+                      
+                  <ul class="itemizedlist"><li class="listitem">
+                        <p><b>보안 주체 권한</b> - IAM 사용자 또는 역할을 사용하여 AWS에서 작업을 수행하는 사람은 보안 주체로 간주됩니다. 정책은 보안 주체에게 권한을 부여합니다. 일부 서비스를 사용할 때는 다른 서비스에서 다른 태스크를 트리거하는 태스크를 수행할 수 있습니다. 이 경우 두 태스크를 모두 수행할 수 있는 권한이 있어야 합니다. 작업에 정책의 추가 종속 작업이 필요한지 여부를 확인하기 위해서는 <em>서비스 권한 부여 참조</em>의 https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html를 참조하세요.</p>
+                     </li><li class="listitem">
+                        <p><b>서비스 역할</b> - 서비스 역할은 서비스가 사용자를 대신하여 태스크를 수행하기 위해 수임하는 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM 역할</a>입니다. IAM 관리자는 IAM 내에서 서비스 역할을 생성, 수정 및 삭제할 수 있습니다. 자세한 정보는 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">AWS 서비스에 대한 권한을 위임할 역할 생성</a>을 참조하세요.</p>
+                     </li><li class="listitem">
+                        <p><b>서비스 연결 역할</b> – 서비스 연결 역할은 AWS 서비스에 연결된 서비스 역할의 한 유형입니다. 서비스는 사용자를 대신하여 작업을 수행하기 위해 역할을 수임할 수 있습니다. 서비스 연결 역할은 AWS 계정에 나타나고, 서비스가 소유합니다. IAM 관리자는 서비스 연결 역할의 권한을 볼 수 있지만 편집은 할 수 없습니다.</p>
+                     </li></ul></div>
+            </li><li class="listitem">
+               <p><b>Amazon EC2에서 실행 중인 애플리케이션</b> – IAM 역할을 사용하여 EC2 인스턴스에서 실행되고 AWS CLI 또는 AWS API 요청을 수행하는 애플리케이션의 임시 자격 증명을 관리할 수 있습니다. 이는 EC2 인스턴스 내에 액세스 키를 저장할 때 권장되는 방법입니다. EC2 인스턴스에 AWS 역할을 할당하고 해당 역할을 모든 애플리케이션에서 사용할 수 있도록 하려면 인스턴스에 연결된 인스턴스 프로파일을 생성합니다. 인스턴스 프로파일에는 역할이 포함되어 있으며 EC2 인스턴스에서 실행되는 프로그램이 임시 자격 증명을 얻을 수 있습니다. 자세한 정보는 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html">IAM 역할을 사용하여 Amazon EC2 인스턴스에서 실행되는 애플리케이션에 권한 부여</a>를 참조하세요.</p>
+            </li></ul></div>
+         <p>IAM 역할을 사용할지 또는 IAM 사용자를 사용할지를 알아보려면 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html#id_which-to-choose_role">IAM 사용 설명서</a>의 <em>IAM 역할(사용자 대신)을 생성하는 경우</em>를 참조하세요.</p>
+   
+       
+     
+     
+      <h3 id="security_iam_access-manage">정책을 사용하여 액세스 관리</h3> 
+      
+   
+ <p>정책을 생성하고 AWS ID 또는 리소스에 연결하여 AWS 내 액세스를 제어합니다. 정책은 ID 또는 리소스와 연결될 때 해당 권한을 정의하는 AWS의 객체입니다. AWS는 보안 주체(사용자, 루트 사용자 또는 역할 세션)가 요청을 보낼 때 이러한 정책을 평가합니다. 정책에서 권한은 요청이 허용되거나 거부되는지를 결정합니다. 대부분의 정책은 AWS에 JSON 문서로서 저장됩니다. JSON 정책 문서의 구조와 콘텐츠에 대한 자세한 정보는 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json">JSON 정책 개요</a>를 참조하세요.</p>
+
+ 
+   
+      <p>관리자는 AWS JSON 정책을 사용하여 누가 무엇에 액세스할 수 있는지를 지정할 수 있습니다. 즉, 어떤 <b>보안 주체</b>가 어떤 <b>리소스</b>와 어떤 <b>조건</b>에서 <b>작업</b>을 수행할 수 있는지를 지정할 수 있습니다.</p>
+  
+
+<p>기본적으로, 사용자와 역할에는 어떠한 권한도 없습니다. 사용자에게 사용자가 필요한 리소스에서 작업을 수행할 권한을 부여하려면 IAM 관리자가 IAM 정책을 생성하면 됩니다. 그런 다음 관리자가 IAM 정책을 역할에 추가하고, 사용자가 역할을 맡을 수 있습니다.</p>
+ <p>IAM 정책은 태스크를 수행하기 위해 사용하는 방법과 상관없이 작업에 대한 권한을 정의합니다. 예를 들어, <code class="code">iam:GetRole</code> 태스크를 허용하는 정책이 있다고 가정합니다. 해당 정책이 있는 사용자는 AWS Management Console, AWS CLI 또는 AWS API에서 역할 정보를 가져올 수 있습니다.</p>
+   
+       
+        <h4 id="security_iam_access-manage-id-based-policies">자격 증명 기반 정책</h4> 
+        
+   
+         
+   
+         <p>자격 증명 기반 정책은 IAM 사용자, 사용자 그룹 또는 역할과 같은 자격 증명에 연결할 수 있는 JSON 권한 정책 문서입니다. 이러한 정책은 사용자와 역할이 어떤 리소스와 어떤 조건에서 어떤 태스크를 수행할 수 있는지를 제어합니다. 자격 증명 기반 정책을 생성하는 방법을 알아보려면 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html">IAM 정책 생성</a>을 참조하세요.</p>
+  
+         <p>자격 증명 기반 정책은 <em>인라인 정책</em> 또는 <em>관리형 정책</em>으로 한층 더 분류할 수 있습니다. 인라인 정책은 단일 사용자, 그룹 또는 역할에 직접 포함됩니다. 관리형 정책은 AWS 계정에 속한 다수의 사용자, 그룹 및 역할에 독립적으로 추가할 수 있는 정책입니다. 관리형 정책에는 AWS 관리형 정책과 고객 관리형 정책이 포함되어 있습니다. 관리형 정책 또는 인라인 정책을 선택하는 방법을 알아보려면 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#choosing-managed-or-inline">관리형 정책과 인라인 정책의 선택</a>을 참조하세요.</p>
+   
+       
+       
+        <h4 id="security_iam_access-manage-resource-based-policies">리소스 기반 정책</h4> 
+        
+        <p>AWS KMS <a href="./key-policies.html">키 정책</a>은 KMS 키에 대한 액세스를 제어하는 리소스 기반 정책입니다. 모든 KMS 키에는 키 정책이 있어야 합니다. 다른 인증 메커니즘을 사용하여 KMS 키에 대한 액세스를 허용할 수 있지만 이는 키 정책에서 허용되는 경우에만 가능합니다. (키 정책에서 명시적으로 허용되지 않는 경우에도 IAM 정책을 사용하여 KMS 키에 대한 액세스를 <em></em>거부할 수 있습니다.)</p>
+        <p>리소스 기반 정책은 특정 리소스에 대한 액세스를 제어하기 위하여 리소스(예: KMS 키)에 연결하는 JSON 정책 문서입니다. 리소스 기반 정책은 지정된 보안 주체가 해당 리소스에 대해 어떤 조건에서 어떤 작업을 수행할 수 있는지 정의합니다. 리소스 기반 정책은 리소스를 지정하지 않지만 계정, 사용자, 역할, 페더레이션 사용자 또는 AWS 서비스와 같은 보안 주체는 지정해야 합니다. 리소스 기반 정책은 리소스를 관리하는 해당 서비스에 있는 인라인 정책입니다. 리소스 기반 정책에서는 IAM의 AWS 관리형 정책(예: <a href="./aws-managed-policies.html">AWSKeyManagementServicePowerUser 관리형 정책</a>)을 사용할 수 없습니다.</p>
+             
+
+       
+        <h4 id="security_iam_access-manage-acl">ACL(액세스 제어 목록)</h4> 
+        
+   
+      
+   
+   <p>ACL(액세스 제어 목록)은 어떤 보안 주체(계정 멤버, 사용자 또는 역할)가 리소스에 액세스할 수 있는 권한을 가지고 있는지를 제어합니다. ACL은 JSON 정책 문서 형식을 사용하지 않지만 리소스 기반 정책과 유사합니다.</p>
+  
+      <p>Amazon S3, AWS WAF 및 Amazon VPC는 ACL을 지원하는 대표적인 서비스입니다. ACL에 대해 자세히 알아보려면 <em>Amazon Simple Storage Service 개발자 안내서</em>의 <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">ACL(액세스 제어 목록) 개요</a>를 참조하세요.</p>
+   
+        <p>AWS KMS는 ACL을 지원하지 않습니다.</p>
+       
+       
+        <h4 id="security_iam_access-manage-other-policies">기타 정책 유형</h4> 
+        
+   
+         <p>AWS는 비교적 일반적이지 않은 추가 정책 유형을 지원합니다. 이러한 정책 유형은 더 일반적인 정책 유형에 따라 사용자에게 부여되는 최대 권한을 설정할 수 있습니다.</p>
+         <div class="itemizedlist">
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p><b>권한 경계</b> – 권한 경계는 자격 증명 기반 정책에 따라 IAM 엔터티(IAM 사용자 또는 역할)에 부여할 수 있는 최대 권한을 설정하는 고급 기능입니다. 엔터티에 대한 권한 경계를 설정할 수 있습니다. 그 결과로 얻는 권한은 개체의 자격 증명 기반 정책과 그 권한 경계의 교집합입니다. <code class="code">Principal</code> 필드에서 사용자나 역할을 보안 주체로 지정하는 리소스 기반 정책은 권한 경계를 통해 제한되지 않습니다. 이러한 정책 중 하나에 포함된 명시적 거부는 허용을 재정의합니다. 권한 경계에 대한 자세한 정보는 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">IAM 엔터티에 대한 권한 경계</a>를 참조하세요.</p>
+            </li><li class="listitem">
+               <p><b>서비스 제어 정책(SCP)</b> – SCP는 AWS Organizations에서 조직 또는 조직 단위(OU)에 최대 권한을 지정하는 JSON 정책입니다. AWS Organizations는 기업이 소유하는 여러 개의 AWS 계정을 그룹화하고 중앙에서 관리하기 위한 서비스입니다. 조직에서 모든 기능을 활성화할 경우 서비스 제어 정책(SCP)을 임의의 또는 모든 계정에 적용할 수 있습니다. SCP는 각 AWS 계정 루트 사용자를 비롯하여 멤버 계정의 엔터티에 대한 권한을 제한합니다. 조직 및 SCP에 대한 자세한 정보는 <em>AWS Organizations 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_about-scps.html">SCP 작동 방식</a>을 참조하세요.</p>
+            </li><li class="listitem">
+               <p><b>세션 정책</b> – 세션 정책은 역할 또는 연합된 사용자에 대해 임시 세션을 프로그래밍 방식으로 생성할 때 파라미터로 전달하는 고급 정책입니다. 결과적으로 얻는 세션의 권한은 사용자 또는 역할의 자격 증명 기반 정책의 교차와 세션 정책입니다. 또한 권한을 리소스 기반 정책에서 가져올 수도 있습니다. 이러한 정책 중 하나에 포함된 명시적 거부는 허용을 재정의합니다. 자세한 정보는 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">세션 정책</a>을 참조하세요.</p>
+            </li></ul></div>
+   
+       
+       
+        <h4 id="security_iam_access-manage-multiple-policies">여러 정책 유형</h4> 
+        
+   
+         <p>여러 정책 유형이 요청에 적용되는 경우 결과 권한은 이해하기가 더 복잡합니다. 여러 정책 유형이 관련될 때 AWS가 요청을 허용할지를 결정하는 방법을 알아보려면 <em>IAM 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html">정책 평가 로직</a>을 참조하세요.</p>
+   
+       
+     
+    
+    
+    
+     
+      <h3 id="kms-resources-operations">AWS KMS 리소스</h3>      
+      <p>AWS KMS에서 기본 리소스는 <a href="./concepts.html#kms_keys">AWS KMS keys</a>입니다. AWS KMS는 KMS 키에 대해 알기 쉬운 이름을 제공하는 독립 리소스인 <a href="./kms-alias.html">별칭</a>을 지원합니다. 일부 AWS KMS 작업에서는 별칭을 사용하여 KMS 키를 식별할 수 있습니다.</p>
+      <p>KMS 키 또는 별칭의 각 인스턴스에는 표준 형식의 고유한 <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Amazon 리소스 이름</a>(ARN)이 있습니다. AWS KMS 리소스에서 AWS 서비스 이름은 <code class="code">kms</code>입니다.</p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>AWS KMS key</b></p>
+          <p>ARN 형식:</p>
+          <p><code class="code">arn:<code class="replaceable">AWS partition name</code>:<code class="replaceable">AWS service
+            name</code>:<code class="replaceable">AWS 리전</code>:<code class="replaceable">AWS 계정
+              ID</code>:key/<code class="replaceable">key ID</code></code></p>
+          <p>ARN 예:</p>
+          <p><code class="code">arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code></p>
+        </li><li class="listitem">
+          <p><b>별칭</b></p>
+          <p>ARN 형식:</p>
+          <p><code class="code">arn:<code class="replaceable">AWS partition name</code>:<code class="replaceable">AWS service
+            name</code>:<code class="replaceable">AWS 리전</code>:<code class="replaceable">AWS 계정
+              ID</code>:alias/<code class="replaceable">alias name</code></code></p>
+          <p>ARN 예:</p>
+          <p><code class="code">arn:aws:kms:us-west-2:111122223333:alias/example-alias</code></p>
+        </li></ul></div>
+      <p>AWS KMS는 AWS KMS 리소스를 처리하기 위한 API 작업을 제공합니다. AWS Management Console 및 AWS KMS API 작업에서 KMS 키를 식별하는 방법에 대한 자세한 내용은 <a href="./concepts.html#key-id">키 식별자 (KeyId)</a> 단원을 참조하십시오. AWS KMS 작업 목록은 <a href="https://docs.aws.amazon.com/kms/latest/APIReference/">AWS Key Management Service API 참조</a> 섹션을 확인하세요.</p>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./key-state.html">키 상태 참조</div><div id="next" class="next-link" accesskey="n" href="./key-policies.html">키 정책</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

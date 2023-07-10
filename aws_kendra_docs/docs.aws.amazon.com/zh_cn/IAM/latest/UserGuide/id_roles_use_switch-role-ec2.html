@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>使用 IAM 角色向在 Amazon EC2 实例上运行的应用程序授予权限 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_use_switch-role-ec2" /><meta name="default_state" content="id_roles_use_switch-role-ec2" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="description" content="将 IAM 角色传递给 Amazon EC2 实例，以便向在该实例上运行的应用程序提供 AWS 凭证。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="用户指南" /><meta name="abstract" content="通过用户身份（身份验证）定义特定权限的策略（授权）控制对您的 AWS 资源的访问。" /><meta name="guide-locale" content="zh_cn" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="用户指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="用户指南" /><meta id="panorama-serviceConsolePage" value="使用 IAM 角色向在 Amazon EC2 实例上运行的应用程序授予权限" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>使用 IAM 角色向在 Amazon EC2 实例上运行的应用程序授予权限 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_use_switch-role-ec2" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 用户,user,IAM 组,group,IAM 角色,role,权限策略,信任策略,策略,访问密钥,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "用户指南",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM 身份（用户、用户组和角色）",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 角色",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "使用 IAM 角色",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "使用 IAM 角色向在 Amazon EC2 实例上运行的应用程序授予权限",
+        "item" : "https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_use_switch-role-ec2" target="_blank" rel="noopener noreferrer" title="打开 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文档</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">用户指南</a></div><div id="page-toc-src"><a href="#roles-usingrole-ec2instance-roles">Amazon EC2 实例的角色的工作方式？</a><a href="#roles-usingrole-ec2instance-permissions">在 Amazon EC2 中使用角色所需的权限</a><a href="#roles-usingrole-ec2instance-get-started">怎样入门？</a><a href="#roles-usingrole-ec2instance-related-info">相关信息</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_use_switch-role-ec2">使用 IAM 角色向在 Amazon EC2 实例上运行的应用程序授予权限</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>在 Amazon EC2 实例上运行的应用程序必须将 AWS 凭证包含在其 AWS API 请求中。您可以让开发人员将 AWS 凭证直接存储在 Amazon EC2 实例中，并允许该实例中的应用程序使用这些凭证。但开发人员随后必须管理凭证，确保他们能安全地将凭证传递给每个实例，并在需要轮换凭证时更新每个 Amazon EC2 实例。这需要进行大量的额外工作。</p><p>相反，您可以且应使用 IAM 角色管理在 Amazon EC2 实例上运行的应用程序的<em>临时</em>凭证。在使用角色时，您不需要将长期凭证（如登录密码或访问密钥）分配给 Amazon EC2 实例。相反，角色可提供临时权限供应用程序在调用其他 AWS 资源时使用。当您启动 Amazon EC2 实例时，可指定要与实例关联的 IAM 角色。然后，实例上运行的应用程序可使用角色提供的临时凭证对 API 请求进行签名。</p><p>若要使用角色向 Amazon EC2 实例上运行的应用程序授予权限，需要进行一点额外配置。Amazon EC2 实例上运行的应用程序由虚拟化操作系统从 AWS 中提取。因为存在这一额外分离操作，所以需要执行一个附加步骤将 AWS 角色及其关联权限分配给 Amazon EC2 实例，并使这些权限对其应用程序可用。此额外步骤是创建要附加到实例的<em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html">实例配置文件</a></em>。实例配置文件包含角色，并且可以为实例上运行的应用程序提供角色的临时凭证。然后，可以在应用程序的 API 调用中使用这些临时凭证访问资源，以及将访问限制为仅角色指定的那些资源。请注意，一次只能将一个角色分配给 Amazon EC2 实例，实例上的所有应用程序都共享相同的角色和权限。</p><p>以这种方式使用该角色拥有多种优势。因为角色凭证是临时的，并且会自动轮换，所以您不必管理凭证，也不必担心长期安全风险。此外，如果您对多个实例使用单个角色，则可以对该角色进行更改，而此更改会自动传播到所有实例。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>通常会在您启动 Amazon EC2 实例时向它分配角色，不过也可以向已在运行的 Amazon EC2 实例附加角色。要了解如何将角色附加到运行的实例，请参阅<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#attach-iam-role">适用于 Amazon EC2 的 IAM 角色</a>。</p></div></div><div class="highlights"><h6>主题</h6><ul><li><a href="#roles-usingrole-ec2instance-roles">Amazon EC2 实例的角色的工作方式？</a></li><li><a href="#roles-usingrole-ec2instance-permissions">在 Amazon EC2 中使用角色所需的权限</a></li><li><a href="#roles-usingrole-ec2instance-get-started">怎样入门？</a></li><li><a href="#roles-usingrole-ec2instance-related-info">相关信息</a></li><li><a href="./id_roles_use_switch-role-ec2_instance-profiles.html">使用实例配置文件</a></li></ul></div>
+    <h2 id="roles-usingrole-ec2instance-roles">Amazon EC2 实例的角色的工作方式？</h2>
+    <p>在下图中，一名开发人员在 Amazon EC2 实例上运行一个应用程序，该应用程序要求访问名为 <code class="code">photos</code> 的 S3 存储桶。管理员创建 <code class="code">Get-pics</code> 服务角色并将该角色附加到 Amazon EC2 实例。该角色包括一个权限策略，该策略授予对指定 S3 存储桶的只读访问权限。它还包括一个信任策略，该策略允许 Amazon EC2 实例担任该角色并检索临时凭证。在该实例上运行应用程序时，应用程序可以使用该角色的临时凭证访问照片存储桶。管理员不必向开发人员授予访问照片存储桶的权限，开发人员完全不必共享或管理凭证。</p>
+    <div class="mediaobject">
+       
+        <img src="images/roles-usingrole-ec2roleinstance.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        访问 AWS 资源的 Amazon EC2 实例上的应用程序&#xA;      " />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+       
+    <ol><li>
+        <p>管理员使用 IAM 创建 <code class="userinput">Get-pics</code> 角色。在角色的信任策略中，管理员指定仅 Amazon EC2 实例能够担任该角色。在角色的权限策略中，管理员为 <code class="code">photos</code> 存储桶指定只读权限。</p>
+      </li><li>
+        <p>开发人员启动 Amazon EC2 实例，并向该实例分配 <code class="code">Get-pics</code> 角色。</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>如果您使用 IAM 控制台，则会为您管理实例配置文件，该配置文件大部分对您是透明的。但是，如果您使用 AWS CLI 或 API 创建和管理角色和 Amazon EC2 实例，则必须创建实例配置文件并采用单独步骤将角色分配给它。随后在启动实例时，您必须指定实例配置文件名称而不是角色名称。</p></div></div>
+      </li><li>
+        <p>应用程序在运行时会从 Amazon EC2 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">实例元数据</a>获取临时安全凭证，如<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">从实例元数据检索安全凭证</a>中所述。这些是<a href="./id_credentials_temp.html">临时安全凭证</a>，用于表示角色，在有限时间段内有效。</p>
+        <p>使用某些 <a href="http://aws.amazon.com/tools/" rel="noopener noreferrer" target="_blank"><span>AWS 开发工具包</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>，开发人员可以使用提供程序以透明方式管理临时安全凭证。（各 AWS 开发工具包的文档介绍该软件开发工具包支持的证书管理功能。）</p>
+        <p>应用程序也可以直接从 Amazon EC2 实例的实例元数据中获取临时凭证。凭证和相关值可从元数据的 <code class="code">iam/security-credentials/<code class="replaceable">role-name</code></code> 类别（在本例中为 <code class="code">iam/security-credentials/Get-pics</code>）获得。如果应用程序从实例元数据获取凭证，则它可对凭证进行缓存。</p>
+      </li><li>
+        <p>通过使用检索到的临时凭证，应用程序可以访问照片存储桶。由于附加到 <code class="userinput">Get-pics</code> 角色的策略，应用程序具有只读权限。</p>
+        <p>实例上提供的临时安全凭证会在过期之前自动轮换，因此始终具有有效的凭证集。应用程序只需要确保在当前凭证过期之前从实例元数据获取新的凭证集。可以使用 AWS 开发工具包管理凭证，这样应用程序就不需要包含额外的逻辑来刷新凭证。例如，使用实例配置文件凭证提供程序实例化客户端。但是，如果应用程序从实例元数据获取临时安全凭证并对它们进行缓存，则它应在当前凭证集过期之前，每隔一小时 (或至少每隔 15 分钟) 获取刷新的凭证集。在 <code class="code">iam/security-credentials/<code class="replaceable">role-name</code></code> 类别中返回的信息中包含过期时间。</p>
+      </li></ol></div>
+   
+    <h2 id="roles-usingrole-ec2instance-permissions">在 Amazon EC2 中使用角色所需的权限</h2>
+    <p>要启动具有角色的实例，开发人员必须有启动 Amazon EC2 实例的权限和传递 IAM 角色的权限。</p>
+    <p>以下示例策略可以实现使用 AWS Management Console发布引用角色的实例。策略包含通配符 (<code class="code">*</code>) 以允许用户传递任意角色并执行所有列出的 Amazon EC2 操作。用户可以通过 <code class="code">ListInstanceProfiles</code> 操作浏览 AWS 账户 中的所有角色。</p>
+    <div class="example"><h6>例 授权用户使用 Amazon EC2 控制台启动具有任何角色的实例的示例策略</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "IamPassRole",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "iam:PassedToService": "ec2.amazonaws.com"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "ListEc2AndListInstanceProfiles",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListInstanceProfiles",
+                "ec2:Describe*",
+                "ec2:Search*",
+                "ec2:Get*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+</code></pre></div></div>
+     
+      <h3 id="roles-usingrole-ec2instance-passrole">限制哪些角色能够传递到 Amazon EC2 实例（使用 PassRole）</h3>
+      <p>您可以使用 <code class="code">PassRole</code> 权限来限制用户启动实例时可以传递给 Amazon EC2 实例的角色。这有助于防止用户运行具有超出用户获授权限的应用程序  即防止用户获取提升的权限。例如，假设用户 Alice 仅有权启动 Amazon EC2 实例并使用 Amazon S3 存储桶，但是她传递给 Amazon EC2 实例的角色有权使用 IAM 和 Amazon DynamoDB。在这种情况下，Alice 或许能够启动实例，登录它，获取临时安全凭证，然后执行未向她授权的 IAM 或 DynamoDB 操作。</p>
+      <p>要限制用户可以传递给 Amazon EC2 实例的角色，您可创建一个允许执行 <code class="code">PassRole</code> 操作的策略。然后，将策略附加到将启动 Amazon EC2 实例的用户（或该用户所属的 IAM 组）。在策略的 <code class="code">Resource</code> 元素中，列出允许用户传递给 Amazon EC2 实例的角色。用户启动一个实例并将角色与该实例关联时，Amazon EC2 会检查是否允许用户传递该角色。当然，您还应确保用户可传递的角色不包含用户不应拥有的权限。</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>就像 <code class="code">PassRole</code> 或 <code class="code">RunInstances</code> 那样，<code class="code">ListInstanceProfiles</code> 不是 API 操作。相反，它是只要有角色 ARN 作为参数传递给 API 时，AWS 便会检查的权限 (或者控制台代表用户这么做)。它帮助管理员控制哪些角色可以由哪些用户传递。在这种情况下，它可确保用户可以将特定角色附加到 Amazon EC2 实例。</p></div></div>
+      <div class="example"><h6>例 通过特定角色向用户授予启动 Amazon EC2 实例的权限的示例策略</h6><div class="example-contents"><p>通过以下示例策略，用户可以使用 Amazon EC2 API，通过角色来启动实例。<code class="code">Resource</code> 元素指定角色的 Amazon Resource Name (ARN)。通过指定 ARN，该策略授予用户仅传递 <code class="code">Get-pics</code> 角色的权限。如果在启动实例时用户尝试指定其他角色，则该操作会失败。用户拥有运行任何实例的权限，无论他们是否传递角色。</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": "*"
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::<code class="replaceable">account-id</code>:role/Get-pics"
+    }
+  ]
+}</code></pre></div></div>
+     
+     
+      <h3 id="switch-role-ec2-another-account">允许实例配置文件角色切换到另一个账户中的角色</h3>
+      <p>您可以允许 Amazon EC2 实例上运行的应用程序在另一个账户中运行命令。为此，您必须允许第一个账户中的 Amazon EC2 实例角色切换到第二个账户中的角色。</p>
+      <p>假设您使用两个 AWS 账户，并希望允许 Amazon EC2 实例上运行的应用程序在两个账户中运行 <a href="http://aws.amazon.com/cli/" rel="noopener noreferrer" target="_blank"><span>AWS CLI</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 命令。假设 Amazon EC2 实例位于 <code class="code">111111111111</code> 账户中。该实例包含 <code class="code">abcd</code> 实例配置文件角色，以允许应用程序对同一 <code class="code">111111111111</code> 账户中的 <code class="code">my-bucket-1</code> 存储桶执行只读 Amazon S3 任务。不过，还必须允许应用程序担任 <code class="code">efgh</code> 跨账户角色以访问 <code class="code">222222222222</code> 账户中的 <code class="code">my-bucket-2</code> Amazon S3 存储桶。</p>
+      <div class="mediaobject">
+         
+          <img src="images/roles-instance-profile-cross-account.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+         
+      </div>
+      <p><code class="code">abcd</code> Amazon EC2 实例配置文件角色必须具有以下权限策略，以允许应用程序访问 <code class="code">my-bucket-1</code> Amazon S3 存储桶：</p>
+      <p><b><em>账户 111111111111 <code class="code">abcd</code> 角色权限策略</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowAccountLevelS3Actions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowListAndReadS3ActionOnMyBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket-1/*",
+                "arn:aws:s3:::my-bucket-1"
+            ]
+        },
+        <span>{</span>
+            "Sid": "AllowIPToAssumeCrossAccountRole",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "arn:aws:iam::222222222222:role/efgh"
+        }
+    ]
+}</code></pre>
+      <p><code class="code">abcd</code> 角色必须信任 Amazon EC2 服务以担任该角色。为此，<code class="code">abcd</code> 角色必须具有以下信任策略：</p>
+      <p><b><em>账户 111111111111 <code class="code">abcd</code> 角色信任策略</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "abcdTrustPolicy",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"Service": "ec2.amazonaws.com"}
+        }
+    ]
+}</code></pre>
+      <p>假设 <code class="code">efgh</code> 跨账户角色允许对同一 <code class="code">222222222222</code> 账户中的 <code class="code">my-bucket-2</code> 存储桶执行只读 Amazon S3 任务。为此，<code class="code">efgh</code> 跨账户角色必须具有以下权限策略：</p>
+      <p><b><em>账户 222222222222 <code class="code">efgh</code> 角色权限策略</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowAccountLevelS3Actions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowListAndReadS3ActionOnMyBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket-2/*",
+                "arn:aws:s3:::my-bucket-2"
+            ]
+        }
+    ]
+}</code></pre>
+      <p><code class="code">efgh</code> 角色必须信任 <code class="code">abcd</code> 实例配置文件角色以担任该角色。为此，<code class="code">efgh</code> 角色必须具有以下信任策略：</p>
+      <p><b><em>账户 222222222222 <code class="code">efgh</code> 角色信任策略</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "efghTrustPolicy",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"AWS": "arn:aws:iam::111111111111:role/abcd"}
+        }
+    ]
+}</code></pre>
+     
+   
+    <h2 id="roles-usingrole-ec2instance-get-started">怎样入门？</h2>
+    <p>为了理解角色如何在 Amazon EC2 实例中起作用，您需要使用 IAM 控制台创建一个角色，启动使用该角色的 Amazon EC2 实例，然后检查正在运行的实例。您可以检查<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html">实例元数据</a>，以了解如何为实例提供角色的临时凭证。也可以了解实例上运行的应用程序如何使用角色。使用以下资源了解更多信息。</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="https://www.youtube.com/watch?v=TlCuOjviOhk" rel="noopener noreferrer" target="_blank"><span>Amazon EC2 实例上的 IAM 角色教程</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。链接的视频说明如何将 IAM 角色与 Amazon EC2 实例搭配使用，以控制应用程序在实例上运行时可执行的操作。该视频说明了应用程序（在 AWS 开发工具包中编写）如何通过角色获取临时安全凭证。</p>
+      </li><li class="listitem">
+        <p>SDK 演示。AWS 开发工具包文档包含一些演示，这些演示说明了在 Amazon EC2 实例上运行的应用程序使用角色的临时凭证读取 Amazon S3 存储桶。以下每个演示都采用了不同的编程语言来呈现类似的步骤：</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><em>AWS SDK for Java 开发人员指南</em>中的<a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/java-dg-roles.html">使用 SDK for Java 为 Amazon EC2 配置 IAM 角色</a> </p>
+          </li><li class="listitem">
+            <p>《AWS SDK for .NET 开发人员指南》中的<a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/run-instance.html">使用 SDK for .NET 启动 Amazon EC2 实例</a></p>
+          </li><li class="listitem">
+            <p><em>AWS SDK for Ruby 开发人员指南</em>中的<a href="https://docs.aws.amazon.com/sdk-for-ruby/latest/developer-guide/ec2-example-create-instance.html">使用 SDK for Ruby 创建 Amazon EC2 实例</a></p>
+          </li></ul></div>
+      </li></ul></div>
+   
+    <h2 id="roles-usingrole-ec2instance-related-info">相关信息</h2>
+    <p>有关创建角色或适用于 Amazon EC2 实例的角色的更多信息，请参阅以下信息：</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>有关 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">将 IAM 角色与 Amazon EC2 实例结合使用</a>的更多信息，请转至<em>适用于 Linux 实例的 Amazon EC2 用户指南</em>。</p>
+      </li><li class="listitem">
+        <p>如需创建角色，请参阅<a href="./id_roles_create.html">创建 IAM 角色</a></p>
+      </li><li class="listitem">
+        <p>有关使用临时安全凭证的更多信息，请参阅<a href="./id_credentials_temp.html">IAM 临时安全凭证</a>。</p>
+      </li><li class="listitem">
+        <p>如果您操作 IAM API 或 CLI，必须创建并管理 IAM 实例配置文件。有关实例配置文件的更多信息，请参阅<a href="./id_roles_use_switch-role-ec2_instance-profiles.html">使用实例配置文件</a>。</p>
+      </li><li class="listitem">
+        <p>有关实例元数据中的角色临时安全凭证的更多信息，请参阅<em>适用于 Linux 实例的 Amazon EC2 用户指南</em>中的<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">从实例元数据中检索安全凭证</a>。</p>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>Javascript 在您的浏览器中被禁用或不可用。</strong></p><p>要使用 Amazon Web Services 文档，必须启用 Javascript。请参阅浏览器的帮助页面以了解相关说明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文档惯例</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_use_switch-role-api.html">切换角色 (AWS API)</div><div id="next" class="next-link" accesskey="n" href="./id_roles_use_switch-role-ec2_instance-profiles.html">使用实例配置文件</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此页面对您有帮助吗？- 是</div><div class="content"><p>感谢您对我们工作的肯定！</p><p>如果不耽误您的时间，请告诉我们做得好的地方，让我们做得更好。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此页面对您有帮助吗？- 否</div><div class="content"><p>感谢您告诉我们本页内容还需要完善。很抱歉让您失望了。</p><p>如果不耽误您的时间，请告诉我们如何改进文档。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

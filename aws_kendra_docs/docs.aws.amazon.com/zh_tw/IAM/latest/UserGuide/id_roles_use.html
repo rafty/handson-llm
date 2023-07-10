@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>使用 IAM 角色 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_use" /><meta name="default_state" content="id_roles_use" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use.html" /><meta name="description" content="使用 IAM 角色將許可委派給使用者或服務。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="使用者指南" /><meta name="abstract" content="透過使用者身分 (身分驗證) 和定義特定許可 (授權) 的政策，控制存取您的 AWS 資源。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="使用者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="使用者指南" /><meta id="panorama-serviceConsolePage" value="使用 IAM 角色" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>使用 IAM 角色 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_use" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 使用者,使用者,IAM 群組,群組,IAM 角色,角色,許可政策,信任政策,政策,存取金鑰,密碼" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "使用者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM 身分 (使用者、使用者群組和角色)",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 角色",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "使用 IAM 角色",
+        "item" : "https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_use" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">使用者指南</a></div><div id="page-toc-src"><a href="#id_roles_use_view-role-max-session">查看角色的最大工作階段持續時間設定</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_use">使用 IAM 角色</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>在使用者、應用程式或服務可以使用您建立的角色之前，您必須授與切換到該角色的許可。您可以使用連接到其中一個使用者群組或使用者本身的任何政策來授與必要的許可。本節說明如何授予使用者使用角色的許可。其中也解釋了使用者如何從 AWS Management Console、Tools for Windows PowerShell、AWS Command Line Interface(AWS CLI) 以及 <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html"><code class="code">AssumeRole</code></a> API 切換到角色。</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>重要</h6></div><div class="awsdocs-note-text"><p>當您以程式設計方式而不是在 IAM 主控台中建立角色時，則除了 <code class="code">RoleName</code> 之外，您還可以選擇新增高達 512 個字元的 <code class="code">Path</code>，該字元長度最多 64 個字元。但是，如果您要透過 AWS Management Console 中的 <b>Switch Role</b> (切換角色) 功能使用角色，則組合的 <code class="code">Path</code> 和 <code class="code">RoleName</code> 不能超過 64 個字元。</p></div></div><p>您可以從 AWS Management Console 進行切換角色。您可以透過呼叫 AWS CLI 或 API 操作或使用自訂的 URL 來擔任角色。您使用的方法決定誰可以擔任該角色以及角色工作階段可以持續多久。使用 <code class="code">AssumeRole*</code> API 操作時，您擔任的 IAM 角色是資源。呼叫 <code class="code">AssumeRole*</code> API 操作的使用者或角色是主體。</p><a id="federation_api_differences"></a><div class="table-container"><div class="table-contents"><table id="w339aac13c31c25c11"><thead><tr><th class="table-header" colspan="100"><div class="title">比較使用角色的方法</div></th></tr>
+        <tr>
+          <th> 擔任角色的方法</th>
+          <th> <b>誰可以擔任這個角色</b> </th>
+          <th><b>指定憑證生命週期的方法</b></th>
+          <th> <b>憑證存留期 (最小 | 最大 | 預設)</b> </th>
+        </tr>
+      </thead>
+        <tr>
+          <td>AWS Management Console</td>
+          <td>使用者 (透過<a href="./id_roles_use_switch-role-console.html">切換角色</a>)</td>
+          <td><b>Role</b> (角色) 摘要頁面上的 <b>Maximum session duration</b> (最大工作階段持續時間)</td>
+          <td>15 分鐘 | 1 小時 | 1 小時</td>
+        </tr>
+        <tr>
+          <td><a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html"><code class="code">assume-role</code></a> CLI 或 <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html"><code class="code">AssumeRole</code></a> API 操作</td>
+          <td> 使用者或角色¹</td>
+          <td><code class="code">duration-seconds</code> CLI 或 <code class="code">DurationSeconds</code> API 參數</td>
+          <td>15 分鐘 | 最大工作階段持續時間設定² | 1 小時 </td>
+        </tr>
+        <tr>
+          <td><a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role-with-saml.html"><code class="code">assume-role-with-saml</code></a> CLI 或 <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithSAML.html"><code class="code">AssumeRoleWithSAML</code></a> API 操作</td>
+          <td>任何使用 SAML 驗證的使用者</td>
+          <td><code class="code">duration-seconds</code> CLI 或 <code class="code">DurationSeconds</code> API 參數</td>
+          <td>15 分鐘 | 最大工作階段持續時間設定² | 1 小時 </td>
+        </tr>
+        <tr>
+          <td><a href="https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role-with-web-identity.html"><code class="code">assume-role-with-web-identity</code></a> CLI 或 <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html"><code class="code">AssumeRoleWithWebIdentity</code></a> API 操作</td>
+          <td>使用 Web 身分提供者進行身分驗證的使用者</td>
+          <td><code class="code">duration-seconds</code> CLI 或 <code class="code">DurationSeconds</code> API 參數</td>
+          <td>15 分鐘 | 最大工作階段持續時間設定² | 1 小時 </td>
+        </tr>
+        <tr>
+          <td>使用 <a href="./id_roles_providers_enable-console-custom-url.html"> 建構的</a>主控台 URL<code class="code">AssumeRole</code> </td>
+          <td>使用者或角色</td>
+          <td><code class="code">SessionDuration</code> URL 中的 HTML 參數</td>
+          <td>15 分鐘 | 12 小時 | 1 小時 </td>
+        </tr>
+        <tr>
+          <td>使用 <a href="./id_roles_providers_enable-console-custom-url.html"> 建構的</a>主控台 URL<code class="code">AssumeRoleWithSAML</code> </td>
+          <td>任何使用 SAML 驗證的使用者</td>
+          <td><code class="code">SessionDuration</code> URL 中的 HTML 參數</td>
+          <td>15 分鐘 | 12 小時 | 1 小時</td>
+        </tr>
+        <tr>
+          <td>使用 <a href="./id_roles_providers_enable-console-custom-url.html"> 建構的</a>主控台 URL<code class="code">AssumeRoleWithWebIdentity</code> </td>
+          <td>使用 Web 身分提供者進行身分驗證的使用者</td>
+          <td><code class="code">SessionDuration</code> URL 中的 HTML 參數</td>
+          <td>15 分鐘 | 12 小時 | 1 小時 </td>
+        </tr>
+      </table></div></div><p>¹ 使用一個角色的憑證來擔任不同的角色稱為<a href="./id_roles_terms-and-concepts.html#iam-term-role-chaining">角色鏈結</a>。當您使用角色鏈結時，新憑證的最大持續時間限制為一小時。使用角色<a href="./id_roles_use_switch-role-ec2.html">授予許可給在 EC2 執行個體上執行的應用程式</a>時，那些應用程式不受此限制。</p><p>² 此設定的值可介於 1 小時至 12 小時。有關修改最大工作階段持續時間設定的詳細資訊，請參閱 <a href="./id_roles_manage_modify.html">修改角色</a>。此設定決定取得角色憑證時可以請求的最大工作階段持續時間。例如，當您使用 <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole*</a> API 操作來擔任角色時，可以使用 <code class="code">DurationSeconds</code> 參數指定工作階段長度。使用此參數指定 900 秒 (15 分鐘) 到角色的最大工作階段持續時間設定之間的角色工作階段長度。在主控台中切換角色的 IAM 使用者會被授予最長工作階段持續時間或使用者工作階段中的剩餘時間，以較短者為準。假設您在角色上設定 5 小時的最大持續時間。已登入主控台 10 小時的 IAM 使用者 (超出預設最大值 12 小時) 會切換至角色。可用的角色工作階段持續時間為 2 小時。如要了解如何查看角色的最大值，請參閱本頁後述的 <a href="#id_roles_use_view-role-max-session">查看角色的最大工作階段持續時間設定</a>。</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>備註</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>工作階段持續時間設定上限不會限制由 AWS 服務擔任的工作階段。</p>
+      </li><li class="listitem">
+        <p>若要允許使用者在角色工作階段中再次擔任目前角色，請在角色信任政策中指定角色 ARN 或 AWS 帳戶 ARN 作為主體。提供 Amazon EC2、Amazon ECS、Amazon EKS 和 Lambda 等運算資源的 AWS 服務 提供臨時憑證並自動輪換這些憑證。此可確保您始終擁有一組有效的憑證。對於這些服務，不需要再次擔任目前的角色即可取得臨時憑證。但是，如果您想要傳遞<a href="./id_session-tags.html">工作階段標籤</a>或一個<a href="./access_policies.html#policies_session">工作階段政策</a>，則需要再次擔任目前的角色。若要了解如何修改角色信任原則以新增主體角色 ARN 或 AWS 帳戶 ARN，請參閱 <a href="./roles-managingrole-editing-console.html#roles-managingrole_edit-trust-policy">修改角色信任政策 (主控台)</a>。</p>
+      </li></ul></div></div></div><div class="highlights"><h6>主題</h6><ul><li><a href="#id_roles_use_view-role-max-session">查看角色的最大工作階段持續時間設定</a></li><li><a href="./id_roles_use_permissions-to-switch.html">向使用者授予切換角色的許可</a></li><li><a href="./id_roles_use_passrole.html">授予使用者將角色傳遞至 AWS 服務的許可</a></li><li><a href="./id_roles_use_switch-role-console.html">切換到角色 (主控台)</a></li><li><a href="./id_roles_use_switch-role-cli.html">切換到 IAM 角色 (AWS CLI)</a></li><li><a href="./id_roles_use_switch-role-twp.html">切換至 IAM 角色 (Tools for Windows PowerShell)</a></li><li><a href="./id_roles_use_switch-role-api.html">切換到 IAM 角色 (AWS API)</a></li><li><a href="./id_roles_use_switch-role-ec2.html">使用 IAM 角色為在 Amazon EC2 執行個體上執行的應用程式授予許可</a></li><li><a href="./id_roles_use_revoke-sessions.html">撤銷 IAM 角色暫時性安全憑證</a></li></ul></div>
+    <h2 id="id_roles_use_view-role-max-session">查看角色的最大工作階段持續時間設定</h2>
+    <p>您可以使用 AWS Management Console 或使用 AWS CLI 或 AWS API 來指定角色的最大工作階段持續時間。當您使用 AWS CLI 或 API 操作來擔任角色時，可以指定 <code class="code">DurationSeconds</code> 參數的值。您可以使用此參數指定角色工作階段持續時間，範圍從 900 秒 (15 分鐘) 到角色的最大工作階段持續時間設定。在指定參數之前，您應該查看您的角色設定。如果您指定 <code class="code">DurationSeconds</code> 參數的值高於最大設定值，則操作將失敗。</p>
+    <div class="procedure"><h6>要查看角色的最大工作階段持續時間 (主控台)</h6><ol><li>
+        <p>在 IAM 主控台的導覽窗格中，選擇 <b>Roles</b> (角色)。</p>
+      </li><li>
+        <p>選擇要查看的角色名稱。</p>
+      </li><li>
+        <p>在 <b>Maximum session duration</b> (持續時間上限) 旁，檢視授予角色的工作階段長度上限。這是您可以在 AWS CLI 或 API 操作中指定的最大工作階段持續時間。</p>
+      </li></ol></div>
+    <div class="procedure"><h6>要查看角色的最大工作階段持續時間設定 (AWS CLI)</h6><ol><li>
+        <p>如果您不知道要擔任的角色的名稱，請執行以下命令列出您帳戶中的角色：</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/list-roles.html">aws iam list-roles</a></p>
+          </li></ul></div>
+      </li><li>
+        <p>要查看角色的最大工作階段持續時間，請執行以下命令。然後，檢視最大工作階段持續時間參數。</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/get-role.html">aws iam get-role</a></p>
+          </li></ul></div>
+      </li></ol></div>
+    <div class="procedure"><h6>要查看角色的最大工作階段持續時間設定 (AWS API)</h6><ol><li>
+        <p>如果您不知道要擔任的角色的名稱，請呼叫以下操作列出您帳戶中的角色：</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListRoles.html">ListRoles</a></p>
+          </li></ul></div>
+      </li><li>
+        <p>要查看角色的最大工作階段持續時間，請執行以下操作。然後，檢視最大工作階段持續時間參數。</p>
+        <div class="itemizedlist">
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetRole.html">GetRole</a></p>
+          </li></ul></div>
+      </li></ol></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_create_policy-examples.html">委派存取權限的政策範例</div><div id="next" class="next-link" accesskey="n" href="./id_roles_use_permissions-to-switch.html">向使用者授予切換角色的許可</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

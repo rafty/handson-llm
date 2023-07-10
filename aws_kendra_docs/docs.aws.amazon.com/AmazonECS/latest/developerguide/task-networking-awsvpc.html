@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>awsvpc network mode - Amazon Elastic Container Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="task-networking-awsvpc" /><meta name="default_state" content="task-networking-awsvpc" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html" /><meta name="description" content="The task networking features that are provided by the awsvpc network mode give Amazon ECS tasks the same networking properties as Amazon EC2 instances. Using the awsvpc network mode simplifies container networking, you have more control over how containerized applications communicate with each other and other services within your VPCs. The" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Elastic Container Service" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Run, stop, and manage Docker containers on a cluster using the Amazon Elastic Container Service Developer Guide." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html" hreflang="x-default" /><meta name="feedback-item" content="AmazonEC2ContainerService" /><meta name="this_doc_product" content="Amazon Elastic Container Service" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'ecs'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="awsvpc network mode" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>awsvpc network mode - Amazon Elastic Container Service</title><meta name="pdf" content="/pdfs/AmazonECS/latest/developerguide/ecs-dg.pdf#task-networking-awsvpc" /><meta name="github" content="https://github.com/awsdocs/amazon-ecs-developer-guide/tree/master/doc_source/task-networking-awsvpc.md" /><meta name="rss" content="amazon-ecs-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=187" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AmazonEC2ContainerService&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/task-networking-awsvpc.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/task-networking-awsvpc.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/task-networking-awsvpc.html" /><meta name="keywords" content="ECS,Amazon ECS,Amazon Elastic Container Service" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon ECS",
+        "item" : "https://docs.aws.amazon.com/ecs/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon ECS task definitions",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Architecting your application for Amazon ECS",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Networking modes",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/networkng-mode-options.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Task networking for tasks that are hosted on Amazon EC2 instances",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "awsvpc network mode",
+        "item" : "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonECS/latest/developerguide/ecs-dg.pdf#task-networking-awsvpc" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-ecs-developer-guide/tree/master/doc_source/task-networking-awsvpc.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/ecs/index.html">Amazon ECS</a><a href="Welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#task-networking-considerations">Considerations</a><a href="#enable-task-networking">Enabling task networking</a><a href="#task-networking-vpc-dual-stack">Using a VPC in dual-stack
+						mode</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="task-networking-awsvpc"><code class="code">awsvpc</code> network mode</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The task networking features that are provided by the <code class="code">awsvpc</code> network
+				mode give Amazon ECS tasks the same networking properties as Amazon EC2 instances. Using the
+					<code class="code">awsvpc</code> network mode simplifies container networking, you have more
+				control over how containerized applications communicate with each other and other
+				services within your VPCs. The <code class="code">awsvpc</code> network mode also provides
+				greater security for your containers by enabling you to use security groups and
+				network monitoring tools at a more granular level within your tasks. Because each
+				task gets its own elastic network interface (ENI), you can also use other Amazon EC2
+				networking features such as VPC Flow Logs to monitor traffic to and from your tasks.
+				Additionally, containers that belong to the same task can communicate over the
+					<code class="code">localhost</code> interface.</p><p>The task ENI is a fully managed feature of Amazon ECS. Amazon ECS creates the ENI and
+				attaches it to the host Amazon EC2 instance with the specified security group. The task
+				sends and receives network traffic over the ENI in the same way that Amazon EC2 instances
+				do with their primary network interfaces. Each task ENI is assigned a private IPv4
+				address by default. If your VPC is enabled for dual-stack mode and you use a subnet
+				with an IPv6 CIDR block, the task ENI will also receive an IPv6 address. Each task
+				can only have one ENI. </p><p>These ENIs are visible in the Amazon EC2 console for your account, but they can't be
+				detached manually or modified by your account. This is to prevent accidental
+				deletion of an ENI that is associated with a running task. You can view the ENI
+				attachment information for tasks in the Amazon ECS console or with the <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_DescribeTasks.html">DescribeTasks</a> API operation.
+				When the task stops or if the service is scaled down, the task ENI is detached and
+				deleted.</p><p>After you enable the <code class="code">awsvpcTrunking</code> account setting and you have launched a
+			container instance with the increased ENI density, Amazon ECS also creates and attaches a
+			"trunk" network interface for your container instance. The trunk network is fully
+			managed by Amazon ECS. The trunk ENI is deleted when you either terminate or deregister your
+			container instance from the Amazon ECS cluster. For more information on opting in to the
+				<code class="code">awsvpcTrunking</code> account setting, see <a href="./container-instance-eni.html#eni-trunking-launching">Working with container instances with increased
+                ENI limits</a>.</p>
+				<h2 id="task-networking-considerations">Considerations</h2>
+				<p>There are several things to consider when using the <code class="code">awsvpc</code>
+					network mode.</p>
+					 
+						<h3 id="linux">Linux considerations</h3>
+						<p> Consider the following when using the Linux operating system.</p>
+						<div class="itemizedlist">
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem">
+								<p>Tasks and services that use the <code class="code">awsvpc</code> network
+									mode require the Amazon ECS service-linked role to provide Amazon ECS with
+									the permissions to make calls to other AWS services on your
+									behalf. This role is created for you automatically when you
+									create a cluster or if you create or update a service, in the
+									AWS Management Console. For more information, see <a href="./using-service-linked-roles.html">Using service-linked roles for
+            Amazon ECS</a>. You can also
+									create the service-linked role with the following AWS CLI
+									command:</p>
+								<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-service-linked-role.html">create-service-linked-role</a> --aws-service-name ecs.amazonaws.com</code></code></pre>
+							</li><li class="listitem">
+								<p>Your Amazon EC2 Linux instance requires version <code class="code">1.15.0</code>
+									or later of the container agent to run tasks that use the
+										<code class="code">awsvpc</code> network mode. If you're using an
+									Amazon ECS-optimized AMI, your instance needs at least version
+										<code class="code">1.15.0-4</code> of the <code class="code">ecs-init</code> package
+									as well.</p>
+							</li><li class="listitem">
+								<p>Amazon ECS populates the hostname of the task with an
+									Amazon-provided (internal) DNS hostname when both the
+										<code class="code">enableDnsHostnames</code> and
+										<code class="code">enableDnsSupport</code> options are enabled on your
+									VPC. If these options aren't enabled, the DNS hostname of the
+									task is set to a random hostname. For more information about the
+									DNS settings for a VPC, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html">Using DNS with Your
+										VPC</a> in the
+									<em>Amazon VPC User Guide</em>.</p>
+							</li><li class="listitem">
+								<p>Each Amazon ECS task that uses the <code class="code">awsvpc</code> network mode
+									receives its own elastic network interface (ENI), which is
+									attached to the Amazon EC2 instance that hosts it. There's a default
+									quota for the number of network interfaces that can be attached
+									to an Amazon EC2 Linux instance. The primary network interface counts
+									as one toward that quota. For example, by default, a
+										<code class="code">c5.large</code> instance might have only up to three
+									ENIs that can be attached to it. The primary network interface
+									for the instance counts as one. As such, you can attach an
+									additional two ENIs to the instance. Because each task that uses
+									the <code class="code">awsvpc</code> network mode requires an ENI, you can
+									typically only run two such tasks on this instance type. For
+									more information about the default ENI limits for each instance
+									type, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">IP
+										addresses per network interface per instance type</a> in
+									the <em>Amazon EC2 User Guide for Linux Instances</em>.</p>
+							</li><li class="listitem">
+								<p>Amazon ECS supports the launch of Amazon EC2 Linux instances that use
+									supported instance types with increased ENI density. When you
+									opt in to the <code class="code">awsvpcTrunking</code> account setting and
+									register Amazon EC2 Linux instances that use these instance types to
+									your cluster, these instances have higher ENI quota. Using these
+									instances with this higher quota means that you can place more
+									tasks on each Amazon EC2 Linux instance. To use the increased ENI
+									density with the trunking feature, your Amazon EC2 instance must use
+									version <code class="code">1.28.1</code> or later of the container agent. If
+									you're using an Amazon ECS-optimized AMI, your instance also requires
+									at least version <code class="code">1.28.1-2</code> of the
+										<code class="code">ecs-init</code> package. For more information about
+									opting in to the <code class="code">awsvpcTrunking</code> account setting,
+									see <a href="./ecs-account-settings.html">Account settings</a>. For more information
+									about ENI trunking, see <a href="./container-instance-eni.html">Elastic network interface trunking</a>.</p>
+							</li><li class="listitem">
+								<p>When hosting tasks that use the <code class="code">awsvpc</code> network
+									mode on Amazon EC2 Linux instances, your task ENIs aren't given
+									public IP addresses. To access the internet, tasks must be
+									launched in a private subnet that's configured to use a NAT
+									gateway. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html">NAT
+										gateways</a> in the
+										<em>Amazon VPC User Guide</em>. Inbound network
+									access must be from within a VPC that uses the private IP
+									address or routed through a load balancer from within the VPC.
+									Tasks that are launched within public subnets do not have access
+									to the internet.</p>
+							</li><li class="listitem">
+								<p>Amazon ECS recognizes only the ENIs that it attaches to your Amazon EC2
+									Linux instances. If you manually attached ENIs to your
+									instances, Amazon ECS might attempt to add a task to an instance that
+									doesn't have enough network adapters. This can result in the
+									task timing out and moving to a deprovisioning status and then a
+									stopped status. We recommend that you don't attach ENIs to your
+									instances manually.</p>
+							</li><li class="listitem">
+								<p>Amazon EC2 Linux instances must be registered with the
+										<code class="code">ecs.capability.task-eni</code> capability to be
+									considered for placement of tasks with the <code class="code">awsvpc</code>
+									network mode. Instances running version <code class="code">1.15.0-4</code> or
+									later of <code class="code">ecs-init</code> are registered with this
+									attribute automatically.</p>
+							</li><li class="listitem">
+								<p>The ENIs that are created and attached to your Amazon EC2 Linux
+									instances cannot be detached manually or modified by your
+									account. This is to prevent the accidental deletion of an ENI
+									that is associated with a running task. To release the ENIs for
+									a task, stop the task.</p>
+							</li><li class="listitem">
+								<p>There is a limit of 16 subnets and 5 security groups that are
+									able to be specified in the <code class="code">awsVpcConfiguration</code>
+									when running a task or creating a service that uses the
+										<code class="code">awsvpc</code> network mode. For more information, see
+										<a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_AwsVpcConfiguration.html">AwsVpcConfiguration</a> in the
+										<em>Amazon Elastic Container Service API Reference</em>.</p>
+							</li><li class="listitem">
+								<p>When a task is started with the <code class="code">awsvpc</code> network
+									mode, the Amazon ECS container agent creates an additional
+										<code class="code">pause</code> container for each task before starting
+									the containers in the task definition. It then configures the
+									network namespace of the <code class="code">pause</code> container by running
+									the <a href="https://github.com/aws/amazon-ecs-cni-plugins" rel="noopener noreferrer" target="_blank"><span>amazon-ecs-cni-plugins </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> CNI plugins. The agent then
+									starts the rest of the containers in the task so that they share
+									the network stack of the <code class="code">pause</code> container. This
+									means that all containers in a task are addressable by the IP
+									addresses of the ENI, and they can communicate with each other
+									over the <code class="code">localhost</code> interface.</p>
+							</li><li class="listitem">
+								<p>Services with tasks that use the <code class="code">awsvpc</code> network
+									mode only support Application Load Balancer and Network Load Balancer. When you create any target
+									groups for these services, you must choose <code class="code">ip</code> as
+									the target type. Do not use <code class="code">instance</code>. This is
+									because tasks that use the <code class="code">awsvpc</code> network mode are
+									associated with an ENI, not with an Amazon EC2 Linux instance. For
+									more information, see <a href="./service-load-balancing.html">Service load balancing</a>.</p>
+							</li><li class="listitem">
+								
+								<p>If your VPC is updated to change the DHCP options set it uses,
+									you can't apply these changes to existing tasks. Start new tasks
+									with these changes applied to them, verify that they are working
+									correctly, and then stop the existing tasks in order to safely
+									change these network configurations.</p>
+							</li></ul></div>
+					 
+					 
+						<h3 id="windows">Windows considerations</h3>
+						<p> The following are considerations when you use the Windows operating
+							system:</p>
+						<div class="itemizedlist">
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem">
+								<p>Container instances using the Amazon ECS optimized Windows
+									Server 2016 AMI can't host tasks that use the
+										<code class="code">awsvpc</code> network mode. If you have a cluster that
+									contains Amazon ECS optimized Windows Server 2016 AMIs and
+									Windows AMIs that support <code class="code">awsvpc</code> network mode,
+									tasks that use <code class="code">awsvpc</code> network mode aren't launched
+									on the Windows 2016 Server instances. Rather, they're launched
+									on instances that support <code class="code">awsvpc</code> network
+									mode.</p>
+							</li><li class="listitem">
+								<p>Your Amazon EC2 Windows instance requires version
+										<code class="code">1.57.1</code> or later of the container agent to use
+									CloudWatch metrics for Windows containers that use the
+										<code class="code">awsvpc</code> network mode.</p>
+							</li><li class="listitem">
+								<p>Tasks and services that use the <code class="code">awsvpc</code> network
+									mode require the Amazon ECS service-linked role to provide Amazon ECS with
+									the permissions to make calls to other AWS services on your
+									behalf. This role is created for you automatically when you
+									create a cluster, or if you create or update a service, in the
+									AWS Management Console. For more information, see <a href="./using-service-linked-roles.html">Using service-linked roles for
+            Amazon ECS</a>. You can also
+									create the service-linked role with the following AWS CLI
+									command.</p>
+								<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="userinput">aws iam <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-service-linked-role.html">create-service-linked-role</a> --aws-service-name ecs.amazonaws.com</code></code></pre>
+							</li><li class="listitem">
+								<p>Your Amazon EC2 Windows instance requires version
+										<code class="code">1.54.0</code> or later of the container agent to run
+									tasks that use the <code class="code">awsvpc</code> network mode. When you
+									bootstrap the instance, you must configure the options that are
+									required for <code class="code">awsvpc</code> network mode. For more
+									information, see <a href="./bootstrap_windows_container_instance.html">Bootstrapping Windows container
+            instances with Amazon EC2 user data</a>.</p>
+							</li><li class="listitem">
+								<p>Amazon ECS populates the hostname of the task with an Amazon
+									provided (internal) DNS hostname when both the
+										<code class="code">enableDnsHostnames</code> and
+										<code class="code">enableDnsSupport</code> options are enabled on your
+									VPC. If these options aren't enabled, the DNS hostname of the
+									task is a random hostname. For more information about the DNS
+									settings for a VPC, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html">Using DNS with Your
+										VPC</a> in the
+									<em>Amazon VPC User Guide</em>.</p>
+							</li><li class="listitem">
+								<p>Each Amazon ECS task that uses the <code class="code">awsvpc</code> network mode
+									receives its own elastic network interface (ENI), which is
+									attached to the Amazon EC2 Windows instance that hosts it. There is a
+									default quota for the number of network interfaces that can be
+									attached to an Amazon EC2 Windows instance. The primary network
+									interface counts as one toward this quota. For example, by
+									default a <code class="code">c5.large</code> instance might have only up to
+									three ENIs attached to it. The primary network interface for the
+									instance counts as one of those. As such, &gt;you can attach an
+									additional two ENIs to the instance. Because each task using the
+										<code class="code">awsvpc</code> network mode requires an ENI, you can
+									typically only run two such tasks on this instance type. For
+									more information about the default ENI limits for each instance
+									type, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-eni.html#AvailableIpPerENI">IP
+										addresses per network interface per instance type</a> in
+									the <em>Amazon EC2 User Guide for Windows Instances</em>.</p>
+							</li><li class="listitem">
+								<p>When hosting tasks that use the <code class="code">awsvpc</code> network
+									mode on Amazon EC2 Windows instances, your task ENIs aren't given
+									public IP addresses. To access the internet, launch tasks in a
+									private subnet that's configured to use a NAT gateway. For more
+									information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html">NAT gateways</a> in the
+										<em>Amazon VPC User Guide</em>. Inbound network
+									access must be from within the VPC that is using the private IP
+									address or routed through a load balancer from within the VPC.
+									Tasks that are launched within public subnets don't have access
+									to the internet.</p>
+							</li><li class="listitem">
+								<p>Amazon ECS recognizes only the ENIs that it has attached to your
+									Amazon EC2 Windows instance. If you manually attached ENIs to your
+									instances, Amazon ECS might attempt to add a task to an instance that
+									doesn't have enough network adapters. This can result in the
+									task timing out and moving to a deprovisioning status and then a
+									stopped status. We recommend that you don't attach ENIs to your
+									instances manually.</p>
+							</li><li class="listitem">
+								<p>Amazon EC2 Windows instances must be registered with the
+										<code class="code">ecs.capability.task-eni</code> capability to be
+									considered for placement of tasks with the <code class="code">awsvpc</code>
+									network mode. </p>
+							</li><li class="listitem">
+								<p> You can't manually modify or detach ENIs that are created and
+									attached to your Amazon EC2 Windows instances. This is to prevent you
+									from accidentally deleting an ENI that's associated with a
+									running task. To release the ENIs for a task, stop the
+									task.</p>
+							</li><li class="listitem">
+								<p> You can only specify up to 16 subnets and 5 security groups
+									in <code class="code">awsVpcConfiguration</code> when you run a task or
+									create a service that uses the <code class="code">awsvpc</code> network mode.
+									For more information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_AwsVpcConfiguration.html">AwsVpcConfiguration</a> in the
+										<em>Amazon Elastic Container Service API Reference</em>.</p>
+							</li><li class="listitem">
+								<p>When a task is started with the <code class="code">awsvpc</code> network
+									mode, the Amazon ECS container agent creates an additional
+										<code class="code">pause</code> container for each task before starting
+									the containers in the task definition. It then configures the
+									network namespace of the <code class="code">pause</code> container by running
+									the <a href="https://github.com/aws/amazon-ecs-cni-plugins" rel="noopener noreferrer" target="_blank"><span>amazon-ecs-cni-plugins </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> CNI plugins. The agent then
+									starts the rest of the containers in the task so that they share
+									the network stack of the <code class="code">pause</code> container. This
+									means that all containers in a task are addressable by the IP
+									addresses of the ENI, and they can communicate with each other
+									over the <code class="code">localhost</code> interface.</p>
+							</li><li class="listitem">
+								<p>Services with tasks that use the <code class="code">awsvpc</code> network
+									mode only support Application Load Balancer and Network Load Balancer. When you create any target
+									groups for these services, you must choose <code class="code">ip</code> as
+									the target type, not <code class="code">instance</code>. This is because
+									tasks that use the <code class="code">awsvpc</code> network mode are
+									associated with an ENI, not with an Amazon EC2 Windows instance. For
+									more information, see <a href="./service-load-balancing.html">Service load balancing</a>.</p>
+							</li><li class="listitem">
+								
+								<p>If your VPC is updated to change the DHCP options set it uses,
+									you can't apply these changes to existing tasks. Start new tasks
+									with these changes applied to them, verify that they are working
+									correctly, and then stop the existing tasks in order to safely
+									change these network configurations.</p>
+							</li><li class="listitem">
+								<p>The following are not supported when you use
+										<code class="code">awsvpc</code> network mode in an EC2
+									Windows configuration:</p>
+								<div class="itemizedlist">
+									 
+									 
+									 
+								<ul class="itemizedlist"><li class="listitem">
+										<p>Dual-stack configuration</p>
+									</li><li class="listitem">
+										<p>IPv6</p>
+									</li><li class="listitem">
+										<p>ENI trunking</p>
+									</li></ul></div>
+							</li></ul></div>
+					 
+			 
+				<h2 id="enable-task-networking">Enabling task networking</h2>
+				<p>For tasks to use the <code class="code">awsvpc</code> network mode, it must be specified in
+					the task definition. For more information, see <a href="./task_definition_parameters.html#network_mode">Network mode</a>. Then, when you run a task or create a
+					service, specify a network configuration that includes one or more subnets to
+					place your tasks in. Also specify one or more security groups to attach to an
+					ENI. The tasks are placed on compatible Amazon EC2 instances in the same Availability
+					Zones as those subnets, and the specified security groups are associated with
+					the ENI that's provisioned for the task.</p>
+			 
+				<h2 id="task-networking-vpc-dual-stack">Using a VPC in dual-stack
+						mode</h2>
+				<p>When using a VPC in dual-stack mode, your tasks can communicate over IPv4 or
+					IPv6, or both. IPv4 and IPv6 addresses are independent of each other and you
+					must configure routing and security in your VPC separately for IPv4 and IPv6.
+					For more information about how to configure your VPC for dual-stack mode, see
+						<a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-migrate-ipv6.html">Migrating to IPv6</a> in the
+					<em>Amazon VPC User Guide</em>.</p>
+				<p>If you configured your VPC with an internet gateway or an outbound-only
+					internet gateway, you can use your VPC in dual-stack mode. By doing this, tasks
+					that are assigned an IPv6 address can access the internet through an internet
+					gateway or an egress-only internet gateway. NAT gateways are optional. For more
+					information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html">Internet
+						gateways</a> and <a href="https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html">Egress-only
+						internet gateways</a> in the
+					<em>Amazon VPC User Guide</em>.</p>
+				<p>Amazon ECS tasks are assigned an IPv6 address if the following conditions are
+					met:</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>The Amazon EC2 Linux instance that hosts the task is using version
+								<code class="code">1.45.0</code> or later of the container agent. For information
+							about how to check the agent version your instance is using, and
+							updating it if needed, see <a href="./ecs-agent-update.html">Updating the Amazon ECS container agent</a>.</p>
+					</li><li class="listitem">
+						<p>The <code class="code">dualStackIPv6</code> account setting is enabled. For more
+							information, see <a href="./ecs-account-settings.html">Account settings</a>.</p>
+					</li><li class="listitem">
+						<p>Your task is using the <code class="code">awsvpc</code> network mode.</p>
+					</li><li class="listitem">
+						<p>Your VPC and subnet are configured for IPv6. The configuration
+							includes the network interfaces that are created in the specified
+							subnet. For more information about how to configure your VPC for
+							dual-stack mode, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-migrate-ipv6.html">Migrating to
+								IPv6</a> and <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html#subnet-ipv6">Modify
+								the IPv6 addressing attribute for your subnet</a> in the
+								<em>Amazon VPC User Guide</em>.</p>
+					</li></ul></div>
+			<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./task-networking.html">Task networking for tasks that are hosted on Amazon EC2
+			instances</div><div id="next" class="next-link" accesskey="n" href="./networking-networkmode-host.html">Host mode</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AmazonEC2ContainerService&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/task-networking-awsvpc.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AmazonEC2ContainerService&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonECS/latest/developerguide/task-networking-awsvpc.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>미리 서명된 URL을 사용하여 객체 공유 - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ShareObjectPreSignedURL" /><meta name="default_state" content="ShareObjectPreSignedURL" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="description" content="객체 다운로드를 위해 미리 서명된 URL을 만들어 다른 사용자와 공유할 수 있도록 객체를 설정하는 방법을 설명합니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="사용 설명서" /><meta name="abstract" content="Amazon Simple Storage Service(Amazon S3)를 사용하여 언제 어디서든 원하는 양의 데이터를 저장하고 검색하는 방법을 알아봅니다. 본 설명서는 버킷, 객체 및 관련 구성 등 Amazon S3 개념들을 설명하며 일반적인 작업에 대한 코드 예제를 포함합니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="사용 설명서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="사용 설명서" /><meta id="panorama-serviceConsolePage" value="미리 서명된 URL을 사용하여 객체 공유" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>미리 서명된 URL을 사용하여 객체 공유 - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#ShareObjectPreSignedURL" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html" /><meta name="keywords" content="S3,Amazon S3,S3 사용 설명서,Amazon S3 사용 설명서,Amazon 사용 설명서,s3 버킷,s3 객체,클라우드 스토리지,데이터 스토리지" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "사용 설명서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3에서 객체 업로드, 다운로드 및 작업",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/uploading-downloading-objects.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "미리 서명된 URL 사용",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/using-presigned-url.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "미리 서명된 URL을 사용하여 객체 공유",
+        "item" : "https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/using-presigned-url.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#ShareObjectPreSignedURL" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">사용 설명서</a></div><div id="page-toc-src"><a href="#generating-presigned-url">미리 서명된 URL을 생성하여 객체 공유</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ShareObjectPreSignedURL">미리 서명된 URL을 사용하여 객체 공유</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>기본적으로 모든 S3 객체는 비공개입니다. 객체 소유자만 액세스할 수 있습니다. 그러나 객체 소유자는 필요할 경우 자신의 보안 자격 증명을 사용하여 일정 기간 동안 객체 다운로드를 허가하는 미리 서명된 URL을 만들어 다른 사용자와 객체를 공유할 수 있습니다.</p><p>객체에 대해 미리 서명된 URL을 만들 때 보안 자격 증명을 제공하고 버킷 이름, 객체 키, HTTP 메서드(GET으로 객체 다운로드) 및 만료 날짜와 시간을 지정해야 합니다. 사전 서명된 URL은 지정된 기간 동안만 유효합니다. 임시 토큰을 사용하여 미리 서명된 URL을 생성하면 이 URL이 토큰 만료보다 이후의 만료 시간으로 생성된 경우에도 토큰이 만료되면 이 URL도 만료됩니다.</p><p>미리 서명된 URL을 받은 사용자는 누구나 객체에 액세스할 수 있습니다. 예를 들어, 버킷에 동영상이 있고 버킷과 객체 모두 비공개인 경우 미리 서명된 URL을 만들어 다른 사용자와 동영상을 공유할 수 있습니다. 미리 서명된 URL은 URL을 아는 모든 사람에게 Amazon S3 버킷에 대한 액세스 권한을 부여하므로 적절하게 보호하는 것이 좋습니다. 미리 서명된 URL 보호에 대한 자세한 내용은 <a href="./using-presigned-url.html#PresignedUrlUploadObject-LimitCapabilities">미리 서명된 URL 기능 제한</a> 섹션을 참조하세요.</p><p>미리 서명된 URL을 생성할 수 있는 사용자에 대한 자세한 내용은 <a href="./using-presigned-url.html#who-presigned-url">미리 서명된 URL을 생성할 수 있는 사용자</a> 섹션을 참조하세요.</p>
+            <h2 id="generating-presigned-url">미리 서명된 URL을 생성하여 객체 공유</h2>
+            <p>S3 콘솔 또는 AWS Explorer for Visual Studio를 사용하여 코드를 작성할 필요 없이 미리 서명된 객체 URL을 만들 수 있습니다. Java용 AWS SDK, .NET, <a href="https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Presigner.html">Ruby</a>, <a href="https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.S3.S3Client.html#_createPresignedRequest">PHP</a>, <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getSignedUrl-property">Node.js</a>, <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url" rel="noopener noreferrer" target="_blank"><span>Python</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 및 <a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/s3-example-presigned-urls.html">Go</a>를 사용하여 미리 서명된 URL을 프로그래밍 방식으로 생성할 수 있습니다.</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>미리 서명된 URL을 생성할 때는 요청 내의 파라미터가 서명과 정확히 일치하는지 확인합니다. 예를 들어, URL을 생성할 때 콘텐츠 유형을 지정하지 않은 경우 객체를 업로드할 때 콘텐츠 유형을 생략해야 합니다. 또한 와일드카드가 지원되지 않으므로 미리 서명된 URL에 와일드카드를 사용하면 오류가 발생합니다.</p></div></div>
+            <div class="collapsible" data-expand-section="_collapse_all_"><awsui-expandable-section variant="container" header="S3 콘솔 사용" id="ShareObjectPreSignedURLConsole" expanded="false"><p> 다음 단계에 따라 AWS Management Console을 사용하여 객체의 미리 서명된 URL을 생성합니다.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>Amazon S3 콘솔에서 미리 서명된 URL의 최대 만료 시간은 생성 시점으로부터 12시간입니다.</p></div></div><div class="procedure"><h6>AWS Management Console을 사용하여 미리 서명된 URL을 생성하려면</h6><ol><li><p>AWS Management Console에 로그인한 후 <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>에서 Amazon S3 콘솔을 엽니다.</p></li><li>
+                            <p><b>버킷(Buckets)</b> 목록에서 미리 서명된 URL이 필요한 객체가 있는 버킷 이름을 선택합니다.</p>
+                        </li><li>
+                            <p><b>객체(Objects)</b> 목록에서 미리 서명된 URL을 생성할 객체를 선택합니다.</p>
+                        </li><li>
+                            <p><b>작업</b> 메뉴에서 <b>미리 서명된 URL 생성</b>을 선택합니다.</p>
+                        </li><li>
+                            <p>미리 서명된 URL의 유효 기간을 지정합니다.</p>
+                        </li><li>
+                            <p><b>미리 서명된 URL 생성</b>을 선택합니다.</p>
+                        </li><li>
+                            <p>확인 메시지가 표시되면 URL이 클립보드로 자동으로 복사됩니다. 미리 서명된 URL을 다시 복사해야 하는 경우 미리 서명된 URL을 복사하는 버튼이 표시됩니다.</p>
+                        </li></ol></div></awsui-expandable-section><awsui-expandable-section variant="container" header="AWS Explorer for Visual Studio 사용" id="ShareObjectPreSignedURLVSExplorer" expanded="false"><p>Visual Studio를 사용할 경우 코드를 작성할 필요 없이 AWS Explorer for Visual Studio로 미리 서명된 객체 URL을 만들 수 있습니다. 이 URL만 있으면 누구나 객체를 다운로드할 수 있습니다. 자세한 내용은 <a href="https://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/using-s3.html">AWS Explorer에서 Amazon S3 사용</a>을 참조하세요.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>AWS Explorer for Visual Studio를 사용하면 미리 서명된 URL의 최대 만료 시간은 생성 시점으로부터 7일입니다.</p></div></div><p>AWS Explorer를 설치하는 방법에 대한 자세한 내용은 <a href="./UsingAWSSDK.html">AWS SDK 및 Explorer를 사용하여 Amazon S3로 개발</a> 섹션을 참조하세요.</p></awsui-expandable-section><awsui-expandable-section variant="container" header="AWS SDK 사용" id="ShareObjectPreSignedURLSDK" expanded="false"><p>다음 예제에서는 객체를 검색할 수 있도록 다른 사용자에게 제공할 미리 서명된 URL을 생성합니다.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>AWS SDK를 사용하면 미리 서명된 URL의 최대 만료 시간은 생성 시점으로부터 7일입니다.</p></div></div><awsdocs-tabs><dl style="display: none">
+                        <dt>Java</dt><dd tab-id="java">
+                                <div class="example"><div class="example-contents"><p>다음 예제에서는 S3 버킷에서 객체를 검색할 수 있도록 다른 사용자에게 제공할 미리 서명된 URL을 생성합니다. 자세한 내용은 <a href="./ShareObjectPreSignedURL.html">미리 서명된 URL을 사용하여 객체 공유</a> 섹션을 참조하세요.</p><p> 실제 예제를 작성 및 테스트하는 방법에 대한 자세한 내용은 <a href="./UsingTheMPJavaAPI.html#TestingJavaSamples">Amazon S3 Java 코드 예제 테스트</a> 섹션을 참조하세요.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.Instant;
+
+public class GeneratePresignedURL <span>{</span>
+
+    public static void main(String[] args) throws IOException <span>{</span>
+        Regions clientRegion = Regions.DEFAULT_REGION;
+        String bucketName = "*** Bucket name ***";
+        String objectKey = "*** Object key ***";
+
+        try <span>{</span>
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(clientRegion)
+                    .withCredentials(new ProfileCredentialsProvider())
+                    .build();
+
+            // Set the presigned URL to expire after one hour.
+            java.util.Date expiration = new java.util.Date();
+            long expTimeMillis = Instant.now().toEpochMilli();
+            expTimeMillis += 1000 * 60 * 60;
+            expiration.setTime(expTimeMillis);
+
+            // Generate the presigned URL.
+            System.out.println("Generating pre-signed URL.");
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(bucketName, objectKey)
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+            URL url = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+
+            System.out.println("Pre-Signed URL: " + url.toString());
+        } catch (AmazonServiceException e) <span>{</span>
+            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // it, so it returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) <span>{</span>
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        }
+    }
+}
+
+</code></pre></div></div>
+                            </dd>
+                        <dt>.NET</dt><dd tab-id=".net">
+                                <div class="example"><div class="example-contents"><p>실제 예제를 작성 및 테스트하는 방법에 대한 자세한 내용은 <a href="./UsingTheMPDotNetAPI.html#TestingDotNetApiSamples">Amazon S3 .NET 코드 예제 실행</a> 섹션을 참조하세요.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="cs ">using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System;
+
+namespace Amazon.DocSamples.S3
+<span>{</span>
+    class GenPresignedURLTest
+    <span>{</span>
+        private const string bucketName = "*** bucket name ***"; 
+        private const string objectKey = "*** object key ***";
+        // Specify how long the presigned URL lasts, in hours
+        private const double timeoutDuration = 12;
+        // Specify your bucket region (an example region is shown).
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
+        private static IAmazonS3 s3Client;
+
+        public static void Main()
+        <span>{</span>
+            s3Client = new AmazonS3Client(bucketRegion);
+            string urlString = GeneratePreSignedURL(timeoutDuration);
+        }
+        static string GeneratePreSignedURL(double duration)
+        <span>{</span>
+            string urlString = "";
+            try
+            <span>{</span>
+                GetPreSignedUrlRequest request1 = new GetPreSignedUrlRequest
+                <span>{</span>
+                    BucketName = bucketName,
+                    Key = objectKey,
+                    Expires = DateTime.UtcNow.AddHours(duration)
+                };
+                urlString = s3Client.GetPreSignedURL(request1);
+            }
+            catch (AmazonS3Exception e)
+            <span>{</span>
+                Console.WriteLine("Error encountered on server. Message:'<span>{</span>0}' when writing an object", e.Message);
+            }
+            catch (Exception e)
+            <span>{</span>
+                Console.WriteLine("Unknown encountered on server. Message:'<span>{</span>0}' when writing an object", e.Message);
+            }
+            return urlString;
+        }
+    }
+}
+</code></pre></div></div>
+                            </dd>
+                        <dt>JavaScript</dt><dd tab-id="javascript">
+                                <div class="example"><div class="example-contents"><p>다음 예제에서는 버킷을 만들고, 객체를 넣고, 해당 객체에 대한 서명된 URL을 만들고, URL을 가져온 다음 객체와 버킷을 삭제합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascript ">import <span>{</span> GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import <span>{</span> fromIni } from "@aws-sdk/credential-providers";
+import <span>{</span> HttpRequest } from "@aws-sdk/protocol-http";
+import <span>{</span>
+  getSignedUrl,
+  S3RequestPresigner,
+} from "@aws-sdk/s3-request-presigner";
+import <span>{</span> parseUrl } from "@aws-sdk/url-parser";
+import <span>{</span> formatUrl } from "@aws-sdk/util-format-url";
+import <span>{</span> Hash } from "@aws-sdk/hash-node";
+
+const createPresignedUrlWithoutClient = async (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const url = parseUrl(`https://$<span>{</span>bucket}.s3.$<span>{</span>region}.amazonaws.com/$<span>{</span>key}`);
+  const presigner = new S3RequestPresigner(<span>{</span>
+    credentials: fromIni(),
+    region,
+    sha256: Hash.bind(null, "sha256"),
+  });
+
+  const signedUrlObject = await presigner.presign(new HttpRequest(url));
+  return formatUrl(signedUrlObject);
+};
+
+const createPresignedUrlWithClient = (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const client = new S3Client(<span>{</span> region });
+  const command = new GetObjectCommand(<span>{</span> Bucket: bucket, Key: key });
+  return getSignedUrl(client, command, <span>{</span> expiresIn: 3600 });
+};
+
+export const main = async () =&gt; <span>{</span>
+  const REGION = "us-east-1";
+  const BUCKET = "example_bucket";
+  const KEY = "example_file.jpg";
+
+  try <span>{</span>
+    const noClientUrl = await createPresignedUrlWithoutClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    const clientUrl = await createPresignedUrlWithClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    console.log("Presigned URL without client");
+    console.log(noClientUrl);
+    console.log("\n");
+
+    console.log("Presigned URL with client");
+    console.log(clientUrl);
+  } catch (err) <span>{</span>
+    console.error(err);
+  }
+};
+</code></pre></div></div>
+                            </dd>
+                        <dt>PHP</dt><dd tab-id="php">
+                                <p>AWS SDK for PHP 버전 3을 사용하여 미리 서명된 URL을 생성하는 방법에 대한 자세한 내용은 <em>AWS SDK for PHP 개발자 안내서</em>에서 <a href="https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-presigned-url.html">AWS SDK for PHP 버전 3으로 미리 서명된 Amazon S3 URL</a>을 참조하세요.</p>
+                            </dd>
+                        <dt>Python</dt><dd tab-id="python">
+                                <p>미리 서명된 URL을 생성하여 SDK for Python(Boto3)을 사용해 객체를 공유합니다. 예를 들어, Boto3 클라이언트와 <code class="code">generate_presigned_url</code> 함수를 사용하여 객체를 GET하는 미리 서명된 URL을 생성합니다.</p>
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="Python ">import boto3
+    url = boto3.client('s3').generate_presigned_url(
+    ClientMethod='get_object', 
+    Params=<span>{</span>'Bucket': 'BUCKET_NAME', 'Key': 'OBJECT_KEY'},
+    ExpiresIn=3600)</code></pre>
+                                <p>SDK for Python(Boto3)을 사용하여 미리 서명된 URL을 생성하는 방법에 대한 자세한 내용은 <em>AWS SDK for Python (Boto) API 참조</em>의 <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_url" rel="noopener noreferrer" target="_blank"><span>Python</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>을 참조하세요.</p>
+                            </dd>
+                    </dl></awsdocs-tabs></awsui-expandable-section><awsui-expandable-section variant="container" header="AWS CLI 사용" id="ShareObjectPresignedCLI" expanded="false"><p>미리 서명된 URL을 생성하여 AWS CLI를 통해 객체를 공유하려면 <em>AWS CLI 명령 참조</em>의 <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3/presign.html" rel="noopener noreferrer" target="_blank"><span>presign</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>을 참조하세요.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>AWS CLI을 사용하면 미리 서명된 URL의 최대 만료 시간은 생성 시점으로부터 7일입니다.</p></div></div></awsui-expandable-section></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./using-presigned-url.html">미리 서명된 URL 사용</div><div id="next" class="next-link" accesskey="n" href="./PresignedUrlUploadObject.html">객체 업로드</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

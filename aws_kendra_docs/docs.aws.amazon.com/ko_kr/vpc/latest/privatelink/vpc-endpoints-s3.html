@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon S3에 대한 게이트웨이 엔드포인트 - Amazon Virtual Private Cloud</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="vpc-endpoints-s3" /><meta name="default_state" content="vpc-endpoints-s3" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html" /><meta name="description" content="VPC에서 게이트웨이 VPC 엔드포인트를 사용하여 Amazon S3에 액세스할 수 있습니다. 게이트웨이 엔드포인트를 생성한 후 VPC에서 Amazon S3로 전송되는 트래픽에 대해 해당 엔드포인트를 라우팅 테이블의 대상으로 추가할 수 있습니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Virtual Private Cloud" /><meta name="guide" content="AWS PrivateLink" /><meta name="abstract" content="AWS PrivateLink를 사용하여 VPC를 지원되는 AWS 서비스, 기타 AWS 계정에서 호스팅하는 서비스 및 지원되는 AWS Marketplace 파트너 서비스에 연결할 수 있습니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html" hreflang="x-default" /><meta name="feedback-item" content="PrivateLink" /><meta name="this_doc_product" content="Amazon Virtual Private Cloud" /><meta name="this_doc_guide" content="AWS PrivateLink" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'vpc'}"></script><meta id="panorama-serviceSubSection" value="AWS PrivateLink" /><meta id="panorama-serviceConsolePage" value="Amazon S3에 대한 게이트웨이 엔드포인트" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon S3에 대한 게이트웨이 엔드포인트 - Amazon Virtual Private Cloud</title><meta name="pdf" content="aws-privatelink.pdf#vpc-endpoints-s3" /><meta name="rss" content="privatelink-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=58" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=PrivateLink&amp;topic_url=http://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html" /><meta name="keywords" content="VPC,Amazon VPC,PrivateLink" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon VPC",
+        "item" : "https://docs.aws.amazon.com/vpc/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "AWS PrivateLink",
+        "item" : "https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS PrivateLink를 통한 AWS 서비스 액세스",
+        "item" : "https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/privatelink-access-aws-services.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "게이트웨이 엔드포인트",
+        "item" : "https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/gateway-endpoints.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Amazon S3에 대한 게이트웨이 엔드포인트",
+        "item" : "https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/gateway-endpoints.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="aws-privatelink.pdf#vpc-endpoints-s3" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/vpc/index.html">Amazon VPC</a><a href="what-is-privatelink.html">AWS PrivateLink</a></div><div id="page-toc-src"><a href="#gateway-endpoint-considerations-s3">고려 사항</a><a href="#private-dns-s3">프라이빗 DNS</a><a href="#create-gateway-endpoint-s3">게이트웨이 엔드포인트 생성</a><a href="#bucket-policies-s3">버킷 정책을 사용한 액세스 제어</a><a href="#associate-route-tables-s3">라우팅 테이블 연결</a><a href="#edit-vpc-endpoint-policy-s3">VPC 엔드포인트 정책 편집</a><a href="#delete-gateway-endpoint-s3">게이트웨이 엔드포인트 삭제</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="vpc-endpoints-s3">Amazon S3에 대한 게이트웨이 엔드포인트</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>VPC에서 게이트웨이 VPC 엔드포인트를 사용하여 Amazon S3에 액세스할 수 있습니다. 게이트웨이 엔드포인트를 생성한 후 VPC에서 Amazon S3로 전송되는 트래픽에 대해 해당 엔드포인트를 라우팅 테이블의 대상으로 추가할 수 있습니다.</p><p>게이트웨이 엔드포인트 사용에 따르는 추가 요금은 없습니다.</p><p>Amazon S3는 게이트웨이 엔드포인트와 인터페이스 엔드포인트를 모두 지원합니다. 게이트웨이 엔드포인트를 사용하면 VPC 인터넷 게이트웨이 또는 NAT 디바이스를 사용하지 않고 추가 비용 없이 VPC에서 Amazon S3에 액세스할 수 있습니다. 하지만 게이트웨이 엔드포인트는 온프레미스 네트워크, 다른 AWS 리전의 피어링된 VPC 또는 전송 게이트웨이를 통한 액세스를 허용하지 않습니다. 이러한 시나리오에서는 추가 비용을 지불한 후 사용할 수 있는 인터페이스 엔드포인트를 사용해야 합니다. 자세한 내용은 <em>Amazon S3 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#types-of-vpc-endpoints-for-s3">Amazon S3용 VPC 엔드포인트 유형</a>을 참조하세요.</p><div class="highlights" id="inline-topiclist"><h6>목차</h6><ul><li><a href="#gateway-endpoint-considerations-s3">고려 사항</a></li><li><a href="#private-dns-s3">프라이빗 DNS</a></li><li><a href="#create-gateway-endpoint-s3">게이트웨이 엔드포인트 생성</a></li><li><a href="#bucket-policies-s3">버킷 정책을 사용한 액세스 제어</a></li><li><a href="#associate-route-tables-s3">라우팅 테이블 연결</a></li><li><a href="#edit-vpc-endpoint-policy-s3">VPC 엔드포인트 정책 편집</a></li><li><a href="#delete-gateway-endpoint-s3">게이트웨이 엔드포인트 삭제</a></li></ul></div>
+      <h2 id="gateway-endpoint-considerations-s3">고려 사항</h2>
+      <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>게이트웨이 엔드포인트는 해당 엔드포인트를 생성한 리전에서만 사용할 수 있습니다. S3 버킷과 동일한 리전에서 게이트웨이 엔드포인트를 생성해야 합니다.</p>
+        </li><li class="listitem">
+          <p>Amazon DNS 서버를 사용 중인 경우 VPC에 대해 <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating">DNS 호스트 이름 및 DNS 확인</a>을 모두 활성화해야 합니다. 자체 DNS 서버를 사용하는 경우 Amazon S3에 대한 요청이 AWS에서 유지 관리하는 IP 주소로 올바르게 확인되어야 합니다.</p>
+        </li><li class="listitem">
+          <p>S3 버킷에 액세스 권한이 필요한 AWS 서비스를 사용 중인지 확인합니다. 예를 들어, 서비스에서 로그 파일이 포함된 버킷에 액세스해야 하거나 EC2 인스턴스에 드라이버 또는 에이전트를 다운로드해야 할 수 있습니다. 이 경우, 엔드포인트 정책에 AWS 서비스 또는 리소스가 이러한 버킷에 액세스할 권한이 허용되어 있는지 <code class="code">s3:GetObject</code> 작업을 사용하여 확인합니다.</p>
+        </li><li class="listitem">
+          <p>IAM 정책 또는 버킷 정책을 사용하여 VPC IPv4 CIDR 범위로부터의 액세스를 허용할 수 없습니다. VPC CIDR 블록이 중첩되거나 동일할 수 있고 이로 인해 예기치 않은 결과가 발생할 수 있습니다. 따라서 VPC 엔드포인트를 통해 Amazon S3에 요청할 때는 IAM 정책에 <code class="code">aws:SourceIp</code> 조건을 사용할 수 없습니다. 이는 ID 기반 정책 및 모든 버킷 정책에 적용됩니다. 문에 <code class="code">aws:SourceIp</code> 조건이 포함되어 있는 경우, 값이 제공된 IP 주소 또는 범위와 일치하지 않습니다. 대신에 다음 작업을 할 수 있습니다.</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p>라우팅 테이블을 사용하여 게이트웨이 엔드포인트를 통해 Amazon S3의 리소스에 액세스할 수 있는 인스턴스를 제어합니다.</p>
+            </li><li class="listitem">
+              <p><a href="#bucket-policies-s3">버킷 정책</a>을 사용하여 특정 엔드포인트, VPC 또는 IP 주소 범위에 대한 액세스를 제한합니다.</p>
+            </li></ul></div>
+        </li><li class="listitem">
+          <p>게이트웨이 엔드포인트를 통해 Amazon S3에 액세스하는 인스턴스의 보안 그룹에 대한 아웃바운드 규칙에서 Amazon S3로의 트래픽을 허용해야 합니다. Amazon S3의 접두사 목록 ID를 아웃바운드 규칙에서 대상 주소로 사용할 수 있습니다.</p>
+        </li><li class="listitem">
+          <p>게이트웨이 엔드포인트는 IPv4 트래픽만 지원합니다.</p>
+        </li><li class="listitem">
+          <p>Amazon S3가 수신한 해당 서브넷에 있는 인스턴스의 원본 IPv4 주소는 퍼블릭 IPv4 주소에서 VPC의 프라이빗 IPv4 주소로 변경됩니다. 엔드포인트는 네트워크 라우팅을 스위칭하고 열린 TCP 연결을 끊습니다. 퍼블릭 IPv4 주소를 사용한 이전 연결이 다시 시작되지 않습니다. 따라서 엔드포인트를 만들거나 수정할 때는 중요한 작업을 실행하지 않는 것이 좋으며 연결이 끊어진 후에는 소프트웨어가 자동으로 Amazon S3에 다시 연결할 수 있는지 테스트해야 합니다.</p>
+        </li><li class="listitem">
+          <p>엔드포인트 연결은 VPC 외부로 확장할 수 없습니다. VPN 연결, VPC 피어링 연결, 전송 게이트웨이 또는 VPC의 AWS Direct Connect 연결의 반대쪽에 있는 리소스는 게이트웨이 엔드포인트를 사용하여 Amazon S3와 통신할 수 없습니다.</p>
+        </li><li class="listitem">
+          <p>계정의 기본 할당량은 리전당 게이트웨이 엔드포인트 20개이며 조정 가능합니다. 또한 VPC당 게이트웨이 엔드포인트는 255개로 제한됩니다.</p>
+        </li></ul></div>
+     
+      <h2 id="private-dns-s3">프라이빗 DNS</h2>
+      <p>Amazon S3용 게이트웨이 엔드포인트와 인터페이스 엔드포인트를 모두 생성할 때 비용을 최적화하도록 프라이빗 DNS를 구성할 수 있습니다.</p>
+
+       
+        <h6>Route 53 Resolver</h6>
+        <p>Amazon은 <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html">Route 53 Resolver</a>라고 하는 VPC용 DNS 서버를 제공합니다. Route 53 Resolver는 프라이빗 호스팅 영역의 로컬 VPC 도메인 이름 및 레코드를 자동으로 확인합니다. 하지만 VPC 외부에서는 Route 53 Resolver를 사용할 수 없습니다. Route 53은 사용자가 VPC 외부에서 Route 53 Resolver를 사용할 수 있도록 Resolver 엔드포인트와 Resolver 규칙을 제공합니다. <em>인바운드 Resolver 엔드포인트</em>는 온프레미스 네트워크 상의 DNS 쿼리를 Route 53 Resolver로 전달합니다. <em>아웃바운드 Resolver 엔드포인트</em>는 Route 53 Resolver의 DNS 쿼리를 온프레미스 네트워크로 전달합니다.</p>
+       
+      <p>인바운드 Resolver 엔드포인트에 프라이빗 DNS만 사용하도록 Amazon S3용 인터페이스 엔드포인트를 구성하면 인바운드 Resolver 엔드포인트가 생성됩니다. 인바운드 Resolver 엔드포인트는 온프레미스에서 인터페이스 엔드포인트의 프라이빗 IP 주소로 전송되는 Amazon S3에 대한 DNS 쿼리를 해결합니다. 또한 VPC의 DNS 쿼리가 트래픽을 게이트웨이 엔드포인트로 라우팅하는 Amazon S3 퍼블릭 IP 주소로 확인되도록 Route 53 Resolver의 ALIAS 레코드를 Amazon S3 퍼블릭 호스팅 영역에 추가합니다.</p>
+      
+       
+        <h6>프라이빗 DNS</h6>
+        <p>Amazon S3용 인터페이스 엔드포인트에 프라이빗 DNS를 구성하지만 인바운드 Resolver 엔드포인트에 대해서만 프라이빗 DNS를 구성하지 않는 경우, 온프레미스 네트워크와 VPC 모두의 요청이 인터페이스 엔드포인트를 사용하여 Amazon S3에 액세스합니다. 따라서 추가 요금 없이 게이트웨이 엔드포인트를 사용하는 대신 VPC의 트래픽에 인터페이스 엔드포인트를 사용하려면 비용을 지불해야 합니다.</p>
+       
+      <div class="mediaobject">
+         
+          <img src="images/s3-private-dns-default.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          두 엔드포인트 유형이 모두 있는 경우 기본적으로 Amazon S3 요청이 라우팅되는 방식을 보여주는 개념적 그래픽입니다.&#xA;        " />
+         
+         
+      </div>
+      
+       
+        <h6>인바운드 Resolver 엔드포인트 전용 프라이빗 DNS</h6>
+        <p>인바운드 Resolver 엔드포인트에 대해서만 프라이빗 DNS를 구성하는 경우, 온프레미스 네트워크의 요청은 인터페이스 엔드포인트를 사용하여 Amazon S3에 액세스하고, VPC의 요청은 게이트웨이 엔드포인트를 사용하여 Amazon S3에 액세스합니다. 따라서 게이트웨이 엔드포인트를 사용할 수 없는 트래픽에 대해서만 인터페이스 엔드포인트를 사용하기 위해 비용을 지불하므로 비용을 최적화할 수 있습니다.</p>
+       
+      <div class="mediaobject">
+         
+          <img src="images/s3-private-dns-inbound-endpoint.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          두 엔드포인트 유형이 모두 있고 인바운드 Resolver 엔드포인트로 프라이빗 DNS를 구성할 때 Amazon S3 요청이 라우팅되는 방식을 보여주는 개념적 그래픽입니다.&#xA;        " />
+         
+         
+      </div>
+      
+       
+        <h6>프라이빗 DNS 설정</h6>
+        <p>Amazon S3용 인터페이스 엔드포인트를 생성할 때 또는 생성한 후에 Amazon S3용 인터페이스 엔드포인트에 대한 프라이빗 DNS를 구성할 수 있습니다. 자세한 내용은 <a href="./create-interface-endpoint.html#create-interface-endpoint-aws">VPC 엔드포인트 생성</a>(생성 중 구성) 또는 <a href="./interface-endpoints.html#enable-private-dns-names">프라이빗 DNS 이름 활성화</a>(생성 후 구성)을 참조하세요.</p>
+       
+     
+      <h2 id="create-gateway-endpoint-s3">게이트웨이 엔드포인트 생성</h2>
+      <p>다음 절차에 따라 Amazon S3에 연결하는 게이트웨이 엔드포인트를 생성합니다.</p>
+      <div class="procedure"><h6>콘솔을 사용하여 게이트웨이 엔드포인트 생성하기</h6><ol><li><p><a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>에서 Amazon VPC 콘솔을 엽니다.</p></li><li>
+          <p>탐색 창에서 <b>엔드포인트</b>를 선택합니다.</p>
+        </li><li>
+          <p><b>엔드포인트 생성</b>을 선택합니다.</p>
+        </li><li>
+          <p><b>서비스 범주(Service category)</b>에서 <b>AWS 서비스</b>를 선택합니다.</p>
+        </li><li>
+          <p><b>서비스(Services)</b>에서 <b>유형: 게이트웨이(Type: Gateway)</b> 필터를 추가하고 <b>com.amazonaws.</b><code class="replaceable">region</code><b>.s3</b>를 선택합니다.</p>
+        </li><li>
+          <p><b>VPC</b>에서 엔드포인트를 생성할 VPC를 선택합니다.</p>
+        </li><li>
+          <p><b>라우팅 테이블(Route tables)</b>에서 엔드포인트에서 사용할 라우팅 테이블을 선택합니다. 서버로 전송되는 트래픽을 가리키는 라우팅이 엔드포인트 네트워크 인터페이스에 자동으로 추가됩니다.</p>
+        </li><li>
+          <p><b>정책(Policy)</b>에서 <b>모든 액세스(Full access)</b>를 선택하여 VPC 엔드포인트를 통한 모든 리소스에 대한 모든 보안 주체의 모든 작업을 허용합니다. 또는 <b>사용자 지정(Custom)</b>을 선택하여 VPC 엔드포인트를 통해 리소스에 대한 작업을 수행하기 위해 보안 주체에 필요한 권한을 제어하는 VPC 엔드포인트 정책을 연결합니다.</p>
+        </li><li>
+          <p>(선택 사항) 태그를 추가하려면 <b>새로운 태그 추가(Add new tag)</b>를 선택하고 태그 키와 태그 값을 입력합니다.</p>
+        </li><li>
+          <p><b>엔드포인트 생성</b>을 선택합니다.</p>
+        </li></ol></div>
+      <div class="itemizedlist">
+        <h6>명령줄을 사용하여 게이트웨이 엔드포인트 생성하기</h6>
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html">create-vpc-endpoint</a>(AWS CLI)</p>
+        </li><li class="listitem">
+          <p><a href="https://docs.aws.amazon.com/powershell/latest/reference/items/New-EC2VpcEndpoint.html">New-EC2VpcEndpoint</a>(Windows PowerShell용 도구)</p>
+        </li></ul></div>
+     
+      <h2 id="bucket-policies-s3">버킷 정책을 사용한 액세스 제어</h2>
+      <p>버킷 정책을 사용하여 특정 엔드포인트, VPC, IP 주소 범위 및 AWS 계정의 버킷에 대한 액세스를 제어할 수 있습니다.</p>
+      <div class="example"><h6>예: 특정 엔드포인트에 대한 액세스 제한</h6><div class="example-contents"><p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcevpce">aws:sourceVpce</a> 조건 키를 사용하여 특정 엔드포인트에 대한 액세스를 제한하는 버킷 정책을 생성할 수 있습니다. 다음 정책은 지정된 게이트웨이 엔드포인트가 사용되지 않으면 지정된 버킷에 대한 액세스를 거부합니다. 이 예제에서는 해당 사용 사례에 필요한 액세스를 허용하는 정책 문도 있다고 가정합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Access-to-bucket-using-specific-endpoint",
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-specific-VPCE-only",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::<code class="replaceable">bucket_name</code>",
+                   "arn:aws:s3:::<code class="replaceable">bucket_name</code>/*"],
+      "Condition": <span>{</span>
+        "StringNotEquals": <span>{</span>
+          "aws:sourceVpce": "<code class="replaceable">vpce-1a2b3c4d</code>"
+        }
+      }
+    }
+  ]
+}</code></pre></div></div>
+      <div class="example"><h6>예: 특정 VPC에 대한 액세스 제한</h6><div class="example-contents"><p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcevpc">aws:sourceVpc</a> 조건 키를 사용하여 특정 VPC에 대한 액세스를 제한하는 버킷 정책을 생성할 수 있습니다. 이 정적은 같은 VPC에 여러 엔드포인트가 구성되어 있는 경우 유용합니다. 다음 정책은 지정된 VPC에서 시작되지 않는 지정된 버킷 및 해당 객체에 대한 액세스를 거부합니다. 이 예제에서는 해당 사용 사례에 필요한 액세스를 허용하는 정책 문도 있다고 가정합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Access-to-bucket-using-specific-VPC",
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-specific-VPC-only",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::<code class="replaceable">example_bucket</code>",
+                   "arn:aws:s3:::<code class="replaceable">example_bucket</code>/*"],
+      "Condition": <span>{</span>
+        "StringNotEquals": <span>{</span>
+          "aws:sourceVpc": "<code class="replaceable">vpc-111bbb22</code>"
+        }
+      }
+    }
+  ]
+}</code></pre></div></div>
+      <div class="example"><h6>예: 특정 IP 주소 범위에 대한 액세스 제한</h6><div class="example-contents"><p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-vpcsourceip">aws:VpcSourceIp</a> 조건 키를 사용하여 특정 IP 주소 범위에 대한 액세스를 제한하는 버킷 정책을 생성할 수 있습니다. 다음 정책은 지정된 IP 주소에서 시작되지 않는 지정된 버킷 및 해당 객체에 대한 액세스를 거부합니다. 이 예제에서는 해당 사용 사례에 필요한 액세스를 허용하는 정책 문도 있다고 가정합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909152",
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-specific-VPC-CIDR-only",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::<code class="replaceable">bucket_name</code>",
+                   "arn:aws:s3:::<code class="replaceable">bucket_name</code>/*"],
+      "Condition": <span>{</span>
+        "NotIpAddress": <span>{</span>
+          "aws:VpcSourceIp": "<code class="replaceable">172.31.0.0/16</code>"
+        }
+      }
+    }
+  ]
+}</code></pre></div></div>
+      <div class="example"><h6>예: 특정 AWS 계정의 버킷에 대한 액세스 제한</h6><div class="example-contents"><p><code class="code">s3:ResourceAccount</code> 조건을 사용하여 특정 AWS 계정의 S3 버킷에 대한 액세스를 제한하는 정책을 생성할 수 있습니다. 다음 정책은 지정된 AWS 계정이 소유하지 않은 리소스에 대한 액세스를 거부합니다. 이 예제에서는 해당 사용 사례에 필요한 액세스를 허용하는 정책 문도 있다고 가정합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909152",
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-bucket-in-specific-account-only",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::*",
+      "Condition": <span>{</span>
+        "StringNotEquals": <span>{</span>
+          "s3:ResourceAccount": "<code class="replaceable">111122223333</code>"
+        }
+      }
+    }
+  ]
+}</code></pre></div></div>
+     
+      <h2 id="associate-route-tables-s3">라우팅 테이블 연결</h2>
+      <p>게이트웨이 엔드포인트와 연결된 라우팅 테이블을 변경할 수 있습니다. 라우팅 테이블을 연결하면 서비스로 전송되는 트래픽을 가리키는 라우팅이 엔드포인트 네트워크 인터페이스에 자동으로 추가됩니다. 라우팅 테이블의 연결을 해제하면 라우팅 테이블에서 엔드포인트 라우팅이 자동으로 제거됩니다.</p>
+      <div class="procedure"><h6>콘솔을 사용하여 라우팅 테이블 연결하기</h6><ol><li><p><a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>에서 Amazon VPC 콘솔을 엽니다.</p></li><li>
+          <p>탐색 창에서 <b>엔드포인트</b>를 선택합니다.</p>
+        </li><li>
+          <p>게이트웨이 엔드포인트를 선택합니다.</p>
+        </li><li>
+          <p><b>작업(Actions)</b>, <b>라우팅 테이블 관리(Manage route tables)</b>를 차례로 선택합니다.</p>
+        </li><li>
+          <p>필요에 따라 라우팅 테이블을 선택하거나 선택 취소합니다.</p>
+        </li><li>
+          <p><b>라우팅 테이블 수정(Modify route tables)</b>을 선택합니다.</p>
+        </li></ol></div>
+      <div class="itemizedlist">
+        <h6>명령줄을 사용하여 라우팅 테이블 연결하기</h6>
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/modify-vpc-endpoint.html">modify-vpc-endpoint</a>(AWS CLI)</p>
+        </li><li class="listitem">
+          <p><a href="https://docs.aws.amazon.com/powershell/latest/reference/items/Edit-EC2VpcEndpoint.html">Edit-EC2VpcEndpoint</a>(Windows PowerShell용 도구)</p>
+        </li></ul></div>
+     
+      <h2 id="edit-vpc-endpoint-policy-s3">VPC 엔드포인트 정책 편집</h2>
+      <p>게이트웨이 엔드포인트에 대한 엔드포인트 정책을 편집하여 VPC에서 엔드포인트를 통해 Amazon S3에 대한 액세스를 제어할 수 있습니다. 기본 정책에서는 모든 액세스를 허용합니다. 자세한 내용은 <a href="./vpc-endpoints-access.html#vpc-endpoint-policies">VPC 엔드포인트 정책</a> 섹션을 참조하세요.</p>
+      <div class="procedure"><h6>콘솔을 사용하여 엔드포인트 정책 변경</h6><ol><li><p><a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>에서 Amazon VPC 콘솔을 엽니다.</p></li><li>
+          <p>탐색 창에서 <b>엔드포인트</b>를 선택합니다.</p>
+        </li><li>
+          <p>게이트웨이 엔드포인트를 선택합니다.</p>
+        </li><li>
+          <p><b>작업(Actions)</b>, <b>정책 관리(Manage policy)</b>를 선택합니다.</p>
+        </li><li>
+          <p><b>모든 액세스(Full Access)</b>를 선택하여 서비스에 대한 전체 액세스를 허용하거나 <b>사용자 지정(Custom)</b>을 선택하고 사용자 지정 정책을 연결합니다.</p>
+        </li><li>
+          <p><b>저장(Save)</b>을 선택합니다.</p>
+        </li></ol></div>
+
+      <p>다음은 Amazon S3에 액세스하기 위한 엔드포인트 정책의 예입니다.</p>
+      <div class="example"><h6>예: 특정 버킷에 대한 액세스 제한</h6><div class="example-contents"><p>특정 S3 버킷에 대해서만 액세스를 제한하는 정책을 생성할 수 있습니다. 이 정책은 VPC에 S3 버킷을 사용하는 다른 AWS 서비스가 있을 경우 유용합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Sid": "AccessToSpecificBucket",
+  "Effect": "Allow",
+  "Principal": "*",
+  "Action": [
+     "s3:ListBucket",
+     "s3:GetObject",
+     "s3:PutObject"
+  ],
+  "Resource": [
+     "arn:aws:s3:::<code class="replaceable">bucket_name</code>",
+     "arn:aws:s3:::<code class="replaceable">bucket_name</code>/*"
+  ]
+}</code></pre></div></div>
+      <div class="example"><h6>예: 특정 IAM 역할에 대한 액세스 제한</h6><div class="example-contents"><p>특정 IAM 역할에 대한 액세스를 제한하는 정책을 생성할 수 있습니다. <code class="code">aws:PrincipalArn</code>을 사용하여 보안 주체에 액세스 권한을 부여해야 합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Sid": "Restrict-access-to-specific-IAM-role",
+  "Effect": "Allow",
+  "Principal": "*",
+  "Action": "*",
+  "Resource": "*",
+  "Condition": <span>{</span>
+    "ArnEquals": <span>{</span>
+      "aws:PrincipalArn": "arn:aws:iam::<code class="replaceable">111122223333</code>:role/<code class="replaceable">role_name</code>"
+    }
+  }
+}</code></pre></div></div>
+      <div class="example"><h6>예: 특정 계정의 사용자에 대한 액세스 제한</h6><div class="example-contents"><p>특정 계정에 대한 액세스를 제한하는 정책을 생성할 수 있습니다. <code class="code">aws:PrincipalArn</code>을 사용하여 보안 주체에 액세스 권한을 부여해야 합니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Sid": "AllowCallersFromAccount111122223333",
+  "Effect": "Allow",
+  "Principal": "*",
+  "Action": "*",
+  "Resource": "*",
+  "Condition": <span>{</span>
+    "StringEquals": <span>{</span>
+      "aws:PrincipalArn": "<code class="replaceable">111122223333</code>"
+    }
+  }
+}</code></pre></div></div>
+     
+      <h2 id="delete-gateway-endpoint-s3">게이트웨이 엔드포인트 삭제</h2>
+      <p>게이트웨이 엔드포인트 사용을 마치면 엔드포인트를 삭제할 수 있습니다. 게이트웨이 엔드포인트를 삭제하면 서브넷 라우팅 테이블에서 엔드포인트 라우팅이 제거됩니다.</p>
+      <p>프라이빗 DNS가 활성화되어 있으면 게이트웨이 엔드포인트를 삭제할 수 없습니다.</p>
+      <div class="procedure"><h6>콘솔을 사용하여 게이트웨이 엔드포인트 삭제</h6><ol><li><p><a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>에서 Amazon VPC 콘솔을 엽니다.</p></li><li>
+          <p>탐색 창에서 <b>엔드포인트</b>를 선택합니다.</p>
+        </li><li>
+          <p>게이트웨이 엔드포인트를 선택합니다.</p>
+        </li><li>
+          <p><b>작업(Actions)</b>, <b>VPC 엔드포인트 삭제(Delete VPC endpoints)</b>를 차례로 선택합니다.</p>
+        </li><li>
+          <p>확인 메시지가 표시되면 <code class="userinput">delete</code>를 입력합니다.</p>
+        </li><li>
+          <p><b>삭제</b>를 선택합니다.</p>
+        </li></ol></div>
+      <div class="itemizedlist">
+        <h6>명령줄을 사용하여 게이트웨이 엔드포인트 삭제하기</h6>
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-vpc-endpoints.html">delete-vpc-endpoints</a>(AWS CLI)</p>
+        </li><li class="listitem">
+          <p><a href="https://docs.aws.amazon.com/powershell/latest/reference/items/Remove-EC2VpcEndpoint.html">Remove-EC2VpcEndpoint</a>(Windows PowerShell용 도구)</p>
+        </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./gateway-endpoints.html">게이트웨이 엔드포인트</div><div id="next" class="next-link" accesskey="n" href="./vpc-endpoints-ddb.html">DynamoDB에 대한 엔드포인트</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=PrivateLink&amp;topic_url=https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=PrivateLink&amp;topic_url=https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/vpc-endpoints-s3.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

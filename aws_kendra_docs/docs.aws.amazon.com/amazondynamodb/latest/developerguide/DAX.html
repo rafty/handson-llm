@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>In-memory acceleration with DynamoDB Accelerator (DAX) - Amazon DynamoDB</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="DAX" /><meta name="default_state" content="DAX" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html" /><meta name="description" content="Get faster performance and lower latency when reading from Amazon DynamoDB with DAX, a managed, in-memory, write-through cache you can deploy for demanding workloads." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon DynamoDB" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Amazon DynamoDB is a fast, fully managed NoSQL database as a service that makes it simple and cost-effective to store and retrieve any amount of data, and serve any level of request traffic." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/DAX.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/amazondynamodb/latest/developerguide/DAX.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/DAX.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/amazondynamodb/latest/developerguide/DAX.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/DAX.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/DAX.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/DAX.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/amazondynamodb/latest/developerguide/DAX.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/DAX.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/amazondynamodb/latest/developerguide/DAX.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/DAX.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/DAX.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/DAX.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/DAX.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/DAX.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/amazondynamodb/latest/developerguide/DAX.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/DAX.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/amazondynamodb/latest/developerguide/DAX.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html" hreflang="x-default" /><meta name="feedback-item" content="DynamoDB" /><meta name="this_doc_product" content="Amazon DynamoDB" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'dynamodb'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="In-memory acceleration with DynamoDB Accelerator (DAX)" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>In-memory acceleration with DynamoDB Accelerator (DAX) - Amazon DynamoDB</title><meta name="pdf" content="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#DAX" /><meta name="github" content="https://github.com/awsdocs/amazon-dynamodb-developer-guide/tree/master/doc_source/DAX.md" /><meta name="rss" content="dynamodbupdates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=131" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=http://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/DAX.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/DAX.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/DAX.html" /><meta name="keywords" content="DynamoDB,Amazon DynamoDB,database,NoSQL database,nonrelational database,managed database" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon DynamoDB",
+        "item" : "https://docs.aws.amazon.com/dynamodb/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "In-memory acceleration with DynamoDB Accelerator (DAX)",
+        "item" : "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/amazondynamodb/latest/developerguide/dynamodb-dg.pdf#DAX" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-dynamodb-developer-guide/tree/master/doc_source/DAX.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/dynamodb/index.html">Amazon DynamoDB</a><a href="Introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#DAX.use-cases">Use cases for DAX</a><a href="#DAX.usage-notes">DAX usage notes</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="DAX">In-memory acceleration with DynamoDB Accelerator (DAX)</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon DynamoDB is designed for scale and performance. In most cases, the DynamoDB response times
+        can be measured in single-digit milliseconds. However, there are certain use cases that
+        require response times in microseconds. For these use cases, DynamoDB Accelerator (DAX) delivers fast
+        response times for accessing eventually consistent data. </p><p>DAX is a DynamoDB-compatible caching service that enables you to benefit from fast
+        in-memory performance for demanding applications. DAX addresses three core
+        scenarios:</p><div class="orderedlist">
+         
+         
+         
+    <ol><li>
+            <p> As an in-memory cache, DAX reduces the response times of eventually consistent
+                read workloads by an order of magnitude from single-digit milliseconds to
+                microseconds. </p>
+        </li><li>
+            <p>DAX reduces operational and application complexity by providing a managed
+                service that is API-compatible with DynamoDB. Therefore, it requires only minimal
+                functional changes to use with an existing application.</p>
+        </li><li>
+            <p>For read-heavy or bursty workloads, DAX provides increased throughput and
+                potential operational cost savings by reducing the need to overprovision read
+                capacity units. This is especially beneficial for applications that require repeated
+                reads for individual keys.</p>
+        </li></ol></div><p>DAX supports server-side encryption. With encryption at rest, the data persisted by
+        DAX on disk will be encrypted. DAX writes data to disk as part of propagating changes
+        from the primary node to read replicas. For more information, see <a href="./DAXEncryptionAtRest.html">DAX encryption at rest</a>.</p><p>DAX also supports encryption in transit, ensuring that all requests and responses
+        between your application and the cluster are encrypted by transport level security (TLS),
+        and connections to the cluster can be authenticated by verification of a cluster x509
+        certificate. For more information, see <a href="./DAXEncryptionInTransit.html">DAX encryption in transit</a>.</p><div class="highlights"><h6>Topics</h6><ul><li><a href="#DAX.use-cases">Use cases for DAX</a></li><li><a href="#DAX.usage-notes">DAX usage notes</a></li><li><a href="./DAX.concepts.html">DAX: How it works</a></li><li><a href="./DAX.concepts.cluster.html">DAX cluster components</a></li><li><a href="./DAX.create-cluster.html">Creating a DAX cluster</a></li><li><a href="./DAX.consistency.html">DAX and DynamoDB consistency models</a></li><li><a href="./DAX.client.html">Developing with the DynamoDB Accelerator (DAX) client</a></li><li><a href="./DAX.cluster-management.html">Managing DAX clusters
+    </a></li><li><a href="./DAX.Monitoring.html">Monitoring DAX</a></li><li><a href="./DAX.Burstable.html">DAX T3/T2 burstable instances</a></li><li><a href="./DAX.access-control.html">DAX access control</a></li><li><a href="./DAXEncryptionAtRest.html">DAX encryption at rest</a></li><li><a href="./DAXEncryptionInTransit.html">DAX encryption in transit</a></li><li><a href="./using-service-linked-roles.html">Using service-linked IAM roles for DAX</a></li><li><a href="./DAX.cross-account-access.html">Accessing DAX across AWS accounts</a></li><li><a href="./DAX.sizing-guide.html">DAX cluster sizing guide</a></li><li><a href="./DAX.api.html">DAX API reference</a></li></ul></div>
+        <h2 id="DAX.use-cases">Use cases for DAX</h2>
+        <p>DAX provides access to eventually consistent data from DynamoDB tables, with
+            microsecond latency. A Multi-AZ DAX cluster can serve millions of requests per
+            second.</p>
+        <p>DAX is ideal for the following types of applications:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Applications that require the fastest possible response time for reads. Some
+                    examples include real-time bidding, social gaming, and trading applications.
+                    DAX delivers fast, in-memory read performance for these use cases.</p>
+            </li><li class="listitem">
+                <p>Applications that read a small number of items more frequently than others.
+                    For example, consider an ecommerce system that has a one-day sale on a popular
+                    product. During the sale, demand for that product (and its data in DynamoDB) would
+                    sharply increase, compared to all of the other products. To mitigate the impacts
+                    of a "hot" key and a non-uniform traffic distribution, you could offload the
+                    read activity to a DAX cache until the one-day sale is over.</p>
+            </li><li class="listitem">
+                <p>Applications that are read-intensive, but are also cost-sensitive. With DynamoDB,
+                    you provision the number of reads per second that your application requires. If
+                    read activity increases, you can increase your tables' provisioned read
+                    throughput (at an additional cost). Or, you can offload the activity from your
+                    application to a DAX cluster, and reduce the number of read capacity units
+                    that you need to purchase otherwise.</p>
+            </li><li class="listitem">
+                <p>Applications that require repeated reads against a large set of data. Such an
+                    application could potentially divert database resources from other applications.
+                    For example, a long-running analysis of regional weather data could temporarily
+                    consume all the read capacity in a DynamoDB table. This situation would negatively
+                    impact other applications that need to access the same data. With DAX, the
+                    weather analysis could be performed against cached data instead.</p>
+            </li></ul></div>
+        <p> DAX is <em>not</em> ideal for the following types of
+            applications:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>Applications that require strongly consistent reads (or that cannot tolerate
+                    eventually consistent reads).</p>
+            </li><li class="listitem">
+                <p>Applications that do not require microsecond response times for reads, or that
+                    do not need to offload repeated read activity from underlying tables.</p>
+            </li><li class="listitem">
+                <p>Applications that are write-intensive, or that do not perform much read
+                    activity.</p>
+            </li><li class="listitem">
+                <p>Applications that are already using a different caching solution with DynamoDB,
+                    and are using their own client-side logic for working with that caching
+                    solution.</p>
+            </li></ul></div>
+     
+        <h2 id="DAX.usage-notes">DAX usage notes</h2>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>For a list of AWS Regions where DAX is available, see <a href="https://aws.amazon.com/dynamodb/pricing" rel="noopener noreferrer" target="_blank"><span>Amazon DynamoDB pricing</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+            </li><li class="listitem">
+                <p>DAX supports applications written in Go, Java, Node.js, Python, and .NET,
+                    using AWS-provided clients for those programming languages.</p>
+            </li><li class="listitem">
+                <p>DAX is only available for the EC2-VPC platform.</p>
+            </li><li class="listitem">
+                <p>The DAX cluster service role policy must allow the
+                        <code class="code">dynamodb:DescribeTable</code> action in order to maintain metadata
+                    about the DynamoDB table.</p>
+            </li><li class="listitem">
+                <p>DAX clusters maintain metadata about the attribute names of items they
+                    store. That metadata is maintained indefinitely (even after the item has expired
+                    or been evicted from the cache). Applications that use an unbounded number of
+                    attribute names can, over time, cause memory exhaustion in the DAX cluster.
+                    This limitation applies only to top-level attribute names, not nested attribute
+                    names. Examples of problematic top-level attribute names include timestamps,
+                    UUIDs, and session IDs.</p>
+                <p>This limitation applies only to attribute names, not their values. Items like
+                    the following are not a problem.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Id": 123,
+    "Title": "Bicycle 123",
+    "CreationDate": "2017-10-24T01:02:03+00:00"
+}</code></pre>
+                <p>But items like the following are a problem if there are enough of them and
+                    they each have a different timestamp.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Id": 123,
+    "Title": "Bicycle 123",
+    "2017-10-24T01:02:03+00:00": "created"
+}</code></pre>
+            </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./PointInTimeRecovery.Tutorial.html">Restoring a table to a point in time</div><div id="next" class="next-link" accesskey="n" href="./DAX.concepts.html">How it works</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/DAX.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=DynamoDB&amp;topic_url=https://docs.aws.amazon.com/en_us/amazondynamodb/latest/developerguide/DAX.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

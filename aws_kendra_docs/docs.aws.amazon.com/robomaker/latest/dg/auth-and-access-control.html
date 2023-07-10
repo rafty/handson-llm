@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Authentication and access control for AWS RoboMaker - AWS RoboMaker</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="auth-and-access-control" /><meta name="default_state" content="auth-and-access-control" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/robomaker/latest/dg/auth-and-access-control.html" /><meta name="description" content="How to authenticate requests and control access your AWS RoboMaker resources." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS RoboMaker" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of AWS RoboMaker, instructions for managing robots, simulations and fleets, and includes a complete API reference for developers." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/robomaker/latest/dg/auth-and-access-control.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/robomaker/latest/dg/auth-and-access-control.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/robomaker/latest/dg/auth-and-access-control.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/robomaker/latest/dg/auth-and-access-control.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/robomaker/latest/dg/auth-and-access-control.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/robomaker/latest/dg/auth-and-access-control.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/robomaker/latest/dg/auth-and-access-control.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/robomaker/latest/dg/auth-and-access-control.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/robomaker/latest/dg/auth-and-access-control.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/robomaker/latest/dg/auth-and-access-control.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/robomaker/latest/dg/auth-and-access-control.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/robomaker/latest/dg/auth-and-access-control.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/robomaker/latest/dg/auth-and-access-control.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/robomaker/latest/dg/auth-and-access-control.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/robomaker/latest/dg/auth-and-access-control.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/robomaker/latest/dg/auth-and-access-control.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/robomaker/latest/dg/auth-and-access-control.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/robomaker/latest/dg/auth-and-access-control.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/robomaker/latest/dg/auth-and-access-control.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/robomaker/latest/dg/auth-and-access-control.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/robomaker/latest/dg/auth-and-access-control.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/robomaker/latest/dg/auth-and-access-control.html" hreflang="x-default" /><meta name="feedback-item" content="Robomaker" /><meta name="this_doc_product" content="AWS RoboMaker" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'robomaker'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Authentication and access control for AWS RoboMaker" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Authentication and access control for AWS RoboMaker - AWS RoboMaker</title><meta name="pdf" content="/pdfs/robomaker/latest/dg/aws-robomaker-dg.pdf#auth-and-access-control" /><meta name="github" content="https://github.com/awsdocs/aws-robomaker-developer-guide/tree/master/doc_source/auth-and-access-control.md" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=313" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Robomaker&amp;topic_url=http://docs.aws.amazon.com/en_us/robomaker/latest/dg/auth-and-access-control.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/robomaker/latest/dg/auth-and-access-control.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/robomaker/latest/dg/auth-and-access-control.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "RoboMaker",
+        "item" : "https://docs.aws.amazon.com/robomaker/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/robomaker/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security",
+        "item" : "https://docs.aws.amazon.com/robomaker/latest/dg/chapter-security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Authentication and access control for AWS RoboMaker",
+        "item" : "https://docs.aws.amazon.com/robomaker/latest/dg/chapter-security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/robomaker/latest/dg/aws-robomaker-dg.pdf#auth-and-access-control" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-robomaker-developer-guide/tree/master/doc_source/auth-and-access-control.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/robomaker/index.html">RoboMaker</a><a href="chapter-welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#auth_access_introduction">Introduction to authorization and access
+        control</a><a href="#auth_access_required-permissions">Permissions required</a><a href="#auth_access_service-with-iam">How AWS RoboMaker works with IAM</a><a href="#auth_access_troubleshoot">Troubleshooting authentication and access
+        control</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="auth-and-access-control">Authentication and access control for
+      AWS RoboMaker</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS Identity and Access Management (IAM) is an AWS service that helps an administrator securely control access to
+    AWS RoboMaker resources. Administrators use IAM to control who is <em>authenticated</em> (signed in) and <em>authorized</em> (has
+    permissions) to use AWS RoboMaker resources. IAM is a feature of your AWS account offered at
+    no additional charge.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>To get started quickly, review the introductory information on this page, and then see
+        <a href="./auth_access_getting-started.html">Getting started with IAM</a>, and  
+ <a href="./auth_access_what-are-policies.html">What are policies?</a>.</p></div></div><p><b>Topics</b></p><div class="itemizedlist">
+     
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p><a href="#auth_access_introduction">Introduction to authorization and access
+        control</a></p>
+    </li><li class="listitem">
+      <p><a href="#auth_access_required-permissions">Permissions required</a></p>
+    </li><li class="listitem">
+      <p><a href="#auth_access_service-with-iam">Understanding how AWS RoboMaker works with
+        IAM</a></p>
+    </li><li class="listitem">
+      <p><a href="#auth_access_troubleshoot">Troubleshooting authentication and access
+        control</a></p>
+    </li></ul></div>
+    <h2 id="auth_access_introduction">Introduction to authorization and access
+        control</h2>
+
+    
+    <p>AWS RoboMaker is integrated with AWS Identity and Access Management (IAM), which offers a wide range of
+      features:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Create users and groups in your AWS account.</p>
+      </li><li class="listitem">
+        <p>Easily share your AWS resources between the users in your AWS account.</p>
+      </li><li class="listitem">
+        <p>Assign unique security credentials to each user.</p>
+      </li><li class="listitem">
+        <p>Control each user's access to services and resources.</p>
+      </li><li class="listitem">
+        <p>Get a single bill for all users in your AWS account.</p>
+      </li></ul></div>
+
+    
+    <p>For more information about IAM, see the following:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="https://aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>AWS Identity and Access Management (IAM)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+      </li><li class="listitem">
+        <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started.html">Getting started</a></p>
+      </li><li class="listitem">
+        <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/">IAM User Guide</a></p>
+      </li></ul></div>
+
+    
+    
+   
+    <h2 id="auth_access_required-permissions">Permissions required</h2>
+    
+    
+    <p>To use AWS RoboMaker or to manage authorization and access control for yourself or others,
+      you must have the correct permissions. </p>
+    
+
+     
+      <h3 id="auth_access_required-permissions-console">Permissions Required to Use the
+          AWS RoboMaker Console</h3>
+      
+      
+      <p>To access the AWS RoboMaker console, you must have a minimum set of permissions that
+        allows you to list and view details about the AWS RoboMaker resources in your AWS account.
+        If you create an identity-based permissions policy that is more restrictive than the minimum
+        required permissions, the console won't function as intended for entities with that
+        policy.</p>
+      
+      <p>For read-only access to the AWS RoboMaker console, use the
+          <b>AWSRoboMakerReadOnlyAccess</b> policy.</p>
+      <p>If an IAM user wants to create a simulation job, you need to grant
+          <code class="code">iam:PassRole</code> permission to that user. For more information about passing a
+        role, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html">Granting
+          a User Permissions to Pass a Role to an AWS Service</a>. </p>
+      <p>For example, you can attach the following policy to a user. It provides permission to
+        create a simulation job:</p>
+      
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+ <span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "arn:aws:iam::123456789012:role/S3AndCloudWatchAccess"
+        }
+    ]
+}
+</code></pre>
+      <p>You don't need to allow minimum console permissions for users that are making calls only
+        to the AWS CLI or the AWS API. Instead, you need only the permissions that match the API
+        operation you're trying to perform. </p>
+      
+     
+
+     
+      <h3 id="auth_access_required-permissions-view-worlds"> Permissions Required to View
+          Worlds in the AWS RoboMaker in the Console</h3>
+      <p>You can grant permissions required to view AWS RoboMaker worlds in the AWS RoboMaker console by
+        attaching the following policy to a user: </p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+<span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Action": [
+                "robomaker: DescribeWorld"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}
+</code></pre>
+     
+
+     
+      <h3 id="auth_access_required-permissions-tools">Permissions required to use the
+          AWS RoboMaker simulation tools</h3>
+      
+      <p>The IAM user or role used to create simulation will automatically have permission to
+        access the simulation tools. If it is a different user or role, it should have the
+          <code class="code">robomaker:CreateSimulationJob</code> privilege. </p>
+      
+     
+
+     
+      <h3 id="auth_access_required-permissions-iam-auth">Permissions Required for
+          Authentication Management</h3>
+      
+      
+      <p>To manage your own credentials, such as your password, access keys, and multi-factor
+        authentication (MFA) devices, your administrator must grant you the required permissions. To
+        view the policy that includes these permissions, see <a href="./auth_access_getting-started.html#auth_access_manage-password-mfa">Allow users to self-manage their
+          credentials</a>.</p>
+      <p>As an AWS administrator, you need full access to IAM so that you can create and
+        manage users, groups, roles, and policies in IAM. You should use the <a href="https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS managed policy that includes full access to all of
+        AWS. This policy does not provide access to the AWS Billing and Cost Management console or allow tasks that
+        require root user credentials. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tasks-that-require-root.html">AWS Tasks That Require
+          AWS account root user Credentials</a> in the <em>AWS General Reference</em>.</p>
+      <div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Warning</h6></div><div class="awsdocs-note-text"><p>Only an administrator user should have full access to AWS. Anyone with this policy
+          has permission to fully manage authentication and access control, in addition to modifying
+          every resource in AWS. To learn how to create this user, see <a href="./auth_access_getting-started.html#auth_access_setup-iam-admin">Create your IAM Admin user</a>.</p></div></div>
+      
+     
+
+     
+      <h3 id="auth_access_required-permissions-iam-authz">Permissions required for access
+          control</h3>
+      
+      
+      <p>If your administrator provided you with IAM user credentials, they attached policies
+        to your IAM user to control what resources you can access. To view the policies attached
+        to your user in the AWS Management Console, you must have the following permissions:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+   <span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "ViewOwnUserInfo",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetUserPolicy",
+                "iam:ListGroupsForUser",
+                "iam:ListAttachedUserPolicies",
+                "iam:ListUserPolicies",
+                "iam:GetUser"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:user/$<span>{</span>aws:<code class="replaceable">username</code>}"
+            ]
+        },
+        <span>{</span>
+            "Sid": "ListUsersViewGroupsAndPolicies",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetGroupPolicy",
+                "iam:GetPolicyVersion",
+                "iam:GetPolicy",
+                "iam:ListAttachedGroupPolicies",
+                "iam:ListGroupPolicies",
+                "iam:ListPolicyVersions",
+                "iam:ListPolicies",
+                "iam:ListUsers"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+</code></pre>
+      <p>If you need additional permissions, ask your administrator to update your policies to
+        allow you to access the actions that you require.</p>
+      
+     
+
+     
+      <h3 id="auth_access_required-permissions-iam-simjob">Permissions required for a
+          simulation job</h3>
+      <p>When you create a simulation job, it must have an IAM role with the permissions below. </p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Replace <code class="code">my-input-bucket</code> with the name of the bucket containing the
+            robot and simulation application bundles.</p>
+        </li><li class="listitem">
+          <p>Replace <code class="code">my-output-bucket</code> to point to the bucket were AWS RoboMaker will write
+            output files.</p>
+        </li><li class="listitem">
+          <p>Replace <code class="code">account#</code> with your account number.</p>
+        </li></ul></div>
+      <p>Public ECR jobs require separate permissions, such as
+          <code class="code">ecr-public:GetAuthorizationToken</code>, <code class="code">sts:GetServiceBearerToken</code>, and
+        any other permissions required for your final implementation. For more information, see
+          <a href="https://docs.aws.amazon.com/AmazonECR/latest/public/public-repository-policies">Public repository policies</a> in the <em>Amazon ECR User Guide</em>.</p>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>Jobs with Private ECR images</dt><dd tab-id="jobs-with-private-ecr-images">
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+  <span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Action": "s3:ListBucket",
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable">my-input-bucket</code>"
+            ],
+            "Effect": "Allow"
+        },
+        <span>{</span>
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable">my-input-bucket</code>/*"
+            ],
+            "Effect": "Allow"
+        },
+        <span>{</span>
+            "Action": "s3:Put*",
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable">my-output-bucket</code>/*"
+            ],
+            "Effect": "Allow"
+        },
+        <span>{</span>
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:<code class="replaceable">account#</code>:log-group:/aws/robomaker/SimulationJobs*"
+            ],
+            "Effect": "Allow"
+        },
+        <span>{</span>
+            "Action": [
+                "ecr:BatchGetImage",
+                "ecr:GetAuthorizationToken",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer"
+            ],
+            "Resource": "arn:<code class="replaceable">partition</code>:ecr:<code class="replaceable">region</code>:<code class="replaceable">account#</code>:repository/<code class="replaceable">repository_name</code>",
+            "Effect": "Allow"
+        }
+    ]
+}
+</code></pre>
+          </dd>
+        <dt>Jobs with Public ECR images</dt><dd tab-id="jobs-with-public-ecr-images">
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+  <span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Action": "s3:ListBucket",
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable">my-input-bucket</code>"
+            ],
+            "Effect": "Allow"
+        },
+        <span>{</span>
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable">my-input-bucket</code>/*"
+            ],
+            "Effect": "Allow"
+        },
+        <span>{</span>
+            "Action": "s3:Put*",
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable">my-output-bucket</code>/*"
+            ],
+            "Effect": "Allow"
+        },
+        <span>{</span>
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:<code class="replaceable">account#</code>:log-group:/aws/robomaker/SimulationJobs*"
+            ],
+            "Effect": "Allow"
+        },
+        <span>{</span>
+            "Action": [
+                "ecr-public:GetAuthorizationToken",
+                "sts:GetServiceBearerToken"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}
+</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+
+
+      <p>The policy must be attached to a role with the following trust policy.</p>
+
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+<span>{</span>
+    "Version": "2012-10-17",
+    "Statement": <span>{</span>
+        "Effect": "Allow",
+        "Principal": <span>{</span> "Service": "robomaker.amazonaws.com" },
+        "Action": "sts:AssumeRole",
+        "Condition": <span>{</span>
+            "StringEquals": <span>{</span>
+                "aws:SourceAccount": "<code class="replaceable">account#</code>" // Account where the simulation job resource is created
+            },
+            "StringEquals": <span>{</span>
+                "aws:SourceArn": "arn:aws:robomaker:<code class="replaceable">region</code>:<code class="replaceable">account#</code>:simulation-job/*"
+            }
+        }
+    }
+}    
+</code></pre>
+
+      <p>Condition keys prevent an AWS service from being used as a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html">confused
+          deputy</a> during transactions between services. See <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount">SourceAccount</a> and <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn">SourceArn</a> for additional information about condition keys.</p>
+
+      
+     
+
+     
+      <h3 id="auth_access_required-permissions-iam-eventing">Permissions Required to use
+          Tags from a ROS Application or ROS Command Line</h3>
+      <p>You can tag, untag, and list tags in your simulation job from the ROS command-line or in
+        your ROS application while it is running. You must have an IAM role with the permissions
+        below. Replace <code class="code">account#</code> with your account number. </p>
+      
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Action": [
+                "robomaker:TagResource",
+                "robomaker:UntagResource",
+                "robomaker:ListTagsForResource",
+            ],
+            "Resource": [
+                "arn:aws:robomaker:*:<code class="replaceable">account#</code>:simulation-job*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}
+</code></pre>
+      <p>The policy must be attached to a role with the following trust policy:</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+<span>{</span>
+    "Version": "2012-10-17",
+    "Statement": <span>{</span>
+        "Effect": "Allow",
+        "Principal": <span>{</span> "Service": "robomaker.amazonaws.com" },
+        "Action": "sts:AssumeRole",
+        "Condition": <span>{</span>
+            "StringEquals": <span>{</span>
+                "aws:SourceAccount": "<code class="replaceable">account#</code>" // Account where the simulation job resource is created
+            },
+            "StringEquals": <span>{</span>
+                "aws:SourceArn": "arn:aws:robomaker:<code class="replaceable">region</code>:<code class="replaceable">account#</code>:simulation-job/*"
+            }
+        }
+    }
+}    
+</code></pre>
+      <p>Condition keys prevent an AWS service from being used as a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html">confused
+          deputy</a> during transactions between services. See <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount">SourceAccount</a> and <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn">SourceArn</a> for additional information about condition keys.</p>
+
+      
+     
+
+
+   
+    <h2 id="auth_access_service-with-iam">Understanding how AWS RoboMaker works with
+        IAM</h2>
+
+    
+    <p>Services can work with IAM in several ways:</p>
+    <div class="itemizedlist">
+       
+       
+
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Actions</b> – AWS RoboMaker supports using actions
+          in a policy. This allows an administrator to control whether an entity can complete an
+          operation in AWS RoboMaker. For example, to allow an entity to view a policy by performing
+          the <code class="code">GetPolicy</code> AWS API operation, an administrator must attach a policy that
+          allows the <code class="code">iam:GetPolicy</code> action. </p>
+      </li><li class="listitem">
+        <p><b>Resource-level permissions</b> – AWS RoboMaker
+          does not support resource-level permissions. Resource-level permissions
+          allow you to use <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARNs</a> to
+          specify individual resources in the policy. 
+          Because AWS RoboMaker does not support this feature, then you must choose <b>All
+            resources</b> in the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html#access_policies_create-visual-editor">policy visual editor</a>. In a JSON policy document, you must use <code class="code">*</code> in
+          the <code class="code">Resource</code> element. </p>
+        
+      </li><li class="listitem">
+        <p><b>Authorization based on tags</b> – AWS RoboMaker
+          does support authorization based tags. This feature allows you to use
+            <a href="https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html">resource
+            tags</a> in the condition of a policy. </p>
+      </li><li class="listitem">
+        <p><b>Temporary credentials</b> – AWS RoboMaker
+          supports temporary credentials. This feature allows you to sign in
+          with federation, assume an IAM role, or to assume a cross-account role. You obtain
+          temporary security credentials by calling AWS STS API operations such as <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> or <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_GetFederationToken.html">GetFederationToken</a>. </p>
+      </li><li class="listitem">
+        <p><b>Service-linked roles</b> – AWS RoboMaker
+          supports service roles. This feature allows a service to
+          assume a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">service-linked role</a> on your behalf. This role allows the service to access
+          resources in other services to complete an action on your behalf. Service-linked roles
+          appear in your IAM account, and are owned by the service. An IAM administrator can
+          view, but not edit the permissions for service-linked roles.</p>
+      </li><li class="listitem">
+        <p><b>Service roles</b> – AWS RoboMaker
+          supports service roles. This feature allows a service to assume a
+            <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-role">service role</a> on your behalf. This role allows the service to access resources
+          in other services to complete an action on your behalf. Service roles appear in your IAM
+          account, and are owned by the account. This means that an IAM administrator can change
+          the permissions for this role. However, this might break the functionality of the
+          service.</p>
+      </li></ul></div>
+   
+    <h2 id="auth_access_troubleshoot">Troubleshooting authentication and access
+        control</h2>
+    <p>Use the following information to help you diagnose and fix common issues that you might
+      encounter when working with IAM.</p>
+    <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#auth_access_troubleshoot-no-permissions">I am not authorized to perform an
+          action in AWS RoboMaker</a></li><li><a href="#auth_access_troubleshoot-admin-allow-access">I'm an administrator and want
+          to allow others to access AWS RoboMaker</a></li></ul></div>
+
+     
+      <h3 id="auth_access_troubleshoot-no-permissions">I am not authorized to perform an
+          action in AWS RoboMaker</h3>
+      
+      
+      <p>If you receive an error in the AWS Management Console that tells you that you're not authorized to
+        perform an action, then you must contact the administrator that provided you with your user
+        name and password. </p>
+      <p>The following example error occurs when an IAM user named my-user-name tries to use
+        the console to perform the CreateRobotApplication action, but does not have
+        permissions.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">User: arn:aws:iam::<code class="replaceable">123456789012</code>:user/<code class="replaceable">my-user-name</code> is not authorized to perform: <code class="replaceable">aws-robomaker:CreateRobotApplication</code> on resource: <code class="replaceable">my-example-robot-application</code></code></pre>
+      <p>For this example, ask your administrator to update your policies to allow you to access
+        the <code class="code">my-example-robot-application</code> resource using the
+          <code class="code">aws-robomaker:CreateRobotApplication</code> action.</p>
+      
+     
+
+     
+      <h3 id="auth_access_troubleshoot-admin-allow-access">I'm an administrator and want
+          to allow others to access AWS RoboMaker</h3>
+      
+      <p>To allow others to access AWS RoboMaker you must create an IAM entity (user or role)
+        for the person or application that needs access. They will use the credentials for that
+        entity to access AWS. You must then attach a policy to the entity that grants them the
+        correct permissions in AWS RoboMaker. </p>
+      <p>To get started right away, see <a href="./auth_access_getting-started.html">Getting started with IAM</a>.</p>
+      
+     
+
+    
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./data-protection.html">Data protection</div><div id="next" class="next-link" accesskey="n" href="./auth_access_what-are-policies.html">What are policies?</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Robomaker&amp;topic_url=https://docs.aws.amazon.com/en_us/robomaker/latest/dg/auth-and-access-control.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Robomaker&amp;topic_url=https://docs.aws.amazon.com/en_us/robomaker/latest/dg/auth-and-access-control.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

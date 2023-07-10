@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS KMS 的身份验证和访问控制 - AWS Key Management Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="control-access" /><meta name="default_state" content="control-access" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html" /><meta name="description" content="了解 AWS Key Management Service (AWS KMS) 中的身份验证和访问控制（授权）。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Key Management Service" /><meta name="guide" content="开发人员指南" /><meta name="abstract" content="了解如何使用 AWS Key Management Service (AWS KMS) 安全地存储和管理加密密钥并执行用户数据的加密和解密操作。" /><meta name="guide-locale" content="zh_cn" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/control-access.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kms/latest/developerguide/control-access.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/control-access.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kms/latest/developerguide/control-access.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/control-access.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kms/latest/developerguide/control-access.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/control-access.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kms/latest/developerguide/control-access.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kms/latest/developerguide/control-access.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/control-access.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kms/latest/developerguide/control-access.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/control-access.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/control-access.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/control-access.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kms/latest/developerguide/control-access.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kms/latest/developerguide/control-access.html" hreflang="x-default" /><meta name="feedback-item" content="Key Management Service (KMS)" /><meta name="this_doc_product" content="AWS Key Management Service" /><meta name="this_doc_guide" content="开发人员指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kms'}"></script><meta id="panorama-serviceSubSection" value="开发人员指南" /><meta id="panorama-serviceConsolePage" value="AWS KMS 的身份验证和访问控制" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS KMS 的身份验证和访问控制 - AWS Key Management Service</title><meta name="pdf" content="kms-dg.pdf#control-access" /><meta name="rss" content="aws-kms-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=182" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key%20Management%20Service%20%28KMS%29&amp;topic_url=http://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html" /><meta name="keywords" content="KMS,密钥管理服务,加密密钥管理,加密密钥,,信封加密" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS KMS",
+        "item" : "https://docs.aws.amazon.com/kms/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "开发人员指南",
+        "item" : "https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS KMS 的身份验证和访问控制",
+        "item" : "https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kms-dg.pdf#control-access" target="_blank" rel="noopener noreferrer" title="打开 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文档</a><a href="/kms/index.html">AWS KMS</a><a href="overview.html">开发人员指南</a></div><div id="page-toc-src"><a href="#permission-concepts">概念</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>本文属于机器翻译版本。若本译文内容与英语原文存在差异，则一律以英文原文为准。</p></awsui-alert><h1 class="topictitle" id="control-access">AWS KMS 的身份验证和访问控制</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>要使用 AWS KMS，您必须拥有 AWS 可以用来验证您的请求的凭证。此凭证必须包括 AWS 资源、<a href="./concepts.html#kms_keys">AWS KMS keys</a>和<a href="./kms-alias.html">别名</a>的访问权限。任何 AWS 主体都没有 KMS 密钥的权限，除非明确提供该权限且从未被拒绝。不存在使用或管理 KMS 密钥的隐式权限或自动权限。</p><p>管理对 AWS KMS 资源的访问权限的主要方式是使用<em>策略</em>。策略是用于描述哪些委托人可以访问什么资源的文档。附加到 IAM 身份的策略称作<em>基于身份的策略</em>（或 <em>IAM 策略</em>），附加到其他类型资源的策略称作<em>资源策略</em>。KMS 密钥的 AWS KMS 资源策略称作<em>密钥策略</em>。所有 KMS 密钥都具有密钥策略。</p><p>若要控制对 AWS KMS 别名的访问，请使用 IAM 策略。若要允许主体创建别名，您必须在 IAM 策略中提供别名权限，并在密钥策略中提供密钥权限。有关详细信息，请参阅<a href="./alias-access.html">控制对别名的访问</a>。</p><p>要控制对 KMS 密钥的访问，您可以使用下列策略机制。</p><div class="itemizedlist">
+     
+     
+     
+  <ul class="itemizedlist"><li class="listitem">
+      <p><b>密钥策略</b>：每个 KMS 密钥都有密钥策略。密钥策略也是控制访问 KMS 密钥的主要机制。您只能使用密钥策略来控制访问，这意味着对 KMS 密钥的所有访问均在单个文档（密钥策略）中进行定义。有关使用密钥策略的更多信息，请参阅<a href="./key-policies.html">密钥策略</a>。</p>
+    </li><li class="listitem">
+      <p><b>IAM 策略</b>：您可以将 IAM 策略与密钥策略和授权结合使用，以控制对 KMS 密钥的访问。通过用这种方式控制访问，您可以管理 IAM 中各 IAM 身份的所有权限。若要使用 IAM 策略允许访问 KMS 密钥，密钥策略必须明确允许此访问。有关使用 IAM; 策略的更多信息，请参阅 <a href="./iam-policies.html">IAM policy</a>。</p>
+    </li><li class="listitem">
+      <p><b>授权</b>：您可以将密钥策略与 IAM 策略结合使用，以允许对 KMS 密钥的访问。通过用这种方式控制访问权限，您可以在密钥策略中允许访问 KMS 密钥，并允许有关身份将其访问权限委托给其他身份。有关使用授权的更多信息，请参阅<a href="./grants.html">AWS KMS 中的授权</a>。</p>
+    </li></ul></div><p>KMS 密钥属于创建它们的 AWS 账户。但是，身份或主体（包括 AWS 账户根用户）没有使用或管理 KMS 密钥的权限，除非该权限在密钥策略、IAM 策略或授权中明确提供。创建 KMS 密钥的 IAM 身份不会被视为密钥所有者，且他们不会自动获得使用或管理自己所创建 KMS 密钥的权限。与任何其他身份一样，密钥创建者需要通过密钥策略、IAM policy 或授权获得权限。当然，拥有 <code class="code">kms:CreateKey</code> 权限的身份可以设置初始密钥策略，并授予自己使用或管理密钥的权限。</p><p>下面各主题提供有关可如何使用 AWS Identity and Access Management (IAM) 的详细信息，以及通过控制可以访问资源的对象来保护资源的 AWS KMS 权限。</p><div class="highlights"><h6>主题</h6><ul><li><a href="#permission-concepts">概念</a></li><li><a href="./key-policies.html">密钥策略</a></li><li><a href="./iam-policies.html">IAM policy</a></li><li><a href="./grants.html">授权</a></li><li><a href="./kms-vpc-endpoint.html">VPC 终端节点</a></li><li><a href="./policy-conditions.html">条件键</a></li><li><a href="./abac.html">基于属性的访问控制 (ABAC)</a></li><li><a href="./key-policy-modifying-external-accounts.html">跨账户访问权限</a></li><li><a href="./using-service-linked-roles.html">服务相关角色</a></li><li><a href="./pqtls.html">混合后量子 TLS</a></li><li><a href="./determining-access.html">确定访问权限</a></li><li><a href="./kms-api-permissions-reference.html">权限参考</a></li></ul></div>
+    <h2 id="permission-concepts">AWS KMS 访问控制中的概念</h2>
+
+    <p>了解 AWS KMS 中讨论访问控制所用的概念。</p>
+    <div class="highlights" id="inline-topiclist"><h6>主题</h6><ul><li><a href="#permission-concept-authentication">身份验证</a></li><li><a href="#permission-concept-authorization">Authorization</a></li><li><a href="#security_iam_authentication">使用身份进行身份验证</a></li><li><a href="#security_iam_access-manage">使用策略管理访问</a></li><li><a href="#kms-resources-operations">AWS KMS 资源</a></li></ul></div>
+    
+     
+      <h3 id="permission-concept-authentication">身份验证</h3>
+      <p><em>身份验证</em>是验证您的身份的过程。要向发送请求AWS KMS，您必须AWS使用您的AWS凭证登录。</p>
+     
+    
+     
+      <h3 id="permission-concept-authorization">Authorization</h3>
+      <p><em>授权</em>将提供发送创建、管理或使用 AWS KMS 资源的请求的权限。例如，您必须获得授权才能在加密操作中使用 KMS 密钥。</p>
+      <p>要控制对您的 AWS KMS 资源的访问，您可以使用 <a href="./key-policies.html">密钥策略</a>、<a href="./iam-policies.html">IAM policy</a> 和 <a href="./grants.html">授权</a>。每个 KMS 密钥都必须有一个密钥策略。如果密钥策略允许，您还可以使用 IAM policy 和授权来允许相关主体访问 KMS 密钥。要优化授权，您可以使用 <a href="./policy-conditions.html">条件键</a>，以仅在请求或资源满足您指定的条件时才允许或拒绝访问。您还可以向您信任的 <a href="./key-policy-modifying-external-accounts.html">其他 AWS 账户</a> 中的主体授予访问权限。</p>
+     
+    
+    
+    
+     
+      <h3 id="security_iam_authentication">使用身份进行身份验证</h3> 
+      
+   
+<p>身份验证是您使用身份凭证登录 AWS 的方法。您必须作为 AWS 账户根用户、IAM 用户或通过代入 IAM 角色进行<em>身份验证</em>（登录到 AWS）。</p>
+
+<p>您可以使用通过身份源提供的凭证以联合身份登录到 AWS。AWS IAM Identity Center (successor to AWS Single Sign-On)(IAM Identity Center) 用户、您公司的单点登录身份验证以及您的 Google 或 Facebook 凭证都是联合身份的示例。当您以联合身份登录时，您的管理员以前使用 IAM 角色设置了身份联合验证。当您使用联合身份验证访问 AWS 时，您就是在间接代入角色。</p>
+
+<p>根据您的用户类型，您可以登录 AWS Management Console 或 AWS 访问门户。有关登录到 AWS 的更多信息，请参阅《AWS 登录 用户指南》中的 <a href="https://docs.aws.amazon.com/signin/latest/userguide/how-to-sign-in.html">如何登录到您的 AWS 账户</a><em></em>。</p>
+
+<p>如果您以编程方式访问 AWS，则 AWS 将提供软件开发工具包 (SDK) 和命令行界面（CLI），以便使用您的凭证对您的请求进行加密签名。如果您不使用 AWS 工具，则必须自行对请求签名。有关使用推荐的方法自行对请求签名的更多信息，请参阅《AWS 一般参考》中的 <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">签名版本 4 签名流程</a><em></em>。</p>
+
+<p>无论使用何种身份验证方法，您可能需要提供其他安全信息。例如，AWS 建议您使用多重身份验证 (MFA) 来提高账户的安全性。要了解更多信息，请参阅《AWS IAM Identity Center (successor to AWS Single Sign-On) 用户指南》中的 <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/enable-mfa.html">多重身份验证</a><em></em> 和《IAM 用户指南》中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html">在 AWS 中使用多重身份验证（MFA）</a><em></em>。</p>
+
+
+   
+       
+        <h4 id="security_iam_authentication-rootuser">AWS 账户根用户</h4>
+        <p> 当您创建 AWS 账户时，最初使用的是一个对账户中所有 AWS 服务和资源拥有完全访问权限的登录身份。此身份称为 AWS 账户<em>根用户</em>，使用您创建账户时所用的电子邮件地址和密码登录，即可获得该身份。强烈建议您不要使用根用户执行日常任务。保护好根用户凭证，并使用这些凭证来执行仅根用户可以执行的任务。有关要求您以根用户身份登录的任务的完整列表，请参阅 <em>AWS Account Management 参考指南</em> 中的<a href="https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html">需要根用户凭证的任务</a>。</p>
+       
+       
+        <h4 id="security_iam_authentication-federated">联合身份</h4> 
+        
+
+<p>作为最佳实践，要求人类用户（包括需要管理员访问权限的用户）结合使用联合身份验证和身份提供程序，以使用临时凭证来访问 AWS 服务。</p>
+
+<p><em>联合身份</em>是来自企业用户目录、Web 身份提供程序、AWS Directory Service、<span>Identity Center 目录</span>的用户，或任何使用通过身份源提供的凭证来访问 AWS 服务 的用户。当联合身份访问 AWS 账户时，他们代入角色，而角色提供临时凭证。</p>
+
+<p>要集中管理访问权限，我们建议您使用 AWS IAM Identity Center (successor to AWS Single Sign-On)。您可以在 IAM Identity Center 中创建用户和组，也可以连接并同步到您自己的身份源中的一组用户和组以跨所有 AWS 账户和应用程序使用。有关 IAM Identity Center 的信息，请参阅《<em>AWS IAM Identity Center (successor to AWS Single Sign-On) 用户指南</em>》中的<a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html">什么是 IAM Identity Center？</a></p>
+ 
+       
+       
+        <h4 id="security_iam_authentication-iamuser">IAM 用户和组</h4> 
+        
+   
+         <p><em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html">IAM 用户</a></em>是AWS 账户内对某个人员或应用程序具有特定权限的一个身份。在可能的情况下，我们建议使用临时凭证，而不是创建具有长期凭证（如密码和访问密钥）的 IAM 用户。但是，如果您有一些特定的使用场景需要长期凭证以及 IAM 用户，我们建议您轮换访问密钥。有关更多信息，请参阅《IAM 用户指南》中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#rotate-credentials">对于需要长期凭证的使用场景定期轮换访问密钥</a><em></em>。</p>
+         
+         <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html"><em>IAM 组</em></a>是一个指定一组 IAM 用户的身份。您不能使用组的身份登录。您可以使用组来一次性为多个用户指定权限。如果有大量用户，使用组可以更轻松地管理用户权限。例如，您可能具有一个名为 <em>IAMAdmins</em> 的组，并为该组授予权限以管理 IAM 资源。</p>
+         <p>用户与角色不同。用户唯一地与某个人员或应用程序关联，而角色旨在让需要它的任何人代入。用户具有永久的长期凭证，而角色提供临时凭证。要了解更多信息，请参阅 <em>IAM 用户指南</em>中的<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html#id_which-to-choose">何时创建 IAM 用户（而不是角色）</a>。</p>
+   
+       
+      
+       
+        <h4 id="security_iam_authentication-iamrole">IAM 角色</h4> 
+        
+   
+         <p><em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM 角色</a></em>是AWS 账户中具有特定权限的身份。它类似于 IAM 用户，但与特定人员不关联。您可以通过<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html">切换角色</a>，在 AWS Management Console 中暂时代入 IAM 角色。您可以调用 AWS CLI 或 AWS API 操作或使用自定义 URL 以担任角色。有关使用角色的方法的更多信息，请参阅《IAM 用户指南》中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">使用 IAM 角色</a><em></em>。</p>
+         <p>具有临时凭证的 IAM 角色在以下情况下很有用：</p>
+         <div class="itemizedlist">
+            
+             
+             
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p><b>Federated user access</b>（联合用户访问）– 要向联合身份分配权限，请创建角色并为角色定义权限。当联合身份进行身份验证时，该身份将与角色相关联并被授予由此角色定义的权限。有关联合身份验证的角色的信息，请参阅《IAM 用户指南》中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html">为第三方身份提供商创建角色</a><em></em>。<span>如果您使用 IAM Identity Center，则需要配置权限集。为控制您的身份在进行身份验证后可以访问的内容，IAM Identity Center 将权限集与 IAM 中的角色相关联。有关权限集的信息，请参阅《AWS IAM Identity Center (successor to AWS Single Sign-On) 用户指南》中的 <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html">权限集</a><em></em>。</span></p>
+            </li><li class="listitem">
+               <p><b>临时 IAM 用户权限</b> – IAM 用户可代入 IAM 用户或角色，以暂时获得针对特定任务的不同权限。</p>
+            </li><li class="listitem">
+               <p><b>跨账户访问</b> – 您可以使用 IAM 角色以允许不同账户中的某个人（可信主体）访问您的账户中的资源。角色是授予跨账户访问权限的主要方式。但是，对于某些 AWS 服务，您可以将策略直接附加到资源（而不是使用角色作为代理）。要了解用于跨账户访问的角色和基于资源的策略之间的差别，请参阅《IAM 用户指南》中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">IAM 角色与基于资源的策略有何不同</a><em></em>。</p>
+            </li><li class="listitem">
+               <p><b>跨服务访问</b> – 某些 AWS 服务使用其它 AWS 服务中的功能。例如，当您在某个服务中进行调用时，该服务通常会在 Amazon EC2 中运行应用程序或在 Simple Storage Service（Amazon S3）中存储对象。服务可能会使用发出调用的主体的权限、使用服务角色或使用服务相关角色来执行此操作。</p>
+                  <div class="itemizedlist">
+                      
+                      
+                      
+                  <ul class="itemizedlist"><li class="listitem">
+                        <p><b>主体权限</b> – 当您使用 IAM 用户或角色在 AWS 中执行操作时，您将被视为主体。策略向主体授予权限。使用某些服务时，您可能会执行一个操作，此操作然后在不同服务中触发另一个操作。在这种情况下，您必须具有执行这两个操作的权限。要查看某个操作是否需要策略中的其他前置操作，请参阅《服务授权参考》<em></em>中的 https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html。</p>
+                     </li><li class="listitem">
+                        <p><b>服务角色</b> – 服务角色是服务代表您在您的账户中执行操作而担任的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM 角色</a>。IAM 管理员可以在 IAM 中创建、修改和删除服务角色。有关更多信息，请参阅《IAM 用户指南》中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">创建向 AWS 服务 委派权限的角色</a><em></em>。</p>
+                     </li><li class="listitem">
+                        <p><b>服务相关角色</b> – 服务相关角色是与 AWS 服务关联的一种服务角色。服务可以代入代表您执行操作的角色。服务相关角色显示在您的 AWS 账户 中，并由该服务拥有。IAM 管理员可以查看但不能编辑服务相关角色的权限。</p>
+                     </li></ul></div>
+            </li><li class="listitem">
+               <p><b>在 Amazon EC2 上运行的应用程序</b> – 您可以使用 IAM 角色管理在 EC2 实例上运行并发出 AWS CLI 或 AWS API 请求的应用程序的临时凭证。这优先于在 EC2 实例中存储访问密钥。要将 AWS 角色分配给 EC2 实例并使其对该实例的所有应用程序可用，您可以创建一个附加到实例的实例配置文件。实例配置文件包含角色，并使 EC2 实例上运行的程序能够获得临时凭证。有关更多信息，请参阅《IAM 用户指南》中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html">使用 IAM 角色为 Amazon EC2 实例上运行的应用程序授予权限</a><em></em>。</p>
+            </li></ul></div>
+         <p>要了解是使用 IAM 角色还是 IAM 用户，请参阅 <em>IAM 用户指南</em>中的<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html#id_which-to-choose_role">何时创建 IAM 角色（而不是用户）</a>。</p>
+   
+       
+     
+     
+      <h3 id="security_iam_access-manage">使用策略管理访问</h3> 
+      
+   
+ <p>您将创建策略并将其附加到 AWS 身份或资源，以控制 AWS 中的访问。策略是 AWS 中的对象；在与身份或资源相关联时，策略定义它们的权限。在主体（用户、根用户或角色会话）发出请求时，AWS 将评估这些策略。策略中的权限确定是允许还是拒绝请求。大多数策略在 AWS 中存储为 JSON 文档。有关 JSON 策略文档的结构和内容的更多信息，请参阅 <em>IAM 用户指南</em> 中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json">JSON 策略概览</a>。</p>
+
+ 
+   
+      <p>管理员可以使用 AWS JSON 策略来指定谁有权访问什么内容。也就是说，哪个<b>主体</b> 可以对什么<b>资源</b> 执行<b>操作</b>，以及在什么<b>条件</b> 下执行。</p>
+  
+
+<p>默认情况下，用户和角色没有权限。要授予用户对所需资源执行操作的权限，IAM 管理员可以创建 IAM 策略。然后，管理员可以向角色添加 IAM 策略，并且用户可以代入角色。</p>
+ <p>IAM policy 定义操作的权限，无关乎您使用哪种方法执行操作。例如，假设您有一个允许 <code class="code">iam:GetRole</code> 操作的策略。具有该策略的用户可以从 AWS Management Console、AWS CLI 或 AWS API 获取角色信息。</p>
+   
+       
+        <h4 id="security_iam_access-manage-id-based-policies">基于身份的策略</h4> 
+        
+   
+         
+   
+         <p>基于身份的策略是可附加到身份（如 IAM 用户、用户组或角色）的 JSON 权限策略文档。这些策略控制用户和角色可在何种条件下对哪些资源执行哪些操作。要了解如何创建基于身份的策略，请参阅《IAM 用户指南》中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html">创建 IAM policy</a><em></em>。</p>
+  
+         <p>基于身份的策略可以进一步归类为<em>内联策略</em>或<em>托管式策略</em>。内联策略直接嵌入单个用户、组或角色中。托管式策略是可以附加到AWS 账户中的多个用户、组和角色的独立策略。托管式策略包括 AWS 托管式策略和客户托管式策略。要了解如何在托管式策略和内联策略之间进行选择，请参阅 <em>IAM 用户指南</em> 中的<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#choosing-managed-or-inline">在托管式策略与内联策略之间进行选择</a>。</p>
+   
+       
+       
+        <h4 id="security_iam_access-manage-resource-based-policies">基于资源的策略</h4> 
+        
+        <p>AWS KMS<a href="./key-policies.html"> 密钥策略</a> 是一种基于资源的策略，用于控制对 KMS 密钥的访问。每个 KMS 密钥都必须有一个密钥策略。您可以使用其他授权机制来允许对 KMS 密钥的访问，但仅在密钥策略允许时才可以这样操作。（您可以使用 IAM policy <em>拒绝</em>对 KMS 密钥的访问，即使密钥策略未显式允许。）</p>
+        <p>基于资源的策略是附加到资源（如 KMS 密钥）的 JSON 策略文档，用于控制对该特定资源的访问。基于资源的策略定义了指定的主体可以对该资源执行的操作以及执行操作的条件。您无需在基于资源的策略中指定资源，但必须指定主体，例如账户、用户、角色、联合用户或 AWS 服务。基于资源的策略是位于管理该资源的服务中的内联策略。您不能在基于资源的策略中使用来自 IAM 的 AWS 托管式策略，例如 <a href="./aws-managed-policies.html">AWSKeyManagementServicePowerUser 托管式策略</a>。</p>
+             
+
+       
+        <h4 id="security_iam_access-manage-acl">访问控制列表 (ACL)</h4> 
+        
+   
+      
+   
+   <p>访问控制列表 (ACL) 控制哪些主体（账户成员、用户或角色）有权访问资源。ACL 与基于资源的策略类似，尽管它们不使用 JSON 策略文档格式。</p>
+  
+      <p>Simple Storage Service（Amazon S3）、AWS WAF 和 Amazon VPC 是支持 ACL 的服务示例。要了解有关 ACL 的更多信息，请参阅 <em>Amazon Simple Storage Service 开发人员指南</em> 中的<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">访问控制列表 (ACL) 概览</a>。</p>
+   
+        <p>AWS KMS 不支持 ACL。</p>
+       
+       
+        <h4 id="security_iam_access-manage-other-policies">其它策略类型</h4> 
+        
+   
+         <p>AWS 支持额外的、不太常用的策略类型。这些策略类型可以设置更常用的策略类型向您授予的最大权限。</p>
+         <div class="itemizedlist">
+             
+             
+             
+         <ul class="itemizedlist"><li class="listitem">
+               <p><b>权限边界</b> – 权限边界是一个高级功能，用于设置基于身份的策略可以为 IAM 实体（IAM 用户或角色）授予的最大权限。您可为实体设置权限边界。这些结果权限是实体基于身份的策略及其权限边界的交集。在 <code class="code">Principal</code> 中指定用户或角色的基于资源的策略不受权限边界限制。任一项策略中的显式拒绝将覆盖允许。有关权限边界的更多信息，请参阅 <em>IAM 用户指南</em>中的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html">IAM 实体的权限边界</a>。</p>
+            </li><li class="listitem">
+               <p><b>服务控制策略 (SCP)</b> – SCP 是 JSON 策略，指定了组织或组织单位 (OU) 在 AWS Organizations 中的最大权限。AWS Organizations 服务可以分组和集中管理您的企业拥有的多个 AWS 账户 账户。如果在组织内启用了所有功能，则可对任意或全部账户应用服务控制策略 (SCP)。SCP 限制成员账户中实体（包括每个 AWS 账户根用户）的权限。有关 Organizations 和 SCP 的更多信息，请参阅 <em>AWS Organizations 用户指南</em>中的 <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_about-scps.html">SCP 的工作原理</a>。</p>
+            </li><li class="listitem">
+               <p><b>会话策略</b> – 会话策略是当您以编程方式为角色或联合身份用户创建临时会话时作为参数传递的高级策略。结果会话的权限是用户或角色的基于身份的策略和会话策略的交集。权限也可以来自基于资源的策略。任一项策略中的显式拒绝将覆盖允许。有关更多信息，请参阅 <em>IAM 用户指南</em>中的<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">会话策略</a>。</p>
+            </li></ul></div>
+   
+       
+       
+        <h4 id="security_iam_access-manage-multiple-policies">多个策略类型</h4> 
+        
+   
+         <p>当多个类型的策略应用于一个请求时，生成的权限更加复杂和难以理解。要了解 AWS 如何确定在涉及多种策略类型时是否允许请求，请参阅 <em>IAM 用户指南</em>中的<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html">策略评估逻辑</a>。</p>
+   
+       
+     
+    
+    
+    
+     
+      <h3 id="kms-resources-operations">AWS KMS 资源</h3>      
+      <p>在 AWS KMS 中，主要资源为 <a href="./concepts.html#kms_keys">AWS KMS keys</a>。AWS KMS 也支持<a href="./kms-alias.html">别名</a>，别名是为 KMS 密钥提供友好名称的独立资源。一些 AWS KMS 操作允许您使用别名来标识 KMS 密钥。</p>
+      <p>KMS 密钥或别名的每个实例均具有标准格式的唯一 <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax">Amazon Resource Name</a> (ARN)。在 AWS KMS 资源中，AWS 服务名称为 <code class="code">kms</code>。</p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>AWS KMS key</b></p>
+          <p>ARN 格式：</p>
+          <p><code class="code">arn:<code class="replaceable">AWS partition name</code>:<code class="replaceable">AWS service
+            name</code>:<code class="replaceable">AWS 区域</code>:<code class="replaceable">AWS 账户
+              ID</code>:key/<code class="replaceable">key ID</code></code></p>
+          <p>示例 ARN:</p>
+          <p><code class="code">arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code></p>
+        </li><li class="listitem">
+          <p><b>别名</b></p>
+          <p>ARN 格式：</p>
+          <p><code class="code">arn:<code class="replaceable">AWS partition name</code>:<code class="replaceable">AWS service
+            name</code>:<code class="replaceable">AWS 区域</code>:<code class="replaceable">AWS 账户
+              ID</code>:alias/<code class="replaceable">alias name</code></code></p>
+          <p>示例 ARN:</p>
+          <p><code class="code">arn:aws:kms:us-west-2:111122223333:alias/example-alias</code></p>
+        </li></ul></div>
+      <p>AWS KMS 提供一组 API 操作，用以处理您的 AWS KMS 资源。有关在 AWS Management Console和 AWS KMS API 操作中标识 KMS 密钥的更多信息，请参阅 <a href="./concepts.html#key-id">密钥标识符 (KeyId)</a>。有关 AWS KMS 操作的列表，请参阅 <a href="https://docs.aws.amazon.com/kms/latest/APIReference/">AWS Key Management Service API 参考</a>。</p>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>Javascript 在您的浏览器中被禁用或不可用。</strong></p><p>要使用 Amazon Web Services 文档，必须启用 Javascript。请参阅浏览器的帮助页面以了解相关说明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文档惯例</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./key-state.html">密钥状态引用</div><div id="next" class="next-link" accesskey="n" href="./key-policies.html">密钥策略</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此页面对您有帮助吗？- 是</div><div class="content"><p>感谢您对我们工作的肯定！</p><p>如果不耽误您的时间，请告诉我们做得好的地方，让我们做得更好。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此页面对您有帮助吗？- 否</div><div class="content"><p>感谢您告诉我们本页内容还需要完善。很抱歉让您失望了。</p><p>如果不耽误您的时间，请告诉我们如何改进文档。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Key Management Service (KMS)&amp;topic_url=https://docs.aws.amazon.com/zh_cn/kms/latest/developerguide/control-access.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

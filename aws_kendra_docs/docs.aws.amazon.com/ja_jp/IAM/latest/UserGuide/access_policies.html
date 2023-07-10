@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>IAM でのポリシーとアクセス許可 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="access_policies" /><meta name="default_state" content="access_policies" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html" /><meta name="description" content="AWS ポリシーとその仕組みについて説明します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="ユーザー ID (認証) および特定のアクセス許可 (承認) を定義するポリシーで AWS リソースへのアクセスを制限します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access_policies.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access_policies.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access_policies.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access_policies.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access_policies.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access_policies.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access_policies.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access_policies.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="IAM でのポリシーとアクセス許可" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>IAM でのポリシーとアクセス許可 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#access_policies" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM ユーザー,user,IAM グループ,グループ,[IAM role] (IAM ロール),ロール,アクセス許可ポリシー,信頼ポリシー,ポリシー,アクセスキー,パスワード" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "AWS リソースの アクセス管理",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM でのポリシーとアクセス許可",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#access_policies" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#access_policy-types">ポリシータイプ</a><a href="#access_policies-root">ポリシーとルートユーザー</a><a href="#access_policies-json">JSON ポリシー概要</a><a href="#grant-least-priv">最小限の特権を認める。</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="access_policies">IAM でのポリシーとアクセス許可</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS でのアクセスを管理するには、ポリシーを作成し、IAM アイデンティティ (ユーザー、ユーザーのグループ、ロール) または AWS リソースにアタッチします。ポリシーは AWS のオブジェクトであり、アイデンティティやリソースに関連付けて、これらのアクセス許可を定義します。AWS は、IAM プリンシパル (ユーザーまたはロール) によってリクエストが行われると、それらのポリシーを評価します。ポリシーでの許可により、リクエストが許可されるか拒否されるかが決まります。通常、ポリシーは JSON ドキュメントとして AWS に保存されます。AWS は、6 つのポリシータイプ (アイデンティティベースのポリシー、リソースベースのポリシー、アクセス許可の境界、 SCP、ACL、セッションポリシー) をサポートします。</p><p>IAM ポリシーは、オペレーションの実行方法を問わず、アクションの許可を定義します。例えば、<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetUser.html">GetUser</a> アクションを許可するポリシーを適用されたユーザーは、AWS Management Console、AWS CLI、または AWS API からユーザー情報を取得できます。IAM ユーザーを作成したら、コンソールまたはプログラムによるアクセスを許可するように選択できます。コンソールへのアクセスが許可されている場合、IAM ユーザーは、サインイン認証情報を使用してコンソールにサインインできます。プログラムによるアクセスが許可されている場合、ユーザーは、アクセスキーで CLI または API を使用します。</p>
+    <h2 id="access_policy-types">ポリシータイプ</h2>
+    <p>AWS では、使用頻度の高いものから低いものの順にリストされた次のポリシータイプを使用できます。詳細については、以下のポリシータイプ別のセクションを参照してください。</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b><a href="#policies_id-based">ID ベースのポリシー</a></b> – <a href="#managedpolicy">管理</a>ポリシーと<a href="#inline">インライン</a>ポリシーを IAM ID (ユーザー、ユーザーが所属するグループ、またはロール) に添付することができます。アイデンティティベースのポリシーでは、アクセス許可はアイデンティティに付与されます。</p>
+      </li><li class="listitem">
+        <p><b><a href="#policies_resource-based">リソースベースのポリシー</a></b> – インラインポリシーをリソースにアタッチします。リソースベースのポリシーとして最も一般的な例は、Amazon S3 バケットポリシーと IAM ロールの信頼ポリシーです。リソースベースのポリシーでは、アクセス許可は、ポリシーで指定されているプリンシパルに付与されます。プリンシパルは、リソースと同じアカウントか、別のアカウントになります。</p>
+      </li><li class="listitem">
+        <p><b><a href="#policies_bound">アクセス許可の境界</a></b> – IAM エンティティ (ユーザーまたはロール) のアクセス許可の境界として、管理ポリシーを使用します。このポリシーでは、アイデンティティベースのポリシーでエンティティに付与できるアクセス許可の上限を定義しますが、アクセス許可は付与されません。アクセス許可の境界では、リソースベースのポリシーでエンティティに付与できるアクセス許可の上限は定義されません。</p>
+      </li><li class="listitem">
+        <p><b><a href="#policies_scp">Organizations SCP</a></b> – AWS Organizations サービスコントロールポリシー (SCP) を使用して、組織または組織単位 (OU) のメンバーアカウントのアクセス許可の上限を定義します。SCP では、アイデンティティベースのポリシーまたはリソースベースのポリシーで、アカウント内のエンティティ (ユーザーまたはロール) に付与するアクセス許可が制限されますが、アクセス許可は付与されません。</p>
+      </li><li class="listitem">
+        <p><b><a href="#policies_acl">アクセスコントロールリスト (ACL)</a></b> – ACL を使用して、ACL がアタッチされているリソースにアクセスすることができる他のアカウントのプリンシパルを制御します。ACL は、リソースベースのポリシーと似ていますが、JSON ポリシードキュメント構造を使用しない唯一のポリシータイプです。ACL は、指定されたプリンシパルにアクセス許可を付与するクロスアカウントのアクセス許可ポリシーです。ACL では、同じアカウント内のエンティティにアクセス許可を付与することはできません。</p>
+      </li><li class="listitem">
+        <p><b><a href="#policies_session">セッションポリシー</a></b> – AWS CLI または AWS API を使用して、ロールまたはフェデレーティッドユーザーを引き受ける場合に高度なセッションポリシーを渡します。セッションポリシーでは、ロールまたはユーザーのアイデンティティベースのポリシーでセッションに付与するアクセス許可を制限します。セッションポリシーでは、作成したセッションのアクセス許可が制限されますが、アクセス許可は付与されません。詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">セッションポリシー</a>」を参照してください。</p>
+      </li></ul></div>
+     
+      <h3 id="policies_id-based">アイデンティティベースのポリシー</h3>
+      <p>アイデンティティベースのポリシーは、アイデンティティ (ユーザー、ユーザーのグループ、ロール) が実行できるアクション、リソース、および条件を制御する JSON アクセス許可ポリシードキュメントです。アイデンティティベースのポリシーはさらに次のように分類できます。</p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><a id="managedpolicy"></a><b>管理ポリシー</b> - AWS アカウント 内の複数のユーザー、グループ、およびロールにアタッチできるスタンドアロンのアイデンティティベースのポリシーです。管理ポリシーには 2 種類あります。</p>
+          <div class="itemizedlist">
+             
+             
+          <ul class="itemizedlist"><li class="listitem">
+              <p><b>AWS 管理ポリシー</b> – AWS が作成および管理する管理ポリシー。</p>
+            </li><li class="listitem">
+              <p><b>カスタマー管理ポリシー</b> - AWS アカウント で作成および管理する管理ポリシー。カスタマー管理ポリシーでは、AWS 管理ポリシーに比べて、より正確にポリシーを管理できます。</p>
+            </li></ul></div>
+        </li><li class="listitem">
+          <p><a id="inline"></a><b>インラインポリシー</b> - 単一のユーザー、グループ、ロールに直接追加するポリシー。インラインポリシーは、ポリシーとIDの間の厳密な1対1の関係を維持します。これらは、ID を削除すると削除されます。</p>
+        </li></ul></div>
+      <p>管理ポリシーとインラインポリシーを使い分ける方法については、「<a href="./access_policies-choosing-managed-or-inline.html">管理ポリシーとインラインポリシーの比較</a>」を参照してください。</p>
+     
+     
+      <h3 id="policies_resource-based">リソースベースのポリシー</h3>
+      <p>リソースベースのポリシーは、Amazon S3 バケットなどのリソースにアタッチする JSON ポリシードキュメントです。これらのポリシーでは、そのリソースに対して特定のアクションを実行するために指定されたプリンシパルのアクセス許可を付与するとともに、このアクセス許可が適用される条件を定義します。リソースベースのポリシーはインラインポリシーです。マネージド型のリソースベースのポリシーはありません。</p>
+      <p>クロスアカウントアクセスを有効にするには、全体のアカウント、または別のアカウントの IAM エンティティを、リソースベースのポリシーのプリンシパルとして指定します。リソースベースのポリシーにクロスアカウントのプリンシパルを追加しても、信頼関係は半分しか確立されない点に注意してください。プリンシパルおよびリソースが別の AWS アカウント である場合は、アイデンティティベースのポリシーを使用して、リソースへのアクセス権をプリンシパルに付与する必要があります。ただし、リソースベースのポリシーで、同じアカウントのプリンシパルへのアクセス権が付与されている場合は、ID ベースのポリシーをさらに付与する必要はありません。クロスサービスアクセスを許可する手順については、<a href="./tutorial_cross-account-with-roles.html">IAM チュートリアル: AWS アカウント間の IAM ロールを使用したアクセスの委任</a>。</p>
+      <p>IAM サービスは、ロールの<em>信頼ポリシー</em>と呼ばれるリソースベースのポリシーのタイプを 1 つのみサポートします。これが、IAM ロールにアタッチされています。IAM ロールは、リソースベースのポリシーをサポートするアイデンティティかつリソースです。そのため、信頼ポリシーとアイデンティティベースのポリシーのいずれも IAM ロールにアタッチする必要があります。信頼ポリシーでは、ロールを引き受けることができるプリンシパルエンティティ (アカウント、ユーザー、ロール、フェデレーティッドユーザー) を定義します。IAM ロールと、他のリソースベースのポリシーとの違いについては、「<a href="./id_roles_compare-resource-policies.html">IAM ロールとリソースベースのポリシーとの相違点</a>」を参照してください。</p>
+      <p>リソースベースのポリシーをサポートするその他のサービスを確認するには､「<a href="./reference_aws-services-that-work-with-iam.html">IAM と連携する AWS のサービス</a>」を参照してください｡ リソースベースのポリシーの詳細については、「<a href="./access_policies_identity-vs-resource.html">アイデンティティベースおよびリソースベースのポリシー</a>」を参照してください。信頼ゾーン (信頼できる組織またはアカウント) 外にあるアカウントのプリンシパルにロールを引き受けるアクセス権があるかどうかについては、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html">IAM Access Analyzer とは</a>」を参照してください。</p>
+     
+     
+      <h3 id="policies_bound">IAM アクセス許可の境界</h3>
+      <p>アクセス許可の境界は、アイデンティティベースのポリシーが IAM エンティティに付与できるアクセス許可の上限を設定する高度な機能です。エンティティのアクセス許可の境界を設定した場合、エンティティは、アイデンティティベースのポリシーとそのアクセス許可の境界の両方で許可されているアクセス許可のみ実行できます。プリンシパルとしてユーザーまたはロールを指定するリソースベースのポリシーは、アクセス許可の境界では制限されません。これらのポリシーのいずれかを明示的に拒否した場合、許可は無効になります。アクセス許可の境界の詳細については、「<a href="./access_policies_boundaries.html">IAM エンティティのアクセス許可境界</a>」を参照してください</p>
+     
+     
+      <h3 id="policies_scp">サービスコントロールポリシー (SCP)</h3>
+      <p>AWS Organizations は、ビジネスが所有する複数の AWS アカウント をグループ化して一元管理するためのサービスです。組織内のすべての機能を有効にすると、サービスコントロールポリシー (SCP) を一部またはすべてのアカウントに適用できます。SCP は、組織または組織単位 (OU) のアクセス許可の上限を指定する JSON ポリシーです。SCP はメンバーアカウントのエンティティに対するアクセス許可を制限します (各 AWS アカウントのルートユーザー など)。これらのポリシーのいずれかを明示的に拒否した場合、許可は無効になります。</p>
+      <p>Organizations と SCP の詳細については、<a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_about-scps.html">AWS Organizations ユーザーガイド</a>の「<em> SCP の仕組み</em>」を参照してください。</p>
+     
+     
+      <h3 id="policies_acl">アクセスコントロールリスト (ACL)</h3>
+      <p>アクセスコントロールポリシー (ACL) は、リソースにアクセスできる別のアカウントのプリンシパルを制御できるサービスポリシーです。ACL を使用して、同じアカウント内のプリンシパルのアクセス権を制御することはできません。ACL は、リソースベースのポリシーと似ていますが、JSON ポリシードキュメント形式を使用しない唯一のポリシータイプです。Simple Storage Service (Amazon S3)、AWS WAF、および Amazon VPC は、ACL をサポートするサービスの例です。ACL の詳細については、<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Amazon Simple Storage Service デベロッパーガイド</a>の「<em>アクセスコントロールリスト (ACL) の概要</em>」を参照してください。</p>
+     
+     
+      <h3 id="policies_session">セッションポリシー</h3>
+      <p>セッションポリシーは、ロールまたはフェデレーティッドユーザーの一時セッションをプログラムで作成する際にパラメータとして渡す高度なポリシーです。セッションのアクセス許可は、セッションの作成に使用する IAM エンティティ (ユーザーまたはロール) のアイデンティティベースのポリシーとセッションポリシーの共通部分です。また、リソースベースのポリシーから許可が派生する場合もあります。これらのポリシーのいずれかを明示的に拒否した場合、許可は無効になります。</p>
+      <p>API の <code class="code">AssumeRole</code>、<code class="code">AssumeRoleWithSAML</code>、または <code class="code">AssumeRoleWithWebIdentity</code> オペレーションを使用して、ロールセッションを作成し、プログラムでセッションポリシーを渡すことができます。<code class="code">Policy</code> パラメータを使用して単一の JSON インラインセッションポリシードキュメントを渡すことができます。<code class="code">PolicyArns</code> パラメータを使用して、最大 10 個の管理セッションポリシーを指定できます。ロールセッションに関する詳細については、「<a href="./id_credentials_temp_request.html">一時的なセキュリティ認証情報のリクエスト</a>」を参照してください。</p>
+      <p>フェデレーションユーザーのセッションを作成する場合は、IAM ユーザーのアクセスキーを使用して、API の <code class="code">GetFederationToken</code> オペレーションをプログラムで呼び出します。また、セッションポリシーも渡す必要があります。結果として得られるセッションのアクセス許可は、ID ベースのポリシーとセッションポリシーの共通部分です。フェデレーティッドユーザーセッションの作成に関する詳細については、「<a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken — カスタム ID ブローカーを介したフェデレーション</a>」を参照してください。</p>
+      <p>リソースベースのポリシーでは、プリンシパルとしてユーザーまたはロールの ARN を指定できます。その場合、セッションが作成される前に、リソースベースのポリシーのアクセス許可がロールまたはユーザーのアイデンティティベースのポリシーに追加されます。このセッションポリシーでは、リソースベースのポリシーおよびアイデンティティベースのポリシーによって付与されるアクセス許可の合計を制限します。結果として得られるセッションのアクセス許可は、セッションポリシーとリソースベースのポリシーの共通部分に加えて、セッションポリシーと ID ベースのポリシーの共通部分です。</p>
+      <div class="mediaobject">
+         
+          <img src="images/EffectivePermissions-session-rbp-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          エンティティ ARN を指定するリソースベースのポリシーを含むセッションポリシーの評価&#xA;        " />
+         
+         
+      </div>
+      <p>リソースベースのポリシーでは、プリンシパルとしてセッションの ARN を指定できます。その場合、リソースベースのポリシーのアクセス権限がセッションの作成後に追加されます。リソースベースのポリシーのアクセス許可は、セッションポリシーで制限されません。結果として得られるセッションには、リソースベースのポリシーのすべてのアクセス許可<em>に加えて</em>、アイデンティティベースのポリシーとセッションポリシーの共通部分があります。</p>
+      <div class="mediaobject">
+         
+          <img src="images/EffectivePermissions-session-rbpsession-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          セッション ARN を指定するリソースベースのポリシーを含むセッションポリシーの評価&#xA;        " />
+         
+         
+      </div>
+      <p>アクセス許可の境界で、セッションの作成に使用するユーザーまたはロールのアクセス許可の上限が設定されます。その場合、結果として得られるセッションのアクセス許可は、セッションポリシー、アクセス許可の境界、およびアイデンティティベースのポリシーの共通部分です。ただし、アクセス許可の境界では、結果として得られるセッションの ARN を指定するリソースベースのポリシーによって付与されたアクセス許可は制限されません。</p>
+      <div class="mediaobject">
+         
+          <img src="images/EffectivePermissions-session-boundary-id.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          アクセス許可の境界を含むセッションポリシーの評価&#xA;        " />
+         
+         
+      </div>
+     
+   
+    <h2 id="access_policies-root">ポリシーとルートユーザー</h2>
+    <p>AWS アカウントのルートユーザー に影響するポリシータイプは限定されます。ルートユーザーにはアイデンティティベースのポリシーをアタッチできません。また、ルートユーザーにはアクセス許可の境界を設定できません。ただし、ルートユーザーはリソースベースのポリシーまたは ACL でプリンシパルとして指定できます。ルートユーザーは引き続きアカウントのメンバーです。そのアカウントが AWS Organizations の組織のメンバーの場合、ルートユーザーからアカウントの SCP の影響を受けます。</p>
+   
+    <h2 id="access_policies-json">JSON ポリシー概要</h2>
+    <p>大半のポリシーは JSON ドキュメントとして AWS に保存されます。アイデンティティベースのポリシーおよび境界のアクセス許可設定に使用されるポリシーは、ユーザーまたはロールにアタッチする JSON ポリシードキュメントです。リソースベースのポリシーは、リソースに添付する JSON ポリシードキュメントです。SCP は、AWS Organizations 組織単位 (OU) にアタッチする (構文が制限された) JSON ポリシードキュメントです。ACL もリソースにアタッチしますが、別の構文を使用する必要があります。セッションポリシーは、ロールまたはフェデレーティッドユーザーセッションを引き受けるときに指定した JSON ポリシーです。</p>
+    <p>JSON 構文を理解する必要はありません。AWS Management Console でビジュアルエディタを使用すると、JSON を一切使用することなく、カスタマー管理ポリシーを作成および編集できます。ただし、グループあるいは複雑なポリシーに対してインラインポリシーを使用する場合は、コンソールで JSON エディタを使用してポリシーを作成および編集する必要があります。ビジュアルエディタの詳細については、「<a href="./access_policies_create.html">IAM ポリシーの作成</a>」および「<a href="./access_policies_manage-edit.html">IAM ポリシーの編集</a>」を参照してください。</p>
+    <p> JSON ポリシーを作成または編集するときに、IAM はポリシー検証を実行し、効果的なポリシーを作成するのに役立ちます。IAM は JSON 構文エラーを識別します。一方、IAM Access Analyzer は、ポリシーをさらに絞り込むのに役立つ推奨事項を含む追加のポリシーチェックを提供します。ポリシーの検証の詳細については、「<a href="./access_policies_policy-validator.html">IAM ポリシーの検証</a>」を参照してください。。IAM Access Analyzer のポリシーチェックと実用的な推奨事項の詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-validation.html">IAM Access Analyzer ポリシーの検証</a>」IAM Access Analyzer ポリシーの検証を参照してください。</p>
+     
+      <h3 id="policies-introduction">JSON ポリシードキュメント構造</h3>
+       
+        <p>次の図に示すように、JSON ポリシードキュメントは以下の要素で構成されます。</p>
+       
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>ドキュメントの最上部に記載されるポリシー全体の情報 (任意)</p>
+        </li><li class="listitem">
+          <p>1 つ以上の個別のステートメント<em></em></p>
+        </li></ul></div>
+      <p>各ステートメントには、1 つのアクセス許可に関する情報が含まれています。ポリシーに複数のステートメントが含まれている場合、AWS は評価時にステートメント全体に論理 <code class="code">OR</code> を適用します。複数のポリシーが 1 つのリクエストに適用される場合、AWS は評価時にすべてのポリシーに論理 <code class="code">OR</code> を適用します。</p>
+      <div class="mediaobject">
+         
+          <img src="images/AccessPolicyLanguage_General_Policy_Structure.diagram.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          JSON ポリシードキュメント構造&#xA;        " />
+         
+         
+      </div>
+      <p>ステートメントの情報は、一連の要素の中に含まれています。</p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>Version</b> – 使用するポリシー言語のバージョンを指定します。最新 <code class="code">2012-10-17</code> バージョンの使用をお勧めします。詳細については、「<a href="./reference_policies_elements_version.html">IAM JSON ポリシー要素Version</a>」を参照してください。</p>
+        </li><li class="listitem">
+          <p><b>Statement</b> – このポリシーのメイン要素であり、以下の要素のコンテナになります。ポリシーには、複数のステートメントを含めることができます。</p>
+        </li><li class="listitem">
+          <p><b>Sid</b> (オプション) – 複数のステートメントを区別するための任意のステートメント ID が含まれます。</p>
+        </li><li class="listitem">
+          <p><b>Effect</b> – <code class="code">Allow</code> または <code class="code">Deny</code> を使用してポリシーで付与または拒否するアクセス許可を指定します。</p>
+        </li><li class="listitem">
+          <p><b>Principal</b> (一部の状況でのみ必須)  リソースベースのポリシーを作成する場合は、アクセスを許可または拒否するアカウント、ユーザー、ロール、またはフェデレーティッドユーザーを指定する必要があります。ユーザーまたはロールにアタッチする IAM アクセス許可ポリシーを作成する場合は、この要素を含めることはできません。プリンシパルは、そのユーザーまたはロールを暗黙に示しています。</p>
+        </li><li class="listitem">
+          <p><b>Action</b> – ポリシーで許可または拒否するアクションのリストが含まれます。</p>
+        </li><li class="listitem">
+          <p><b>Resource</b>  (一部の状況でのみ必須) IAM アクセス許可ポリシーを作成する場合は、アクションが適用されるリソースのリストを指定する必要があります。リソースベースのポリシーを作成する場合は、この要素はオプションです。この要素を含めない場合、アクションが適用されるリソースは、ポリシーがアタッチされているリソースです。</p>
+        </li><li class="listitem">
+          <p><b>Condition</b> (オプション) ポリシーでアクセス許可を付与する状況を指定します。</p>
+        </li></ul></div>
+      <p>上記およびさらに詳細なポリシー要素の詳細については、「<a href="./reference_policies_elements.html">IAM JSON ポリシー要素のリファレンス</a>」を参照してください。</p>
+     
+     
+      <h3 id="policies-syntax-multiples">複数のステートメントと複数のポリシー</h3>
+       
+        <p>エンティティ (ユーザーまたはロール) に対して複数のアクセス許可を定義する場合は、1 つのポリシーで複数のステートメントを使用することができます。また、複数のポリシーをアタッチすることもできます。1 つのステートメントで複数のアクセス許可を定義すると、ポリシーから期待するアクセス許可が付与されない場合があります。ポリシーをリソースタイプ別に分割することをお勧めします。</p>
+       
+      <p><a href="./reference_iam-quotas.html">ポリシーのサイズが制限されている</a>ために、複雑なアクセス許可には複数のポリシーが必要になる場合があります。機能別にアクセス許可をグループ化して別個のカスタマー管理ポリシーを作成することも有効です。たとえば、IAM ユーザー管理用、自己管理用、S3 バケット管理用に 3 つのポリシーを作成するとします。AWS では、複数のステートメントや複数のポリシーの組み合わせにかかわらず、ポリシーを同じ方法で<a href="./reference_policies_evaluation-logic.html">評価</a>します。</p>
+      <p>たとえば、次のポリシーには 3 つのステートメントがあります。ステートメント別に異なるアクセス許可セットが 1 つのアカウント内に定義されます。各ステートメントでは以下が定義されます。</p>
+      <div class="itemizedlist">
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>最初のステートメントは、<code class="code">Sid</code> (ステートメント ID) が <code class="code">FirstStatement</code> であり、ポリシーがアタッチされたユーザーに対して各自のパスワードを変更することを許可します。このステートメントの <code class="code">Resource</code> 要素は「すべてのリソース」を意味する「<code class="code">*</code>」です。しかし、実際に API オペレーション <code class="code">ChangePassword</code> (CLI コマンド <code class="code">change-password</code> に対応) が影響するのはリクエストを行うユーザーのパスワードのみです。</p>
+        </li><li class="listitem">
+          <p>2 つ目のステートメントでは、ユーザーは AWS アカウント のすべての Amazon S3 バケットを一覧表示できます。このステートメントの <code class="code">Resource</code> 要素は「すべてのリソース」を意味する <code class="code">"*"</code> です。ただし、ポリシーでは他のアカウントのリソースへのアクセスが許可されていないため、ユーザーは自分の AWS アカウント のバケットのみ一覧表示できます。</p>
+        </li><li class="listitem">
+          <p>3 番目のステートメントでは、<code class="code">confidential-data</code> というバケット内の任意のオブジェクトを表示および取得することをユーザーに許可しますが、ユーザーが多要素認証 (MFA) で認証することが条件です。このポリシーの <code class="code">Condition</code> 要素で MFA 認証が強制されます。</p>
+          <p>ポリシーステートメントに <code class="code">Condition</code> 要素が含まれている場合、このステートメントは <code class="code">Condition</code> 要素が true に評価されたときにのみ有効になります。この例では、ユーザーが MFA 認証された場合に限り、<code class="code">Condition</code> 要素が true に評価されます。ユーザーが MFA 認証されていない場合、この <code class="code">Condition</code> は false に評価されます。この場合、このポリシーの 3 番目のステートメントは適用されず、ユーザーは <code class="code">confidential-data</code> バケットにアクセスできません。</p>
+        </li></ul></div>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Sid": "FirstStatement",
+      "Effect": "Allow",
+      "Action": ["iam:ChangePassword"],
+      "Resource": "*"
+    },
+    <span>{</span>
+      "Sid": "SecondStatement",
+      "Effect": "Allow",
+      "Action": "s3:ListAllMyBuckets",
+      "Resource": "*"
+    },
+    <span>{</span>
+      "Sid": "ThirdStatement",
+      "Effect": "Allow",
+      "Action": [
+        "s3:List*",
+        "s3:Get*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::confidential-data",
+        "arn:aws:s3:::confidential-data/*"
+      ],
+      "Condition": <span>{</span>"Bool": <span>{</span>"aws:MultiFactorAuthPresent": "true"}}
+    }
+  ]
+}</code></pre>
+     
+     
+      <h3 id="policies-syntax-examples">JSON ポリシー構文の例</h3>
+      <p>次のIDベースのポリシーにより、暗黙のプリンシパルは <code class="code">example_bucket</code> という名前の単一の Amazon S3 バケットをリストできます。</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "s3:ListBucket",
+    "Resource": "arn:aws:s3:::example_bucket"
+  }
+}</code></pre>
+      <p>次のリソースベースのポリシーは Amazon S3 バケットにアタッチできます。このポリシーでは、バケット <code class="code">mybucket</code> に対して Amazon S3 のすべてのアクションを実行することを、特定の AWS アカウント のメンバーに許可します。バケットやバケット内のオブジェクトに対して任意のアクションを実行できます。(このポリシーではアカウントに対してのみ信頼が付与されているため、指定された Amazon S3 アクションを実行するには、アクションへのアクセス許可をアカウント内の個々のユーザーに付与する必要があります。) </p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [<span>{</span>
+    "Sid": "1",
+    "Effect": "Allow",
+    "Principal": <span>{</span>"AWS": ["arn:aws:iam::<code class="replaceable">account-id</code>:root"]},
+    "Action": "s3:*",
+    "Resource": [
+      "arn:aws:s3:::mybucket",
+      "arn:aws:s3:::mybucket/*"
+    ]
+  }]
+}</code></pre>
+      <p>一般的なシナリオのポリシー例については、「<a href="./access_policies_examples.html">IAM アイデンティティベースのポリシーの例</a>」を参照してください。</p>
+     
+   
+    <h2 id="grant-least-priv">最小限の特権を認める。</h2>
+    <p>IAM ポリシーを作成する場合、<em>最小限のアクセス権</em>を付与するという標準的なセキュリティアドバイスに従うか、タスクの実行に必要なアクセス許可のみ付与します。ユーザー (およびロール) が何をする必要があるのかを決定してから、それらのタスクのみの実行を許可するポリシーを作成します。</p>
+    <p>最小限の許可からスタートし、必要に応じて追加の許可を付与します。この方法は、寛容過ぎる許可から始めて、後から厳しくしようとするよりも安全です。</p>
+    <p>最小限のアクセス許可の代わりに、<a href="./access_policies_managed-vs-inline.html#aws-managed-policies">AWS 管理対象ポリシー</a>またはワイルドカード <code class="code">*</code> アクセス許可を持つポリシーを使用して、ポリシーの使用を開始できます。プリンシパルにジョブに必要な以上のアクセス許可を付与すると、セキュリティ上のリスクを考慮してください。これらのプリンシパルをモニタリングして、使用しているアクセス許可を確認します。次に、最小限の特権ポリシーを記述します。</p>
+    <p>IAM には、付与するアクセス許可を絞り込むのに役立つオプションがいくつか用意されています。</p>
+    <div class="itemizedlist">
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><b>アクセスレベルのグループ化</b> – ポリシーが付与するアクセスレベルを把握できます。<a href="./reference_policies_elements_action.html">ポリシーアクション</a>は、<code class="code">List</code>、<code class="code">Read</code>、<code class="code">Write</code>、<code class="code">Permissions
+                    management</code>、または <code class="code">Tagging</code> として分類されています。たとえば、<code class="code">List</code> や <code class="code">Read</code> アクセスレベルからアクションを選択し、ユーザーに読み取り専用のアクセスレベルを付与することができます。アクセスレベルの権限を理解するためにポリシーの概要を使用するには「<a href="./access_policies_understand-policy-summary-access-level-summaries.html">ポリシー概要内のアクセスレベルの概要について</a>」をご覧ください。</p>
+        </li><li class="listitem">
+            <p><b>ポリシーの検証</b>— JSON ポリシーを作成および編集するときに、IAM Access Analyzer を使用してポリシーの検証を実行できます。既存のすべてのポリシーを確認および検証することをお勧めします。IAM Access Analyzer では、ポリシーを検証するために 100 を超えるポリシーチェックが提供されます。ポリシー内のステートメントで、過度に許容されるアクセスを許可すると、セキュリティ警告が生成されます。最小限の特権の付与に向けて作業するときに、セキュリティ警告によって提供される実用的な推奨事項を使用できます。IAM Access Analyzer で提供されるポリシーチェックの詳細については、「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-validation.html">IAM Access Analyzer ポリシーの検証</a>」を参照してください。。</p>
+        </li><li class="listitem">
+            <p><b>アクセスアクティビティに基づくポリシーの生成</b>— 付与するアクセス権限を調整するために、IAM エンティティ (ユーザーまたはロール) のアクセスアクティビティに基づく IAM ポリシーを生成できます。IAM Access Analyzer は AWS CloudTrail ログを確認し、指定した日付範囲内のロールが使用したアクセス許可を含むポリシーテンプレートを生成します。テンプレートを使用して、きめ細かなアクセス権限で管理ポリシーを作成し、それを IAM エンティティにアタッチできます。これにより、特定のユースケースでロールが AWS リソースとインタラクションするために必要なアクセス権限のみを付与します。詳細については、「<a href="./access_policies_generate-policy.html">アクセスアクティビティに基づいてポリシーを生成する</a>」を参照してください。</p>
+        </li><li class="listitem">
+            <p><b>最終アクセス情報を使用</b> — 最低限のアクセス許可で役立つもう 1 つの機能は、<em>最終アクセス情報</em>です。IAM ユーザー、グループ、ロール、ポリシーのこの情報は、IAM コンソールの詳細ページの [<b>アクセスアドバイザー</b>] に表示されます。最終アクセス情報には、Amazon EC2、IAM、Lambda、Amazon S3 など、一部のサービスで最後にアクセスされたアクションに関する情報も含まれます。AWS Organizations 管理アカウントの認証情報を使用してサインインすると、IAM コンソールの [<b>AWS Organizations</b>] セクションでサービスの最終アクセス情報を表示できます。AWS CLI または AWS API を使用して、IAM または Organizations でエンティティまたはポリシーの最終アクセス情報のレポートを取得するために使用することもできます。この情報を使用して不要なアクセス許可を識別し、最小権限の原則により良く準拠するよう IAM または Organizations ポリシーを改善することができます。詳細については、「<a href="./access_policies_access-advisor.html">最終アクセス情報を使用した AWS のアクセス許可の調整</a>」を参照してください。</p>
+        </li><li class="listitem">
+            <p><b>AWS CloudTrail のアカウントイベントを確認</b> - アクセス許可をさらに削減するには、AWS CloudTrail の<b>イベント履歴</b>でアカウントのイベントを表示できます。CloudTrail のイベントログには、ポリシーのアクセス許可を減らすために使用できる詳細なイベント情報が含まれます。ログには、IAM エンティティが必要とするアクションとリソースのみが含まれます。詳細については、<em>AWS CloudTrail ユーザーガイド</em>の <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events-console.html">CloudTrail イベント履歴でのイベントの表示</a>を参照してください。</p>
+        </li></ul></div>
+    <p></p>
+    <p>詳細については、以下の各サービスのポリシートピックを参照してください。サービス固有のリソースに対するポリシーの書き方の例を挙げています。</p>
+    <div class="itemizedlist">
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p><em>Amazon DynamoDB 開発者ガイド</em>の<a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/UsingIAMWithDDB.html">Amazon DynamoDB に対する認証とアクセスコントロール</a></p>
+        </li><li class="listitem">
+            <p><em>Amazon Simple Storage Service ユーザーガイド</em>の<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html">バケットポリシーとユーザーポリシーの使用</a></p>
+        </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Amazon Simple Storage Service ユーザーガイド</a>の「<em>アクセスコントロールリスト (ACL) の概要</em>」</p>
+        </li></ul></div>
+<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access.html">アクセス管理</div><div id="next" class="next-link" accesskey="n" href="./access_policies_managed-vs-inline.html">管理ポリシーとインラインポリシー</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

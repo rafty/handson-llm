@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>IAM Access Analyzer policy generation - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="access-analyzer-policy-generation" /><meta name="default_state" content="access-analyzer-policy-generation" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html" /><meta name="description" content="Refine permissions by generating a policy based on IAM user and role access activity information." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="IAM Access Analyzer policy generation" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>IAM Access Analyzer policy generation - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#access-analyzer-policy-generation" /><meta name="github" content="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/access-analyzer-policy-generation.md" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access-analyzer-policy-generation.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access-analyzer-policy-generation.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access-analyzer-policy-generation.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Using AWS Identity and Access Management Access Analyzer",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM Access Analyzer policy generation",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#access-analyzer-policy-generation" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/access-analyzer-policy-generation.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#access-analyzer-policy-generation-howitworks">How policy generation
+                works</a><a href="#access-analyzer-policy-generation-service-action">Service and
+                action-level information</a><a href="#access-analyzer-policy-generation-know">Things to know</a><a href="#access-analyzer-policy-generation-perms">Permissions required</a><a href="#access-analyzer-policy-generation-console">Generate a policy based on
+                CloudTrail activity (console)</a><a href="#access-analyzer-policy-generation-cross-account">Generate a policy
+                using AWS CloudTrail data in another account</a><a href="#access-analyzer-policy-generation-cli">Generate a policy based on CloudTrail
+                activity (AWS CLI)</a><a href="#access-analyzer-policy-generation-api">Generate a policy based on CloudTrail
+                activity (AWS API)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="access-analyzer-policy-generation">IAM Access Analyzer policy generation</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>As an administrator or developer, you might grant permissions to IAM entities (users or
+        roles) beyond what they require. IAM provides several options to help you refine the
+        permissions that you grant. One option is to generate an IAM policy that is based on
+        access activity for an entity. IAM Access Analyzer reviews your AWS CloudTrail logs and generates a
+        policy template that contains the permissions that the entity used in your specified date
+        range. You can use the template to create a policy with fine-grained permissions that grant
+        only the permissions that are required to support your specific use case. </p><div class="highlights"><h6>Topics</h6><ul><li><a href="#access-analyzer-policy-generation-howitworks">How policy generation
+                works</a></li><li><a href="#access-analyzer-policy-generation-service-action">Service and
+                action-level information</a></li><li><a href="#access-analyzer-policy-generation-know">Things to know about generating
+                policies</a></li><li><a href="#access-analyzer-policy-generation-perms">Permissions required to
+                generate a policy</a></li><li><a href="#access-analyzer-policy-generation-console">Generate a policy based on
+                CloudTrail activity (console)</a></li><li><a href="#access-analyzer-policy-generation-cross-account">Generate a policy
+                using AWS CloudTrail data in another account</a></li><li><a href="#access-analyzer-policy-generation-cli">Generate a policy based on CloudTrail
+                activity (AWS CLI)</a></li><li><a href="#access-analyzer-policy-generation-api">Generate a policy based on CloudTrail
+                activity (AWS API)</a></li><li><a href="./access-analyzer-policy-generation-action-last-accessed-support.html">IAM Access Analyzer policy generation and IAM action last accessed support</a></li></ul></div>
+        <h2 id="access-analyzer-policy-generation-howitworks">How policy generation
+                works</h2>
+        <p>IAM Access Analyzer analyzes your CloudTrail events to identify actions and services that have
+            been used by an IAM entity (user or role). It then generates an IAM policy that is
+            based on that activity. You can refine an entity's permissions when you replace a broad
+            permissions policy attached to the entity with the generated policy. The following is a
+            high-level overview of the policy generation process.</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><span class="topcom">Set up for policy template generation</span> –
+                    You specify a time period of up to 90 days for IAM Access Analyzer to analyze your
+                    historical AWS CloudTrail events. You must specify an existing service role or create
+                    a new one. The service role gives IAM Access Analyzer access to your CloudTrail trail and
+                    service last accessed information to identify the services and actions that were
+                    used. You must specify the CloudTrail trail that is logging events for the account
+                    before you can generate a policy. For more information about IAM Access Analyzer
+                    quotas for CloudTrail data, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#access-analyzer-quotas">IAM Access Analyzer quotas</a>.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Generate policy</span> – IAM Access Analyzer
+                    generates a policy based on the access activity in your CloudTrail events. </p>
+            </li><li class="listitem">
+                <p><span class="topcom">Review and customize policy</span> – After the
+                    policy is generated, you can review the services and actions that were used by
+                    the entity during the specified date range. You can further customize the policy
+                    by adding or removing permissions, specifying resources, and adding conditions
+                    to the policy template.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Create and attach policy</span> – You have the
+                    option to save the generated policy by creating a managed policy. You can attach
+                    the policy that you create to the user or role whose activity was used to
+                    generate the policy.</p>
+            </li></ul></div>
+     
+        <h2 id="access-analyzer-policy-generation-service-action">Service and
+                action-level information</h2>
+        <p>When IAM Access Analyzer generates an IAM policy, information is returned to help you to
+            further customize the policy. Two categories of information can be returned when a
+            policy is generated:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><span class="topcom">Policy with action-level information –</span>
+                    For some AWS services, such as Amazon EC2, IAM Access Analyzer can identify the actions
+                    found in your CloudTrail events and lists the actions used in the policy it generates.
+                    For a list of supported services, see <a href="./access-analyzer-policy-generation-action-last-accessed-support.html">IAM Access Analyzer policy generation and IAM action last accessed support</a>. For some services, IAM Access Analyzer prompts you to add actions for the services
+                    to the generated policy.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Policy with service-level information –</span>
+                    IAM Access Analyzer uses <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html">last
+                        accessed</a> information to create a policy template with all of the
+                    recently used services. When using the AWS Management Console, we prompt you to review the
+                    services and add actions to complete the policy.</p>
+            </li></ul></div>
+        <p>For a list of actions in each service, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html">Actions, Resources, and Condition Keys for AWS Services</a> in the
+            Service Authorization Reference.</p>
+     
+        <h2 id="access-analyzer-policy-generation-know">Things to know about generating
+                policies</h2>
+        <p>Before you generate a policy, review the following important details.</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><span class="topcom">Enable a CloudTrail trail</span> – You must have a
+                    CloudTrail trail enabled for your account to generate a policy based on access
+                    activity. When you create a CloudTrail trail, CloudTrail sends events related to your trail
+                    to an Amazon S3 bucket that you specify. To learn how to create a CloudTrail trail, see
+                        <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-and-update-a-trail.html">Creating
+                        a trail for your AWS account</a> in the
+                        <em>AWS CloudTrail User Guide</em>.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Data events not available</span> –
+                    IAM Access Analyzer does not identify action-level activity for data events, such as
+                    Amazon S3 data events, in generated policies.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">PassRole</span> – The <code class="code">iam:PassRole</code>
+                    action is not tracked by CloudTrail and is not included in generated policies.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Reduce policy generation time</span> – To
+                    generate a policy faster, reduce the date range that you specify during setup
+                    for policy generation.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Use CloudTrail for auditing</span> – Do not use
+                    policy generation for auditing purposes; use CloudTrail instead. For more information
+                    about using CloudTrail, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html">Logging IAM and
+                        AWS STS API calls with AWS CloudTrail</a>.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Denied actions</span> – Policy generation
+                    reviews all CloudTrail events, including denied actions.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">One policy IAM console</span> – You can have
+                    one generated policy at a time in the IAM console.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Generated policy availability IAM console</span>
+                    – You can review a generated policy in the IAM console for up to 7 days
+                    after it is generated. After 7 days, you must generate a new policy.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Policy generation quotas</span> – For
+                    additional information about IAM Access Analyzer policy generation quotas, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#access-analyzer-quotas">IAM Access Analyzer quotas</a>.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">Amazon S3 standard rates apply</span> – When you use
+                    the policy generation feature, IAM Access Analyzer reviews CloudTrail logs in your S3
+                    bucket. There are no additional storage charges to access your CloudTrail logs for
+                    policy generation. AWS charges standard Amazon S3 rates for requests and data
+                    transfer of CloudTrail logs stored in your S3 bucket.</p>
+            </li><li class="listitem">
+                <p><span class="topcom">AWS Control Tower support</span> – Policy generation
+                    does not support AWS Control Tower for generating policies.</p>
+            </li></ul></div>
+     
+        <h2 id="access-analyzer-policy-generation-perms">Permissions required to
+                generate a policy</h2>
+        <p>The permissions that you need to generate a policy for the first time differ from
+            those that you need to generate a policy for subsequent uses.</p>
+         
+            <h6>First-time setup</h6>
+            <p>When you generate a policy for the first time, you must choose a suitable existing
+                    <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-role">service role</a> in your account or create a new service role. The service
+                role gives IAM Access Analyzer access to CloudTrail and service last accessed information in
+                your account. Only administrators should have the permissions necessary to create
+                and configure roles. Therefore, we recommend that an administrator creates the
+                service role during the first-time setup. To learn more about the permissions
+                required to create service roles, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html">Creating a role to
+                    delegate permissions to an AWS service</a>.</p>
+         
+        <div class="collapsible"><awsui-expandable-section variant="container" header="Permissions required for service&#xA;                        role" id="collapsible-section-1" expanded="true"><p>When you create a service role, you configure two policies for the role. You
+                    attach an IAM <em>permissions policy</em> to the role that specifies
+                    what the role can do. You also attach a <em>role trust policy</em>
+                    to the role that specifies the principal who can use the role.</p><p>The first example policy shows the permissions policy for the service role
+                    that is required to generate a policy. The second example policy shows the role
+                    trust policy that is required for the service role. You can use these policies
+                    to help you create a service role when you use the AWS API or AWS CLI to
+                    generate a policy. When you use the IAM console to create a service role as
+                    part of the policy generation process, we generate these policies for
+                    you.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "cloudtrail:GetTrail",
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetServiceLastAccessedDetails",
+                "iam:GenerateServiceLastAccessedDetails"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET</code></code>",
+                "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET</code></code>/*"
+            ]
+        }
+    ]
+}
+</code></pre><p>The following example policy shows the role trust policy with the permissions
+                    that allows IAM Access Analyzer to assume the role.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "Service": "access-analyzer.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}</code></pre></awsui-expandable-section></div>
+         
+            <h6>Subsequent uses</h6>
+            <p>To generate policies in the AWS Management Console, an IAM user must have a permissions
+                policy that allows them to pass the service role that is used for policy generation
+                to IAM Access Analyzer. <code class="code">iam:PassRole</code> is usually accompanied by
+                    <code class="code">iam:GetRole</code> so that the user can get the details of the role to be
+                passed. In this example, the user can pass only roles that exist in the specified
+                account with names that begin with <code class="code">AccessAnalyzerMonitorServiceRole*</code>.
+                To learn more about passing IAM roles to AWS services, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html">Granting a user permissions to pass a role to an AWS service</a>.</p>
+         
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Sid": "AllowUserToPassRole",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:PassRole"
+      ],
+      "Resource": "arn:aws:iam::<code class="replaceable">123456789012</code>:role/service-role/AccessAnalyzerMonitorServiceRole*"
+    }
+  ]
+}</code></pre>
+         
+            <p>You must also have the following IAM Access Analyzer permissions to generate policies in
+                the AWS Management Console, AWS API, or AWS CLI as shown in the following policy
+                statement.</p>
+         
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Sid": "AllowUserToGeneratePolicy",
+  "Effect": "Allow",
+  "Action": [
+    "access-analyzer:CancelPolicyGeneration",
+    "access-analyzer:GetGeneratedPolicy",
+    "access-analyzer:ListPolicyGenerations",
+    "access-analyzer:StartPolicyGeneration"
+  ],
+  "Resource": "*"
+}</code></pre>
+         
+            <h6>For both first-time and subsequent uses</h6>
+            <p>When you use the AWS Management Console to generate a policy, you must have
+                    <code class="code">cloudtrail:ListTrails</code> permission to list the CloudTrail trails in your
+                account as shown in the following policy statement.</p>
+         
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Sid": "AllowUserToListTrails",
+  "Effect": "Allow",
+  "Action": [
+    "CloudTrail:ListTrails"
+  ],
+  "Resource": "*"
+}</code></pre>
+        
+        
+        
+     
+        <h2 id="access-analyzer-policy-generation-console">Generate a policy based on
+                CloudTrail activity (console)</h2>
+        <p>You can generate a policy for an IAM user or role.</p>
+         
+            <h3 id="access-analyzer-policy-generation-generate">Step 1: Generate a
+                    policy based on CloudTrail activity</h3>
+            <p>The following procedure explains how to generate a policy for a role using the
+                AWS Management Console. </p>
+            <div class="procedure"><h6>Generate a policy for an IAM role</h6><ol><li><p>Sign in to the AWS Management Console and open the IAM console at <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                    <p>In the navigation pane on the left, choose
+                        <b>Roles</b>.</p>
+                    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The steps to generate a policy based on activity for an IAM user are
+                            almost identical. To do this, choose <b>Users</b> instead
+                            of <b>Roles</b>.</p></div></div>
+                </li><li>
+                    <p>In the list of roles in your account, choose the name of the role whose
+                        activity you want to use to generate a policy.</p>
+                </li><li>
+                    <p>On the <b>Permissions</b> tab, in the <b>Generate
+                            policy based on CloudTrail events</b> section, choose
+                            <b>Generate policy</b>.</p>
+                </li><li>
+                    <p>On the <b>Generate policy</b> page, specify the time period
+                        that you want IAM Access Analyzer to analyze your CloudTrail events for actions taken
+                        with the role. You can choose a range of up to 90 days. We recommend that
+                        you choose the shortest time period possible to reduce the policy generation
+                        time.</p>
+                </li><li>
+                    <p>In the <b>CloudTrail access</b> section, choose a suitable
+                        existing role or create a new role if a suitable role does not exist. The
+                        role gives IAM Access Analyzer permissions to access your CloudTrail data on your behalf
+                        to review access activity to identify the services and actions that have
+                        been used. To learn more about the permissions required for this role, see
+                            <a href="#access-analyzer-policy-generation-perms">Permissions required to
+                generate a policy</a>.</p>
+                </li><li>
+                    <p>In the <b>CloudTrail trail to be analyzed</b> section, specify the
+                        CloudTrail trail that logs events for the account.</p>
+                    <p>If you choose a CloudTrail trail that stores logs in a different account, an
+                        information box about cross-account access is displayed. Cross-account
+                        access requires additional set up. To learn more, see <a href="#chooserole">Choose a role for cross-account access</a> later in this
+                        topic.</p>
+                </li><li>
+                    <p>Choose <b>Generate policy</b>.</p>
+                </li><li>
+                    <p>While policy generation is in progress, you are returned to the
+                            <b>Roles</b>
+                        <b>Summary</b> page on the <b>Permissions</b>
+                        tab. Wait until the status in the <b>Policy request
+                            details</b> section displays <b>Success</b>, and
+                        then choose <b>View generated policy</b>. You can view the
+                        generated policy for up to seven days. If you generate another policy, the
+                        existing policy is replaced with the new one that you generate.</p>
+                </li></ol></div>
+         
+         
+            <h3 id="access-analyzer-policy-generation-console-review">Step 2: Review
+                    permissions and add actions for services used</h3>
+            <p>Review the services and actions that IAM Access Analyzer identified that the role used.
+                You can add actions for any services that were used to the generated policy
+                template.</p>
+            <div class="procedure"><ol><li>
+                    <p>Review the following sections:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>On the <b>Review permissions</b> page, review the
+                                list of <b>Actions included in the generated
+                                    policy</b>. The list displays the services
+                                    <em>and</em> actions that IAM Access Analyzer identified
+                                were used by the role in the specified date range.</p>
+                        </li><li class="listitem">
+                            <p>The <b>Services used</b> section displays additional
+                                services that IAM Access Analyzer identified that were used by the role in
+                                the specified date range. Information about which actions were used
+                                might not be available for the services listed in this section. Use
+                                the menus for each service listed to manually choose the actions
+                                that you want to include in the policy.</p>
+                        </li></ul></div>
+                </li><li>
+                    <p>When you are done adding actions, choose <b>Next</b>.</p>
+                </li></ol></div>
+         
+         
+            <h3 id="access-analyzer-policy-generation-customize">Step 3: Further
+                    customize the generated policy</h3>
+            <p>You can further customize the policy by adding or removing permissions or
+                specifying resources.</p>
+            <div class="procedure"><h6>To customize the generated policy</h6><ol><li>
+                    <p>Update the policy template. The policy template contains resource ARN
+                        placeholders for actions that support resource-level permissions, as shown
+                        in the following image. <em>Resource-level permissions</em>
+                        refers to the ability to specify which resources users are allowed to
+                        perform actions on. We recommend that you use <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">ARNs</a> to specify your individual resources in the policy for
+                        actions that support resource-level permissions. You can replace the
+                        placeholder resource ARNs with valid resource ARNs for your use case.</p>
+                    <p>If an action does not support resource-level permissions, you must use a
+                        wildcard (<code class="code">*</code>) to specify that all resources can be affected by
+                        the action. To learn which AWS services support resource-level
+                        permissions, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS services that work with IAM</a>. For a list of actions in
+                        each service, and to learn which actions support resource-level permissions,
+                        see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html">Actions, Resources, and Condition Keys for AWS
+                        Services</a>.</p>
+                    <div class="mediaobject">
+                         
+                            <img src="/images/IAM/latest/UserGuide/images/res_plc_lg.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                            Resource ARN placeholder in policy template&#xA;                        " style="max-width:100%" />
+                         
+                         
+                    </div>
+                </li><li>
+                    <p>(Optional) Add, modify, or remove JSON policy statements in the template.
+                        To learn more about writing JSON policies, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create-console.html">Creating
+                            IAM policies (console)</a>.</p>
+                </li><li>
+                    <p>When you are done customizing the policy template, you have the following
+                        options:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>(Optional) You can copy the JSON in the template to use separately
+                                outside of the <b>Generated policy</b> page. For
+                                example, if you want to use the JSON to create a policy in a
+                                different account. If the policy in your template exceeds the 6,144
+                                character limit for JSON policies, the policy is split into multiple
+                                policies.</p>
+                        </li><li class="listitem">
+                            <p>Choose <b>Next</b> to review and create a managed
+                                policy in the same account.</p>
+                        </li></ul></div>
+                </li></ol></div>
+         
+         
+            <h3 id="access-analyzer-policy-generation-console-create">Step 4: Review
+                    and create a managed policy</h3>
+            <p>If you have permissions to create and attach IAM policies, you can create a
+                managed policy from the policy that was generated. You can then attach the policy to
+                a user or role in your account.</p>
+            <div class="procedure"><h6>To review and create a policy</h6><ol><li>
+                    <p>On the <b>Review and create managed policy</b> page, enter a
+                            <b>Name</b> and <b>Description</b>
+                        (optional) for the policy that you are creating.</p>
+                </li><li>
+                    <p>(Optional) In the <b>Summary</b> section, you can review the
+                        permissions that will be included in the policy.</p>
+                </li><li>
+                    <p>(Optional) Add metadata to the policy by attaching tags as key-value
+                        pairs. For more information about using tags in IAM, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html">Tagging
+                            IAM resources</a>.</p>
+                </li><li>
+                    <p>When you are finished, do one of the following:</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>You can attach the new policy directly to the role that was used
+                                to generate the policy. To do this, near the bottom of the page,
+                                select the check box next to the <b>Attach policy to
+                                        <code class="replaceable">YourRoleName</code></b>. Then
+                                choose <b>Create and attach policy</b>.</p>
+                        </li><li class="listitem">
+                            <p>Otherwise, choose <b>Create policy</b>. You can find
+                                the policy that you created in the list of policies in the
+                                    <b>Policies</b> navigation pane of the IAM
+                                console.</p>
+                        </li></ul></div>
+                </li><li>
+                    <p>You can attach the policy that you created to an entity in your account.
+                        After you attach the policy, you can remove any other overly broad policies
+                        that might be attached to the entity. To learn how to attach a managed
+                        policy, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html#add-policies-console">Adding IAM identity permissions (console)</a>.</p>
+                </li></ol></div>
+         
+     
+        <h2 id="access-analyzer-policy-generation-cross-account">Generate a policy
+                using AWS CloudTrail data in another account</h2>
+        <p>You might create CloudTrail trails that store data in central accounts to streamline
+            governing activities. For example, you can use AWS Organizations to create a trail that logs all
+            events for all of the AWS accounts in that organization. The trail belongs to a
+            central account. If you want to generate a policy for a user or role in an account that
+            is different from the account where your CloudTrail log data is stored, you must grant
+            cross-account access. To do this, you need both a role and a bucket policy that grant
+            IAM Access Analyzer permissions to your CloudTrail logs. For more information about creating Organizations
+            trails, see <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/creating-trail-organization.html">Creating a
+                trail for an organization</a>.</p>
+        <p>In this example, assume that you want to generate a policy for a user or role in
+            account A. The CloudTrail trail in account A stores CloudTrail logs in a bucket in account B. Before
+            you can generate a policy, you must make the following updates:</p>
+        <div class="orderedlist">
+             
+             
+        <ol><li>
+                <p>Choose an existing role, or create a new service role that grants
+                    IAM Access Analyzer access to the bucket in account B (where your CloudTrail logs are
+                    stored).</p>
+            </li><li>
+                <p>Verify your Amazon S3 bucket object ownership and bucket permissions policy in
+                    account B so that IAM Access Analyzer can access objects in the bucket.</p>
+            </li></ol></div>
+        <div class="procedure"><h6><a id="chooserole"></a>Step
+                1: Choose or create a role for cross-account access</h6><ul><li>
+                <p>On the <b>Generate policy</b> screen, the option to
+                        <b>Use an existing role</b> is pre-selected for you if a role
+                    with the required permissions exists in your account. Otherwise, choose
+                        <b>Create and use a new service role</b>. The new role is used
+                    to grant IAM Access Analyzer access to your CloudTrail logs in account B.</p>
+            </li></ul></div>
+        <div class="procedure"><h6>Step 2: Verify or update your Amazon S3 bucket configuration in account B</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon S3 console at
+         <a href="https://console.aws.amazon.com/s3/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/s3/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>In the <b>Buckets</b> list, choose the name of the bucket where
+                    your CloudTrail trail logs are stored.</p>
+            </li><li>
+                <p>Choose the <b>Permissions</b> tab and go to the <b>Object
+                        Ownership</b> section.</p>
+                <p>Use Amazon S3 Object Ownership bucket settings to control ownership of objects that
+                    you upload to your buckets. By default, when other AWS accounts upload objects
+                    to your bucket, the uploading account owns the objects. To generate a policy,
+                    the bucket owner must own all of the objects in the bucket. Depending on your
+                    ACL use case, you might need to change the <b>Object Ownership</b>
+                    setting for your bucket. Set <b>Object Ownership</b> to one of the
+                    following options.</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><b>Bucket owner enforced</b> (recommended)</p>
+                    </li><li class="listitem">
+                        <p><b>Bucket owner preferred</b></p>
+                    </li></ul></div>
+                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>To successfully generate a policy, the objects in the bucket must be owned
+                        by the bucket owner. If you choose to use <b>Bucket owner
+                            preferred</b>, you can only generate a policy for the time period
+                        after the object ownership change was made.</p></div></div>
+                <p>To learn more about object ownership in Amazon S3, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html">Controlling
+                        ownership of objects and disabling ACLs for your bucket</a> in the
+                        <em>Amazon S3 User Guide</em>.</p>
+            </li><li>
+                <p>Add permissions to your Amazon S3 bucket policy in account B to allow access for
+                    the role in account A.</p>
+                <p>The following example policy allows <code class="code">ListBucket</code> and
+                        <code class="code">GetObject</code> for the bucket named
+                    <code class="code"><code class="replaceable">DOC-EXAMPLE-BUCKET</code></code>. It allows access if the role accessing the
+                    bucket belongs to an account in your organization and has a name that starts
+                    with <code class="code">AccessAnalyzerMonitorServiceRole</code>. Using <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn"><code class="code">aws:PrincipalArn</code></a>
+                    as a <code class="code">Condition</code> in the <code class="code">Resource</code> element ensures that
+                    the role can only access activity for the account if it belongs to account A.
+                    You can replace <code class="code"><code class="replaceable">DOC-EXAMPLE-BUCKET</code></code> with your bucket name and
+                        <code class="code">organization-id</code> with your organization ID.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Sid": "PolicyGenerationBucketPolicy",
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": "*"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET</code></code>",
+        "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET</code></code>/AWSLogs/<code class="replaceable">organization-id</code>/$<span>{</span>aws:PrincipalAccount}/*"
+      ],
+      "Condition": <span>{</span>
+        "StringEquals": <span>{</span>
+          "aws:PrincipalOrgID": "<code class="replaceable">organization-id</code>"
+        },
+        "StringLike": <span>{</span>
+          "aws:PrincipalArn": "arn:aws:iam::$<span>{</span>aws:PrincipalAccount}:role/service-role/AccessAnalyzerMonitorServiceRole*"
+        }
+      }
+    }
+  ]
+}</code></pre>
+            </li><li>
+                <p>If you encrypt your logs using AWS KMS, update your AWS KMS key policy in the
+                    account where you store the CloudTrail logs to grant IAM Access Analyzer access to use
+                    your key, as shown in the following policy example. Replace
+                        <code class="code">CROSS_ACCOUNT_ORG_TRAIL_FULL_ARN</code> with the ARN for your trail
+                    and <code class="code">organization-id</code> with your organization ID.</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Principal": <span>{</span>
+        "AWS": "*"
+      },
+      "Action": "kms:Decrypt",
+      "Resource": "*",
+      "Condition": <span>{</span>
+        "StringEquals": <span>{</span>
+          "kms:EncryptionContext:aws:cloudtrail:arn": "<code class="replaceable">CROSS_ACCOUNT_ORG_TRAIL_FULL_ARN</code>",
+          "aws:PrincipalOrgID": "<code class="replaceable">organization-id</code>"
+        },
+        "StringLike": <span>{</span>
+          "kms:ViaService": "s3.*.amazonaws.com",
+          "aws:PrincipalArn": "arn:aws:iam::$<span>{</span>aws:PrincipalAccount}:role/service-role/AccessAnalyzerMonitorServiceRole*"
+        }
+      }
+    }
+  ]
+}</code></pre>
+            </li></ol></div>
+     
+        <h2 id="access-analyzer-policy-generation-cli">Generate a policy based on CloudTrail
+                activity (AWS CLI)</h2>
+        <p>You can use the following commands to generate a policy using the AWS CLI. </p>
+        <div class="itemizedlist">
+            <h6>To generate a policy</h6>
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/cli/latest/reference/accessanalyzer/start-policy-generation.html">aws
+                        accessanalyzer start-policy-generation</a></p>
+            </li></ul></div>
+        <div class="itemizedlist">
+            <h6>To view a generated policy</h6>
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/cli/latest/reference/accessanalyzer/get-generated-policy.html">aws
+                        accessanalyzer get-generated-policy</a></p>
+            </li></ul></div>
+        <div class="itemizedlist">
+            <h6>To cancel a policy generation request</h6>
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/cli/latest/reference/accessanalyzer/cancel-policy-generation.html">aws
+                        accessanalyzer cancel-policy-generation</a></p>
+            </li></ul></div>
+        <div class="itemizedlist">
+            <h6>To view a list of policy generation requests</h6>
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/cli/latest/reference/accessanalyzer/list-policy-generations.html">aws
+                        accessanalyzer list-policy-generations</a></p>
+            </li></ul></div>
+     
+        <h2 id="access-analyzer-policy-generation-api">Generate a policy based on CloudTrail
+                activity (AWS API)</h2>
+        <p>You can use the following operations to generate a policy using the AWS API.</p>
+        <div class="itemizedlist">
+            <h6>To generate a policy</h6>
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/access-analyzer/latest/APIReference/API_StartPolicyGeneration.html">StartPolicyGeneration</a></p>
+            </li></ul></div>
+        <div class="itemizedlist">
+            <h6>To view a generated policy</h6>
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/access-analyzer/latest/APIReference/API_GetGeneratedPolicy.html">GetGeneratedPolicy</a></p>
+            </li></ul></div>
+        <div class="itemizedlist">
+            <h6>To cancel a policy generation request</h6>
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/access-analyzer/latest/APIReference/API_CancelPolicyGeneration.html">CancelPolicyGeneration</a></p>
+            </li></ul></div>
+        <div class="itemizedlist">
+            <h6>To view a list of policy generation requests</h6>
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/access-analyzer/latest/APIReference/API_ListPolicyGenerations.html">ListPolicyGenerations</a></p>
+            </li></ul></div>
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./access-analyzer-reference-policy-checks.html">Policy check reference</div><div id="next" class="next-link" accesskey="n" href="./access-analyzer-policy-generation-action-last-accessed-support.html">IAM Access Analyzer policy generation and action last accessed support</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access-analyzer-policy-generation.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/access-analyzer-policy-generation.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

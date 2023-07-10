@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Logging requests using server access logging - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="ServerLogs" /><meta name="default_state" content="ServerLogs" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html" /><meta name="description" content="Enable Amazon S3 server access logging to track requests for access to your S3 buckets." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ServerLogs.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/ServerLogs.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ServerLogs.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/ServerLogs.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ServerLogs.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/ServerLogs.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ServerLogs.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/ServerLogs.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ServerLogs.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/ServerLogs.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ServerLogs.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ServerLogs.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ServerLogs.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/ServerLogs.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ServerLogs.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/ServerLogs.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/ServerLogs.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/ServerLogs.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Logging requests using server access logging" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Logging requests using server access logging - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#ServerLogs" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/ServerLogs.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/ServerLogs.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/ServerLogs.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/ServerLogs.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Monitoring Amazon S3",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/monitoring-overview.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Logging requests using server access logging",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/monitoring-overview.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#ServerLogs" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/ServerLogs.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#server-access-logging-overview">How do I enable log delivery?</a><a href="#server-log-keyname-format">Log object key format</a><a href="#how-logs-delivered">How are logs delivered?</a><a href="#LogDeliveryBestEffort">Best effort server log delivery</a><a href="#BucketLoggingStatusChanges">Bucket logging status changes take effect over
+        time</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="ServerLogs">Logging requests using server access logging</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Server access logging provides detailed records for the requests that are made to a bucket.
+    Server access logs are useful for many applications. For example, access log information can be
+    useful in security and access audits. It can also help you learn about your customer base and
+    understand your Amazon S3 bill.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Server access logs don't record information about wrong-region redirect errors for Regions
+      that launched after March 20, 2019. Wrong-region redirect errors occur when a request for an
+      object or bucket is made outside the Region in which the bucket exists. </p></div></div>
+    <h2 id="server-access-logging-overview">How do I enable log delivery?</h2>
+    <p>To enable log delivery, perform the following basic steps. For details, see <a href="./enable-server-access-logging.html">Enabling Amazon S3 server access logging</a>.</p>
+    <div class="orderedlist">
+       
+       
+       
+    <ol><li>
+        <p><b>Provide the name of the target bucket</b>. This bucket is
+          where you want Amazon S3 to save the access logs as objects. Both the source and target buckets
+          must be in the same AWS Region and owned by the same account. </p>
+        <p>You can have logs delivered to any bucket that you own that is in the same Region as
+          the source bucket, including the source bucket itself. But for simpler log management, we
+          recommend that you save access logs in a different bucket. </p>
+        <p>When your source bucket and target bucket are the same bucket, additional logs are
+          created for the logs that are written to the bucket. We do not recommend doing this because it
+          could result in a small increase in your storage billing. In addition, the extra logs
+          about logs might make it harder to find the log that you are looking for. If you choose to
+          save access logs in the source bucket, we recommend that you specify a prefix for all log
+          object keys so that the object names begin with a common string and the log objects are
+          easier to identify. </p>
+        <p><a href="https://docs.aws.amazon.com/general/latest/gr/glos-chap.html#keyprefix">Key
+            prefixes</a> are also useful to distinguish between source buckets when multiple
+          buckets log to the same target bucket.</p>
+      </li><li>
+        <p><b>(Optional) Assign a prefix to all Amazon S3 log object
+            keys.</b> The prefix makes it simpler for you to locate the log objects. For
+          example, if you specify the prefix value <code class="code">logs/</code>, each log object that Amazon S3
+          creates begins with the <code class="code">logs/</code> prefix in its key.</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="">logs/2013-11-01-21-32-16-E568B2907131C0C0</code></pre>
+        <p>The key prefix can also help when you delete the logs. For example, you can set a
+          lifecycle configuration rule for Amazon S3 to delete objects with a specific key prefix. For
+          more information, see <a href="./deleting-log-files-lifecycle.html">Deleting Amazon S3 log files</a>.</p>
+      </li><li>
+        <p><b>(Optional) Set permissions in target grants so that others can
+            access the generated logs.</b> By default, only the bucket owner always has full
+          access to the log objects. If your target bucket (where your server access logs are stored) uses the bucket owner
+          enforced setting for S3 Object Ownership to disable access control lists (ACLs), you
+          can't grant permissions in target grants that use ACLs. However, you can update your bucket policy for the target bucket to
+          grant access to others. For more information, see <a href="./s3-access-control.html">Identity and access management in Amazon S3</a> and <a href="./enable-server-access-logging.html#grant-log-delivery-permissions-general">Permissions for log delivery</a>. </p>
+      </li></ol></div>
+   
+    <h2 id="server-log-keyname-format">Log object key format</h2>
+    <p>Amazon S3 uses the following object key format for the log objects it uploads in the target
+      bucket:</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><em>TargetPrefix</em>YYYY-mm-DD-HH-MM-SS-<em>UniqueString</em>/</code></pre>
+    <p>In the key, <code class="code">YYYY</code>, <code class="code">mm</code>, <code class="code">DD</code>, <code class="code">HH</code>,
+        <code class="code">MM</code>, and <code class="code">SS</code> are the digits of the year, month, day, hour, minute,
+      and seconds (respectively) when the log file was delivered. These dates and times are in
+      Coordinated Universal Time (UTC). </p>
+    <p>A log file delivered at a specific time can contain records written at any point before
+      that time. There is no way to know whether all log records for a certain time interval have
+      been delivered or not. </p>
+    <p>The <code class="code">UniqueString</code> component of the key is there to prevent overwriting of
+      files. It has no meaning, and log processing software should ignore it. </p>
+    <p>The trailing slash <em>/</em> is required to denote the end of the
+      prefix.</p>
+   
+    <h2 id="how-logs-delivered">How are logs delivered?</h2>
+    <p>Amazon S3 periodically collects access log records, consolidates the records in log files, and
+      then uploads log files to your target bucket as log objects. If you enable logging on multiple
+      source buckets that identify the same target bucket, the target bucket will have access logs
+      for all those source buckets. However, each log object reports access log records for a
+      specific source bucket. </p>
+    <p>Amazon S3 uses a special log delivery account to write server access logs. These writes are
+      subject to the usual access control restrictions. We recommend that you update the bucket
+      policy on the target bucket to grant access to the logging service principal
+        (<code class="code">logging.s3.amazonaws.com</code>) for access log delivery. However, you can also grant
+      access for access log delivery to the S3 log delivery group through your bucket access control
+      list (ACL). Granting access to the S3 log delivery group using your bucket ACL is not
+      recommended. </p>
+    <p>When you enable server access logging and grant access for access log delivery through
+      your bucket policy, you update the bucket policy on the target bucket to allow
+        <code class="code">s3:PutObject</code> access for the logging service principal. If you use the Amazon S3
+      console to enable server access logging on a bucket, the console automatically updates the
+      bucket policy on the target bucket to grant these permissions to the logging service
+      principal. For more information about granting permissions for server access log delivery, see
+        <a href="./enable-server-access-logging.html#grant-log-delivery-permissions-general">Permissions for log delivery</a>. </p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Amazon S3 does not support delivery of server access logs to the requester or the bucket
+        owner for VPC endpoint requests when the VPC endpoint policy denies them.</p></div></div>
+     
+      <h6>Bucket owner enforced setting for S3 Object Ownership</h6>
+      <p>If the target bucket uses the bucket owner enforced setting for Object Ownership, ACLs
+        are disabled and no longer affect permissions. You must update the bucket policy on the
+        target bucket to grant access to the logging service principal. For more information about
+        Object Ownership, see <a href="./object-ownership-migrating-acls-prerequisites.html#object-ownership-server-access-logs">Grant access to S3 log
+						delivery group for server access logging</a>.</p>
+     
+   
+    <h2 id="LogDeliveryBestEffort">Best effort server log delivery</h2>
+    <p>Server access log records are delivered on a best effort basis. Most requests for a bucket
+      that is properly configured for logging result in a delivered log record. Most log records are
+      delivered within a few hours of the time that they are recorded, but they can be delivered
+      more frequently. </p>
+    <p>The completeness and timeliness of server logging is not guaranteed. The log record for a
+      particular request might be delivered long after the request was actually processed, or
+        <em>it might not be delivered at all</em>. It is possible that you might even
+      see a duplication of a log record. The purpose of server logs is to give you an idea of the
+      nature of traffic against your bucket. While it is rare to lose log records or to see a
+      duplication of log records, be aware that server logging is not meant to be a complete
+      accounting of all requests.</p>
+    <p>As a result, the best-effort nature of the server logging feature that the usage reports
+      might include one or more access requests that do not appear in a delivered server log. You
+      can find this usage report under <b>Cost &amp; usage reports</b> in the
+      AWS Billing and Cost Management console.</p>
+   
+    <h2 id="BucketLoggingStatusChanges">Bucket logging status changes take effect over
+        time</h2>
+    <p>Changes to the logging status of a bucket take time to actually affect the delivery of log
+      files. For example, if you enable logging for a bucket, some requests made in the following
+      hour might be logged, while others might not. If you change the target bucket for logging from
+      bucket A to bucket B, some logs for the next hour might continue to be delivered to bucket A,
+      while others might be delivered to the new target bucket B. In all cases, the new settings
+      eventually take effect without any further action on your part. </p>
+  <p>For more information about logging and log files, see the following sections:</p><div class="highlights"><h6>Topics</h6><ul><li><a href="./enable-server-access-logging.html">Enabling Amazon S3 server access logging</a></li><li><a href="./LogFormat.html">Amazon S3 server access log format</a></li><li><a href="./deleting-log-files-lifecycle.html">Deleting Amazon S3 log files</a></li><li><a href="./using-s3-access-logs-to-identify-requests.html">Using Amazon S3 access logs to identify
+        requests</a></li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cloudtrail-request-identification.html">Identifying S3 requests</div><div id="next" class="next-link" accesskey="n" href="./enable-server-access-logging.html">Enabling server access
+      logging</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/ServerLogs.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/ServerLogs.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

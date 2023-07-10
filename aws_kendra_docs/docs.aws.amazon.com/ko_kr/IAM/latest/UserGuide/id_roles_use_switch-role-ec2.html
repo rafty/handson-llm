@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>IAM 역할을 사용하여 Amazon EC2 인스턴스에서 실행되는 애플리케이션에 권한 부여 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_use_switch-role-ec2" /><meta name="default_state" content="id_roles_use_switch-role-ec2" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="description" content="Amazon EC2 인스턴스에 IAM 역할을 전달하여 인스턴스에서 실행되는 애플리케이션에 AWS 자격 증명을 제공합니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="사용 설명서" /><meta name="abstract" content="사용자 자격 증명(인증)과 특정 권한을 정의하는 정책(권한 부여)을 사용하여 AWS 리소스에 대한 액세스를 제어합니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="사용 설명서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="사용 설명서" /><meta id="panorama-serviceConsolePage" value="IAM 역할을 사용하여 Amazon EC2 인스턴스에서 실행되는 애플리케이션에 권한 부여" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>IAM 역할을 사용하여 Amazon EC2 인스턴스에서 실행되는 애플리케이션에 권한 부여 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_use_switch-role-ec2" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM 사용자,사용자,IAM 그룹,그룹,IAM 역할,역할,권한 정책,신뢰 정책,정책,액세스 키,암호" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "사용 설명서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM 자격 증명(사용자, 사용자 그룹 및 역할)",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM 역할",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "IAM 역할 사용",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "IAM 역할을 사용하여 Amazon EC2 인스턴스에서 실행되는 애플리케이션에 권한 부여",
+        "item" : "https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_use_switch-role-ec2" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">사용 설명서</a></div><div id="page-toc-src"><a href="#roles-usingrole-ec2instance-roles">Amazon EC2 인스턴스의 역할은 어떻게 작동하나요?</a><a href="#roles-usingrole-ec2instance-permissions">Amazon EC2로 역할을 사용하는 데 필요한 권한</a><a href="#roles-usingrole-ec2instance-get-started">어떻게 시작할 수 있습니까?</a><a href="#roles-usingrole-ec2instance-related-info">관련 정보</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_use_switch-role-ec2">IAM 역할을 사용하여 Amazon EC2 인스턴스에서 실행되는 애플리케이션에 권한 부여</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon EC2 인스턴스에서 실행되는 애플리케이션에는 AWS API 요청에 AWS 보안 인증 정보가 포함되어 있어야 합니다. 개발자에게 Amazon EC2 인스턴스 내에서 직접 AWS 보안 인증 정보를 저장하고 해당 인스턴스의 애플리케이션에서 해당 보안 인증 정보를 사용하는 것을 허용하도록 했을 수 있습니다. 그러나 개발자는 그런 다음에 보안 인증 정보를 관리하고 각 인스턴스에 보안 인증 정보를 안전하게 전달해야 하며, 보안 인증 정보를 순환해야 할 때 각 Amazon EC2 인스턴스를 업데이트해야 할 것입니다. 이처럼 여기에는 많은 작업이 요구됩니다.</p><p>이렇게 하는 대신 IAM 역할을 사용하여 Amazon EC2 인스턴스에서 실행되는 애플리케이션에 대한 <em>임시</em> 보안 인증 정보를 관리할 수 있고 또 그렇게 해야 합니다. 역할을 사용할 때 Amazon EC2 인스턴스에 장기 보안 인증 정보(예: 로그인 보안 인증 정보 또는 액세스 키)를 배포하지 않아도 됩니다. 그 대신 역할은 애플리케이션에서 다른 AWS 리소스에 호출할 때 사용할 수 있는 임시 권한을 제공합니다. Amazon EC2 인스턴스를 시작할 때 인스턴스와 연결할 IAM 역할을 지정합니다. 그러면 이 인스턴스에서 실행되는 애플리케이션은 역할 제공 임시 자격 증명을 사용하여 API 요청에 서명할 수 있습니다.</p><p>역할을 사용하여 Amazon EC2 인스턴스에서 실행되는 애플리케이션에 권한을 부여하기 위해서는 약간의 추가적인 구성이 필요합니다. Amazon EC2 인스턴스에서 실행되는 애플리케이션은 가상화된 운영 체제에 의해 AWS에서 추상화됩니다. 이러한 추가적인 분리로 인해 Amazon EC2 인스턴스에 AWS 역할 및 관련 권한을 할당하고 이를 그 애플리케이션도 사용 가능하게 만들려면 추가 절차가 필요합니다. 여기서 추가 절차란 인스턴스에 연결된 <em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html">인스턴스 프로파일</a></em>을 생성하는 것입니다. 그러면 인스턴스 프로필은 해당 역할을 포함하게 되며 인스턴스에서 실행되는 애플리케이션에 이 역할의 임시 자격 증명을 제공할 수 있습니다. 이 임시 자격 증명은 애플리케이션의 API 호출에 사용되어 리소스에 액세스하고 이 역할이 지정하는 리소스에 대해서만 액세스를 제한할 수 있습니다. 한 번에 하나의 역할만 Amazon EC2 인스턴스에 할당할 수 있으며, 인스턴스의 모든 애플리케이션은 동일한 역할과 권한을 공유한다는 것에 유의하세요.</p><p>이러한 방식으로 역할을 사용하면 여러 가지 장점이 있습니다. 역할 자격 증명은 임시적이고 자동으로 교체되므로 자격 증명을 관리하지 않아도 될 뿐만 아니라 장기적인 보안 위험을 염려하지 않아도 됩니다. 또한, 여러 인스턴스에 대해 역할을 하나만 사용하는 경우 그 역할을 변경할 수 있는데, 변경 사항은 모든 인스턴스에 자동으로 전파됩니다.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>일반적으로 역할은 Amazon EC2 인스턴스를 시작할 때 할당되지만, 현재 실행 중인 Amazon EC2 인스턴스에도 연결될 수 있습니다. 실행 중인 인스턴스에 역할을 연결하는 방법을 알아보려면 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#attach-iam-role">Amazon EC2의 IAM 역할</a> 섹션을 참조하세요.</p></div></div><div class="highlights"><h6>주제</h6><ul><li><a href="#roles-usingrole-ec2instance-roles">Amazon EC2 인스턴스의 역할은 어떻게 작동하나요?</a></li><li><a href="#roles-usingrole-ec2instance-permissions">Amazon EC2로 역할을 사용하는 데 필요한 권한</a></li><li><a href="#roles-usingrole-ec2instance-get-started">어떻게 시작할 수 있습니까?</a></li><li><a href="#roles-usingrole-ec2instance-related-info">관련 정보</a></li><li><a href="./id_roles_use_switch-role-ec2_instance-profiles.html">인스턴스 프로파일 사용</a></li></ul></div>
+    <h2 id="roles-usingrole-ec2instance-roles">Amazon EC2 인스턴스의 역할은 어떻게 작동하나요?</h2>
+    <p>다음 그림에서는 개발자가 <code class="code">photos</code>라는 S3 버킷에 대한 액세스 권한이 필요한 Amazon EC2 인스턴스에서 애플리케이션을 실행하고 있습니다. 관리자가 <code class="code">Get-pics</code> 서비스 역할을 생성해 Amazon EC2 인스턴스에 연결합니다. 이 역할에는 지정된 S3 버킷에 대한 읽기 전용 액세스 권한을 부여하는 권한 정책이 포함되어 있습니다. 또한 Amazon EC2 인스턴스가 해당 역할을 수임하고 임시 보안 인증 정보를 가져오도록 허용하는 신뢰 정책도 포함되어 있습니다. 애플리케이션이 인스턴스에서 실행되면 역할의 임시 자격 증명을 사용하여 photos 버킷에 액세스할 수 있습니다. 관리자는 개발자 권한을 부여하지 않아도 photos 버킷에 액세스할 수 있고 개발자는 자격 증명을 공유하거나 관리할 필요가 전혀 없습니다.</p>
+    <div class="mediaobject">
+       
+        <img src="images/roles-usingrole-ec2roleinstance.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        AWS 리소스에 액세스하는 Amazon EC2 인스턴스의 애플리케이션&#xA;      " />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+       
+    <ol><li>
+        <p>관리자가 IAM을 사용하여 <code class="userinput">Get-pics</code> 역할을 생성합니다. 역할의 신뢰 정책에서 관리자는 Amazon EC2 인스턴스만이 역할을 맡을 수 있도록 지정합니다. 역할의 권한 정책에서 관리자는 <code class="code">photos</code> 버킷에 읽기 전용 권한을 지정합니다.</p>
+      </li><li>
+        <p>개발자는 Amazon EC2 인스턴스를 시작하고 이 인스턴스에 <code class="code">Get-pics</code> 역할을 할당합니다.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>IAM 콘솔을 사용하는 경우, 인스턴스 프로파일은 콘솔에서 관리하고 대개 사용자가 파악하기 쉽습니다. 그러나 AWS CLI 또는 API를 사용하여 역할 및 Amazon EC2 인스턴스를 만들고 관리하는 경우 사용자는 인스턴스 프로파일을 만들고 별도 절차에 따라 여기에 역할을 할당해야 합니다. 그런 다음 인스턴스를 시작할 때 역할 이름이 아닌 인스턴스 프로파일 이름을 지정해야 합니다.</p></div></div>
+      </li><li>
+        <p>애플리케이션이 실행되면 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">인스턴스 메타데이터에서 보안 자격 증명 검색</a>에 설명된 대로 Amazon EC2 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">인스턴스 메타데이터</a>에서 임시 보안 자격 증명을 가져옵니다. 이러한 자격 증명은 제한된 시간 동안에만 유효한 <a href="./id_credentials_temp.html">임시 보안 자격 증명</a>으로 역할을 나타냅니다.</p>
+        <p>개발자는 몇몇 <a href="http://aws.amazon.com/tools/" rel="noopener noreferrer" target="_blank"><span>AWS SDK</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>를 사용하여 임시 보안 자격 증명을 투명하게 관리하는 공급자를 사용할 수 있습니다. (자격 증명 관리를 위해 해당 SDK가 지원하는 기능에 대한 설명은 각각의 AWS SDK 설명서를 참조하세요.)</p>
+        <p>또는 애플리케이션이 Amazon EC2 인스턴스의 인스턴스 메타데이터에서 임시 보안 인증 정보를 가져올 수 있습니다. 자격 증명과 관련 값은 메타데이터의 <code class="code">iam/security-credentials/<code class="replaceable">role-name</code></code> 범주(이 경우 <code class="code">iam/security-credentials/Get-pics</code>)에서 구할 수 있습니다. 애플리케이션이 인스턴스 메타데이터에서 자격 증명을 가져오면 자격 증명을 캐시할 수 있습니다.</p>
+      </li><li>
+        <p>애플리케이션은 가져온 임시 자격 증명을 사용하여 photo 버킷에 액세스합니다. <code class="userinput">Get-pics</code> 역할에 연결된 정책으로 인해 이 애플리케이션에는 읽기 전용 권한만 있습니다.</p>
+        <p>인스턴스에서 제공되는 임시 보안 자격 증명은 만료되기 전에 자동으로 교체되므로 항상 유효한 설정을 사용할 수 있습니다. 애플리케이션은 현재 자격 증명이 만료되기 전에 인스턴스 메타데이터에서 새 자격 증명을 가져와야 합니다. AWS SDK를 사용해 자격 증명을 관리하도록 함으로써 애플리케이션이 자격 증명을 새로 고치기 위해 추가적인 로직을 포함할 필요가 없게 할 수도 있습니다. 예를 들어 클라이언트를 인스턴스 프로필 자격 증명 공급자로 인스턴스화하면 됩니다. 그러나 애플리케이션이 인스턴스 메타데이터에서 임시 보안 자격 증명을 가져와 캐시한 경우, 현재 자격 증명이 만료되기 전에 한 시간 또는 최소 15분마다 갱신한 자격 증명을 가져와야 합니다. 만료 시간은 <code class="code">iam/security-credentials/<code class="replaceable">role-name</code></code> 카테고리에 반환되는 정보에 포함되어 있습니다.</p>
+      </li></ol></div>
+   
+    <h2 id="roles-usingrole-ec2instance-permissions">Amazon EC2로 역할을 사용하는 데 필요한 권한</h2>
+    <p>역할을 사용하여 인스턴스를 시작하려면 개발자에게 Amazon EC2 인스턴스를 시작할 수 있는 권한과 IAM 역할을 전달할 수 있는 권한이 있어야 합니다.</p>
+    <p>다음과 같은 샘플 정책은 사용자가 AWS Management Console을 사용하여 역할로 인스턴스를 시작할 수 있도록 허용합니다. 정책에 와일드카드(<code class="code">*</code>)가 포함되어 있어 사용자가 어떤 역할이든 전달하고 나열된 Amazon EC2 작업을 수행할 수 있도록 허용합니다. <code class="code">ListInstanceProfiles</code> 작업을 수행하면 사용자는 AWS 계정에서 제공되는 모든 역할을 볼 수 있습니다.</p>
+    <div class="example"><h6>예 사용자에게 Amazon EC2 콘솔을 사용하여 임의의 역할로 인스턴스를 시작할 권한을 부여하는 정책 예</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "IamPassRole",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "iam:PassedToService": "ec2.amazonaws.com"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "ListEc2AndListInstanceProfiles",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListInstanceProfiles",
+                "ec2:Describe*",
+                "ec2:Search*",
+                "ec2:Get*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+</code></pre></div></div>
+     
+      <h3 id="roles-usingrole-ec2instance-passrole">Amazon EC2 인스턴스로 전달할 수 있는 역할 제한(PassRole 사용)</h3>
+      <p><code class="code">PassRole</code> 권한을 사용하여 사용자가 Amazon EC2 인스턴스를 시작할 때 이 인스턴스에 전달할 수 있는 역할을 제한할 수 있습니다. 이를 통해 사용자가 자신이 받은 권한보다 더 많은 권한이 있는 애플리케이션을 실행하지 않도록, 즉 높은 권한을 가져오지 않도록 할 수 있습니다. 예를 들어 사용자 Alice는 Amazon EC2 인스턴스를 시작하고 Amazon S3 버킷을 사용할 권한만 있지만, 그녀가 Amazon EC2 인스턴스에 전달하는 역할에는 IAM 및 Amazon DynamoDB를 사용할 권한이 있다고 가정합니다. 이 경우 Alice는 인스턴스를 시작하고 여기에 로그인하여 임시 보안 자격 증명을 가져온 다음 그녀에게 권한이 없는 IAM 또는 DynamoDB 작업을 수행할 수도 있습니다.</p>
+      <p>사용자가 Amazon EC2 인스턴스에 전달할 수 있는 역할 중 어떤 것을 제한하려면 <code class="code">PassRole</code> 작업을 허용하는 정책을 생성합니다. 그런 다음 그 정책을 Amazon EC2 인스턴스를 시작할 사용자(또는 사용자가 속한 IAM 그룹)에게 연결합니다. 이 정책의 <code class="code">Resource</code> 요소에서 사용자가 Amazon EC2 인스턴스에 전달할 수 있는 역할을 나열합니다. 사용자가 인스턴스를 시작하고 역할을 인스턴스에 연결하면 Amazon EC2에서 사용자가 해당 역할을 전달할 수 있는지 확인합니다. 물론 사용자가 전달할 수 있는 역할에 사용자가 보유하고 있을 것으로 추정되는 권한보다 더 많은 권한이 포함되어 있지 않은지도 확인해야 합니다.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p><code class="code">PassRole</code>은 <code class="code">RunInstances</code> 또는 <code class="code">ListInstanceProfiles</code>와 동일한 방식의 API 작업이 아닙니다. 역할 ARN이 API에 대한 파라미터로 전달될 때마다 AWS에서 검사하는 권한입니다(또는 사용자 대신 콘솔이 이 기능을 수행). 관리자가 어느 사용자가 어느 역할을 전달할 수 있는지를 제어할 수 있습니다. 이 경우 사용자가 Amazon EC2 인스턴스에 특정 역할을 연결할 수 있습니다.</p></div></div>
+      <div class="example"><h6>예 사용자에게 특정 역할로 Amazon EC2 인스턴스를 시작할 권한을 부여하는 정책의 예</h6><div class="example-contents"><p>다음과 같은 샘플 정책은 사용자가 Amazon EC2 API를 사용하여 역할로 인스턴스를 시작할 수 있도록 허용합니다. <code class="code">Resource</code> 요소는 역할의 Amazon 리소스 이름(ARN)을 지정합니다. ARN을 지정함으로써 정책은 사용자에게 <code class="code">Get-pics</code> 역할만을 전달할 권한을 부여합니다. 사용자가 인스턴스를 시작할 때 다른 역할을 지정하려는 경우 작업이 실패합니다. 사용자는 역할을 전달하는지와 관계없이 모든 인스턴스를 실행할 권한이 있습니다.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": "*"
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::<code class="replaceable">account-id</code>:role/Get-pics"
+    }
+  ]
+}</code></pre></div></div>
+     
+     
+      <h3 id="switch-role-ec2-another-account">인스턴스 프로파일 역할이 다른 계정의 역할로 전환하도록 허용</h3>
+      <p>Amazon EC2 인스턴스에서 실행 중인 애플리케이션에서 다른 계정에 있는 명령을 실행하도록 허용할 수 있습니다. 이를 위해 첫 번째 계정에 있는 Amazon EC2 인스턴스 역할이 두 번째 계정의 역할로 전환하도록 허용해야 합니다.</p>
+      <p>두 개의 AWS 계정을 사용 중이고 Amazon EC2 인스턴스에서 실행 중인 특정 애플리케이션이 두 계정 모두에서 <a href="http://aws.amazon.com/cli/" rel="noopener noreferrer" target="_blank"><span>AWS CLI</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 명령을 실행하도록 허용하고자 한다고 가정합니다. Amazon EC2 인스턴스가 <code class="code">111111111111</code> 계정에 존재한다고 가정합니다. 해당 인스턴스에는 애플리케이션이 동일한 <code class="code">111111111111</code> 계정 내에 있는 <code class="code">my-bucket-1</code> 버킷에서 읽기 전용 Amazon S3 작업을 수행하도록 허용하는 <code class="code">abcd</code> 인스턴스 프로파일 역할이 포함되어 있습니다. 하지만 애플리케이션은 <code class="code">efgh</code> 크로스 계정 역할을 수임하여 <code class="code">222222222222</code> 계정의 <code class="code">my-bucket-2</code> Amazon S3 버킷에 액세스하도록 허용되어야 합니다.</p>
+      <div class="mediaobject">
+         
+          <img src="images/roles-instance-profile-cross-account.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+         
+      </div>
+      <p>애플리케이션이 <code class="code">abcd</code> Amazon S3 버킷에 액세스하도록 허용하려면 <code class="code">my-bucket-1</code> Amazon EC2 인스턴스 프로파일 역할에 다음과 같은 권한 정책이 있어야 합니다.</p>
+      <p><b><em>계정 111111111111 <code class="code">abcd</code> 역할 권한 정책</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowAccountLevelS3Actions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowListAndReadS3ActionOnMyBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket-1/*",
+                "arn:aws:s3:::my-bucket-1"
+            ]
+        },
+        <span>{</span>
+            "Sid": "AllowIPToAssumeCrossAccountRole",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "arn:aws:iam::222222222222:role/efgh"
+        }
+    ]
+}</code></pre>
+      <p><code class="code">abcd</code> 역할은 Amazon EC2 서비스가 역할을 수임하도록 신뢰해야 합니다. 이를 위해 <code class="code">abcd</code> 역할에 다음과 같은 신뢰 정책이 있어야 합니다.</p>
+      <p><b><em>계정 111111111111 <code class="code">abcd</code> 역할 신뢰 정책</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "abcdTrustPolicy",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"Service": "ec2.amazonaws.com"}
+        }
+    ]
+}</code></pre>
+      <p><code class="code">efgh</code> 크로스 계정 역할이 동일한 <code class="code">222222222222</code> 계정 내에 있는 <code class="code">my-bucket-2</code> 버킷에서 읽기 전용 Amazon S3 작업을 수행할 수 있다고 가정합니다. 이를 위해 <code class="code">efgh</code> 크로스 계정 역할에 다음과 같은 권한 정책이 있어야 합니다.</p>
+      <p><b><em>계정 222222222222 <code class="code">efgh</code> 역할 권한 정책</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowAccountLevelS3Actions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowListAndReadS3ActionOnMyBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket-2/*",
+                "arn:aws:s3:::my-bucket-2"
+            ]
+        }
+    ]
+}</code></pre>
+      <p><code class="code">efgh</code> 역할은 <code class="code">abcd</code> 인스턴스 프로파일 역할이 이를 수임하도록 신뢰해야 합니다. 이를 위해 <code class="code">efgh</code> 역할에 다음과 같은 신뢰 정책이 있어야 합니다.</p>
+      <p><b><em>계정 222222222222 <code class="code">efgh</code> 역할 신뢰 정책</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "efghTrustPolicy",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"AWS": "arn:aws:iam::111111111111:role/abcd"}
+        }
+    ]
+}</code></pre>
+     
+   
+    <h2 id="roles-usingrole-ec2instance-get-started">어떻게 시작할 수 있습니까?</h2>
+    <p>역할이 Amazon EC2 인스턴스와 연동하는 방식을 이해하려면 IAM 콘솔을 사용하여 역할을 만들고 해당 역할을 사용하는 Amazon EC2 인스턴스를 시작한 다음에 실행 중인 인스턴스를 검사해야 합니다. 해당 역할의 임시 자격 증명이 인스턴스에서 사용되는 방식을 보기 위해 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html">인스턴스 메타데이터</a>를 검토할 수 있습니다. 또한, 인스턴스에서 실행되는 애플리케이션이 어떻게 역할을 사용하는지도 알 수 있습니다. 다음 리소스에서 자세히 알아보세요.</p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="https://www.youtube.com/watch?v=TlCuOjviOhk" rel="noopener noreferrer" target="_blank"><span>Amazon EC2 인스턴스의 IAM 역할 자습서</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. 링크된 다음 동영상에서는 Amazon EC2 인스턴스로 IAM 역할을 사용하여 애플리케이션이 이 인스턴스에서 실행될 때 수행할 수 있는 작업을 제어하는 방법을 보여줍니다. 또한 이 애플리케이션(AWS SDK로 작성)이 역할을 통해 임시 보안 자격 증명을 가져오는 방법도 보여줍니다.</p>
+      </li><li class="listitem">
+        <p>SDK 설명입니다. AWS SDK 설명서에 Amazon S3 버킷을 읽기 위해 역할에 임시 자격 증명을 사용하는 Amazon EC2 인스턴스에서 실행되는 애플리케이션을 보여주는 자세한 안내가 포함되어 있습니다. 다음과 같은 각 설명에서는 여러 프로그래밍 언어를 사용하여 비슷한 절차를 제시합니다.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><em>AWS SDK for Java 개발자 안내서</em>의 <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/java-dg-roles.html">SDK for Java를 사용하여 Amazon EC2용 IAM 역할 구성</a> </p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/run-instance.html">AWS SDK for .NET 개발자 안내서</a>의 <em>SDK for .NET을 사용하여 Amazon EC2 인스턴스 시작</em></p>
+          </li><li class="listitem">
+            <p><em>AWS SDK for Ruby 개발자 안내서</em>의 <a href="https://docs.aws.amazon.com/sdk-for-ruby/latest/developer-guide/ec2-example-create-instance.html">SDK for Ruby를 사용하여 Amazon EC2 인스턴스 생성</a></p>
+          </li></ul></div>
+      </li></ul></div>
+   
+    <h2 id="roles-usingrole-ec2instance-related-info">관련 정보</h2>
+    <p>역할 생성 및 Amazon EC2 인스턴스의 역할에 대한 자세한 내용은 다음 정보를 참조하세요.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">Amazon EC2 인스턴스에 IAM 역할을 사용</a>하는 방법에 대한 자세한 내용은 <em>Linux 인스턴스용 Amazon EC2 사용 설명서</em>를 참조하세요.</p>
+      </li><li class="listitem">
+        <p>역할을 만들려면 <a href="./id_roles_create.html">IAM 역할 생성</a> 섹션을 참조하세요.</p>
+      </li><li class="listitem">
+        <p>임시 보안 자격 증명의 사용에 관한 자세한 내용은 <a href="./id_credentials_temp.html">IAM의 임시 보안 자격 증명</a>을 확인하세요.</p>
+      </li><li class="listitem">
+        <p>IAM API 또는 CLI를 사용하는 경우, IAM 인스턴스 프로파일을 생성 및 관리해야 합니다. 인스턴스 프로파일에 대한 자세한 내용은  섹션을 참조하세요<a href="./id_roles_use_switch-role-ec2_instance-profiles.html">인스턴스 프로파일 사용</a></p>
+      </li><li class="listitem">
+        <p>인스턴스 메타데이터의 역할에 대한 임시 보안 자격 증명에 대한 자세한 내용은 <em>Amazon EC2 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">인스턴스 메타데이터에서 보안 자격 증명 검색</a>을 참조하세요.</p>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_use_switch-role-api.html">역할 전환(AWS API)</div><div id="next" class="next-link" accesskey="n" href="./id_roles_use_switch-role-ec2_instance-profiles.html">인스턴스 프로파일 사용</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

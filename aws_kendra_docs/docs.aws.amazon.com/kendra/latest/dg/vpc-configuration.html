@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Configuring Amazon Kendra to use an Amazon VPC - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="vpc-configuration" /><meta name="default_state" content="vpc-configuration" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html" /><meta name="description" content="Amazon Kendra can connect to your Amazon Virtual Private Cloud to index content stored in data sources or databases running in your private cloud. When you create a data source connector or a database connector, you provide security group and subnet identifiers for the subnet that contains your data source or database. Amazon Kendra uses this information to create an elastic network interface that it uses to securely communicate with your data source or database." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of Amazon Kendra. Learn about Amazon Kendra features and get started indexing your documents using the console, CLI, and API." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/vpc-configuration.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/vpc-configuration.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/vpc-configuration.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/vpc-configuration.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/vpc-configuration.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/vpc-configuration.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/vpc-configuration.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/vpc-configuration.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/vpc-configuration.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/vpc-configuration.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/vpc-configuration.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/vpc-configuration.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/vpc-configuration.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/vpc-configuration.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/vpc-configuration.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/vpc-configuration.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/vpc-configuration.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/vpc-configuration.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Configuring Amazon Kendra to use an Amazon VPC" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Configuring Amazon Kendra to use an Amazon VPC - Amazon Kendra</title><meta name="pdf" content="/pdfs/kendra/latest/dg/kendra-dg.pdf#vpc-configuration" /><meta name="github" content="https://github.com/awsdocs/amazon-kendra-developer-guide/tree/master/doc_source/vpc-configuration.md" /><meta name="rss" content="amazon-kendra-release-notes.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/vpc-configuration.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/vpc-configuration.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/vpc-configuration.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search,intelligent search,natural language,index,question,keyword,data source,connector,FAQ,frequently asked question" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Creating a data source connector",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg/data-source.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Configuring Amazon Kendra to use an Amazon VPC",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg/data-source.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/kendra/latest/dg/kendra-dg.pdf#vpc-configuration" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-kendra-developer-guide/tree/master/doc_source/vpc-configuration.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">Developer Guide</a></div><div id="page-toc-src"><a href="#vpc-example">Connecting to a database in a VPC</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="vpc-configuration">Configuring Amazon Kendra to use an Amazon VPC</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon Kendra can connect to your Amazon Virtual Private Cloud to index content stored
+            in data sources or databases running in your private cloud. When you create a data
+            source connector or a database connector, you provide security group and subnet
+            identifiers for the subnet that contains your data source or database. Amazon Kendra uses this information to create an elastic network interface that it uses to securely
+            communicate with your data source or database.</p><p>If your data source or database isn't running on an Amazon VPC, you can
+            connect your data source or database to your Amazon VPC using a Virtual Private
+            Network (VPN). You get a default VPC when you create your Amazon account. For
+            information about setting up a VPN, see the <a href="https://docs.aws.amazon.com/vpn/">AWS VPN Documentation</a>.</p><p></p><p>To use a VPC, you must tell Amazon Kendra the identifier of the subnet that the
+            database belongs to and the identifiers of any security groups that Amazon Kendra
+            must use to access the subnet. For example, if you're using the default port for a MySQL
+            database, the security groups must allow Amazon Kendra to access port 3306 on the
+            host that runs the database.</p><p></p><p>
+            <b>Choosing a subnet for your data source or
+            database</b></p><p>Only use private subnets in the VPC configuration of your data source or database. If
+            your RDS instance is in a public subnet in your VPC, then you can't use that subnet
+            directly to sync your data source or database. Instead, create a private subnet that has
+            outbound access to a NAT gateway in the public subnet. When you configure the VPC for
+            your data source or database, specify that private subnet. For a database data source
+            configured with a VPC, the subnets must be in one of the following Availability Zone
+            IDs:</p><div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>US West (Oregon)—usw2-az1, usw2-az2, usw2-az3</p>
+            </li><li class="listitem">
+                <p>US East (N. Virginia)—use1-az1, use1-az2, use1-az4</p>
+            </li><li class="listitem">
+                <p>EU (Ireland)—euw1-az1, uew1-az2, euw1-az3</p>
+            </li></ul></div><p>The identifiers for subnets and security groups are configured in the Amazon VPC control panel. To see the identifiers, open the Amazon VPC console as
+            follows:</p><div class="procedure"><h6>To view subnet identifiers</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>From the navigation pane, choose <b>Subnets</b>.</p>
+            </li><li>
+                <p>From the subnet list, choose the subnet that contains your database
+                    server.</p>
+            </li><li>
+                <p>From the description tab, make a note of the identifier in the
+                        <b>Subnet ID</b> field.</p>
+            </li></ol></div><div class="procedure"><h6>To view security group identifiers</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                <p>From the navigation pane, choose <b>Security Groups</b>.</p>
+            </li><li>
+                <p>From the security group list, choose the group that you want the identifier
+                    for.</p>
+            </li><li>
+                <p>From the description tab, make a note of the identifier in the <b>Group
+                        ID</b> field.</p>
+            </li></ol></div><p>If Amazon Kendra must route the connection between two or more subnets, you can
+            provide multiple subnets. For example, if the subnet that contains your database server
+            is out of IP addresses, Amazon Kendra can connect to a subnet with free IP
+            addresses and route the connection to the first subnet. If you list multiple subnets,
+            the subnets must be able to communicate with each other. Each subnet must be associated
+            with a route table that provides outbound internet access using a network address
+            translator (NAT) device. </p><p>You can also provide multiple security groups. The combined effect of the security
+            groups must allow Amazon Kendra to access the data source or database server that
+            you have specified in the connection configuration.</p>
+            <h2 id="vpc-example">Connecting to a database in a VPC</h2>
+            <p>The following example shows how to connect a MySQL database running in a VPC. The
+                example assumes that you're starting with your default VPC and that you need to
+                create a MySQL database. If you already have a VPC, make sure that it's configured
+                as shown. If you have a MySQL database, you can use that instead of creating a new
+                one.</p>
+            <div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#vpc-create-vpc">Step 1: Configure a VPC</a></li><li><a href="#vpc-create-database">Step 2: Configure security</a></li><li><a href="#vpc-create-database">Step 3: Create a database</a></li><li><a href="#vpc-connect">Step 4: Create a database data source
+                        connector</a></li></ul></div>
+             
+                <h3 id="vpc-create-vpc">Step 1: Configure a VPC</h3>
+                <p>Configure your VPC so that you have a private subnet and a security group for
+                        Amazon Kendra to access a MySQL database running in the subnet. The
+                    subnets provided in the VPC configuration must be in either US West (Oregon), US
+                    East (N. Virginia), EU (Ireland).</p>
+                <div class="procedure"><h6>To configure a VPC</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                        <p>From the navigation pane, choose <b>Route tables</b>,
+                            then choose <b>Create route table</b>.</p>
+                    </li><li>
+                        <p>For the <b>Name tag</b> field, enter <code class="userinput">Private
+                                subnet route table</code>. In the <b>VPC
+                                field</b>, choose your VPC, and then choose
+                                <b>Create</b>. Choose <b>Close</b> to
+                            return to the list of route tables.</p>
+                    </li><li>
+                        <p>From the navigation pane, choose <b>NAT Gateways</b>
+                            then choose <b>Create NAT Gateway</b>.</p>
+                    </li><li>
+                        <p>In the <b>Subnet</b> field, choose the subnet that's the
+                            public subnet and note the subnet ID.</p>
+                    </li><li>
+                        <p>If you don't have an Elastic IP address, choose <b>Create New
+                                EIP</b>, choose <b>Create a NAT Gateway</b>,
+                            and then choose <b>Close</b>.</p>
+                    </li><li>
+                        <p>From the navigation pane, choose <b>Route
+                            Tables</b>.</p>
+                    </li><li>
+                        <p>From the route table list, choose the <b>Private subnet route
+                                table</b> that you created in step 3. From
+                                <b>Actions</b>, choose <b>Edit
+                                Routes</b>. </p>
+                    </li><li>
+                        <p>Choose <b>Add route</b>. Add the destination 0.0.0.0/0
+                            to allow all outgoing traffic to the internet. For
+                                <b>Target</b>, choose <b>NAT
+                            Gateway</b>, and then choose the gateway that you created in step
+                            4. Choose <b>Save routes</b>, and then choose
+                                <b>Close</b>.</p>
+                    </li><li>
+                        <p>From <b>Actions</b>, choose <b>Edit subnet
+                                associations.</b></p>
+                    </li><li>
+                        <p>Choose the subnets that you want to be private. Don't choose the
+                            subnet with the NAT gateway that you noted previously.</p>
+                    </li></ol></div>
+             
+             
+                <h3 id="vpc-create-database">Step 2: Configure security</h3>
+                <p>Next, configure security groups for your database.</p>
+                <div class="procedure"><h6>To create security groups</h6><ol><li><p>Sign in to the AWS Management Console and open the Amazon VPC console at
+         <a href="https://console.aws.amazon.com/vpc/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/vpc/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                        <p>From the description of your VPC, note the IPv4 CIDR.</p>
+                    </li><li>
+                        <p>From the navigation pane, choose <b>Security Groups</b>
+                            and then choose <b>Create security group</b>.</p>
+                    </li><li>
+                        <p>In <b>Security group name</b> enter
+                                <code class="userinput">DataSourceInboundSecurityGroup</code>. Provide a
+                            description, then choose your VPC from the list. Choose
+                                <b>Create</b> and then choose
+                                <b>Close</b>.</p>
+                    </li><li>
+                        <p>Choose the <b>Inbound</b> tab.</p>
+                    </li><li>
+                        <p>Choose <b>Edit rules</b>, and then choose <b>Add
+                                Rule</b></p>
+                    </li><li>
+                        <p>For a database, enter the port number for the <b>Port
+                                Range</b>. For example, for MySQL it's
+                                <code class="userinput">3306</code>, and, for HTTPS, it's
+                                <code class="userinput">443</code>. For the <b>Source</b>,
+                            type the Classless Inter-Domain Routing (CIDR) of your VPC. Choose
+                                <b>Save rules</b> and then choose
+                                <b>Close</b>.</p>
+                    </li></ol></div>
+                <p>The security group allows anyone within the VPC to connect to the database,
+                    and it allows outbound connections to the internet.</p>
+             
+             
+                <h3 id="vpc-create-database">Step 3: Create a database</h3>
+                <p>Create a database to hold your documents, or you can use your existing
+                    database. See <a href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-database.html">Using a database data
+                        source</a> for a list of databases that Amazon Kendra
+                    supports.</p>
+                <p>For instructions on how to create a MySQL database, see <a href="https://docs.aws.amazon.com/kendra/latest/dg/getting-started-mysql.html">Getting Starting with a MySQL database data source (console) using Amazon RDS</a>.</p>
+             
+             
+                <h3 id="vpc-connect">Step 4: Create a database data source
+                        connector</h3>
+                <p>After you configured your VPC and created your database, you can create a data
+                    source connector for the database. See <a href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-database.html">Using a database data
+                        source</a>.</p>
+                <p>Make sure that you configure your VPC, the private subnets that you created in
+                    your VPC, and the security group that you created in your VPC for your
+                    database.</p>
+                <p>For instructions on how to create a data source for a MySQL database, see
+                        <a href="https://docs.aws.amazon.com/kendra/latest/dg/getting-started-mysql.html">Getting Starting with a
+                        MySQL database data source (console) using Amazon RDS</a>.</p>
+             
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./in-adding-languages.html">Adding documents in languages other than
+                English</div><div id="next" class="next-link" accesskey="n" href="./delete-index.html">Deleting an index and data source</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/en_us/kendra/latest/dg/vpc-configuration.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/en_us/kendra/latest/dg/vpc-configuration.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

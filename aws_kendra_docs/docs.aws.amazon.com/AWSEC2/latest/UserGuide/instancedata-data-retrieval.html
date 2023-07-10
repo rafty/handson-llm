@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Retrieve instance metadata - Amazon Elastic Compute Cloud</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="instancedata-data-retrieval" /><meta name="default_state" content="instancedata-data-retrieval" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" /><meta name="description" content="Because your instance metadata is available from your running instance, you do not need to use the Amazon EC2 console or the AWS CLI. This can be helpful when you're writing scripts to run from your instance. For example, you can access the local IP address of your instance from instance metadata to manage a connection to an external application." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Elastic Compute Cloud" /><meta name="guide" content="User Guide for Linux Instances" /><meta name="abstract" content="Use Amazon EC2 to configure, launch, and manage virtual servers in the AWS cloud." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" hreflang="x-default" /><meta name="feedback-item" content="EC2" /><meta name="this_doc_product" content="Amazon Elastic Compute Cloud" /><meta name="this_doc_guide" content="User Guide for Linux Instances" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'ec2'}"></script><meta id="panorama-serviceSubSection" value="User Guide for Linux Instances" /><meta id="panorama-serviceConsolePage" value="Retrieve instance metadata" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Retrieve instance metadata - Amazon Elastic Compute Cloud</title><meta name="pdf" content="/pdfs/AWSEC2/latest/UserGuide/ec2-ug.pdf#instancedata-data-retrieval" /><meta name="github" content="https://github.com/awsdocs/amazon-ec2-user-guide/tree/master/doc_source/instancedata-data-retrieval.md" /><meta name="rss" content="amazon-ec2-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=30" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EC2&amp;topic_url=http://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html" /><meta name="keywords" content="EC2,Amazon EC2,EC2 instance,instance,VM,virtual machine" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon EC2",
+        "item" : "https://docs.aws.amazon.com/ec2/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide for Linux Instances",
+        "item" : "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon EC2 instances",
+        "item" : "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Instances.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Configure your Amazon Linux instance",
+        "item" : "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Configure_Instance.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Instance metadata and user data",
+        "item" : "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Retrieve instance metadata",
+        "item" : "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AWSEC2/latest/UserGuide/ec2-ug.pdf#instancedata-data-retrieval" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-ec2-user-guide/tree/master/doc_source/instancedata-data-retrieval.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/ec2/index.html">Amazon EC2</a><a href="concepts.html">User Guide for Linux Instances</a></div><div id="page-toc-src"><a href="#imds-costs">Costs</a><a href="#imds-considerations">Considerations</a><a href="#instance-metadata-returns">Responses and error messages</a><a href="#instancedata-meta-data-retrieval-examples">Examples of retrieving
+					instance metadata</a><a href="#instancedata-throttling">Query throttling</a><a href="#instance-metadata-limiting-access">Limit IMDS
+					access</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="instancedata-data-retrieval">Retrieve instance metadata</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Because your instance metadata is available from your running instance, you do not
+			need to use the Amazon EC2 console or the AWS CLI. This can be helpful when you're writing
+			scripts to run from your instance. For example, you can access the local IP address of
+			your instance from instance metadata to manage a connection to an external
+			application.</p><p>Instance metadata is divided into categories. For a description of each instance
+			metadata category, see <a href="./instancedata-data-categories.html">Instance metadata categories</a>.</p><p>To view all categories of instance metadata from within a running instance, use the
+			following IPv4 or IPv6 URIs.</p><p><b>IPv4</b></p><pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight ">http://169.254.169.254/latest/meta-data/</code></pre><p><b>IPv6</b></p><pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight ">http://[fd00:ec2::254]/latest/meta-data/</code></pre><p>The IP addresses are link-local addresses and are valid only from the instance. For more
+			information, see <a href="https://en.wikipedia.org/wiki/Link-local_address" rel="noopener noreferrer" target="_blank"><span>Link-local address</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> on Wikipedia.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The examples in this section use the IPv4 address of the IMDS:
+					<code class="code">169.254.169.254</code>. If you are retrieving instance metadata for EC2
+				instances over the IPv6 address, ensure that you enable and use the IPv6 address
+				instead: <code class="code">fd00:ec2::254</code>. The IPv6 address of the IMDS is
+				compatible with IMDSv2 commands. The IPv6 address is only accessible on <a href="./instance-types.html#ec2-nitro-instances">Instances built on the Nitro System</a>.</p></div></div><p>The command format is different, depending on whether you use IMDSv1 or
+			IMDSv2. By default, you can use both versions of the IMDS. To require the
+			use of IMDSv2, see <a href="./configuring-instance-metadata-service.html">Use IMDSv2</a>.</p><p>You can use a tool such as cURL,
+			as shown in
+			the following example.</p><awsdocs-tabs><dl style="display: none">
+			<dt>IMDSv2</dt><dd tab-id="imdsv2">
+					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&amp;&amp; curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/</code></code></pre>
+				</dd>
+			<dt>IMDSv1</dt><dd tab-id="imdsv1">
+					<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/</code></code></pre>
+				</dd>
+		</dl></awsdocs-tabs><p>For the command to retrieve instance metadata from a Windows instance, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/instancedata-data-retrieval.html">Retrieve instance
+				metadata</a> in the <em>Amazon EC2 User Guide for Windows Instances</em>.</p>
+			<h2 id="imds-costs">Costs</h2>
+		<p>You are not billed for HTTP requests used to retrieve instance metadata and
+			user data.</p>
+		 
+			<h2 id="imds-considerations">Considerations</h2>
+			<p>To avoid problems with instance metadata retrieval, consider the following:</p>
+			<div class="itemizedlist">
+				 
+				
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><span class="topcom">In a container environment, we recommend setting the hop limit to 2.</span></p>
+					<p>The AWS SDKs use IMDSv2 calls by default. If the IMDSv2 call receives
+						no response, the SDK retries the call and, if still unsuccessful, uses
+						IMDSv1. This can result in a delay, especially in a container
+						environment. In a container environment, if the hop limit is 1, the
+						IMDSv2 response does not return because going to the container is
+						considered an additional network hop. To avoid the process of falling back
+						to IMDSv1 and the resultant delay, in a container environment we
+						recommend that you set the hop limit to 2. For more information, see <a href="./configuring-instance-metadata-options.html">Configure the instance metadata
+				options</a>.</p>
+				</li><li class="listitem">
+					<p><span class="topcom">For IMDSv2, you must use <code class="code">/latest/api/token</code> when
+						retrieving the token.</span></p>
+					<p>Issuing <code class="code">PUT</code> requests to any version-specific path, for example
+							<code class="code">/2021-03-23/api/token</code>, will result in the metadata service
+						returning 403 Forbidden errors. This behavior is intended. </p>
+					<p></p>
+				</li></ul></div>
+		 
+			<h2 id="instance-metadata-returns">Responses and error messages</h2>
+			<p>All instance metadata is returned as text (HTTP content type
+					<code class="code">text/plain</code>).</p>
+			<p>A request for a specific metadata resource returns the appropriate value, or a
+					<code class="code">404 - Not Found</code> HTTP error code if the resource is not available. </p>
+			<p>A request for a general metadata resource (the URI ends with a /) returns a list
+				of available resources, or a <code class="code">404 - Not Found</code> HTTP error code if there
+				is no such resource. The list items are on separate lines, terminated by line feeds
+				(ASCII 10).</p>
+			<p>For requests made using Instance Metadata Service Version 2, the following HTTP error codes can be
+				returned:</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p><code class="code">400 - Missing or Invalid Parameters</code> – The
+							<code class="code">PUT</code> request is not valid.</p>
+				</li><li class="listitem">
+					<p><code class="code">401 - Unauthorized</code> – The <code class="code">GET</code> request uses
+						an invalid token. The recommended action is to generate a new token.</p>
+				</li><li class="listitem">
+					<p><code class="code">403 - Forbidden</code> – The request is not allowed or the
+						IMDS is turned off.</p>
+				</li></ul></div>
+		 
+			<h2 id="instancedata-meta-data-retrieval-examples">Examples of retrieving
+					instance metadata</h2>
+			
+			<p>The following examples provide commands that you can use on a Linux instance.
+				For the commands to retrieve instance metadata from a Windows instance, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/instancedata-data-retrieval.html">Retrieve
+					instance metadata</a> in the <em>Amazon EC2 User Guide for Windows Instances</em>.</p>
+			
+			
+			<div class="highlights" id="inline-topiclist"><h6>Examples</h6><ul><li><a href="#instance-metadata-ex-1">Get the available versions of the
+						instance metadata</a></li><li><a href="#instance-metadata-ex-2">Get the top-level metadata
+						items</a></li><li><a href="#instance-metadata-ex-3">Get the list of available public
+						keys</a></li><li><a href="#instance-metadata-ex-4">Show the formats in which public key 0
+						is available</a></li><li><a href="#instance-metadata-ex-5">Get public key 0 (in the OpenSSH key
+						format)</a></li><li><a href="#instance-metadata-ex-6">Get the subnet ID for an
+						instance</a></li><li><a href="#instance-metadata-ex-7">Get the instance tags for an
+						instance</a></li></ul></div>
+			
+			 
+				<h3 id="instance-metadata-ex-1">Get the available versions of the
+						instance metadata</h3>
+				
+				<p>This example gets the available versions of the instance metadata. Each version refers to
+					an instance metadata build when new instance metadata categories were released.
+					The instance metadata build versions do not correlate with the Amazon EC2 API
+					versions. The earlier versions are available to you in case you have scripts
+					that rely on the structure and information present in a previous version.</p>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To avoid having to update your code every time Amazon EC2 releases a new instance metadata
+						build, we recommend that you use <code class="code">latest</code> in the path, and not
+						the version number. For example, use <code class="code">latest</code> as follows:</p><p><code class="code">curl http://169.254.169.254/<b>latest</b>/meta-data/ami-id</code></p></div></div>
+				
+				<awsdocs-tabs><dl style="display: none">
+					<dt>IMDSv2</dt><dd tab-id="imdsv2">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&amp;&amp; curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/</code>
+<code class="computeroutput" copy="false">1.0
+2007-01-19
+2007-03-01
+2007-08-29
+2007-10-10
+2007-12-15
+2008-02-01
+2008-09-01
+2009-04-04
+2011-01-01
+2011-05-01
+2012-01-12
+2014-02-25
+2014-11-05
+2015-10-20
+2016-04-19
+...
+latest</code></code></pre>
+							
+							
+						</dd>
+					<dt>IMDSv1</dt><dd tab-id="imdsv1">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/</code>
+<code class="computeroutput" copy="false">1.0
+2007-01-19
+2007-03-01
+2007-08-29
+2007-10-10
+2007-12-15
+2008-02-01
+2008-09-01
+2009-04-04
+2011-01-01
+2011-05-01
+2012-01-12
+2014-02-25
+2014-11-05
+2015-10-20
+2016-04-19
+...
+latest</code></code></pre>
+							
+						</dd>
+				</dl></awsdocs-tabs>
+			 
+			 
+				<h3 id="instance-metadata-ex-2">Get the top-level metadata
+						items</h3>
+				<p>This example gets the top-level metadata items. For more information, see
+						<a href="./instancedata-data-categories.html">Instance metadata categories</a>.</p>
+				<awsdocs-tabs><dl style="display: none">
+					<dt>IMDSv2</dt><dd tab-id="imdsv2">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&amp;&amp; curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/</code>    
+<code class="computeroutput" copy="false">ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+events/
+hostname
+iam/
+instance-action
+instance-id
+instance-life-cycle
+instance-type
+local-hostname
+local-ipv4
+mac
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+public-keys/
+reservation-id
+security-groups
+services/</code></code></pre>
+							
+							
+						</dd>
+					<dt>IMDSv1</dt><dd tab-id="imdsv1">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/</code>    
+<code class="computeroutput" copy="false">ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+events/
+hostname
+iam/
+instance-action
+instance-id
+instance-type
+local-hostname
+local-ipv4
+mac
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+public-keys/
+reservation-id
+security-groups
+services/</code></code></pre>
+							
+						</dd>
+				</dl></awsdocs-tabs>
+			 
+			<p>The following examples get the values of some of the top-level metadata items that
+				were obtained in the preceding example. The IMDSv2 requests use the stored
+				token that was created in the preceding example command, assuming it has not
+				expired.</p>
+			<awsdocs-tabs><dl style="display: none">
+				<dt>IMDSv2</dt><dd tab-id="imdsv2">
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/ami-id</code>
+<code class="computeroutput" copy="false">ami-0abcdef1234567890</code></code></pre>
+						
+					</dd>
+				<dt>IMDSv1</dt><dd tab-id="imdsv1">
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/ami-id</code>
+<code class="computeroutput" copy="false">ami-0abcdef1234567890</code></code></pre>
+						
+					</dd>
+			</dl></awsdocs-tabs>
+			<p> </p>
+			<awsdocs-tabs><dl style="display: none">
+				<dt>IMDSv2</dt><dd tab-id="imdsv2">
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/reservation-id</code>
+<code class="computeroutput" copy="false">r-0efghijk987654321</code></code></pre>
+						
+					</dd>
+				<dt>IMDSv1</dt><dd tab-id="imdsv1">
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/reservation-id</code>
+<code class="computeroutput" copy="false">r-0efghijk987654321</code></code></pre>
+						
+					</dd>
+			</dl></awsdocs-tabs>
+			<p> </p>
+			<awsdocs-tabs><dl style="display: none">
+				<dt>IMDSv2</dt><dd tab-id="imdsv2">
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/local-hostname</code>
+<code class="computeroutput" copy="false">ip-10-251-50-12.ec2.internal</code></code></pre>
+						
+					</dd>
+				<dt>IMDSv1</dt><dd tab-id="imdsv1">
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/local-hostname</code>
+<code class="computeroutput" copy="false">ip-10-251-50-12.ec2.internal</code></code></pre>
+						
+					</dd>
+			</dl></awsdocs-tabs>
+			<p> </p>
+			<awsdocs-tabs><dl style="display: none">
+				<dt>IMDSv2</dt><dd tab-id="imdsv2">
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/public-hostname</code>
+<code class="computeroutput" copy="false">ec2-203-0-113-25.compute-1.amazonaws.com</code></code></pre>
+						
+					</dd>
+				<dt>IMDSv1</dt><dd tab-id="imdsv1">
+						<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/public-hostname</code>
+<code class="computeroutput" copy="false">ec2-203-0-113-25.compute-1.amazonaws.com</code></code></pre>
+						
+					</dd>
+			</dl></awsdocs-tabs>
+			 
+				<h3 id="instance-metadata-ex-3">Get the list of available public
+						keys</h3>
+				<p>This example gets the list of available public keys.</p>
+				<awsdocs-tabs><dl style="display: none">
+					<dt>IMDSv2</dt><dd tab-id="imdsv2">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&amp;&amp; curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/public-keys/</code>
+<code class="computeroutput" copy="false">0=my-public-key</code></code></pre>
+							
+							
+						</dd>
+					<dt>IMDSv1</dt><dd tab-id="imdsv1">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/public-keys/</code>
+<code class="computeroutput" copy="false">0=my-public-key</code></code></pre>
+							
+						</dd>
+				</dl></awsdocs-tabs>
+			 
+			 
+				<h3 id="instance-metadata-ex-4">Show the formats in which public key 0
+						is available</h3>
+				<p>This example shows the formats in which public key 0 is available.</p>
+				<awsdocs-tabs><dl style="display: none">
+					<dt>IMDSv2</dt><dd tab-id="imdsv2">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&amp;&amp; curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/public-keys/0/</code>
+<code class="computeroutput" copy="false">openssh-key</code></code></pre>
+							
+							
+						</dd>
+					<dt>IMDSv1</dt><dd tab-id="imdsv1">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/public-keys/0/</code>
+<code class="computeroutput" copy="false">openssh-key</code></code></pre>
+							
+						</dd>
+				</dl></awsdocs-tabs>
+			 
+			 
+				<h3 id="instance-metadata-ex-5">Get public key 0 (in the OpenSSH key
+						format)</h3>
+				<p>This example gets public key 0 (in the OpenSSH key format).</p>
+				<awsdocs-tabs><dl style="display: none">
+					<dt>IMDSv2</dt><dd tab-id="imdsv2">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&amp;&amp; curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key</code>
+<code class="computeroutput" copy="false">ssh-rsa MIICiTCCAfICCQD6m7oRw0uXOjANBgkqhkiG9w0BAQUFADCBiDELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6
+b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAd
+BgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5jb20wHhcNMTEwNDI1MjA0NTIxWhcN
+MTIwNDI0MjA0NTIxWjCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYD
+VQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25z
+b2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEWEG5vb25lQGFt
+YXpvbi5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMaK0dn+a4GmWIWJ
+21uUSfwfEvySWtC2XADZ4nB+BLYgVIk60CpiwsZ3G93vUEIO3IyNoH/f0wYK8m9T
+rDHudUZg3qX4waLG5M43q7Wgc/MbQITxOUSQv7c7ugFFDzQGBzZswY6786m86gpE
+Ibb3OhjZnzcvQAaRHhdlQWIMm2nrAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAtCu4
+nUhVVxYUntneD9+h8Mg9q6q+auNKyExzyLwaxlAoo7TJHidbtS4J5iNmZgXL0Fkb
+FFBjvSfpJIlJ00zbhNYS5f6GuoEDmFJl0ZxBHjJnyp378OD8uTs7fLvjx79LjSTb
+NYiytVbZPQUQ5Yaxu2jXnimvw3rrszlaEXAMPLE my-public-key</code></code></pre>
+							
+							
+						</dd>
+					<dt>IMDSv1</dt><dd tab-id="imdsv1">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key</code>
+<code class="computeroutput" copy="false">ssh-rsa MIICiTCCAfICCQD6m7oRw0uXOjANBgkqhkiG9w0BAQUFADCBiDELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6
+b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAd
+BgkqhkiG9w0BCQEWEG5vb25lQGFtYXpvbi5jb20wHhcNMTEwNDI1MjA0NTIxWhcN
+MTIwNDI0MjA0NTIxWjCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYD
+VQQHEwdTZWF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25z
+b2xlMRIwEAYDVQQDEwlUZXN0Q2lsYWMxHzAdBgkqhkiG9w0BCQEWEG5vb25lQGFt
+YXpvbi5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMaK0dn+a4GmWIWJ
+21uUSfwfEvySWtC2XADZ4nB+BLYgVIk60CpiwsZ3G93vUEIO3IyNoH/f0wYK8m9T
+rDHudUZg3qX4waLG5M43q7Wgc/MbQITxOUSQv7c7ugFFDzQGBzZswY6786m86gpE
+Ibb3OhjZnzcvQAaRHhdlQWIMm2nrAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAtCu4
+nUhVVxYUntneD9+h8Mg9q6q+auNKyExzyLwaxlAoo7TJHidbtS4J5iNmZgXL0Fkb
+FFBjvSfpJIlJ00zbhNYS5f6GuoEDmFJl0ZxBHjJnyp378OD8uTs7fLvjx79LjSTb
+NYiytVbZPQUQ5Yaxu2jXnimvw3rrszlaEXAMPLE my-public-key</code></code></pre>
+							
+						</dd>
+				</dl></awsdocs-tabs>
+			 
+
+			 
+				<h3 id="instance-metadata-ex-6">Get the subnet ID for an
+						instance</h3>
+				<p>This example gets the subnet ID for an instance.</p>
+				<awsdocs-tabs><dl style="display: none">
+					<dt>IMDSv2</dt><dd tab-id="imdsv2">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&amp;&amp; curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/network/interfaces/macs/02:29:96:8f:6a:2d/subnet-id</code>
+<code class="computeroutput" copy="false">subnet-be9b61d7</code></code></pre>
+							
+							
+						</dd>
+					<dt>IMDSv1</dt><dd tab-id="imdsv1">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/network/interfaces/macs/02:29:96:8f:6a:2d/subnet-id</code>
+<code class="computeroutput" copy="false">subnet-be9b61d7</code></code></pre>
+							
+						</dd>
+				</dl></awsdocs-tabs>
+			 
+
+			 
+				<h3 id="instance-metadata-ex-7">Get the instance tags for an
+						instance</h3>
+				<p>In the following examples, the sample instance has <a href="./Using_Tags.html#allow-access-to-tags-in-IMDS">tags on instance metadata
+						enabled</a> and the instance tags <code class="code">Name=MyInstance</code> and
+						<code class="code">Environment=Dev</code>.</p>
+				<p>This example gets all the instance tag keys for an instance.</p>
+				<awsdocs-tabs><dl style="display: none">
+					<dt>IMDSv2</dt><dd tab-id="imdsv2">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&amp;&amp; curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/tags/instance</code>
+<code class="computeroutput" copy="false">Name
+Environment</code></code></pre>
+							
+							
+						</dd>
+					<dt>IMDSv1</dt><dd tab-id="imdsv1">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/tags/instance</code>
+<code class="computeroutput" copy="false">Name
+Environment</code></code></pre>
+							
+						</dd>
+				</dl></awsdocs-tabs>
+
+				<p>The following example gets the value of the <code class="code">Name</code> key that was
+					obtained in the preceding example. The IMDSv2 request uses the stored token that
+					was created in the preceding example command, assuming it has not
+					expired.</p>
+				<awsdocs-tabs><dl style="display: none">
+					<dt>IMDSv2</dt><dd tab-id="imdsv2">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/tags/instance/Name</code>
+<code class="computeroutput" copy="false">MyInstance</code></code></pre>
+							
+						</dd>
+					<dt>IMDSv1</dt><dd tab-id="imdsv1">
+							<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="prompt" copy="false">[ec2-user ~]$ </code><code class="userinput">curl http://169.254.169.254/latest/meta-data/tags/instance/Name</code>
+<code class="computeroutput" copy="false">MyInstance</code></code></pre>
+							
+						</dd>
+				</dl></awsdocs-tabs>
+			 
+
+		 
+			<h2 id="instancedata-throttling">Query throttling</h2>
+			<p>We throttle queries to the IMDS on a per-instance basis, and
+				we place limits on the number of simultaneous connections from an instance to the
+				IMDS. </p>
+			<p>If you're using the IMDS to retrieve AWS security
+				credentials, avoid querying for credentials during every transaction or concurrently
+				from a high number of threads or processes, as this might lead to throttling.
+				Instead, we recommend that you cache the credentials until they start approaching
+				their expiry time. For more information about IAM role and security credentials associated with the role, see
+				<a href="./iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">Retrieve security
+					credentials from instance metadata</a>.</p>
+			<p>If you are throttled while accessing the IMDS, retry your
+				query with an exponential backoff strategy.</p>
+		 
+			<h2 id="instance-metadata-limiting-access">Limit IMDS
+					access</h2>
+			<p>You can consider using local firewall rules to disable access from some or all
+				processes to the IMDS.</p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>For <a href="./instance-types.html#ec2-nitro-instances">Instances built on the Nitro System</a>,
+					IMDS can be reached from your own network when a network appliance within your
+					VPC, such as a virtual router, forwards packets to the IMDS address, and the
+					default <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_NAT_Instance.html#EIP_Disable_SrcDestCheck">source/destination check</a> on the instance is disabled. To prevent a
+					source from outside your VPC reaching IMDS, we recommend that you modify the
+					configuration of the network appliance to drop packets with the destination IPv4
+					address of IMDS 169.254.169.254 and, if you enabled the IPv6 endpoint, the IPv6
+					address of IMDS fd00:ec2::254.</p></div></div>
+			
+			<p><b>Using iptables to limit access</b></p>
+			<p>The following example uses Linux iptables and its <code class="code">owner</code>
+				module to prevent the Apache webserver (based on its default installation user ID of
+					<code class="code">apache</code>) from accessing 169.254.169.254. It uses a <em>deny rule</em> to reject all instance metadata requests
+				(whether IMDSv1 or IMDSv2) from any process running as that
+				user.</p>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span><code class="prompt" copy="false">$ </code></span><code class="userinput">sudo iptables --append OUTPUT --proto tcp --destination 169.254.169.254 --match owner --uid-owner apache --jump REJECT</code></code></pre>
+			<p>Or, you can consider only allowing access to particular users or
+				groups, by using <em>allow rules</em>. Allow rules might
+				be easier to manage from a security perspective, because they require you to make a
+				decision about what software needs access to instance metadata. If you use <em>allow rules</em>, it's less likely you will accidentally
+				allow software to access the metadata service (that you did not intend to have
+				access) if you later change the software or configuration on an instance. You can
+				also combine group usage with allow rules, so that you can add and remove users from
+				a permitted group without needing to change the firewall rule.</p>
+			<p>The following example prevents access to the IMDS
+				by all processes, except for processes running in the user account
+					<code class="code">trustworthy-user</code>.</p>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span><code class="prompt" copy="false">$ </code></span><code class="userinput">sudo iptables --append OUTPUT --proto tcp --destination 169.254.169.254 --match owner ! --uid-owner <code class="replaceable">trustworthy-user</code> --jump REJECT</code></code></pre>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p>To use local firewall rules, you need to adapt the preceding example
+							commands to suit your needs. </p>
+					</li><li class="listitem">
+						<p>By default, iptables rules are not persistent across system reboots.
+							They can be made to be persistent by using OS features, not described
+							here.</p>
+					</li><li class="listitem">
+						<p>The iptables <code class="code">owner</code> module only matches group membership
+							if the group is the primary group of a given local user. Other groups
+							are not matched.</p>
+					</li></ul></div></div></div>
+			<p><b>Using PF or IPFW to limit
+				access</b></p>
+			<p>If you are using FreeBSD or OpenBSD, you can also consider using PF or
+				IPFW. The following examples limit access to the IMDS to just
+				the root user.</p>
+			<p><b>PF</b></p>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span><code class="prompt" copy="false">$ </code></span><code class="userinput">block out inet proto tcp from any to 169.254.169.254</code></code></pre>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span><code class="prompt" copy="false">$ </code></span><code class="userinput">pass out inet proto tcp from any to 169.254.169.254 user root</code></code></pre>
+			<p><b>IPFW</b></p>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span><code class="prompt" copy="false">$ </code></span><code class="userinput">allow tcp from any to 169.254.169.254 uid root</code></code></pre>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span><code class="prompt" copy="false">$ </code></span><code class="userinput">deny tcp from any to 169.254.169.254</code></code></pre>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>The order of the PF and IPFW commands matter. PF defaults to last matching
+					rule and IPFW defaults to first matching rule.</p></div></div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./configuring-IMDS-existing-instances.html">For existing instances</div><div id="next" class="next-link" accesskey="n" href="./instancedata-add-user-data.html">Work with instance user data</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EC2&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=EC2&amp;topic_url=https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

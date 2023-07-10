@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>取り込み中に文書を充実させる - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="custom-document-enrichment" /><meta name="default_state" content="custom-document-enrichment" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html" /><meta name="description" content="でのドキュメントの取り込みプロセス中に、ドキュメントの属性とコンテンツを作成、変更、または削除する方法Amazon Kendra。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="デベロッパーガイド" /><meta name="abstract" content="Amazon Kendra の概念的な概要について説明します。Amazon Kendra機能について学び、コンソール、CLI、API を使用してドキュメントのインデックス作成を始めましょう。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/custom-document-enrichment.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/custom-document-enrichment.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/custom-document-enrichment.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/custom-document-enrichment.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/custom-document-enrichment.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/custom-document-enrichment.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/custom-document-enrichment.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/custom-document-enrichment.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/custom-document-enrichment.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/custom-document-enrichment.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/custom-document-enrichment.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/custom-document-enrichment.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/custom-document-enrichment.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/custom-document-enrichment.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/custom-document-enrichment.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/custom-document-enrichment.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/custom-document-enrichment.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="デベロッパーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="デベロッパーガイド" /><meta id="panorama-serviceConsolePage" value="取り込み中に文書を充実させる" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>取り込み中に文書を充実させる - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#custom-document-enrichment" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search (検索),インテリジェント検索,自然言語,インデックス,質問,キーワード,データソース,コネクタ,よくある質問" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "デベロッパーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "取り込み中に文書を充実させる",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#custom-document-enrichment" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">デベロッパーガイド</a></div><div id="page-toc-src"><a href="#how-custom-document-enrichment-works">Custom Document Enrichment の仕組み</a><a href="#basic-data-maniplation">メタデータを変更する基本操作</a><a href="#advanced-data-manipulation">Lambda 関数:メタデータまたはコンテンツの抽出と変更</a><a href="#cde-data-contracts-lambda">Lambda 関数のデータ制約</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>翻訳は機械翻訳により提供されています。提供された翻訳内容と英語版の間で齟齬、不一致または矛盾がある場合、英語版が優先します。</p></awsui-alert><h1 class="topictitle" id="custom-document-enrichment">取り込み中に文書を充実させる</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>ドキュメントの取り込みプロセス中に、コンテンツおよびドキュメントのメタデータフィールドまたは属性を変更できます。Amazon Kendra<em>のCustom Document Enrichment</em> 機能を使用すると、にドキュメントを取り込むときに、ドキュメントの属性とコンテンツを作成、変更、または削除できますAmazon Kendra。つまり、データを必要に応じて操作して取り込むことができます。</p><p>この機能を使用すると、ドキュメントの処理方法と取り込み方法を制御できますAmazon Kendra。例えば、ドキュメントの取り込み中に、ドキュメントのメタデータ内の個人を特定できる情報をスクラブできますAmazon Kendra。</p><p>この機能のもうつの用途は、で LambdaAWS Lambda 関数を呼び出して、画像に対する光学文字認識 (OCR)、テキストの翻訳、および検索または分析のためのデータの準備に関するその他のタスクを実行します。例えば、関数を呼び出すと、画像上で OCR を実行できます。この関数は、画像のテキストを解釈し、各画像をテキスト文書として扱うことができます。郵送された顧客調査を受け取り、これらのアンケートを画像として保存する企業は、これらの画像をテキストドキュメントとして取り込むことができますAmazon Kendra。その後、同社はで貴重な顧客調査情報を検索できますAmazon Kendra。</p><p>基本的な操作をデータの最初の解析として適用し、次に Lambda 関数を使用してより複雑な操作をデータに適用できます。たとえば、基本的な操作でドキュメントメタデータフィールド 'Customer_ID' のすべての値を削除してから、Lambda 関数を適用してドキュメント内のテキストの画像からテキストを抽出できます。</p>
+        <h2 id="how-custom-document-enrichment-works">Custom Document Enrichment の仕組み</h2>
+        <p>Custom Document Enrichment の全体のプロセスは次のとおりです。</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>Custom Document Enrichment は、データソースを作成または更新するとき、またはドキュメントを直接インデックス作成するときに設定しますAmazon Kendra。</p>
+            </li><li>
+                <p>Amazon Kendraインライン構成または基本ロジックを適用してデータを変更します。詳細については、「<a href="#basic-data-maniplation">メタデータを変更する基本操作</a>」を参照してください。</p>
+            </li><li>
+                <p>高度なデータ操作を構成する場合、元の未加工のドキュメント、Amazon Kendraまたは構造化された解析済みドキュメントにこれを適用できます。詳細については、「<a href="#advanced-data-manipulation">Lambda 関数:メタデータまたはコンテンツの抽出と変更</a>」を参照してください。</p>
+            </li><li>
+                <p>変更されたドキュメントは、Amazon Kendraに取り込まれます。</p>
+            </li></ol></div>
+        <p>このプロセスのどの時点でも、構成が有効でない場合、Amazon Kendraエラーがスローされます。</p>
+        <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateDataSource.html">CreateDataSource<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateDataSource.html">UpdateDataSource</a></a>、または <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API を呼び出すときは、カスタムドキュメントエンリッチメント設定を指定します。<code class="code">BatchPutDocument</code> を呼び出すと、各リクエストで Custom Document Enrichment を設定する必要があります。コンソールを使用する場合は、インデックスを選択し、<b>[Document enrichments]</b> (ドキュメントのエンリッチメント) をクリックして、Custom Document Enrichment を構成します。</p>
+        <p><b>コンソールでドキュメントエンリッチメントを使用する場合は</b>、API を使用する場合と同様に、基本操作のみを設定するか、Lambda 関数のみ、あるいはその両方を設定するかを選択できます。コンソールステップで [<b>次へ</b>] を選択すると、元の (抽出前) データに適用するか、構造化 (抽出後) データに適用するかなど、基本操作は設定せず、Lambda 関数のみを設定できます。コンソールのすべてのステップを完了しないと設定を保存できません。すべての手順を完了しないと、ドキュメントの設定は保存されません。</p>
+     
+        <h2 id="basic-data-maniplation">メタデータを変更する基本操作</h2>
+        <p>基本ロジックを使用して、ドキュメントのフィールドとコンテンツを操作できます。これには、フィールド内の値の削除、条件を使用したフィールドの値の変更、またはフィールドの作成が含まれます。基本ロジックを使用して操作できる範囲を超える高度な操作については、Lambda 関数を呼び出します。詳細については、「<a href="#advanced-data-manipulation">Lambda 関数:メタデータまたはコンテンツの抽出と変更</a>」を参照してください。</p>
+        <p>基本ロジックを適用するには、<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_DocumentAttributeTarget.html">DocumentAttributeTarget</a>オブジェクトを使用して操作するターゲットフィールドを指定します。属性キーを指定します。例えば、「Department」キーは、ドキュメントに関連付けられているすべての部門名を保持するフィールドまたは属性です。特定の条件が満たされた場合に、ターゲットフィールドで使用する値を指定することもできます。<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_DocumentAttributeCondition.html">DocumentAttributeCondition</a>オブジェクトを使用して条件を設定します。例えば、「Source_URI」フィールドに URI 値に「financial」が含まれている場合に、ターゲットフィールド「Department」にドキュメントのターゲット値「Finance」を事前に入力するという条件を設定します。ターゲットドキュメント属性の値を削除することもできます。</p>
+        <p>コンソールを使用して基本ロジックを適用するには、インデックスを選択し、ナビゲーションメニューの <b>[Document enrichments]</b> (ドキュメントのエンリッチメント) を選択します。[<b>Configure Lustom] (基本的な演算の設定</b>) をクリックして、ドキュメントのフィールドとコンテンツに基本的な演算を適用します。</p>
+        <p>次に、基本ロジックを使用して「Customer_ID」というドキュメントフィールドのすべての顧客識別番号を削除する例を示します。</p>
+        <p><b>例 1: ドキュメントに関連付けられている顧客識別番号の削除</b></p>
+        <p>基本操作が適用される前のデータ。</p>
+        <div class="table-container"><div class="table-contents"><table id="w1460aac27c13c15"><thead>
+                    <tr>
+                        <th><b>Document_ID</b></th>
+                        <th><b>Body_Text</b></th>
+                        <th><b>Customer_ID</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>CID1234</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>CID1235</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>CID1236</td>
+                    </tr>
+                </table></div></div>
+        <p>基本操作が適用された後のデータ。</p>
+        <div class="table-container"><div class="table-contents"><table id="w1460aac27c13c19"><thead>
+                    <tr>
+                        <th><b>Document_ID</b></th>
+                        <th><b>Body_Text</b></th>
+                        <th><b>Customer_ID</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>Lorem Ipsum.</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Lorem Ipsum.</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Lorem Ipsum.</td>
+                        <td> </td>
+                    </tr>
+                </table></div></div>
+        <p>次に、基本ロジックを使用して「Department」というフィールドを作成し、「source_URI」フィールドの情報に基づいてこのフィールドに部門名を事前に入力する例を示します。これは、「Source_URI」フィールドに URI 値に「financial」が含まれている場合に、ターゲットフィールド「Department」にドキュメントのターゲット値「Finance」を事前に入力するという条件を使用します。</p>
+        <p><b>例 2:「Department」フィールドを作成し、条件を使用してドキュメントに関連付けられた部門名を事前に入力します。</b></p>
+        <p>基本操作が適用される前のデータ。</p>
+        <div class="table-container"><div class="table-contents"><table id="w1460aac27c13c27"><thead>
+                    <tr>
+                        <th><b>Document_ID</b></th>
+                        <th><b>Body_Text</b></th>
+                        <th><b>Source_URI</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>financial/1</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>financial/2</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>financial/3</td>
+                    </tr>
+                </table></div></div>
+        <p>基本操作が適用された後のデータ。</p>
+        <div class="table-container"><div class="table-contents"><table id="w1460aac27c13c31"><thead>
+                    <tr>
+                        <th><b>Document_ID</b></th>
+                        <th><b>Body_Text</b></th>
+                        <th><b>Source_URI</b></th>
+                        <th><b>部門</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>financial/1</td>
+                        <td>財務</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>financial/2</td>
+                        <td>財務</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>financial/3</td>
+                        <td>財務</td>
+                    </tr>
+                </table></div></div>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>Amazon Kendraターゲットドキュメントフィールドがインデックスフィールドとしてまだ作成されていない場合、作成できません。インデックスフィールドを作成したら、を使用してドキュメントフィールドを作成できます<code class="code">DocumentAttributeTarget</code>。 Amazon Kendra次に、新しく作成したドキュメントのメタデータフィールドをインデックスフィールドにマッピングします。</p></div></div>
+        <p>次のコードは、ドキュメントに関連付けられている顧客識別番号を削除するための基本的なデータ操作を設定する例です。</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Console</dt><dd tab-id="console">
+                    
+                    <div class="procedure"><h6>顧客識別番号を削除するための基本的なデータ操作を構成するには</h6><ol><li>
+                            <p>左側のナビゲーションペインの <b>[Indexes]</b> (インデックス) で、<b>[Document enrichments]</b> (ドキュメントのエンリッチメント) を選択して、<b>[Add document enrichment]</b> (ドキュメントのエンリッチメントを追加) を選択します。</p>
+                        </li><li>
+                            <p>[<b>Configure Lustom] (基本操作の設定</b>) ページで、ドキュメントのフィールドとコンテンツを変更するデータソースを選択します。次に、ドロップダウンからドキュメントフィールド名「Customer_ID」を選択し、ドロップダウンからインデックスフィールド名「Customer_ID」を選択し、ドロップダウンからターゲットアクション <b>[Delete]</b> (削除) を選択します。次に、<b>[Add basic operation]</b> (基本的な演算の追加) を選択します。</p>
+                        </li></ol></div>
+                </dd>
+            <dt>CLI</dt><dd tab-id="cli">
+                    <p><b>顧客識別番号を削除するための基本的なデータ操作を構成するには</b></p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra create-data-source \
+ --name <code class="replaceable">data-source-name</code> \
+ --index-id <code class="replaceable">index-id</code> \
+ --role-arn <code class="replaceable">arn:aws:iam::account-id:role/role-name</code> \
+ --type S3 \
+ --configuration '<span>{</span>"S3Configuration":<span>{</span>"BucketName":"<code class="replaceable">S3-bucket-name</code>"}}' \
+ --custom-document-enrichment-configuration '<span>{</span>"InlineConfigurations":[<span>{</span>"Target":<span>{</span>"TargetDocumentAttributeKey":"Customer_ID", "TargetDocumentAttributeValueDeletion": true}}]}' 
+</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <p><b>顧客識別番号を削除するための基本的なデータ操作を構成するには</b></p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3&#xD;
+from botocore.exceptions import ClientError&#xD;
+import pprint&#xD;
+import time&#xD;
+&#xD;
+kendra = boto3.client("kendra")&#xD;
+&#xD;
+print("Create a data source with customizations")&#xD;
+&#xD;
+# Provide the name of the data source&#xD;
+name = "data-source-name"&#xD;
+# Provide the index ID for the data source&#xD;
+index_id = "index-id"&#xD;
+# Provide the IAM role ARN required for data sources&#xD;
+role_arn = "arn:aws:iam::$<span>{</span>account-id}:role/$<span>{</span>role-name}"&#xD;
+# Provide the data source connection information&#xD;
+data_source_type = "S3"&#xD;
+S3_bucket_name = "S3-bucket-name"&#xD;
+# Configure the data source with Custom Document Enrichment&#xD;
+configuration = <span>{</span>"S3Configuration":&#xD;
+        <span>{</span>&#xD;
+            "BucketName": S3_bucket_name&#xD;
+        }&#xD;
+    }&#xD;
+custom_document_enrichment_configuration = <span>{</span>"InlineConfigurations":[&#xD;
+        <span>{</span>&#xD;
+            "Target":<span>{</span>"TargetDocumentAttributeKey":"Customer_ID",&#xD;
+                       "TargetDocumentAttributeValueDeletion": True}&#xD;
+        }]&#xD;
+    }&#xD;
+&#xD;
+try:&#xD;
+    data_source_response = kendra.create_data_source(&#xD;
+        Name = name,&#xD;
+        IndexId = index_id,&#xD;
+        RoleArn = role_arn,&#xD;
+        Type = data_source_type&#xD;
+        Configuration = configuration&#xD;
+        CustomDocumentEnrichmentConfiguration = custom_document_enrichment_configuration&#xD;
+    )&#xD;
+&#xD;
+    pprint.pprint(data_source_response)&#xD;
+&#xD;
+    data_source_id = data_source_response["Id"]&#xD;
+&#xD;
+    print("Wait for Amazon Kendra to create the data source with your customizations.")&#xD;
+&#xD;
+    while True:&#xD;
+        # Get the details of the data source, such as the status&#xD;
+        data_source_description = kendra.describe_data_source(&#xD;
+            Id = data_source_id,&#xD;
+            IndexId = index_id&#xD;
+        )&#xD;
+        status = data_source_description["Status"]&#xD;
+        print(" Creating data source. Status: "+status)&#xD;
+        time.sleep(60)&#xD;
+        if status != "CREATING":&#xD;
+            break&#xD;
+&#xD;
+    print("Synchronize the data source.")&#xD;
+&#xD;
+    sync_response = kendra.start_data_source_sync_job(&#xD;
+        Id = data_source_id,&#xD;
+        IndexId = index_id&#xD;
+    )&#xD;
+&#xD;
+    pprint.pprint(sync_response)&#xD;
+&#xD;
+    print("Wait for the data source to sync with the index.")&#xD;
+&#xD;
+    while True:&#xD;
+&#xD;
+        jobs = kendra.list_data_source_sync_jobs(&#xD;
+            Id= data_source_id,&#xD;
+            IndexId= index_id&#xD;
+        )&#xD;
+&#xD;
+        # For this example, there should be one job&#xD;
+        status = jobs["History"][0]["Status"]&#xD;
+&#xD;
+        print(" Syncing data source. Status: "+status)&#xD;
+        time.sleep(60)&#xD;
+        if status != "SYNCING":&#xD;
+            break&#xD;
+&#xD;
+except  ClientError as e:&#xD;
+        print("%s" % e)&#xD;
+&#xD;
+print("Program ends.")</code></pre>
+                </dd>
+            <dt>Java</dt><dd tab-id="java">
+                    <p><b>顧客識別番号を削除するための基本的なデータ操作を構成するには</b></p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">package com.amazonaws.kendra;
+
+import java.util.concurrent.TimeUnit;
+import software.amazon.awssdk.services.kendra.KendraClient;
+import software.amazon.awssdk.services.kendra.model.CreateDataSourceRequest;
+import software.amazon.awssdk.services.kendra.model.CreateDataSourceResponse;
+import software.amazon.awssdk.services.kendra.model.CreateIndexRequest;
+import software.amazon.awssdk.services.kendra.model.CreateIndexResponse;
+import software.amazon.awssdk.services.kendra.model.DataSourceConfiguration;
+import software.amazon.awssdk.services.kendra.model.DataSourceStatus;
+import software.amazon.awssdk.services.kendra.model.DataSourceSyncJob;
+import software.amazon.awssdk.services.kendra.model.DataSourceSyncJobStatus;
+import software.amazon.awssdk.services.kendra.model.DataSourceType;
+import software.amazon.awssdk.services.kendra.model.DescribeDataSourceRequest;
+import software.amazon.awssdk.services.kendra.model.DescribeDataSourceResponse;
+import software.amazon.awssdk.services.kendra.model.DescribeIndexRequest;
+import software.amazon.awssdk.services.kendra.model.DescribeIndexResponse;
+import software.amazon.awssdk.services.kendra.model.IndexStatus;
+import software.amazon.awssdk.services.kendra.model.ListDataSourceSyncJobsRequest;
+import software.amazon.awssdk.services.kendra.model.ListDataSourceSyncJobsResponse;
+import software.amazon.awssdk.services.kendra.model.S3DataSourceConfiguration;
+import software.amazon.awssdk.services.kendra.model.StartDataSourceSyncJobRequest;
+import software.amazon.awssdk.services.kendra.model.StartDataSourceSyncJobResponse;
+
+public class CreateDataSourceWithCustomizationsExample <span>{</span>
+
+    public static void main(String[] args) throws InterruptedException <span>{</span>
+        System.out.println("Create a data source with customizations");
+        
+        String dataSourceName = "data-source-name";
+        String indexId = "index-id";
+        String dataSourceRoleArn = "arn:aws:iam::account-id:role/role-name";
+        String s3BucketName = "S3-bucket-name"
+
+        KendraClient kendra = KendraClient.builder().build();
+        
+        CreateDataSourceRequest createDataSourceRequest = CreateDataSourceRequest
+            .builder()
+            .name(dataSourceName)
+            .description(experienceDescription)
+            .roleArn(experienceRoleArn)
+            .type(DataSourceType.S3)
+            .configuration(
+                DataSourceConfiguration
+                    .builder()
+                    .s3Configuration(
+                        S3DataSourceConfiguration
+                            .builder()
+                            .bucketName(s3BucketName)
+                            .build()
+                    ).build()
+            )
+            .customDocumentEnrichmentConfiguration(
+                CustomDocumentEnrichmentConfiguration
+                    .builder()
+                    .inlineConfigurations(Arrays.asList(
+                        InlineCustomDocumentEnrichmentConfiguration
+                            .builder()
+                            .target(
+                                DocumentAttributeTarget
+                                    .builder()
+                                    .targetDocumentAttributeKey("Customer_ID")
+                                    .targetDocumentAttributeValueDeletion(true)
+                                    .build())
+                            .build()
+                    )).build();
+        
+        CreateDataSourceResponse createDataSourceResponse = kendra.createDataSource(createDataSourceRequest);
+        System.out.println(String.format("Response of creating data source: %s", createDataSourceResponse));
+
+        String dataSourceId = createDataSourceResponse.id();
+        System.out.println(String.format("Waiting for Kendra to create the data source %s", dataSourceId));
+        DescribeDataSourceRequest describeDataSourceRequest = DescribeDataSourceRequest
+            .builder()
+            .indexId(indexId)
+            .id(dataSourceId)
+            .build();
+
+        while (true) <span>{</span>
+            DescribeDataSourceResponse describeDataSourceResponse = kendra.describeDataSource(describeDataSourceRequest);
+
+            DataSourceStatus status = describeDataSourceResponse.status();
+            System.out.println(String.format("Creating data source. Status: %s", status));
+            TimeUnit.SECONDS.sleep(60);
+            if (status != DataSourceStatus.CREATING) <span>{</span>
+                break;
+            }
+        }
+
+        System.out.println(String.format("Synchronize the data source %s", dataSourceId));
+        StartDataSourceSyncJobRequest startDataSourceSyncJobRequest = StartDataSourceSyncJobRequest
+            .builder()
+            .indexId(indexId)
+            .id(dataSourceId)
+            .build();
+        StartDataSourceSyncJobResponse startDataSourceSyncJobResponse = kendra.startDataSourceSyncJob(startDataSourceSyncJobRequest);
+        System.out.println(String.format("Waiting for the data source to sync with the index %s for execution ID %s", indexId, startDataSourceSyncJobResponse.executionId()));
+
+        // For this example, there should be one job
+        ListDataSourceSyncJobsRequest listDataSourceSyncJobsRequest = ListDataSourceSyncJobsRequest
+            .builder()
+            .indexId(indexId)
+            .id(dataSourceId)
+            .build();
+
+        while (true) <span>{</span>
+            ListDataSourceSyncJobsResponse listDataSourceSyncJobsResponse = kendra.listDataSourceSyncJobs(listDataSourceSyncJobsRequest);
+            DataSourceSyncJob job = listDataSourceSyncJobsResponse.history().get(0);
+            System.out.println(String.format("Syncing data source. Status: %s", job.status()));
+
+            TimeUnit.SECONDS.sleep(60);
+            if (job.status() != DataSourceSyncJobStatus.SYNCING) <span>{</span>
+                break;
+            }
+
+        }
+
+        System.out.println("Data source creation with customizations is complete");
+    }
+}</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+     
+        <h2 id="advanced-data-manipulation">Lambda 関数:メタデータまたはコンテンツの抽出と変更</h2>
+        <p>Lambda 関数を使用して、ドキュメントのフィールドとコンテンツを操作できます。これは、基本ロジックを超えて高度なデータ操作を適用する場合に便利です。例えば、画像上のテキストを解釈し、各画像をテキストドキュメントとして扱う、光学文字認識 (OCR) を使用します。または、特定のタイムゾーンで現在の日付/時間を取得し、日付フィールドに空の値がある日付/時刻を挿入します。</p>
+        <p>まず基本ロジックを適用し、Lambda 関数を使用してデータをさらに操作できます。また、Lambda 関数 Lambda 関数だけを適用することもできます。</p>
+        <p>Amazon Kendraは、Lambda 関数を呼び出して、取り込みプロセス中に高度なデータ操作を適用できます<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CustomDocumentEnrichmentConfiguration.html">CustomDocumentEnrichmentConfiguration</a>。Lambda 関数を実行し、Amazon S3<a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html">バケットにアクセスしてデータ操作の出力を保存する許可を含むロールを指定します。IAMアクセスロール</a>を参照してください。</p>
+        <p>Amazon Kendra元の未加工のドキュメント、または構造化された解析済みドキュメントに Lambda 関数を適用できます。元のデータまたは raw データを受け取り、データ操作を適用する Lambda 関数を構成できます<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CustomDocumentEnrichmentConfiguration.html">PreExtractionHookConfiguration</a>。また、構造化ドキュメントを受け取り、を使用してデータ操作を適用する Lambda 関数を構成することもできます<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CustomDocumentEnrichmentConfiguration.html">PostExtractionHookConfiguration</a>。 Amazon Kendraドキュメントのメタデータとテキストを抽出してドキュメントを構造化します。Lambda 関数は、必須のリクエストとレスポンスの構造に従う必要があります。詳細については、「<a href="#cde-data-contracts-lambda">Lambda 関数のデータ制約</a>」を参照してください。</p>
+        <p>コンソールで Lambda 関数を設定するには、インデックスを選択し、ナビゲーションメニューの <b>[Document enrichments]</b> (ドキュメントのエンリッチメント) を選択します。<b>[Configure Lambda functions]</b> (Lambda 関数の設定) をクリックして、Lambda 関数を設定します。</p>
+        <p><code class="code">PreExtractionHookConfiguration</code> に設定できる Lambda 関数は 1 つのみ、<code class="code">PostExtractionHookConfiguration</code> に設定できる Lambda 関数も 1 つのみです。ただし、Lambda 関数は必要とする他の関数を呼び出すことができます。<code class="code">PreExtractionHookConfiguration</code> および <code class="code">PostExtractionHookConfiguration</code> の両方またはいずれか 1 つを設定できます。<code class="code">PreExtractionHookConfiguration</code> の Lambda 関数の実行時間が 5 分を超えないよう、また、<code class="code">PostExtractionHookConfiguration</code> の Lambda 関数の実行時間が 1 分を超えないようにしてください。Custom Document Enrichment の設定は、Amazon Kendraこれを設定しない場合よりも、ドキュメントの取り込みに時間がかかります。</p>
+        <p>条件が満たされた場合にのみ LambdaAmazon Kendra 関数を呼び出すように設定できます。例えば、空の日付/時間値がある場合、Amazon Kendra現在の日付/時間を挿入する関数を呼び出す必要があるという条件を指定できます。</p>
+        <p>次に、Lambda 関数を使用して OCR を実行して画像からテキストを解釈し、このテキストを「Document_Image_Text」というフィールドに保存する例を示します。</p>
+        <p><b>例 1: 画像からテキストを抽出してテキストドキュメントを作成する</b></p>
+        <p>高度な操作が適用される前のデータ。</p>
+        <div class="table-container"><div class="table-contents"><table id="w1460aac27c15c23"><thead>
+                    <tr>
+                        <th><b>Document_ID</b></th>
+                        <th><b>Document_Image</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>image_1.png</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>image_2.png</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>image_3.png</td>
+                    </tr>
+                </table></div></div>
+        <p>高度な操作が適用された後のデータ。</p>
+        <div class="table-container"><div class="table-contents"><table id="w1460aac27c15c27"><thead>
+                    <tr>
+                        <th><b>Document_ID</b></th>
+                        <th><b>Document_Image</b></th>
+                        <th><b>Document_Image_Text</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>image_1.png</td>
+                        <td>メールでのアンケートの回答</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>image_2.png</td>
+                        <td>メールでのアンケートの回答</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>image_3.png</td>
+                        <td>メールでのアンケートの回答</td>
+                    </tr>
+                </table></div></div>
+        <p>次に、Lambda 関数を使用して、空の日付値に対する現在の日付/時間を挿入する例を示します。これは、日付フィールドの値が「null」の場合、これを現在の日付/時刻に置き換えるという条件を使用します。</p>
+        <p><b>例 2: Last_Updated フィールドの空の値を、現在の日付/時間で置き換える。</b></p>
+        <p>高度な操作が適用される前のデータ。</p>
+        <div class="table-container"><div class="table-contents"><table id="w1460aac27c15c35"><thead>
+                    <tr>
+                        <th><b>Document_ID</b></th>
+                        <th><b>Body_Text</b></th>
+                        <th><b>Last_Updated</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>2020 日日日日日日日日</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Lorem Ipsum.</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>2020 年 7 月 1 日</td>
+                    </tr>
+                </table></div></div>
+        <p>高度な操作が適用された後のデータ。</p>
+        <div class="table-container"><div class="table-contents"><table id="w1460aac27c15c39"><thead>
+                    <tr>
+                        <th><b>Document_ID</b></th>
+                        <th><b>Body_Text</b></th>
+                        <th><b>Last_Updated</b></th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>1</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>2020 日日日日日日日日</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>2021 年 12 月 1 日</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Lorem Ipsum.</td>
+                        <td>2020 年 7 月 1 日</td>
+                    </tr>
+                </table></div></div>
+        <p>次のコードは、raw の元のデータに対して高度なデータ操作のための Lambda 関数を設定する例です。</p>
+        <awsdocs-tabs><dl style="display: none">
+            <dt>Console</dt><dd tab-id="console">
+                    
+                    <div class="procedure"><h6>raw の元のデータに対して高度なデータ操作のための Lambda 関数を設定するには</h6><ol><li>
+                            <p>左側のナビゲーションペインの <b>[Indexes]</b> (インデックス) で、<b>[Document enrichments]</b> (ドキュメントのエンリッチメント) を選択して、<b>[Add document enrichment]</b> (ドキュメントのエンリッチメントを追加) を選択します。</p>
+                        </li><li>
+                            <p>[Lambda for pre-extraction] (<b>Lambda</b> for pre-extraction] (<b>Lambda for pre-extraction] (Lambda for pre-extraction</b>] (Lambda for pre-extraction] (Lambda for pre-extraction] (Lambda for pre-extraction] (Lambda forAmazon S3 pre-extraction] ( ドロップダウンから新しいロールを作成するオプションを選択して、IAMアクセスロールを追加します。これにより、Amazon Kendraドキュメントエンリッチメントを作成するために必要な権限が作成されます。</p>
+                        </li></ol></div>
+                </dd>
+            <dt>CLI</dt><dd tab-id="cli">
+                    <p><b>raw の元のデータに対して高度なデータ操作のための Lambda 関数を設定するには</b></p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra create-data-source \
+ --name <code class="replaceable">data-source-name</code> \
+ --index-id <code class="replaceable">index-id</code> \
+ --role-arn <code class="replaceable">arn:aws:iam::account-id:role/role-name</code> \
+ --type S3 \
+ --configuration '<span>{</span>"S3Configuration":<span>{</span>"BucketName":"<code class="replaceable">S3-bucket-name</code>"}}' \
+ --custom-document-enrichment-configuration '<span>{</span>"PreExtractionHookConfiguration":<span>{</span>"LambdaArn":"<code class="replaceable">arn:aws:iam::account-id:function/function-name</code>", "S3Bucket":"<code class="replaceable">S3-bucket-name</code>"}, "RoleArn": "<code class="replaceable">arn:aws:iam:account-id:role/cde-role-name</code>"}'
+</code></pre>
+                </dd>
+            <dt>Python</dt><dd tab-id="python">
+                    <p><b>raw の元のデータに対して高度なデータ操作のための Lambda 関数を設定するには</b></p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import boto3&#xD;
+from botocore.exceptions import ClientError&#xD;
+import pprint&#xD;
+import time&#xD;
+&#xD;
+kendra = boto3.client("kendra")&#xD;
+&#xD;
+print("Create a data source with customizations.")&#xD;
+&#xD;
+# Provide the name of the data source&#xD;
+name = "data-source-name"&#xD;
+# Provide the index ID for the data source&#xD;
+index_id = "index-id"&#xD;
+# Provide the IAM role ARN required for data sources&#xD;
+role_arn = "arn:aws:iam::$<span>{</span>account-id}:role/$<span>{</span>role-name}"&#xD;
+# Provide the data source connection information&#xD;
+data_source_type = "S3"&#xD;
+S3_bucket_name = "S3-bucket-name"&#xD;
+# Configure the data source with Custom Document Enrichment&#xD;
+configuration = <span>{</span>"S3Configuration":&#xD;
+        <span>{</span>&#xD;
+            "BucketName": S3_bucket_name&#xD;
+        }&#xD;
+    }&#xD;
+custom_document_enrichment_configuration = <span>{</span>"PreExtractionHookConfiguration":&#xD;
+        <span>{</span>&#xD;
+            "LambdaArn":"arn:aws:iam::account-id:function/function-name",&#xD;
+            "S3Bucket":"S3-bucket-name"&#xD;
+        }&#xD;
+    "RoleArn":"arn:aws:iam::account-id:role/cde-role-name"&#xD;
+    }&#xD;
+&#xD;
+try:&#xD;
+    data_source_response = kendra.create_data_source(&#xD;
+        Name = name,&#xD;
+        IndexId = index_id,&#xD;
+        RoleArn = role_arn,&#xD;
+        Type = data_source_type&#xD;
+        Configuration = configuration&#xD;
+        CustomDocumentEnrichmentConfiguration = custom_document_enrichment_configuration&#xD;
+    )&#xD;
+&#xD;
+    pprint.pprint(data_source_response)&#xD;
+&#xD;
+    data_source_id = data_source_response["Id"]&#xD;
+&#xD;
+    print("Wait for Amazon Kendra to create the data source with your customizations.")&#xD;
+&#xD;
+    while True:&#xD;
+        # Get the details of the data source, such as the status&#xD;
+        data_source_description = kendra.describe_data_source(&#xD;
+            Id = data_source_id,&#xD;
+            IndexId = index_id&#xD;
+        )&#xD;
+        status = data_source_description["Status"]&#xD;
+        print(" Creating data source. Status: "+status)&#xD;
+        time.sleep(60)&#xD;
+        if status != "CREATING":&#xD;
+            break&#xD;
+&#xD;
+    print("Synchronize the data source.")&#xD;
+&#xD;
+    sync_response = kendra.start_data_source_sync_job(&#xD;
+        Id = data_source_id,&#xD;
+        IndexId = index_id&#xD;
+    )&#xD;
+&#xD;
+    pprint.pprint(sync_response)&#xD;
+&#xD;
+    print("Wait for the data source to sync with the index.")&#xD;
+&#xD;
+    while True:&#xD;
+&#xD;
+        jobs = kendra.list_data_source_sync_jobs(&#xD;
+            Id = data_source_id,&#xD;
+            IndexId = index_id&#xD;
+        )&#xD;
+&#xD;
+        # For this example, there should be one job&#xD;
+        status = jobs["History"][0]["Status"]&#xD;
+&#xD;
+        print(" Syncing data source. Status: "+status)&#xD;
+        time.sleep(60)&#xD;
+        if status != "SYNCING":&#xD;
+            break&#xD;
+&#xD;
+except  ClientError as e:&#xD;
+        print("%s" % e)&#xD;
+&#xD;
+print("Program ends.")&#xD;
+</code></pre>
+                </dd>
+            <dt>Java</dt><dd tab-id="java">
+                    <p><b>raw の元のデータに対して高度なデータ操作のための Lambda 関数を設定するには</b></p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">package com.amazonaws.kendra;
+
+import java.util.concurrent.TimeUnit;
+import software.amazon.awssdk.services.kendra.KendraClient;
+import software.amazon.awssdk.services.kendra.model.CreateDataSourceRequest;
+import software.amazon.awssdk.services.kendra.model.CreateDataSourceResponse;
+import software.amazon.awssdk.services.kendra.model.CreateIndexRequest;
+import software.amazon.awssdk.services.kendra.model.CreateIndexResponse;
+import software.amazon.awssdk.services.kendra.model.DataSourceConfiguration;
+import software.amazon.awssdk.services.kendra.model.DataSourceStatus;
+import software.amazon.awssdk.services.kendra.model.DataSourceSyncJob;
+import software.amazon.awssdk.services.kendra.model.DataSourceSyncJobStatus;
+import software.amazon.awssdk.services.kendra.model.DataSourceType;
+import software.amazon.awssdk.services.kendra.model.DescribeDataSourceRequest;
+import software.amazon.awssdk.services.kendra.model.DescribeDataSourceResponse;
+import software.amazon.awssdk.services.kendra.model.DescribeIndexRequest;
+import software.amazon.awssdk.services.kendra.model.DescribeIndexResponse;
+import software.amazon.awssdk.services.kendra.model.IndexStatus;
+import software.amazon.awssdk.services.kendra.model.ListDataSourceSyncJobsRequest;
+import software.amazon.awssdk.services.kendra.model.ListDataSourceSyncJobsResponse;
+import software.amazon.awssdk.services.kendra.model.S3DataSourceConfiguration;
+import software.amazon.awssdk.services.kendra.model.StartDataSourceSyncJobRequest;
+import software.amazon.awssdk.services.kendra.model.StartDataSourceSyncJobResponse;
+
+
+public class CreateDataSourceWithCustomizationsExample <span>{</span>
+
+    public static void main(String[] args) throws InterruptedException <span>{</span>
+        System.out.println("Create a data source with customizations");
+        
+        String dataSourceName = "data-source-name";
+        String indexId = "index-id";
+        String dataSourceRoleArn = "arn:aws:iam::account-id:role/role-name";
+        String s3BucketName = "S3-bucket-name"
+
+        KendraClient kendra = KendraClient.builder().build();
+        
+        CreateDataSourceRequest createDataSourceRequest = CreateDataSourceRequest
+            .builder()
+            .name(dataSourceName)
+            .description(experienceDescription)
+            .roleArn(experienceRoleArn)
+            .type(DataSourceType.S3)
+            .configuration(
+                DataSourceConfiguration
+                    .builder()
+                    .s3Configuration(
+                        S3DataSourceConfiguration
+                            .builder()
+                            .bucketName(s3BucketName)
+                            .build()
+                    ).build()
+            )
+            .customDocumentEnrichmentConfiguration(
+                CustomDocumentEnrichmentConfiguration
+                    .builder()
+                    .preExtractionHookConfiguration(
+                        HookConfiguration
+                            .builder()
+                            .lambdaArn("arn:aws:iam::account-id:function/function-name")
+                            .s3Bucket("S3-bucket-name")
+                            .build())
+                    .roleArn("arn:aws:iam::account-id:role/cde-role-name")
+                    .build();
+        
+        CreateDataSourceResponse createDataSourceResponse = kendra.createDataSource(createDataSourceRequest);
+        System.out.println(String.format("Response of creating data source: %s", createDataSourceResponse));
+
+        String dataSourceId = createDataSourceResponse.id();
+        System.out.println(String.format("Waiting for Kendra to create the data source %s", dataSourceId));
+        DescribeDataSourceRequest describeDataSourceRequest = DescribeDataSourceRequest
+            .builder()
+            .indexId(indexId)
+            .id(dataSourceId)
+            .build();
+
+        while (true) <span>{</span>
+            DescribeDataSourceResponse describeDataSourceResponse = kendra.describeDataSource(describeDataSourceRequest);
+
+            DataSourceStatus status = describeDataSourceResponse.status();
+            System.out.println(String.format("Creating data source. Status: %s", status));
+            TimeUnit.SECONDS.sleep(60);
+            if (status != DataSourceStatus.CREATING) <span>{</span>
+                break;
+            }
+        }
+
+        System.out.println(String.format("Synchronize the data source %s", dataSourceId));
+        StartDataSourceSyncJobRequest startDataSourceSyncJobRequest = StartDataSourceSyncJobRequest
+            .builder()
+            .indexId(indexId)
+            .id(dataSourceId)
+            .build();
+        StartDataSourceSyncJobResponse startDataSourceSyncJobResponse = kendra.startDataSourceSyncJob(startDataSourceSyncJobRequest);
+        System.out.println(String.format("Waiting for the data source to sync with the index %s for execution ID %s", indexId, startDataSourceSyncJobResponse.executionId()));
+
+        // For this example, there should be one job
+        ListDataSourceSyncJobsRequest listDataSourceSyncJobsRequest = ListDataSourceSyncJobsRequest
+            .builder()
+            .indexId(indexId)
+            .id(dataSourceId)
+            .build();
+
+        while (true) <span>{</span>
+            ListDataSourceSyncJobsResponse listDataSourceSyncJobsResponse = kendra.listDataSourceSyncJobs(listDataSourceSyncJobsRequest);
+            DataSourceSyncJob job = listDataSourceSyncJobsResponse.history().get(0);
+            System.out.println(String.format("Syncing data source. Status: %s", job.status()));
+
+            TimeUnit.SECONDS.sleep(60);
+            if (job.status() != DataSourceSyncJobStatus.SYNCING) <span>{</span>
+                break;
+            }
+
+        }
+
+        System.out.println("Data source creation with customizations is complete");
+    }
+}</code></pre>
+                </dd>
+        </dl></awsdocs-tabs>
+     
+        <h2 id="cde-data-contracts-lambda">Lambda 関数のデータ制約</h2>
+        <p>高度なデータ操作のための Lambda 関数は、Amazon Kendraデータコントラクトと連携します。制約は、Lambda 関数の必須のリクエストとレスポンスの構造です。Lambda 関数がこれらの構造に従わない場合Amazon Kendra、エラーが発生します。</p>
+        <p><code class="code">PreExtractionHookConfiguration</code> の Lambda 関数は、次のリクエスト構造を期待します。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "version": &lt;str&gt;,
+    "dataBlobStringEncodedInBase64": &lt;str&gt;, //In the case of a data blob
+    "s3Bucket": &lt;str&gt;, //In the case of an S3 bucket
+    "s3ObjectKey": &lt;str&gt;, //In the case of an S3 bucket
+    "metadata": &lt;Metadata&gt;
+}</code></pre>
+        <p><code class="code">metadata</code> 構造。これには、つぎの <code class="code">CustomerDocumentAttribute</code> 構造を含みます。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "attributes": [&lt;CustomerDocumentAttribute&lt;]
+}
+
+CustomerDocumentAttribute
+<span>{</span>
+    "name": &lt;str&gt;,
+    "value": &lt;CustomerDocumentAttributeValue&gt;
+}
+
+CustomerDocumentAttributeValue
+<span>{</span>
+    "stringValue": &lt;str&gt;,
+    "integerValue": &lt;int&gt;,
+    "longValue": &lt;long&gt;,
+    "stringListValue": list&lt;str&gt;,
+    "dateValue": &lt;str&gt;
+}</code></pre>
+        <p><code class="code">PreExtractionHookConfiguration</code> の Lambda 関数は、以下のレスポンス構造に従う必要があります。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "version": &lt;str&gt;,
+    "dataBlobStringEncodedInBase64": &lt;str&gt;, //In the case of a data blob
+    "s3ObjectKey": &lt;str&gt;, //In the case of an S3 bucket
+    "metadataUpdates": [&lt;CustomDocumentAttribute&gt;]
+}</code></pre>
+        <p><code class="code">PostExtractionHookConfiguration</code> の Lambda 関数は、次のリクエスト構造を期待します。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "version": &lt;str&gt;,
+    "s3Bucket": &lt;str&gt;,
+    "s3ObjectKey": &lt;str&gt;,
+    "metadata": &lt;Metadata&gt;
+}</code></pre>
+        <p><code class="code">PostExtractionHookConfiguration</code> の Lambda 関数は、以下のレスポンス構造に従う必要があります。</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">PostExtractionHookConfiguration Lambda Response
+<span>{</span>
+    "version": &lt;str&gt;,
+    "s3ObjectKey": &lt;str&gt;,
+    "metadataUpdates": [&lt;CustomDocumentAttribute&gt;]
+}</code></pre>
+        <p>Amazon S3変更されたドキュメントがバケットにアップロードされます。変更されたドキュメントは、<a href="#structured-document-format">構造化ドキュメントの形式</a> に示す形式に従う必要があります。</p>
+         
+            <h3 id="structured-document-format">構造化ドキュメントの形式</h3>
+            <p>Amazon KendraAmazon S3構造化ドキュメントを指定されたバケットにアップロードします。構造化ドキュメントは、次の形式に従います。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">Kendra document
+
+<span>{</span>
+   "textContent": &lt;TextContent&gt;
+}
+
+TextContent
+<span>{</span>
+  "documentBodyText": &lt;str&gt;
+}</code></pre>
+         
+         
+            <h3 id="example-lambda-function-advanced-manipulation">データ制約に準拠する Lambda 関数の例</h3>
+            <p>次の Python コードは、メタデータフィールド <code class="code">_authors</code>、<code class="code">_document_title</code> および raw の元のドキュメントの本文の高度な操作を適用する Lambda 関数の例です。</p>
+            <p><b>Amazon S3本文がバケツに存在する場合</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import json&#xD;
+import boto3&#xD;
+     &#xD;
+s3 = boto3.client("s3")&#xD;
+&#xD;
+# Lambda function for advanced data manipulation    &#xD;
+def lambda_handler(event, context):&#xD;
+    # Get the value of "S3Bucket" key name or item from the given event input&#xD;
+    s3_bucket = event.get("s3Bucket")&#xD;
+    # Get the value of "S3ObjectKey" key name or item from the given event input&#xD;
+    s3_object_key = event.get("s3ObjectKey")&#xD;
+    &#xD;
+    content_object_before_CDE = s3.get_object(Bucket = s3_bucket, Key = s3_object_key)&#xD;
+    content_before_CDE = content_object_before_CDE["Body"].read().decode("utf-8");&#xD;
+    content_after_CDE = "CDEInvolved " + content_before_CDE&#xD;
+    &#xD;
+    # Get the value of "metadata" key name or item from the given event input&#xD;
+    metadata = event.get("metadata")&#xD;
+    # Get the document "attributes" from the metadata &#xD;
+    document_attributes = metadata.get("attributes")&#xD;
+    &#xD;
+    s3.put_object(Bucket = s3_bucket, Key = "dummy_updated_kendra_document", Body=json.dumps(content_after_CDE))&#xD;
+    return <span>{</span>&#xD;
+        "version": "v0",&#xD;
+        "s3ObjectKey": "dummy_updated_kendra_document",&#xD;
+        "metadataUpdates": [&#xD;
+            <span>{</span>"name":"_document_title", "value":<span>{</span>"stringValue":"title_from_pre_extraction_lambda"}},&#xD;
+            <span>{</span>"name":"_authors", "value":<span>{</span>"stringListValue":["author1", "author2"]}}&#xD;
+        ]&#xD;
+    }</code></pre>
+            <p><b>本文がデータ BLOB に存在する場合</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import json&#xD;
+import boto3&#xD;
+import base64&#xD;
+&#xD;
+# Lambda function for advanced data manipulation&#xD;
+def lambda_handler(event, context):&#xD;
+    &#xD;
+    # Get the value of "dataBlobStringEncodedInBase64" key name or item from the given event input &#xD;
+    data_blob_string_encoded_in_base64 = event.get("dataBlobStringEncodedInBase64")&#xD;
+    # Decode the data blob string in UTF-8&#xD;
+    data_blob_string = base64.b64decode(data_blob_string_encoded_in_base64).decode("utf-8")&#xD;
+    # Get the value of "metadata" key name or item from the given event input    &#xD;
+    metadata = event.get("metadata")&#xD;
+    # Get the document "attributes" from the metadata&#xD;
+    document_attributes = metadata.get("attributes")&#xD;
+    &#xD;
+    new_data_blob = "This should be the modified data in the document by pre processing lambda ".encode("utf-8")&#xD;
+    return <span>{</span>&#xD;
+        "version": "v0",&#xD;
+        "dataBlobStringEncodedInBase64": base64.b64encode(new_data_blob).decode("utf-8"),&#xD;
+        "metadataUpdates": [&#xD;
+            <span>{</span>"name":"_document_title", "value":<span>{</span>"stringValue":"title_from_pre_extraction_lambda"}},&#xD;
+            <span>{</span>"name":"_authors", "value":<span>{</span>"stringListValue":["author1", "author2"]}}&#xD;
+        ]&#xD;
+    }</code></pre>
+            <p>次の Python コードは、メタデータフィールド <code class="code">_authors</code>、<code class="code">_document_title</code> および構造化されたドキュメントまたは解析済みのドキュメントの本文の高度な操作を適用する Lambda 関数の例です。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import json&#xD;
+import boto3&#xD;
+import time&#xD;
+&#xD;
+s3 = boto3.client("s3")&#xD;
+&#xD;
+# Lambda function for advanced data manipulation&#xD;
+def lambda_handler(event, context):&#xD;
+    &#xD;
+    # Get the value of "S3Bucket" key name or item from the given event input&#xD;
+    s3_bucket = event.get("s3Bucket")&#xD;
+    # Get the value of "S3ObjectKey" key name or item from the given event input&#xD;
+    s3_key = event.get("s3ObjectKey")&#xD;
+    # Get the value of "metadata" key name or item from the given event input&#xD;
+    metadata = event.get("metadata")&#xD;
+    # Get the document "attributes" from the metadata &#xD;
+    document_attributes = metadata.get("attributes")&#xD;
+    &#xD;
+    kendra_document_object = s3.get_object(Bucket = s3_bucket, Key = s3_key)&#xD;
+    kendra_document_string = kendra_document_object['Body'].read().decode('utf-8')&#xD;
+    kendra_document = json.loads(kendra_document_string)&#xD;
+    kendra_document["textContent"]["documentBodyText"] = "Changing document body to a short sentence."&#xD;
+    &#xD;
+    s3.put_object(Bucket = s3_bucket, Key = "dummy_updated_kendra_document", Body=json.dumps(kendra_document))&#xD;
+&#xD;
+    return <span>{</span>&#xD;
+        "version" : "v0",&#xD;
+        "s3ObjectKey": "dummy_updated_kendra_document",&#xD;
+        "metadataUpdates": [&#xD;
+            <span>{</span>"name": "_document_title", "value":<span>{</span>"stringValue": "title_from_post_extraction_lambda"}},&#xD;
+            <span>{</span>"name": "_authors", "value":<span>{</span>"stringListValue":["author1", "author2"]}}&#xD;
+        ]&#xD;
+    }</code></pre>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./delete-data-source.html">データソースの削除</div><div id="next" class="next-link" accesskey="n" href="./searching.html">インデックスの検索</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/custom-document-enrichment.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

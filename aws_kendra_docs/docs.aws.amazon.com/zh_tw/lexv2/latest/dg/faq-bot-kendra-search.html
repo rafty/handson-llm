@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>範例：為 Amazon Kendra 索引建立常見問題集機器人 - Amazon Lex</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="faq-bot-kendra-search" /><meta name="default_state" content="faq-bot-kendra-search" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="description" content="此範例會建立 Amazon Lex V2 機器人，該機器人使用 Amazon Kendra 索引來提供使用者問題的答案。常見問題機器人會管理使用者的對話方塊。它使用 AMAZON.KendraSearchIntent 意圖來查詢索引，並向使用者呈現回應。以下是如何使用 Amazon Kendra 索引建立常見問題集機器人的摘要：" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Lex" /><meta name="guide" content="V2 開發者指南" /><meta name="abstract" content="提供 Amazon Lex V2 的概念性概觀。包含使用各種功能 (例如串流交談) 的詳細說明，並提供 V2 API 的完整參考資料。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/lexv2/latest/dg/faq-bot-kendra-search.html" hreflang="x-default" /><meta name="feedback-item" content="Lex" /><meta name="this_doc_product" content="Amazon Lex" /><meta name="this_doc_guide" content="V2 開發者指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'lex'}"></script><meta id="panorama-serviceSubSection" value="V2 開發者指南" /><meta id="panorama-serviceConsolePage" value="範例：為 Amazon Kendra 索引建立常見問題集機器人" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>範例：為 Amazon Kendra 索引建立常見問題集機器人 - Amazon Lex</title><meta name="pdf" content="lex2.0.pdf#faq-bot-kendra-search" /><meta name="rss" content="amazon-lex-v2-document-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=251" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=http://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Lex",
+        "item" : "https://docs.aws.amazon.com/lex/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "V2 開發者指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "建築機器人",
+        "item" : "https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/building-bots.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "內建意圖和插槽類型",
+        "item" : "https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/built-in.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "內建槽",
+        "item" : "https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/howitworks-builtins-intents.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "亞馬遜。 KendraSearchIntent",
+        "item" : "https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/built-in-intent-kendra-search.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "範例：為 Amazon Kendra 索引建立常見問題集機器人",
+        "item" : "https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/built-in-intent-kendra-search.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="lex2.0.pdf#faq-bot-kendra-search" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/lex/index.html">Amazon Lex</a><a href="what-is.html">V2 開發者指南</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>本文為英文版的機器翻譯版本，如內容有任何歧義或不一致之處，概以英文版為準。</p></awsui-alert><h1 class="topictitle" id="faq-bot-kendra-search">範例：為 Amazon Kendra 索引建立常見問題集機器人</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>此範例會建立 Amazon Lex V2 機器人，該機器人使用 Amazon Kendra 索引來提供使用者問題的答案。常見問題機器人會管理使用者的對話方塊。它使用 <code class="code">AMAZON.KendraSearchIntent</code> 意圖來查詢索引，並向使用者呈現回應。以下是如何使用 Amazon Kendra 索引建立常見問題集機器人的摘要：</p><div class="orderedlist">
+                     
+                     
+                     
+                     
+                <ol><li>
+                        <p>建立機器人，讓您的客戶與其互動以從機器人取得答案。</p>
+                    </li><li>
+                        <p>建立自訂意圖。由於<code class="code">AMAZON.KendraSearchIntent</code>和<code class="code">AMAZON.FallbackIntent</code>是備份意圖，您的機器人至少需要一個其他意圖，且必須包含至少一個語音。此意圖讓您的機器人可以建置，但不會用於其他用途。因此，您的常見問題解答機器人將包含至少三個意圖，如下圖所示：</p>
+                            
+                        <div class="mediaobject">
+                             
+                                <img src="images/kendra-faqbot/kendra-intents.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                具有三個意圖的 Kendra 常見問題解答機器人&#xA;                            " />
+                             
+                             
+                        </div>
+                    </li><li>
+                        <p>將<code class="code">AMAZON.KendraSearchIntent</code>意圖新增至您的機器人，並將其設定為與 <a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index.html">Amazon Kendra 索引</a>搭配使用。</p>
+                    </li><li>
+                        <p>透過進行查詢來測試機器人，並驗證 Amazon Kendra 索引的結果是可回答查詢的文件。</p>
+                    </li></ol></div><p><b>先決條件</b></p><p>您必須先建立 Amazon Kendra 索引。如需詳細資訊，請參<a href="https://docs.aws.amazon.com/kendra/latest/dg/gs-console.html">閱 Amazon Kendra 開<em>發人員指南中的開始使用 Amazon Kendra</em> 主控台</a>。在此範例中，選擇範例資料集 (<b>範例 AWS 文件</b>) 做為您的資料來源。</p><div class="procedure"><h6>若要建立常見問題集機器人：</h6><ol><li><p>登入，AWS Management Console並在 <a href="https://console.aws.amazon.com/lex/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/lex/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> 開啟 Amazon Lex 主控台。</p></li><li>
+                        <p>在導覽窗格中，選擇 <b>Bots (機器人)</b>。</p>
+                    </li><li>
+                        <p>選擇<b>建立機器人</b>。</p>
+                        <ol><li>
+                                <p> 對於 [建<b>立] 方法</b>，選擇 [<b>建立空白機器人</b>]。</p>
+                            </li><li>
+                                <p> 在「<b>機器人設定</b>」區段中，為機器人指定其用途的名稱，例如<code class="userinput">KendraTestBot</code>，以及選擇性描述。該名稱在您的帳戶中必須是唯一的。</p>
+                            </li><li>
+                                <p> 在 <b>IAM 許</b>可區段中，選擇<b>建立具有基本 Amazon Lex 許可的角色</b>。這將建立具有 Amazon Lex V2 執行機器人所需許可的 <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html">AWS Identity and Access Management(IAM)</a> 角色。</p>
+                            </li><li>
+                                <p> 在 [<b>兒童線上隱私權保護法案 (COPPA)</b>] 區段中，選擇 [<b>否</b>]。</p>
+                            </li><li>
+                                <p> 在 [<b>閒置工作階段逾時</b>] 和 <b>[進階設定]</b> 區段中，保留預設設定並選擇 [<b>下一步</b>]。</p>
+                            </li><li>
+                                <p> 現在，您已進入「<b>將語言添加到機器人</b>」部分中。在「<b>語音互動</b>」下方的選單中，選取「<b>無」。這只是一個基於文本的應用程序</b>。讓剩餘欄位保留預設值。</p>
+                            </li><li>
+                                <p> 選擇 <b>Done</b> (完成)。Amazon Lex V2 會建立您的機器人和呼叫的預設意圖 <b>NewIntent</b>，並帶您前往頁面以設定此意圖 </p>
+                            </li></ol>
+                    </li></ol></div><p>若要成功建置機器人，您必須至少建立一個<code class="code">AMAZON.FallbackIntent</code>與和分開的意圖<code class="code">AMAZON.KendraSearchIntent</code>。建置 Amazon Lex V2 機器人需要此目的，但不適用於常見問答集回應。此意圖必須至少包含一個樣本語言，而言語不得適用於客戶提出的任何問題。</p><div class="procedure"><h6>若要建立所需的意圖：</h6><ol><li>
+                        <p> 在「<b>意圖詳細資料</b>」區段中，為意圖命名，例如<code class="userinput">RequiredIntent</code>。</p>
+                    </li><li>
+                        <p> 在 [<b>範例語音</b>] 區段中，在 [<b>新增語音] 旁邊的方塊中輸入語</b>音，例如<code class="userinput">Required utterance</code>。然後選擇<b>添加語音</b>。</p>
+                    </li><li>
+                        <p>選擇 <b>Save intent (儲存意圖)</b>。</p>
+                    </li></ol></div><p>建立意圖以搜尋 Amazon Kendra 索引及其應傳回的回應訊息。</p><div class="procedure"><h6>要創建一個 Amazon。 KendraSearchIntent 意圖和響應消息：</h6><ol><li>
+                        <p> 在導覽窗格中選取 [返<b>回意圖] 清單</b>以返回機器人的 [<b>意圖</b>] 頁面。選擇 [<b>新增意圖</b>]，然後從下拉式選單中選取 [<b>使用內建</b>方式 </p>
+                    </li><li>
+                        <p> 在彈出的框中，選擇<b>內置意圖下的菜單。</b><code class="userinput">AMAZON.KendraSearchIntent</code>在搜索欄中輸入，然後從列表中選擇它。</p>
+                    </li><li>
+                        <p> 為意圖命名，例如<code class="userinput">KendraSearchIntent</code>。</p>
+                    </li><li>
+                        <p> 從 <b>Amazon Kendra 索引</b>下拉式功能表中，選擇您希望搜尋的 Amazon Kendra 索引。您在 [<b>必要條件</b>] 區段中建立的索引應該是可用的。</p>
+                    </li><li>
+                        <p> 選擇 <b>Add</b> (新增)。</p>
+                    </li><li>
+                        <p>在意圖編輯器中，向下捲動至「<b>出貨</b>」區段，選取向右箭號以展開區段，並在「<b>成功出貨</b>時」下方的方塊中新增下列訊息：</p>
+                        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="">I found a link to a document that could help you: ((x-amz-lex:kendra-search-response-document-link-1)).</code></pre>
+                    
+                        <div class="mediaobject">
+                             
+                                <img src="images/kendra-faqbot/kendra-fulfillment-response.gif" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                                新增履行回應&#xA;                            " />
+                             
+                             
+                        </div>
+                        
+                        <p> 如需 Amazon Kendra 搜尋回應的詳細資訊，請參閱<a href="https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-kendra-search.html#kendra-search-response">使用搜尋回應</a>。</p>
+                    
+                    </li><li>
+                        <p>選擇 <b>Save intent (儲存意圖)</b>，然後選擇 <b>Build (建置)</b> 以建置機器人。機器人準備就緒時，畫面頂端的橫幅會變成綠色，並顯示成功訊息。</p>
+                    </li></ol></div><p>最後，使用主控台測試視窗來測試您的機器人的回應。</p><div class="procedure"><h6>若要測試常見問題集機器人：</h6><ol><li>
+                        <p> 成功建置機器人之後，請選擇 [<b>測試</b>]。</p>
+                    </li><li>
+                        <p> <code class="userinput">What is Amazon Kendra?</code>在控制台測試窗口中輸入。驗證機器人是否使用連結回應。</p>
+                    </li><li>
+                        <p> 如需有關設定的詳細資訊<code class="code">AMAZON.KendraSearchIntent</code>，請參閱 <a href="https://docs.aws.amazon.com/lexv2/latest/dg/built-in-intent-kendra-search.html">AMAZON。 KendraSearchIntent</a>和<a href="https://docs.aws.amazon.com/lexv2/latest/APIReference/API_KendraConfiguration.html">KendraConfiguration</a>。</p>
+                    </li></ol></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./built-in-intent-kendra-search.html">亞馬遜。 KendraSearchIntent</div><div id="next" class="next-link" accesskey="n" href="./built-in-intent-pause.html">亞馬遜。 PauseIntent</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Lex&amp;topic_url=https://docs.aws.amazon.com/zh_tw/lexv2/latest/dg/faq-bot-kendra-search.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

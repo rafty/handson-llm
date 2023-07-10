@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Automatic provisioning - AWS IAM Identity Center (successor to AWS Single Sign-On)</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="provision-automatically" /><meta name="default_state" content="provision-automatically" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-automatically.html" /><meta name="description" content="Learn important considerations and walk through steps to configure automatic provisioning between an external identity provider and IAM Identity Center." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS IAM Identity Center (successor to AWS Single Sign-On)" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how AWS IAM Identity Center (successor to AWS Single Sign-On) can provide cloud-based single sign-on (SSO) services to all of your AWS accounts and cloud applications." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-automatically.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/singlesignon/latest/userguide/provision-automatically.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/singlesignon/latest/userguide/provision-automatically.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/singlesignon/latest/userguide/provision-automatically.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/singlesignon/latest/userguide/provision-automatically.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-automatically.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-automatically.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/singlesignon/latest/userguide/provision-automatically.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/singlesignon/latest/userguide/provision-automatically.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/singlesignon/latest/userguide/provision-automatically.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/singlesignon/latest/userguide/provision-automatically.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/singlesignon/latest/userguide/provision-automatically.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/singlesignon/latest/userguide/provision-automatically.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/singlesignon/latest/userguide/provision-automatically.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/singlesignon/latest/userguide/provision-automatically.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/singlesignon/latest/userguide/provision-automatically.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/singlesignon/latest/userguide/provision-automatically.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/singlesignon/latest/userguide/provision-automatically.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/singlesignon/latest/userguide/provision-automatically.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/singlesignon/latest/userguide/provision-automatically.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/singlesignon/latest/userguide/provision-automatically.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/singlesignon/latest/userguide/provision-automatically.html" hreflang="x-default" /><meta name="feedback-item" content="Single Sign-On (SSO)" /><meta name="this_doc_product" content="AWS IAM Identity Center (successor to AWS Single Sign-On)" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'singlesignon'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Automatic provisioning" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Automatic provisioning - AWS IAM Identity Center (successor to AWS Single Sign-On)</title><meta name="pdf" content="/pdfs/singlesignon/latest/userguide/sso-ug.pdf#provision-automatically" /><meta name="github" content="https://github.com/awsdocs/aws-single-sign-on-user-guide/tree/main/doc_source/provision-automatically.md" /><meta name="rss" content="iam-identity-center-user-guide-doc-history.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=277" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Single%20Sign-On%20%28SSO%29&amp;topic_url=http://docs.aws.amazon.com/en_us/singlesignon/latest/userguide/provision-automatically.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/singlesignon/latest/userguide/provision-automatically.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/singlesignon/latest/userguide/provision-automatically.html" /><meta name="keywords" content="Single Sign-On,Single Sign On,Single Sign-On (SSO),Single Sign On (SSO),SSO,SaaS,AWS account,federation,federated access" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS IAM Identity Center",
+        "item" : "https://docs.aws.amazon.com/singlesignon/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/singlesignon/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Workforce identities",
+        "item" : "https://docs.aws.amazon.com/singlesignon/latest/userguide/identities.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Manage your identity source",
+        "item" : "https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Connect to an external identity provider",
+        "item" : "https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-idp.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "SCIM profile and SAML 2.0 implementation",
+        "item" : "https://docs.aws.amazon.com/singlesignon/latest/userguide/scim-profile-saml.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 8,
+        "name" : "Automatic provisioning",
+        "item" : "https://docs.aws.amazon.com/singlesignon/latest/userguide/scim-profile-saml.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/singlesignon/latest/userguide/sso-ug.pdf#provision-automatically" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-single-sign-on-user-guide/tree/main/doc_source/provision-automatically.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/singlesignon/index.html">AWS IAM Identity Center</a><a href="what-is.html">User Guide</a></div><div id="page-toc-src"><a href="#auto-provisioning-considerations">Considerations for using automatic
+            provisioning</a><a href="#access-token-expiry">How to monitor access token expiry</a><a href="#how-to-with-scim">How to enable automatic provisioning</a><a href="#disable-provisioning">How to disable automatic provisioning</a><a href="#generate-token">How to generate a new access token</a><a href="#delete-token">How to delete an access token</a><a href="#rotate-token">How to rotate an access token</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="provision-automatically">Automatic provisioning</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>IAM Identity Center supports automatic provisioning (synchronization) of user and group information
+        from your identity provider (IdP) into IAM Identity Center using the System for Cross-domain Identity
+        Management (SCIM) v2.0 protocol. When you configure SCIM synchronization, you create a
+        mapping of your identity provider (IdP) user attributes to the named attributes in IAM Identity Center.
+        This causes the expected attributes to match between IAM Identity Center and your IdP. You configure this
+        connection in your IdP using your SCIM endpoint for IAM Identity Center and a bearer token that you create
+        in IAM Identity Center.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#auto-provisioning-considerations">Considerations for using automatic
+            provisioning</a></li><li><a href="#access-token-expiry">How to monitor access token expiry</a></li><li><a href="#how-to-with-scim">How to enable automatic provisioning</a></li><li><a href="#disable-provisioning">How to disable automatic provisioning</a></li><li><a href="#generate-token">How to generate a new access token</a></li><li><a href="#delete-token">How to delete an access token</a></li><li><a href="#rotate-token">How to rotate an access token</a></li></ul></div>
+        <h2 id="auto-provisioning-considerations">Considerations for using automatic
+            provisioning</h2>
+        <p>Before you begin deploying SCIM, we recommend that you first review the following
+          important considerations about how it works with IAM Identity Center. For additional provisioning
+          considerations applicable to your IdP, see <a href="./supported-idps.html">Supported identity providers</a>.</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>If you are provisioning a primary email address, this attribute value must be
+              unique for each user. In some IdPs, the primary email address might not be a real
+              email address. For example, it might be a Universal Principal Name (UPN) that only
+              looks like an email. These IdPs may have a secondary or “other” email address that
+              contains the user’s real email address. You must configure SCIM in your IdP to map the
+              non-Null unique email address to the IAM Identity Center primary email address attribute. And you
+              must map the users non-Null unique sign-in identifier to the IAM Identity Center user name
+              attribute. Check to see whether your IdP has a single value that is both the sign-in
+              identifier and the user’s email name. If so, you can map that IdP field to both the
+              IAM Identity Center primary email and the IAM Identity Center user name.</p>
+          </li><li class="listitem">
+            <p>For SCIM synchronization to work, every user must have a <b>First
+                name</b>, <b>Last name</b>, <b>Username</b> and
+                <b>Display name</b> value specified. If any of these values are
+              missing from a user, that user will not be provisioned.</p>
+          </li><li class="listitem">
+            <p>If you need to use third-party applications, you will first need to map the
+              outbound SAML subject attribute to the user name attribute. If the third-party
+              application needs a routable email address, you must provide the email attribute to
+              your IdP.</p>
+          </li><li class="listitem">
+            <p>SCIM provisioning and update intervals are controlled by your identity provider.
+              Changes to users and groups in your identity provider are only reflected in IAM Identity Center
+              after your identity provider sends those changes to IAM Identity Center. Check with your identity
+              provider for details on the frequency of user and group updates.</p>
+          </li><li class="listitem">
+            <p>Currently, multivalue attributes (such as multiple emails or phone numbers for a
+              given user) are not provisioned with SCIM. Attempts to synchronize multivalue
+              attributes into IAM Identity Center with SCIM will fail. To avoid failures, ensure that only a
+              single value is passed for each attribute. If you have users with multivalue
+              attributes, remove or modify the duplicate attribute mappings in SCIM at your IdP for
+              the connection to IAM Identity Center.</p>
+          </li><li class="listitem">
+            <p>Verify that the <code class="code">externalId</code> SCIM mapping at your IdP corresponds to a
+              value that is unique, always present, and least likely to change for your users. For
+              example, your IdP might provide a guaranteed <code class="code">objectId</code> or other identifier
+              that’s not affected by changes to user attributes like name and email. If so, you can
+              map that value to the SCIM <code class="code">externalId</code> field. This ensures that your users
+              won’t lose AWS entitlements, assignments, or permissions if you need to change their
+              name or email.</p>
+          </li><li class="listitem">
+            <p>Users who have not yet been assigned to an application or AWS account cannot be
+              provisioned into IAM Identity Center. To synchronize users and groups, make sure that they are
+              assigned to the application or other setup that represents your IdP’s connection to
+              IAM Identity Center.</p>
+          </li></ul></div>
+        <p>For more information about IAM Identity Center’s SCIM implementation, see the <a href="https://docs.aws.amazon.com/singlesignon/latest/developerguide/what-is-scim.html">IAM Identity Center SCIM Implementation Developer Guide</a>.</p>
+       
+        <h2 id="access-token-expiry">How to monitor access token expiry</h2>
+        <p>SCIM access tokens are generated with a validity of one year. When your SCIM access
+          token is set to expire in 90 days or less, AWS sends you reminders in the IAM Identity Center console
+          and over the AWS Health Dashboard to help you rotate the token. By rotating the SCIM
+          access token before it expires, you continually secure automatic provisioning of user and
+          group information. If the SCIM access token expires, the synchronization of user and group
+          information from your identity provider into IAM Identity Center stops, so automatic provisioning can no
+          longer make updates or create and delete information. Disruption to automatic provisioning
+          may impose increased security risks and impact access to your services.</p><p>The Identity Center console reminders persist until you rotate the SCIM access token and
+          delete any unused or expired access tokens. The AWS Health Dashboard events are renewed
+          weekly between 90 to 60 days, twice per week from 60 to 30 days, three times per week from
+          30 to 15 days, and daily from 15 days until the SCIM access tokens expires. </p>
+       
+        <h2 id="how-to-with-scim">How to enable automatic provisioning</h2>
+        <p>Use the following procedure to enable automatic provisioning of users and groups from
+          your IdP to IAM Identity Center using the SCIM protocol.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Before you begin this procedure, we recommend that you first review provisioning
+            considerations that are applicable to your IdP. For more information, see <a href="./supported-idps.html">Supported identity providers</a>.</p></div></div>
+        <div class="procedure"><h6>To enable automatic provisioning in IAM Identity Center</h6><ol><li>
+            <p>After you have completed the prerequisites, open the <a href="https://console.aws.amazon.com/singlesignon" rel="noopener noreferrer" target="_blank"><span>IAM Identity Center
+                console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p>
+          </li><li>
+            <p>Choose <b>Settings</b> in the left navigation pane.</p>
+          </li><li>
+            <p>On the <b>Settings</b> page, locate the <b>Automatic provisioning</b> information box, and then choose <b>Enable</b>. This
+              immediately enables automatic provisioning in IAM Identity Center and displays the necessary
+              SCIM endpoint and access token information.</p>
+          </li><li>
+            <p>In the <b>Inbound automatic provisioning</b> dialog box, copy each
+              of the values for the following options. You will need to paste these in later when
+              you configure provisioning in your IdP.</p>
+            <ol><li><p><b>SCIM endpoint</b></p></li><li><p><b>Access token</b></p></li></ol>
+          </li><li>
+            <p>Choose <b>Close</b>.</p>
+          </li></ol></div>
+        <p>After you complete this procedure, you must configure automatic provisioning in your
+          IdP. For more information, see <a href="./supported-idps.html">Supported identity providers</a>.</p>
+        
+    
+       
+        <h2 id="disable-provisioning">How to disable automatic provisioning</h2>
+        <p>Use the following procedure to disable automatic provisioning in the IAM Identity Center
+          console.</p>
+        <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>You must delete the access token before you start this procedure. For more
+            information, see <a href="#delete-token">How to delete an access token</a>.</p></div></div>
+        <div class="procedure"><h6>To disable automatic provisioning in the IAM Identity Center console</h6><ol><li>
+            <p>In the <a href="https://console.aws.amazon.com/singlesignon" rel="noopener noreferrer" target="_blank"><span>IAM Identity Center
+                console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, choose <b>Settings</b> in the left
+              navigation pane.</p>
+          </li><li>
+            <p>On the <b>Settings</b> page, choose the <b>Identity
+              source</b> tab, and then choose <b>Actions &gt; Manage provisioning</b>.</p>
+          </li><li>
+            <p>On the <b>Automatic provisioning</b> page, choose
+              <b>Disable</b>.</p>
+          </li><li>
+            <p>In the <b>Disable automatic provisioning</b> dialog box, review the
+              information, type <b>DISABLE</b>, and then choose <b>Disable
+                automatic provisioning</b>.</p>
+          </li></ol></div>
+       
+        <h2 id="generate-token">How to generate a new access token</h2>
+        <p>Use the following procedure to generate a new access token in the IAM Identity Center
+          console.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This procedure requires that you have previously enabled automatic provisioning. For more information, see 
+          <a href="#how-to-with-scim">How to enable automatic provisioning</a>.</p></div></div>
+        <div class="procedure"><h6>To generate a new access token</h6><ol><li>
+            <p>In the <a href="https://console.aws.amazon.com/singlesignon" rel="noopener noreferrer" target="_blank"><span>IAM Identity Center
+                console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, choose <b>Settings</b> in the left
+              navigation pane.</p>
+          </li><li>
+            <p>On the <b>Settings</b> page, choose the <b>Identity
+              source</b> tab, and then choose <b>Actions &gt; Manage provisioning</b>.</p>
+          </li><li>
+            <p>On the <b>Automatic provisioning</b> page, under <b>Access
+              tokens</b>, choose <b>Generate token</b>.</p>
+          </li><li>
+            <p>In the <b>Generate new access token</b> dialog box, copy the new
+              access token and save it in a safe place.</p>
+          </li><li>
+            <p>Choose <b>Close</b>.</p>
+          </li></ol></div>
+       
+        <h2 id="delete-token">How to delete an access token</h2>
+        <p>Use the following procedure to delete an existing access token in the IAM Identity Center
+          console.</p>
+        <div class="procedure"><h6>To to delete an existing access token</h6><ol><li>
+            <p>In the <a href="https://console.aws.amazon.com/singlesignon" rel="noopener noreferrer" target="_blank"><span>IAM Identity Center
+                console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, choose <b>Settings</b> in the left
+              navigation pane.</p>
+          </li><li>
+            <p>On the <b>Settings</b> page, choose the <b>Identity
+              source</b> tab, and then choose <b>Actions &gt; Manage provisioning</b>.</p>
+          </li><li>
+            <p>On the <b>Automatic provisioning</b> page, under <b>Access
+              tokens</b>, select the access token you want to delete, and then choose
+                <b>Delete</b>.</p>
+          </li><li>
+            <p>In the <b>Delete access token</b> dialog box, review the
+              information, type <b>DELETE</b>, and then choose <b>Delete access
+                token</b>.</p>
+          </li></ol></div>
+       
+        <h2 id="rotate-token">How to rotate an access token</h2>
+        <p>An IAM Identity Center directory supports up to two access tokens at a time. To generate an additional access token prior to any rotation, delete any expired or unused access tokens.</p>
+        <p>If your SCIM access token is close to expiring, you can use the following procedure to
+          rotate an existing access token in the IAM Identity Center console.</p>
+        <div class="procedure"><h6>To rotate an access token</h6><ol><li>
+            <p>In the <a href="https://console.aws.amazon.com/singlesignon" rel="noopener noreferrer" target="_blank"><span>IAM Identity Center
+                console</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, choose <b>Settings</b> in the left
+              navigation pane.</p>
+          </li><li>
+            <p>On the <b>Settings</b> page, choose the <b>Identity
+              source</b> tab, and then choose <b>Actions &gt; Manage provisioning</b>.</p>
+          </li><li>
+            <p>On the <b>Automatic provisioning</b> page, under <b>Access
+                tokens</b>, make a note of the token ID of the token you want to
+              rotate.</p>
+          </li><li>
+            <p>Follow the steps in <a href="#generate-token">How to generate a new access token</a> to create a new token. If you have already created the maximum number of SCIM
+              access tokens, you will first need to delete one of the existing tokens.</p>
+          </li><li>
+            <p>Go to your identity provider's website and configure the new access token for SCIM
+              provisioning, and then test connectivity to IAM Identity Center using the new SCIM access token.
+              Once you've confirmed that provisioning is working successfully using the new token,
+              continue to the next step in this procedure.</p>
+          </li><li>
+            <p>Follow the steps in <a href="#delete-token">How to delete an access token</a> to
+              delete the old access token you noted earlier. You can also use the token’s creation
+              date as a hint for which token to remove.</p>
+          </li></ol></div>
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./scim-profile-saml.html">SCIM profile and SAML 2.0 implementation</div><div id="next" class="next-link" accesskey="n" href="./provision-manually.html">Manual provisioning</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Single Sign-On (SSO)&amp;topic_url=https://docs.aws.amazon.com/en_us/singlesignon/latest/userguide/provision-automatically.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Single Sign-On (SSO)&amp;topic_url=https://docs.aws.amazon.com/en_us/singlesignon/latest/userguide/provision-automatically.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

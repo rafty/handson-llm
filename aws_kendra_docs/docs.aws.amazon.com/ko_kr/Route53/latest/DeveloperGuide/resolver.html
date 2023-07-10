@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ko-KR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon Route 53 Resolver란 무엇인가요? - Amazon Route 53</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="resolver" /><meta name="default_state" content="resolver" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html" /><meta name="description" content="Amazon Route 53 Resolver는 퍼블릭 레코드,Amazon VPC별 DNS 이름, Amazon Route 53 프라이빗 호스팅 영역에 관한 AWS 리소스의 DNS 쿼리에 재귀적으로 응답하며 모든 VPC에서 기본적으로 사용할 수 있습니다." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Route 53" /><meta name="guide" content="개발자 안내서" /><meta name="abstract" content="Route 53을 사용하여 도메인을 등록하고, 도메인이 호스팅된 리소스로 트래픽을 라우팅하고, 리소스의 상태를 확인할 수 있습니다. 또한 리소스의 상태에 따라 트래픽을 라우팅할 수도 있습니다. 이 가이드는 Route 53 콘솔을 사용하여 도메인을 등록하고, DNS를 구성하고, 상태 확인을 구성하는 방법을 설명합니다." /><meta name="guide-locale" content="ko_kr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/resolver.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/resolver.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/resolver.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/resolver.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/resolver.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/resolver.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/resolver.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/resolver.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/resolver.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/resolver.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/resolver.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/resolver.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/resolver.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/Route53/latest/DeveloperGuide/resolver.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html" hreflang="x-default" /><meta name="feedback-item" content="Route53" /><meta name="this_doc_product" content="Amazon Route 53" /><meta name="this_doc_guide" content="개발자 안내서" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'route53'}"></script><meta id="panorama-serviceSubSection" value="개발자 안내서" /><meta id="panorama-serviceConsolePage" value="Amazon Route 53 Resolver란 무엇인가요?" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon Route 53 Resolver란 무엇인가요? - Amazon Route 53</title><meta name="pdf" content="route53-dg.pdf#resolver" /><meta name="rss" content="amazon-route-53-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=87" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=http://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html" /><meta name="keywords" content="Route 53,Amazon Route 53,도메인,상태 확인,DNS,라우팅 정책,리소스 레코드 세트,호스팅 영역,이름 서버,등록,전송" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Route 53",
+        "item" : "https://docs.aws.amazon.com/route53/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "개발자 안내서",
+        "item" : "https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Route 53 Resolver란 무엇인가요?",
+        "item" : "https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="route53-dg.pdf#resolver" target="_blank" rel="noopener noreferrer" title="pdf-tooltip"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">aws-documentation</a><a href="/route53/index.html">Amazon Route 53</a><a href="Welcome.html">개발자 안내서</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>기계 번역으로 제공되는 번역입니다. 제공된 번역과 원본 영어의 내용이 상충하는 경우에는 영어 버전이 우선합니다.</p></awsui-alert><h1 class="topictitle" id="resolver">Amazon Route 53 Resolver란 무엇인가요?</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon Route 53 Resolver는 퍼블릭 레코드,Amazon VPC별 DNS 이름, Amazon Route 53 프라이빗 호스팅 영역에 관한 AWS 리소스의 DNS 쿼리에 재귀적으로 응답하며 모든 VPC에서 기본적으로 사용할 수 있습니다.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>참고</h6></div><div class="awsdocs-note-text"><p>Amazon Route 53 Resolver는 이전에는 Amazon DNS 서버라고 불렸지만, Resolver 규칙과 인바운드 및 아웃바운드 엔드포인트가 도입되면서 이름이 변경되었습니다. 자세한 내용은 <em>Amazon Virtual Private Cloud 사용 설명서</em>의 <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#AmazonDNS">Amazon DNS 서버</a>를 참조하세요.</p></div></div><p>Amazon VPC는 VPC+2 IP 주소에서 Route 53 Resolver에 연결됩니다. 이 VPC+2 주소는 가용 영역 내의 Route 53 Resolver에 연결됩니다.</p><p>Route 53 Resolver는 다음에 대한 DNS 쿼리에 자동으로 응답합니다.</p><div class="itemizedlist">
+		 
+		 
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p>EC2 인스턴스의 로컬 VPC 도메인 이름(예: ec2-192-0-2-44.compute-1.amazonaws.com).</p>
+			<p></p>
+		</li><li class="listitem">
+			<p>프라이빗 호스팅 영역의 기록(예: acme.example.com).</p>
+		</li><li class="listitem">
+			<p>Route 53 Resolver는 퍼블릭 도메인 이름에 대해 인터넷에 있는 퍼블릭 이름 서버에 대해 역방향 조회를 수행합니다.</p>
+		</li></ul></div><p> </p><p>VPC와 온프레미스 리소스를 모두 활용하는 워크로드가 있는 경우 온프레미스에서 호스팅되는 DNS 레코드도 확인해야 합니다. 마찬가지로 이러한 온프레미스 리소스는 AWS에서 호스팅되는 이름을 확인해야 할 수 있습니다. Resolver 엔드포인트 및 조건부 전달 규칙을 통해 온프레미스 리소스와 VPC 간의 DNS 쿼리를 확인하여 VPN 또는 Direct Connect(DX)를 통해 하이브리드 클라우드 설정을 생성할 수 있습니다. 구체적으로 설명하면 다음과 같습니다.</p><div class="itemizedlist">
+		 
+		 
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p>인바운드 Resolver 엔드포인트를 사용하면 온프레미스 네트워크나 다른 VPC에서 귀하의 VPC로 DNS 쿼리를 보낼 수 있습니다.</p>
+		</li><li class="listitem">
+			<p>아웃바운드 Resolver 엔드포인트를 사용하면 귀하의 VPC에서 온프레미스 네트워크나 다른 VPC로 DNS 쿼리를 보낼 수 있습니다.</p>
+		</li><li class="listitem">
+			<p>Resolver 규칙을 사용하면 각 도메인 이름에 대해 하나의 전달 규칙을 생성하고 DNS 쿼리를 VPC에서 온프레미스 DNS 해석기로, 온프레미스에서 VPC로 전달할 도메인의 이름을 지정할 수 있습니다. 규칙은 VPC에 직접 적용되며 복수의 계정에 걸쳐 공유될 수 있습니다.</p>
+		</li></ul></div><p>다음 다이어그램은 Resolver 엔드포인트를 사용하는 하이브리드 DNS 확인을 보여줍니다. 다이어그램은 하나의 가용 영역만 표시하도록 간소화되어 있습니다.</p><div class="mediaobject">
+		 
+			<img src="images/Resolver-redo-final.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;&#x9;&#x9;&#x9;Amazon Route 53 Resolver 아웃바운드 엔드포인트를 통해 VPC에서 온프레미스 데이터 스토리지로의 DNS 쿼리 경로와 네트워크 인바운드 엔드포인트의 DNS 해석기에서 다시 VPC로의 경로를 보여주는 개념적 그래픽입니다.&#xA;&#x9;&#x9;" style="max-width:100%" />
+		 
+		 
+	</div><p>다이어그램은 다음 단계들을 보여줍니다.</p><p><b>아웃바운드(실선 화살표 1–5):</b></p><div class="orderedlist">
+		 
+		 
+		 
+		 
+		 
+	<ol><li>
+			<p>Amazon EC2 인스턴스는 도메인 internal.example.com에 대한 DNS 쿼리를 해결해야 합니다. 신뢰할 수 있는 DNS 서버는 온프레미스 데이터 센터에 있습니다. 이 DNS 쿼리는 Route 53 Resovler에 연결된 VPC에 있는 VPC+2로 전송됩니다.</p>
+		</li><li>
+			<p>Route 53 Resolver 전달 규칙은 쿼리를 온프레미스 데이터 센터의 internal.example.com으로 전달하도록 구성되어 있습니다.</p>
+		</li><li>
+			<p>쿼리는 아웃바운드 엔드포인트로 전달됩니다.</p>
+		</li><li>
+			<p>아웃바운드 엔드포인트는 AWS와 데이터 센터 간의 프라이빗 연결을 통해 쿼리를 온프레미스 DNS 해석기로 전달합니다. 연결은 가상 프라이빗 게이트웨이로 표시된 AWS Direct Connect 또는AWS Site-to-Site VPN 중 하나일 수 있습니다.</p>
+		</li><li>
+			<p>온프레미스 DNS 해석기는 internal.example.com에 대한 DNS 쿼리를 해석하고 반대로 동일한 경로를 통해 Amazon EC2 인스턴스에 응답을 반환합니다.</p>
+		</li></ol></div><p><b>인바운드(점선 화살표 a–e):</b></p><div class="orderedlist">
+		 
+		 
+		 
+		 
+		 
+	<ol style="list-style-type:lower-alpha ! important;"><li>
+			<p>온프레미스 데이터 센터의 클라이언트는 도메인 dev.example.com의 AWS 리소스에 대한 DNS 쿼리를 확인해야 합니다. 이 항목은 쿼리를 온프레미스 DNS 해석기로 전송합니다.</p>
+		</li><li>
+			<p>온프레미스 DNS 해석기에는 dev.example.com에 대한 쿼리를 인바운드 엔드포인트로 가리키는 전달 규칙이 있습니다.</p>
+		</li><li>
+			<p>쿼리는 가상 게이트웨이로 표시된 AWS Direct Connect 또는 AWS Site-to-Site VPN와 같은 프라이빗 연결을 통해 인바운드 엔드포인트에 도달합니다.</p>
+		</li><li>
+			<p>인바운드 엔드포인트는 쿼리를 VPC+2의 Route 53 Resolver로 전송합니다.</p>
+		</li><li>
+			<p>Route 53 Resolver는 dev.example.com에 대한 DNS 쿼리를 확인하고 반대로 동일한 경로를 통해 클라이언트에 응답을 반환합니다.</p>
+		</li></ol></div><div class="highlights"><h6>주제</h6><ul><li><a href="./resolver-overview-DSN-queries-to-vpc.html">VPC와 네트워크 간 DNS 쿼리 해석</a></li><li><a href="./resolver-getting-started.html">Route 53 Resolver 시작하기</a></li><li><a href="./resolver-forwarding-inbound-queries.html">VPC로 인바운드 DNS 쿼리 전달</a></li><li><a href="./resolver-forwarding-outbound-queries.html">네트워크로 아웃바운드 DNS 쿼리 전달</a></li><li><a href="./resolver-forwarding-inbound-queries-managing.html">인바운드 엔드포인트 관리</a></li><li><a href="./resolver-forwarding-outbound-queries-managing.html">아웃바운드 엔드포인트 관리</a></li><li><a href="./resolver-rules-managing.html">전달 규칙 관리</a></li><li><a href="./resolver-dnssec-validation.html">Amazon Route 53에서 DNSSEC 검증 활성화</a></li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="주의" /> <strong>javascript가 브라우저에서 비활성화되거나 사용이 불가합니다.</strong></p><p>AWS 설명서를 사용하려면 Javascript가 활성화되어야 합니다. 지침을 보려면 브라우저의 도움말 페이지를 참조하십시오.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">문서 규칙</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./DNSBehavior.html">DNS 제한 및 동작</div><div id="next" class="next-link" accesskey="n" href="./resolver-overview-DSN-queries-to-vpc.html">VPC와 네트워크 간 DNS 쿼리 해석</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 예</div><div class="content"><p>칭찬해 주셔서 감사합니다!</p><p>잠깐 시간을 내어 좋았던 부분을 알려 주시면 더 열심히 만들어 보겠습니다.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">이 페이지의 내용이 도움이 되었습니까? - 아니요</div><div class="content"><p>이 페이지에 작업이 필요하다는 점을 알려 주셔서 감사합니다. 실망시켜 드려 죄송합니다.</p><p>잠깐 시간을 내어 설명서를 향상시킬 수 있는 방법에 대해 말씀해 주십시오.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="feedback-tell-us" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

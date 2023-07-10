@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Uso de uma função do IAM para conceder permissões a aplicações em execução em instâncias do Amazon EC2 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_use_switch-role-ec2" /><meta name="default_state" content="id_roles_use_switch-role-ec2" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="description" content="Transmita uma função do IAM para uma instância do Amazon EC2 para fornecer credenciais da AWS a aplicações em execução na instância." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Guia do usuário" /><meta name="abstract" content="Controle o acesso aos recursos da AWS com identidade de usuário (autenticação) e com políticas que definem permissões específicas (autorização)." /><meta name="guide-locale" content="pt_br" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Guia do usuário" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Guia do usuário" /><meta id="panorama-serviceConsolePage" value="Uso de uma função do IAM para conceder permissões a aplicações em execução em instâncias do Amazon EC2" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Uso de uma função do IAM para conceder permissões a aplicações em execução em instâncias do Amazon EC2 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_use_switch-role-ec2" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,Usuário do IAM,user,Grupo do IAM,grupo,Perfil do IAM,função,política de permissão,política de confiança,política,chave de acesso,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guia do usuário",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Identidades do IAM (usuários, grupos de usuários e funções)",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Perfis do IAM",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Uso de funções do IAM",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Uso de uma função do IAM para conceder permissões a aplicações em execução em instâncias do Amazon EC2",
+        "item" : "https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_use_switch-role-ec2" target="_blank" rel="noopener noreferrer" title="Abrir em PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentação</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Guia do usuário</a></div><div id="page-toc-src"><a href="#roles-usingrole-ec2instance-roles">Como os perfis para as instâncias do Amazon EC2 funcionam?</a><a href="#roles-usingrole-ec2instance-permissions">Permissões necessárias para usar funções com o Amazon EC2</a><a href="#roles-usingrole-ec2instance-get-started">Como faço para começar?</a><a href="#roles-usingrole-ec2instance-related-info">Informações relacionadas</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_use_switch-role-ec2">Uso de uma função do IAM para conceder permissões a aplicações em execução em instâncias do Amazon EC2</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>As aplicações executadas na instância do Amazon EC2 devem incluir credenciais da AWS nas solicitações de API da AWS. Você poderia fazer com que os desenvolvedores armazenassem as credenciais da AWS diretamente na instância do Amazon EC2 e permitissem que as aplicações nessa instância usassem essas credenciais. No entanto, os desenvolvedores teriam que gerenciar as credenciais e garantir a transmissão segura das credenciais para cada instância e atualização de cada instância do Amazon EC2 na hora certa para fazer a alternância das credenciais. Isso é muito trabalho adicional.</p><p>Em vez disso, você pode e deve usar um perfil do IAM para gerenciar credenciais <em>temporárias</em> para aplicações executadas em uma instância do Amazon EC2. Quando você usa um perfil, não é necessário distribuir credenciais de longo prazo (como credenciais de entrada ou chaves de acesso) para uma instância do Amazon EC2. Em vez disso, a função fornece permissões temporárias que os aplicativos podem usar ao fazer chamadas para outros recursos da AWS. Quando você executa uma instância do Amazon EC2, você especifica uma função do IAM para associar à instância. Os aplicativos que são executados na instância, por sua vez, usam as credenciais temporárias fornecidas pela função para assinar solicitações da API.</p><p>O uso de perfis para conceder permissões a aplicações que são executadas em instâncias do Amazon EC2 exige configuração adicional. Um aplicativo em execução em uma instância do EC2 é abstraído da AWS pelo sistema operacional virtualizado. Devido a essa separação adicional, é necessário ter uma etapa adicional para atribuir um perfil da AWS e suas permissões associadas a uma instância do Amazon EC2 e torná-las disponíveis para suas aplicações. Essa etapa adicional é a criação de um <em><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html">perfil da instância</a></em> anexado à instância. O perfil da instância contém a função e pode fornecer as credenciais temporárias da função para um aplicativo que é executado na instância. Essas credenciais temporárias podem ser usadas em chamadas da API do aplicativo para acessar recursos e limitar o acesso apenas aos recursos que a função especifica. Observe que só é possível atribuir um perfil a uma instância do Amazon EC2 por vez, e todas as aplicações na instância compartilham o mesmo perfil e permissões.</p><p>Usar funções dessa forma tem vários benefícios. Como as credenciais de função são temporárias e alteradas automaticamente, não é necessário gerenciar credenciais, e você não precisa se preocupar com os riscos de segurança de longo prazo. Além disso, se usar uma única função para várias instâncias, você pode fazer uma alteração nessa função e a alteração se propagará automaticamente para todas as instâncias. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p>Embora geralmente um perfil seja atribuído a uma instância do Amazon EC2 quando você a inicia, também é possível anexar um perfil a uma instância do Amazon EC2 que já esteja em execução. Para saber como anexar um perfil a uma instância em execução, consulte <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#attach-iam-role">Perfis do IAM para o Amazon EC2</a>.</p></div></div><div class="highlights"><h6>Tópicos</h6><ul><li><a href="#roles-usingrole-ec2instance-roles">Como os perfis para as instâncias do Amazon EC2 funcionam?</a></li><li><a href="#roles-usingrole-ec2instance-permissions">Permissões necessárias para usar funções com o Amazon EC2</a></li><li><a href="#roles-usingrole-ec2instance-get-started">Como faço para começar?</a></li><li><a href="#roles-usingrole-ec2instance-related-info">Informações relacionadas</a></li><li><a href="./id_roles_use_switch-role-ec2_instance-profiles.html">Usar perfis de instância</a></li></ul></div>
+    <h2 id="roles-usingrole-ec2instance-roles">Como os perfis para as instâncias do Amazon EC2 funcionam?</h2>
+    <p>Na figura a seguir, um desenvolvedor executa um aplicativo em uma instância do Amazon EC2 que requer acesso ao bucket do S3 denominado <code class="code">photos</code>. Um administrador cria o perfil de serviço <code class="code">Get-pics</code> e anexa o perfil à instância do Amazon EC2. A função inclui uma política de permissões que concede acesso somente leitura ao bucket do S3 especificado. Ela também inclui uma política de confiança que permite que a instância do Amazon EC2 assuma o perfil e recupere as credenciais temporárias. Quando o aplicativo é executado na instância, ele pode usar as credenciais temporárias da função para acessar o bucket de fotos. O administrador não precisa conceder ao desenvolvedor permissão para acessar o bucket de fotos, e o desenvolvedor nunca precisa compartilhar nem gerenciar as credenciais.</p>
+    <div class="mediaobject">
+       
+        <img src="images/roles-usingrole-ec2roleinstance.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Aplicativo em uma instância do Amazon EC2 que esteja acessando um recurso da AWS&#xA;      " />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+       
+    <ol><li>
+        <p>O administrador usa o IAM para criar a função <code class="userinput">Get-pics</code>. Na política de confiança do perfil, o administrador especifica que apenas as instâncias do Amazon EC2 podem assumir o perfil. Na política de permissões da função, o administrador especifica a permissão somente leitura para o bucket de <code class="code">photos</code>.</p>
+      </li><li>
+        <p>Um desenvolvedor inicia uma instância do Amazon EC2 e atribui o perfil <code class="code">Get-pics</code> a essa instância.</p>
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p>Se você usar o console do IAM, o perfil da instância será tanto gerenciado quanto mais transparente para você. No entanto, se você usar a AWS CLI ou a API para criar e gerenciar o perfil e a instância do Amazon EC2, será necessário criar o perfil de instância e atribuir o perfil a ela em etapas distintas. Assim, quando você executar a instância, será necessário especificar o nome de perfil da instância em vez do nome da função.</p></div></div>
+      </li><li>
+        <p>Quando a aplicação é executada, ela obtém as credenciais de segurança temporárias dos <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">metadados da instância</a> do Amazon EC2, conforme descrito em <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">Recuperar credenciais de segurança de metadados da instância</a>. Essas são as <a href="./id_credentials_temp.html">credenciais de segurança temporárias</a> que representam a função e são válidas por um período limitado. </p>
+        <p>Com alguns <a href="http://aws.amazon.com/tools/" rel="noopener noreferrer" target="_blank"><span>SDKs da AWS</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>, o desenvolvedor pode usar um provedor que gerencia as credenciais de segurança temporárias de forma transparente. (A documentação para SDKs individuais da AWS descreve os recursos suportados pelo SDK para o gerenciamento de credenciais).</p>
+        <p>Como alternativa, o aplicativo pode obter as credenciais temporárias diretamente dos metadados da instância do Amazon EC2. Credenciais e valores relacionados estão disponíveis na <code class="code">iam/security-credentials/<code class="replaceable">role-name</code></code> categoria (nesse caso, <code class="code">iam/security-credentials/Get-pics</code>) dos metadados. Se o aplicativo obtiver as credenciais dos metadados da instância, ele poderá armazenar as credenciais em cache.</p>
+      </li><li>
+        <p>Ao usar as credenciais temporárias recuperadas, o aplicativo acessa o bucket de fotos. Devido a política anexada à função <code class="userinput">Get-pics</code>, o aplicativo tem permissões somente leitura. </p>
+        <p>As credenciais temporárias de segurança disponíveis na instância se alternam automaticamente antes que percam a validade, de modo que sempre haja um conjunto válido disponível. O aplicativo só precisa se certificar de receber um novo conjunto de credenciais dos metadados da instância antes que as atuais expirem. É possível usar o SDK da AWS para gerenciar credenciais para que a aplicação não precise incluir uma lógica adicional para atualizar as credenciais. Por exemplo, instanciando clientes com provedores de credenciais de perfis da instância. No entanto, se o aplicativo receber credenciais de segurança temporárias dos metadados da instância e os tiver armazenados em cache, ele deverá obter um conjunto de credenciais atualizadas a cada hora, ou pelo menos 15 minutos antes de o conjunto atual expirar. O tempo de validade está incluído nas informações que são retornadas na categoria <code class="code">iam/security-credentials/<code class="replaceable">role-name</code></code>. </p>
+      </li></ol></div>
+   
+    <h2 id="roles-usingrole-ec2instance-permissions">Permissões necessárias para usar funções com o Amazon EC2</h2>
+    <p>Para iniciar uma instância com um perfil, o desenvolvedor deve ter permissão para iniciar instâncias do Amazon EC2 e para transmitir perfis do IAM.</p>
+    <p>A política de exemplo a seguir permite que os usuários usem o AWS Management Console para executar uma instância com uma função. A política inclui curingas (<code class="code">*</code>) para permitir que um usuário transmita qualquer função e execute as ações listadas do Amazon EC2. A ação <code class="code">ListInstanceProfiles</code> permite que os usuários visualizem todas as perfis disponíveis na Conta da AWS.</p>
+    <div class="example"><h6>exemplo Exemplo de política que concede a um usuário permissão para usar o console do Amazon EC2 para executar uma instância com qualquer função</h6><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "IamPassRole",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "iam:PassedToService": "ec2.amazonaws.com"
+                }
+            }
+        },
+        <span>{</span>
+            "Sid": "ListEc2AndListInstanceProfiles",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListInstanceProfiles",
+                "ec2:Describe*",
+                "ec2:Search*",
+                "ec2:Get*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+</code></pre></div></div>
+     
+      <h3 id="roles-usingrole-ec2instance-passrole">Restringir quais perfis podem ser transmitidos para as instâncias do Amazon EC2 (usando PassRole)</h3>
+      <p>Você pode usar a permissão <code class="code">PassRole</code> para restringir quais perfis um usuário pode transmitir a uma instância do Amazon EC2 quando o usuário inicia a instância. Isso ajuda a evitar que o usuário execute aplicações que tenham mais permissões do que o usuário recebeu, ou seja, de poder obter privilégios elevados. Por exemplo, imagine que a usuária Alice tenha permissões apenas para iniciar instâncias do Amazon EC2 e trabalhar com buckets do Amazon S3, mas o perfil que ela transmite para uma instância do Amazon EC2 tem permissões para trabalhar com o IAM e o Amazon DynamoDB. Nesse caso, Alice pode ser capaz de executar a instância, fazer login nela, obter credenciais de segurança temporárias e, em seguida, executar ações no IAM ou no DynamoDB para as quais ela não tem autorização.</p>
+      <p>Para restringir quais perfis um usuário pode transmitir para uma instância do Amazon EC2, você cria uma política que permita a ação <code class="code">PassRole</code>. Em seguida, anexe a política ao usuário (ou a um grupo do IAM ao qual o usuário pertença) que iniciará as instâncias do Amazon EC2. No elemento <code class="code">Resource</code> da política, liste o perfil ou perfis que o usuário tem permissão para transmitir para instâncias do Amazon EC2. Quando o usuário executa uma instância e associa uma função a ela, o Amazon EC2 verifica se o usuário tem permissão para transmitir essa função. Naturalmente, você também deve garantir que a função que o usuário pode transmitir não inclua mais permissões do que o usuário deve ter.</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>nota</h6></div><div class="awsdocs-note-text"><p><code class="code">PassRole</code> não é uma ação da API da forma que <code class="code">RunInstances</code> ou <code class="code">ListInstanceProfiles</code> é. Em vez disso, é uma permissão que a AWS verifica sempre que um ARN da função é transmitido como um parâmetro para uma API (ou o console faz isso em nome do usuário). Ele ajuda um administrador a controlar quais funções podem ser transmitidas por quais usuários. Nesse caso, ele garante que o usuário tenha permissão para anexar uma função específica a uma instância do Amazon EC2.</p></div></div>
+      <div class="example"><h6>exemplo Exemplo de política que concede permissão para um usuário iniciar uma instância do Amazon EC2 com um perfil específico</h6><div class="example-contents"><p>A política de exemplo a seguir permite que os usuários usem a API do Amazon EC2 para executar uma instância com uma função. O elemento <code class="code">Resource</code> especifica o nome de recurso da Amazon (ARN) de uma função. Ao especificar o ARN, a política concede ao usuário a permissão para transmitir apenas a função <code class="code">Get-pics</code>. Se o usuário tentar especificar uma função diferente ao executar uma instância, a ação falhará. O usuário não tem permissões para executar qualquer instância, independentemente de ele transmitir uma função.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": [
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": "*"
+    },
+    <span>{</span>
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::<code class="replaceable">account-id</code>:role/Get-pics"
+    }
+  ]
+}</code></pre></div></div>
+     
+     
+      <h3 id="switch-role-ec2-another-account">Permitir que uma função de perfil de instância alterne para uma função em outra conta</h3>
+      <p>Você pode permitir que uma aplicação em execução em uma instância do Amazon EC2 execute comandos em outra conta. Para fazer isso, é necessário permitir que o perfil de instância do Amazon EC2 na primeira conta alterne para um perfil na segunda conta.</p>
+      <p>Imagine que você esteja usando duas Contas da AWS e queira permitir que uma aplicação em execução em uma instância do Amazon EC2 execute comandos da <a href="http://aws.amazon.com/cli/" rel="noopener noreferrer" target="_blank"><span>AWS CLI</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> nas duas contas. Vamos supor que a instância do Amazon EC2 exista na conta <code class="code">111111111111</code>. Essa instância inclui a função de perfil da instância <code class="code">abcd</code> que permite que a aplicação execute tarefas somente leitura do Amazon S3 no bucket <code class="code">my-bucket-1</code> dentro da mesma conta <code class="code">111111111111</code>. No entanto, a aplicação também deve ter permissão para assumir a função <code class="code">efgh</code> entre contas para acessar o bucket <code class="code">my-bucket-2</code> do Amazon S3 na conta <code class="code">222222222222</code>.</p>
+      <div class="mediaobject">
+         
+          <img src="images/roles-instance-profile-cross-account.png" class="aws-docs-img-whiteBg aws-docs-img-padding" />
+         
+      </div>
+      <p>A função de perfil de instância <code class="code">abcd</code> do Amazon EC2 deve ter a seguinte política de permissões para permitir que o aplicativo acesse o bucket <code class="code">my-bucket-1</code> do Amazon S3:</p>
+      <p><b><em>Política de permissões da função <code class="code">abcd</code> da conta 111111111111</em></b> </p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowAccountLevelS3Actions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowListAndReadS3ActionOnMyBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket-1/*",
+                "arn:aws:s3:::my-bucket-1"
+            ]
+        },
+        <span>{</span>
+            "Sid": "AllowIPToAssumeCrossAccountRole",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "arn:aws:iam::222222222222:role/efgh"
+        }
+    ]
+}</code></pre>
+      <p>A função <code class="code">abcd</code> deve confiar no serviço do Amazon EC2 para assumir a função. Para fazer isso, a função <code class="code">abcd</code> deve ter a seguinte política de confiança:</p>
+      <p><b><em>Política de confiança da função <code class="code">abcd</code> da conta 111111111111</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "abcdTrustPolicy",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"Service": "ec2.amazonaws.com"}
+        }
+    ]
+}</code></pre>
+      <p>Vamos supor que a função entre contas <code class="code">efgh</code> permita tarefas somente leitura do Amazon S3 no bucket <code class="code">my-bucket-2</code> na mesma conta <code class="code">222222222222</code>. Para fazer isso, a função entre contas <code class="code">efgh</code> deve ter a seguinte política de permissões:</p>
+      <p><b><em>Política de permissões da função <code class="code">efgh</code> da conta 222222222222</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowAccountLevelS3Actions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowListAndReadS3ActionOnMyBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-bucket-2/*",
+                "arn:aws:s3:::my-bucket-2"
+            ]
+        }
+    ]
+}</code></pre>
+      <p>A função <code class="code">efgh</code> deve confiar na função de perfil de instância <code class="code">abcd</code> para assumi-la. Para fazer isso, a função <code class="code">efgh</code> deve ter a seguinte política de confiança:</p>
+      <p><b><em>Política de confiança da função <code class="code">efgh</code> da conta 222222222222</em></b></p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copiar"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "efghTrustPolicy",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": <span>{</span>"AWS": "arn:aws:iam::111111111111:role/abcd"}
+        }
+    ]
+}</code></pre>
+     
+   
+    <h2 id="roles-usingrole-ec2instance-get-started">Como faço para começar?</h2>
+    <p>Para entender como os perfis funcionam com as instâncias do Amazon EC2, é necessário usar o console do IAM para criar um perfil, iniciar uma instância do EC2 que use esse perfil e, em seguida, examinar a instância em execução. Examine os <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html">metadados da instância</a> para ver como as credenciais temporárias da função são disponibilizadas para uma instância. Você também pode ver como um aplicativo que é executado em uma instância pode usar a função. Use os recursos a seguir para saber mais. </p>
+    <div class="itemizedlist">
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="https://www.youtube.com/watch?v=TlCuOjviOhk" rel="noopener noreferrer" target="_blank"><span>Tutorial de perfis do IAM em instâncias do Amazon EC2</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>. O vídeo vinculado mostra como usar um perfil do IAM com uma instância do Amazon EC2 para controlar o que um aplicativo pode fazer quando ele for executado na instância. O vídeo mostra como a aplicação (gravada no SDK da AWS) pode obter credenciais de segurança temporárias por meio da função. </p>
+      </li><li class="listitem">
+        <p>Demonstrações do SDK. A documentação do AWS SDK inclui demonstrações que mostram um aplicativo em execução em uma instância do Amazon EC2 que usa credenciais temporárias para perfis que fazem a leitura de um bucket do Amazon S3. Cada uma das demonstrações a seguir apresenta etapas semelhantes com uma linguagem de programação diferente:</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/java-dg-roles.html">Configurar funções do IAM para o Amazon EC2 com o SDK for Java</a> no <em>Guia do desenvolvedor do AWS SDK for Java</em> </p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/run-instance.html">Launch an Amazon EC2 Instance using the SDK for .NET</a> (Iniciar uma instância do Amazon EC2 usando o SDK para .NET) no <em>Guia do desenvolvedor do AWS SDK for .NET</em></p>
+          </li><li class="listitem">
+            <p><a href="https://docs.aws.amazon.com/sdk-for-ruby/latest/developer-guide/ec2-example-create-instance.html">Criar uma instância do Amazon EC2 com o SDK for Ruby</a> no <em>Guia do desenvolvedor do AWS SDK for Ruby</em></p>
+          </li></ul></div>
+      </li></ul></div>
+   
+    <h2 id="roles-usingrole-ec2instance-related-info">Informações relacionadas</h2>
+    <p>Para obter mais informações sobre a criação de perfis ou funções para instâncias do Amazon EC2, consulte as seguintes informações:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Para obter mais informações sobre <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">como usar funções do IAM com instâncias do Amazon EC2</a>, consulte a <em>Guia do usuário do Amazon EC2 para instâncias do Linux</em>.</p>
+      </li><li class="listitem">
+        <p>Para criar uma função, consulte <a href="./id_roles_create.html">Criação de funções do IAM</a>.</p>
+      </li><li class="listitem">
+        <p>Para obter mais informações sobre o uso de credenciais de segurança temporárias, consulte <a href="./id_credentials_temp.html">Credenciais de segurança temporárias no IAM</a>.</p>
+      </li><li class="listitem">
+        <p>Se você trabalha com a API do IAM ou a CLI, é necessário criar e gerenciar os perfis de instância do IAM. Para obter mais informações sobre os perfis da instância, consulte <a href="./id_roles_use_switch-role-ec2_instance-profiles.html">Usar perfis de instância</a>.</p>
+      </li><li class="listitem">
+        <p>Para obter mais informações sobre as credenciais de segurança temporárias das funções nos metadados da instância, consulte <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials">Recuperação de credenciais de segurança dos metadados da instância</a> no <em>Guia do usuário do Amazon EC2 para instâncias do Linux</em>.</p>
+      </li></ul></div>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Atenção" /> <strong>O Javascript está desativado ou não está disponível no seu navegador.</strong></p><p>Para usar a documentação da AWS, o Javascript deve estar ativado. Consulte as páginas de Ajuda do navegador para obter instruções.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenções do documento</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_use_switch-role-api.html">Alternância de funções (API da AWS)</div><div id="next" class="next-link" accesskey="n" href="./id_roles_use_switch-role-ec2_instance-profiles.html">Usar perfis de instância</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Essa página foi útil? - Sim</div><div class="content"><p>Obrigado por nos informar que estamos fazendo um bom trabalho!</p><p>Se tiver tempo, conte-nos sobre o que você gostou para que possamos melhorar ainda mais.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Essa página foi útil? - Não</div><div class="content"><p>Obrigado por nos informar que precisamos melhorar a página. Lamentamos ter decepcionado você.</p><p>Se tiver tempo, conte-nos como podemos melhorar a documentação.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

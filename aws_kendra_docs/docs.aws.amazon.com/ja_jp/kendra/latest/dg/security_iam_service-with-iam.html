@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon Kendra で IAM が機能する仕組み - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="security_iam_service-with-iam" /><meta name="default_state" content="security_iam_service-with-iam" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html" /><meta name="description" content="IAM を使用して Amazon Kendra へのアクセスを管理する前に、Amazon Kendra で使用できる IAM 機能について理解しておく必要があります。Amazon Kendra およびその他の AWS のサービスが IAM と連携する方法の概要を把握するには、 IAM ユーザーガイド の IAM と連携する AWS のサービス を参照してください。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="デベロッパーガイド" /><meta name="abstract" content="Amazon Kendra の概念的な概要について説明します。Amazon Kendra機能について学び、コンソール、CLI、API を使用してドキュメントのインデックス作成を始めましょう。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/security_iam_service-with-iam.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="デベロッパーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="デベロッパーガイド" /><meta id="panorama-serviceConsolePage" value="Amazon Kendra で IAM が機能する仕組み" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon Kendra で IAM が機能する仕組み - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#security_iam_service-with-iam" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search (検索),インテリジェント検索,自然言語,インデックス,質問,キーワード,データソース,コネクタ,よくある質問" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "デベロッパーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Kendra でのセキュリティ",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon Kendra 用の Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security-iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Amazon Kendra で IAM が機能する仕組み",
+        "item" : "https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security-iam.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#security_iam_service-with-iam" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">デベロッパーガイド</a></div><div id="page-toc-src"><a href="#security_iam_service-with-iam-id-based-policies">Amazon Kendra アイデンティティベースのポリシー</a><a href="#security_iam_service-with-iam-resource-based-policies">Amazon Kendra リソースベースのポリシー</a><a href="#security_iam_service-with-iam-acls">アクセスコントロールリスト (ACL)</a><a href="#security_iam_service-with-iam-tags">Amazon Kendra タグに基づいた認可</a><a href="#security_iam_service-with-iam-roles">Amazon Kendra IAM ロール</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>翻訳は機械翻訳により提供されています。提供された翻訳内容と英語版の間で齟齬、不一致または矛盾がある場合、英語版が優先します。</p></awsui-alert><h1 class="topictitle" id="security_iam_service-with-iam">Amazon Kendra で IAM が機能する仕組み</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>IAM を使用して Amazon Kendra へのアクセスを管理する前に、Amazon Kendra で使用できる IAM 機能について理解しておく必要があります。Amazon Kendra およびその他の AWS のサービスが IAM と連携する方法の概要を把握するには、<em>IAM ユーザーガイド</em>の <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">IAM と連携する AWS のサービス</a>を参照してください。</p><div class="highlights" id="inline-topiclist"><h6>トピック</h6><ul><li><a href="#security_iam_service-with-iam-id-based-policies">Amazon Kendra アイデンティティベースのポリシー</a></li><li><a href="#security_iam_service-with-iam-resource-based-policies">Amazon Kendra リソースベースのポリシー</a></li><li><a href="#security_iam_service-with-iam-acls">アクセスコントロールリスト (ACL)</a></li><li><a href="#security_iam_service-with-iam-tags">Amazon Kendra タグに基づいた認可</a></li><li><a href="#security_iam_service-with-iam-roles">Amazon Kendra IAM ロール</a></li></ul></div>
+         <h2 id="security_iam_service-with-iam-id-based-policies">Amazon Kendra アイデンティティベースのポリシー</h2>
+         <p>IAM のアイデンティティベースポリシーでは、許可または拒否するアクションとリソース、またアクションを許可または拒否する条件を指定できます。Amazon Kendra は、特定のアクション、リソース、および条件キーをサポートしています。JSON ポリシーで使用するすべての要素については、「IAM ユーザーガイド」の「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html">IAM JSON ポリシーの要素のリファレンス</a>」を参照してください。</p>
+          
+            <h3 id="security_iam_service-with-iam-id-based-policies-actions">アクション</h3>
+            
+   
+            
+   
+      <p>管理者は AWS JSON ポリシーを使用して、誰が何にアクセスできるかを指定できます。つまり、どの <b>プリンシパル</b> がどの <b>リソース</b> に対してどのような <b>条件</b> 下で <b>アクション</b> を実行できるかということです。</p>
+  
+            <p>JSON ポリシーの <code class="code">Action</code> 要素には、ポリシー内のアクセスを許可または拒否するために使用できるアクションが記述されます。ポリシーアクションの名前は通常、関連する AWS API オペレーションと同じです。一致する API オペレーションのない<em>許可のみのアクション</em>など、いくつかの例外があります。また、ポリシーに複数のアクションが必要なオペレーションもあります。これらの追加アクションは、<em>依存アクション</em>と呼ばれます。</p>
+            <p>このアクションは、関連付けられたオペレーションを実行するための許可を付与するポリシーで使用されます。</p>
+  
+            <p>Amazon Kendra のポリシーアクションは、アクションの前にプレフィックス <code class="code">kendra:</code> を使用します。例えば、<a href="./API_ListIndices.html">ListIndices</a> API 演算を使用して Amazon Kendra インデックスを一覧表示する権限を付与するには、ポリシーに <code class="code">kendra:ListIndices</code> アクションを含めます。ポリシーステートメントには、<code class="code">Action</code> または <code class="code">NotAction</code> 要素を含める必要があります。Amazon Kendra は、このサービスで実行できるタスクを記述する独自のアクションのセットを定義します。</p>
+            <p>単一のステートメントに複数のアクションを指定するには、次のようにカンマで区切ります。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">"Action": [
+      "kendra:<em>action1</em>",
+      "kendra:<em>action2</em>"</code></pre>
+            <p>ワイルドカード (*) を使用して複数のアクションを指定することができます。たとえば、<code class="code">Describe</code> という単語で始まるすべてのアクションを指定するには、次のアクションを含めます。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">"Action": "kendra:Describe*"</code></code></pre>
+            <p>Amazon Kendra アクションのリストを確認するには、<em>IAM ユーザーガイド</em>の <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_kendra.html#kendra-actions-as-permissions">Amazon MQ で定義されるアクション</a>を参照してください。</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-id-based-policies-resources">リソース</h3>
+            
+            
+   
+            
+   
+      <p>管理者は AWS JSON ポリシーを使用して、誰が何にアクセスできるかを指定できます。つまり、どの<b>プリンシパル</b>がどの<b>リソース</b>に対してどのような<b>条件下で</b><b>アクション</b>を実行できるかということです。</p>
+  
+            <p><code class="code">Resource</code> JSON ポリシー要素は、オブジェクトあるいはアクションが適用されるオブジェクトを指定します。ステートメントには、<code class="code">Resource</code> または <code class="code">NotResource</code> 要素を含める必要があります。ベストプラクティスとして、<a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon リソースネーム (ARN)</a> を使用してリソースを指定します。これは、<em>リソースレベルの許可</em>と呼ばれる特定のリソースタイプをサポートするアクションに対して実行できます。</p>
+            <p>オペレーションのリスト化など、リソースレベルの許可をサポートしないアクションの場合は、ステートメントがすべてのリソースに適用されることを示すために、ワイルドカード (*) を使用します。</p>
+         <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="">"Resource": "*"</code></pre>
+  
+            <p></p>
+            <p></p>
+            <p>Amazon Kendra インデックスリソースには次のネーム ARN があること。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="">arn:$<span>{</span>Partition}:kendra:$<span>{</span>Region}:$<span>{</span>Account}:index/$<span>{</span>IndexId}</code></pre>
+            <p>ARN の形式の詳細については、<a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon リソースネーム (ARN) と AWS のサービスの名前空間</a>を参照してください。</p>
+            <p>例えば、ステートメントでインデックスを指定するには、次の ARN のインデックスの GUID を使用します。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="">"Resource": "arn:aws:kendra:$<span>{</span>Region}:$<span>{</span>Account}:index/$<span>{</span>GUID}"</code></pre>
+            <p>特定のアカウントに属するすべてのインデックスを指定するには、ワイルドカード (*) を使用します。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="">"Resource": "arn:aws:$<span>{</span>Region}:$<span>{</span>Account}:index/*"</code></pre>
+            <p>リソースを作成するためのアクションなど、Amazon Kendra アクションには特定のリソースで実行できないものがあります。このような場合は、ワイルドカード (*) を使用する必要があります。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="">"Resource": "*"</code></pre>
+            <p>Amazon Kendra のリソースタイプとそれらの ARN のリストを確認するには、<em>IAM ユーザーガイド</em>の <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_kendra.html#kendra-resources-for-iam-policies">Amazon Kendra で定義されるリソースタイプ</a>を参照してください。どのアクションで各リソースの ARN を指定できるかについては、<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_kendra.html#kendra-actions-as-permissions">Amazon Kendra で定義されるアクション</a>を参照してください。</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-id-based-policies-conditionkeys">条件キー</h3>
+            
+   
+            
+   
+      <p>管理者は AWS JSON ポリシーを使用して、誰が何にアクセスできるかを指定できます。つまり、どの<b>プリンシパル</b>がどの<b>リソース</b>に対してどのような<b>条件下で</b><b>アクション</b>を実行できるかということです。</p>
+  
+            <p><code class="code">Condition</code> 要素 (または <code class="code">Condition</code> <em>ブロック</em>) を使用すると、ステートメントが有効な条件を指定できます。<code class="code">Condition</code> 要素はオプションです。イコールや未満などの<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html">条件演算子</a>を使用して条件式を作成することで、ポリシーの条件とリクエスト内の値を一致させることができます。</p>
+            <p>1 つのステートメントに複数の <code class="code">Condition</code> 要素を指定する場合、または 1 つの <code class="code">Condition</code> 要素に複数のキーを指定する場合、AWS では <code class="code">AND</code> 論理演算子を使用してそれらを評価します。単一の条件キーに複数の値を指定する場合、AWS では <code class="code">OR</code> 論理演算子を使用して条件を評価します。ステートメントの許可が付与される前にすべての条件が満たされる必要があります。</p>
+            <p> 条件を指定する際にプレースホルダー変数も使用できます。例えば IAM ユーザーに、IAM ユーザー名がタグ付けされている場合のみリソースにアクセスできる許可を付与することができます。詳細については、<em>IAM ユーザーガイド</em>の「‭<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html">‬IAM ポリシーの要素: 変数およびタグ‭</a>‬」を参照してください。</p>
+            <p>AWS はグローバル条件キーとサービス固有の条件キーをサポートしています。すべての AWS グローバル条件キーを確認するには、<em>IAM ユーザーガイド</em>の <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS グローバル条件コンテキストキー</a>を参照してください。</p>
+  
+            <p>Amazon Kendra にはサービス固有条件キーがありませんが、いくつかのグローバル条件キーの使用をサポートしています。すべてのAWSグローバル条件キーを確認するには、<em>IAM ユーザーガイド</em>の「<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS グローバル条件コンテキストキー</a>」を参照してください。</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-id-based-policies-examples">例</h3>
+            <p></p>
+            <p>Amazon Kendra のアイデンティティベースポリシーの例を確認するには、<a href="./security_iam_id-based-policy-examples.html">Amazon Kendra のアイデンティティベースポリシーの例</a> を参照してください。</p>
+          
+       
+         <h2 id="security_iam_service-with-iam-resource-based-policies">Amazon Kendra リソースベースのポリシー</h2>
+         <p>Amazon Kendra では、リソースベースのポリシーはサポートされていません。</p>
+       
+         <h2 id="security_iam_service-with-iam-acls">アクセスコントロールリスト (ACL)</h2>
+         <p>Amazon Kendra では、AWS のサービスとリソースへのアクセスのためのアクセスコントロールリスト (ACL) をサポートしていません。</p>
+         
+       
+         <h2 id="security_iam_service-with-iam-tags">Amazon Kendra タグに基づいた認可</h2>
+         <p>特定のタイプの Amazon Kendra リソースにタグを関連付けると、これらのリソースへのアクセスを認可できます。タグに基づいてアクセスをコントロールするには、<code class="code">aws:RequestTag/<code class="replaceable">key-name</code></code>、または <code class="code">aws:TagKeys</code> 条件キーを使用して、ポリシーの条件要素でタグ情報を提供します。</p>
+         <p>次の表に、タグベースのアクセスコントロールのアクション、対応するリソースタイプおよび条件キーを示します。各アクションは、対応するリソースタイプに関連付けられたタグに基づいて許可されます。</p>
+         <div class="table-container"><div class="table-contents"><table id="w1460aac43c17c13c13b7"><thead>
+                  <tr>
+                     <th>アクション</th>
+                     <th>リソースタイプ</th>
+                     <th>条件キー</th>
+                  </tr>
+               </thead>
+                  <tr>
+                     <td><a href="./API_CreateDataSource.html">CreateDataSource</a></td>
+                     <td> </td>
+                     <td><code class="code">aws:RequestTag</code>, <code class="code">aws:TagKeys</code></td>
+                  </tr>
+                  <tr>
+                     <td><a href="./API_CreateFaq.html">CreateFaq</a></td>
+                     <td> </td>
+                     <td><code class="code">aws:RequestTag</code>, <code class="code">aws:TagKeys</code></td>
+                  </tr>
+                  <tr>
+                     <td><a href="./API_CreateIndex.html">CreateIndex</a></td>
+                     <td> </td>
+                     <td><code class="code">aws:RequestTag</code>, <code class="code">aws:TagKeys</code></td>
+                  </tr>
+                  <tr>
+                     <td><a href="./API_ListTagsForResource.html">ListTagsForResource</a></td>
+                     <td>データソース、よくある質問、インデックス</td>
+                     <td> </td>
+                  </tr>
+                  <tr>
+                     <td><a href="./API_TagResource.html">TagResource</a></td>
+                     <td>データソース、よくある質問、インデックス</td>
+                     <td><code class="code">aws:RequestTag</code>, <code class="code">aws:TagKeys</code></td>
+                  </tr>
+                  <tr>
+                     <td><a href="./API_UntagResource.html">UntagResource</a></td>
+                     <td>データソース、よくある質問、インデックス</td>
+                     <td><code class="code">aws:TagKeys</code></td>
+                  </tr>
+               </table></div></div>
+         <p>Amazon Kendra リソースのタグ付けの詳細については、<a href="./tagging.html">タグ</a> を参照してください。リソースタグに基づいてリソースへのアクセスを制限するアイデンティティベースのポリシーの例については、<a href="./security_iam_id-based-policy-examples.html#examples-tagging">タグベースのポリシーの例</a> を参照してください。リソースへのアクセスを制限するためのタグの使用の詳細については、<em>IAM ユーザーガイド</em>の<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html">タグを使用したアクセス制御</a>を参照してください。</p>
+       
+         <h2 id="security_iam_service-with-iam-roles">Amazon Kendra IAM ロール</h2>
+         
+         <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM ロール</a>は AWS アカウント内のエンティティで、特定の許可を持っています。</p>
+          
+            <h3 id="security_iam_service-with-iam-roles-tempcreds">Amazon Kendra での一時的な認証情報の使用</h3>
+            <p>一時的な認証情報を使用して、フェデレーションでサインインする、IAM ロールを引き受ける、またはクロスアカウントロールを引き受けることができます。一時的なセキュリティ認証情報は、AWS STS<a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a>またはなどの API オペレーションを呼び出すことで取得できます<a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_GetFederationToken.html">GetFederationToken</a>。</p>
+            <p>Amazon Kendra は、一時的な認証情報の使用をサポートします。</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-roles-service">サービスロール</h3>
+            <p>この機能により、ユーザーに代わってサービスが<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-role">サービスロール</a>を引き受けることが許可されます。このロールにより、サービスがユーザーに代わって他のサービスのリソースにアクセスし、アクションを完了することが許可されます。サービスロールは、IAM アカウントに表示され、アカウントによって所有されます。つまり、IAM 管理者が、このロールの許可を変更することができます。ただし、これを行うことにより、サービスの機能が損なわれる場合があります。</p>
+            <p>Amazon Kendra ではサービスロールがサポートされています。</p>
+          
+          
+            <h3 id="security_iam_service-with-iam-roles-choose">Amazon Kendra での IAM ロールの選択</h3>
+            <p>インデックスの作成、<code class="code">BatchPutDocument</code> 演算の呼び出し、データソースの作成、またはよくある質問の作成を行う場合は、Amazon Kendra がユーザーに代わって必要なリソースにアクセスするために使用するアクセスロールの Amazon リソースネーム (ARN) を指定する必要があります。以前に作成したロールがある場合、Amazon Kendra コンソールにより、選択できるロールのリストが提示されます。必要なやリソースへのアクセスを許可するロールを選択することが重要です。詳細については、「<a href="./iam-roles.html">IAMのアクセスロールAmazon Kendra</a>」を参照してください。</p>
+          
+      <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./security-iam.html">Identity and Access Management</div><div id="next" class="next-link" accesskey="n" href="./security_iam_id-based-policy-examples.html">アイデンティティベースポリシーの例</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/security_iam_service-with-iam.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Amazon RDS/Aurora - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="data-source-database" /><meta name="default_state" content="data-source-database" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-database.html" /><meta name="description" content="如何使用中Amazon Kendra的資料庫資料來源連接器來編製文件的索引。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="開發人員指南" /><meta name="abstract" content="提供 Amazon Kendra 的概念性概觀。瞭解Amazon Kendra功能，並開始使用主控台、CLI 和 API 編製文件索引。" /><meta name="guide-locale" content="zh_tw" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-database.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/data-source-database.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/data-source-database.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/data-source-database.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/data-source-database.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-database.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-database.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/data-source-database.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/data-source-database.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/data-source-database.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/data-source-database.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/data-source-database.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/data-source-database.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/data-source-database.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/data-source-database.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/data-source-database.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/data-source-database.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/data-source-database.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/data-source-database.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/data-source-database.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-database.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/data-source-database.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="開發人員指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="開發人員指南" /><meta id="panorama-serviceConsolePage" value="Amazon RDS/Aurora" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Amazon RDS/Aurora - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#data-source-database" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-database.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-database.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-database.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search,智能搜索,自然語言,index,question,關鍵詞,資料來源,連接器,常見問答集,database" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "開發人員指南",
+        "item" : "https://docs.aws.amazon.com/zh_tw/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "建立資料來源連接器",
+        "item" : "https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "資料來源連接器",
+        "item" : "https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-sources.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Amazon RDS/Aurora",
+        "item" : "https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-sources.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#data-source-database" target="_blank" rel="noopener noreferrer" title="開啟 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文件</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">開發人員指南</a></div><div id="page-toc-src"><a href="#supported-features-database">支援的功能</a><a href="#prerequisites-database">先決條件</a><a href="#data-source-procedure-database">連接指示</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>本文為英文版的機器翻譯版本，如內容有任何歧義或不一致之處，概以英文版為準。</p></awsui-alert><h1 class="topictitle" id="data-source-database">Amazon RDS/Aurora</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>您可以使用資料庫資料來源索引儲存在資料庫中的文件。提供資料庫的連線資訊之後，請Amazon Kendra連接文件並建立索引。</p><p>Amazon Kendra支援下列資料庫：</p><div class="itemizedlist">
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Amazon Aurora MySQL</p>
+        </li><li class="listitem">
+            <p>Amazon Aurora PostgreSQL</p>
+        </li><li class="listitem">
+            <p>Amazon RDS適用於 MySQL 的 </p>
+        </li><li class="listitem">
+            <p>Amazon RDS (適用於 PostgreSQL)</p>
+        </li></ul></div><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>不支援無伺服器 Aurora 資料庫。</p></div></div><p>您可以使用<a href="https://console.aws.amazon.com/kendra/" rel="noopener noreferrer" target="_blank"><span>Amazon Kendra主控台</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>和 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_DatabaseConfiguration.html">DatabaseConfiguration</a>API 連線Amazon Kendra到資料庫資料來源。</p><p>若要疑難排解資料Amazon Kendra庫資料來源連接器，請參閱<a href="./troubleshooting-data-sources.html">對資料來源進行</a>。</p><div class="highlights" id="inline-topiclist"><h6>主題</h6><ul><li><a href="#supported-features-database">支援的功能</a></li><li><a href="#prerequisites-database">先決條件</a></li><li><a href="#data-source-procedure-database">連接指示</a></li></ul></div>
+        <h2 id="supported-features-database">支援的功能</h2>
+
+        <p>Amazon Kendra資料庫資料來源連接器支援下列功能：</p>
+
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>欄位映射</p>
+            </li><li class="listitem">
+                <p>使用者內容篩選</p>
+            </li><li class="listitem">
+                <p>Virtual Private Cloud (VPC) (虛擬私有雲端 (VPC))</p>
+            </li></ul></div>
+     
+        <h2 id="prerequisites-database">先決條件</h2>
+        <p>在您可以使用Amazon Kendra索引資料庫資料來源之前，請先在資料庫和AWS帳戶中進行這些變更。</p>
+
+        <p><b>在您的資料庫中，請確定您具有下列項目：</b></p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p>將您的使用者密碼配對記錄為資料來源的基本驗證認證。</p>
+            </li><li class="listitem">
+                <p>複製包含資料庫資料之資料表的主機名稱、連接埠號碼、主機位址和名稱。對於 PostgreSQL，資料表必須是公用資料表。</p>
+                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>主機和端口告訴在Amazon Kendra哪裡可以找到互聯網上的數據庫服務器。數據庫名稱和表名稱告訴在Amazon Kendra哪裡可以找到數據庫服務器上的文檔數據。</p></div></div>
+            </li><li class="listitem">
+                <p>複製資料表中包含文件資料的欄名稱、文件 ID、一到五欄以偵測文件是否已變更，以及對應至自訂索引欄位的選擇性資料表格欄。您可以將任何Amazon Kendra保留的欄位名稱對應至資料表資料行。</p>
+            </li><li class="listitem">
+                <p>複製資料庫引擎類型資訊，例如您是否使Amazon RDS用 MySQL 或其他類型。</p>
+            </li><li class="listitem"> 
+    <p>核取每個文件在資料庫中，以及您打算用於相同索引的其他資料來源中都是唯一的。您要用於索引的每個資料來源不得包含跨資料來源的相同文件。文件 ID 對索引來說是全域的，而且每個索引必須是唯一的。</p>
+ </li></ul></div>
+        
+
+ <p><b>在您的AWS帳戶中，請確定您具有下列項目：</b></p>
+        <div class="itemizedlist">
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index.html">建立Amazon Kendra索引</a>，如果使用 API，則會記下索引識別碼。</p>
+            </li><li class="listitem">
+                <p>為您的資料來源<a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html#iam-roles-ds">建立IAM角色</a>，如果使用 API，則會記錄IAM角色的 ARN。</p>
+            </li><li class="listitem">
+                <p>將您的資料庫驗證認證儲存在AWSSecrets Manager密碼中，如果使用 API，則會記下密碼的 ARN。</p>
+                
+
+ <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>請務必定期重新整理或旋轉您的憑證和密碼。僅為您自己的安全提供必要的訪問級別。不建議跨資料來源以及連接器 1.0 和 2.0 版 (如果適用) 重複使用認證和密碼。</p></div></div>
+
+
+            </li></ul></div>
+        <p>如果您沒有現有的IAM角色或密碼，則可以在將資料庫資料來源連線到時，使用主控台建立新IAM角色和Secrets Manager密碼Amazon Kendra。如果您使用 API，則必須提供現有IAM角色和Secrets Manager密碼的 ARN，以及索引 ID。</p>
+
+
+     
+        <h2 id="data-source-procedure-database">連接指示</h2>
+        
+   <p>若要連線Amazon Kendra到資料庫資料來源，您必須提供資料庫資料來源的必要詳細資訊，Amazon Kendra以便能夠存取您的資料。如果您尚未配置數據庫，請Amazon Kendra參閱<a href="#prerequisites-database">先決條件</a>。</p>
+
+   
+ 
+         
+            <awsdocs-tabs><dl style="display: none">
+                <dt>Console</dt><dd tab-id="console">
+                        <p><b>若要連線Amazon Kendra至資料庫</b> </p>
+                        <div class="procedure"><ol><li>
+    <p>登入 AWS 管理主控台，並開啟 <a href="https://console.aws.amazon.com/kendra/" rel="noopener noreferrer" target="_blank"><span>Amazon Kendra 主控台</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。</p>
+    </li><li>
+    <p>在左側導覽窗格中，選擇 [<b>索引</b>]，然後從索引清單中選擇要使用的索引。</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>您可以選擇在<b>索引設置下配置或編輯您的<b>用戶訪問控制</b>設置</b>。</p></div></div>
+    </li><li>
+    <p>在 [<b>開始使</b>用] 頁面上，選擇 [<b>新增資料來源</b>]。</p>
+    </li><li>
+    <p>在 [<b>新增資料來源</b>] 頁面上，選擇 [資料<b>庫連接器</b>]，然後選擇 [<b>新增資料來源</b>]。</p>
+    </li><li> 
+    <p>在<b>指定資料來源詳細</b>資訊頁面上，輸入以下資訊：</p>
+        <ol><li>
+            <p>在<b>名稱和說明</b>中，對於<b>資料來源名稱</b> — 輸入資料來源的名稱。您可以包含連字號，但不能包含空格。</p>
+            </li><li>
+            <p>(選擇性) <b>說明</b> — 輸入資料來源的選用說明。</p>
+            </li><li>
+            <p>在<b>語言</b>中，對於<b>預設語</b>言-用於篩選索引文件的語言。除非另有指定，否則語言預設為英文。中繼資料中指定的語言會覆寫所選語言</p>
+            </li><li>
+            <p>在標<b>籤</b>中，在<b>新增標籤</b>：用於搜尋及篩選資源或追蹤AWS成本的標籤。</p>
+            </li><li>
+            <p>選擇 <b>下一步</b>。</p>
+            </li></ol>
+      </li><li>
+                                <p>在定<b>義存取及安全性</b>頁面上，輸入以下資訊：</p>
+                                <ol><li>
+                                        <p><b>端點</b> — DNS 主機名稱、IPv4 位址或 IPv6 位址。</p>
+                                    </li><li>
+                                        <p><b>連接埠</b>-連接埠號碼。</p>
+                                    </li><li>
+                                        <p><b>資料庫</b> — 資料庫名稱。</p>
+                                    </li><li>
+                                        <p><b>表格名稱</b> — 表格名稱。</p>
+                                    </li><li>
+                                        <p>在「<b>驗證類型</b>」中選擇「<b>現有</b>」和「<b>新增</b>」，以儲存您的資料庫驗證證明資料。如果您選擇建立新密碼，則會開啟一個AWSSecrets Manager密碼視窗。</p>
+                                        <ol><li>
+                                                <p>在「<b>建立AWSSecrets Manager密碼視窗」中輸入</b>下列資訊：</p>
+
+                                                <ol><li>
+                                                  <p><b>秘密名稱</b> — 您秘密的名稱。前綴 'AmazonKendra-data-' 會自動添加到您的密碼名稱中。</p>
+                                                  </li><li>
+                                                  <p>對於<b>使用者名稱</b>和<b>密碼</b> — 輸入資料庫帳戶中的驗證認證值。</p>
+                                                  </li><li>
+                                                  <p>選擇 [<b>儲存驗證</b>]。</p>
+                                                  </li></ol>
+                                            </li></ol>
+                                    </li><li>
+   <p>V@@ <b>irtual Private Cloud (VPC)</b>：您可以選擇使用 VPC。如果是這樣，您必須新增<b>子網路</b>和 <b>VPC 安全性群組</b>。</p>
+   
+   
+                                        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>您必須使用私有子網路。如果 RDS 執行個體位於 VPC 中的公有子網路中，您可以建立私有子網路，該子網路具有對公有子網路中 NAT 閘道的輸出存取權。VPC 組態中所提供的子網路必須在美國西部 (奧勒岡)、美國東部 (維吉尼亞北部) 及歐洲 (愛爾蘭)。</p></div></div>
+                                    </li><li> 
+    <p><b>IAM 角色</b> — 選擇現有的 IAM 角色或建立新的 IAM 角色以存取儲存庫登入資料和索引內容。</p>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>用於索引的 IAM 角色無法用於資料來源。如果您不確定索引或常見問題集是否使用現有角色，請選擇 [<b>建立新角色</b>] 以避免發生錯誤。</p></div></div>
+    </li><li>
+                                        <p>選擇 <b>下一步</b>。</p>
+                                    </li></ol>
+                            </li><li>
+                                <p>在設<b>定同步設</b>定頁面上，輸入以下資訊：</p>
+                                <ol><li>
+                                        <p><b>根據您的使用案例，在 <b>Aurora</b> <b>MySQL</b>、MySQL、Aurora 和 <b>Postgre</b> SQL 之間進行選擇。</b></p>
+                                    </li><li>
+                                        <p>以<b>雙引號括住 SQL 識別碼 — 選取此選項可用</b>雙引號括住 SQL 識別碼。例如，「columnName」。</p>
+                                    </li><li>
+                                        <p><b>ACL 欄</b>和<b>變更偵測欄</b> — 用於配置Amazon Kendra用於變更偵測和存取控制清單的欄。</p>
+                                    </li><li>
+                                        <p>在<b>同步執行排程</b>中，對於<b>頻率</b> — 選擇與資料來源同步的頻率。Amazon Kendra</p>
+                                    </li><li>
+                                        <p>選擇 <b>下一步</b>。</p>
+                                    </li></ol>
+
+                            </li><li>
+                                <p>在<b>設定欄位映射</b>頁面上，輸入以下資訊：</p>
+                                <ol><li>
+                                        <p><b>Amazon Kendra預設欄位對映</b> — 從Amazon Kendra產生的預設資料來源欄位中選取您要對映至索引的欄位。您必須新增<code class="code">document_id</code>和的 <b>[資料庫] 欄</b>值<code class="code">document_body</code> </p>
+                                    </li><li>
+                                        <p> <b>自訂欄位對映</b> — 新增自訂資料來源欄位以建立要對映的索引欄位名稱和欄位資料類型。</p>
+                                    </li><li>
+                                        <p>選擇 <b>下一步</b>。</p>
+                                    </li></ol>
+                            </li><li> 
+   <p>在 [<b>檢閱並建立</b>] 頁面上，檢查您輸入的資訊是否正確，然後選取 [<b>新增資料來源</b>]。您也可以從此頁面中選擇編輯您的資訊。成功新增資料來源後，<b>資料來源將顯示在 [資料來源</b>] 頁面上。</p>
+   
+    </li></ol></div>
+
+                    </dd>
+
+
+                
+
+
+
+
+                <dt>API</dt><dd tab-id="api">
+                        <p><b>若要連線Amazon Kendra至資料庫</b></p>
+
+                        
+                        <p>您必須指定下列 <a href="https://docs.aws.amazon.com/kendra/latest/dg/databaseConfiguration.html">DatabaseConfiguration</a>API：</p>
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                            
+                             
+
+                            
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p><b>ColumnConfiguration</b>有關索引應從資料庫何處取得文件資訊的資訊。如需詳細資訊，請參閱 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_ColumnConfiguration.html">ColumnConfiguration</a>。您必須指定<code class="code">DocumentDataColumnName</code>和<code class="code">DocumentIdColumnName</code>欄位。對應至欄<code class="code">DocumentIdColumnName</code>位的欄必須是整數資料行。以下範例顯示資料庫資料來源的簡單欄組態：</p>
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"ColumnConfiguration": <span>{</span>
+    "ChangeDetectingColumns": [
+        "LastUpdateDate",
+        "LastUpdateTime"
+    ],
+    "DocumentDataColumnName": "TextColumn",
+    "DocumentIdColumnName": "IdentifierColumn",
+    "DocoumentTitleColumnName": "TitleColumn",
+    "FieldMappings": [
+        <span>{</span>
+            "DataSourceFieldName": "AbstractColumn",
+            "IndexFieldName": "Abstract"
+        }
+    ]
+}</code></pre>
+                            </li><li class="listitem">
+                                <p><b>ConnectionConfiguration</b>執行資料庫的資料庫引擎類型。<code class="code">DatabaseHost</code>欄位必須是資料庫的Amazon Relational Database Service (Amazon RDS) 執行個體端點。請勿使用叢集端點。</p>
+                            </li><li class="listitem">
+                                <p><b>DatabaseEngineType</b>連線至資料庫所需的組態資訊。如需詳細資訊，請參閱 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_ConnectionConfiguration.html">ConnectionConfiguration</a>。</p>
+                            </li><li class="listitem">
+
+    <p><b>秘密 Amazon 資源名稱 (ARN)</b> — 提供包含資料庫帳戶身份驗證登入資料的Secrets Manager密碼的 Amazon 資源名稱 (ARN)。私密會以下列索引鍵儲存在 JSON 結構中：</p>
+    
+   
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "username": <code class="replaceable">"user name"</code>,
+    "password": <code class="replaceable">"password"</code>
+}</code></pre>
+                                <p>密碼可以包含更多資訊。以下範例顯示一個資料庫組態。</p>
+                                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="複製"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">
+"DatabaseConfiguration": <span>{</span>
+"ConnectionConfiguration": <span>{</span>
+"DatabaseHost": "host.subdomain.domain.tld",
+        "DatabaseName": "DocumentDatabase",
+        "DatabasePort": 3306,
+        "SecretArn": "arn:aws:secretmanager:region:account ID:secret/secret name",
+        "TableName": "DocumentTable"
+    }
+}</code></pre>
+                                
+                                
+
+ <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>請務必定期重新整理或旋轉您的憑證和密碼。僅為您自己的安全提供必要的訪問級別。不建議跨資料來源以及連接器 1.0 和 2.0 版 (如果適用) 重複使用認證和密碼。</p></div></div>
+
+
+                            </li><li class="listitem"> 
+    <p><b>IAM 角色</b> — 指定<code class="code">RoleArn</code>何時呼叫<code class="code">CreateDataSource</code>以提供具有存取Secrets Manager密碼的權限的IAM角色，以及呼叫資料庫連接器和所需的公用 APIAmazon Kendra。如需詳細資訊，請參閱資<a href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html#iam-roles-ds">料庫資料來源的 IAM 角色</a>。</p>
+    
+    </li></ul></div>
+
+                        
+
+                        <p>您也可以新增以下選用功能：</p>
+                        <div class="itemizedlist">
+
+                            
+                             
+                            
+                             
+                             
+                        <ul class="itemizedlist"><li class="listitem">
+                                <p>V@@ <b>irtual Private Cloud (VPC)</b> — 指定<code class="code">VpcConfiguration</code>為資料來源組態的一部分。請參<a href="https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html">閱設Amazon Kendra定以使用 VPC</a>。</p>
+                                <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>您只能使用私有子網路。如果 RDS 執行個體位於 VPC 中的公有子網路中，您可以建立私有子網路，該子網路具有對公有子網路中 NAT 閘道的輸出存取權。VPC 組態中所提供的子網路必須在美國西部 (奧勒岡)、美國東部 (維吉尼亞北部) 及歐洲 (愛爾蘭)。</p></div></div>
+                            </li><li class="listitem"> 
+   <p> <b>欄位對映</b> — 選擇將資料庫資料來源欄位對映至Amazon Kendra索引欄位。如需詳細資訊，請參閱<a href="https://docs.aws.amazon.com/kendra/latest/dg/field-mapping.html">映射資料來源欄位</a>。</p>
+    
+    </li><li class="listitem">
+    <p> <b>使用者前後關聯篩選</b> — 依預設Amazon Kendra搜尋資料來源的存取控制清單 (ACL)。ACL 資訊可用來根據使用者或使用者對文件的群組存取權來篩選搜尋結果。如需詳細資訊，請參閱資<a href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html">料庫資料來源的使用者內容篩選</a>。</p>
+    
+   </li></ul></div>
+                    </dd>
+            </dl></awsdocs-tabs>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>您的瀏覽器已停用或無法使用 Javascript。</strong></p><p>您必須啟用 Javascript，才能使用 AWS 文件。請參閱您的瀏覽器說明頁以取得說明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文件慣用形式</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./s3-acl.html">Amazon S3資料來源的存取控制</div><div id="next" class="next-link" accesskey="n" href="./data-source-fsx.html">Amazon FSx</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此頁面是否有幫助？ - 是</div><div class="content"><p>感謝您，讓我們知道我們做得很好！</p><p>若您有空，歡迎您告知我們值得讚許的地方，這樣才能保持良好服務。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-database.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此頁面是否有幫助？ - 否</div><div class="content"><p>感謝讓我們知道此頁面仍須改善。很抱歉，讓您失望。</p><p>若您有空，歡迎您提供改善文件的方式。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="意見回饋" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/data-source-database.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

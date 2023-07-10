@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="it-IT"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Problema del "confused deputy" - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="confused-deputy" /><meta name="default_state" content="confused-deputy" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" /><meta name="description" content="Con &#34;confused deputy&#34; si intende un problema di sicurezza in cui un'entità che non dispone dell’autorizzazione per eseguire una certa operazione può costringere un'entità con più privilegi a eseguire tale operazione. Per evitarlo, AWS fornisce strumenti che ti aiutano a proteggere l'account se permetti a terze parti (accesso" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Guida per l'utente" /><meta name="abstract" content="Controlla l'accesso alle risorse AWS con identità utente (autenticazione) e con policy che definiscono autorizzazioni specifiche (autorizzazione)." /><meta name="guide-locale" content="it_it" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/confused-deputy.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/confused-deputy.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/confused-deputy.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/confused-deputy.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/confused-deputy.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/confused-deputy.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/confused-deputy.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Guida per l'utente" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Guida per l'utente" /><meta id="panorama-serviceConsolePage" value="Problema del &#34;confused deputy&#34;" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Problema del "confused deputy" - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#confused-deputy" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,Utente IAM,user,Gruppo IAM,gruppo,Ruolo IAM,ruolo,policy di autorizzazione,policy di attendibilità,policy,chiave di accesso,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guida per l'utente",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Identità IAM (utenti, gruppi di utenti e ruoli)",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Ruoli IAM",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Scenari comuni per ruoli: utenti, applicazioni e servizi",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Problema del "confused deputy"",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_common-scenarios.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#confused-deputy" target="_blank" rel="noopener noreferrer" title="Apri PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentazione</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Guida per l'utente</a></div><div id="page-toc-src"><a href="#mitigate-confused-deputy">Prevenzione del problema "confused deputy" tra account</a><a href="#cross-service-confused-deputy-prevention">Prevenzione del problema "confused deputy" tra servizi</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="confused-deputy">Problema del "confused deputy"</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Con "confused deputy" si intende un problema di sicurezza in cui un'entità che non dispone dell’autorizzazione per eseguire una certa operazione può costringere un'entità con più privilegi a eseguire tale operazione. Per evitarlo, AWS fornisce strumenti che ti aiutano a proteggere l'account se permetti a terze parti (accesso <em>tra account</em>) o ad altri servizi AWS (accesso <em>tra servizi</em>) di accedere a risorse nel tuo account.</p><p>Talvolta potrebbe essere necessario garantire l'accesso a una terza parte per le risorse AWS (accesso delegato). Ad esempio, si supponga di decidere di assumere una società di terze parti chiamata Example Corp per monitorare l'Account AWS e consentire di ottimizzare i costi. Per monitorare le spese quotidiane, Example Corp deve accedere alle risorse AWS dell'Utente A. Example Corp controlla anche molti altri Account AWS per altri clienti. Puoi utilizzare un ruolo IAM per stabilire una relazione di attendibilità tra il tuo Account AWS e l'account di Example Corp. Un aspetto importante di questo scenario è l'<em>ID esterno</em>, informazioni facoltative che è possibile utilizzare in una policy di attendibilità del ruolo IAM per indicare chi può assumere il ruolo. La funzione principale dell'ID esterno è quella di risolvere e prevenire il problema del "confused deputy" (delegato confuso).</p><p>In AWS, la rappresentazione tra servizi può determinare un problema "confused deputy". La rappresentazione tra servizi può verificarsi quando un servizio (il <em>servizio chiamante</em>) effettua una chiamata a un altro servizio (il <em>servizio chiamato</em>). Il servizio chiamante può essere manipolato per utilizzare le proprie autorizzazioni e agire sulle risorse di un altro cliente, a cui normalmente non avrebbe accesso.</p>
+        <h2 id="mitigate-confused-deputy">Prevenzione del problema "confused deputy" tra account</h2>
+        <p>Il seguente diagramma illustra il problema "confused deputy" tra account.</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputyproblem2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                Descrizione di un problema &#34;confused deputy&#34;.&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <p>In questo scenario sono validi i requisiti riportati di seguito:</p>
+        <div class="itemizedlist">
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>1AWS</b> è il tuo Account AWS.</p>
+            </li><li class="listitem">
+                <p><b>AWS1:ExampleRole</b> è un ruolo nel tuo account. La policy di affidabilità di questo ruolo considera attendibile Example Corp specificando l'account AWS di Example Corp come account che può assumere il ruolo.</p>
+            </li></ul></div>
+        <p>Ecco che cosa succede:</p>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>Quando inizi a utilizzare il servizio di Example Corp, fornisci l'ARN di <b>AWS1:ExampleRole</b> a Example Corp.</p>
+            </li><li>
+                <p>Example Corp utilizza l'ARN di tale ruolo per ottenere credenziali di sicurezza temporanee per accedere alle risorse nell'Account AWS. In questo modo, l'Utente A considera Example Corp come "deputy" attendibile che può agire per conto dell'Utente A stesso.</p>
+            </li><li>
+                <p>Anche un altro cliente AWS inizia a utilizzare il servizio di Example Corp e anche questo cliente fornisce l'ARN di <b>AWS1:ExampleRole</b> a Example Corp. Presumibilmente, l'altro cliente ha scoperto o indovinato l'ARN <b>AWS1:ExampleRole</b>, che non è segreto.</p>
+            </li><li>
+                <p>Quando l'altro cliente chiede a Example Corp di accedere alle risorse AWS in quello che lui sostiene essere il suo account, Example Corp utilizza <b>AWS1:ExampleRole</b> per accedere alle risorse nel tuo account.</p>
+            </li></ol></div>
+        <p>Questo è il modo in cui altri clienti possono ottenere l'accesso non autorizzato alle risorse di un utente, in questo caso dell'Utente A. Poiché il cliente Utente B è stato in grado di ingannare Example Corp e lo ha indotto ad agire involontariamente sulle risorse, Example Corp è ora un "confused deputy".</p>
+        <p>Example Corp può risolvere il problema "confused deputy" chiedendo di includere la condizione di verifica <code class="code">ExternalId</code> nella policy di affidabilità del ruolo. Example Corp genera un valore <code class="code">ExternalId</code> univoco per ogni cliente e lo utilizza nella sua richiesta per assumere il ruolo. Il valore <code class="code">ExternalId</code> deve essere univoco tra i clienti di Example Corp e controllato da Example Corp, non dai suoi clienti. Questo è il motivo per cui i clienti lo ricevono da Example Corp e non lo creano in autonomia. Ciò impedisce a Example Corp di essere un delegato confuso (confused deputy) e di concedere l'accesso alle risorse AWS di un altro account.</p>
+        <p>In questo scenario, immagina che l'ID univoco di Example Corp per te sia 12345 e quello per l'altro cliente sia 67890. Questi ID sono semplificati per comodità in questo scenario. In genere, questi identificatori sono GUID. Supponendo che questi identificatori siano univoci tra i clienti di Example Corp, sono valori sensibili da utilizzare per l'ID esterno. </p>
+        <p>Example Corp ti fornisce il valore ID esterno 12345. È necessario aggiungere un elemento <code class="code">Condition</code> alla policy di affidabilità del ruolo che richieda che il valore <code class="code">sts:ExternalId</code> sia 12345, come segue:</p>
+        <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "AWS": "<code class="replaceable">Example Corp's AWS Account ID</code>"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "StringEquals": <span>{</span>
+        "sts:ExternalId": "12345"
+      }
+    }
+  }
+}
+</code></pre>
+        <p>L'elemento Condition (Condizione) di questa policy consente a Example Corp di assumere il ruolo solo quando la chiamata all'API AssumeRole include il valore dell'ID esterno 12345. Example Corp si assicura che ogni volta che assume un ruolo per conto di un cliente, includa sempre il valore dell'ID esterno del cliente nella chiamata AssumeRole. Anche se un altro cliente fornisce a Example Corp l'ARN dell'Utente A, non può controllare l'ID esterno che Example Corp include nella propria richiesta ad AWS. In questo modo è possibile evitare che un cliente non autorizzato acceda alle tue risorse.</p>
+        <p>Il diagramma seguente illustra tale processo.</p>
+        <div class="mediaobject">
+             
+                <img src="images/confuseddeputymitigation2.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;                Come mitigare un problema &#34;confused deputy&#34;.&#xA;            " />
+             
+             
+                
+             
+             
+                
+             
+             
+        </div>
+        <div class="orderedlist">
+             
+             
+             
+             
+        <ol><li>
+                <p>Come descritto in precedenza, quando inizi a utilizzare il servizio di Example Corp, fornisci l'ARN di <b>AWS1:ExampleRole</b> a Example Corp.</p>
+            </li><li>
+                <p> Quando Example Corp utilizza tale ARN del ruolo per assumere il ruolo <b>AWS1:ExampleRole</b>, include il tuo ID esterno (12345) nella chiamata all'API AssumeRole. L'ID esterno corrisponde alla policy di attendibilità del ruolo, pertanto la chiamata API di AssumeRole ha esito positivo ed Example Corp ottiene le credenziali di sicurezza temporanee per accedere alle risorse nell'Account AWS.</p>
+            </li><li>
+                <p>Anche un altro cliente AWS inizia a utilizzare il servizio di Example Corp e, come descritto in precedenza, anche questo cliente fornisce l'ARN di <b>AWS1:ExampleRole</b> a Example Corp. </p>
+            </li><li>
+                <p>Ma questa volta, quando Example Corp tenta di assumere il ruolo <b>AWS1:ExampleRole</b>, fornisce l'ID esterno associato all'altro cliente (67890). L'altro cliente non ha modo di modificare questa operazione. Example Corp opera in questo modo perché la richiesta di utilizzare il ruolo proviene dall'altro cliente, pertanto 67890 indica la circostanza in cui Example Corp sta operando. Dal momento che hai aggiunto una condizione con il tuo ID esterno (12345) alla policy di attendibilità di <b>AWS1:ExampleRole</b>, la chiamata all'API AssumeRole ha esito negativo. All'altro cliente viene impedito di ottenere l'accesso non autorizzato alle risorse nel tuo account (indicato dalla "X" rossa nel diagramma).</p>
+            </li></ol></div>
+        <p>L'ID esterno consente di impedire a qualsiasi altro cliente di ingannare Example Corp e indurre l'azienda ad accedere involontariamente alle risorse.</p>
+     
+        <h2 id="cross-service-confused-deputy-prevention">Prevenzione del problema "confused deputy" tra servizi</h2>
+        <p>Si consiglia di utilizzare le chiavi di contesto delle condizioni globali <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn"><code class="code">aws:SourceArn</code></a> e <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount"><code class="code">aws:SourceAccount</code></a> nelle policy basate sulle risorse per limitare le autorizzazioni di un servizio nei confronti di una risorsa specifica. Utilizzare <code class="code">aws:SourceArn</code> se si desidera consentire l'associazione di una sola risorsa all'accesso tra servizi. Utilizzare <code class="code">aws:SourceAccount</code> se si desidera consentire l'associazione di qualsiasi risorsa in tale account all'uso tra servizi.</p>
+        <p>Il modo più efficace per proteggersi dal problema "confused deputy" è quello di usare la chiave di contesto della condizione globale <code class="code">aws:SourceArn</code> con l'ARN completo della risorsa nelle proprie policy basate sulle risorse. Se non si conosce l'ARN completo della risorsa o si scelgono più risorse, è necessario utilizzare la chiave di contesto della condizione globale <code class="code">aws:SourceArn</code> con caratteri jolly (<code class="code">*</code>) per le parti sconosciute dell'ARN. Ad esempio, <code class="code">arn:aws:<code class="replaceable">servicename</code>:*:<code class="replaceable">123456789012</code>:*</code>.</p>
+        <p>Se il valore <code class="code">aws:SourceArn</code> non contiene l'ID account, ad esempio un ARN di un bucket Amazon S3, è necessario utilizzare entrambe le chiavi di contesto delle condizioni globali per limitare le autorizzazioni.</p>
+
+         
+            <h3 id="cross-service-confused-deputy-prevention-sts">Prevenzione del problema "confused deputy" tra servizi per AWS Security Token Service</h3>
+            <p>Per molti servizi AWS è necessario utilizzare dei ruoli per consentire al servizio di accedere alle risorse di un altro servizio a nome dell'utente. Un ruolo che un servizio assume per eseguire operazioni a tuo nome viene chiamato <a href="./id_roles_terms-and-concepts.html#iam-term-service-role">ruolo del servizio</a>. Un ruolo richiede due policy: una policy di attendibilità del ruolo, che specifica il principale a cui è consentito assumere il ruolo, e una policy delle autorizzazioni, che specifica le operazioni da eseguire con il ruolo. Una policy di attendibilità del ruolo è l'unico tipo di policy basata sulle risorse in IAM. Altri servizi AWS di policy basate sulle risorse, come una policy di bucket Amazon S3.</p>
+            <p>Quando un servizio assume un ruolo per tuo conto, il principale del servizio deve essere autorizzato a svolgere l'operazione <code class="code">sts:AssumeRole</code> nella policy di attendibilità del ruolo. Quando un servizio chiama <code class="code">sts:AssumeRole</code>, AWS STS restituisce una serie di credenziali di sicurezza temporanee che il principale del servizio servizio utilizza per accedere alle risorse consentite dalla policy delle autorizzazioni del ruolo. Quando un servizio assume un ruolo nel tuo account, puoi includere le chiavi di contesto delle condizioni globali <code class="code">aws:SourceAccount</code> e <code class="code">aws:SourceArn</code> nella policy di attendibilità del ruolo per limitare l'accesso al ruolo solo alle richieste generate dalle risorse previste.</p>
+            <p>Ad esempio, in AWS Systems Manager Incident Manager, è necessario scegliere un ruolo per consentire a Incident Manager di eseguire un documento di automazione di Systems Manager per tuo conto. Il documento di automazione può includere piani di risposta automatici per incidenti avviati da allarmi CloudWatch o eventi EventBridge. Nell'esempio seguente della policy di attendibilità del ruolo, è possibile utilizzare la chiave di condizione <code class="code">aws:SourceArn</code> per limitare l'accesso al ruolo di servizio in base all'ARN del registro degli incidenti. Solo i registri degli incidenti creati dalla risorsa del piano di risposta <code class="code">myresponseplan</code>sono in grado di utilizzare questo ruolo.</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="JSON "><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>
+      "Service": "ssm-incidents.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole",
+    "Condition": <span>{</span>
+      "ArnLike": <span>{</span>
+        "aws:SourceArn": "arn:aws:ssm-incidents:*:<code class="replaceable">111122223333</code>:incident-record/<code class="replaceable">myresponseplan</code>/*"
+      }
+    }
+  }
+}</code></pre>
+         
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avvertimento" /> <strong>JavaScript è disabilitato o non è disponibile nel tuo browser.</strong></p><p>Per usare la documentazione AWS, JavaScript deve essere abilitato. Consulta le pagine della guida del browser per le istruzioni.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenzioni dei documenti</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_common-scenarios_services.html">Fornire l'accesso ai servizi AWS</div><div id="next" class="next-link" accesskey="n" href="./id_roles_common-scenarios_federated-users.html">Fornire l'accesso tramite la federazione delle identità</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Questa pagina ti è stata utile? - Sì</div><div class="content"><p>Grazie per averci comunicato che stiamo facendo un buon lavoro!</p><p>Se hai un momento, ti invitiamo a dirci che cosa abbiamo fatto che ti è piaciuto così possiamo offrirti altri contenuti simili.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Questa pagina ti è stata utile? - No</div><div class="content"><p>Grazie per averci comunicato che questa pagina ha bisogno di essere modificata. Siamo spiacenti di non aver soddisfatto le tue esigenze.</p><p>Se hai un momento, ti invitiamo a dirci come possiamo migliorare la documentazione.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/confused-deputy.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

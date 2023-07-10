@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>根据用户上下文进行筛选 - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="user-context-filter" /><meta name="default_state" content="user-context-filter" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html" /><meta name="description" content="如何Amazon Kendra根据用户或其群组对文档的访问权限筛选搜索结果。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="开发人员指南" /><meta name="abstract" content="提供了对 Amazon Kendra 的概念性概述。了解Amazon Kendra功能并开始使用控制台、CLI 和 API 为文档编制索引。" /><meta name="guide-locale" content="zh_cn" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/user-context-filter.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/user-context-filter.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/user-context-filter.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/user-context-filter.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/user-context-filter.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/user-context-filter.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/user-context-filter.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/user-context-filter.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/user-context-filter.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/user-context-filter.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/user-context-filter.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/user-context-filter.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/user-context-filter.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/user-context-filter.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/user-context-filter.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/user-context-filter.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="开发人员指南" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="开发人员指南" /><meta id="panorama-serviceConsolePage" value="根据用户上下文进行筛选" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>根据用户上下文进行筛选 - Amazon Kendra</title><meta name="pdf" content="kendra-dg.pdf#user-context-filter" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html" /><meta name="keywords" content="Kendra,Amazon Kendra,搜索,智能搜索,自然语言,index,question,关键字,数据源,连接器,常见问题,query,上下文筛选,个性化搜索" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "开发人员指南",
+        "item" : "https://docs.aws.amazon.com/zh_cn/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "搜索索引",
+        "item" : "https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/searching.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "根据用户上下文进行筛选",
+        "item" : "https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/searching.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="kendra-dg.pdf#user-context-filter" target="_blank" rel="noopener noreferrer" title="打开 PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">文档</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">开发人员指南</a></div><div id="page-toc-src"><a href="#context-filter-token">按用户令牌筛选</a><a href="#context-filter-user-incl-datasources">按用户 ID 和群组筛选</a><a href="#context-filter-attribute">按用户属性筛选</a><a href="#context-filter-batch">对直接添加到索引的文档进行用户上下文筛选</a><a href="#context-filter-faq">对常见问题进行用户上下文筛选</a><a href="#context-filter-alfresco">Alfresco 数据源的用户上下文筛选</a><a href="#context-filter-s3">Amazon S3数据源的用户上下文筛选</a><a href="#context-filter-jdbc">数据库数据源的用户上下文筛选</a><a href="#context-filter-fsx">Amazon FSx数据源的用户上下文筛选</a><a href="#context-filter-workdocs">Amazon WorkDocs数据源的用户上下文筛选</a><a href="#context-filter-box">Box 数据源的用户上下文筛选</a><a href="#context-filter-confluence">Confluence 数据源的用户上下文筛选</a><a href="#context-filter-dropbox">Dropbox 数据源的用户上下文过滤</a><a href="#context-filter-github"> GitHub 数据源的用户上下文筛选</a><a href="#context-filter-google">Google 云端硬盘数据源的用户上下文筛选</a><a href="#context-filter-gmail">Gmail 数据源的用户上下文过滤</a><a href="#context-filter-jira">Jira 数据源的用户上下文筛选</a><a href="#context-filter-exchange">微软 Exchange 数据源的用户上下文筛选</a><a href="#context-filter-teams">微软 Teams 数据源的用户上下文筛选</a><a href="#context-filter-onedrive">微软 OneDrive 数据源的用户上下文筛选</a><a href="#context-filter-onedrivev2">微软 OneDrive  v2.0 数据源的用户上下文筛选</a><a href="#context-filter-yammer">微软 Yammer 数据源的用户上下文筛选</a><a href="#context-filter-sharepoint-online">微软 SharePoint 数据源的用户上下文筛选</a><a href="#context-filter-quip">对 Quip 数据源的用户上下文过滤</a><a href="#context-filter-salesforce">Salesforce 数据源的用户上下文筛选</a><a href="#context-filter-servicenow"> ServiceNow数据源的用户上下文筛选</a><a href="#context-filter-slack">Slack 数据源的用户上下文筛选</a><a href="#context-filter-zendesk">Zendesk 数据源的用户上下文筛选</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>本文属于机器翻译版本。若本译文内容与英语原文存在差异，则一律以英文原文为准。</p></awsui-alert><h1 class="topictitle" id="user-context-filter">根据用户上下文进行筛选</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>您可以根据用户或其群组对文档的访问权限筛选用户的搜索结果。您可以使用用户令牌、用户 ID 或用户属性来筛选文档。 Amazon Kendra也可以将用户映射到他们的群组。您可以选择用AWS IAM Identity Center (successor to AWS Single Sign-On)作您的身份存储/来源。</p><p>用户上下文筛选是一种个性化搜索，其好处是控制对文档的访问权限。例如，并非所有在公司门户网站上搜索信息的团队都应访问绝密的公司文档，这些文档也不与所有用户相关。只有获得绝密文档访问权限的特定用户或团队组才能在搜索结果中看到这些文档。</p><p>将文档编入索引时Amazon Kendra，会为大多数文档提取相应的访问控制列表 (ACL)。ACL 指定允许或拒绝哪些用户名和组名访问文档。没有 ACL 的文档是公共文档。</p><p>Amazon Kendra自动提取与大多数数据源中每个文档相关的用户或组信息。例如，Quip 中的文档可以包含被授予文档访问权限的选定用户或群组的 “共享” 列表。如果您使用 S3 存储桶作为数据源，则需要为 ACL 提供一个 <a href="https://docs.aws.amazon.com/kendra/latest/dg/s3-acl.html">JSON 文件</a>，并将此文件的 S3 路径作为数据源配置的一部分。<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">如果您将文档直接添加到索引中，则可以将 Principarital 对象中的 ACL 指定为 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API 中文档对象的一部分。</a></p><p>您可以使用 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateAccessControlConfiguration.html">CreateAccessControlConfiguration</a>API 重新配置现有的文档级别访问控制，而无需再次为所有文档编制索引。例如，您的索引包含只有某些员工或用户才能访问的绝密公司文档。其中一个用户离开公司或转到一个应该被禁止访问绝密文档的团队。用户仍然可以访问绝密文档，因为该用户在之前对您的文档进行索引时具有访问权限。您可以为具有拒绝访问权限的用户创建特定的访问控制配置。您可以稍后更新访问控制配置，以便在用户返回公司并重新加入 “绝密” 团队时允许访问。随着情况的变化，您可以重新配置文档的访问控制。</p><p>要将您的访问控制配置应用于某些文档，您可以使用<code class="code">AccessControlConfigurationId</code>包含在<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Document.html">文档</a>对象中的 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API 调用。如果您使用 S3 存储桶作为数据源，则<code class="code">.metadata.json</code>使用更新<code class="code">AccessControlConfigurationId</code>并同步您的数据源。 Amazon Kendra目前仅支持使用<code class="code">BatchPutDocument</code> API 编制索引的 S3 数据源和文档的访问控制配置。</p>
+            <h2 id="context-filter-token">按用户令牌筛选</h2>
+            <p>查询索引时，您可以使用用户令牌根据用户或其群组对文档的访问权限筛选搜索结果。当您发出查询时，Amazon Kendra提取并验证令牌，提取并检查用户和组信息，然后运行查询。将返回用户有权访问的所有文档，包括公共文档。有关更多信息，请参阅<a href="https://docs.aws.amazon.com/kendra/latest/dg/create-index-access-control.html">基于令牌的用户访问控制</a>。</p>
+            <p>您在<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserContext.html">UserContext</a>对象中提供用户令牌并将其传递到<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">查询</a> API 中。</p>
+            <p>下面介绍了如何包含用户令牌。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+    QueryText = query,
+    IndexId = index,
+    UserToken = <span>{</span>
+        Token = "<code class="replaceable">token</code>"
+    })</code></pre>
+            <p>您可以将用户映射到群组。使用用户上下文筛选时，在发出查询时不需要包括用户所属的所有群组。使用 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_PutPrincipalMapping.html">PutPrincipalMapping</a>API，您可以将用户映射到他们的群组。如果您不想使用<code class="code">PutPrincipalMapping</code> API，则在发出查询时必须提供用户名和该用户所属的所有群组。您还可以使用<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserGroupResolutionConfiguration.html">UserGroupResolutionConfiguration</a>对象获取 IAM Identity Center 身份源中群组和用户的访问级别。</p>
+         
+            <h2 id="context-filter-user-incl-datasources">按用户 ID 和群组筛选</h2>
+            <p>查询索引时，您可以使用用户 ID 和群组根据用户或其群组对文档的访问权限筛选搜索结果。当您发出查询时，Amazon Kendra检查用户和组信息并运行查询。将返回用户有权访问的与查询相关的所有文档，包括公共文档。</p>
+            <p>您还可以按用户和群组有权访问的数据源筛选搜索结果。如果一个组绑定到多个数据源，但您只希望该组访问某个数据源的文档，则指定数据源很有用。例如，“研究”、“工程” 和 “销售和营销” 组都与存储在数据源 Confluence 和 Salesforce 中的公司文档相关联。但是，“销售和营销” 团队只需要访问存储在Salesforce中的客户相关文档。因此，当销售和营销用户搜索与客户相关的文档时，他们可以在结果中看到来自 Salesforce 的文档。不从事销售和市场营销工作的用户不会在搜索结果中看到 Salesforce 文档。</p>
+            <p>您在<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserContext.html">UserContext</a>对象中提供用户、组和数据源信息，并将其传递到<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">查询</a> API 中。用户 ID 以及组和数据源列表应与您在<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">主</a>对象中指定的名称相匹配，以标识用户、组和数据源。使用该<code class="code">Principal</code>对象，您可以将用户、组或数据源添加到允许列表或拒绝列表中以访问文档。</p>
+            <p>您必须提供以下内容之一：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>用户和群组信息，以及（可选）数据源信息。</p>
+                </li><li class="listitem">
+                    <p>仅当您使用 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_PutPrincipalMapping.html">PutPrincipalMapping</a>API 将用户映射到群组和数据源时才会显示用户信息。您还可以使用<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_UserGroupResolutionConfiguration.html">UserGroupResolutionConfiguration</a>对象获取 IAM Identity Center 身份源中群组和用户的访问级别。</p>
+                </li></ul></div>
+            <p>如果查询中未包含此信息，则Amazon Kendra返回所有文档。如果您提供此信息，则仅返回具有匹配用户 ID、群组和数据源的文档。</p>
+            <p>以下显示了如何包括用户 ID、群组和数据源。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+    QueryText = query,
+    IndexId = index,
+    UserId = <span>{</span>
+        UserId = "<code class="replaceable">user1</code>"
+    },
+    Groups = <span>{</span>
+        Groups = ["<code class="replaceable">Sales and Marketing</code>"]
+    },
+    DataSourceGroups = <span>{</span>
+        DataSourceGroups = [<span>{</span>"DataSourceId" : "<code class="replaceable">SalesforceCustomerDocsGroup</code>", "GroupId": "<code class="replaceable">Sales and Marketing</code>"}]
+    })</code></pre>
+         
+            <h2 id="context-filter-attribute">按用户属性筛选</h2>
+            <p>查询索引时，您可以使用内置属性<code class="code">_user_id</code>并<code class="code">_group_id</code>根据用户及其群组对文档的访问权限筛选搜索结果。您最多可以设置 100 个群组标识符。当您发出查询时，Amazon Kendra检查用户和组信息并运行查询。将返回与用户有权访问的查询相关的所有文档，包括公共文档。</p>
+            <p>您在<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_AttributeFilter.html">AttributeFilter</a>对象中提供用户和组属性，并将其传递到<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">查询</a> API 中。</p>
+            <p>以下示例显示了一个请求，该请求根据用户 ID 以及用户所属的 “HR” 和 “IT” 组筛选查询响应。该查询将返回允许列表中包含用户或 “HR” 或 “IT” 组的任何文档。如果用户或任一组在文档的拒绝列表中，则不会返回该文档。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">response = kendra.query(
+        QueryText = query,
+        IndexId = index,
+        AttributeFilter = <span>{</span>
+            "OrAllFilters": [
+                <span>{</span>
+                    "EqualsTo": <span>{</span>
+                        "Key": "_user_id",
+                        "Value": <span>{</span>
+                            "StringValue": "user1"
+                        }
+                     }
+                },
+                <span>{</span>
+                    "EqualsTo": <span>{</span>
+                        "Key": "_group_ids",
+                        "Value": <span>{</span>
+                            "StringListValue": ["HR", "IT"]
+                        }
+                    }
+                }
+            ]
+        }
+        )</code></pre>
+            <p>您还可以指定群组可以在<code class="code">Principal</code>对象中访问哪个数据源。</p>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注意</h6></div><div class="awsdocs-note-text"><p>用户上下文筛选不是对您的内容的身份验证或授权控制。它不对发送到<code class="code">Query</code> API 的用户和群组进行用户身份验证。您的应用程序有责任确保发送到<code class="code">Query</code> API 的用户和群组信息经过身份验证和授权。</p></div></div>
+        <p>每个数据源都有用户上下文筛选的实现。下一节描述了每种实现。</p><div class="highlights" id="inline-topiclist"><h6>主题</h6><ul><li><a href="#context-filter-batch">对直接添加到索引的文档进行用户上下文筛选</a></li><li><a href="#context-filter-faq">对常见问题进行用户上下文筛选</a></li><li><a href="#context-filter-alfresco">Alfresco 数据源的用户上下文筛选</a></li><li><a href="#context-filter-s3">Amazon S3数据源的用户上下文筛选</a></li><li><a href="#context-filter-jdbc">数据库数据源的用户上下文筛选</a></li><li><a href="#context-filter-fsx">Amazon FSx数据源的用户上下文筛选</a></li><li><a href="#context-filter-workdocs">Amazon WorkDocs数据源的用户上下文筛选</a></li><li><a href="#context-filter-box">Box 数据源的用户上下文筛选</a></li><li><a href="#context-filter-confluence">Confluence 数据源的用户上下文筛选</a></li><li><a href="#context-filter-dropbox">Dropbox 数据源的用户上下文过滤</a></li><li><a href="#context-filter-github"> GitHub 数据源的用户上下文筛选</a></li><li><a href="#context-filter-google">Google 云端硬盘数据源的用户上下文筛选</a></li><li><a href="#context-filter-gmail">Gmail 数据源的用户上下文过滤</a></li><li><a href="#context-filter-jira">Jira 数据源的用户上下文筛选</a></li><li><a href="#context-filter-exchange">微软 Exchange 数据源的用户上下文筛选</a></li><li><a href="#context-filter-teams">微软 Teams 数据源的用户上下文筛选</a></li><li><a href="#context-filter-onedrive">微软 OneDrive 数据源的用户上下文筛选</a></li><li><a href="#context-filter-onedrivev2">微软 OneDrive  v2.0 数据源的用户上下文筛选</a></li><li><a href="#context-filter-yammer">微软 Yammer 数据源的用户上下文筛选</a></li><li><a href="#context-filter-sharepoint-online">微软 SharePoint 数据源的用户上下文筛选</a></li><li><a href="#context-filter-quip">对 Quip 数据源的用户上下文过滤</a></li><li><a href="#context-filter-salesforce">Salesforce 数据源的用户上下文筛选</a></li><li><a href="#context-filter-servicenow"> ServiceNow数据源的用户上下文筛选</a></li><li><a href="#context-filter-slack">Slack 数据源的用户上下文筛选</a></li><li><a href="#context-filter-zendesk">Zendesk 数据源的用户上下文筛选</a></li></ul></div>
+            <h2 id="context-filter-batch">对直接添加到索引的文档进行用户上下文筛选</h2>
+            <p>当您使用 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_BatchPutDocument.html">BatchPutDocument</a>API 将文档直接添加到索引时，Amazon Kendra会从文档的<code class="code">AccessControlList</code>字段获取用户和组信息。您为文档提供访问控制列表 (ACL)，ACL 将随文档一起摄入。</p>
+            <p>您可以将<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html">主</a>对象中的 ACL 指定为<code class="code">BatchPutDocument</code> API 中<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Document.html">文档</a>对象的一部分。您应提供以下信息：</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>用户或组应具有的访问权限。你可以说<code class="code">ALLOW</code>或<code class="code">DENY</code>。</p>
+                </li><li class="listitem">
+                    <p>实体的类型。你可以说<code class="code">USER</code>或<code class="code">GROUP</code>。</p>
+                </li><li class="listitem">
+                    <p>用户或组的名称。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-faq">对常见问题进行用户上下文筛选</h2>
+            <p>将<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateFaq.html">常见问题添加到</a>索引时，从 FAQ JSON 文件的<code class="code">AccessControlList</code>对象/字段Amazon Kendra获取用户和组信息。您还可以使用带有自定义字段或属性的常见问题解答 CSV 文件进行访问控制。</p>
+            <p>您应提供以下信息：</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>用户或组应具有的访问权限。你可以说<code class="code">ALLOW</code>或<code class="code">DENY</code>。</p>
+                </li><li class="listitem">
+                    <p>实体的类型。你可以说<code class="code">USER</code>或<code class="code">GROUP</code>。</p>
+                </li><li class="listitem">
+                    <p>用户或组的名称。</p>
+                </li></ul></div>
+            <p>有关更多信息，请参阅<a href="https://docs.aws.amazon.com/kendra/latest/dg/in-creating-faq.html">常见问题</a>。</p>
+         
+            <h2 id="context-filter-alfresco">Alfresco 数据源的用户上下文筛选</h2>
+            <p>当你使用 Alfresco 数据源时，Amazon Kendra会从 Alfresco 实例获取用户和群组信息。</p>
+            <p>群组和用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—群组 ID 存在于 Alfresco 中设置了访问权限的文件上。它们是从 Alfresco 中群组的系统名称（不是显示名称）映射出来的。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在于 Alfresco 中设置了访问权限的文件上。它们从用户电子邮件中映射为 Alfresco 中的 ID。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-s3">Amazon S3数据源的用户上下文筛选</h2>
+            <p>您可以使用与文档关联的元数据文件向Amazon S3数据源中的文档添加用户上下文筛选。您将信息添加到 JSON 文档的<code class="code">AccessControlList</code>字段中。有关向从数据源索引的文档添加元Amazon S3数据的更多信息，请参阅 <a href="https://docs.aws.amazon.com/kendra/latest/dg/s3-metadata.html">S3 文档元数据</a>。</p>
+            <p>您提供三条信息：</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>实体应具有的访问权限。你可以说<code class="code">ALLOW</code>或<code class="code">DENY</code>。</p>
+                </li><li class="listitem">
+                    <p>实体的类型。你可以说<code class="code">USER</code>或<code class="code">GROUP</code>。</p>
+                </li><li class="listitem">
+                    <p>实体的名称。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-jdbc">数据库数据源的用户上下文筛选</h2>
+            <p>当您使用数据库数据源（例如）时Amazon Aurora PostgreSQL，Amazon Kendra会从源表中的列获取用户和组信息。您可以将<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_AclConfiguration.html">AclConfiguration</a>对象中的此列指定为 <a href="https://docs.aws.amazon.com/kendra/latest/dg/API_CreateDataSource.html">CreateDataSource</a>API 中<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_DatabaseConfiguration.html">DatabaseConfiguration</a>对象的一部分。</p>
+            <p>数据库数据源具有以下限制：</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>只能为数据库数据源指定允许列表。您不能指定拒绝列表。</p>
+                </li><li class="listitem">
+                    <p>您只能指定群组。您不能为允许列表指定单个用户。</p>
+                </li><li class="listitem">
+                    <p>数据库列应该是包含以分号分隔的组列表的字符串。</p>
+                </li></ul></div>
+         
+            <h2 id="context-filter-fsx">Amazon FSx数据源的用户上下文筛选</h2>
+            <p>当您使用Amazon FSx数据源时，Amazon Kendra会从Amazon FSx实例的目录服务获取用户和组信息。</p>
+            <p>Amazon FSx群组和用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—群组 ID 存在Amazon FSx于已设置访问权限的文件中。它们是从的目录服务中的系统组名映射而来的Amazon FSx。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在Amazon FSx于已设置访问权限的文件中。它们是从的目录服务中的系统用户名映射出来的Amazon FSx。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-workdocs">Amazon WorkDocs数据源的用户上下文筛选</h2>
+            <p>当您使用Amazon WorkDocs数据源时，Amazon Kendra会从该Amazon WorkDocs实例获取用户和组信息。</p>
+            <p>Amazon WorkDocs群组和用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—群组 ID 存在Amazon WorkDocs于已设置访问权限的文件中。它们是根据中的群组名称映射而成的Amazon WorkDocs。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在Amazon WorkDocs于已设置访问权限的文件中。它们是从中的用户名映射出来的Amazon WorkDocs。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-box">Box 数据源的用户上下文筛选</h2>
+            <p>使用 Box 数据源时，从 Box 实例Amazon Kendra获取用户和组信息。</p>
+            <p>Box 组和用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—群组 ID 存在于已设置访问权限的文件的 Box 中。它们是从 Box 中的群组名称映射出来的。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在于已设置访问权限的文件的 Box 中。它们从用户电子邮件映射为 Box 中的用户 ID。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-confluence">Confluence 数据源的用户上下文筛选</h2>
+            <p>当您使用 Confluence 数据源时，Amazon Kendra会从 Confluence 实例获取用户和组信息。</p>
+            <p>您可以使用空间权限页面配置用户和群组对空间的访问权限。对于页面和博客，您可以使用限制页面。有关空间权限的更多信息，请参阅 Confluence Support 网站上的<a href="https://confluence.atlassian.com/doc/space-permissions-overview-139521.html" rel="noopener noreferrer" target="_blank"><span>空间权限概述</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。有关页面和博客限制的更多信息，请参阅 Confluence Support 网站上的<a href="https://confluence.atlassian.com/doc/page-restrictions-139414.html" rel="noopener noreferrer" target="_blank"><span>页面限制</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>。</p>
+            <p>Confluence 组和用户名的映射如下所示：</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—群组名称出现在有限制的空间、页面和博客上。它们是根据 Confluence 中群组的名称映射出来的。组名始终是小写的。</p>
+                </li></ul></div>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户名出现在存在限制的空间、页面或博客上。它们是根据您使用的 Confluence 实例的类型进行映射的。</p>
+
+                    <p><b>适用于 Confluene 连接程序 v1.0</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>服务器—<code class="code">_user_id</code> 是用户名。用户名始终是小写。</p>
+                        </li><li class="listitem">
+                            <p>云—<code class="code">_user_id</code> 是用户的账户 ID。</p>
+                        </li></ul></div>
+                    <p><b>适用于 Confluence 连接器 v2.0</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>服务器—<code class="code">_user_id</code> 是用户名。用户名始终是小写。</p>
+                        </li><li class="listitem">
+                            <p>云—<code class="code">_user_id</code> 是用户的电子邮件 ID。</p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-dropbox">Dropbox 数据源的用户上下文过滤</h2>
+            <p>当您使用 Dropbox 数据源时，Amazon Kendra会从 Dropbox 实例获取用户和群组信息。</p>
+            <p>群组和用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>— 群组 ID 存在于 Dropbox 中设置了访问权限的文件上。它们是根据 Dropbox 中的群组名称映射出来的。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>— 用户 ID 存在于 Dropbox 中设置了访问权限的文件上。它们从用户电子邮件中映射为 Dropbox 中的 ID。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-github"> GitHub 数据源的用户上下文筛选</h2>
+            <p>当您使用 GitHub 数据源时，Amazon Kendra会从该 GitHub 实例获取用户信息。</p>
+            <p> GitHub 用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在 GitHub 于已设置访问权限的文件中。它们从用户电子邮件映射为中的 ID GitHub。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-google">Google 云端硬盘数据源的用户上下文筛选</h2>
+            <p>Google Workspace 云端硬盘数据源返回 Google 云端硬盘用户和群组的用户和群组信息。组和域成员资格映射到<code class="code">_group_ids</code>索引字段。Google 云端硬盘用户名映射到该<code class="code">_user_id</code>字段。</p>
+            <p>当您在<code class="code">Query</code> API 中提供一个或多个用户电子邮件地址时，仅返回与这些电子邮件地址共享的文档。以下<code class="code">AttributeFilter</code>参数仅返回与 “martha@example.com” 共享的文档。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_user_id", 
+                   "Value": <span>{</span>
+                       "StringValue": "martha@example.com"
+                   }
+               }
+           }</code></pre>
+            <p>如果您在查询中提供一个或多个群组电子邮件地址，则仅返回与群组共享的文档。以下<code class="code">AttributeFilter</code>参数仅返回与 “hr@example.com” 组共享的文档。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_group_ids", 
+                   "Value": <span>{</span>
+                       "StringListValue": ["hr@example.com"]
+                   }
+               }
+           }</code></pre>
+            <p>如果您在查询中提供域名，则会返回与该域共享的所有文档。以下<code class="code">AttributeFilter</code>参数返回与 “example.com” 域共享的文档。</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"AttributeFilter": <span>{</span>
+                "EqualsTo":<span>{</span>
+                   "Key": "_group_ids", 
+                   "Value": <span>{</span>
+                       "StringListValue": ["example.com"]
+                   }
+               }
+           }</code></pre>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+            <p></p>
+         
+            <h2 id="context-filter-gmail">Gmail 数据源的用户上下文过滤</h2>
+            <p>当您使用 Gmail 数据源时，Amazon Kendra会从 Gmail 实例获取用户信息。</p>
+            <p>用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>— Gmail 中设置了访问权限的文件上存在用户 ID。它们从用户电子邮件中映射为 Gmail 中的 ID。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-jira">Jira 数据源的用户上下文筛选</h2>
+            <p>当您使用 Jira 数据源时，Amazon Kendra会从 Jira 实例获取用户和组信息。</p>
+            <p>Jira 用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在于 Jira 中设置了访问权限的文件上。它们从用户电子邮件映射为 Jira 中的用户 ID。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-exchange">微软 Exchange 数据源的用户上下文筛选</h2>
+            <p>Amazon Kendra在 Microsoft Exchange 为网站上的文档编制索引时检索用户信息。用户信息来自底层的微软 Exchange 主机站点。</p>
+            <p>当你使用 Exchange 用户进行用户上下文筛选时，Amazon Kendra会从微软 Exchange 实例获取用户信息。交易所 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_tenant_id</code>— 你的 Microsoft 租户 ID 是配置每个连接器实例所必需的全局唯一标识符。你的租户 ID 与你的组织名称或域名不同，可以在 Microsoft 帐户控制面板的属性部分找到。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-teams">微软 Teams 数据源的用户上下文筛选</h2>
+            <p>Amazon Kendra在 Microsoft Teams 为网站上的文档编制索引时检索用户信息。用户信息来自底层的微软Teams主机网站。</p>
+            <p>当你使用 Teams 用户进行用户上下文筛选时，会从 Microsoft Teams 实例Amazon Kendra获取用户信息。Teams 租户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_tenant_id</code>— 你的 Microsoft 租户 ID 是配置每个连接器实例所必需的全局唯一标识符。你的租户 ID 与你的组织名称或域名不同，可以在 Microsoft 帐户控制面板的属性部分找到。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-onedrive">微软 OneDrive 数据源的用户上下文筛选</h2>
+            <p>Amazon Kendra在 Microsoft 为站点上的文档编制索引 OneDrive时从 Microsoft 检索用户和组信息。用户和群组信息来自托管的底层 Microsoft SharePoint  站点 OneDrive。</p>
+            <p>使用 OneDrive 用户或群组进行用户上下文筛选时，按如下方式计算 ID：</p>
+            <div class="orderedlist">
+                 
+                 
+                 
+            <ol><li>
+                    <p>获取网站名称。例如，<code class="code">https://host.onmicrosoft.com/sites/siteName.</code></p>
+                </li><li>
+                    <p>取网站名称的 MD5 哈希值。例如，<code class="code">430a6b90503eef95c89295c8999c7981</code>。</p>
+                </li><li>
+                    <p>通过将 MD5 哈希与竖线 (|) 和 ID 连接起来，创建用户电子邮件或群组 ID。例如，如果群组名称是 “站点所有者”，则群组 ID 将为：</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|site
+                        owners</code>"</code></p>
+                    <p>对于用户名 “someone@host.onmicrosoft.com”，用户 ID 将如下所示：</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|someone@host.onmicrosoft.com</code>"</code></p>
+                </li></ol></div>
+            <p>调用<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">查询</a> API 时，将用户<code class="code">_user_id</code>或群组 IDAmazon Kendra 作为或<code class="code">_group_ids</code>属性发送到。例如，使用群组筛选查询响应的AWS CLI命令如下所示：</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "430a6b90503eef95c89295c8999c7981|site owners"}
+                  }}'</code></pre>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-onedrivev2">微软 OneDrive  v2.0 数据源的用户上下文筛选</h2>
+            <p>Microsoft OneDrive  v2.0 数据源返回来自 OneDrive 访问控制列表 (ACL) 实体的章节和页面信息。 Amazon Kendra使用 OneDrive租户域连接到 OneDrive 实例，可以根据分区名称、页面类型、文件名、文件类型和文件内容进行筛选。</p>
+
+            <p>对于标准对象，<code class="code">_user_id</code>和<code class="code">_group_id</code>的使用方式如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>— 你的微软 OneDrive 用户电子邮件ID已映射到该<code class="code">_user_id</code>字段。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_id</code>— 你的 Microsoft OneDrive  群组电子邮件已映射到该<code class="code">_group_id</code>字段。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-yammer">微软 Yammer 数据源的用户上下文筛选</h2>
+            <p>Amazon Kendra在 Microsoft Yammer 为网站上的文档编制索引时从 Microsoft Yammer 检索用户和组信息。用户和群组信息取自底层微软 Yammer 主机站点。</p>
+            <p>当你使用 Yammer 用户进行用户上下文筛选时，Amazon Kendra会从 Microsoft Yammer 实例获取用户信息。微软 Yammer 用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_email_id</code>— 你的 Microsoft 电子邮件 ID 是配置每个连接器实例所必需的标识符。你的电子邮件 ID 可以在 Microsoft 帐户控制面板的 “属性” 部分找到。</p>
+                </li><li class="listitem">
+                    <p> <code class="code">_group_id</code>— 群组 ID 存在于已设置访问权限的 Microsoft Yammer 实例中。它们是根据微软 Yammer 中群组的名称映射而成的。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+            <p></p>
+         
+            <h2 id="context-filter-sharepoint-online">微软 SharePoint 数据源的用户上下文筛选</h2>
+            <p>Amazon Kendra在 Microsoft 为站点上的文档编制索引 SharePoint时从 Microsoft 检索用户和组信息。要筛选文档，请在调用<code class="code">Query</code> API 时提供用户和群组信息。</p>
+            <p>要使用用户名进行筛选，请使用用户的电子邮件地址。例如，johnstiles@example.com。</p>
+
+            <p>使用 SharePoint 群组进行用户上下文筛选时，按如下方式计算群组 ID：</p>
+
+            <p><b>适用于本地团体</b></p>
+            <div class="orderedlist">
+                 
+                 
+                 
+            <ol><li>
+                    <p>获取网站名称。例如，<code class="code">https://host.onmicrosoft.com/sites/siteName.</code></p>
+                </li><li>
+                    <p>以网站名称的 SHA256 哈希。例如，<code class="code">430a6b90503eef95c89295c8999c7981</code>。</p>
+                </li><li>
+                    <p>通过将 SHA256 哈希与竖线 (|) 和组名连接起来来创建群组 ID。例如，如果群组名称是 “站点所有者”，则群组 ID 将为：</p>
+                    <p><code class="code">"<code class="code">430a6b90503eef95c89295c8999c7981|site
+                        owners</code>"</code></p>
+                </li></ol></div>
+            <p>调用<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">查询 API</a> 时，将群组 IDAmazon Kendra 作为<code class="code">_group_ids</code>属性发送到。例如，该AWS CLI命令如下所示：</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "430a6b90503eef95c89295c8999c7981|site owners"}
+                  }}'</code></pre>
+
+            <p><b>适用于 AD 群组</b></p>
+            <div class="orderedlist">
+                 
+            <ol><li>
+                    <p>使用 AD 组 ID 配置用户上下文。</p>
+                </li></ol></div>
+            <p>调用<a href="https://docs.aws.amazon.com/kendra/latest/dg/API_Query.html">查询</a> API 时，将群组 IDAmazon Kendra 作为<code class="code">_group_ids</code>属性发送到。例如，该AWS CLI命令如下所示：</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="复制"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws kendra  query \
+                --index-id <code class="replaceable">index ID</code>  
+                --query-text "<code class="replaceable">query text</code>" 
+                --attribute-filter '<span>{</span>
+                   "EqualsTo":<span>{</span>
+                     "Key": "_group_ids", 
+                     "Value": <span>{</span>"StringValue": "AD group"}
+                  }}'</code></pre>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-quip">对 Quip 数据源的用户上下文过滤</h2>
+            <p>当您使用 Quip 数据源时，Amazon Kendra会从 Quip 实例获取用户信息。</p>
+            <p>Quip 用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在于 Quip 中已设置访问权限的文件上。它们从用户电子邮件映射为 Quip 中的 ID。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-salesforce">Salesforce 数据源的用户上下文筛选</h2>
+            <p>Salesforce 数据源返回来自 Salesforce 访问控制列表 (ACL) 实体的用户和群组信息。您可以将用户上下文筛选应用于 Salesforce 标准对象和聊天提要。用户上下文筛选不适用于 Salesforce 知识文章。</p>
+            <p>对于标准对象，<code class="code">_user_id</code>和<code class="code">_group_ids</code>的使用方式如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>— Salesforrce 用户的用户名。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_ids</code>—</p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>Salesforce 的名字<code class="code">Profile</code></p>
+                        </li><li class="listitem">
+                            <p>Salesforce 的名字<code class="code">Group</code></p>
+                        </li><li class="listitem">
+                            <p>Salesforce 的名字<code class="code">UserRole</code></p>
+                        </li><li class="listitem">
+                            <p>Salesforce 的名字<code class="code">PermissionSet</code></p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p>对于聊天源来说，<code class="code">_user_id</code>和<code class="code">_group_ids</code>的用法如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>— Salesforrce 用户的用户名。仅当该项目发布在用户的 Feed 中时才可用。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_group_ids</code>—群组 ID 的使用方式如下。只有在聊天群组或协作群组中发布提要项目时才可用。</p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p>聊天者或协作群组的名称。</p>
+                        </li><li class="listitem">
+                            <p>如果群组是公开的，<code class="code">PUBLIC:ALL</code>.</p>
+                        </li></ul></div>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+            
+         
+            <h2 id="context-filter-servicenow"> ServiceNow数据源的用户上下文筛选</h2>
+            <p>只有 TemplateConfiguration  API 和 ServiceNow 连接器 v2.0 支持的用户上下文筛选。 ServiceNow   ServiceNowConfiguration API 和 ServiceNow 连接器 v1.0。不支持用户上下文筛选。</p>
+            <p>当您使用 ServiceNow 数据源时，Amazon Kendra会从 ServiceNow 实例获取用户和组信息。</p>
+            <p>群组和用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—群组 ID 存在 ServiceNow 于已设置访问权限的文件中。它们是从 in 的角色名称映射出<code class="code">sys_ids</code>来的 ServiceNow。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在 ServiceNow 于已设置访问权限的文件中。它们从用户电子邮件映射为中的 ID ServiceNow。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-slack">Slack 数据源的用户上下文筛选</h2>
+            <p>当您使用 Slack 数据源时，Amazon Kendra会从 Slack 实例获取用户信息。</p>
+            <p>Slack 用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_user_id</code>—用户 ID 存在于 Slack 中设置访问权限的消息和频道上。它们从用户电子邮件中映射为 Slack 中的 ID。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+         
+            <h2 id="context-filter-zendesk">Zendesk 数据源的用户上下文筛选</h2>
+            <p>当您使用 Zendesk 数据源时，Amazon Kendra会从 Zendesk 实例获取用户和群组信息。</p>
+            <p>群组和用户 ID 的映射如下：</p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">_group_ids</code>—群组 ID 存在于 Zendesk 门票和文章中，其中设置了访问权限。它们是从 Zendesk 中群组的名称映射出来的。</p>
+                </li><li class="listitem">
+                    <p><code class="code">_user_id</code>—群组 ID 存在于 Zendesk 门票和文章中，其中设置了访问权限。它们从用户电子邮件中映射为 Zendesk 中的 ID。</p>
+                </li></ul></div>
+            <p>您最多可以在<code class="code">AccessControlList</code>字段中添加 200 个条目。</p>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>Javascript 在您的浏览器中被禁用或不可用。</strong></p><p>要使用 Amazon Web Services 文档，必须启用 Javascript。请参阅浏览器的帮助页面以了解相关说明。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">文档惯例</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./filtering.html">筛选和分面搜索</div><div id="next" class="next-link" accesskey="n" href="./query-responses-types.html">查询响应和响应类型</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">此页面对您有帮助吗？- 是</div><div class="content"><p>感谢您对我们工作的肯定！</p><p>如果不耽误您的时间，请告诉我们做得好的地方，让我们做得更好。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">此页面对您有帮助吗？- 否</div><div class="content"><p>感谢您告诉我们本页内容还需要完善。很抱歉让您失望了。</p><p>如果不耽误您的时间，请告诉我们如何改进文档。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="反馈" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/user-context-filter.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

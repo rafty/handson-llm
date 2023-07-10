@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="it-IT"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS PrivateLink per Amazon S3 - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="privatelink-interface-endpoints" /><meta name="default_state" content="privatelink-interface-endpoints" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="description" content="Connettiti ad Amazon S3 utilizzando gli endpoint VPC di interfaccia di AWS PrivateLink nel tuo cloud privato virtuale (VPC)." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="Guida per l'utente" /><meta name="abstract" content="Scopri come utilizzare Amazon Simple Storage Service (Amazon S3) per archiviare e recuperare qualsiasi quantità di dati ovunque ti trovi. Questa guida spiega i concetti di Amazon S3, tra cui bucket, oggetti e relative configurazioni, come pure contiene esempi di codice per le operazioni comuni." /><meta name="guide-locale" content="it_it" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="Guida per l'utente" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="Guida per l'utente" /><meta id="panorama-serviceConsolePage" value="AWS PrivateLink per Amazon S3" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS PrivateLink per Amazon S3 - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#privatelink-interface-endpoints" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="keywords" content="S3,Amazon S3,Guida per l'utente di S3,Guida per l'utente di Amazon S3,Guida per l'utente di Amazon,Bucket S3,Oggetto S3,Archiviazione nel cloud,Storage dei dati" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guida per l'utente",
+        "item" : "https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Sicurezza di Amazon S3",
+        "item" : "https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS PrivateLink per Amazon S3",
+        "item" : "https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#privatelink-interface-endpoints" target="_blank" rel="noopener noreferrer" title="Apri PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentazione</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">Guida per l'utente</a></div><div id="page-toc-src"><a href="#types-of-vpc-endpoints-for-s3">Tipi di endpoint VPC</a><a href="#privatelink-limitations">Restrizioni e limitazioni di AWS PrivateLink per Amazon S3</a><a href="#s3-creating-vpc">Creazione di un endpoint VPC</a><a href="#accessing-s3-interface-endpoints">Accesso agli endpoint di interfaccia di Amazon S3</a><a href="#private-dns">DNS privato</a><a href="#accessing-bucket-and-aps-from-interface-endpoints">Accesso ai bucket, ai punti di accesso e alle operazioni API di controllo Amazon S3 dagli endpoint di interfaccia S3</a><a href="#updating-on-premises-dns-config">Aggiornamento di una configurazione DNS locale</a><a href="#creating-vpc-endpoint-policy">Creazione di una policy di endpoint VPC</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="privatelink-interface-endpoints">AWS PrivateLink per Amazon S3</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Con AWS PrivateLink per Amazon S3, puoi eseguire il provisioning di <em>endpoint VPC di interfaccia</em> (endpoint di interfaccia) nel tuo virtual private cloud (VPC). Puoi accedere a questi endpoint direttamente da applicazioni On-Premise su VPN e AWS Direct Connect, o in un'altra Regione AWS su peering di VPC.</p><p>Gli endpoint di interfaccia sono rappresentati da una o più interfacce di rete elastiche (ENI) a cui vengono assegnati indirizzi IP privati dalle sottoreti nel VPC. Le richieste ad Amazon S3 tramite gli endpoint di interfaccia rimangono nella rete Amazon. È inoltre possibile accedere agli endpoint di interfaccia nel VPC da applicazioni locali tramite AWS Direct Connect o AWS Virtual Private Network (AWS VPN). Per ulteriori informazioni su come connettere il VPC alla rete On-Premise, consulta la <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html">AWS Direct ConnectGuida per l'utente di </a> e la <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPNGuida per l'utente di </a>.</p><p>Per informazioni sulla creazione di endpoint di interfaccia, consulta <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html">Endpoint VPC di interfaccia (AWS PrivateLink)</a> nella <em>Guida di AWS PrivateLink</em>.</p><div class="highlights" id="inline-topiclist"><h6>Argomenti</h6><ul><li><a href="#types-of-vpc-endpoints-for-s3">Tipi di endpoint VPC per Amazon S3</a></li><li><a href="#privatelink-limitations">Restrizioni e limitazioni di AWS PrivateLink per Amazon S3</a></li><li><a href="#s3-creating-vpc">Creazione di un endpoint VPC</a></li><li><a href="#accessing-s3-interface-endpoints">Accesso agli endpoint di interfaccia di Amazon S3</a></li><li><a href="#private-dns">DNS privato</a></li><li><a href="#accessing-bucket-and-aps-from-interface-endpoints">Accesso ai bucket, ai punti di accesso e alle operazioni API di controllo Amazon S3 dagli endpoint di interfaccia S3</a></li><li><a href="#updating-on-premises-dns-config">Aggiornamento di una configurazione DNS locale</a></li><li><a href="#creating-vpc-endpoint-policy">Creazione di una policy per l'endpoint VPC per Amazon S3</a></li></ul></div>
+    <h2 id="types-of-vpc-endpoints-for-s3">Tipi di endpoint VPC per Amazon S3</h2>
+    <p>Puoi utilizzare due tipi di endpoint VPC per accedere ad Amazon S3: gli <em>endpoint del gateway</em> e gli <em>endpoint di interfaccia</em> mediante AWS PrivateLink. Un <em>endpoint gateway</em> è un gateway che viene specificato nella tabella di routing per accedere ad Amazon S3 dal VPC tramite la rete AWS. Gli <em>endpoint di interfaccia</em> estendono la funzionalità degli endpoint gateway utilizzando indirizzi IP privati per instradare le richieste ad Amazon S3 dall'interno del VPC, on-premise, o da una Regione AWS utilizzando il peering VPC o AWS Transit Gateway. Per ulteriori informazioni, consulta <a href="https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html">Che cos'è il peering di VPC?</a> e <a href="https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/transit-gateway-vs-vpc-peering.html">Transit Gateway e peering di VPC</a>.</p>
+    <p>Gli endpoint di interfaccia sono compatibili con gli endpoint gateway. Se disponi di un endpoint gateway nel VPC, puoi utilizzare entrambi i tipi di endpoint nello stesso VPC.</p>
+    <div class="table-container"><div class="table-contents"><table id="w1871aac19c23c11b7"><thead>
+          <tr>
+            <th>
+              <p>Endpoint gateway per Amazon S3</p>
+            </th>
+            <th>
+              <p>Endpoint di interfaccia per Amazon S3</p>
+            </th>
+          </tr>
+        </thead>
+          <tr>
+            <td colspan="2">
+              
+              <p>In entrambi i casi, il traffico di rete rimane sulla rete AWS.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Uso di indirizzi IP pubblici di Amazon S3</p>
+            </td>
+            <td>
+              <p>Uso di indirizzi IP privati del tuo VPC per accedere ad Amazon S3</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Uso degli stessi nomi DNS di Simple Storage Service (Amazon S3)</p>
+            </td>
+            <td>
+              <p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#accessing-s3-interface-endpoints">Richiesta di nomi DNS di Simple Storage Service (Amazon S3) specifici per endpoint</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Non consente l'accesso da on-premise</p>
+            </td>
+            <td>
+              <p>Consente l'accesso da On-Premise</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Non consente l'accesso da un'altra Regione AWS</p>
+            </td>
+            <td>
+              <p>Consente l'accesso da un VPC in un'altra Regione AWS tramite peering VPC o AWS Transit Gateway</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Non fatturata</p>
+            </td>
+            <td>
+              <p>Fatturata</p>
+            </td>
+          </tr>
+        </table></div></div>
+    <p>Per ulteriori informazioni sugli endpoint gateway, consulta <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Endpoint VPC gateway</a> nella <em>Guida di AWS PrivateLink</em>.</p>
+     
+      <h2 id="privatelink-limitations">Restrizioni e limitazioni di AWS PrivateLink per Amazon S3</h2>
+      <p>Le limitazioni VPC si applicano a AWS PrivateLink per Amazon S3. Per ulteriori informazioni, consulta <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations">Considerazioni di un endpoint di interfaccia</a> e <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-limits-endpoints.html">Quote di AWS PrivateLink</a> nella <em>Guida di AWS PrivateLink</em>. Inoltre, si applicano le limitazioni seguenti:</p>
+    <p>AWS PrivateLink per Amazon S3 non supporta quanto segue:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="http://aws.amazon.com/compliance/fips/" rel="noopener noreferrer" target="_blank"><span>Endpoint FIPS (Federal Information Processing Standard)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+      </li><li class="listitem">
+        <p><a href="./WebsiteEndpoints.html">Endpoint del sito Web</a></p>
+      </li><li class="listitem">
+        <p><a href="./VirtualHosting.html#deprecated-global-endpoint">Endpoint globali legacy</a></p>
+      </li><li class="listitem">
+        <p>Utilizzo di <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html">CopyObject</a> o <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html">UploadPartCopy</a> tra bucket in Regioni AWS diverse</p></li><li class="listitem">
+        <p>Transport Layer Security (TLS) 1.1</p>
+      </li></ul></div>
+     
+    <h2 id="s3-creating-vpc">Creazione di un endpoint VPC</h2>
+    <p>Per creare un endpoint di interfaccia VPC, consulta <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html#create-interface-endpoint-aws">Creazione di un endpoint VPC</a> nella <em>Guida AWS PrivateLink</em>.</p>
+   
+      <h2 id="accessing-s3-interface-endpoints">Accesso agli endpoint di interfaccia di Amazon S3</h2>
+      
+      <p>Quando crei un endpoint di interfaccia, Amazon S3 genera due tipi di nomi DNS S3 specifici dell'endpoint: <em>regionale</em> e <em>zonale</em>. </p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>I nomi DNS <em>regionali</em> includono un ID endpoint VPC univoco, un identificatore di servizio, la Regione AWS e il <code class="code">vpce.amazonaws.com</code> con il relativo nome. Ad esempio, per l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code>, il nome DNS generato potrebbe essere simile a <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>.s3.us-east-1.vpce.amazonaws.com</code>.</p>
+        </li><li class="listitem">
+          <p>I nomi DNS <em>zonali</em> includono la zona di disponibilità, ad esempio <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>-<b>us-east-1a.</b>s3.us-east-1.vpce.amazonaws.com</code>. Puoi utilizzare questa opzione se l'architettura isola le zone di disponibilità. Ad esempio, puoi utilizzarla per il contenimento degli errori o per ridurre i costi di trasferimento dei dati a livello regionale.</p>
+        </li></ul></div>
+      <p>I nomi DNS S3 specifici degli endpoint possono essere risolti dal dominio DNS pubblico S3.</p>
+      
+     
+    <h2 id="private-dns">DNS privato</h2>
+    <p>Le opzioni DNS private per gli endpoint di interfaccia VPC semplificano l'instradamento del traffico S3 sugli endpoint VPC e consentono di sfruttare il percorso di rete più economico disponibile per l'applicazione. Puoi utilizzare le opzioni DNS private per indirizzare il traffico regionale S3 senza aggiornare i client S3 per usare i nomi DNS specifici degli endpoint di interfaccia o gestire l'infrastruttura DNS. Con i nomi DNS privati abilitati, le query DNS regionali S3 si risolvono negli indirizzi IP privati di AWS PrivateLink dei seguenti endpoint:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Endpoint di bucket regionale (ad esempio, <code class="code">s3.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>Endpoint di controllo (ad esempio, <code class="code">s3-control.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>Endpoint di punto di accesso (ad esempio, <code class="code">s3-accesspoint.us-east-1.amazonaws.com</code>)</p>
+      </li></ul></div>
+    <p>Se hai un endpoint gateway nel tuo VPC, puoi indirizzare automaticamente le richieste in entrata nel VPC all'endpoint gateway S3 esistente e le richieste on-premise all'endpoint di interfaccia. Questo approccio consente di ottimizzare i costi di rete utilizzando gli endpoint gateway, che non vengono fatturati, per il traffico in entrata nel VPC. Le tue applicazioni on-premise possono usare AWS PrivateLink con l'aiuto dell'endpoint risolutore in entrata. Amazon fornisce un server DNS chiamato il Route 53 Resolver per il tuo VPC. Un endpoint del resolver in entrata inoltra le query DNS dalla rete on-premise al Route 53 Resolver.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Importante</h6></div><div class="awsdocs-note-text"><p>Per sfruttare il percorso di rete più economico quando si utilizza <b>Abilita DNS privato solo per gli endpoint in entrata</b>, è necessario che nel cloud privato virtuale sia presente un endpoint gateway. La presenza di un endpoint gateway aiuta a garantire che il traffico in entrata nel VPC venga sempre indirizzato sulla rete privata AWS quando è selezionata l'opzione <b>Abilita DNS privato solo per gli endpoint in entrata</b>. È necessario mantenere questo endpoint gateway se è selezionata l'opzione <b>Abilita DNS privato solo per gli endpoint in entrata</b>. Se desideri eliminare l'endpoint gateway, devi prima deselezionare <b>Abilita DNS privato solo per gli endpoint in entrata</b>. </p><p>Se desideri aggiornare un endpoint di interfaccia esistente su <b>Abilita DNS privato solo per gli endpoint in entrata</b> verifica innanzitutto che il tuo VPC disponga di un endpoint gateway S3. Per ulteriori informazioni sugli endpoint gateway e sulla gestione dei nomi DNS privati, consulta rispettivamente <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Endpoint gateway del VPC</a> e <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/manage-dns-names.html">Gestione dei nomi DNS</a> nella <em>Guida di AWS PrivateLink</em>.</p></div></div>
+    <p>L'opzione <b>Abilita DNS privato solo per gli endpoint in entrata</b> è disponibile solo per i servizi che supportano gli endpoint gateway.</p>
+    <p>Per ulteriori informazioni sulla creazione di un endpoint VPC che utilizza <b>Abilita DNS privato solo per gli endpoint in entrata</b>, consulta <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html">Creare un endpoint di interfaccia</a> nella <em>Guida di AWS PrivateLink</em>.</p>
+    <p><b>Utilizzo della console VPC</b></p>
+    <p>Nella console sono disponibili due opzioni: <b>Abilita nome DNS</b> e <b>Abilita DNS privato solo per gli endpoint in entrata</b>. L'opzione <b>Abilita nome DNS</b> è supportata da AWS PrivateLink. Con l'opzione <b>Abilita nome DNS</b> puoi utilizzare la connettività privata di Amazon ad Amazon S3, effettuando richieste ai nomi DNS predefiniti degli endpoint pubblici. Quando questa opzione è abilitata, i clienti possono sfruttare il percorso di rete più economico disponibile per la loro applicazione.</p>
+    <p>Quando abiliti i nomi DNS privati su un endpoint di interfaccia VPC esistente o nuovo per Amazon S3, l'opzione <b>Abilita DNS privato solo per gli endpoint in entrata</b> è selezionata per impostazione predefinita. Se questa opzione è selezionata, le applicazioni utilizzano solo gli endpoint di interfaccia per il traffico on-premise. Il traffico VPC in entrata utilizza automaticamente gli endpoint gateway più economici. In alternativa, puoi deselezionare <b>Abilita DNS privato solo per gli endpoint in entrata</b> per indirizzare tutte le richieste S3 sull'endpoint di interfaccia.</p>
+    <p><b>Utilizzando la AWS CLI</b></p>
+    <p>Se non specifichi un valore per <code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code>, viene usata l'impostazione predefinita <code class="code">true</code>. Tuttavia, prima che il cloud privato virtuale applichi le impostazioni, esegue un controllo per assicurarsi che nel cloud privato VPC sia presente un endpoint gateway. Se nel cloud privato virtuale è presente un endpoint gateway, la chiamata ha esito positivo. In caso contrario, viene visualizzato il seguente messaggio di errore: </p>
+    <p><strong class="errortext"><code>Per impostare PrivateDnsOnlyForInboundResolverEndpoint su true, il VPC <code class="replaceable">vpce_id</code> deve disporre di un endpoint gateway per il servizio.</code></strong></p>
+    <p><b>Per un nuovo endpoint di interfaccia VPC</b></p>
+    <p>Usa gli attributi <code class="code">private-dns-enabled</code> e <code class="code">dns-options</code> per abilitare il DNS privato tramite la linea di comando. L'opzione <code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code> nell'attributo <code class="code">dns-options</code> deve essere impostata su <code class="code">true</code>. Sostituire <code class="code"><code class="replaceable">user input placeholders</code></code> con le proprie informazioni.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 create-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--service-name <code class="replaceable">s3-service-name</code> \
+--vpc-id <code class="replaceable">client-vpc-id</code> \
+--subnet-ids <code class="replaceable">client-subnet-id</code> \ 
+--vpc-endpoint-type Interface  \
+--private-dns-enabled  \
+--ip-address-type <code class="replaceable">ip-address-type</code> \ 
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true \
+--security-group-ids <code class="replaceable">client-sg-id</code> 
+    </code></pre>
+    <p><b>Per un endpoint VPC esistente</b></p>
+    <p>Se desideri utilizzare il DNS privato per un endpoint VPC esistente, usa il seguente comando di esempio e sostituisci <code class="code"><code class="replaceable">user input placeholders</code></code> con le tue specifiche informazioni.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=false
+    </code></pre>
+    <p>Se desideri aggiornare un endpoint VPC esistente per abilitare il DNS privato solo per il risolutore in entrata, usa il seguente esempio e sostituisci i valori di esempio con le tue specifiche informazioni.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true
+    </code></pre>
+   
+    <h2 id="accessing-bucket-and-aps-from-interface-endpoints">Accesso ai bucket, ai punti di accesso e alle operazioni API di controllo Amazon S3 dagli endpoint di interfaccia S3</h2>
+    <p>Puoi utilizzare la AWS CLI o gli SDK AWS per accedere a bucket, punti di accesso S3 e operazioni API di controllo Amazon S3 tramite gli endpoint di interfaccia S3. </p>
+    <p>Nell'immagine seguente viene illustrata la scheda <b>Dettagli</b> della console VPC, in cui è possibile trovare il nome DNS di un endpoint VPC. In questo esempio, l'<em>ID endpoint VPC (vpce-id)</em> è <code class="code">vpce-0e25b8cdd720f900e</code> e il <em>nome DNS</em> è <code class="code">*.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code>. </p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <div class="mediaobject">
+       
+       
+        <img src="images/vpc-console-details-tab.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;        Scheda Dettagli nella console VPC.&#xA;      " style="max-width:100%" />
+       
+    </div>
+    <p>Quando utilizzi il nome DNS per accedere a una risorsa, sostituisci <code class="replaceable">*</code> con il valore appropriato. I valori appropriati da utilizzare al posto di <code class="code">*</code> sono i seguenti: </p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">bucket</code></p>
+      </li><li class="listitem">
+        <p><code class="code">accesspoint</code></p>
+      </li><li class="listitem">
+        <p><code class="code">control</code></p>
+      </li></ul></div>
+    <p>Ad esempio, per accedere a un bucket, usa un <em>nome DNS</em> simile al seguente:</p>
+    <p>
+      <code class="code">bucket.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code></p>
+    <p>Per esempi di come utilizzare i nomi DNS per accedere a bucket, punti di accesso e operazioni API di controllo Amazon S3, consulta le sezioni <a href="#privatelink-aws-cli-examples">Esempi di AWS CLI</a> e <a href="#privatelink-aws-sdk-examples">Esempi di SDK AWS</a>.</p>
+    <p>Per ulteriori informazioni su come visualizzare i nomi DNS specifici degli endpoint, consulta <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/view-vpc-endpoint-service-dns-name.html">Visualizzazione della configurazione dei nomi DNS privati del servizio endpoint</a> nella <em>Guida per l'utente di VPC</em>.</p>
+     
+      <h3 id="privatelink-aws-cli-examples">Esempi di AWS CLI</h3>
+      <p>Utilizza i parametri <code class="code">--region</code> e <code class="code">--endpoint-url</code> nei comandi della AWS CLI per accedere ai bucket S3, ai punti di accesso S3 o alle operazioni API di controllo Amazon S3 tramite gli endpoint dell'interfaccia S3. </p>
+       
+        <h6>Esempio: utilizzo dell'URL dell'endpoint per elencare gli oggetti nel bucket</h6>
+        <p>Nell'esempio seguente, sostituisci il nome bucket <code class="code"><code class="replaceable">my-bucket</code></code>, Regione <code class="code"><code class="replaceable">us-east-1</code></code> e il nome DNS dell’ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le tue informazioni.</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3 ls s3://<code class="replaceable">my-bucket</code>/ --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+      <p><b>Esempio: utilizzo dell'URL dell'endpoint per elencare gli oggetti da un punto di accesso</b></p>
+      <div class="itemizedlist">
+                 
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>Metodo 1</b>: utilizzo del nome della risorsa Amazon (ARN) del punto di accesso con l'endpoint del punto di accesso</p>
+          
+          <p>Sostituisci l'ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code></code>, la Regione <code class="code"><code class="replaceable">us-east-1</code></code> e l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le informazioni appropriate.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+          <p>Se il comando non viene eseguito correttamente, aggiorna la AWS CLI alla versione più recente e riprova. Per ulteriori informazioni sulle istruzioni di aggiornamento, consulta <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions"> Istruzioni per l'installazione o l'aggiornamento all'ultima versione della AWS CLI</a> nella <em>Guida per l'utente di AWS Command Line Interface</em>.</p>
+        </li><li class="listitem">
+          <p><b>Metodo 2</b>: utilizzo dell'alias del punto di accesso con l'endpoint bucket regionale</p>
+          <p>Nell'esempio seguente, sostituisci l'alias del punto di accesso <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code>, la Regione <code class="code"><code class="replaceable">us-east-1</code></code> e l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le informazioni appropriate.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li><li class="listitem">
+          <p><b>Metodo 3</b>: utilizzo dell'alias del punto di accesso con l'endpoint del punto di accesso</p>
+          <p>Innanzitutto, per creare un endpoint S3 con il bucket incluso come parte del nome host, imposta lo stile di indirizzamento su <code class="code">virtual</code> per <code class="code">aws s3api</code>. Per ulteriori informazioni su <code class="code">AWS configure</code>, consulta <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html">File di configurazione e delle credenziali</a> nella <em>Guida per l'utente di AWS Command Line Interface</em>. </p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws configure set default.s3.addressing_style virtual</code></pre>
+          <p>Quindi, nell'esempio seguente, sostituisci l'alias del punto di accesso <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code>, la Regione <code class="code"><code class="replaceable">us-east-1</code></code> e l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le informazioni appropriate. Per ulteriori informazioni sull'alias del punto di accesso, consulta <a href="./access-points-alias.html">Utilizzo di un alias in stile bucket per il punto di accesso del bucket S3</a>.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li></ul></div>     
+       
+        <h6>Esempio: utilizzo dell'URL dell'endpoint per elencare i processi con un'operazione API di controllo S3</h6>
+        <p>Nell'esempio seguente, sostituisci la Regione <code class="code"><code class="replaceable">us-east-1</code></code>, l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> e l'ID account <code class="code"><code class="replaceable">12345678</code></code> con le informazioni appropriate.</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3control --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code> list-jobs --account-id <code class="replaceable">12345678</code></code></pre>
+     
+     
+      <h3 id="privatelink-aws-sdk-examples">Esempi di SDK AWS</h3>
+      <p>Quando utilizzi gli SDK AWS, aggiornali alla versione più recente per accedere ai bucket S3, ai punti di accesso S3 o alle operazioni API di controllo Amazon S3 tramite gli endpoint di interfaccia S3. Quindi configura i client per utilizzare un URL endpoint per accedere a un bucket, un punto di accesso o un'operazione API di controllo Amazon S3 tramite gli endpoint di interfaccia S3. </p>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>SDK for Python (Boto3)</dt><dd tab-id="sdk-for-python-(boto3)">
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere a un bucket S3</h6>
+              <p>Nell'esempio seguente, sostituisci la Regione <code class="code"><code class="replaceable">us-east-1</code></code> e l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le informazioni appropriate. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">s3_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere a un access point S3</h6>
+              <p>Nell'esempio seguente, sostituisci la Regione <code class="code"><code class="replaceable">us-east-1</code></code> e l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le informazioni appropriate. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">ap_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere all'API di controllo Amazon S3</h6>
+              <p>Nell'esempio seguente, sostituisci la Regione <code class="code"><code class="replaceable">us-east-1</code></code> e l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le informazioni appropriate. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">control_client = session.client(
+service_name='s3control',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+          </dd>
+        <dt>SDK for Java 1.x</dt><dd tab-id="sdk-for-java-1.x">
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere a un bucket S3</h6>
+              <p>Nell'esempio seguente, sostituisci l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le informazioni appropriate. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+List&lt;Bucket&gt; buckets = s3.listBuckets();</code></pre>
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere a un access point S3</h6>
+              <p>Nell'esempio seguente, sostituisci l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> e l'ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/prod</code></code> con le informazioni appropriate. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+final AmazonS3 s3accesspoint = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+ObjectListing objects = s3accesspoint.listObjects("arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/prod</code>");</code></pre>
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere all'operazione API di controllo Amazon S3</h6>
+              <p>Nell'esempio seguente, sostituisci l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> con le informazioni appropriate. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+final AWSS3Control s3control = AWSS3ControlClient.builder().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+final ListJobsResult jobs = s3control.listJobs(new ListJobsRequest());</code></pre>
+          </dd>
+        <dt>SDK for Java 2.x</dt><dd tab-id="sdk-for-java-2.x">
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere a un bucket S3</h6>
+              <p>Nell'esempio seguente, sostituisci l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> e la Regione <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> con le informazioni appropriate.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere a un access point S3</h6>
+              <p>Nell'esempio seguente, sostituisci l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> e la Regione <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> con le informazioni appropriate.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>Esempio: utilizzo di un URL endpoint per accedere all'API di controllo Amazon S3</h6>
+              <p>Nell'esempio seguente, sostituisci l'ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> e la Regione <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> con le informazioni appropriate.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3ControlClient = S3ControlClient.builder().region(region)
+                                 .endpointOverride(URI.create("https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                                 .build()</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+     
+   
+    <h2 id="updating-on-premises-dns-config">Aggiornamento di una configurazione DNS locale</h2>
+      <p>Quando si utilizzano nomi DNS specifici degli endpoint per accedere agli endpoint di interfaccia per Amazon S3, non è necessario aggiornare il resolver DNS locale. Puoi risolvere il nome DNS specifico dell'endpoint con l'indirizzo IP privato dell'endpoint di interfaccia dal dominio DNS Amazon S3 pubblico. </p>
+
+       
+      <h3 id="using-interface-endpoints">Utilizzo degli endpoint di interfaccia per accedere ad Amazon S3 senza un endpoint gateway o un gateway Internet nel VPC</h3>
+      <p>Gli endpoint di interfaccia nel VPC possono instradare sia le applicazioni nel VPC che le applicazioni locali ad Amazon S3 sulla rete Amazon, come illustrato nel diagramma seguente.</p>
+      <div class="mediaobject">
+         
+         
+          <img src="images/interface-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          Diagramma di flusso dei dati che mostra l'accesso dalle app on-premise e nel VPC ad Amazon S3 utilizzando un endpoint di interfaccia e AWS PrivateLink.&#xA;        " style="max-width:100%" />
+         
+      </div>
+      <p>Il diagramma illustra quanto segue: </p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>La rete locale utilizza AWS Direct Connect o AWS VPN per connettersi a VPC A.</p>
+        </li><li class="listitem">
+          <p>Le applicazioni in locale e in VPC A utilizzano nomi DNS specifici degli endpoint per accedere ad Amazon S3 tramite l'endpoint di interfaccia S3.</p>
+        </li><li class="listitem">
+          <p>Le applicazioni On-Premise inviano dati all'endpoint di interfaccia nel VPC tramite AWS Direct Connect (oAWS VPN ). AWS PrivateLink sposta i dati dall'endpoint di interfaccia ad Amazon S3 sulla rete AWS.</p>
+        </li><li class="listitem">
+          <p>Anche le applicazioni nel VPC inviano traffico all'endpoint di interfaccia. AWS PrivateLink sposta i dati dall'endpoint di interfaccia ad Amazon S3 sulla rete AWS.</p>
+        </li></ul></div>
+     
+       
+        <h3 id="using-gateway-and-interface-endpoints">Utilizzo di endpoint gateway e endpoint di interfaccia insieme nello stesso VPC per accedere ad Amazon S3</h3>
+        <p>Puoi creare endpoint di interfaccia e mantenere l'endpoint gateway esistente nello stesso VPC, come illustrato nel diagramma seguente. Con questo approccio consenti alle applicazioni nel VPC di continuare ad accedere ad Amazon S3 tramite l'endpoint gateway senza essere fatturate. Quindi, solo le applicazioni on-premise utilizzerebbero gli endpoint di interfaccia per accedere ad Amazon S3. Per accedere ad Amazon S3 in questo modo, è necessario aggiornare le applicazioni On-Premise per utilizzare nomi DNS specifici degli endpoint per Amazon S3.</p>
+        <div class="mediaobject">
+         
+         
+          <img src="images/interface-and-gateway-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          Diagramma di flusso dei dati che mostra l'accesso ad Amazon S3 utilizzando gli endpoint gateway e gli endpoint di interfaccia insieme.&#xA;        " style="max-width:100%" />
+         
+      </div>
+        <p>Il diagramma illustra quanto segue: </p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Le applicazioni On-Premise utilizzano nomi DNS specifici dell'endpoint per inviare dati all'endpoint di interfaccia nel VPC tramite AWS Direct Connect (o AWS VPN). AWS PrivateLink sposta i dati dall'endpoint di interfaccia ad Amazon S3 sulla rete AWS.</p>
+          </li><li class="listitem">
+            <p>Utilizzando i nomi Amazon S3 regionali predefiniti, le applicazioni nel VPC inviano dati all'endpoint gateway che si connette ad Amazon S3 tramite la rete AWS.</p>
+          </li></ul></div>
+        <p>Per ulteriori informazioni sugli endpoint gateway, consulta <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Endpoint VPC gateway</a> nella <em>Guida per l'utente di VPC</em>. </p>
+     
+   
+    <h2 id="creating-vpc-endpoint-policy">Creazione di una policy per l'endpoint VPC per Amazon S3</h2>
+    <p>Puoi allegare una policy di endpoint all'endpoint VPC che controlla l'accesso ad Amazon S3. Questa policy specifica le informazioni riportate di seguito: </p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Il principale AWS Identity and Access Management (IAM) che può eseguire operazioni </p>
+      </li><li class="listitem">
+        <p>Le operazioni che possono essere eseguite </p>
+      </li><li class="listitem">
+        <p>Le risorse sui cui si possono eseguire operazioni </p>
+      </li></ul></div>
+    <p>Puoi utilizzare le policy del bucket di Amazon S3 anche per limitare l'accesso a bucket specifici da un endpoint VPC specifico utilizzando la condizione <code class="code">aws:sourceVpce</code> nella policy del bucket. Negli esempi seguenti vengono illustrate le policy che limitano l'accesso a un bucket o a un endpoint.</p>
+    <div class="highlights" id="inline-topiclist"><h6>Argomenti</h6><ul><li><a href="#privatelink-example-restrict-access-to-bucket">Esempio: limitazione dell'accesso a un bucket specifico da un endpoint VPC</a></li><li><a href="#privatelink-example-access-bucket-in-specific-account-only">Esempio: limitazione dell'accesso ai bucket in un account specifico da un endpoint VPC</a></li><li><a href="#privatelink-example-restrict-access-to-vpc-endpoint">Esempio: limitazione dell'accesso a un endpoint VPC specifico nella policy del bucket S3</a></li></ul></div>
+     
+      <h3 id="privatelink-example-restrict-access-to-bucket">Esempio: limitazione dell'accesso a un bucket specifico da un endpoint VPC</h3>
+      <p>Puoi creare una policy di endpoint che limita l'accesso solo a bucket Amazon S3 specifici. Questo tipo di policy è utile se hai altri Servizi AWS nel VPC che utilizzano i bucket. La seguente policy del bucket limita l'accesso solo a <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code>. Per utilizzare questa policy di endpoint, sostituisci <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code> con il nome del bucket.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909151",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-bucket-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>/*"]
+    }
+  ]
+}</code></pre>
+     
+     
+      <h3 id="privatelink-example-access-bucket-in-specific-account-only">Esempio: limitazione dell'accesso ai bucket in un account specifico da un endpoint VPC</h3>
+      <p>Puoi creare una policy di endpoint che limita l'accesso solo ai bucket S3 in un Account AWS specifico. Per impedire ai client nel VPC di accedere ai bucket di cui non sei proprietario, utilizza la seguente istruzione nella policy di endpoint. Nell'esempio seguente viene creata una policy che limita l'accesso alle risorse di proprietà di un singolo ID Account AWS, <code class="replaceable"><code class="code">111122223333</code></code>.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-bucket-in-specific-account-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::*",
+      "Condition": <span>{</span>
+        "StringNotEquals": <span>{</span>
+          "aws:ResourceAccount": "<code class="replaceable">111122223333</code>"
+        }
+      }
+    }
+  ]
+}</code></pre>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Nota</h6></div><div class="awsdocs-note-text"><p>Puoi utilizzare l'Account AWS o la chiave <code class="code">aws:ResourceAccount</code> nella policy IAM per specificare l'ID <code class="code">s3:ResourceAccount</code> della risorsa a cui stai accedendo. Tieni presente, tuttavia, che alcuni Servizi AWS si basano sull'accesso a bucket gestiti da AWS. Pertanto, l'utilizzo della chiave di condizione <code class="code">aws:ResourceAccount</code> o <code class="code">s3:ResourceAccount</code> nella policy IAM potrebbe anche influire sull'accesso a tali risorse.</p></div></div>
+     
+     
+      <h3 id="privatelink-example-restrict-access-to-vpc-endpoint">Esempio: limitazione dell'accesso a un endpoint VPC specifico nella policy del bucket S3</h3>
+      <p><a id="example-restrict-access-to-vpc-endpoint"></a><b>Esempio: limitazione dell'accesso a un endpoint VPC specifico nella policy del bucket S3</b></p>
+      <p>La seguente policy del bucket Amazon S3 consente l'accesso a un bucket specifico, <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code>, solo dall'endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code>. La policy nega l'accesso al bucket se l'endpoint specificato non è in uso. La condizione <code class="code">aws:sourceVpce</code> viene utilizzata per specificare l'endpoint e non richiede un nome della risorsa Amazon (ARN) per la risorsa dell'endpoint VPC, ma solo l'ID dell'endpoint. Per utilizzare questa politica del bucket, sostituisci <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code> e <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> con il nome e l'endpoint del bucket. </p>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Importante</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Quando applichi la seguente policy del bucket Amazon S3 per limitare l'accesso solo a determinati endpoint VPC, potresti senza volerlo bloccare l'accesso al bucket. Le policy del bucket che hanno lo scopo di limitare l'accesso del bucket a connessioni originate dall'endpoint VPC possono bloccare tutte le connessioni al bucket. Per informazioni su come risolvere questo problema, consulta <a href="http://aws.amazon.com/premiumsupport/knowledge-center/s3-regain-access/" rel="noopener noreferrer" target="_blank"><span>La policy del bucket ha l'ID del VPC o dell'endpoint VPC sbagliato. Come posso correggere la policy in modo da poter accedere al bucket?  nel </span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>Knowledge Center di <em>AWS Support</em>.</p>
+          </li><li class="listitem">
+            <p>Prima di utilizzare la policy di esempio seguente, sostituire l'ID endpoint VPC con un valore appropriato per il caso d'uso. In caso contrario, non sarà possibile accedere al bucket. </p>
+          </li><li class="listitem">
+            <p>Questa policy disabilita l'accesso alla <em>console</em> al bucket specificato in quanto le richieste della console non provengono dall'endpoint VPC specificato. </p>
+          </li></ul></div></div></div>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909152",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-VPCE-only",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code>/*</code>"],
+      "Condition": <span>{</span>"StringNotEquals": <span>{</span>"aws:sourceVpce": "<code class="replaceable">vpce-1a2b3c4d</code>"}}
+    }
+  ]
+}</code></pre>
+     
+    <p>Per altri esempi di policy, consulta <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html#vpc-endpoints-policies-s3">Endpoint per Amazon S3</a> nella <em>Guida per l'utente di VPC</em>.</p>
+  <p>Per maggiori informazioni sulla connettività VPC, consulta <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html">Opzioni di connettività da rete a VPC</a> nel whitepaper AWS <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/welcome.html">Opzioni di connettività di Amazon Virtual Private Cloud</a>.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avvertimento" /> <strong>JavaScript è disabilitato o non è disponibile nel tuo browser.</strong></p><p>Per usare la documentazione AWS, JavaScript deve essere abilitato. Consulta le pagine della guida del browser per le istruzioni.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenzioni dei documenti</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./inter-network-traffic-privacy.html">Riservatezza di Internet</div><div id="next" class="next-link" accesskey="n" href="./s3-access-control.html">Identity and Access Management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Questa pagina ti è stata utile? - Sì</div><div class="content"><p>Grazie per averci comunicato che stiamo facendo un buon lavoro!</p><p>Se hai un momento, ti invitiamo a dirci che cosa abbiamo fatto che ti è piaciuto così possiamo offrirti altri contenuti simili.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Questa pagina ti è stata utile? - No</div><div class="content"><p>Grazie per averci comunicato che questa pagina ha bisogno di essere modificata. Siamo spiacenti di non aver soddisfatto le tue esigenze.</p><p>Se hai un momento, ti invitiamo a dirci come possiamo migliorare la documentazione.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

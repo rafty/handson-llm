@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Controlling ownership of objects and disabling ACLs for your bucket - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="about-object-ownership" /><meta name="default_state" content="about-object-ownership" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html" /><meta name="description" content="Control ownership of new objects that are uploaded to your Amazon S3 bucket and disable access control lists (ACLs) for your bucket using S3 Object Ownership." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Controlling ownership of objects and disabling ACLs for your bucket" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Controlling ownership of objects and disabling ACLs for your bucket - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#about-object-ownership" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/about-object-ownership.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/about-object-ownership.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/about-object-ownership.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/about-object-ownership.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon S3 security",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Controlling ownership of objects and disabling ACLs for your bucket",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#about-object-ownership" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/about-object-ownership.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="page-toc-src"><a href="#object-ownership-overview">Object Ownership settings</a><a href="#object-ownership-changes">Changes introduced by disabling ACLs</a><a href="#object-ownership-considerations">Prerequisites for disabling
+				ACLs</a><a href="#object-ownership-permissions">Object Ownership permissions</a><a href="#requiring-bucket-owner-enforced">Disabling ACLs for all new
+				buckets</a><a href="#object-ownership-replication">Replication and Object Ownership</a><a href="#object-ownership-setting">Setting Object Ownership</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="about-object-ownership">Controlling ownership of objects and disabling ACLs
+			for your bucket</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>S3 Object Ownership is an Amazon S3 bucket-level setting that you can use to control ownership
+		of objects uploaded to your bucket and to disable or enable <a href="./acl-overview.html">access control lists (ACLs)</a>. By default, Object Ownership is set to the Bucket
+		owner enforced setting and all ACLs are disabled. When ACLs are disabled, the bucket owner
+		owns all the objects in the bucket and manages access to data exclusively using access
+		management policies.</p><p>A majority of modern use cases in Amazon S3 no longer require the use of ACLs, and we recommend
+		that you keep ACLs disabled except in unusual circumstances where you must control access for each
+		object individually. With ACLs disabled, you can use policies to more easily control access to every object in your bucket, regardless
+		of who uploaded the objects in  your bucket. </p><p>Object Ownership has three settings that you can use to control ownership of objects
+		uploaded to your bucket and to disable or enable ACLs:</p><div class="itemizedlist">
+		<h6>ACLs disabled</h6>
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p><b>Bucket owner enforced (default)</b> – ACLs
+				are disabled, and the bucket owner automatically owns and has full control over
+				every object in the bucket. ACLs no longer affect permissions to data in the S3
+				bucket. The bucket uses policies to define access control.</p>
+		</li></ul></div><div class="itemizedlist">
+		<h6>ACLs enabled</h6>
+		 
+		 
+	<ul class="itemizedlist"><li class="listitem">
+			<p><b>Bucket owner preferred</b> – The bucket owner
+				owns and has full control over new objects that other accounts write to the bucket
+				with the <code class="code">bucket-owner-full-control</code> canned ACL. </p>
+		</li><li class="listitem">
+			<p><b>Object writer</b> – The
+				AWS account that uploads an object owns the object, has full control over it, and
+				can grant other users access to it through ACLs.</p>
+		</li></ul></div><p>For the majority of modern use cases in S3, we recommend that you keep ACLs disabled by
+		applying the Bucket owner enforced setting and using your bucket policy to share data with
+		users outside of your account as needed. This approach simplifies permissions management.
+		You can disable ACLs on both newly created and already existing buckets. For newly created
+		buckets, ACLs are disabled by default. In the case of an existing bucket that already has
+		objects in it, after you disable ACLs, the object and bucket ACLs are no longer part of an
+		access evaluation, and access is granted or denied on the basis of policies. For existing
+		buckets, you can re-enable ACLs at any time after you disable them, and your preexisting
+		bucket and object ACLs are restored.</p><p>Before you disable ACLs, we recommend that you review your bucket policy to ensure that it
+		covers all the ways that you intend to grant access to your bucket outside of your account. After you
+		disable ACLs, your bucket accepts only PUT requests that do not specify an ACL or
+			<code class="code">PUT</code> requests with bucket owner full control ACLs, such as the
+			<code class="code">bucket-owner-full-control</code> canned ACL or equivalent forms of this ACL
+		expressed in XML. Existing applications that support bucket owner full control ACLs see no
+		impact. <code class="code">PUT</code> requests that contain other ACLs (for example, custom grants to
+		certain AWS accounts) fail and return a <code class="code">400</code> error with the error code
+			<code class="code">AccessControlListNotSupported</code>. </p><p>In contrast, a bucket with the Bucket owner preferred setting continues to accept and
+		honor bucket and object ACLs. With this setting, new objects that are written with the
+			<code class="code">bucket-owner-full-control</code> canned ACL are automatically owned by the bucket
+		owner rather than the object writer. All other ACL behaviors remain in place. To require all
+		Amazon S3 <code class="code">PUT</code> operations to include the <code class="code">bucket-owner-full-control</code>
+		canned ACL, you can <a href="./ensure-object-ownership.html#ensure-object-ownership-bucket-policy">add a bucket
+			policy</a> that allows only object uploads using this ACL.</p><p>To see which Object Ownership settings are applied to your buckets, you can use
+		Amazon S3 Storage Lens metrics. S3 Storage Lens is a cloud-storage analytics feature that you can use to gain organization-wide
+    visibility into object-storage usage and activity. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-lens-access-management.html?icmpid=docs_s3_user_guide_about-object-ownership.html"> Using S3 Storage Lens to find Object Ownership settings</a>.</p>
+		<h2 id="object-ownership-overview">Object Ownership settings</h2>
+		<p>This table shows the impact that each Object Ownership setting has on ACLs, objects,
+			object ownership, and object uploads. </p>
+		<div class="table-container"><div class="table-contents disable-scroll"><table id="w1877aac20c29c21b5"><thead>
+					<tr>
+						<th>Setting</th>
+						<th>Applies to</th>
+						<th>Effect on object ownership</th>
+						<th>Effect on ACLs</th>
+						<th>Uploads accepted</th>
+					</tr>
+				</thead>
+					<tr>
+						<td>Bucket owner enforced (default)</td>
+						<td>All new and existing objects</td>
+						<td>Bucket owner owns every object.</td>
+						<td>
+							<p>ACLs are disabled and no longer affect access permissions to your
+								bucket. Requests to set or update ACLs fail. However, requests to
+								read ACLs are supported. </p>
+							<p>Bucket owner has full ownership and control.</p>
+							<p>Object writer no longer has full ownership and control.</p>
+						</td>
+						<td>Uploads with bucket owner full control ACLs or uploads that don't
+							specify an ACL</td>
+					</tr>
+					<tr>
+						<td>Bucket owner preferred</td>
+						<td>New objects</td>
+						<td>If an object upload includes the
+								<code class="code">bucket-owner-full-control</code> canned ACL, the bucket owner
+							owns the object. <p>Objects uploaded with other ACLs are owned by the
+								writing account.</p></td>
+						<td>
+							<p>ACLs can be updated and can grant permissions.</p>
+							<p>If an object upload includes the
+									<code class="code">bucket-owner-full-control</code> canned ACL, the bucket
+								owner has full control access, and the object writer no longer has
+								full control access.</p>
+						</td>
+						<td>All uploads</td>
+					</tr>
+					<tr>
+						<td>Object writer</td>
+						<td>New objects</td>
+						<td>Object writer owns the object.</td>
+						<td>
+							<p>ACLs can be updated and can grant permissions.</p>
+							<p>Object writer has full control access.</p>
+						</td>
+						<td>All uploads</td>
+					</tr>
+				</table></div></div>
+	 
+		<h2 id="object-ownership-changes">Changes introduced by disabling ACLs</h2>
+		<p>When the Bucket owner enforced setting for Object Ownership is applied, ACLs are disabled and you automatically own and take full
+			control over every object in the bucket without taking any additional actions. Bucket owner enforced is the default setting for all newly created buckets. 
+			After the Bucket owner enforced setting is applied, you will see three changes: 
+			 </p>
+		<div class="itemizedlist">
+			 
+			 
+			 
+		<ul class="itemizedlist"><li class="listitem">
+				<p>All bucket ACLs and object ACLs are disabled, which gives full access to you,
+					as the bucket owner. When you perform a read ACL request on your bucket or
+					object, you will see that full access is given only to the bucket owner.</p>
+			</li><li class="listitem">
+				<p>You, as the bucket owner, automatically own and have full control over every
+					object in your bucket.</p>
+			</li><li class="listitem">
+				<p>ACLs no longer affect access permissions to your bucket. As a result, access
+					control for your data is based on policies, such as IAM policies, S3 bucket
+					policies, VPC endpoint policies, and Organizations SCPs.</p>
+			</li></ul></div>
+		<div class="mediaobject">
+			 
+			 
+				<img src="/images/AmazonS3/latest/userguide/images/bucket-owner-enforced.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;&#x9;&#x9;&#x9;&#x9;Diagram showing what happens when you apply the Bucket owner enforced&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;setting to disable ACLs.&#xA;&#x9;&#x9;&#x9;" />
+			 
+			
+			
+		</div>
+		<p>If you use S3 Versioning, the bucket owner owns and has full control over all object
+			versions in your bucket. Applying the Bucket owner enforced setting does not add a new
+			version of an object.</p>
+		<p>New objects can be uploaded to your bucket only if they use bucket owner full control
+			ACLs or don't specify an ACL. Object uploads fail if they specify any other ACL. For
+			more information, see <a href="./object-ownership-error-responses.html">Troubleshooting</a>.</p>
+		<p>Because the following example <code class="code">PutObject</code> operation using the AWS Command Line Interface
+			(AWS CLI) includes the <code class="code">bucket-owner-full-control</code> canned ACL, the object can
+			be uploaded to a bucket with disabled ACLs.</p>
+		<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api put-object --bucket <code class="replaceable">DOC-EXAMPLE-BUCKET</code> --key <code class="replaceable">key-name</code> --body <code class="replaceable">path-to-file</code> --acl bucket-owner-full-control</code></pre>
+		<p>Because the following <code class="code">PutObject</code> operation doesn't specify an ACL, it also
+			succeeds for a bucket with disabled ACLs.</p>
+		<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api put-object --bucket <code class="replaceable">DOC-EXAMPLE-BUCKET</code> --key <code class="replaceable">key-name</code> --body <code class="replaceable">path-to-file</code></code></pre>
+		<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>If other AWS accounts need access to objects after uploading, you must grant
+				additional permissions to those accounts through bucket policies. For more
+				information, see <a href="./example-walkthroughs-managing-access.html">Example walkthroughs:
+		Managing access to your Amazon S3 resources</a>.</p></div></div>
+		 
+			<h6>Re-enabling ACLs</h6>
+			<p>You can re-enable ACLs by changing from the Bucket owner enforced setting to
+				another Object Ownership setting at any time. If you used object ACLs for
+				permissions management before you applied the Bucket owner enforced setting and you
+				didn't migrate these object ACL permissions to your bucket policy, after you
+				re-enable ACLs, these permissions are restored. Additionally, objects written to the
+				bucket while the Bucket owner enforced setting was applied are still owned by the
+				bucket owner. </p>
+		 
+		 
+			<p>For example, if you change from the Bucket owner enforced setting back to the Object
+				writer setting, you, as the bucket owner, no longer own and have full control over objects
+				that were previously owned by other AWS accounts. Instead, the uploading accounts
+				again own these objects. Objects owned by other accounts use ACLs for permissions,
+				so you can't use policies to grant permissions to these objects. However, you, as
+				the bucket owner, still own any objects that were written to the bucket while the
+				Bucket owner enforced setting was applied. These objects are not owned by the object
+				writer, even if you re-enable ACLs.</p>
+		 
+		<p>For instructions on enabling and managing ACLs using the AWS Management Console, AWS Command Line Interface (CLI),
+			REST API, or AWS SDKs, see <a href="./managing-acls.html">Configuring ACLs</a>.</p>
+	 
+		<h2 id="object-ownership-considerations">Prerequisites for disabling
+				ACLs</h2>
+		<p>Before you disable ACLs for an existing bucket, complete the following
+			prerequisites.</p>
+		 
+			<h3 id="object-ownership-acl-permissions">Review bucket and object ACLs and
+					migrate ACL permissions</h3>
+			<p>When you disable ACLs, permissions granted by bucket and object ACLs no longer
+				affect access. Before you disable ACLs, review your bucket and object ACLs. </p>
+			
+			<p>If your bucket ACLs grant read or write permissions to others outside of your account, you
+				must migrate these permissions to your bucket policy before you can apply the Bucket
+				owner enforced setting. If you don't migrate bucket ACLs that grant read or write
+				access outside of your account, your request to apply the Bucket owner enforced
+				setting fails and returns the <a href="./object-ownership-error-responses.html#object-ownership-error-responses-invalid-acl">InvalidBucketAclWithObjectOwnership</a>
+				error code. </p>
+			<p>For example, if you want to disable ACLs for a bucket that receives server access
+				logs, you must migrate the bucket ACL permissions for the S3 log delivery group to
+				the logging service principal in a bucket policy. For more information, see <a href="./object-ownership-migrating-acls-prerequisites.html#object-ownership-server-access-logs">Grant access to S3 log
+						delivery group for server access logging</a>.</p>
+			<p>If you want the object writer to maintain full control of the object that they
+				upload, object writer is the best Object Ownership setting for your use case. If
+				you want to control access at the individual object level, bucket owner preferred is
+				the best choice. These use cases are uncommon.</p>
+			<p>To review ACLs and migrate ACL permissions to bucket policies, see <a href="./object-ownership-migrating-acls-prerequisites.html">Prerequisites for
+				disabling ACLs</a>.</p>
+		 
+		 
+			<h3 id="object-ownership-acl-identify">Identify requests that required an
+					ACL for authorization</h3>
+			<p>To identify Amazon S3 requests that required ACLs for authorization, you can use the
+					<code class="code">aclRequired</code> value in Amazon S3 server access logs or AWS CloudTrail. If the
+				request required an ACL for authorization or if you have <code class="code">PUT</code> requests
+				that specify an ACL, the string is <code class="code">Yes</code>. If no ACLs were required, or if
+				you are setting a <code class="code">bucket-owner-full-control</code> canned ACL, or if the
+				requests are allowed by your bucket policy, the <code class="code">aclRequired</code> value
+				string is "<code class="code">-</code>" in Amazon S3 server access logs and is absent in CloudTrail. For
+				more information about the expected <code class="code">aclRequired</code> values, see <a href="./acl-overview.html#aclrequired-s3">aclRequired values for common Amazon S3
+					requests</a>.</p>
+			<p>If you have <code class="code">PutBucketAcl</code> or <code class="code">PutObjectAcl</code> requests with headers
+				that grant ACL-based permissions, with the exception of the
+					<code class="code">bucket-owner-full-control</code> canned ACL, you must remove those headers
+				before you can disable ACLs. Otherwise, your requests will fail.</p>
+			<p>For all other requests that required an ACL for authorization, migrate those ACL
+				permissions to bucket policies. Then, remove any bucket ACLs before you enable the
+				bucket owner enforced setting. </p>
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Do not remove object ACLs. Otherwise, applications that rely on object ACLs
+					for permissions will lose access.</p></div></div>
+			<p>If you see that no requests required an ACL for authorization, you can proceed to
+				disable ACLs. For more information about identifying requests, see <a href="./using-s3-access-logs-to-identify-requests.html">Using Amazon S3 access logs to identify
+        requests</a> and <a href="./cloudtrail-request-identification.html">Identifying Amazon S3 requests using CloudTrail</a>.</p>
+		 
+		 
+			<h3 id="object-ownership-bucket-policies">Review and update bucket policies
+					that use ACL-related condition keys</h3>
+			<p>After you apply the Bucket owner enforced setting to disable ACLs, new objects can
+				be uploaded to your bucket only if the request uses bucket owner full control ACLs
+				or doesn't specify an ACL. Before disabling ACLs, review your bucket policy for
+				ACL-related condition keys.</p>
+			<p>If your bucket policy uses an ACL-related condition key to require the
+					<code class="code">bucket-owner-full-control</code> canned ACL (for example,
+					<code class="code">s3:x-amz-acl</code>), you don't need to update your bucket policy. The
+				following bucket policy uses the <code class="code">s3:x-amz-acl</code> to require the
+					<code class="code">bucket-owner-full-control</code> canned ACL for S3 <code class="code">PutObject</code>
+				requests. This policy <em>still</em> requires the object
+				writer to specify the <code class="code">bucket-owner-full-control</code> canned ACL. However,
+				buckets with ACLs disabled still accept this ACL, so requests continue to succeed
+				with no client-side changes required.</p>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "Only allow writes to my bucket with bucket owner full control",
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": [
+                    "arn:aws:iam::<code class="replaceable">111122223333</code>:user/<code class="replaceable">ExampleUser</code>"
+                ]
+            },
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::<code class="replaceable">DOC-EXAMPLE-BUCKET</code>/*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+            }
+        }
+    ]
+}</code></pre>
+			<p>However, if your bucket policy uses an ACL-related condition key that requires a
+				different ACL, you must remove this condition key. This example bucket policy
+				requires the <code class="code">public-read</code> ACL for S3 <code class="code">PutObject</code> requests and
+				therefore must be updated before disabling ACLs. </p>
+			<pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "Only allow writes to my bucket with public read access",
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": [
+                    "arn:aws:iam::<code class="replaceable">111122223333</code>:user/<code class="replaceable">ExampleUser</code>"                ]
+            },
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::<code class="replaceable">DOC-EXAMPLE-BUCKET</code>/*",
+            "Condition": <span>{</span>
+                "StringEquals": <span>{</span>
+                    "s3:x-amz-acl": "public-read"
+                }
+            }
+        }
+    ]
+}</code></pre>
+		 
+	 
+		<h2 id="object-ownership-permissions">Object Ownership permissions</h2>
+		<p>To apply, update, or delete an Object Ownership setting for a bucket, you need the
+				<code class="code">s3:PutBucketOwnershipControls</code> permission. To return the
+			Object Ownership setting for a bucket, you need the
+				<code class="code">s3:GetBucketOwnershipControls</code> permission. For more information, see
+				<a href="./object-ownership-new-bucket.html">Setting Object Ownership when you create
+				a bucket</a> and <a href="./object-ownership-retrieving.html">Viewing the Object Ownership setting for
+				an S3 bucket</a>.</p>
+	 
+		<h2 id="requiring-bucket-owner-enforced">Disabling ACLs for all new
+				buckets</h2>
+		<p>By default, all new buckets are created with the Bucket owner enforced setting applied and
+			ACLs are disabled. We recommend keeping ACLs disabled. As a general rule, we recommend
+			using S3 resource-based policies (bucket policies and access point policies) or IAM
+			policies for access control instead of ACLs. Policies are a simplified and more flexible
+			access control option. With bucket policies and access point policies, you can define
+			rules that apply broadly across all requests to your Amazon S3 resources. </p>
+	 
+		<h2 id="object-ownership-replication">Replication and Object Ownership</h2>
+		<p>When you use S3 replication and the source and destination buckets are owned by
+			different AWS accounts, you can disable ACLs (with the Bucket owner enforced setting
+			for Object Ownership) to change replica ownership to the AWS account that owns the
+			destination bucket. This setting mimics the existing owner override behavior without the
+			need of the <code class="code">s3:ObjectOwnerOverrideToBucketOwner</code> permission. All objects
+			that are replicated to the destination bucket with the Bucket owner enforced setting are
+			owned by the destination bucket owner. For more information about the owner override
+			option for replication configurations, see <a href="./replication-change-owner.html">Changing the replica owner</a>. </p>
+		
+	 
+		<h2 id="object-ownership-setting">Setting Object Ownership</h2>
+		<p>You can apply an Object Ownership setting by using the Amazon S3 console, AWS CLI, AWS SDKs,
+			Amazon S3 REST API, or AWS CloudFormation. The following REST API and AWS CLI commands support
+			Object Ownership:</p>
+		<div class="table-container"><div class="table-contents disable-scroll"><table id="w1877aac20c29c33b5"><thead>
+					<tr>
+						<th>REST API</th>
+						<th>AWS CLI</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tr>
+						<td><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketOwnershipControls.html">PutBucketOwnershipControls</a></td>
+						<td><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/put-bucket-ownership-controls.html" rel="noopener noreferrer" target="_blank"><span>put-bucket-ownership-controls</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+						</td>
+						<td>Creates or modifies the Object Ownership setting for an existing S3
+							bucket.</td>
+					</tr>
+					<tr>
+						<td><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html">CreateBucket</a>
+						</td>
+						<td><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/create-bucket.html" rel="noopener noreferrer" target="_blank"><span>create-bucket</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+						<td>Creates a bucket using the <code class="code">x-amz-object-ownership</code>
+							request header to specify the Object Ownership setting. </td>
+					</tr>
+					<tr>
+						<td><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketOwnershipControls.html">GetBucketOwnershipControls</a>
+						</td>
+						<td><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/get-bucket-ownership-controls.html" rel="noopener noreferrer" target="_blank"><span>get-bucket-ownership-controls</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+						<td>Retrieves the Object Ownership setting for an Amazon S3 bucket. </td>
+					</tr>
+					<tr>
+						<td><a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketOwnershipControls.html">DeleteBucketOwnershipControls</a></td>
+						<td><a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/delete-bucket-ownership-controls.html" rel="noopener noreferrer" target="_blank"><span>delete-bucket-ownership-controls</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></td>
+						<td>Deletes the Object Ownership setting for an Amazon S3 bucket. </td>
+					</tr>
+				</table></div></div>
+		<p>For more information about applying and working with Object Ownership settings, see
+			the following topics.</p>
+	<div class="highlights"><h6>Topics</h6><ul><li><a href="./object-ownership-migrating-acls-prerequisites.html">Prerequisites for
+				disabling ACLs</a></li><li><a href="./object-ownership-new-bucket.html">Setting Object Ownership when you create
+				a bucket</a></li><li><a href="./object-ownership-existing-bucket.html">Setting Object Ownership on an
+				existing bucket</a></li><li><a href="./object-ownership-retrieving.html">Viewing the Object Ownership setting for
+				an S3 bucket</a></li><li><a href="./ensure-object-ownership.html">Disabling ACLs for all new buckets and
+				enforcing Object Ownership</a></li><li><a href="./object-ownership-error-responses.html">Troubleshooting</a></li></ul></div><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./bucket-owner-condition.html">Verifying bucket ownership</div><div id="next" class="next-link" accesskey="n" href="./object-ownership-migrating-acls-prerequisites.html">Prerequisites for
+				disabling ACLs</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/about-object-ownership.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/about-object-ownership.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

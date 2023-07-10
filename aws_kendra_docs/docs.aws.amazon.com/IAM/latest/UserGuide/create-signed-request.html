@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Create a signed AWS API request - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="create-signed-request" /><meta name="default_state" content="create-signed-request" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/create-signed-request.html" /><meta name="description" content="The following is an overview of the process to create a signed request. For more information, see the code examples in the AWS SDKs ." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Control access to your AWS resources with user identity (authentication) and with policies that define specific permissions (authorization)." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/create-signed-request.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/create-signed-request.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/create-signed-request.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/create-signed-request.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/create-signed-request.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/create-signed-request.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/create-signed-request.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/create-signed-request.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/create-signed-request.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/create-signed-request.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/create-signed-request.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/create-signed-request.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/create-signed-request.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/create-signed-request.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/create-signed-request.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/create-signed-request.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/create-signed-request.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/create-signed-request.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/create-signed-request.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/create-signed-request.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/create-signed-request.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/create-signed-request.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Create a signed AWS API request" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Create a signed AWS API request - AWS Identity and Access Management</title><meta name="pdf" content="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#create-signed-request" /><meta name="github" content="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/create-signed-request.md" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/create-signed-request.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/create-signed-request.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/create-signed-request.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM user,user,IAM group,group,IAM role,role,permission policy,trust policy,policy,access key,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Reference information for AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Signing AWS API requests",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Create a signed AWS API request",
+        "item" : "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/IAM/latest/UserGuide/iam-ug.pdf#create-signed-request" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/iam-user-guide/tree/main/doc_source/create-signed-request.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">User Guide</a></div><div id="page-toc-src"><a href="#create-canonical-request">Step 1: Create a canonical request</a><a href="#create-canonical-request-hash">Step 2: Create a hash of the canonical
+                    request</a><a href="#create-string-to-sign">Step 3: Create a string to sign</a><a href="#calculate-signature">Step 4: Calculate the signature</a><a href="#add-signature-to-request">Step 5: Add the signature to the request</a><a href="#temporary-security-credentials">Temporary security credentials</a><a href="#code-signing-examples">Code examples in the AWS SDKs</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="create-signed-request">Create a signed AWS API request</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The following is an overview of the process to create a signed request. For more
+            information, see the <a href="#code-signing-examples">code examples in the AWS 
+                SDKs</a>.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><a href="#create-canonical-request">Step 1: Create a canonical request</a></li><li><a href="#create-canonical-request-hash">Step 2: Create a hash of the canonical
+                    request</a></li><li><a href="#create-string-to-sign">Step 3: Create a string to sign</a></li><li><a href="#calculate-signature">Step 4: Calculate the signature</a></li><li><a href="#add-signature-to-request">Step 5: Add the signature to the request</a></li><li><a href="#temporary-security-credentials">Temporary security credentials</a></li><li><a href="#code-signing-examples">Code examples in the AWS SDKs</a></li></ul></div>
+            <h2 id="create-canonical-request">Step 1: Create a canonical request</h2>
+            <p>Create a canonical request by concatenating the following strings, separated by 
+                newline characters. This helps ensure that the signature that you  calculate and 
+                the signature that AWS calculates can match.</p>
+            <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight"><code class="replaceable">HTTPMethod</code>
+<code class="replaceable">CanonicalUri</code>
+<code class="replaceable">CanonicalQueryString</code>
+<code class="replaceable">CanonicalHeaders</code>
+<code class="replaceable">SignedHeaders</code>
+<code class="replaceable">HashedPayload</code></code></pre>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="replaceable">HTTPMethod</code> – The HTTP method.</p>
+                </li><li class="listitem">
+                    <p><code class="replaceable">CanonicalUri</code> – The URI-encoded version of the
+                       absolute path component URL (everything between the host and the question mark
+                       character (?) that starts the query string parameters). If the absolute path is 
+                       empty, use a forward slash character (/).</p>
+                </li><li class="listitem">
+                    <p><code class="replaceable">CanonicalQueryString</code> – The URL-encoded
+                        query string parameters, separated by ampersands (&amp;). Percent-encode
+                        reserved characters, including the space character. Encode names and values
+                        separately. If there are empty parameters, append the equals sign to the
+                        parameter name before encoding. After encoding, sort the parameters
+                        alphabetically by key name. If there is no query string, use an empty string
+                        ("").</p>
+                </li><li class="listitem">
+                    <p><code class="replaceable">CanonicalHeaders</code> – The request headers,
+                        that will be signed, and their values, separated by newline characters.
+                        Header names must use lowercase characters, must appear in alphabetical
+                        order, and must be followed by a colon (:). For the values, trim any leading
+                        or trailing spaces, convert sequential spaces to a single space, and
+                        separate the values for a multi-value header using commas. You must include
+                        the <code class="code">host</code> header (HTTP/1.1) or the <code class="code">:authority</code>
+                        header (HTTP/2), and any <code class="code">x-amz-*</code> headers in the signature. You
+                        can optionally include other standard headers in the signature, such as
+                            <code class="code">content-type</code>.</p>
+                </li><li class="listitem">
+                    <p><code class="replaceable">SignedHeaders</code> – The list of headers that
+                        you included in <code class="replaceable">CanonicalHeaders</code>, separated by
+                        semicolons (;). This indicates which headers are part of the signing
+                        process. Header names must use lowercase characters and must appear in
+                        alphabetical order.</p>
+                </li><li class="listitem">
+                    <p><code class="replaceable">HashedPayload</code> – A string created using
+                        the payload in the body of the HTTP request as input to a hash function.
+                        This string uses lowercase hexadecimal characters. If the payload is empty,
+                        use an empty string as the input to the hash function.</p>
+                </li></ul></div>
+
+            <p>The following is an example of a canonical request that calls the Amazon EC2
+                    <code class="code">DescribeInstances</code> API action.</p>
+            <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">GET
+/
+Action=DescribeInstances&amp;Version=2016-11-15
+content-type:application/x-www-form-urlencoded; charset=utf-8
+host:ec2.amazonaws.com
+x-amz-date:20220830T123600Z
+
+host;x-amz-date
+<code class="replaceable">payload-hash</code></code></pre>
+         
+            <h2 id="create-canonical-request-hash">Step 2: Create a hash of the canonical
+                    request</h2>
+            <p>Create a hash (digest) of the canonical request using the same algorithm that you
+                used to create the hash of the payload. The hash of the canonical request is a
+                string of lowercase hexadecimal characters.</p>
+         
+            <h2 id="create-string-to-sign">Step 3: Create a string to sign</h2>
+            <p>Create a string by concatenating the following strings, separated by newline
+                characters. Do not end this string with a newline character.</p>
+            <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight"><code class="replaceable">Algorithm</code>
+<code class="replaceable">RequestDateTime</code>
+<code class="replaceable">CredentialScope</code>
+<code class="replaceable">HashedCanonicalRequest</code></code></pre>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="replaceable">Algorithm</code> – The algorithm used to create
+                        the hash of the canonical request. For SHA-256, the algorithm is
+                            <code class="code">AWS4-HMAC-SHA256</code>.</p>
+                </li><li class="listitem">
+                    <p><code class="replaceable">RequestDateTime</code> – The date and time used
+                        in the credential scope.</p>
+                </li><li class="listitem">
+                    <p><code class="replaceable">CredentialScope</code> – The credential scope. 
+                        This restricts the resulting signature to the specified Region and service.
+                        The string has the following format:
+                    <code class="replaceable">YYYYMMDD</code>/<code class="replaceable">region</code>/<code class="replaceable">service</code>/aws4_request.</p>
+                </li><li class="listitem">
+                    <p><code class="replaceable">HashedCanonicalRequest</code> – The hash of
+                        the canonical request.</p>
+                </li></ul></div>
+
+            <p>The following is an example string to sign.</p>
+            <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">AWS4-HMAC-SHA256
+20220830T123600Z
+20220830/us-east-1/ec2/aws4_request
+<code class="replaceable">canonical-request-hash</code></code></pre>
+         
+            <h2 id="calculate-signature">Step 4: Calculate the signature</h2>
+            <p>After you create the string to sign, you are ready to calculate the signature
+               for the authentication information that you'll add to your request. For each
+               step, call the hash function with the required key and data.</p>
+            <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight"><em>hash</em>(<em>key</em>, <em>data</em>)</code></pre>
+            <p>The result of each call to the hash function becomes the input for the next 
+                call to the hash function.</p>
+            <div class="itemizedlist">
+                <h6>Required input</h6>
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem"><p>A string, <code class="code">Key</code>, that contains your secret access key</p></li><li class="listitem"><p>A string, <code class="code">Date</code>, that contains the date used in the credential scope, in the format <em>YYYYMMDD</em></p></li><li class="listitem"><p>A string, <code class="code">Region</code>, that contains the Region code (for example, <code class="code">us-east-1</code>)</p></li><li class="listitem"><p>A string, <code class="code">Service</code>, that contains the service code (for example, <code class="code">ec2</code>)</p></li><li class="listitem"><p>The string to sign that you created in the previous step.</p></li></ul></div>
+            <div class="procedure"><h6>To calculate the signature</h6><ol><li>
+                    <p>Concatenate "AWS4" and the secret access key. Call the hash function with
+                        the concatenated string as the key and the date string as the data.</p>
+                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">kDate = <em>hash</em>("AWS4" + Key, Date)</code></pre>
+                </li><li>
+                    <p>Call the hash function with the result of the previous call as the key and the 
+                        Region string as the data.</p>
+                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">kRegion = <em>hash</em>(kDate, Region)</code></pre>
+                </li><li>
+                    <p>Call the hash function with the result of the previous call as the key and the 
+                        service string as the data.</p>
+                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">kService = <em>hash</em>(kRegion, Service)</code></pre>
+                </li><li>
+                    <p>Call the hash function with the result of the previous call as the key and  
+                        "aws4_request" as the data.</p>
+                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">kSigning = <em>hash</em>(kService, "aws4_request")</code></pre>
+                </li><li>
+                    <p>Call the hash function with the result of the previous call as the key and the
+                        string to sign as the data. The result is the signature as a binary value.</p>
+                    <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">signature = <em>hash</em>(kSigning, <code class="replaceable">string-to-sign</code>)</code></pre>
+                </li><li>
+                    <p>Convert the signature from binary to hexadecimal representation, in
+                        lowercase characters.</p>
+                </li></ol></div>
+         
+            <h2 id="add-signature-to-request">Step 5: Add the signature to the request</h2>
+            <p>You can add authentication information to a request using either the HTTP
+                <code class="code">Authorization</code> header or query string parameters. You can't add
+                authentication information using both the <code class="code">Authorization</code> header and query
+                string parameters.</p>
+            
+            <div class="example"><h6>Example: Authorization header</h6><div class="example-contents"><p>The following example shows an <code class="code">Authorization</code> header for the
+                    <code class="code">DescribeInstances</code> action. For readability, this example is
+                    formatted with line breaks. In your code, this must be a continuous string. There is
+                    no comma between the algorithm and <code class="code">Credential</code>. However, the other
+                    elements must be separated by commas.</p><pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">Authorization: AWS4-HMAC-SHA256
+Credential=AKIAIOSFODNN7EXAMPLE/20220830/us-east-1/ec2/aws4_request,
+SignedHeaders=host;x-amz-date,
+Signature=<code class="replaceable">calculated-signature</code></code></pre></div></div>
+            
+            <div class="example"><h6>Example: Request with authentication parameters in the query string</h6><div class="example-contents"><p>The following example shows a query for the <code class="code">DescribeInstances</code> action
+                    that includes the authentication information. For readability, this example is
+                    formatted with line breaks and is not URL encoded. In your code, the query string
+                    must be a continuous string that is URL encoded.</p><pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">https://ec2.amazonaws.com/?
+Action=DescribeInstances&amp;
+Version=2016-11-15&amp;
+X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;
+X-Amz-Credential=AKIAIOSFODNN7EXAMPLE/20220830/us-east-1/ec2/aws4_request&amp;
+X-Amz-Date=20220830T123600Z&amp;
+X-Amz-SignedHeaders=host;x-amz-date&amp;
+X-Amz-Signature=<code class="replaceable">calculated-signature</code></code></pre></div></div>
+         
+            <h2 id="temporary-security-credentials">Temporary security credentials</h2>
+            <p>Instead of using long-term credentials to sign a request, you can use temporary 
+                security credentials provided by AWS Security Token Service (AWS STS).</p>
+            <p>When you use temporary security credentials, you must add
+                    <code class="code">X-Amz-Security-Token</code> to the Authorization header or the query
+                string to hold the session token. Some services require that you add
+                    <code class="code">X-Amz-Security-Token</code> to the canonical request. Other services
+                require only that you add <code class="code">X-Amz-Security-Token</code> at the end, after you
+                calculate the signature. Check the documentation for each AWS service for
+                details.</p>
+         
+            <h2 id="code-signing-examples">Code examples in the AWS SDKs</h2>
+            <p>The AWS SDKs include source code on GitHub that shows how to sign AWS API requests.</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>AWS SDK for .NET –
+                        <a href="https://github.com/aws/aws-sdk-net/blob/master/sdk/src/Core/Amazon.Runtime/Internal/Auth/AWS4Signer.cs" rel="noopener noreferrer" target="_blank"><span>AWS4Signer.cs</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li><li class="listitem">
+                    <p>AWS SDK for C++ –
+                        <a href="https://github.com/aws/aws-sdk-cpp/blob/main/src/aws-cpp-sdk-core/source/auth/signer/AWSAuthV4Signer.cpp" rel="noopener noreferrer" target="_blank"><span>AWSAuthV4Signer.cpp</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li><li class="listitem">
+                    <p>AWS SDK for Go –
+                        <a href="https://github.com/aws/aws-sdk-go/blob/main/aws/signer/v4/v4.go" rel="noopener noreferrer" target="_blank"><span>v4.go</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li><li class="listitem">
+                    <p>AWS SDK for Java –
+                        <a href="https://github.com/aws/aws-sdk-java-v2/blob/master/core/auth/src/main/java/software/amazon/awssdk/auth/signer/internal/BaseAws4Signer.java" rel="noopener noreferrer" target="_blank"><span>BaseAws4Signer.java</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li><li class="listitem">
+                    <p>AWS SDK for JavaScript –
+                        <a href="https://github.com/aws/aws-sdk-js/blob/master/lib/signers/v4.js" rel="noopener noreferrer" target="_blank"><span>v4.js</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li><li class="listitem">
+                    <p>AWS SDK for PHP –
+                        <a href="https://github.com/aws/aws-sdk-php/blob/master/src/Signature/SignatureV4.php" rel="noopener noreferrer" target="_blank"><span>SignatureV4.php</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li><li class="listitem">
+                    <p>AWS SDK for Python (Boto) – 
+                        <a href="https://github.com/boto/botocore/blob/develop/botocore/signers.py" rel="noopener noreferrer" target="_blank"><span>signers.py</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li><li class="listitem">
+                    <p>AWS SDK for Ruby –
+                        <a href="https://github.com/aws/aws-sdk-ruby/blob/version-3/gems/aws-sigv4/lib/aws-sigv4/signer.rb" rel="noopener noreferrer" target="_blank"><span>signer.rb</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li></ul></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./signing-elements.html">Signature Version 4 request elements</div><div id="next" class="next-link" accesskey="n" href="./signature-v4-troubleshooting.html">Troubleshoot</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/create-signed-request.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/create-signed-request.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

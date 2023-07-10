@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Forwarding outbound DNS queries to your network - Amazon Route 53</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="resolver-forwarding-outbound-queries" /><meta name="default_state" content="resolver-forwarding-outbound-queries" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" /><meta name="description" content="To forward DNS queries that originate on Amazon EC2 instances in one or more VPCs to your network, you create an outbound endpoint and one or more rules:" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Route 53" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="With Route 53, you can register domains, route traffic to the resources where your domains are hosted, and check the health of your resources. You can also route traffic based on the health of your resources. This guide explains how to register domains, configure DNS, and configure health checks using the Route 53 console." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" hreflang="x-default" /><meta name="feedback-item" content="Route53" /><meta name="this_doc_product" content="Amazon Route 53" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'route53'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Forwarding outbound DNS queries to your network" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Forwarding outbound DNS queries to your network - Amazon Route 53</title><meta name="pdf" content="/pdfs/Route53/latest/DeveloperGuide/route53-dg.pdf#resolver-forwarding-outbound-queries" /><meta name="github" content="https://github.com/awsdocs/amazon-route53-docs/tree/main/doc_source/resolver-forwarding-outbound-queries.md" /><meta name="rss" content="amazon-route-53-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=87" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html" /><meta name="keywords" content="Route 53,Amazon Route 53,domain,health check,DNS,routing policy,resource record set,hosted zone,name server,register,registration,transfer" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Route 53",
+        "item" : "https://docs.aws.amazon.com/route53/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "What is Amazon Route 53 Resolver?",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Forwarding outbound DNS queries to your network",
+        "item" : "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/Route53/latest/DeveloperGuide/route53-dg.pdf#resolver-forwarding-outbound-queries" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-route53-docs/tree/main/doc_source/resolver-forwarding-outbound-queries.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/route53/index.html">Amazon Route 53</a><a href="Welcome.html">Developer Guide</a></div><div id="page-toc-src"><a href="#resolver-forwarding-outbound-queries-configuring">Configuring outbound forwarding</a><a href="#resolver-forwarding-outbound-queries-endpoint-values">Values that you specify when you create or edit
+					outbound endpoints</a><a href="#resolver-forwarding-outbound-queries-rule-values">Values that you specify when you create or edit rules</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="resolver-forwarding-outbound-queries">Forwarding outbound DNS queries to your network</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>To forward DNS queries that originate on Amazon EC2 instances in one or more VPCs to your network, you create an
+			outbound endpoint and one or more rules:</p><div class="variablelist">
+			 
+			 
+		<dl>
+				<dt><b><span class="term">Outbound endpoint</span></b></dt>
+				<dd><p>To forward DNS queries from your VPCs to your network, you create an outbound endpoint. An outbound endpoint specifies
+					the IP addresses that queries originate from. Those IP addresses, which you choose from the range of IP addresses available to your VPC,
+					aren't public IP addresses. This means that, for each outbound endpoint, you need to connect your VPC to your network using
+					AWS Direct Connect connection, a VPN connection, or a network address translation (NAT) gateway. Note that you can use the same
+					outbound endpoint for multiple VPCs in the same Region, or you can create multiple outbound endpoints. If you want your outbound endpoint to use DNS64, you can enable DNS64 using Amazon Virtual Private Cloud. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-nat64-dns64">DNS64 and NAT64</a> in the <em>Amazon VPC User
+							Guide</em>.</p>
+				</dd>
+			
+				<dt><b><span class="term">Rules</span></b></dt>
+				<dd><p>To specify the domain names of the queries that you want to forward to DNS resolvers on your network, you create
+					one or more rules. Each rule specifies one domain name. You then associate rules with the VPCs for which you want
+					to forward queries to your network. </p>
+					<p>For more information, see the following topics:</p>
+					<div class="itemizedlist">
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem"><p><a href="./hosted-zone-private-considerations.html#hosted-zone-private-considerations-private-overlapping">Private hosted zones       that have overlapping namespaces</a></p></li><li class="listitem"><p><a href="./hosted-zone-private-considerations.html#hosted-zone-private-considerations-resolver-rules">Private hosted zones and Route 53 Resolver rules</a></p></li></ul></div></dd>
+			</dl></div>
+			<h2 id="resolver-forwarding-outbound-queries-configuring">Configuring outbound forwarding</h2>
+
+			<p>To configure Resolver to forward DNS queries that originate in your VPC to your network, perform the following procedures.</p>
+
+				<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>After you create an outbound endpoint, you must create one or more rules and associate them with one or more VPCs.
+						Rules specify the domain names of the DNS queries that you want to forward to your network.</p></div></div>
+
+			<div class="procedure"><a id="resolver-forwarding-outbound-queries-configuring-create-endpoint-procedure"></a><h6>To create an outbound endpoint</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Outbound endpoints</b>.</p></li><li><p>On the navigation bar, choose the Region where you want to create an outbound endpoint.</p></li><li><p>Choose <b>Create outbound endpoint</b>.</p></li><li><p>Enter the applicable values. For more information, see
+					<a href="#resolver-forwarding-outbound-queries-endpoint-values">Values that you specify when you create or edit
+					outbound endpoints</a>.</p>
+				</li><li><p>Choose <b>Create</b>.</p>
+					<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Creating an outbound endpoint takes a minute or two. You can't create another outbound endpoint until
+							the first one is created.</p></div></div>
+				</li><li><p>Create one or more rules to specify the domain names of the DNS queries that you want to forward to your network.
+					For more information, see the next procedure.</p></li></ol></div>
+
+			<p>To create one or more forwarding rules, perform the following procedure.</p>
+
+			<div class="procedure"><a id="resolver-forwarding-outbound-queries-configuring-create-rule-procedure"></a><h6>To create forwarding rules and
+					associate the rules with one or more VPCs</h6><ol><li><p>Sign in to the AWS Management Console and open the Route 53 console at
+         <a href="https://console.aws.amazon.com/route53/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/route53/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li><p>In the navigation pane, choose <b>Rules</b>.</p></li><li><p>On the navigation bar, choose the Region where you want to create the rule.</p></li><li><p>Choose <b>Create rule</b>.</p></li><li><p>Enter the applicable values. For more information, see 
+					<a href="#resolver-forwarding-outbound-queries-rule-values">Values that you specify when you create or edit rules</a>.</p>
+				</li><li><p>Choose <b>Save</b>.</p></li><li><p>To add another rule, repeat steps 4 through 6. </p></li></ol></div>
+
+		 
+			<h2 id="resolver-forwarding-outbound-queries-endpoint-values">Values that you specify when you create or edit
+					outbound endpoints</h2>
+
+			<p>When you create or edit an outbound endpoint, you specify the following values:</p>
+
+			<div class="variablelist">
+				 
+				 
+				 
+				 
+				 
+				 
+			<dl>
+					<dt><b><span class="term">Endpoint name</span></b></dt>
+					<dd><p>A friendly name that lets you easily find an outbound endpoint on the dashboard.</p></dd>
+				
+					<dt><b><span class="term">VPC in the <em>region-name</em> Region</span></b></dt>
+					<dd><p>All outbound DNS queries will flow through this VPC on the way to your network.</p></dd>
+				
+					<dt><b><span class="term">Security group for this endpoint</span></b></dt>
+					<dd>
+						<p>The ID of one or more security groups that you want to use to control access to this VPC.
+							The security group that you specify must include one or more outbound rules. Outbound rules must allow TCP and UDP access
+							on the port that you're using for DNS queries on your network.
+							You can't change this value after you create an endpoint. 
+						</p>
+						<p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html">Security groups for your VPC</a>
+							in the <em>Amazon VPC User Guide</em>.</p>
+					</dd>
+				
+					<dt><b><span class="term">Endpoint type</span></b></dt>
+					<dd><p>The endpoint type can be either IPv4, IPv6, or dual-stack IP addresses. For a dual-stack
+							endpoint, the endpoint will have both IPv4 and IPv6 address that your
+							DNS resolver on your network can forward DNS query to. </p>
+						
+					</dd>
+				
+					<dt><b><span class="term">IP addresses</span></b></dt>
+					<dd><p>The IP addresses in your VPC that you want Resolver to forward DNS queries to on the way to resolvers
+						on your network. These are not the IP addresses of the DNS resolvers on your network; you specify resolver
+						IP addresses when you create the rules that you associate with one or more VPCs. We require you to specify
+						a minimum of two IP addresses for redundancy. </p>
+						<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Resolver endpoint has a private IP address. These IP addresses will not change through the
+							course of an endpoint's life.</p></div></div>
+
+						<p>Note the following:</p>
+
+						<div class="variablelist">
+							 
+							 
+							 
+						<dl>
+								<dt><b><span class="term">Multiple Availability Zones</span></b></dt>
+								<dd><p>We recommend that you specify IP addresses in at least two Availability Zones. You can optionally specify
+									additional IP addresses in those or other Availability Zones.</p></dd>
+							
+								<dt><b><span class="term">IP addresses and Amazon VPC elastic network interfaces</span></b></dt>
+								<dd><p>For each combination of Availability Zone, Subnet, and IP address that you specify, Resolver creates an
+									Amazon VPC elastic network interface. For the current maximum number of DNS queries per second per IP address
+									in an endpoint, see <a href="./DNSLimitations.html#limits-api-entities-resolver">Quotas on Route 53 Resolver</a>.
+								    For information about pricing for each elastic network interface, see "Amazon Route 53" on the
+									<a href="https://aws.amazon.com/route53/pricing/" rel="noopener noreferrer" target="_blank"><span>Amazon Route 53 pricing page</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></dd>
+							
+								<dt><b><span class="term">Order of IP addresses</span></b></dt>
+								<dd><p>You can specify IP addresses in any order. When forwarding DNS queries, Resolver doesn't choose IP addresses based on the order
+									that the IP addresses are listed in.</p></dd>
+							</dl></div>
+
+						<p>For each IP address, specify the following values. Each IP address must be in an Availability Zone in the VPC
+							that you specified in <b>VPC in the <em>region-name</em> Region</b>.</p>
+						<div class="variablelist">
+							 
+							 
+							 
+						<dl>
+								<dt><b><span class="term">Availability Zone</span></b></dt>
+								<dd><p>The Availability Zone that you want DNS queries to pass through on the way to your network.
+									The Availability Zone that you specify must be configured with a subnet.</p></dd>
+							
+								<dt><b><span class="term">Subnet</span></b></dt>
+								<dd><p>The subnet that contains the IP address that you want DNS queries to originate from on the way
+									to your network. The subnet must have an available IP address.</p>
+									<p>The subnet IP address must match the <b>Endpoint type</b>.</p>
+								</dd>
+							
+								<dt><b><span class="term">IP address</span></b></dt>
+								<dd><p>The IP address that you want DNS queries to originate from on the way to your network.</p>
+									<p>Choose whether you want Resolver to choose an IP address for you from among the available IP addresses
+									in the specified subnet, or you want to specify the IP address yourself.</p>
+									<p>If you choose to specify the IP address yourself, enter an IPv4 or PIv6 address.</p>
+								</dd>
+							</dl></div>
+					</dd>
+				
+					<dt><b><span class="term">Tags</span></b></dt>
+					<dd><p>Specify one or more keys and the corresponding values. For example, you might specify
+						<b>Cost center</b> for <b>Key</b> and specify <b>456</b> for <b>Value</b>.</p>
+						
+					</dd>
+				</dl></div>
+		 
+			<h2 id="resolver-forwarding-outbound-queries-rule-values">Values that you specify when you create or edit rules</h2>
+
+			<p>When you create or edit a forwarding rule, you specify the following values:</p>
+
+			<div class="variablelist">
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+			<dl>
+					<dt><b><span class="term">Rule name</span></b></dt>
+					<dd><p>A friendly name that lets you easily find a rule on the dashboard.</p></dd>
+				
+					<dt><b><span class="term">Rule type</span></b></dt>
+					<dd><p>Choose the applicable value:</p>
+						<div class="itemizedlist">
+							 
+							 
+						<ul class="itemizedlist"><li class="listitem"><p><b>Forward</b> – Choose this option when
+								you want to forward DNS queries for a specified domain name to resolvers on your network.</p></li><li class="listitem"><p><b>System</b> – Choose this option when
+								you want Resolver to selectively override the behavior that is defined in a forwarding rule. When you create a system rule,
+								Resolver resolves DNS queries for specified subdomains that would otherwise be resolved by DNS resolvers on your network.</p></li></ul></div>
+						<p>By default, forwarding rules apply to a domain name and all its subdomains. If you want to forward queries for a domain
+							to a resolver on your network but you don't want to forward queries for some subdomains, you create a system rule for the subdomains.
+							For example, if you create a forwarding rule for example.com but you don't want to forward queries for acme.example.com, you create a
+							system rule and specify acme.example.com for the domain name.</p>
+					</dd>
+				
+					<dt><b><span class="term">VPCs that use this rule</span></b></dt>
+					<dd><p>The VPCs that use this rule to forward DNS queries for the specified domain name or names.
+						You can apply a rule to as many VPCs as you want.</p></dd>
+				
+					<dt><b><span class="term">Domain name</span></b></dt>
+					<dd><p>DNS queries for this domain name are forwarded to the IP addresses that you specify in
+						<b>Target IP addresses</b>. For more information, see
+						<a href="./resolver-overview-DSN-queries-to-vpc.html#resolver-overview-forward-vpc-to-network-domain-name-matches">How Resolver determines whether the domain name
+					in a query matches any rules</a>.</p>
+					</dd>
+				
+					<dt><b><span class="term">Outbound endpoint</span></b></dt>
+					<dd><p>Resolver forwards DNS queries through the outbound endpoint that you specify here to the
+						IP addresses that you specify in <b>Target IP addresses</b>.</p></dd>
+				
+					<dt><b><span class="term">Target IP addresses</span></b></dt>
+					<dd><p>When a DNS query matches the name that you specify in <b>Domain name</b>, the outbound endpoint
+						forwards the query to the IP addresses that you specify here. These are typically the IP addresses for DNS resolvers on your
+						network.</p>
+						<p><b>Target IP addresses</b> is available only when the value of <b>Rule type</b>
+							is <b>Forward</b>.</p>
+						<p>Specify IPv4 or IPv6 addresses.</p>
+					</dd>
+				
+					<dt><b><span class="term">Tags</span></b></dt>
+					<dd><p>Specify one or more keys and the corresponding values. For example, you might specify
+						<b>Cost center</b> for <b>Key</b> and specify <b>456</b> for <b>Value</b>.</p>
+						<p>These are the tags that AWS Billing and Cost Management provides for organizing your AWS bill. For more information about using tags
+							for cost allocation, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using cost allocation tags</a>
+							in the <em>AWS Billing User Guide</em>.</p>
+					</dd>
+				</dl></div>
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./resolver-forwarding-inbound-queries.html">Forwarding inbound DNS queries to your VPCs</div><div id="next" class="next-link" accesskey="n" href="./resolver-forwarding-inbound-queries-managing.html">Managing inbound endpoints</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Route53&amp;topic_url=https://docs.aws.amazon.com/en_us/Route53/latest/DeveloperGuide/resolver-forwarding-outbound-queries.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="it-IT"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Creazione di un ruolo per delegare le autorizzazioni a un servizio AWS - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_create_for-service" /><meta name="default_state" content="id_roles_create_for-service" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="description" content="Crea un ruolo IAM che determini le operazioni che un servizio AWS può effettuare con le risorse dell'Account AWS." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Guida per l'utente" /><meta name="abstract" content="Controlla l'accesso alle risorse AWS con identità utente (autenticazione) e con policy che definiscono autorizzazioni specifiche (autorizzazione)." /><meta name="guide-locale" content="it_it" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Guida per l'utente" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Guida per l'utente" /><meta id="panorama-serviceConsolePage" value="Creazione di un ruolo per delegare le autorizzazioni a un servizio AWS" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Creazione di un ruolo per delegare le autorizzazioni a un servizio AWS - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_create_for-service" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,Utente IAM,user,Gruppo IAM,gruppo,Ruolo IAM,ruolo,policy di autorizzazione,policy di attendibilità,policy,chiave di accesso,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guida per l'utente",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Identità IAM (utenti, gruppi di utenti e ruoli)",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Ruoli IAM",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Creazione di ruoli IAM",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Creazione di un ruolo per delegare le autorizzazioni a un servizio AWS",
+        "item" : "https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_create_for-service" target="_blank" rel="noopener noreferrer" title="Apri PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentazione</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Guida per l'utente</a></div><div id="page-toc-src"><a href="#id_roles_create_service-permissions">Autorizzazioni del ruolo del servizio</a><a href="#roles-creatingrole-service-console">Creazione di un ruolo per un servizio AWS (console)</a><a href="#roles-creatingrole-service-cli">Creazione di un ruolo per un servizio (AWS CLI)</a><a href="#roles-creatingrole-service-api">Creazione di un ruolo per un servizio (API AWS)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_create_for-service">Creazione di un ruolo per delegare le autorizzazioni a un servizio AWS</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Per molti servizi AWS è necessario utilizzare dei ruoli per consentire al servizio di accedere alle risorse in altri servizi a nome dell'utente. Un ruolo che un servizio assume per eseguire operazioni a tuo nome viene chiamato <a href="./id_roles_terms-and-concepts.html#iam-term-service-role">ruolo del servizio</a>. Quando un ruolo fornisce un determinato scopo per un servizio, viene categorizzato come <a href="./id_roles_terms-and-concepts.html#iam-term-service-role-ec2">ruolo del servizio per le istanze EC2</a> (per esempio) oppure come <a href="./id_roles_terms-and-concepts.html#iam-term-service-linked-role">ruolo collegato al servizio</a>. Per visualizzare i servizi che supportano ruoli collegati ai servizi, oppure se un servizio supporta qualsiasi forma di credenziali provvisorie, consulta <a href="./reference_aws-services-that-work-with-iam.html">Servizi AWS che funzionano con IAM</a>. Per apprendere come un singolo servizio utilizza i ruoli, scegli il nome del servizio nella tabella e visualizza la documentazione relativa a tale servizio.</p><p>Per informazioni su come i ruoli aiutano a delegare le autorizzazioni, consulta <a href="./id_roles_terms-and-concepts.html">Termini e concetti dei ruoli</a>.</p>
+    <h2 id="id_roles_create_service-permissions">Autorizzazioni del ruolo del servizio</h2>
+    <p>Per consentire a una entità IAM (utente o ruolo) di creare o modificare un ruolo di servizio, occorre configurare le autorizzazioni.</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Nota</h6></div><div class="awsdocs-note-text"><p>L'ARN per un ruolo collegato ai servizi include un principale del servizio, indicata nelle policy seguenti come <code class="code"><code class="replaceable">SERVICE-NAME</code>.amazonaws.com</code>. Non tentare di indovinare il principale del servizio, perché fa distinzione tra maiuscole e minuscole e il formato può variare tra i servizi AWS. Per visualizzare l'entità principale di un servizio, consulta la relativa documentazione del ruolo collegato al servizio.</p></div></div>
+    <p><b>Come consentire a un'entità IAM di creare un ruolo di servizio specifico</b></p>
+    <p>Aggiungi la policy seguente all'entità IAM che deve creare il ruolo di servizio. Questa policy ti permette di creare un ruolo del servizio per il servizio specificato e utilizzando un nome specifico. Puoi quindi collegare le policy gestite o inline a tale ruolo. </p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateRole",
+                "iam:PutRolePolicy"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        }
+    ]
+}</code></pre>
+    <p><b>Come consentire a un'entità IAM di creare un qualsiasi ruolo di servizio</b></p>
+    <p>AWS consiglia di permettere solo agli utenti amministrativi di creare un ruolo di servizio. Una persona con autorizzazioni per creare un ruolo e allegare qualsiasi policy può eseguire l'escalation delle proprie autorizzazioni. Invece, crea una policy che consenta a questa persona di creare solo i ruoli di cui hanno bisogno o lascia che un amministratore crei il ruolo di servizio per suo conto.</p>
+    <p>Per allegare una policy che consente a un amministratore di accedere all'intero Account AWS, usa la policy <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> gestita da AWS.</p>
+
+    <p><b>Come consentire a un'entità IAM di modificare un ruolo di servizio</b></p>
+    <p>Aggiungi la policy seguente all'entità IAM che deve modificare il ruolo di servizio.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "EditSpecificServiceRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListRolePolicies",
+                "iam:PutRolePolicy",
+                "iam:UpdateRole",
+                "iam:UpdateRoleDescription"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        },
+        <span>{</span>
+            "Sid": "ViewRolesAndPolicies",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetPolicy",
+                "iam:ListRoles"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+    <p><b>Come consentire a un'entità IAM di eliminare un ruolo di servizio specifico</b></p>
+    <p>Aggiungi l'istruzione seguente alla policy delle autorizzazioni per l'entità IAM che deve eliminare il ruolo di servizio specificato.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Effect": "Allow",
+    "Action": "iam:DeleteRole",
+    "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+}</code></pre>
+    <p><b>Come consentire a un'entità IAM di eliminare qualunque ruolo di servizio</b></p>
+    <p>AWS consiglia di permettere solo agli utenti amministrativi di eliminare qualsiasi ruolo di servizio. Invece, crea una policy che consenta loro di eliminare solo i ruoli di cui hanno bisogno o lascia che un amministratore elimini il ruolo di servizio per suo conto.</p>
+    <p>Per allegare una policy che consente a un amministratore di accedere all'intero Account AWS, usa la policy <a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> gestita da AWS.</p>
+   
+    <h2 id="roles-creatingrole-service-console">Creazione di un ruolo per un servizio AWS (console)</h2>
+    <p>È possibile utilizzare AWS Management Console per creare un ruolo per un servizio. Dal momento che alcuni servizi supportano più ruoli del servizio, consulta la <a href="https://docs.aws.amazon.com/">documentazione AWS</a> relativa al servizio per determinare quale caso d'uso selezionare. È possibile apprendere come assegnare le necessarie policy di affidabilità e autorizzazioni al ruolo, in modo che il servizio possa assumere quel ruolo per conto dell'utente. Le operazioni che è possibile utilizzare per controllare le autorizzazioni per il tuo ruolo possono variare, a seconda del modo in cui il servizio definisce i casi d'uso e della creazione o meno di un ruolo collegato ai servizi.</p>
+
+    
+    <div class="procedure"><h6>Creazione di un ruolo per un servizio AWS (console)</h6><ol><li><p>Accedi alla AWS Management Console e apri la console IAM all'indirizzo <a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+        <p>Nel pannello di navigazione della console IAM, scegliere <b>Ruoli</b> e quindi <b>Crea ruolo</b>.</p>
+      </li><li>
+        <p>In <b>Seleziona tipo di entità attendibile</b>, scegli <b> Servizio AWS</b>. </p>
+      </li><li>
+        <p>Scegli il caso d'uso per il servizio. I casi d'uso sono definiti dal servizio in modo da includere la policy di attendibilità richiesta dal servizio. Quindi, seleziona <b>Next</b> (Successivo).</p>
+      </li><li>
+        <p>Se possibile, selezionare la policy delle autorizzazioni da utilizzare o scegliere <b>Crea policy</b> per aprire una nuova scheda del browser e creare una nuova policy da zero. Per ulteriori informazioni, consulta <a href="./access_policies_create-console.html#access_policies_create-start">Creazione di policy IAM</a>. Una volta creata la policy, chiudere la scheda e tornare alla scheda originale. Selezionare la casella di controllo accanto alle policy di autorizzazione da assegnare al servizio.</p>
+        <p>A seconda del caso d'uso selezionato, il servizio ti consente di eseguire le seguenti operazioni:</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Nulla, perché il servizio definisce le autorizzazioni per il ruolo.</p>
+          </li><li class="listitem">
+            <p>Scegliere tra un set limitato di autorizzazioni.</p>
+          </li><li class="listitem">
+            <p>Scegliere tra tutte le autorizzazioni.</p>
+          </li><li class="listitem">
+            <p>Non selezionare policy in questo momento, creare le policy successivamente e quindi collegarle al ruolo.</p>
+          </li></ul></div>
+      </li><li>
+        <p>(Facoltativo) Impostare un <a href="./access_policies_boundaries.html">limite delle autorizzazioni</a>. Questa è una caratteristica avanzata disponibile per i ruoli di servizio, ma non per i ruoli collegati ai servizi. </p>
+        <p>Apri la sezione <b>Permissions boundary</b> (Limite delle autorizzazioni) e scegli <b>Use a permissions boundary to control the maximum role permissions</b> (Usa un limite delle autorizzazioni per controllare il numero massimo di autorizzazioni del ruolo). IAM include un elenco delle policy gestite da AWS e dal cliente nel tuo account. Seleziona la policy da utilizzare per il limite delle autorizzazioni o scegli <b>Create policy</b> (Crea policy) per aprire una nuova scheda del browser e creare una nuova policy da zero. Per ulteriori informazioni, consulta <a href="./access_policies_create-console.html#access_policies_create-start">Creazione di policy IAM</a>. Una volta creata la policy, chiudi la scheda e torna alla scheda originale per selezionare la policy da utilizzare per il limite delle autorizzazioni.</p>
+      </li><li>
+        <p>Seleziona <b>Successivo</b>.</p>
+      </li><li>
+        <p>Il grado di personalizzazione per <b>Nome ruolo</b> viene definito dal servizio. Se il servizio definisce il nome del ruolo, questa opzione non può essere modificata. In altri casi, il servizio può definire un prefisso per il ruolo e consentire all'utente di aggiungere un suffisso opzionale. Alcuni servizi consentono di specificare l'intero nome del ruolo.</p>
+        <p>Se possibile, specifica un nome del ruolo o un suffisso del nome del ruolo per facilitare l'identificazione dello scopo del ruolo. I nomi dei ruoli devono essere univoci all'interno dell'Account AWS. Non fanno distinzione tra maiuscole e minuscole. Ad esempio, non è possibile creare ruoli denominati sia <code class="userinput">PRODROLE</code> che <code class="userinput">prodrole</code>. Poiché altre risorse AWS possono fare riferimento al ruolo, non è possibile modificare il nome del ruolo dopo averlo creato.</p>
+      </li><li>
+        <p>(Facoltativo) In <b>Description</b> (Descrizione), inserisci una descrizione per il nuovo ruolo.</p>
+      </li><li>
+        <p>Scegli <b>Edit</b> (Modifica) nelle sezioni <b>Step 1: Select trusted entities</b> (Fase 1: seleziona le entità attendibili) o <b>Step 2: Add permissions</b> (Fase 2: aggiungi autorizzazioni) per modificare i casi d'uso e le autorizzazioni per il ruolo. </p>
+      </li><li>
+        <p>(Facoltativo) Aggiungere metadati al ruolo allegando i tag come coppie chiave-valore. Per ulteriori informazioni sull'utilizzo dei tag in IAM, consultare <a href="./id_tags.html">Tagging delle risorse IAM</a>.</p>
+      </li><li>
+        <p>Rivedere il ruolo e scegliere <b>Crea ruolo</b>.</p>
+      </li></ol></div>
+   
+    <h2 id="roles-creatingrole-service-cli">Creazione di un ruolo per un servizio (AWS CLI)</h2>
+    <p>La creazione di un ruolo da AWS CLI richiede più passaggi. Quando si utilizza la console per creare un ruolo, molte delle fasi vengono eseguite senza alcun intervento da parte dell'utente, ma con AWS CLI ogni fase deve essere eseguita personalmente. È necessario creare il ruolo e quindi assegnargli una policy di autorizzazione. Se il servizio in uso è Amazon EC2, è necessario creare anche un profilo dell'istanza e aggiungervi il ruolo. Puoi anche scegliere di impostare il <a href="./access_policies_boundaries.html">limite delle autorizzazioni</a> per il ruolo.</p>
+    <div class="procedure"><h6>Per creare un ruolo per un servizio AWS da AWS CLI</h6><ol><li>
+        <p>Il seguente comando <code class="code"><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html">create-role</a></code> crea un ruolo denominato <em>Ruolo di test</em> e gli collega una policy di attendibilità:</p>
+        <p><code class="prompt">aws iam create-role --role-name Test-Role --assume-role-policy-document
+            file://Test-Role-Trust-Policy.json</code></p>
+
+      </li><li>
+        <p>Collega una policy delle autorizzazioni gestita al ruolo: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/attach-role-policy.html">aws iam attach-role-policy</a></p>
+        <p>Ad esempio, il seguente comando <code class="code">attach-role-policy</code> allega la policy gestita AWS denominata <code class="code">ReadOnlyAccess</code> al ruolo IAM denominato <code class="code">ReadOnlyRole</code>:</p>
+        <p><code class="prompt">aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+            --role-name ReadOnlyRole</code></p>
+        <p> oppure</p>
+        <p>Creare una policy delle autorizzazioni inline per il ruolo: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html">aws iam put-role-policy</a></p>
+        <p>Per aggiungere una policy di autorizzazioni in linea, consulta l'esempio seguente:</p>
+        <p>
+          <code class="prompt">aws iam put-role-policy --role-name Test-Role --policy-name ExamplePolicy
+            --policy-document file://AdminPolicy.json</code></p>
+      </li><li>
+        <p>(Facoltativo) Aggiungere attributi personalizzati al ruolo collegando tag: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/tag-role.html">aws iam tag-role</a></p>
+        <p>Per ulteriori informazioni, consulta <a href="./id_tags_roles.html#id_tags_roles_procs-cli-api">Gestione di tag sui ruoli IAM (AWS CLI o API AWS)</a>.</p>
+      </li><li>
+        <p>(Facoltativo) Impostare il <a href="./access_policies_boundaries.html">limite delle autorizzazioni</a> per il ruolo: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-permissions-boundary.html">aws iam put-role-permissions-boundary</a></p>
+        <p>Il limite delle autorizzazioni controlla il numero massimo di autorizzazioni che è possibile concedere a un ruolo. I limiti delle autorizzazioni sono una caratteristica avanzata di AWS.</p>
+      </li></ol></div>
+    <p>Se utilizzerai il ruolo con Amazon EC2 o un altro servizio AWS che utilizza Amazon EC2, è necessario archiviare il ruolo in un profilo dell'istanza. Un profilo dell'istanza è un container per un ruolo che può essere associato a un'istanza Amazon EC2 quando viene avviato. Un profilo dell'istanza può contenere un solo ruolo  e tale limite non può essere aumentato. Se il ruolo è stato creato utilizzando AWS Management Console, il profilo dell'istanza verrà creato con lo stesso nome del ruolo. Per ulteriori informazioni sui profili delle istanze, consulta <a href="./id_roles_use_switch-role-ec2_instance-profiles.html">Utilizzo dei profili delle istanze</a>. Per informazioni su come avviare un'istanza EC2 con un ruolo, consulta <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">Controllo dell'accesso alle risorse Amazon EC2</a> nella <em>Guida per l'utente di Amazon EC2 per le istanze Linux</em>.</p>
+    <div class="procedure"><h6>Per creare un profilo dell'istanza e memorizzarvi il ruolo (AWS CLI)</h6><ol><li>
+        <p>Creare un profilo dell'istanza: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-instance-profile.html">aws iam create-instance-profile</a></p>
+      </li><li>
+        <p>Aggiungere il ruolo al profilo dell'istanza: <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/add-role-to-instance-profile.html">aws iam add-role-to-instance-profile</a></p>
+      </li></ol></div>
+    <p>Il set di comandi di esempio AWS CLI seguente illustra i primi due passaggi necessari per creare un ruolo e collegare le autorizzazioni. Mostra inoltre i due passaggi necessari per creare un profilo dell'istanza e aggiungere il ruolo al profilo. Questa policy di attendibilità di esempio permette al servizio Amazon EC2 di assumere il ruolo e visualizzare il bucket <code class="code">example_bucket</code> di Amazon S3. L'esempio presuppone inoltre l'uso un computer client con Windows e che l'interfaccia a riga di comando sia già configurata con le credenziali dell'account e la regione. Per ulteriori informazioni, consulta <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">Configurazione di AWS Command Line Interface</a>.</p>
+    <p>In questo esempio, è necessario includere la seguente policy di attendibilità nel primo comando al momento della creazione del ruolo. La policy di attendibilità consente al servizio Amazon EC2 di assumere il ruolo. </p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>"Service": "ec2.amazonaws.com"},
+    "Action": "sts:AssumeRole"
+  }
+}</code></pre>
+    <p>Quando si utilizza il secondo comando, è necessario collegare una policy di autorizzazione al ruolo. L'esempio di policy di autorizzazione seguente consente al ruolo di eseguire solo l'operazione <code class="code">ListBucket</code> sul bucket <code class="code">example_bucket</code> di Amazon S3.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "s3:ListBucket",
+    "Resource": "arn:aws:s3:::example_bucket"
+  }
+}</code></pre>
+    <p>Per creare questo ruolo <code class="code">Test-Role-for-EC2</code>, è innanzitutto necessario salvare la policy di attendibilità precedente con il nome <code class="code">trustpolicyforec2.json</code> e la policy di autorizzazione precedente con il nome <code class="code">permissionspolicyforec2.json</code> nella directory <code class="code">policies</code> dell'unità <code class="code">C:</code> locale. È quindi possibile utilizzare i comandi seguenti per creare il ruolo, collegare la policy, creare il profilo dell'istanza e aggiungere il ruolo al profilo dell'istanza.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copia"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false"># Create the role and attach the trust policy that allows EC2 to assume this role.
+$ </code><code class="userinput">aws iam create-role --role-name Test-Role-for-EC2 --assume-role-policy-document file://C:\policies\trustpolicyforec2.json</code>
+
+<code class="code" copy="false"># Embed the permissions policy (in this example an inline policy) to the role to specify what it is allowed to do.
+$ </code><code class="userinput">aws iam put-role-policy --role-name Test-Role-for-EC2 --policy-name Permissions-Policy-For-Ec2 --policy-document file://C:\policies\permissionspolicyforec2.json</code>
+
+<code class="code" copy="false"># Create the instance profile required by EC2 to contain the role
+$ </code><code class="userinput">aws iam create-instance-profile --instance-profile-name EC2-ListBucket-S3</code>
+
+<code class="code" copy="false"># Finally, add the role to the instance profile
+$ </code><code class="userinput">aws iam add-role-to-instance-profile --instance-profile-name EC2-ListBucket-S3 --role-name Test-Role-for-EC2</code></code></pre>
+    <p>Quando si avvia l'istanza EC2, specificare il nome del profilo dell'istanza nella pagina <b>Configure Instance Details (Configura i dettagli dell'istanza)</b> se si utilizza la console AWS. Se utilizzi il comando della CLI <code class="code">aws ec2 run-instances</code>, specifica il parametro <code class="code">--iam-instance-profile</code>.</p>
+   
+    <h2 id="roles-creatingrole-service-api">Creazione di un ruolo per un servizio (API AWS)</h2>
+     
+      <p>La creazione di un ruolo dall'API AWS richiede più passaggi. Quando si usa la console per creare un ruolo, molti dei passaggi vengono eseguiti automaticamente, ma con l'API ogni passaggio deve essere eseguito esplicitamente dall'utente. È necessario creare il ruolo e quindi assegnargli una policy di autorizzazione. Se il servizio in uso è Amazon EC2, è necessario creare anche un profilo dell'istanza e aggiungervi il ruolo. Puoi anche scegliere di impostare il <a href="./access_policies_boundaries.html">limite delle autorizzazioni</a> per il ruolo.</p>
+      <div class="procedure"><h6>Per creare un ruolo per un servizio AWS (API AWS)</h6><ol><li>
+          <p>Creare un ruolo: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a></p>
+          <p>Per la policy di affidabilità del ruolo, è possibile specificare una posizione del file.</p>
+        </li><li>
+          <p>Collegare una policy di autorizzazione gestita al ruolo: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html">AttachRolePolicy</a></p>
+          <p> oppure</p>
+          <p>Creare una policy delle autorizzazioni inline per il ruolo: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html">PutRolePolicy</a></p>
+        </li><li>
+          <p>(Facoltativo) Aggiungere attributi personalizzati all'utente collegando tag: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_TagRole.html">TagRole</a></p>
+          <p>Per ulteriori informazioni, consulta <a href="./id_tags_users.html#id_tags_users_procs-cli-api">Gestione di tag di utenti IAM (AWS CLI o API AWS)</a>.</p>
+        </li><li>
+          <p>(Facoltativo) Impostare il <a href="./access_policies_boundaries.html">limite delle autorizzazioni</a> per il ruolo: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePermissionsBoundary.html">PutRolePermissionsBoundary</a></p>
+          <p>Il limite delle autorizzazioni controlla il numero massimo di autorizzazioni che è possibile concedere a un ruolo. I limiti delle autorizzazioni sono una caratteristica avanzata di AWS.</p>
+        </li></ol></div>
+      <p>Se utilizzerai il ruolo con Amazon EC2 o un altro servizio AWS che utilizza Amazon EC2, è necessario archiviare il ruolo in un profilo dell'istanza. Un profilo dell'istanza è un container per un ruolo. Ogni profilo dell'istanza può contenere un solo ruolo e tale limite non può essere superato. Se il ruolo è stato creato in AWS Management Console, il profilo dell'istanza verrà creato con lo stesso nome del ruolo. Per ulteriori informazioni sui profili delle istanze, consulta <a href="./id_roles_use_switch-role-ec2_instance-profiles.html">Utilizzo dei profili delle istanze</a>. Per informazioni su come avviare un'istanza Amazon EC2 con un ruolo, consulta <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">Controllo dell'accesso alle risorse Amazon EC2</a> nella <em>Guida per l'utente di Amazon EC2 per le istanze Linux</em>. </p>
+      <div class="procedure"><h6>Creazione di un profilo dell'istanza e memorizzazione del ruolo in esso (API AWS)</h6><ol><li>
+          <p>Creare un profilo dell'istanza: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateInstanceProfile.html">CreateInstanceProfile</a></p>
+        </li><li>
+          <p>Aggiungere il ruolo al profilo dell'istanza: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AddRoleToInstanceProfile.html">AddRoleToInstanceProfile</a></p>
+        </li></ol></div>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avvertimento" /> <strong>JavaScript è disabilitato o non è disponibile nel tuo browser.</strong></p><p>Per usare la documentazione AWS, JavaScript deve essere abilitato. Consulta le pagine della guida del browser per le istruzioni.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Convenzioni dei documenti</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_create_for-user.html">Creazione di un ruolo per un utente IAM</div><div id="next" class="next-link" accesskey="n" href="./id_roles_create_for-idp.html">Creazione di un ruolo per la federazione delle identità</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Questa pagina ti è stata utile? - Sì</div><div class="content"><p>Grazie per averci comunicato che stiamo facendo un buon lavoro!</p><p>Se hai un momento, ti invitiamo a dirci che cosa abbiamo fatto che ti è piaciuto così possiamo offrirti altri contenuti simili.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Questa pagina ti è stata utile? - No</div><div class="content"><p>Grazie per averci comunicato che questa pagina ha bisogno di essere modificata. Siamo spiacenti di non aver soddisfatto le tue esigenze.</p><p>Se hai un momento, ti invitiamo a dirci come possiamo migliorare la documentazione.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

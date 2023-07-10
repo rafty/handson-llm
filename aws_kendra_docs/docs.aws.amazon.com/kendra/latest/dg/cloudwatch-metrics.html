@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Monitoring Amazon Kendra with Amazon CloudWatch - Amazon Kendra</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="cloudwatch-metrics" /><meta name="default_state" content="cloudwatch-metrics" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-metrics.html" /><meta name="description" content="To track the health of your indexes, use Amazon CloudWatch. With CloudWatch, you can get metrics for document synchronization for your index. You can also set up CloudWatch alarms to be notified when one or more metrics exceeds a threshold that you define. For example, you can monitor the number of documents submitted to be indexed or the number of documents that failed to be indexed." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kendra" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Provides a conceptual overview of Amazon Kendra. Learn about Amazon Kendra features and get started indexing your documents using the console, CLI, and API." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-metrics.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/cloudwatch-metrics.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/kendra/latest/dg/cloudwatch-metrics.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/cloudwatch-metrics.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/kendra/latest/dg/cloudwatch-metrics.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-metrics.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-metrics.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/cloudwatch-metrics.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/kendra/latest/dg/cloudwatch-metrics.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/cloudwatch-metrics.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/kendra/latest/dg/cloudwatch-metrics.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/cloudwatch-metrics.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/kendra/latest/dg/cloudwatch-metrics.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/kendra/latest/dg/cloudwatch-metrics.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/cloudwatch-metrics.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/kendra/latest/dg/cloudwatch-metrics.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/cloudwatch-metrics.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/kendra/latest/dg/cloudwatch-metrics.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/kendra/latest/dg/cloudwatch-metrics.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/kendra/latest/dg/cloudwatch-metrics.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/kendra/latest/dg/cloudwatch-metrics.html" hreflang="x-default" /><meta name="feedback-item" content="Kendra" /><meta name="this_doc_product" content="Amazon Kendra" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kendra'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Monitoring Amazon Kendra with Amazon CloudWatch" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Monitoring Amazon Kendra with Amazon CloudWatch - Amazon Kendra</title><meta name="pdf" content="/pdfs/kendra/latest/dg/kendra-dg.pdf#cloudwatch-metrics" /><meta name="github" content="https://github.com/awsdocs/amazon-kendra-developer-guide/tree/master/doc_source/cloudwatch-metrics.md" /><meta name="rss" content="amazon-kendra-release-notes.rss" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/cloudwatch-metrics.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/cloudwatch-metrics.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/kendra/latest/dg/cloudwatch-metrics.html" /><meta name="keywords" content="Kendra,Amazon Kendra,search,intelligent search,natural language,index,question,keyword,data source,connector,FAQ,frequently asked question" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Monitoring and logging for Amazon Kendra",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg/monitoring.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Monitoring Amazon Kendra with Amazon CloudWatch",
+        "item" : "https://docs.aws.amazon.com/kendra/latest/dg/monitoring.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/kendra/latest/dg/kendra-dg.pdf#cloudwatch-metrics" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-kendra-developer-guide/tree/master/doc_source/cloudwatch-metrics.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/kendra/index.html">Amazon Kendra</a><a href="what-is-kendra.html">Developer Guide</a></div><div id="page-toc-src"><a href="#viewing-metrics">Viewing Amazon Kendra metrics</a><a href="#cloudwatch-alarms">Creating an alarm</a><a href="#cloudwatch-metric-sync-jobs">CloudWatch Metrics for index synchronization
+                    Jobs</a><a href="#cloudwatch-metrics-data-source">Metrics for Amazon Kendra data
+                    sources</a><a href="#cloudwatch-metrics-id">Metrics for indexed documents</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="cloudwatch-metrics">Monitoring Amazon Kendra with Amazon CloudWatch</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>To track the health of your indexes, use Amazon CloudWatch. With CloudWatch, you can get metrics for
+            document synchronization for your index. You can also set up CloudWatch alarms to be notified
+            when one or more metrics exceeds a threshold that you define. For example, you can
+            monitor the number of documents submitted to be indexed or the number of documents that
+            failed to be indexed.</p><p>You must have the appropriate CloudWatch permissions to monitor Amazon Kendra with CloudWatch. For
+            more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/auth-and-access-control-cw.html">Authentication and Access Control for Amazon CloudWatch</a> in the <em>Amazon CloudWatch
+                User Guide</em>.</p>
+            <h2 id="viewing-metrics">Viewing Amazon Kendra metrics</h2>
+            <p>View Amazon Kendra metrics using the CloudWatch console.</p>
+            <div class="procedure"><h6>To view metrics (CloudWatch console)</h6><ol><li><p>Sign in to the AWS Management Console and open the CloudWatch console at
+         <a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                    <p>Choose <b>Metrics</b>, choose <b>All
+                            Metrics</b> and then choose <b>Kendra</b>.</p>
+                </li><li>
+                    <p>Choose the dimension, choose a metric name, then choose <b>Add to
+                            graph</b>.</p>
+                </li><li>
+                    <p>Choose a value for the date range. The metric count for the selected date
+                        range is displayed in the graph.</p>
+                </li></ol></div>
+         
+            <h2 id="cloudwatch-alarms">Creating an alarm</h2>
+            <p>A CloudWatch alarm watches a single metric over a specified time period and performs one
+                or more actions: sending a notification to an Amazon Simple Notification Service (Amazon SNS) top or Auto Scaling
+                policy. The actions or actions are based on the value of the metric relative to a
+                given threshold over a number of time periods that you specify. CloudWatch can also send
+                you an Amazon SNS message when the alarm changes state.</p>
+            <p>CloudWatch alarms invoke actions only when the state changes and has persisted for the
+                period that you specify.</p>
+            <div class="procedure"><h6>To set an alarm</h6><ol><li><p>Sign in to the AWS Management Console and open the CloudWatch console at
+         <a href="https://console.aws.amazon.com/cloudwatch/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/cloudwatch/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.</p></li><li>
+                    <p>Choose <b>Alarms</b> and then choose <b>Create
+                            Alarm</b>.</p>
+                </li><li>
+                    <p>Choose <b>Kendra metrics</b> and then choose a
+                        metric.</p>
+                </li><li>
+                    <p>For <b>Time Range</b>, choose a time range to monitor, and
+                        then choose <b>Next</b>. </p>
+                </li><li>
+                    <p>Enter a <b>Name</b> and
+                        <b>Description</b>.</p>
+                </li><li>
+                    <p>For <b>Whenever</b>, choose <b>&gt;=</b>, and
+                        type a maximum value.</p>
+                </li><li>
+                    <p>If you want CloudWatch to send an email when the alarm state is reached, in the
+                            <b>Actions</b> section, for <b>Whenever this
+                            alarm</b>, choose <b>State is ALARM</b>. For
+                            <b>Send notification to</b>, choose a mailing list or
+                        choose <b>New list</b> and create a new mailing list</p>
+                </li><li>
+                    <p>Preview the alarm in the <b>Alarm Preview</b> section. If
+                        you are satisfied with the alarm, choose <b>Create
+                        Alarm</b>.</p>
+                </li></ol></div>
+         
+            <h2 id="cloudwatch-metric-sync-jobs">CloudWatch Metrics for index synchronization
+                    Jobs</h2>
+            <p>The following table describes the Amazon Kendra metrics for data source
+                synchronization jobs.</p>
+            <div class="table-container"><div class="table-contents"><table id="w213aac45c13c11b5"><thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td><code class="code">DocumentsCrawled</code></td>
+                            <td><p>The number of documents that the synchronization job
+                                    scanned or discovered during the run.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForIndexing</code></td>
+                            <td><p>The number of documents that the synchronization job
+                                    submitted to the index.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForIndexingFailed</code></td>
+                            <td><p>The number of documents that failed indexing. Check the
+                                    contents of the CloudWatch log for the synchronization job for
+                                    details.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForDeletion</code></td>
+                            <td><p>The number of documents that the synchronization job asked
+                                    to be removed from the index.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForDeletionFailed</code></td>
+                            <td><p>The number of documents that failed to be deleted. Check
+                                    the contents of the CloudWatch log for the synchronization job for
+                                    details.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                    </table></div></div>
+         
+            <h2 id="cloudwatch-metrics-data-source">Metrics for Amazon Kendra data
+                    sources</h2>
+            <p>The following table describes the Amazon Kendra metrics for data source
+                synchronization jobs. Metrics marked with an asterisk (*) are used only for Amazon S3
+                data sources.</p>
+            <div class="table-container"><div class="table-contents"><table id="w213aac45c13c13b5"><thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td><code class="code">DocumentsSkippedNoChange *</code></td>
+                            <td><p>The number of documents examined and found not to have
+                                    changed so they weren't submitted for indexing.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSkippedInvalidMetadata *</code></td>
+                            <td><p>The number of documents skipped because there was a problem
+                                    with the associated metadata file. Check the contents of the
+                                    CloudWatch log for the synchronization run for details.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsCrawled</code></td>
+                            <td><p>The number of document files examined.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForDeletion</code></td>
+                            <td><p>The number of documents examined that were deleted from the
+                                    data source and submitted for deletion.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForDeletionFailed</code></td>
+                            <td><p>The number of documents that failed deletion from a data
+                                    source.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForIndexing</code></td>
+                            <td><p>The number of documents examined and submitted for
+                                    indexing.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsSubmittedForIndexingFailed</code></td>
+                            <td><p>The number of documents submitted for idexing that couldn't
+                                    be indexed.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                    </table></div></div>
+         
+            <h2 id="cloudwatch-metrics-id">Metrics for indexed documents</h2>
+            <p>The following table describes the Amazon Kendra metrics for indexed documents. For
+                documents that are indexed using the <a href="https://docs.aws.amazon.com/kendra/latest/APIReference/API_BatchPutDocument.html">BatchPutDocument</a>
+                operation, only the <code class="code">IndexId</code> dimension is supported.</p>
+            <div class="table-container"><div class="table-contents"><table id="w213aac45c13c15b5"><thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td><code class="code">DocumentsIndexed</code></td>
+                            <td><p>The number of documents indexed.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">DocumentsFailedToIndex</code></td>
+                            <td><p>The number of documents that could not be indexed. Check
+                                    the contents of the CloudWatch log for details.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li><li class="listitem">
+                                        <p>DataSourceId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><code class="code">IndexQueryCount</code></td>
+                            <td><p>The number of index queries per minute.</p>
+                                <p>Dimensions:</p>
+                                <div class="itemizedlist">
+                                     
+                                <ul class="itemizedlist"><li class="listitem">
+                                        <p>IndexId</p>
+                                    </li></ul></div><p>Unit: Count</p></td>
+                        </tr>
+                    </table></div></div>
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cloudtrail-intelligent-ranking.html">Monitoring Amazon Kendra Intelligent Ranking API calls with
+                CloudTrail</div><div id="next" class="next-link" accesskey="n" href="./cloudwatch-logs.html">Monitoring Amazon Kendra with CloudWatch Logs</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/en_us/kendra/latest/dg/cloudwatch-metrics.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kendra&amp;topic_url=https://docs.aws.amazon.com/en_us/kendra/latest/dg/cloudwatch-metrics.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

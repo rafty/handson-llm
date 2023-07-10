@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Using a service-linked role (SLR) with ACM - AWS Certificate Manager</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="acm-slr" /><meta name="default_state" content="acm-slr" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html" /><meta name="description" content="How to use service-linked roles to give ACM access to resources in your AWS account." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Certificate Manager" /><meta name="guide" content="User Guide" /><meta name="abstract" content="ACM handles the complexity of creating and managing SSL/TLS certificates for your AWS based websites and applications." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/acm/latest/userguide/acm-slr.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/acm/latest/userguide/acm-slr.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/acm/latest/userguide/acm-slr.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/acm/latest/userguide/acm-slr.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/acm/latest/userguide/acm-slr.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/acm/latest/userguide/acm-slr.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/acm/latest/userguide/acm-slr.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/acm/latest/userguide/acm-slr.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/acm/latest/userguide/acm-slr.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/acm/latest/userguide/acm-slr.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/acm/latest/userguide/acm-slr.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/acm/latest/userguide/acm-slr.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/acm-slr.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/acm/latest/userguide/acm-slr.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/acm/latest/userguide/acm-slr.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/acm/latest/userguide/acm-slr.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/acm/latest/userguide/acm-slr.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/acm/latest/userguide/acm-slr.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html" hreflang="x-default" /><meta name="feedback-item" content="AWS Certificate Management (ACM)" /><meta name="this_doc_product" content="AWS Certificate Manager" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'acm'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Using a service-linked role (SLR) with ACM" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Using a service-linked role (SLR) with ACM - AWS Certificate Manager</title><meta name="pdf" content="/pdfs/acm/latest/userguide/acm-ug.pdf#acm-slr" /><meta name="github" content="https://github.com/awsdocs/aws-certificate-user-guide/tree/master/doc_source/acm-slr.md" /><meta name="rss" content="aws-certificate-manager-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=206" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS%20Certificate%20Management%20%28ACM%29&amp;topic_url=http://docs.aws.amazon.com/en_us/acm/latest/userguide/acm-slr.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/acm/latest/userguide/acm-slr.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/acm/latest/userguide/acm-slr.html" /><meta name="keywords" content="certificate manager,ACM,SSL certificate,TLS certificate,SSL/TLS certificate,certificate management,server certificate,managed certificate" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Certificate Manager (ACM)",
+        "item" : "https://docs.aws.amazon.com/acm/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/acm/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in AWS Certificate Manager",
+        "item" : "https://docs.aws.amazon.com/acm/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and access management for AWS Certificate Manager",
+        "item" : "https://docs.aws.amazon.com/acm/latest/userguide/security-iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Using a service-linked role (SLR) with ACM",
+        "item" : "https://docs.aws.amazon.com/acm/latest/userguide/security-iam.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/acm/latest/userguide/acm-ug.pdf#acm-slr" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/aws-certificate-user-guide/tree/master/doc_source/acm-slr.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/acm/index.html">AWS Certificate Manager (ACM)</a><a href="acm-overview.html">User Guide</a></div><div id="page-toc-src"><a href="#slr-permissions">SLR permissions for ACM</a><a href="#create-slr">Creating the SLR for ACM</a><a href="#edit-slr">Editing the SLR for ACM</a><a href="#delete-slr">Deleting the SLR for ACM</a><a href="#slr-regions">Supported Regions for ACM SLRs</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="acm-slr">Using a service-linked role (SLR) with ACM</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS Certificate Manager uses an AWS Identity and Access Management (IAM)<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role"> service-linked role</a> to enable automatic renewals of managed
+                ACM certificates. A service-linked role (SLR) is an IAM role that is
+                linked directly to the ACM service. SLRs are predefined by ACM
+                and include all the permissions that the service requires to call other AWS
+                services on your behalf.</p><p>The SLR makes setting up ACM easier because you don’t have to manually
+                add the necessary permissions for unattended certificate signing. ACM
+                defines the permissions of its SLR, and unless defined otherwise, only ACM
+                can assume the role. The defined permissions include the trust policy and the
+                permissions policy, and that permissions policy cannot be attached to any other
+                IAM entity.</p><p>For information about other services that support SLRs, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS
+                    Services That Work with IAM</a> and look for the services that have
+                    <b>Yes </b>in the <b>Service-Linked
+                    Role</b> column. Choose a <b>Yes</b> with a
+                link to view the SLR documentation for that service.</p>
+                <h2 id="slr-permissions">SLR permissions for ACM</h2>
+                <p>ACM uses an SLR named Amazon Certificate Manager Service Role Policy.</p>
+                <p>The AWSServiceRoleForCertificateManager SLR trusts the following services to assume the role:</p>
+                <div class="itemizedlist">
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><code class="code">acm.amazonaws.com</code></p>
+                    </li></ul></div>
+                <p>The role permissions policy allows ACM to complete the following
+                    actions on the specified resources:</p>
+                <div class="itemizedlist">
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>Actions: <code class="code">acm-pca:IssueCertificate</code>,
+                                <code class="code">acm-pca:GetCertificate</code> on "*"</p>
+                    </li></ul></div>
+                <p>You must configure permissions to allow an IAM entity (such as a user,
+                    group, or role) to create, edit, or delete an SLR. For more information, see
+                        <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#service-linked-role-permissions">Service-Linked Role Permissions</a> in the
+                        <em>IAM User Guide</em>.</p>
+                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>ACM might alert you that it cannot determine whether an SLR exists on your account. If the
+required <code class="code">iam:GetRole</code> permission has already been granted to the ACM SLR for your account, 
+then the alert will not recur after the SLR is created. If it does recur, 
+then you or your account administrator might need to grant the <code class="code">iam:GetRole</code>
+permission to ACM, or associate your account with the ACM-managed policy
+<code class="code">AWSCertificateManagerFullAccess</code>.</p></div></div>
+             
+                <h2 id="create-slr">Creating the SLR for ACM</h2>
+                <p>You don't need to manually create the SLR that ACM uses. When you issue an
+                    ACM certificate using the AWS Management Console, the AWS CLI, or the AWS API,
+                    ACM creates the SLR for you the first time that you choose a private
+                    CA to sign your certificate.</p>
+                <p>If you encounter messages stating that ACM cannot determine whether an SLR
+                    exists on your account, it may mean that your account has not granted a read
+                    permission that AWS Private CA requires. This will not prevent the SLR from being
+                    installed, and you can still issue certificates, but ACM will be unable to
+                    renew the certificates automatically until you resolve the problem. For more
+                    information, see <a href="./slr-problems.html">Problems with the ACM service-linked role (SLR)</a>.</p>
+                <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>This SLR can appear in your account if you completed an action in another
+                        service that uses the features supported by this role. Also, if you were
+                        using the ACM service before January 1, 2017, when it began
+                        supporting SLRs, then ACM created the AWSServiceRoleForCertificateManager role in your
+                        account. To learn more, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_roles.html#troubleshoot_roles_new-role-appeared">A New Role Appeared in My IAM Account</a>.</p></div></div>
+                <p>If you delete this SLR, and then need to create it again, you can use either
+                    of these methods:</p>
+                <div class="itemizedlist">
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p>In the IAM console, choose <b>Role</b>,
+                                <b>Create role</b>, <b>Certificate
+                                Manager</b> to create a new role with the
+                                <b>CertificateManagerServiceRolePolicy</b> use case. </p>
+                    </li><li class="listitem">
+                        <p>Using the IAM API <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceLinkedRole.html">CreateServiceLinkedRole</a> or the corresponding AWS CLI command
+                                <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-service-linked-role.html">create-service-linked-role</a>, create an SLR with the
+                                <code class="code">acm.amazonaws.com</code> service name.</p>
+                    </li></ul></div>
+                <p> For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#create-service-linked-role">Creating a Service-Linked Role</a> in the
+                        <em>IAM User Guide</em>.</p>
+             
+                <h2 id="edit-slr">Editing the SLR for ACM</h2>
+                <p>ACM does not allow you to edit the AWSServiceRoleForCertificateManager service-linked role.
+                    After you create an SLR, you cannot change the name of the role because various
+                    entities might reference the role. However, you can edit the description of the
+                    role using IAM. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role">Editing a Service-Linked Role</a> in the
+                        <em>IAM User Guide</em>.</p>
+             
+                <h2 id="delete-slr">Deleting the SLR for ACM</h2>
+                <p>You typically don't need to delete the AWSServiceRoleForCertificateManager SLR. However, you can delete
+                    the role manually using the IAM console, the AWS CLI or the AWS API. For more
+                    information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role">Deleting a Service-Linked Role</a> in the
+                        <em>IAM User Guide</em>.</p>
+             
+                <h2 id="slr-regions">Supported Regions for ACM SLRs</h2>
+                <p>ACM supports using SLRs in all of the regions where both
+                    ACM and AWS Private CA are available. For more information, see
+                    <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html">AWS Regions and Endpoints</a>.</p>
+                <div class="table-container"><div class="table-contents"><table id="w158aab7c17c35c19b5"><thead>
+                            <tr>
+                                <th>Region name</th>
+                                <th>Region identity</th>
+                                <th>Support in ACM</th>
+                            </tr>
+                        </thead>
+                            <tr>
+                                <td>US East (N. Virginia)</td>
+                                <td>us-east-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>US East (Ohio)</td>
+                                <td>us-east-2</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>US West (N. California)</td>
+                                <td>us-west-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>US West (Oregon)</td>
+                                <td>us-west-2</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Asia Pacific (Mumbai)</td>
+                                <td>ap-south-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Asia Pacific (Osaka)</td>
+                                <td>ap-northeast-3</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Asia Pacific (Seoul)</td>
+                                <td>ap-northeast-2</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Asia Pacific (Singapore)</td>
+                                <td>ap-southeast-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Asia Pacific (Sydney)</td>
+                                <td>ap-southeast-2</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Asia Pacific (Tokyo)</td>
+                                <td>ap-northeast-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Canada (Central)</td>
+                                <td>ca-central-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Europe (Frankfurt)</td>
+                                <td>eu-central-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Europe (Ireland)</td>
+                                <td>eu-west-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Europe (London)</td>
+                                <td>eu-west-2</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Europe (Paris)</td>
+                                <td>eu-west-3</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>South America (São Paulo)</td>
+                                <td>sa-east-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            
+                            
+                            <tr>
+                                <td>AWS GovCloud (US-West)</td>
+                                <td>us-gov-west-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>AWS GovCloud (US-East)
+                                    East</td>
+                                <td>us-gov-east-1</td>
+                                <td>Yes</td>
+                            </tr>
+                            
+                            
+                        </table></div></div>
+            <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./authen-inlinepolicies.html">Inline policies</div><div id="next" class="next-link" accesskey="n" href="./disaster-recovery-resiliency.html">Resilience</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Certificate Management (ACM)&amp;topic_url=https://docs.aws.amazon.com/en_us/acm/latest/userguide/acm-slr.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=AWS Certificate Management (ACM)&amp;topic_url=https://docs.aws.amazon.com/en_us/acm/latest/userguide/acm-slr.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

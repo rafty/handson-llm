@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Présentation de la liste de contrôle d'accès (ACL) - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="acl-overview" /><meta name="default_state" content="acl-overview" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" /><meta name="description" content="Les listes de contrôle d'accès (ACL) d'Amazon S3 vous permettent d'accéder aux compartiments et aux objets. Chaque compartiment et objet possède une liste ACL qui lui est attachée comme sous-ressource. Une liste ACL définit quels Comptes AWS ou groupes bénéficient d'un accès et le type d'accès. Lors de la réception d'une demande sur une ressource, Amazon S3 vérifie la liste ACL correspondante pour s'assurer que le demandeur possède les autorisations d'accès nécessaires." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="Guide de l'utilisateur" /><meta name="abstract" content="Découvrez comment utiliser Amazon Simple Storage Service (Amazon S3) pour stocker et récupérer n'importe quel volume de données depuis n'importe quel endroit. Ce guide présente les concepts Amazon S3, tels que les compartiments, les objets et les configurations s'y rapportant. Il inclut également des exemples de code pour des opérations courantes." /><meta name="guide-locale" content="fr_fr" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/acl-overview.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/acl-overview.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/acl-overview.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/acl-overview.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/acl-overview.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/acl-overview.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/acl-overview.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/acl-overview.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/acl-overview.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/acl-overview.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/acl-overview.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/acl-overview.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/acl-overview.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="Guide de l'utilisateur" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="Guide de l'utilisateur" /><meta id="panorama-serviceConsolePage" value="Présentation de la liste de contrôle d'accès (ACL)" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Présentation de la liste de contrôle d'accès (ACL) - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#acl-overview" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html" /><meta name="keywords" content="S3,Amazon S3,Guide de l'utilisateur S3,Guide de l'utilisateur Amazon S3,Guide de l'utilisateur Amazon,compartiment s3,objet s3,stockage dans le cloud,stockage des données" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Guide de l'utilisateur",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Sécurité Amazon S3",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and Access Management dans Amazon S3",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/s3-access-control.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Gestion des accès à l'aide des listes ACL",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acls.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Présentation de la liste de contrôle d'accès (ACL)",
+        "item" : "https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acls.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#acl-overview" target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">Guide de l'utilisateur</a></div><div id="page-toc-src"><a href="#specifying-grantee">Qui est un bénéficiaire ?</a><a href="#permissions">Quelles autorisations puis-je octroyer ?</a><a href="#sample-acl">Exemple de liste ACL</a><a href="#canned-acl">Liste ACL prête à l'emploi</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="acl-overview">Présentation de la liste de contrôle d'accès (ACL)</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Les listes de contrôle d'accès (ACL) d'Amazon S3 vous permettent d'accéder aux compartiments et aux objets. Chaque compartiment et objet possède une liste ACL qui lui est attachée comme sous-ressource. Une liste ACL définit quels Comptes AWS ou groupes bénéficient d'un accès et le type d'accès. Lors de la réception d'une demande sur une ressource, Amazon S3 vérifie la liste ACL correspondante pour s'assurer que le demandeur possède les autorisations d'accès nécessaires. </p><p>La propriété d'objets S3 est un paramètre Amazon S3 au niveau des compartiments que vous pouvez utiliser pour contrôler la propriété des objets qui sont chargés dans votre compartiment, ainsi que pour désactiver ou activer les listes ACL. Par défaut, la propriété d'objets est définie sur le paramètre Propriétaire du compartiment appliqué, et toutes les listes ACL sont désactivées. Lorsque les listes ACL sont désactivées, le propriétaire du compartiment détient tous les objets du compartiment et gère leur accès exclusivement au moyen de politiques de gestion des accès.</p><p> La majorité des cas d'utilisation modernes dans Amazon S3 ne nécessitent plus l'utilisation des listes ACL. Nous vous recommandons de maintenir les listes ACL désactivées, sauf dans des circonstances inhabituelles où vous devez contrôler l'accès individuellement pour chaque objet. Lorsque les listes ACL sont désactivées, vous pouvez utiliser des politiques pour contrôler l'accès à tous les objets de votre compartiment, quelle que soit la personne qui les a chargés dans votre compartiment. Pour de plus amples informations, veuillez consulter <a href="./about-object-ownership.html">Consultez Contrôle de la propriété des objets et désactivation des listes ACL pour votre compartiment</a>.</p><div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>Si votre compartiment utilise le paramètre appliqué par le propriétaire du compartiment pour S3 Object Ownership (Propriété de l'objet S3), vous devez utiliser des stratégies pour accorder l'accès à votre compartiment et aux objets qu'il contient. Quand le paramètre Propriétaire du compartiment appliqué est activé, les demandes de définition des listes de contrôle d'accès (ACL) ou de mise à jour des listes ACL échouent et renvoient le code d'erreur <code class="code">AccessControlListNotSupported</code>. Les demandes de lecture de listes ACL sont toujours prises en charge.</p></div></div><p>Lorsque vous créez un compartiment ou un objet, Amazon S3 crée une liste ACL par défaut qui octroie au propriétaire de la ressource le contrôle total sur celle-ci. Ce comportement est illustré dans l'exemple de liste ACL de compartiment suivant (la liste ACL d'objet par défaut possède la même structure) :</p><div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+  &lt;Owner&gt;
+    &lt;ID&gt;*** Owner-Canonical-User-ID ***&lt;/ID&gt;
+    &lt;DisplayName&gt;owner-display-name&lt;/DisplayName&gt;
+  &lt;/Owner&gt;
+  &lt;AccessControlList&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:type="Canonical User"&gt;
+        &lt;ID&gt;*** Owner-Canonical-User-ID ***&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;FULL_CONTROL&lt;/Permission&gt;
+    &lt;/Grant&gt;
+  &lt;/AccessControlList&gt;
+&lt;/AccessControlPolicy&gt; </code></pre></div></div><p>L'exemple de liste ACL inclut un élément <code class="code">Owner</code> qui identifie le propriétaire par l'ID d'utilisateur canonique du Compte AWS. Pour obtenir des instructions pour rechercher votre ID d'utilisateur canonique, consultez <a href="#finding-canonical-id">Recherche d'un ID d'utilisateur canonique de Compte AWS</a>. L'élément <code class="code">Grant</code> identifie le bénéficiaire (un Compte AWS ou groupe prédéfini), et l'autorisation accordée. Cette liste ACL par défaut possède un élément <code class="code">Grant</code> pour le propriétaire. Vous accordez des autorisations en ajoutant des éléments <code class="code">Grant</code>, avec chaque accord identifiant le bénéficiaire et l'autorisation. </p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Une liste ACL peut avoir 100 accords maximum.</p></div></div><div class="highlights" id="inline-topiclist"><h6>Rubriques</h6><ul><li><a href="#specifying-grantee">Qui est un bénéficiaire ?</a></li><li><a href="#permissions">Quelles autorisations puis-je octroyer ?</a></li><li><a href="#sample-acl">Exemple de liste ACL</a></li><li><a href="#canned-acl">Liste ACL prête à l'emploi</a></li></ul></div><h2 id="specifying-grantee">Qui est un bénéficiaire ?</h2>
+			
+			<p>Un bénéficiaire peut être un Compte AWS ou l'un des groupes Amazon S3 prédéfinis. Vous accordez l'autorisation à un Compte AWS en utilisant l'adresse e-mail ou l'ID d'utilisateur canonique. Toutefois, si vous fournissez une adresse e-mail dans la demande d'accord, Amazon S3 trouve l'ID d'utilisateur canonique pour ce compte et l'ajoute à la liste ACL. Les listes ACL obtenues contiennent toujours l'ID d'utilisateur canonique pour le Compte AWS, mais pas l'adresse e-mail du Compte AWS.</p>
+			<p>Lorsque vous accordez des droits d'accès, vous spécifiez chaque bénéficiaire sous la forme d'une paire type=valeur, où le type est l'un des suivants :</p>
+			<div class="itemizedlist">
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem"><p><code class="code">id</code> : si la valeur spécifiée est l'ID d'utilisateur canonique d'un Compte AWS</p></li><li class="listitem"><p><code class="code">uri</code> — si vous accordez des autorisations à un groupe prédéfini</p></li><li class="listitem"><p><code class="code">emailAddress</code> : si la valeur spécifiée est l'adresse e-mail d'un Compte AWS</p></li></ul></div>
+			    
+	<div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Important</h6></div><div class="awsdocs-note-text"><p>L'utilisation d'adresses e-mail pour spécifier un bénéficiaire est prise en charge uniquement dans les Régions AWS suivantes :</p><div class="itemizedlist">
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+			<ul class="itemizedlist"><li class="listitem">
+					<p>US East (N. Virginia)</p>
+				</li><li class="listitem">
+					<p>USA Ouest (Californie du Nord)</p>
+				</li><li class="listitem">
+					<p>US West (Oregon)</p>
+				</li><li class="listitem">
+					<p>Asie-Pacifique (Singapour)</p>
+				</li><li class="listitem">
+					<p>Asie-Pacifique (Sydney)</p>
+				</li><li class="listitem">
+					<p>Asia Pacific (Tokyo)</p>
+				</li><li class="listitem">
+					<p>Europe (Ireland)</p>
+				</li><li class="listitem">
+					<p>South America (São Paulo)</p>
+				</li></ul></div><p>Pour obtenir la liste de toutes les régions et de tous les points de terminaison Amazon S3 pris en charge, consultez <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">Régions et points de terminaison</a> dans <em>Référence générale d'Amazon Web Services</em>.</p></div></div>
+<div class="example"><h6>Exemple : Adresse e-mail</h6><div class="example-contents"><p>Par exemple, l'en-tête <code class="code">x-amz-grant-read</code> suivant accorde aux Comptes AWS identifiés par les adresses e-mail des autorisations de lecture des données d'objet et de leurs métadonnées :</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="">x-amz-grant-read: emailAddress="xyz@amazon.com", emailAddress="abc@amazon.com"</code></pre></div></div>		
+	<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Avertissement</h6></div><div class="awsdocs-note-text"><p>Lorsque vous accordez à d'autres Comptes AWS l'accès à vos ressources, sachez que les Comptes AWS peuvent déléguer leurs autorisations aux utilisateurs sous leurs comptes. Il s'agit d'un <em>accès entre comptes</em>. Pour de plus amples informations sur l'utilisation de l'accès entre comptes, veuillez consulter <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html">Création d'un rôle pour la délégation d'autorisations à un utilisateur IAM</a> dans le <em>Guide de l'utilisateur IAM</em>. </p></div></div> 
+			
+			<h3 id="finding-canonical-id">Recherche d'un ID d'utilisateur canonique de Compte AWS</h3>
+				
+				<p>L'ID d'utilisateur canonique est associé au Compte AWS. Cet ID est composé d'une longue chaîne de caractères, par exemple <code class="code">79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be</code>. Pour plus d'informations sur la recherche de l'ID d'utilisateur canonique de votre compte, consultez la section <a href="./finding-canonical-user-id.html">Identification de l'ID d'utilisateur canonique de votre Compte AWS</a>. </p>
+				<p>Vous pouvez également rechercher l'ID d'utilisateur canonique d'un Compte AWS en lisant la liste ACL d'un compartiment ou d'un objet pour lequel le Compte AWS possède les autorisations d'accès. Lorsqu'un Compte AWS individuel reçoit des autorisations suite à une demande d'octroi, une entrée d'accord est ajoutée à la liste ACL avec l'ID d'utilisateur canonique du compte. </p>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Si vous rendez votre compartiment public (non recommandé), n'importe quel utilisateur non authentifié pourra y charger des objets. Ces utilisateurs anonymes ne disposent pas d'un Compte AWS. Lorsqu'un utilisateur anonyme charge un objet dans votre compartiment, Amazon S3 ajoute un ID utilisateur canonique spécial (<code class="code">65a011a29cdf8ec533ec3d1ccaae921c</code>) comme propriétaire de l'objet dans la liste ACL. Pour de plus amples informations, veuillez consulter <a href="./access-control-overview.html#about-resource-owner">Propriété du compartiment et de l'objet Amazon S3</a>.</p></div></div>
+			 
+
+			 
+				<h3 id="specifying-grantee-predefined-groups">Groupes prédéfinis Amazon S3</h3>
+				
+				<p>Amazon S3 possède un ensemble de groupes prédéfinis. Lorsque l'accès à un compte est accordé à un groupe, vous spécifiez l'un des URI au lieu de l'ID d'utilisateur canonique. Nous fournissons les groupes prédéfinis suivants :</p>
+				<div class="itemizedlist">
+					 
+					 
+					 
+				<ul class="itemizedlist"><li class="listitem">
+						<p><b><span class="topcom">Groupe des utilisateurs authentifiés</span></b> – Représenté par <code class="code">http://acs.amazonaws.com/groups/global/AuthenticatedUsers</code>.</p>
+						<p>Ce groupe représente tous les Comptes AWS. <b>Une autorisation d'accès à ce groupe permet à n'importe quel Compte AWS d'accéder aux ressources.</b> Toutefois, toutes les demandes doivent être signées (authentifiées).</p>
+						<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Avertissement</h6></div><div class="awsdocs-note-text"><p>Lorsque vous accordez l'accès au <b>Groupe des utilisateurs authentifiés</b>, n'importe quel utilisateur authentifié par AWS dans le monde peut accéder à votre ressource.</p></div></div> 
+						</li><li class="listitem">
+						<p><span class="topcom"><b>Groupe de tous les utilisateurs</b></span> – Représenté par <code class="code">http://acs.amazonaws.com/groups/global/AllUsers</code>.</p>
+						<p><b>Une autorisation d'accès à ce groupe permet à tout le monde d'accéder à la ressource.</b> Les demandes peuvent être signées (authentifiées) ou non (anonymes). Les demandes non signées omettent l'en-tête Authentification dans la demande.</p>
+						<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Avertissement</h6></div><div class="awsdocs-note-text"><p>Nous vous recommandons vivement de ne pas jamais accorder au <b>groupe de tous les utilisateurs</b> les autorisations <code class="code">WRITE</code>, <code class="code">WRITE_ACP</code> ou <code class="code">FULL_CONTROL</code>. Par exemple, bien que les autorisations <code class="code">WRITE</code> ne permettent pas aux non-propriétaires de remplacer ou de supprimer des objets existants, les autorisations <code class="code">WRITE</code> permettent toujours à quiconque de stocker des objets dans votre compartiment, ce pour quoi vous êtes facturé. Pour plus de détails sur ces autorisations, consultez la section suivante <a href="#permissions">Quelles autorisations puis-je octroyer ?</a>.</p></div></div>
+					</li><li class="listitem">
+						<p><span class="topcom"><b>Groupe de livraison des journaux</b></span> – Représenté par <code class="code">http://acs.amazonaws.com/groups/s3/LogDelivery</code>.</p>
+						<p>Une autorisation WRITE sur un compartiment permet à ce groupe d'écrire des journaux d'accès au serveur (consultez <a href="./ServerLogs.html">Enregistrement des demandes avec journalisation des accès au serveur</a>) dans le compartiment.</p>
+					</li></ul></div>
+				<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Lorsque vous utilisez des listes ACL, le bénéficiaire peut être un Compte AWS ou l'un des groupes Amazon S3 prédéfinis. Toutefois, le bénéficiaire ne peut pas être un utilisateur IAM. Pour de plus amples informations sur les utilisateurs et autorisations AWS dans IAM, veuillez consulter <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/">Utilisation d'AWS Identity and Access Management</a>.</p></div></div>
+			 
+		 
+			<h2 id="permissions">Quelles autorisations puis-je octroyer ?</h2>
+			
+			<p>Le tableau suivant répertorie l'ensemble des autorisations qu'Amazon S3 prend en charge dans une liste ACL. Toutes les autorisations de liste ACL sont identiques pour les listes ACL d'objet et de compartiment. Toutefois, selon le contexte (liste ACL de compartiment ou liste ACL d'objet), ces autorisations de liste ACL accordent des autorisations pour des opérations spécifiques de compartiment ou d'objet. Le tableau répertorie les autorisations et décrit ce qu'elles signifient pour des objets et des compartiments. </p>
+			<p>Pour de plus amples informations sur les autorisations ACL dans la console Amazon S3, veuillez consulter <a href="./managing-acls.html">Configuration des listes ACL</a>.</p>
+			<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c23b7"><thead><tr><th class="table-header" colspan="100"><div class="title">Autorisations ACL</div></th></tr>
+						<tr>
+							<th>Autorisation</th>
+							<th>Lorsqu'elles sont accordées sur un compartiment</th>
+							<th>Lorsqu'elles sont accordées sur un objet</th>
+						</tr>
+					</thead>
+						<tr>
+							<td><code class="code">READ</code></td>
+							<td>Elles permettent au bénéficiaire de répertorier les objets dans le compartiment</td>
+							<td>Elles permettent au bénéficiaire de lire les données de l'objet et ses métadonnées</td>
+						</tr>
+						<tr>
+							<td><code class="code">WRITE</code></td>
+							<td>Elles permettent au bénéficiaire de créer des objets dans le compartiment. Pour les propriétaires de compartiments et d'objets existants, elles permettent également de supprimer et de remplacer ces objets.</td>
+							<td>Ne s'applique pas</td>
+						</tr>
+						<tr>
+							<td><code class="code">READ_ACP</code></td>
+							<td>Elles permettent au bénéficiaire de lire la liste ACL du compartiment</td>
+							<td>Elles permettent au bénéficiaire de lire la liste ACL de l'objet</td>
+						</tr>
+						<tr>
+							<td><code class="code">WRITE_ACP</code></td>
+							<td>Elles permettent au bénéficiaire d'écrire la liste ACL pour le compartiment applicable</td>
+							<td>Elles permettent au bénéficiaire d'écrire la liste ACL pour l'objet applicable</td>
+						</tr>
+						<tr>
+							<td><code class="code">FULL_CONTROL</code></td>
+							<td>Elles permettent au bénéficiaire de profiter des autorisations READ, WRITE, READ_ACP et WRITE_ACP sur le compartiment</td>
+							<td>Elles permettent au bénéficiaire de profiter des autorisations READ, READ_ACP et WRITE_ACP sur l'objet</td>
+						</tr>
+						
+					</table></div></div>
+			<div class="awsdocs-note awsdocs-warning"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Avertissement</h6></div><div class="awsdocs-note-text"><p>Soyez vigilant lorsque vous accordez des autorisations d'accès à vos compartiments et objets S3. Par exemple, l'octroi de l'accès <code class="code">WRITE</code> à un compartiment permet au bénéficiaire de créer des objets dans le compartiment. Nous vous recommandons vivement de lire l'ensemble de la section <a href="./acl-overview.html">Présentation de la liste de contrôle d'accès (ACL)</a> avant d'accorder des autorisations.</p></div></div>	 
+						
+			 
+				<h3 id="acl-access-policy-permission-mapping">Mappage des autorisations de liste ACL et de stratégie d'accès</h3>
+				
+				<p>Comme illustré dans le tableau précédent, une liste ACL permet uniquement d'accorder un ensemble limité d'autorisations, comparé au nombre d'autorisations configurables dans une stratégie d'accès (consultez <a href="./using-with-s3-actions.html">Actions Amazon S3</a>). Chacune de ces autorisations permet une ou plusieurs opérations Amazon S3.</p>
+				<p>Le tableau suivant montre comment chacune des autorisations de liste ACL est mappée aux autorisations de stratégie d'accès correspondantes. Comme vous pouvez le voir, une stratégie d'accès accorde plus d'autorisations qu'une liste ACL. Vous utilisez une liste ACL principalement pour accorder des autorisations de lecture/écriture de base, similaires aux autorisations de système de fichiers. Pour de plus amples informations sur l'utilisation d'une ACL, veuillez consulter <a href="./access-policy-alternatives-guidelines.html">Consignes relatives à la stratégie d'accès</a>.</p>
+				<p>Pour de plus amples informations sur les autorisations ACL dans la console Amazon S3, veuillez consulter <a href="./managing-acls.html">Configuration des listes ACL</a>.</p>
+				<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c23c11b9"><thead>
+							<tr>
+								<th>Autorisation de liste ACL</th>
+								<th>Autorisations de stratégie d'accès correspondantes lorsqu'une autorisation de liste ACL est accordée sur un compartiment </th>
+								<th>Autorisations de stratégie d'accès correspondantes lorsqu'une autorisation de liste ACL est accordée sur un objet</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><code class="code">READ</code></td>
+
+								<td><code class="code">s3:ListBucket</code>, <code class="code">s3:ListBucketVersions</code> et <code class="code">s3:ListBucketMultipartUploads</code> </td>
+								<td><code class="code">s3:GetObject</code> et <code class="code">s3:GetObjectVersion</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">WRITE</code></td>
+
+								<td><p>
+										<code class="code">s3:PutObject</code></p>
+									<p>Le propriétaire du compartiment peut créer, remplacer et supprimer n'importe quel objet dans le compartiment, et le propriétaire de l'objet bénéficie du <code class="code">FULL_CONTROL</code> sur son objet.</p> 
+									<p>De plus, lorsque le bénéficiaire est le propriétaire du compartiment, l'accord d'une autorisation <code class="code">WRITE</code> dans la liste ACL d'un compartiment permet d'exécuter l'action <code class="code">s3:DeleteObjectVersion</code> sur n'importe quelle version de ce compartiment. </p>
+								</td>
+								<td>Ne s'applique pas</td>
+							</tr>
+							<tr>
+								<td><code class="code">READ_ACP</code></td>
+
+								<td><code class="code">s3:GetBucketAcl</code>
+								</td>
+								<td><code class="code">s3:GetObjectAcl</code> et <code class="code">s3:GetObjectVersionAcl</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">WRITE_ACP</code></td>
+
+								<td><code class="code">s3:PutBucketAcl</code></td>
+								<td><code class="code">s3:PutObjectAcl</code> et <code class="code">s3:PutObjectVersionAcl</code></td>
+							</tr>
+							<tr>
+								<td><code class="code">FULL_CONTROL</code></td>
+
+								<td>Équivaut à accorder les autorisations de liste ACL <code class="code">READ</code>, <code class="code">WRITE</code>, <code class="code">READ_ACP</code> et <code class="code">WRITE_ACP</code>. Par conséquent, cette autorisation de liste ACL est mappée à une combinaison d'autorisations de stratégie d'accès correspondantes.</td>
+								<td>Équivaut à accorder les autorisations de liste ACL <code class="code">READ</code>, <code class="code">READ_ACP</code> et <code class="code">WRITE_ACP</code>. Par conséquent, cette autorisation de liste ACL est mappée à une combinaison d'autorisations de stratégie d'accès correspondantes.</td>
+							</tr>
+							
+						</table></div></div>
+			 
+				<h4 id="acl-specific-condition-keys">Clés de condition</h4>
+				<p>Lorsque vous accordez des autorisations de stratégie d'accès, vous pouvez utiliser des clés de condition pour limiter la valeur de l'ACL sur un objet à l'aide d'une stratégie de compartiment. Les clés de contexte ci-dessous correspondent aux listes ACL. Vous pouvez utiliser ces clés de contexte pour exiger l'utilisation d'une liste ACL spécifique dans une demande :</p>
+
+					<div class="itemizedlist">
+						 
+						 
+						 
+						 
+						 
+						 
+					<ul class="itemizedlist"><li class="listitem"><p><code class="code">s3:x-amz-grant-read</code> ‐ Exiger un accès en lecture.</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-write</code> ‐ Exiger un accès en écriture.</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-read-acp</code> ‐ Exiger un accès en lecture à l'ACL du compartiment.</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-write-acp</code> ‐ Exiger un accès en écriture à l'ACL du compartiment.</p></li><li class="listitem"><p><code class="code">s3:x-amz-grant-full-control</code> ‐ Exiger un contrôle total.</p></li><li class="listitem"><p><code class="code">s3:x-amz-acl</code> ‐ Exiger une <a href="#canned-acl">Liste ACL prête à l'emploi</a>.</p></li></ul></div>
+
+				<p>Pour des exemples de stratégies impliquant des en-têtes spécifiques à une ACL, veuillez consulter <a href="./amazon-s3-policy-keys.html#grant-putobject-conditionally-1">Exemple 1 : Octroi de l'autorisation s3:PutObject avec une condition qui nécessite que le propriétaire du compartiment ait le contrôle total</a>. Pour obtenir la liste complète des clés de condition spécifiques à Amazon S3, veuillez consulter <a href="./list_amazons3.html">Actions, ressources et clés de condition pour Amazon S3</a>.</p>
+			 
+			 
+		<h2 id="sample-acl">Exemple de liste ACL</h2>
+			
+			<p>L'exemple de liste ACL suivant sur un compartiment identifie le propriétaire de la ressource et un ensemble d'accords. Le format est la représentation XML d'une liste ACL dans l'API REST Amazon S3. Le propriétaire du compartiment possède l'accès <code class="code">FULL_CONTROL</code> sur la ressource. De plus, la liste ACL montre comment les autorisations sont accordées sur une ressource à deux Comptes AWS, identifiés par l'ID d'utilisateur canonique, et à deux des groupes Amazon S3 prédéfinis mentionnés dans la section précédente.</p>
+			<div class="example"><div class="example-contents"><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Texte"><awsui-icon name="copy"></awsui-icon></div></div><code class="">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+  &lt;Owner&gt;
+    &lt;ID&gt;Owner-canonical-user-ID&lt;/ID&gt;
+    &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+  &lt;/Owner&gt;
+  &lt;AccessControlList&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;Owner-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;FULL_CONTROL&lt;/Permission&gt;
+    &lt;/Grant&gt;
+    
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;user1-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;WRITE&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"&gt;
+        &lt;ID&gt;user2-canonical-user-ID&lt;/ID&gt;
+        &lt;DisplayName&gt;display-name&lt;/DisplayName&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;READ&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"&gt;
+        &lt;URI&gt;http://acs.amazonaws.com/groups/global/AllUsers&lt;/URI&gt; 
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;READ&lt;/Permission&gt;
+    &lt;/Grant&gt;
+    &lt;Grant&gt;
+      &lt;Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"&gt;
+        &lt;URI&gt;http://acs.amazonaws.com/groups/s3/LogDelivery&lt;/URI&gt;
+      &lt;/Grantee&gt;
+      &lt;Permission&gt;WRITE&lt;/Permission&gt;
+    &lt;/Grant&gt;
+
+  &lt;/AccessControlList&gt;
+&lt;/AccessControlPolicy&gt;</code></pre></div></div>
+		<h2 id="canned-acl">Liste ACL prête à l'emploi</h2>
+			
+			<p>Amazon S3 prend en charge un ensemble d'accords prédéfinis, appelées <em>listes ACL prédéfinies</em>. Chaque liste ACL prête à l'emploi possède un ensemble prédéfini de bénéficiaires et d'autorisations. Le tableau suivant liste l'ensemble des listes ACL prêtes à l'emploi et les accords prédéfinis associés. </p>
+			
+				<div class="table-container"><div class="table-contents"><table id="w1871aac19c25c29c17c27b4"><thead>
+							<tr>
+								<th>Liste ACL prête à l'emploi</th>
+								<th>S'applique à</th>
+								<th>Autorisations ajoutées à la liste ACL</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><code class="code">private</code></td>
+								<td>Compartiment et objet</td>
+								<td>Le propriétaire obtient l'accès <code class="code">FULL_CONTROL</code>. Personne d'autre ne possède les droits d'accès (par défaut).</td>
+							</tr>
+							<tr>
+								<td><code class="code">public-read</code></td>
+								<td>Compartiment et objet</td>
+								<td>Le propriétaire obtient l'accès <code class="code">FULL_CONTROL</code>. Le groupe <code class="code">AllUsers</code> (consultez <a href="#specifying-grantee">Qui est un bénéficiaire ?</a>) obtient l'accès <code class="code">READ</code>. </td>
+							</tr>
+							<tr>
+								<td><code class="code">public-read-write</code></td>
+								<td>Compartiment et objet</td>
+								<td>Le propriétaire obtient l'accès <code class="code">FULL_CONTROL</code>. Le groupe <code class="code">AllUsers</code> obtient l'accès <code class="code">READ</code> et <code class="code">WRITE</code>. L'accord de ce type d'accès sur un compartiment n'est généralement pas recommandé.</td>
+							</tr>
+						  <tr>
+						    <td><code class="code">aws-exec-read</code></td>
+						    <td>Compartiment et objet</td>
+						    <td>Le propriétaire obtient l'accès <code class="code">FULL_CONTROL</code>. Amazon EC2 obtient l'accès <code class="code">READ</code> pour faire une demande <code class="code">GET</code> sur une solution groupée Amazon Machine Image (AMI) issu d'Amazon S3.</td>
+						  </tr>
+							<tr>
+								<td><code class="code">authenticated-read</code></td>
+								<td>Compartiment et objet</td>
+								<td>Le propriétaire obtient l'accès <code class="code">FULL_CONTROL</code>. Le groupe <code class="code">AuthenticatedUsers</code> obtient l'accès <code class="code">READ</code>.</td>
+							</tr>
+							<tr>
+								<td><code class="code">bucket-owner-read</code></td>
+								<td>Objet</td>
+								<td>Le propriétaire de l'objet obtient l'accès <code class="code">FULL_CONTROL</code>. Le propriétaire du compartiment obtient l'accès <code class="code">READ</code>. Si vous spécifiez cette ACL prédéfinie lors de la création du compartiment, Amazon S3 l'ignore.</td>
+							</tr>
+							<tr>
+								<td><code class="code">bucket-owner-full-control</code></td>
+								<td>Objet </td>
+								<td>Le propriétaire de l'objet et celui du compartiment obtiennent l'accès <code class="code">FULL_CONTROL</code> sur l'objet. Si vous spécifiez cette ACL prédéfinie lors de la création du compartiment, Amazon S3 l'ignore.</td>
+							</tr>
+							<tr>
+								<td><code class="code">log-delivery-write</code></td>
+								<td>Compartiment </td>
+								<td>Le groupe <code class="code">LogDelivery</code> obtient les autorisations <code class="code">WRITE</code> et <code class="code">READ_ACP</code> sur le compartiment. Pour plus d'informations sur les journaux, consultez (<a href="./ServerLogs.html">Enregistrement des demandes avec journalisation des accès au serveur</a>).</td>
+							</tr>
+						</table></div></div>
+			
+
+
+			<div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Vous pouvez uniquement spécifier l'une des listes ACL prêtes à l'emploi dans la demande.</p></div></div>
+
+			<p>Vous pouvez spécifier une liste ACL prête à l'emploi dans la demande grâce à l'en-tête <code class="code">x-amz-acl</code>. Lorsqu'Amazon S3 reçoit une demande contenant une liste ACL prédéfinie, il ajoute les accords prédéfinis à la liste ACL de la ressource. </p>
+		<awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Avertissement" /> <strong>JavaScript est désactivé ou n'est pas disponible dans votre navigateur.</strong></p><p>Pour que vous puissiez utiliser la documentation AWS, Javascript doit être activé. Vous trouverez des instructions sur les pages d'aide de votre navigateur.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Conventions de rédaction</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./acls.html">Gestion des accès à l'aide des listes ACL</div><div id="next" class="next-link" accesskey="n" href="./finding-canonical-user-id.html">Trouver l'ID canonique</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Oui</div><div class="content"><p>Merci de nous avoir fait part de votre satisfaction.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer ce qui vous a plu afin que nous puissions nous améliorer davantage.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Cette page vous a-t-elle été utile ? - Non</div><div class="content"><p>Merci de nous avoir avertis que cette page avait besoin d'être retravaillée. Nous sommes désolés de ne pas avoir répondu à vos attentes.</p><p>Si vous avez quelques minutes à nous consacrer, merci de nous indiquer comment nous pourrions améliorer cette documentation.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Commentaire" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/acl-overview.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="id-ID"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS PrivateLink untuk Amazon S3 - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="privatelink-interface-endpoints" /><meta name="default_state" content="privatelink-interface-endpoints" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="description" content="Connect ke Amazon S3 dengan menggunakan VPC endpoint AWS PrivateLink antarmuka di virtual private cloud (VPC) Anda." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="Panduan Pengguna" /><meta name="abstract" content="Pelajari cara menggunakan Amazon Simple Storage Service (Amazon S3) untuk menyimpan dan mengambil berapa pun jumlah data dari mana saja. Panduan ini menjelaskan konsep Amazon S3, seperti bucket, objek, dan konfigurasi yang terkait, termasuk contoh-contoh kode untuk pengoperasian umum." /><meta name="guide-locale" content="id_id" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="Panduan Pengguna" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="Panduan Pengguna" /><meta id="panorama-serviceConsolePage" value="AWS PrivateLink untuk Amazon S3" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS PrivateLink untuk Amazon S3 - Amazon Simple Storage Service</title><meta name="pdf" content="s3-userguide.pdf#privatelink-interface-endpoints" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html" /><meta name="keywords" content="S3,Amazon S3,Panduan Pengguna S3,Panduan Pengguna Amazon S3,Panduan Pengguna Amazon,Bucket s3,objek s3,Penyimpanan cloud,Penyimpanan data" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Panduan Pengguna",
+        "item" : "https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Keamanan Amazon S3",
+        "item" : "https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "AWS PrivateLink untuk Amazon S3",
+        "item" : "https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="s3-userguide.pdf#privatelink-interface-endpoints" target="_blank" rel="noopener noreferrer" title="Buka PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Dokumentasi</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">Panduan Pengguna</a></div><div id="page-toc-src"><a href="#types-of-vpc-endpoints-for-s3">Jenis VPC endpoint</a><a href="#privatelink-limitations">Larangan dan batas AWS PrivateLink untuk Amazon S3</a><a href="#s3-creating-vpc">Membuat VPC endpoint</a><a href="#accessing-s3-interface-endpoints">Mengakses titik akhir antarmuka Amazon S3</a><a href="#private-dns">DNS Pribadi</a><a href="#accessing-bucket-and-aps-from-interface-endpoints">Mengakses bucket, titik akses, dan operasi Amazon S3 Control API dari titik akhir antarmuka S3</a><a href="#updating-on-premises-dns-config">Memperbarui konfigurasi DNS on premise</a><a href="#creating-vpc-endpoint-policy">Membuat kebijakan endpoint VPC</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-alert class="awsdocs-page-banner awsui-util-mb-l"><p>Terjemahan disediakan oleh mesin penerjemah. Jika konten terjemahan yang diberikan bertentangan dengan versi bahasa Inggris aslinya, utamakan versi bahasa Inggris.</p></awsui-alert><h1 class="topictitle" id="privatelink-interface-endpoints">AWS PrivateLink untuk Amazon S3</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Dengan AWS PrivateLink untuk Amazon S3, Anda dapat persediaan <em>VPC endpoint antarmuka (titik akhir</em> antarmuka) di virtual private cloud (VPC). Titik akhir ini dapat diakses secara langsung dari aplikasi on premise melalui VPN dan AWS Direct Connect, atau dalam Wilayah AWS yang berbeda melalui Peering VPC.</p><p>Titik akhir antarmuka diwakili oleh satu atau lebih antarmuka jaringan elastis (ENIS) yang ditugaskan alamat IP privat dari subnet di VPC Anda. Permintaan ke Amazon S3 melalui titik akhir antarmuka tetap berada di jaringan Amazon. Anda juga dapat mengakses titik akhir antarmuka di VPC Anda dari aplikasi on premise melalui AWS Direct Connect atau AWS Virtual Private Network (AWS VPN). Untuk informasi lebih lanjut tentang cara connect VPC dengan jaringan on premise Anda, lihat bagian <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html">AWS Direct ConnectPanduan Pengguna</a> dan <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPNPanduan Pengguna </a>.</p><p>Untuk informasi umum tentang titik akhir antarmuka, lihat <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html">VPC endpoint antarmuka (AWS PrivateLink)</a> di <em>PanduanAWS PrivateLink</em>.</p><div class="highlights" id="inline-topiclist"><h6>Topik</h6><ul><li><a href="#types-of-vpc-endpoints-for-s3">Jenis VPC endpoint untuk Amazon S3</a></li><li><a href="#privatelink-limitations">Larangan dan batas AWS PrivateLink untuk Amazon S3</a></li><li><a href="#s3-creating-vpc">Membuat VPC endpoint</a></li><li><a href="#accessing-s3-interface-endpoints">Mengakses titik akhir antarmuka Amazon S3</a></li><li><a href="#private-dns">DNS Pribadi</a></li><li><a href="#accessing-bucket-and-aps-from-interface-endpoints">Mengakses bucket, titik akses, dan operasi Amazon S3 Control API dari titik akhir antarmuka S3</a></li><li><a href="#updating-on-premises-dns-config">Memperbarui konfigurasi DNS on premise</a></li><li><a href="#creating-vpc-endpoint-policy">Membuat kebijakan VPC endpoint untuk Amazon S3</a></li></ul></div>
+    <h2 id="types-of-vpc-endpoints-for-s3">Jenis VPC endpoint untuk Amazon S3</h2>
+    <p>Anda dapat menggunakan dua jenis VPC endpoint untuk mengakses Amazon S3: Titik <em>akhir gateway dan Titik akhir</em> <em>antarmuka</em> (dengan menggunakan). AWS PrivateLink <em>Titik akhir gateway</em> adalah gateway yang Anda tentukan dalam tabel rute Anda untuk mengakses Amazon S3 dari VPC Anda melalui jaringan AWS. <em>Titik akhir antarmuka</em> memperluas fungsionalitas gateway dengan menggunakan alamat IP privat untuk merutekan permintaan ke Amazon S3 dari dalam VPC, pada premise, atau dari VPC di yang lain Wilayah AWS dengan menggunakan peering VPC atau. AWS Transit Gateway Untuk informasi selengkapnya, lihat <a href="https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html">Apa yang itu peering VPC?</a> dan <a href="https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/transit-gateway-vs-vpc-peering.html">Transit Gateway vs VPC mengintip</a>.</p>
+    <p>Titik akhir antarmuka kompatibel dengan titik akhir gateway. Jika Anda memiliki titik akhir gateway yang ada di VPC, Anda dapat menggunakan kedua jenis titik akhir di VPC yang sama.</p>
+    <div class="table-container"><div class="table-contents"><table id="w1871aac19c23c11b7"><thead>
+          <tr>
+            <th>
+              <p>Titik akhir gateway untuk Amazon S3</p>
+            </th>
+            <th>
+              <p>Buat titik akhir antarmuka untuk Amazon S3</p>
+            </th>
+          </tr>
+        </thead>
+          <tr>
+            <td colspan="2">
+              
+              <p>Dalam kedua kasus, lalu lintas jaringan Anda tetap berada di jaringan AWS.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Gunakan alamat IP publik Amazon S3</p>
+            </td>
+            <td>
+              <p>Gunakan alamat IP privat dari VPC Anda untuk mengakses Amazon S3</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Menggunakan nama DNS Amazon S3 yang sama</p>
+            </td>
+            <td>
+              <p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#accessing-s3-interface-endpoints">Memerlukan nama DNS Amazon S3 khusus titik akhir</a></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Jangan izinkan mengakses dari on premise</p>
+            </td>
+            <td>
+              <p>Mengizinkan mengakses dari on premise</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Jangan mengizinkan mengakses dari yang lain Wilayah AWS</p>
+            </td>
+            <td>
+              <p>Mengizinkan mengakses dari VPC di menggunakan Wilayah AWS peering VPC atau AWS Transit Gateway</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Tidak ditagih</p>
+            </td>
+            <td>
+              <p>Ditagih</p>
+            </td>
+          </tr>
+        </table></div></div>
+    <p>Untuk informasi selengkapnya tentang titik akhir gateway, lihat <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Gateway VPC endpoint</a> di <em>Panduan AWS PrivateLink</em>.</p>
+     
+      <h2 id="privatelink-limitations">Larangan dan batas AWS PrivateLink untuk Amazon S3</h2>
+      <p>Batas VPC berlaku untuk AWS PrivateLink untuk Amazon S3. <em>Untuk informasi selengkapnya, lihat <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations">Pertimbangan endpoint antarmuka</a> dan <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-limits-endpoints.html">AWS PrivateLinkkuota dalam Panduan</a>. AWS PrivateLink</em> Selain itu, larangan berikut berlaku.</p>
+    <p>AWS PrivateLink untuk Amazon S3 tidak mensupport hal berikut:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><a href="http://aws.amazon.com/compliance/fips/" rel="noopener noreferrer" target="_blank"><span>Titik akhir Standar Pemrosesan Informasi Federal (FIPS)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+      </li><li class="listitem">
+        <p><a href="./WebsiteEndpoints.html">Titik akhir situs web</a></p>
+      </li><li class="listitem">
+        <p><a href="./VirtualHosting.html#deprecated-global-endpoint">Titik Akhir Global warisan</a></p>
+      </li><li class="listitem">
+        <p>Menggunakan <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html">CopyObject</a>atau <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html">UploadPartCopy</a>di antara ember yang berbeda Wilayah AWS</p></li><li class="listitem">
+        <p>Keamanan Lapisan Pengangkutan (TLS) 1.1</p>
+      </li></ul></div>
+     
+    <h2 id="s3-creating-vpc">Membuat VPC endpoint</h2>
+    <p><em>Untuk membuat endpoint antarmuka VPC, lihat <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html#create-interface-endpoint-aws">Membuat titik akhir VPC</a> di Panduan. AWS PrivateLink</em></p>
+   
+      <h2 id="accessing-s3-interface-endpoints">Mengakses titik akhir antarmuka Amazon S3</h2>
+      
+      <p>Bila Anda membuat titik akhir antarmuka, Amazon S3 menghasilkan dua jenis titik akhir spesifik, nama DNS S3: <em>Wilayah</em> dan <em>zonal</em>. </p>
+      <div class="itemizedlist">
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Nama DNS <em>Regional</em> termasuk ID VPC endpoint unik, pengenal layananWilayah AWS, dan <code class="code">vpce.amazonaws.com</code> namanya. Sebagai contoh, untuk ID VPC endpoint <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code>, nama DNS yang dihasilkan mungkin mirip dengan <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>.s3.us-east-1.vpce.amazonaws.com</code>.</p>
+        </li><li class="listitem">
+          <p>Nama DNS <em>Zonal</em> mencakup Availability Zone—misalnya,. <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f</code>-<b>us-east-1a.</b>s3.us-east-1.vpce.amazonaws.com</code> Anda dapat menggunakan opsi ini jika arsitektur Anda mengisolasi Availability Zone. Misalnya, Anda bisa menggunakannya untuk penahanan kesalahan atau untuk mengurangi biaya transfer data Regional.</p>
+        </li></ul></div>
+      <p>Nama DNS S3 khusus titik akhir dapat diselesaikan dari domain DNS publik S3.</p>
+      
+     
+    <h2 id="private-dns">DNS Pribadi</h2>
+    <p>Opsi DNS pribadi untuk endpoint antarmuka VPC menyederhanakan perutean lalu lintas S3 melalui titik akhir VPC dan membantu Anda memanfaatkan jalur jaringan dengan biaya terendah yang tersedia untuk aplikasi Anda. Anda dapat menggunakan opsi DNS pribadi untuk merutekan lalu lintas S3 Regional tanpa memperbarui klien S3 Anda untuk menggunakan nama DNS khusus titik akhir antarmuka Anda, atau mengelola infrastruktur DNS. Dengan nama DNS pribadi diaktifkan, kueri DNS S3 Regional menyelesaikan alamat IP pribadi untuk titik akhir berikutAWS PrivateLink:</p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Titik akhir bucket regional (misalnya,<code class="code">s3.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>Kontrol endpoint (misalnya,<code class="code">s3-control.us-east-1.amazonaws.com</code>)</p>
+      </li><li class="listitem">
+        <p>Titik akhir titik akses (misalnya,<code class="code">s3-accesspoint.us-east-1.amazonaws.com</code>)</p>
+      </li></ul></div>
+    <p>Jika Anda memiliki titik akhir gateway di VPC, Anda dapat secara otomatis merutekan permintaan dalam VPC melalui titik akhir gateway S3 yang ada dan permintaan lokal melalui titik akhir antarmuka Anda. Pendekatan ini memungkinkan Anda untuk mengoptimalkan biaya jaringan Anda dengan menggunakan titik akhir gateway, yang tidak ditagih, untuk lalu lintas in-VPC Anda. Aplikasi lokal Anda dapat digunakan AWS PrivateLink dengan bantuan titik akhir Resolver masuk. Amazon menyediakan server DNS, yang disebut Resolver Route 53, untuk VPC Anda. Titik akhir Resolver masuk meneruskan kueri DNS dari jaringan lokal ke Route 53 Resolver.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>penting</h6></div><div class="awsdocs-note-text"><p>Untuk memanfaatkan jalur jaringan dengan biaya terendah saat menggunakan <b>Enable private DNS hanya untuk endpoint masuk, endpoint</b> gateway harus ada di VPC Anda. Kehadiran titik akhir gateway membantu memastikan bahwa lalu lintas dalam VPC selalu merutekan melalui jaringan AWS pribadi ketika opsi <b>Aktifkan DNS pribadi hanya untuk titik akhir masuk dipilih</b>. Anda harus mempertahankan titik akhir gateway ini saat Anda memiliki opsi <b>Aktifkan DNS pribadi hanya untuk titik akhir masuk</b> yang dipilih. Jika Anda ingin menghapus titik akhir gateway, Anda harus terlebih dahulu menghapus <b>Aktifkan DNS pribadi hanya untuk titik akhir masuk</b>. </p><p>Jika Anda ingin memperbarui endpoint antarmuka yang ada untuk <b>Aktifkan DNS pribadi hanya untuk titik akhir masuk, pertama-tama konfirmasikan bahwa VPC Anda memiliki titik akhir</b> gateway S3. <em>Untuk informasi selengkapnya tentang titik akhir gateway dan mengelola nama DNS pribadi, lihat <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Endpoint Gateway VPC</a> dan <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/manage-dns-names.html">Kelola nama DNS masing-masing</a> di Panduan. AWS PrivateLink</em></p></div></div>
+    <p>Opsi <b>Aktifkan DNS pribadi hanya untuk titik akhir masuk</b> hanya tersedia untuk layanan yang mendukung titik akhir gateway.</p>
+    <p><em>Untuk informasi selengkapnya tentang membuat endpoint VPC yang menggunakan <b>Enable private DNS hanya untuk titik akhir masuk, lihat Membuat titik akhir</b> <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html">antarmuka</a> di Panduan. AWS PrivateLink</em></p>
+    <p><b>Menggunakan konsol VPC</b></p>
+    <p>Di konsol Anda memiliki dua opsi: <b>Aktifkan nama DNS</b> dan <b>Aktifkan DNS pribadi hanya untuk titik akhir masuk</b>. <b>Aktifkan nama DNS</b> adalah opsi yang didukung olehAWS PrivateLink. Dengan menggunakan opsi <b>Aktifkan nama DNS</b>, Anda dapat menggunakan konektivitas pribadi Amazon ke Amazon S3, sambil membuat permintaan ke nama DNS titik akhir publik default. Ketika opsi ini diaktifkan, pelanggan dapat mengambil keuntungan dari jalur jaringan biaya terendah yang tersedia untuk aplikasi mereka.</p>
+    <p>Saat Anda mengaktifkan nama DNS pribadi pada titik akhir antarmuka VPC yang ada atau baru untuk Amazon S3, opsi <b>Aktifkan DNS pribadi hanya untuk titik akhir masuk dipilih</b> secara default. Jika opsi ini dipilih, aplikasi Anda hanya menggunakan titik akhir antarmuka untuk lalu lintas lokal. Lalu lintas in-VPC ini secara otomatis menggunakan endpoint gateway dengan biaya lebih rendah. Atau, Anda dapat menghapus <b>Aktifkan DNS pribadi hanya untuk titik akhir masuk untuk merutekan semua permintaan S3 melalui titik akhir</b> antarmuka Anda.</p>
+    <p><b>Menggunakan AWS CLI</b></p>
+    <p>Jika Anda tidak menentukan nilai untuk<code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code>, itu akan default ke<code class="code">true</code>. Namun, sebelum VPC Anda menerapkan pengaturan Anda, VPC melakukan pemeriksaan untuk memastikan bahwa Anda memiliki titik akhir gateway yang ada di VPC. Jika titik akhir gateway ada di VPC, panggilan akan berhasil. Jika tidak, Anda akan melihat pesan kesalahan berikut: </p>
+    <p><strong class="errortext"><code>Untuk mengatur  PrivateDnsOnlyForInboundResolver Endpoint ke true, VPC <code class="replaceable">vpce_id</code> harus memiliki titik akhir gateway untuk layanan.</code></strong></p>
+    <p><b>Untuk endpoint Antarmuka VPC baru</b></p>
+    <p>Gunakan <code class="code">private-dns-enabled</code> dan <code class="code">dns-options</code> atribut untuk mengaktifkan DNS pribadi melalui baris perintah. <code class="code">PrivateDnsOnlyForInboundResolverEndpoint</code>Opsi dalam <code class="code">dns-options</code> atribut harus diatur ke<code class="code">true</code>. Ganti <code class="code"><code class="replaceable">user input placeholders</code></code> dengan informasi Anda sendiri.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 create-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--service-name <code class="replaceable">s3-service-name</code> \
+--vpc-id <code class="replaceable">client-vpc-id</code> \
+--subnet-ids <code class="replaceable">client-subnet-id</code> \ 
+--vpc-endpoint-type Interface  \
+--private-dns-enabled  \
+--ip-address-type <code class="replaceable">ip-address-type</code> \ 
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true \
+--security-group-ids <code class="replaceable">client-sg-id</code> 
+    </code></pre>
+    <p><b>Untuk endpoint VPC yang sudah ada</b></p>
+    <p>Jika Anda ingin menggunakan DNS pribadi untuk endpoint VPC yang ada, gunakan perintah contoh berikut dan ganti <code class="code"><code class="replaceable">user input placeholders</code></code> dengan informasi Anda sendiri.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=false
+    </code></pre>
+    <p>Jika Anda ingin memperbarui titik akhir VPC yang ada untuk mengaktifkan DNS pribadi hanya untuk Inbound Resolver, gunakan contoh berikut dan ganti nilai sampel dengan nilai Anda sendiri.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">
+aws ec2 modify-vpc-endpoint \
+--region <code class="replaceable">us-east-1</code> \
+--vpc-endpoint-id <code class="replaceable">client-vpc-id</code> \
+--private-dns-enabled \
+--dns-options PrivateDnsOnlyForInboundResolverEndpoint=true
+    </code></pre>
+   
+    <h2 id="accessing-bucket-and-aps-from-interface-endpoints">Mengakses bucket, titik akses, dan operasi Amazon S3 Control API dari titik akhir antarmuka S3</h2>
+    <p>Anda dapat menggunakan AWS CLI atau AWS SDK untuk mengakses bucket, titik akses S3, dan operasi API Kontrol Amazon S3 melalui titik akhir antarmuka S3. </p>
+    <p>Citra berikut menunjukkan konsol VPC tab <b>Detail</b>, di mana Anda dapat menemukan nama DNS VPC endpoint. Dalam contoh ini, <em>ID VPC endpoint (vpce-id)</em>cadalahc<code class="code">vpce-0e25b8cdd720f900e</code>cdanc<em>Nama DNS</em> adalah <code class="code">*.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code>. </p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <div class="mediaobject">
+       
+       
+        <img src="images/vpc-console-details-tab.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;        Tab Detail di konsol VPC.&#xA;      " style="max-width:100%" />
+       
+    </div>
+    <p>Saat menggunakan nama DNS untuk mengakses sumber daya, <code class="replaceable">ganti*</code> dengan nilai yang sesuai. Nilai yang sesuai untuk digunakan sebagai pengganti <code class="code">*</code> adalah sebagai berikut: </p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><code class="code">bucket</code></p>
+      </li><li class="listitem">
+        <p><code class="code">accesspoint</code></p>
+      </li><li class="listitem">
+        <p><code class="code">control</code></p>
+      </li></ul></div>
+    <p>Misalnya, untuk mengakses bucket, gunakan <em>nama DNS</em> seperti ini:</p>
+    <p>
+      <code class="code">bucket.vpce-0e25b8cdd720f900e-argc85vg.s3.us-east-1.vpce.amazonaws.com</code></p>
+    <p>Untuk contoh cara menggunakan nama DNS untuk mengakses bucket, titik akses, dan operasi Amazon S3 Control API, lihat bagian dan. <a href="#privatelink-aws-cli-examples">Contoh AWS CLI</a> <a href="#privatelink-aws-sdk-examples">Contoh AWS SDK</a></p>
+    <p><em>Untuk informasi lebih lanjut tentang cara melihat nama DNS khusus titik akhir Anda, lihat <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/view-vpc-endpoint-service-dns-name.html">Melihat konfigurasi nama DNS privat layanan titik akhir di Panduan Pengguna VPC</a>.</em></p>
+     
+      <h3 id="privatelink-aws-cli-examples">Contoh AWS CLI</h3>
+      <p>Untuk mengakses bucket S3, titik akses S3, atau operasi Amazon S3 Control API melalui titik akhir antarmuka S3 dalam AWS CLI perintah, gunakan parameter dan parameter. <code class="code">--region</code> <code class="code">--endpoint-url</code> </p>
+       
+        <h6>Contoh: Gunakan URL titik akhir untuk daftar objek dalam bucket Anda</h6>
+        <p>Pada contoh berikut, ganti nama bucket<code class="code"><code class="replaceable">my-bucket</code></code>, Region<code class="code"><code class="replaceable">us-east-1</code></code>, dan nama DNS ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri.</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3 ls s3://<code class="replaceable">my-bucket</code>/ --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+      <p><b>Contoh: Gunakan URL titik akhir untuk membuat daftar objek dari titik akses</b></p>
+      <div class="itemizedlist">
+                 
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p><b>Metode 1</b> — Menggunakan Amazon Resource Name (ARN) dari titik akses dengan titik akhir titik akses</p>
+          
+          <p>Ganti ARN<code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code></code>, Region<code class="code"><code class="replaceable">us-east-1</code></code>, dan ID endpoint VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/accesspointexamplename</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+          <p>Jika Anda tidak dapat menjalankan perintah dengan sukses, perbarui AWS CLI ke versi terbaru dan coba lagi. Untuk informasi selengkapnya tentang petunjuk pembaruan, lihat <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions">Menginstal atau memperbarui versi terbaru AWS CLI di</a> <em>Panduan AWS Command Line Interface Pengguna</em>.</p>
+        </li><li class="listitem">
+          <p><b>Metode 2</b> - Menggunakan alias titik akses dengan titik akhir bucket regional</p>
+          <p>Pada contoh berikut, ganti alias titik akses, Wilayah <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code><code class="code"><code class="replaceable">us-east-1</code></code>, dan ID titik akhir VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri.</p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li><li class="listitem">
+          <p><b>Metode 3</b> - Menggunakan alias titik akses dengan titik akhir titik akses</p>
+          <p>Pertama, untuk membuat titik akhir S3 dengan bucket yang disertakan sebagai bagian dari nama host, atur gaya pengalamatan untuk digunakan. <code class="code">virtual</code> <code class="code">aws s3api</code> Untuk informasi selengkapnya<code class="code">AWS configure</code>, lihat <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html">Pengaturan file konfigurasi dan kredensi</a> di <em>Panduan AWS Command Line Interface Pengguna</em>. </p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws configure set default.s3.addressing_style virtual</code></pre>
+          <p>Kemudian, dalam contoh berikut, ganti alias titik akses, Region <code class="code"><code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code></code><code class="code"><code class="replaceable">us-east-1</code></code>, dan ID titik akhir VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri. Untuk informasi selengkapnya tentang titik akses alias, lihat <a href="./access-points-alias.html">Menggunakan alias gaya bucket untuk titik akses bucket S3 Anda</a></p>
+          <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3api list-objects-v2 --bucket <code class="replaceable">accesspointexamplename-8tyekmigicmhun8n9kwpfur39dnw4use1a-s3alias</code> --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code></pre>
+        </li></ul></div>     
+       
+        <h6>Contoh: Gunakan URL titik akhir untuk daftar tugas dengan operasi kontrol S3</h6>
+        <p>Pada contoh berikut, ganti Wilayah<code class="code"><code class="replaceable">us-east-1</code></code>, ID titik akhir VPC<code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code>, dan ID akun <code class="code"><code class="replaceable">12345678</code></code> dengan informasi Anda sendiri.</p>
+       
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight">aws s3control --region <code class="replaceable">us-east-1</code> --endpoint-url https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code> list-jobs --account-id <code class="replaceable">12345678</code></code></pre>
+     
+     
+      <h3 id="privatelink-aws-sdk-examples">Contoh AWS SDK</h3>
+      <p>Untuk mengakses bucket S3, titik akses S3, atau operasi Amazon S3 Control API melalui titik akhir antarmuka S3 saat menggunakan AWS SDKs Anda ke versi terbaru Anda. Kemudian konfigurasikan klien Anda untuk menggunakan URL titik akhir untuk mengakses operasi bucket, titik akses, atau Amazon S3 Control API melalui titik akhir antarmuka S3. </p>
+      <awsdocs-tabs><dl style="display: none">
+        <dt>SDK for Python (Boto3)</dt><dd tab-id="sdk-for-python-(boto3)">
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses bucket S3</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir Wilayah <code class="code"><code class="replaceable">us-east-1</code></code> dan VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">s3_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses titik akses bucket S3</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir Wilayah <code class="code"><code class="replaceable">us-east-1</code></code> dan VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">ap_client = session.client(
+service_name='s3',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses API kontrol Amazon S3</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir Wilayah <code class="code"><code class="replaceable">us-east-1</code></code> dan VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">control_client = session.client(
+service_name='s3control',
+region_name='<code class="replaceable">us-east-1</code>',
+endpoint_url='https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>'
+)</code></pre>
+          </dd>
+        <dt>SDK for Java 1.x</dt><dd tab-id="sdk-for-java-1.x">
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses bucket S3</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+List&lt;Bucket&gt; buckets = s3.listBuckets();</code></pre>
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses titik akses bucket S3</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dan ARN <code class="code"><code class="replaceable">us-east-1:123456789012:accesspoint/prod</code></code> dengan informasi Anda sendiri. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+final AmazonS3 s3accesspoint = AmazonS3ClientBuilder.standard().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+ObjectListing objects = s3accesspoint.listObjects("arn:aws:s3:<code class="replaceable">us-east-1:123456789012:accesspoint/prod</code>");</code></pre>
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses operasi Amazon S3 Control</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dengan informasi Anda sendiri. </p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+final AWSS3Control s3control = AWSS3ControlClient.builder().withEndpointConfiguration(
+        new AwsClientBuilder.EndpointConfiguration(
+                "https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>",
+                Regions.DEFAULT_REGION.getName()
+        )
+).build();
+final ListJobsResult jobs = s3control.listJobs(new ListJobsRequest());</code></pre>
+          </dd>
+        <dt>SDK for Java 2.x</dt><dd tab-id="sdk-for-java-2.x">
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses bucket S3</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dan Wilayah <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> dengan informasi Anda sendiri.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// bucket client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>bucket.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses titik akses bucket S3</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dan Wilayah <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> dengan informasi Anda sendiri.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// accesspoint client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3Client = S3Client.builder().region(region)
+                   .endpointOverride(URI.create("https://<b>accesspoint.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                   .build()</code></pre>
+             
+              <h6>Contoh: Gunakan URL titik akhir untuk mengakses API kontrol Amazon S3</h6>
+              <p>Dalam contoh berikut, ganti ID titik akhir VPC <code class="code"><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code></code> dan Wilayah <code class="code"><code class="replaceable">Region.US_EAST_1</code></code> dengan informasi Anda sendiri.</p>
+             
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">// control client
+Region region = <code class="replaceable">Region.US_EAST_1</code>;
+s3ControlClient = S3ControlClient.builder().region(region)
+                                 .endpointOverride(URI.create("https://<b>control.</b><code class="replaceable">vpce-1a2b3c4d-5e6f.s3.us-east-1.vpce.amazonaws.com</code>"))
+                                 .build()</code></pre>
+          </dd>
+      </dl></awsdocs-tabs>
+     
+   
+    <h2 id="updating-on-premises-dns-config">Memperbarui konfigurasi DNS on premise</h2>
+      <p>Saat menggunakan nama DNS khusus titik akhir untuk mengakses titik akhir antarmuka untuk Amazon S3, Anda tidak perlu memperbarui penyelesai DNS on premise Anda. Anda dapat menyelesaikan nama DNS titik akhir khusus dengan alamat IP privat titik akhir antarmuka dari domain Amazon S3 DNS publik. </p>
+
+       
+      <h3 id="using-interface-endpoints">Menggunakan titik akhir antarmuka untuk mengakses Amazon S3 tanpa endpoint gateway atau gateway internet di VPC</h3>
+      <p>Titik akhir antarmuka di VPC Anda dapat merutekan kedua aplikasi di VPC dan aplikasi on premise ke Amazon S3 melalui jaringan Amazon, seperti yang digambarkan dalam diagram berikut.</p>
+      <div class="mediaobject">
+         
+         
+          <img src="images/interface-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          Diagram alur data yang menampilkan akses dari aplikasi lokal dan dalam VPC ke Amazon S3 dengan menggunakan titik akhir antarmuka dan. AWS PrivateLink&#xA;        " style="max-width:100%" />
+         
+      </div>
+      <p>Diagram ini menggambarkan langkah-langkah berikut: </p>
+      <div class="itemizedlist">
+         
+         
+         
+         
+      <ul class="itemizedlist"><li class="listitem">
+          <p>Jaringan on premise Anda menggunakan AWS Direct Connect atau AWS VPN untuk connect ke VPC A.</p>
+        </li><li class="listitem">
+          <p>Aplikasi Anda on premise dan di VPC A menggunakan nama DNS titik akhir khusus untuk mengakses Amazon S3 melalui titik akhir antarmuka S3.</p>
+        </li><li class="listitem">
+          <p>Aplikasi on premise mengirim data ke titik akhir di VPC melalui AWS Direct Connect (atau AWS VPN). AWS PrivateLink memindahkan data dari titik akhir antarmuka ke Amazon S3 atas jaringan AWS.</p>
+        </li><li class="listitem">
+          <p>Di aplikasi VPC juga mengirim lalu lintas ke titik akhir antarmuka. AWS PrivateLink memindahkan data dari titik akhir antarmuka ke Amazon S3 atas jaringan AWS.</p>
+        </li></ul></div>
+     
+       
+        <h3 id="using-gateway-and-interface-endpoints">Menggunakan titik akhir gateway dan antarmuka titik akhir bersama-sama dalam VPC yang sama untuk mengakses Amazon S3</h3>
+        <p>Anda dapat membuat titik akhir antarmuka dan mempertahankan titik akhir gateway yang ada di VPC yang sama, seperti yang ditunjukkan diagram berikut. Dengan menggunakan pendekatan ini, Anda mengizinkan aplikasi dalam VPC untuk terus mengakses Amazon S3 melalui titik akhir gateway, yang tidak ditagih. Kemudian, hanya aplikasi lokal Anda yang akan menggunakan titik akhir antarmuka untuk mengakses Amazon S3. Untuk mengakses Amazon S3 dengan cara ini, Anda harus memperbarui aplikasi lokal Anda untuk Amazon S3.</p>
+        <div class="mediaobject">
+         
+         
+          <img src="images/interface-and-gateway-endpoints.png" class="aws-docs-img-whiteBg aws-docs-img-padding aws-docs-img-filter" alt="&#xA;          diagram aliran data yang menunjukkan akses ke Amazon S3 dengan menggunakan titik akhir gateway dan titik akhir antarmuka bersama-sama.&#xA;        " style="max-width:100%" />
+         
+      </div>
+        <p>Diagram ini menggambarkan langkah-langkah berikut: </p>
+        <div class="itemizedlist">
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Aplikasi on premise menggunakan nama DNS khusus titik akhir untuk mengirim data ke titik akhir antar muka dalam VPC melalui AWS Direct Connect (atau AWS VPN). AWS PrivateLink memindahkan data dari titik akhir antarmuka ke Amazon S3 atas jaringan AWS.</p>
+          </li><li class="listitem">
+            <p>Menggunakan nama default Wilayah Amazon S3, aplikasi dalam VPC mengirim data ke titik akhir gateway yang connect ke Amazon S3 atas jaringan AWS.</p>
+          </li></ul></div>
+        <p>Untuk informasi selengkapnya tentang titik akhir gateway, lihat <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html">Gateway VPC endpoint</a> di <em>Panduan Pengguna VPC</em>. </p>
+     
+   
+    <h2 id="creating-vpc-endpoint-policy">Membuat kebijakan VPC endpoint untuk Amazon S3</h2>
+    <p>Anda dapat melampirkan kebijakan titik akhir ke VPC endpoint yang mengendalikan akses ke Amazon S3. Kebijakan menentukan informasi berikut: </p>
+    <div class="itemizedlist">
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>AWS Identity and Access Management (IAM) utama yang dapat melakukan tindakan </p>
+      </li><li class="listitem">
+        <p>Tindakan yang dapat dilakukan </p>
+      </li><li class="listitem">
+        <p>Sumber daya yang dapat digunakan untuk mengambil tindakan </p>
+      </li></ul></div>
+    <p>Anda juga dapat menggunakan kebijakan bucket Amazon S3 untuk membatasi akses ke bucket tertentu dari titik akhir VPC tertentu dengan menggunakan <code class="code">aws:sourceVpce</code> ketentuan dalam kebijakan bucket Anda. Contoh berikut menunjukkan kebijakan yang membatasi akses ke bucket atau titik akhir.</p>
+    <div class="highlights" id="inline-topiclist"><h6>Topik</h6><ul><li><a href="#privatelink-example-restrict-access-to-bucket">Contoh: Membatasi Akses ke bucket khusus dari VPC endpoint</a></li><li><a href="#privatelink-example-access-bucket-in-specific-account-only">Contoh: Membatasi akses ke bucket khusus di akun khusus dari VPC endpoint</a></li><li><a href="#privatelink-example-restrict-access-to-vpc-endpoint">Contoh: Membatasi Akses ke bucket VPC endpoint khusus di kebijakan bucket S3</a></li></ul></div>
+     
+      <h3 id="privatelink-example-restrict-access-to-bucket">Contoh: Membatasi Akses ke bucket khusus dari VPC endpoint</h3>
+      <p>Anda dapat membuat kebijakan titik akhir yang membatasi akses ke bucket Amazon S3 saja. Jenis kebijakan ini berguna jika Anda memiliki yang lain Layanan AWS di VPC Anda yang menggunakan bucket. Kebijakan bucket berikut membatasi akses hanya ke. <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code> Untuk menggunakan kebijakan titik akhir ini, ganti <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code></code> dengan nama bucket Anda.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909151",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-bucket-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET1</code></code>/*"]
+    }
+  ]
+}</code></pre>
+     
+     
+      <h3 id="privatelink-example-access-bucket-in-specific-account-only">Contoh: Membatasi akses ke bucket khusus di akun khusus dari VPC endpoint</h3>
+      <p>Anda dapat membuat kebijakan titik akhir yang membatasi akses hanya ke bucket S3 di tertentu. Akun AWS Untuk mencegah klien dalam VPC Anda mengakses bucket yang tidak Anda miliki, gunakan pernyataan berikut dalam kebijakan titik akhir Anda. Contoh pernyataan berikut menciptakan kebijakan yang membatasi akses ke sumber daya yang dimiliki oleh satu Akun AWS ID, <code class="replaceable"><code class="code">111122223333</code></code>.</p>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Statement": [
+    <span>{</span>
+      "Sid": "Access-to-bucket-in-specific-account-only",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:s3:::*",
+      "Condition": <span>{</span>
+        "StringNotEquals": <span>{</span>
+          "aws:ResourceAccount": "<code class="replaceable">111122223333</code>"
+        }
+      }
+    }
+  ]
+}</code></pre>
+      <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>catatan</h6></div><div class="awsdocs-note-text"><p>Untuk menentukan Akun AWS ID sumber daya yang sedang diakses, Anda dapat menggunakan kunci <code class="code">aws:ResourceAccount</code> atau <code class="code">s3:ResourceAccount</code> kunci dalam kebijakan IAM Anda. Namun, ketahuilah bahwa beberapa Layanan AWS mengandalkan akses ke bucket yang AWS dikelola. Oleh karena itu, menggunakan <code class="code">aws:ResourceAccount</code> atau <code class="code">s3:ResourceAccount</code> kunci dalam kebijakan IAM Anda juga dapat memengaruhi akses ke sumber daya ini.</p></div></div>
+     
+     
+      <h3 id="privatelink-example-restrict-access-to-vpc-endpoint">Contoh: Membatasi Akses ke bucket VPC endpoint khusus di kebijakan bucket S3</h3>
+      <p><a id="example-restrict-access-to-vpc-endpoint"></a><b>Contoh: Membatasi Akses ke VPC endpoint khusus di kebijakan bucket S3</b></p>
+      <p>Kebijakan bucket Amazon S3 berikut memungkinkan akses ke bucket tertentu,<code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code>, hanya dari titik akhir VPC. <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> Kebijakan ini tolak semua akses ke bucket jika titik akhir yang ditentukan tidak digunakan. <code class="code">aws:sourceVpce</code>Kondisi menentukan titik akhir dan tidak memerlukan Amazon Source Name (ARN) untuk sumber daya titik akhir VPC, tetapi hanya ID titik akhir. Untuk menggunakan kebijakan bucket ini, ganti <code class="code"><code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code></code> dan <code class="code"><code class="replaceable">vpce-1a2b3c4d</code></code> dengan nama bucket dan titik akhir Anda. </p>
+      <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>penting</h6></div><div class="awsdocs-note-text"><div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Saat menerapkan kebijakan bucket Amazon S3 berikut untuk membatasi akses hanya ke titik akhir VPC tertentu, Anda dapat memblokir akses Anda ke bucket tanpa bermaksud melakukannya. Kebijakan bucket yang dimaksudkan untuk secara khusus membatasi akses bucket ke koneksi yang berasal dari titik akhir VPC Anda dapat memblokir semua koneksi ke bucket tersebut. Untuk informasi tentang cara mengatasi masalah ini, lihat <a href="http://aws.amazon.com/premiumsupport/knowledge-center/s3-regain-access/" rel="noopener noreferrer" target="_blank"><span>Kebijakan ember saya memiliki ID titik akhir VPC atau VPC yang salah. Bagaimana saya dapat memperbaiki kebijakan tersebut sehingga saya dapat mengakses bucket?</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> dalam <em>Pusat Pengetahuan AWS Support</em>.</p>
+          </li><li class="listitem">
+            <p>Sebelum menggunakan kebijakan contoh berikut ini, ganti ID titik akhir VPC dengan nilai yang sesuai untuk kasus penggunaan Anda. Jika tidak, Anda tidak akan dapat mengakses ember Anda. </p>
+          </li><li class="listitem">
+            <p>Kebijakan ini nonaktifkan akses <em>konsol</em> ke bucket tertentu, karena permintaan konsol tidak berasal dari VPC endpoint tertentu. </p>
+          </li></ul></div></div></div>
+      <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Salinan"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+  "Version": "2012-10-17",
+  "Id": "Policy1415115909152",
+  "Statement": [
+    <span>{</span> "Sid": "Access-to-specific-VPCE-only",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": ["arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code></code>",
+                   "arn:aws:s3:::<code class="replaceable"><code class="replaceable">DOC-EXAMPLE-BUCKET2</code>/*</code>"],
+      "Condition": <span>{</span>"StringNotEquals": <span>{</span>"aws:sourceVpce": "<code class="replaceable">vpce-1a2b3c4d</code>"}}
+    }
+  ]
+}</code></pre>
+     
+    <p>Untuk contoh kebijakan lainnya, lihat <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html#vpc-endpoints-policies-s3">Titik akhir untuk Amazon S3</a> di <em>Panduan Pengguna VPC</em>.</p>
+  <p>Untuk informasi selengkapnya tentang konektivitas VPC, lihat <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/network-to-amazon-vpc-connectivity-options.html">Opsi konektivitas jaringan-ke-VPC</a> di laporan resmi AWS <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/welcome.html">Opsi Konektivitas Amazon Virtual Private Cloud</a>.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Awas" /> <strong>Javascript dinonaktifkan atau tidak tersedia di browser Anda.</strong></p><p>Untuk menggunakan Dokumentasi AWS, Javascript harus diaktifkan. Lihat halaman Bantuan browser Anda untuk petunjuk.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Konvensi Dokumen</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./inter-network-traffic-privacy.html">Privasi kerja internet</div><div id="next" class="next-link" accesskey="n" href="./s3-access-control.html">Identity and access management</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Apakah halaman ini membantu Anda? - Ya</div><div class="content"><p>Terima kasih telah memberitahukan bahwa hasil pekerjaan kami sudah baik.</p><p>Jika Anda memiliki waktu luang, beri tahu kami aspek apa saja yang sudah bagus, agar kami dapat menerapkannya secara lebih luas.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Umpan Balik" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Apakah halaman ini membantu Anda? - Tidak</div><div class="content"><p>Terima kasih telah memberi tahu kami bahwa halaman ini perlu ditingkatkan. Maaf karena telah mengecewakan Anda.</p><p>Jika Anda memiliki waktu luang, beri tahu kami bagaimana dokumentasi ini dapat ditingkatkan.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Umpan Balik" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/privatelink-interface-endpoints.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

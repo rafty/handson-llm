@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Create a presigned URL for Amazon S3 using an AWS SDK - Amazon Simple Storage Service</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="example_s3_Scenario_PresignedUrl_section" /><meta name="default_state" content="example_s3_Scenario_PresignedUrl_section" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" /><meta name="description" content="Create a presigned URL for Amazon S3 using an AWS SDK" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Simple Storage Service" /><meta name="guide" content="User Guide" /><meta name="abstract" content="Learn how to use Amazon Simple Storage Service (Amazon S3) to store and retrieve any amount of data from anywhere. This guide explains Amazon S3 concepts, such as buckets, objects, and related configurations, and includes code examples for common operations." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" hreflang="x-default" /><meta name="feedback-item" content="S3" /><meta name="this_doc_product" content="Amazon Simple Storage Service" /><meta name="this_doc_guide" content="User Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'s3'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Create a presigned URL for Amazon S3 using an AWS SDK" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Create a presigned URL for Amazon S3 using an AWS SDK - Amazon Simple Storage Service</title><meta name="pdf" content="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#example_s3_Scenario_PresignedUrl_section" /><meta name="github" content="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/example_s3_Scenario_PresignedUrl_section.md" /><meta name="rss" content="s3-userguide-rss-updates.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=24" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html" /><meta name="keywords" content="S3,Amazon S3,S3 User Guide,Amazon S3 User Guide,Amazon User Guide,s3 bucket,s3 object,cloud storage,data storage,code example,AWS SDK,Create a presigned URL for Amazon S3 using an AWS SDK" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Simple Storage Service (S3)",
+        "item" : "https://docs.aws.amazon.com/s3/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Code examples for Amazon S3 using AWS SDKs",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/service_code_examples.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Scenarios for Amazon S3 using AWS SDKs",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/service_code_examples_scenarios.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Create a presigned URL for Amazon S3 using an AWS SDK",
+        "item" : "https://docs.aws.amazon.com/AmazonS3/latest/userguide/service_code_examples_scenarios.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/AmazonS3/latest/userguide/s3-userguide.pdf#example_s3_Scenario_PresignedUrl_section" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-s3-userguide/tree/main/doc_source/example_s3_Scenario_PresignedUrl_section.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/s3/index.html">Amazon Simple Storage Service (S3)</a><a href="Welcome.html">User Guide</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="example_s3_Scenario_PresignedUrl_section">Create a presigned URL for Amazon S3 using an AWS SDK</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>The following code examples show how to create a presigned URL for Amazon S3 and upload an object.</p><awsdocs-tabs><dl style="display: none">
+    <dt>.NET</dt><dd tab-id=".net">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">AWS SDK for .NET</span></b></dt>
+        <dd>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/S3/#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                </p></div></div>
+             
+                <p>Generate a presigned URL that can perform an Amazon S3 action for a limited time.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="csharp ">    using System;
+    using Amazon;
+    using Amazon.S3;
+    using Amazon.S3.Model;
+
+    public class GenPresignedUrl
+    <span>{</span>
+        public static void Main()
+        <span>{</span>
+            const string bucketName = "doc-example-bucket";
+            const string objectKey = "sample.txt";
+
+            // Specify how long the presigned URL lasts, in hours
+            const double timeoutDuration = 12;
+
+            // Specify the AWS Region of your Amazon S3 bucket if it is
+            // different from the Region defined for the default user,
+            // pass the Region to the constructor for the client. For
+            // example:
+            //      RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
+            IAmazonS3 s3Client = new AmazonS3Client();
+
+            string urlString = GeneratePresignedURL(s3Client, bucketName, objectKey, timeoutDuration);
+            Console.WriteLine($"The generated URL is: <span>{</span>urlString}.");
+        }
+
+        /// &lt;summary&gt;
+        /// Generate a presigned URL that can be used to access the file named
+        /// in the objectKey parameter for the amount of time specified in the
+        /// duration parameter.
+        /// &lt;/summary&gt;
+        /// &lt;param name="client"&gt;An initialized S3 client object used to call
+        /// the GetPresignedUrl method.&lt;/param&gt;
+        /// &lt;param name="bucketName"&gt;The name of the S3 bucket containing the
+        /// object for which to create the presigned URL.&lt;/param&gt;
+        /// &lt;param name="objectKey"&gt;The name of the object to access with the
+        /// presigned URL.&lt;/param&gt;
+        /// &lt;param name="duration"&gt;The length of time for which the presigned
+        /// URL will be valid.&lt;/param&gt;
+        /// &lt;returns&gt;A string representing the generated presigned URL.&lt;/returns&gt;
+        public static string GeneratePresignedURL(IAmazonS3 client, string bucketName, string objectKey, double duration)
+        <span>{</span>
+            string urlString = string.Empty;
+            try
+            <span>{</span>
+                var request = new GetPreSignedUrlRequest()
+                <span>{</span>
+                    BucketName = bucketName,
+                    Key = objectKey,
+                    Expires = DateTime.UtcNow.AddHours(duration),
+                };
+                urlString = client.GetPreSignedURL(request);
+            }
+            catch (AmazonS3Exception ex)
+            <span>{</span>
+                Console.WriteLine($"Error:'<span>{</span>ex.Message}'");
+            }
+
+            return urlString;
+        }
+    }
+
+
+</code></pre>
+             
+             
+                <p>Generate a presigned URL and perform an upload using that URL.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="csharp ">    using System;
+    using System.IO;
+    using System.Net;
+    using System.Threading.Tasks;
+    using Amazon.S3;
+    using Amazon.S3.Model;
+
+    public class UploadUsingPresignedURL
+    <span>{</span>
+        public static void Main()
+        <span>{</span>
+            string bucketName = "doc-example-bucket";
+            string keyName = "samplefile.txt";
+            string filePath = $"source\\<span>{</span>keyName}";
+
+            // Specify how long the signed URL will be valid in hours.
+            double timeoutDuration = 12;
+
+            // If the AWS Region defined for your default user is different
+            // from the Region where your Amazon S3 bucket is located,
+            // pass the Region name to the Amazon S3 client object's constructor.
+            // For example: RegionEndpoint.USWest2.
+            IAmazonS3 client = new AmazonS3Client();
+
+            var url = GeneratePreSignedURL(client, bucketName, keyName, timeoutDuration);
+            var success = UploadObject(filePath, url);
+
+            if (success)
+            <span>{</span>
+                Console.WriteLine("Upload succeeded.");
+            }
+            else
+            <span>{</span>
+                Console.WriteLine("Upload failed.");
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Uploads an object to an Amazon S3 bucket using the presigned URL passed in
+        /// the url parameter.
+        /// &lt;/summary&gt;
+        /// &lt;param name="filePath"&gt;The path (including file name) to the local
+        /// file you want to upload.&lt;/param&gt;
+        /// &lt;param name="url"&gt;The presigned URL that will be used to upload the
+        /// file to the Amazon S3 bucket.&lt;/param&gt;
+        /// &lt;returns&gt;A Boolean value indicating the success or failure of the
+        /// operation, based on the HttpWebResponse.&lt;/returns&gt;
+        public static bool UploadObject(string filePath, string url)
+        <span>{</span>
+            HttpWebRequest httpRequest = WebRequest.Create(url) as HttpWebRequest;
+            httpRequest.Method = "PUT";
+            using (Stream dataStream = httpRequest.GetRequestStream())
+            <span>{</span>
+                var buffer = new byte[8000];
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                <span>{</span>
+                    int bytesRead = 0;
+                    while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) &gt; 0)
+                    <span>{</span>
+                        dataStream.Write(buffer, 0, bytesRead);
+                    }
+                }
+            }
+
+            HttpWebResponse response = httpRequest.GetResponse() as HttpWebResponse;
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
+        /// &lt;summary&gt;
+        /// Generates a presigned URL which will be used to upload an object to
+        /// an Amazon S3 bucket.
+        /// &lt;/summary&gt;
+        /// &lt;param name="client"&gt;The initialized Amazon S3 client object used to call
+        /// GetPreSignedURL.&lt;/param&gt;
+        /// &lt;param name="bucketName"&gt;The name of the Amazon S3 bucket to which the
+        /// presigned URL will point.&lt;/param&gt;
+        /// &lt;param name="objectKey"&gt;The name of the file that will be uploaded.&lt;/param&gt;
+        /// &lt;param name="duration"&gt;How long (in hours) the presigned URL will
+        /// be valid.&lt;/param&gt;
+        /// &lt;returns&gt;The generated URL.&lt;/returns&gt;
+        public static string GeneratePreSignedURL(
+            IAmazonS3 client,
+            string bucketName,
+            string objectKey,
+            double duration)
+        <span>{</span>
+            var request = new GetPreSignedUrlRequest
+            <span>{</span>
+                BucketName = bucketName,
+                Key = objectKey,
+                Verb = HttpVerb.PUT,
+                Expires = DateTime.UtcNow.AddHours(duration),
+            };
+
+            string url = client.GetPreSignedURL(request);
+            return url;
+        }
+    }
+
+
+</code></pre>
+             
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Go</dt><dd tab-id="go">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Go V2</span></b></dt>
+        <dd>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/gov2/s3#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                </p></div></div>
+             
+                <p>Create functions that wrap S3 presigning actions.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="go ">
+// Presigner encapsulates the Amazon Simple Storage Service (Amazon S3) presign actions
+// used in the examples.
+// It contains PresignClient, a client that is used to presign requests to Amazon S3.
+// Presigned requests contain temporary credentials and can be made from any HTTP client.
+type Presigner struct <span>{</span>
+	PresignClient *s3.PresignClient
+}
+
+
+
+// GetObject makes a presigned request that can be used to get an object from a bucket.
+// The presigned request is valid for the specified number of seconds.
+func (presigner Presigner) GetObject(
+	bucketName string, objectKey string, lifetimeSecs int64) (*v4.PresignedHTTPRequest, error) <span>{</span>
+	request, err := presigner.PresignClient.PresignGetObject(context.TODO(), &amp;s3.GetObjectInput<span>{</span>
+		Bucket: aws.String(bucketName),
+		Key:    aws.String(objectKey),
+	}, func(opts *s3.PresignOptions) <span>{</span>
+		opts.Expires = time.Duration(lifetimeSecs * int64(time.Second))
+	})
+	if err != nil <span>{</span>
+		log.Printf("Couldn't get a presigned request to get %v:%v. Here's why: %v\n",
+			bucketName, objectKey, err)
+	}
+	return request, err
+}
+
+
+
+// PutObject makes a presigned request that can be used to put an object in a bucket.
+// The presigned request is valid for the specified number of seconds.
+func (presigner Presigner) PutObject(
+	bucketName string, objectKey string, lifetimeSecs int64) (*v4.PresignedHTTPRequest, error) <span>{</span>
+	request, err := presigner.PresignClient.PresignPutObject(context.TODO(), &amp;s3.PutObjectInput<span>{</span>
+		Bucket: aws.String(bucketName),
+		Key:    aws.String(objectKey),
+	}, func(opts *s3.PresignOptions) <span>{</span>
+		opts.Expires = time.Duration(lifetimeSecs * int64(time.Second))
+	})
+	if err != nil <span>{</span>
+		log.Printf("Couldn't get a presigned request to put %v:%v. Here's why: %v\n",
+			bucketName, objectKey, err)
+	}
+	return request, err
+}
+
+
+
+// DeleteObject makes a presigned request that can be used to delete an object from a bucket.
+func (presigner Presigner) DeleteObject(bucketName string, objectKey string) (*v4.PresignedHTTPRequest, error) <span>{</span>
+	request, err := presigner.PresignClient.PresignDeleteObject(context.TODO(), &amp;s3.DeleteObjectInput<span>{</span>
+		Bucket: aws.String(bucketName),
+		Key:    aws.String(objectKey),
+	})
+	if err != nil <span>{</span>
+		log.Printf("Couldn't get a presigned request to delete object %v. Here's why: %v\n", objectKey, err)
+	}
+	return request, err
+}
+
+
+</code></pre>
+             
+             
+                <p>Run an interactive example that generates and uses presigned URLs to upload, download, and delete an S3 object.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="go ">
+// RunPresigningScenario is an interactive example that shows you how to get presigned
+// HTTP requests that you can use to move data into and out of Amazon Simple Storage
+// Service (Amazon S3). The presigned requests contain temporary credentials and can
+// be used by an HTTP client.
+//
+// 1. Get a presigned request to put an object in a bucket.
+// 2. Use the net/http package to use the presigned request to upload a local file to the bucket.
+// 3. Get a presigned request to get an object from a bucket.
+// 4. Use the net/http package to use the presigned request to download the object to a local file.
+// 5. Get a presigned request to delete an object from a bucket.
+// 6. Use the net/http package to use the presigned request to delete the object.
+//
+// This example creates an Amazon S3 presign client from the specified sdkConfig so that
+// you can replace it with a mocked or stubbed config for unit testing.
+//
+// It uses a questioner from the `demotools` package to get input during the example.
+// This package can be found in the ..\..\demotools folder of this repo.
+//
+// It uses an IHttpRequester interface to abstract HTTP requests so they can be mocked
+// during testing.
+func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestioner, httpRequester IHttpRequester) <span>{</span>
+	defer func() <span>{</span>
+		if r := recover(); r != nil <span>{</span>
+			fmt.Printf("Something went wrong with the demo.")
+		}
+	}()
+
+	log.Println(strings.Repeat("-", 88))
+	log.Println("Welcome to the Amazon S3 presigning demo.")
+	log.Println(strings.Repeat("-", 88))
+
+	s3Client := s3.NewFromConfig(sdkConfig)
+	bucketBasics := actions.BucketBasics<span>{</span>S3Client: s3Client}
+	presignClient := s3.NewPresignClient(s3Client)
+	presigner := actions.Presigner<span>{</span>PresignClient: presignClient}
+
+	bucketName := questioner.Ask("We'll need a bucket. Enter a name for a bucket "+
+		"you own or one you want to create:", demotools.NotEmpty<span>{</span>})
+	bucketExists, err := bucketBasics.BucketExists(bucketName)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	if !bucketExists <span>{</span>
+		err = bucketBasics.CreateBucket(bucketName, sdkConfig.Region)
+		if err != nil <span>{</span>
+			panic(err)
+		} else <span>{</span>
+			log.Println("Bucket created.")
+		}
+	}
+	log.Println(strings.Repeat("-", 88))
+
+	log.Printf("Let's presign a request to upload a file to your bucket.")
+	uploadFilename := questioner.Ask("Enter the path to a file you want to upload:",
+		demotools.NotEmpty<span>{</span>})
+	uploadKey := questioner.Ask("What would you like to name the uploaded object?",
+		demotools.NotEmpty<span>{</span>})
+	uploadFile, err := os.Open(uploadFilename)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	defer uploadFile.Close()
+	presignedPutRequest, err := presigner.PutObject(bucketName, uploadKey, 60)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	log.Printf("Got a presigned %v request to URL:\n\t%v\n", presignedPutRequest.Method,
+		presignedPutRequest.URL)
+	log.Println("Using net/http to send the request...")
+	info, err := uploadFile.Stat()
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	putResponse, err := httpRequester.Put(presignedPutRequest.URL, info.Size(), uploadFile)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	log.Printf("%v object %v with presigned URL returned %v.", presignedPutRequest.Method,
+		uploadKey, putResponse.StatusCode)
+	log.Println(strings.Repeat("-", 88))
+
+	log.Printf("Let's presign a request to download the object.")
+	questioner.Ask("Press Enter when you're ready.")
+	presignedGetRequest, err := presigner.GetObject(bucketName, uploadKey, 60)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	log.Printf("Got a presigned %v request to URL:\n\t%v\n", presignedGetRequest.Method,
+		presignedGetRequest.URL)
+	log.Println("Using net/http to send the request...")
+	getResponse, err := httpRequester.Get(presignedGetRequest.URL)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	log.Printf("%v object %v with presigned URL returned %v.", presignedGetRequest.Method,
+		uploadKey, getResponse.StatusCode)
+	defer getResponse.Body.Close()
+	downloadBody, err := io.ReadAll(getResponse.Body)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	log.Printf("Downloaded %v bytes. Here are the first 100 of them:\n", len(downloadBody))
+	log.Println(strings.Repeat("-", 88))
+	log.Println(string(downloadBody[:100]))
+	log.Println(strings.Repeat("-", 88))
+
+	log.Println("Let's presign a request to delete the object.")
+	questioner.Ask("Press Enter when you're ready.")
+	presignedDelRequest, err := presigner.DeleteObject(bucketName, uploadKey)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	log.Printf("Got a presigned %v request to URL:\n\t%v\n", presignedDelRequest.Method,
+		presignedDelRequest.URL)
+	log.Println("Using net/http to send the request...")
+	delResponse, err := httpRequester.Delete(presignedDelRequest.URL)
+	if err != nil <span>{</span>
+		panic(err)
+	}
+	log.Printf("%v object %v with presigned URL returned %v.\n", presignedDelRequest.Method,
+		uploadKey, delResponse.StatusCode)
+	log.Println(strings.Repeat("-", 88))
+
+	log.Println("Thanks for watching!")
+	log.Println(strings.Repeat("-", 88))
+}
+
+
+</code></pre>
+             
+             
+                <p>Define an HTTP request wrapper used by the example to make HTTP requests.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="go ">
+// IHttpRequester abstracts HTTP requests into an interface so it can be mocked during
+// unit testing.
+type IHttpRequester interface <span>{</span>
+	Get(url string) (resp *http.Response, err error)
+	Put(url string, contentLength int64, body io.Reader) (resp *http.Response, err error)
+	Delete(url string) (resp *http.Response, err error)
+}
+
+// HttpRequester uses the net/http package to make HTTP requests during the scenario.
+type HttpRequester struct<span>{</span>}
+
+func (httpReq HttpRequester) Get(url string) (resp *http.Response, err error) <span>{</span>
+	return http.Get(url)
+}
+func (httpReq HttpRequester) Put(url string, contentLength int64, body io.Reader) (resp *http.Response, err error) <span>{</span>
+	putRequest, err := http.NewRequest("PUT", url, body)
+	if err != nil <span>{</span>
+		return nil, err
+	}
+	putRequest.ContentLength = contentLength
+	return http.DefaultClient.Do(putRequest)
+}
+func (httpReq HttpRequester) Delete(url string) (resp *http.Response, err error) <span>{</span>
+	delRequest, err := http.NewRequest("DELETE", url, nil)
+	if err != nil <span>{</span>
+		return nil, err
+	}
+	return http.DefaultClient.Do(delRequest)
+}
+
+
+</code></pre>
+             
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Java</dt><dd tab-id="java">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Java 2.x</span></b></dt>
+        <dd>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/s3#readme" rel="noopener noreferrer" target="_blank"><span>AWS Code Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                </p></div></div>
+             
+                <p></p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="java ">    public static void signBucket(S3Presigner presigner, String bucketName, String keyName) <span>{</span>
+
+        try <span>{</span>
+            PutObjectRequest objectRequest = PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(keyName)
+                .contentType("text/plain")
+                .build();
+
+            PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
+                .signatureDuration(Duration.ofMinutes(10))
+                .putObjectRequest(objectRequest)
+                .build();
+
+            PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
+            String myURL = presignedRequest.url().toString();
+            System.out.println("Presigned URL to upload a file to: " +myURL);
+            System.out.println("Which HTTP method needs to be used when uploading a file: " + presignedRequest.httpRequest().method());
+
+            // Upload content to the Amazon S3 bucket by using this URL.
+            URL url = presignedRequest.url();
+
+            // Create the connection and use it to upload the new object by using the presigned URL.
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type","text/plain");
+            connection.setRequestMethod("PUT");
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            out.write("This text was uploaded as an object by using a presigned URL.");
+            out.close();
+
+            connection.getResponseCode();
+            System.out.println("HTTP response code is " + connection.getResponseCode());
+
+        } catch (S3Exception | IOException e) <span>{</span>
+            e.getStackTrace();
+        }
+    }
+
+</code></pre>
+             
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>JavaScript</dt><dd tab-id="javascript">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for JavaScript (v3)</span></b></dt>
+        <dd>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/s3#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                </p></div></div>
+             
+                <p>Create a presigned URL to upload an object to a bucket.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascript ">import https from "https";
+import <span>{</span> PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import <span>{</span> fromIni } from "@aws-sdk/credential-providers";
+import <span>{</span> HttpRequest } from "@aws-sdk/protocol-http";
+import <span>{</span>
+  getSignedUrl,
+  S3RequestPresigner,
+} from "@aws-sdk/s3-request-presigner";
+import <span>{</span> parseUrl } from "@aws-sdk/url-parser";
+import <span>{</span> formatUrl } from "@aws-sdk/util-format-url";
+import <span>{</span> Hash } from "@aws-sdk/hash-node";
+
+const createPresignedUrlWithoutClient = async (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const url = parseUrl(`https://$<span>{</span>bucket}.s3.$<span>{</span>region}.amazonaws.com/$<span>{</span>key}`);
+  const presigner = new S3RequestPresigner(<span>{</span>
+    credentials: fromIni(),
+    region,
+    sha256: Hash.bind(null, "sha256"),
+  });
+
+  const signedUrlObject = await presigner.presign(
+    new HttpRequest(<span>{</span> ...url, method: "PUT" })
+  );
+  return formatUrl(signedUrlObject);
+};
+
+const createPresignedUrlWithClient = (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const client = new S3Client(<span>{</span> region });
+  const command = new PutObjectCommand(<span>{</span> Bucket: bucket, Key: key });
+  return getSignedUrl(client, command, <span>{</span> expiresIn: 3600 });
+};
+
+function put(url, data) <span>{</span>
+  return new Promise((resolve, reject) =&gt; <span>{</span>
+    const req = https.request(
+      url,
+      <span>{</span> method: "PUT", headers: <span>{</span> "Content-Length": new Blob([data]).size } },
+      (res) =&gt; <span>{</span>
+        let responseBody = "";
+        res.on("data", (chunk) =&gt; <span>{</span>
+          responseBody += chunk;
+        });
+        res.on("end", () =&gt; <span>{</span>
+          resolve(responseBody);
+        });
+      }
+    );
+    req.on("error", (err) =&gt; <span>{</span>
+      reject(err);
+    });
+    req.write(data);
+    req.end();
+  });
+}
+
+export const main = async () =&gt; <span>{</span>
+  const REGION = "us-east-1";
+  const BUCKET = "example_bucket";
+  const KEY = "example_file.txt";
+
+  // There are two ways to generate a presigned URL.
+  // 1. Use createPresignedUrl without the S3 client.
+  // 2. Use getSignedUrl in conjunction with the S3 client and GetObjectCommand.
+  try <span>{</span>
+    const noClientUrl = await createPresignedUrlWithoutClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    const clientUrl = await createPresignedUrlWithClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    // After you get the presigned URL, you can provide your own file
+    // data. Refer to put() above.
+    console.log("Calling PUT using presigned URL without client");
+    await put(noClientUrl, "Hello World");
+
+    console.log("Calling PUT using presigned URL with client");
+    await put(clientUrl, "Hello World");
+
+    console.log("\nDone. Check your S3 console.");
+  } catch (err) <span>{</span>
+    console.error(err);
+  }
+};
+
+</code></pre>
+             
+             
+                <p>Create a presigned URL to download an object from a bucket.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="javascript ">import <span>{</span> GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import <span>{</span> fromIni } from "@aws-sdk/credential-providers";
+import <span>{</span> HttpRequest } from "@aws-sdk/protocol-http";
+import <span>{</span>
+  getSignedUrl,
+  S3RequestPresigner,
+} from "@aws-sdk/s3-request-presigner";
+import <span>{</span> parseUrl } from "@aws-sdk/url-parser";
+import <span>{</span> formatUrl } from "@aws-sdk/util-format-url";
+import <span>{</span> Hash } from "@aws-sdk/hash-node";
+
+const createPresignedUrlWithoutClient = async (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const url = parseUrl(`https://$<span>{</span>bucket}.s3.$<span>{</span>region}.amazonaws.com/$<span>{</span>key}`);
+  const presigner = new S3RequestPresigner(<span>{</span>
+    credentials: fromIni(),
+    region,
+    sha256: Hash.bind(null, "sha256"),
+  });
+
+  const signedUrlObject = await presigner.presign(new HttpRequest(url));
+  return formatUrl(signedUrlObject);
+};
+
+const createPresignedUrlWithClient = (<span>{</span> region, bucket, key }) =&gt; <span>{</span>
+  const client = new S3Client(<span>{</span> region });
+  const command = new GetObjectCommand(<span>{</span> Bucket: bucket, Key: key });
+  return getSignedUrl(client, command, <span>{</span> expiresIn: 3600 });
+};
+
+export const main = async () =&gt; <span>{</span>
+  const REGION = "us-east-1";
+  const BUCKET = "example_bucket";
+  const KEY = "example_file.jpg";
+
+  try <span>{</span>
+    const noClientUrl = await createPresignedUrlWithoutClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    const clientUrl = await createPresignedUrlWithClient(<span>{</span>
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    console.log("Presigned URL without client");
+    console.log(noClientUrl);
+    console.log("\n");
+
+    console.log("Presigned URL with client");
+    console.log(clientUrl);
+  } catch (err) <span>{</span>
+    console.error(err);
+  }
+};
+
+</code></pre>
+             
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For more information, see <a href="https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-create-presigendurl">AWS SDK for JavaScript Developer Guide</a>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Kotlin</dt><dd tab-id="kotlin">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Kotlin</span></b></dt>
+        <dd>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This is prerelease documentation for a feature in preview release. It is subject to change.</p></div></div>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/s3#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                </p></div></div>
+             
+                <p>Create a GetObject presigned request and use the URL to download an object.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="kotlin ">suspend fun getObjectPresigned(s3: S3Client, bucketName: String, keyName: String): String <span>{</span>
+    // Create a GetObjectRequest.
+    val unsignedRequest = GetObjectRequest <span>{</span>
+        bucket = bucketName
+        key = keyName
+    }
+
+    // Presign the GetObject request.
+    val presignedRequest = s3.presignGetObject(unsignedRequest, 24.hours)
+
+    // Use the URL from the presigned HttpRequest in a subsequent HTTP GET request to retrieve the object.
+    val objectContents = URL(presignedRequest.url.toString()).readText()
+
+    return objectContents
+}
+
+</code></pre>
+             
+             
+                <p>Create a GetObject presigned request with advanced options and use the URL to download an object.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="kotlin ">suspend fun putObjectPresigned(s3: S3Client, bucketName: String, keyName: String, content: String) <span>{</span>
+    // Create a PutObjectRequest.
+    val unsignedRequest = PutObjectRequest <span>{</span>
+        bucket = bucketName
+        key = keyName
+    }
+
+    // Presign the request.
+    val presignedRequest = s3.presignPutObject(unsignedRequest, 24.hours)
+
+    // Use the URL and any headers from the presigned HttpRequest in a subsequent HTTP PUT request to retrieve the object.
+    // Create a PUT request using the OKHttpClient API.
+    val putRequest = Request
+        .Builder()
+        .url(presignedRequest.url.toString())
+        .apply <span>{</span>
+            presignedRequest.headers.forEach <span>{</span> key, values -&gt;
+                header(key, values.joinToString(", "))
+            }
+        }
+        .put(content.toRequestBody())
+        .build()
+
+    val response = OkHttpClient().newCall(putRequest).execute()
+    assert(response.isSuccessful)
+}
+
+</code></pre>
+             
+             
+                <p>Create a PutObject presigned request and use it to upload an object.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="kotlin ">suspend fun getObjectPresignedMoreOptions(s3: S3Client, bucketName: String, keyName: String): HttpRequest <span>{</span>
+    // Create a GetObjectRequest.
+    val unsignedRequest = GetObjectRequest <span>{</span>
+        bucket = bucketName
+        key = keyName
+    }
+
+    // Presign the GetObject request.
+    val presignedRequest = s3.presignGetObject(unsignedRequest, signer = CrtAwsSigner) <span>{</span>
+        signingDate = Instant.now() + 12.hours // Presigned request can be used 12 hours from now.
+        algorithm = AwsSigningAlgorithm.SIGV4_ASYMMETRIC
+        signatureType = AwsSignatureType.HTTP_REQUEST_VIA_QUERY_PARAMS
+        expiresAfter = 8.hours // Presigned request expires 8 hours later.
+    }
+    return presignedRequest
+}
+
+</code></pre>
+             
+            <div class="itemizedlist">
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>
+                        For more information, see <a href="https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/presign-requests.html">AWS SDK for Kotlin developer guide</a>.
+                    </p>
+                </li></ul></div>
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Python</dt><dd tab-id="python">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Python (Boto3)</span></b></dt>
+        <dd>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/s3/s3_basics#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                </p></div></div>
+             
+                <p>Generate a presigned URL that can perform an S3 action for a limited time. Use the Requests package to make a request with the URL.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">import argparse
+import logging
+import boto3
+from botocore.exceptions import ClientError
+import requests
+
+logger = logging.getLogger(__name__)
+
+
+def generate_presigned_url(s3_client, client_method, method_parameters, expires_in):
+    """
+    Generate a presigned Amazon S3 URL that can be used to perform an action.
+
+    :param s3_client: A Boto3 Amazon S3 client.
+    :param client_method: The name of the client method that the URL performs.
+    :param method_parameters: The parameters of the specified client method.
+    :param expires_in: The number of seconds the presigned URL is valid for.
+    :return: The presigned URL.
+    """
+    try:
+        url = s3_client.generate_presigned_url(
+            ClientMethod=client_method,
+            Params=method_parameters,
+            ExpiresIn=expires_in
+        )
+        logger.info("Got presigned URL: %s", url)
+    except ClientError:
+        logger.exception(
+            "Couldn't get a presigned URL for client method '%s'.", client_method)
+        raise
+    return url
+
+
+def usage_demo():
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+
+    print('-'*88)
+    print("Welcome to the Amazon S3 presigned URL demo.")
+    print('-'*88)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('bucket', help="The name of the bucket.")
+    parser.add_argument(
+        'key', help="For a GET operation, the key of the object in Amazon S3. For a "
+                    "PUT operation, the name of a file to upload.")
+    parser.add_argument(
+        'action', choices=('get', 'put'), help="The action to perform.")
+    args = parser.parse_args()
+
+    s3_client = boto3.client('s3')
+    client_action = 'get_object' if args.action == 'get' else 'put_object'
+    url = generate_presigned_url(
+        s3_client, client_action, <span>{</span>'Bucket': args.bucket, 'Key': args.key}, 1000)
+
+    print("Using the Requests package to send a request to the URL.")
+    response = None
+    if args.action == 'get':
+        response = requests.get(url)
+    elif args.action == 'put':
+        print("Putting data to the URL.")
+        try:
+            with open(args.key, 'r') as object_file:
+                object_text = object_file.read()
+            response = requests.put(url, data=object_text)
+        except FileNotFoundError:
+            print(f"Couldn't find <span>{</span>args.key}. For a PUT operation, the key must be the "
+                  f"name of a file that exists on your computer.")
+
+    if response is not None:
+        print("Got response:")
+        print(f"Status: <span>{</span>response.status_code}")
+        print(response.text)
+
+    print('-'*88)
+
+
+if __name__ == '__main__':
+    usage_demo()
+
+</code></pre>
+             
+             
+                <p>Generate a presigned POST request to upload a file.</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="python ">class BucketWrapper:
+    """Encapsulates S3 bucket actions."""
+    def __init__(self, bucket):
+        """
+        :param bucket: A Boto3 Bucket resource. This is a high-level resource in Boto3
+                       that wraps bucket actions in a class-like structure.
+        """
+        self.bucket = bucket
+        self.name = bucket.name
+
+    def generate_presigned_post(self, object_key, expires_in):
+        """
+        Generate a presigned Amazon S3 POST request to upload a file.
+        A presigned POST can be used for a limited time to let someone without an AWS
+        account upload a file to a bucket.
+
+        :param object_key: The object key to identify the uploaded object.
+        :param expires_in: The number of seconds the presigned POST is valid.
+        :return: A dictionary that contains the URL and form fields that contain
+                 required access data.
+        """
+        try:
+            response = self.bucket.meta.client.generate_presigned_post(
+                Bucket=self.bucket.name, Key=object_key, ExpiresIn=expires_in)
+            logger.info("Got presigned POST URL: %s", response['url'])
+        except ClientError:
+            logger.exception(
+                "Couldn't get a presigned POST URL for bucket '%s' and object '%s'",
+                self.bucket.name, object_key)
+            raise
+        return response
+
+</code></pre>
+             
+        </dd>
+    </dl></div>
+        </dd>
+    <dt>Ruby</dt><dd tab-id="ruby">
+            <div class="variablelist">
+     
+<dl>
+        <dt><b><span class="term">SDK for Ruby</span></b></dt>
+        <dd>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>
+                    There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    <a href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/example_code/s3#code-examples" rel="noopener noreferrer" target="_blank"><span>AWS Code Examples Repository</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>.
+                </p></div></div>
+             
+                <p></p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="ruby ">require "aws-sdk-s3"
+require "net/http"
+
+# Creates a presigned URL that can be used to upload content to an object.
+#
+# @param bucket [Aws::S3::Bucket] An existing Amazon S3 bucket.
+# @param object_key [String] The key to give the uploaded object.
+# @return [URI, nil] The parsed URI if successful; otherwise nil.
+def get_presigned_url(bucket, object_key)
+  url = bucket.object(object_key).presigned_url(:put)
+  puts "Created presigned URL: #<span>{</span>url}"
+  URI(url)
+rescue Aws::Errors::ServiceError =&gt; e
+  puts "Couldn't create presigned URL for #<span>{</span>bucket.name}:#<span>{</span>object_key}. Here's why: #<span>{</span>e.message}"
+end
+
+def run_demo
+  bucket_name = "doc-example-bucket"
+  object_key = "my-file.txt"
+  object_content = "This is the content of my-file.txt."
+
+  bucket = Aws::S3::Bucket.new(bucket_name)
+  presigned_url = get_presigned_url(bucket, object_key)
+  return unless presigned_url
+
+  response = Net::HTTP.start(presigned_url.host) do |http|
+    http.send_request("PUT", presigned_url.request_uri, object_content, "content_type" =&gt; "")
+  end
+
+  case response
+  when Net::HTTPSuccess
+    puts "Content uploaded!"
+  else
+    puts response.value
+  end
+end
+
+run_demo if $PROGRAM_NAME == __FILE__
+
+</code></pre>
+             
+        </dd>
+    </dl></div>
+        </dd>
+</dl></awsdocs-tabs><p>For a complete list of AWS SDK developer guides and code examples, see
+    <a href="./UsingAWSSDK.html#sdk-general-information-section">Using this service with an AWS SDK</a>.
+    This topic also includes information about getting started and details about previous SDK versions.</p><awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./service_code_examples_scenarios.html">Scenarios</div><div id="next" class="next-link" accesskey="n" href="./example_s3_Scenario_ListObjectsWeb_section.html">Create a web page that lists Amazon S3 objects</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=S3&amp;topic_url=https://docs.aws.amazon.com/en_us/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

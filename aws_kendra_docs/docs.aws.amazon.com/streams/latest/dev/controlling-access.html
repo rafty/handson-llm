@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Controlling Access to Amazon Kinesis Data Streams Resources Using IAM - Amazon Kinesis Data Streams</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="controlling-access" /><meta name="default_state" content="controlling-access" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html" /><meta name="description" content="Control access to your Amazon Kinesis Data Streams resources by using AWS Identity and Access Management (IAM)." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Kinesis Data Streams" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="This is official Amazon Web Services (AWS) documentation for Amazon Kinesis Data Streams. With Kinesis Data Streams, you can build custom applications that process or analyze streaming data for specialized needs. It can continuously capture and store terabytes of data per hour from hundreds of thousands of sources such as website clickstreams, financial transactions, social media feeds, IT logs, and location-tracking events. With the Kinesis Client Library (KCL), you can build Kinesis applications and use streaming data to power real-time dashboards, generate alerts, implement dynamic pricing and advertising, and more. You can also emit data from Kinesis Data Streams to other AWS services such as Amazon Simple Storage Service (Amazon S3), Amazon Redshift, Amazon EMR, and AWS Lambda. This guide provides a conceptual overview of Kinesis Data Streams and includes detailed instructions for using the service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/controlling-access.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/streams/latest/dev/controlling-access.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/controlling-access.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/streams/latest/dev/controlling-access.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/controlling-access.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/streams/latest/dev/controlling-access.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/controlling-access.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/streams/latest/dev/controlling-access.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/controlling-access.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/streams/latest/dev/controlling-access.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/controlling-access.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/streams/latest/dev/controlling-access.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/controlling-access.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/streams/latest/dev/controlling-access.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/controlling-access.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/streams/latest/dev/controlling-access.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/streams/latest/dev/controlling-access.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/streams/latest/dev/controlling-access.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html" hreflang="x-default" /><meta name="feedback-item" content="Kinesis" /><meta name="this_doc_product" content="Amazon Kinesis Data Streams" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'kinesis'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="Controlling Access to Amazon Kinesis Data Streams Resources Using IAM" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Controlling Access to Amazon Kinesis Data Streams Resources Using IAM - Amazon Kinesis Data Streams</title><meta name="pdf" content="/pdfs/streams/latest/dev/kinesis-dg.pdf#controlling-access" /><meta name="github" content="https://github.com/awsdocs/amazon-kinesis-data-streams-developer-guide/tree/master/doc_source/controlling-access.md" /><meta name="rss" content="aks-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=169" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=http://docs.aws.amazon.com/en_us/streams/latest/dev/controlling-access.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/streams/latest/dev/controlling-access.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/streams/latest/dev/controlling-access.html" /><meta name="keywords" content="Kinesis,Amazon Kinesis Data Streams,data stream,KPL,KCL,Amazon Kinesis Data Streams Application" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Kinesis Streams",
+        "item" : "https://docs.aws.amazon.com/kinesis/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon Kinesis Data Streams",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Controlling Access to Amazon Kinesis Data Streams Resources Using IAM",
+        "item" : "https://docs.aws.amazon.com/streams/latest/dev/security.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/streams/latest/dev/kinesis-dg.pdf#controlling-access" target="_blank" rel="noopener noreferrer" title="Open PDF"></a><a href="https://github.com/awsdocs/amazon-kinesis-data-streams-developer-guide/tree/master/doc_source/controlling-access.md" target="_blank" rel="noopener noreferrer" title="Edit this page on GitHub"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/kinesis/index.html">Amazon Kinesis Streams</a><a href="introduction.html">Developer Guide</a></div><div id="page-toc-src"><a href="#policy-syntax">Policy Syntax</a><a href="#kinesis-using-iam-actions">Actions for Kinesis Data Streams</a><a href="#kinesis-using-iam-arn-format">Amazon Resource Names (ARNs) for
+                Kinesis Data Streams</a><a href="#kinesis-using-iam-examples">Example Policies for Kinesis Data Streams</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="controlling-access">Controlling Access to Amazon Kinesis Data Streams Resources Using
+            IAM</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS Identity and Access Management (IAM) enables you to do the following:</p><div class="itemizedlist">
+         
+         
+         
+         
+         
+         
+    <ul class="itemizedlist"><li class="listitem">
+            <p>Create users and groups under your AWS account</p>
+        </li><li class="listitem">
+            <p>Assign unique security credentials to each user under your AWS account</p>
+        </li><li class="listitem">
+            <p>Control each user's permissions to perform tasks using AWS resources</p>
+        </li><li class="listitem">
+            <p>Allow the users in another AWS account to share your AWS resources</p>
+        </li><li class="listitem">
+            <p>Create roles for your AWS account and define the users or services that can assume
+                them</p>
+        </li><li class="listitem">
+            <p>Use existing identities for your enterprise to grant permissions to perform tasks
+                using AWS resources</p>
+        </li></ul></div><p>By using IAM with Kinesis Data Streams, you can control whether users in your organization can perform
+        a task using specific Kinesis Data Streams API actions and whether they can use specific AWS
+        resources.</p><p>If you are developing an application using the Kinesis Client Library (KCL), your
+        policy must include permissions for Amazon DynamoDB and Amazon CloudWatch; the KCL uses DynamoDB to
+        track state information for the application, and CloudWatch to send KCL metrics to CloudWatch
+        on your behalf. For more information about the KCL, see <a href="./developing-consumers-with-kcl.html">Developing KCL 1.x Consumers</a>.</p><p>For more information about IAM, see the following:</p><div class="itemizedlist">
+   
+   
+   
+<ul class="itemizedlist"><li class="listitem">
+    <p><a href="https://aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>AWS Identity and Access Management (IAM)</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+  </li><li class="listitem">
+    <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started.html">Getting started</a></p>
+  </li><li class="listitem">
+    <p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/">IAM User Guide</a></p>
+  </li></ul></div><p>For more information about IAM and Amazon DynamoDB,
+        see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/UsingIAMWithDDB.html">Using IAM to Control Access to Amazon DynamoDB
+            Resources</a> in the <em>Amazon DynamoDB Developer Guide</em>. </p><p>For more information about IAM and Amazon CloudWatch, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/UsingIAM.html">Controlling User Access to Your AWS Account</a> in the
+            <em>Amazon CloudWatch User Guide</em>.</p><div class="highlights" id="inline-topiclist"><h6>Contents</h6><ul><li><a href="#policy-syntax">Policy Syntax</a></li><li><a href="#kinesis-using-iam-actions">Actions for Kinesis Data Streams</a></li><li><a href="#kinesis-using-iam-arn-format">Amazon Resource Names (ARNs) for
+                Kinesis Data Streams</a></li><li><a href="#kinesis-using-iam-examples">Example Policies for Kinesis Data Streams</a></li></ul></div>
+        <h2 id="policy-syntax">Policy Syntax</h2>
+        <p>An IAM policy is a JSON document that consists of one or more statements. Each
+            statement is structured as follows:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><code class="json "><span>{</span>
+  "Statement":[<span>{</span>
+    "Effect":"<code class="replaceable">effect</code>",
+    "Action":"<code class="replaceable">action</code>",
+    "Resource":"<code class="replaceable">arn</code>",
+    "Condition":<span>{</span>
+      "<code class="replaceable">condition</code>":<span>{</span>
+        "<code class="replaceable">key</code>":"<code class="replaceable">value</code>"
+        }
+      }
+    }
+  ]
+}</code></pre>
+        <p>There are various elements that make up a statement:</p>
+        <div class="itemizedlist">
+             
+             
+             
+             
+        <ul class="itemizedlist"><li class="listitem">
+                <p><b>Effect:</b> The <em>effect</em> can be
+                        <code class="code">Allow</code> or <code class="code">Deny</code>. By default, IAM users don't have
+                    permission to use resources and API actions, so all requests are denied. An
+                    explicit allow overrides the default. An explicit deny overrides any
+                    allows.</p>
+            </li><li class="listitem">
+                <p><b>Action</b>: The <em>action</em> is the specific
+                    API action for which you are granting or denying permission.</p>
+            </li><li class="listitem">
+                <p><b>Resource</b>: The resource that's affected by the action. To
+                    specify a resource in the statement, you need to use its Amazon Resource Name
+                    (ARN).</p>
+            </li><li class="listitem">
+                <p><b>Condition</b>: Conditions are optional. They can be used to
+                    control when your policy will be in effect.</p>
+            </li></ul></div>
+        <p>As you create and manage IAM policies, you might want to use the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html#access_policies_create-generator">IAM
+                Policy Generator</a> and the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html">IAM Policy
+                Simulator</a>.</p>
+     
+        <h2 id="kinesis-using-iam-actions">Actions for Kinesis Data Streams</h2>
+
+        <p>In an IAM policy statement, you can specify any API action from any service that
+            supports IAM. For Kinesis Data Streams, use the following prefix with the name of the API action:
+                <code class="code">kinesis:</code>. For example: <code class="code">kinesis:CreateStream</code>,
+                <code class="code">kinesis:ListStreams</code>, and <code class="code">kinesis:DescribeStreamSummary</code>.</p>
+        <p>To specify multiple actions in a single statement, separate them with commas as
+            follows:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><code class="json ">"Action": ["kinesis:<em>action1</em>", "kinesis:<em>action2</em>"]</code></pre>
+        <p>You can also specify multiple actions using wildcards. For example, you can specify
+            all actions whose name begins with the word "Get" as follows:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><code class="json ">"Action": "kinesis:Get*"</code></pre>
+        <p>To specify all Kinesis Data Streams operations, use the * wildcard as follows:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><code class="json ">"Action": "kinesis:*"</code></pre>
+
+        <p>For the complete list of Kinesis Data Streams API actions, see the <a href="https://docs.aws.amazon.com/kinesis/latest/APIReference/">Amazon Kinesis API Reference</a>.</p>
+
+     
+        <h2 id="kinesis-using-iam-arn-format">Amazon Resource Names (ARNs) for
+                Kinesis Data Streams</h2>
+
+        <p>Each IAM policy statement applies to the resources that you specify using their
+            ARNs.</p>
+
+        <p>Use the following ARN resource format for Kinesis data streams:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><code class="nohighlight">arn:aws:kinesis:<code class="replaceable">region</code>:<code class="replaceable">account-id</code>:stream/<code class="replaceable">stream-name</code></code></pre>
+
+        <p>For example:</p>
+        <pre class="programlisting"><div class="code-btn-container"></div><code class="json ">"Resource": arn:aws:kinesis:*:111122223333:stream/my-stream</code></pre>
+     
+        <h2 id="kinesis-using-iam-examples">Example Policies for Kinesis Data Streams</h2>
+
+        <p>The following example policies demonstrate how you could control user access to your
+            Kinesis data streams.</p>
+
+        <div class="example"><h6>Example 1: Allow users to get data from a stream</h6><div class="example-contents"><p> This policy allows a user or group to perform the <code class="code">DescribeStreamSummary</code>,
+                    <code class="code">GetShardIterator</code>, and <code class="code">GetRecords</code> operations on the
+                specified stream and <code class="code">ListStreams</code> on any stream. This policy could be
+                applied to users who should be able to get data from a specific stream. </p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "kinesis:Get*",
+                "kinesis:DescribeStreamSummary"
+            ],
+            "Resource": [
+                "arn:aws:kinesis:us-east-1:111122223333:stream/stream1"
+            ]
+        },
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "kinesis:ListStreams"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}</code></pre></div></div>
+
+        <div class="example"><h6>Example 2: Allow users to add data to any stream in the account</h6><div class="example-contents"><p>This policy allows a user or group to use the <code class="code">PutRecord</code> operation
+                with any of the account's streams. This policy could be applied to users that should
+                be able to add data records to all streams in an account.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "kinesis:PutRecord"
+            ],
+            "Resource": [
+                "arn:aws:kinesis:us-east-1:111122223333:stream/*"
+            ]
+        }
+    ]
+}</code></pre></div></div>
+
+        <div class="example"><h6>Example 3: Allow any Kinesis Data Streams action on a specific stream</h6><div class="example-contents"><p>This policy allows a user or group to use any Kinesis Data Streams operation on the specified
+                stream. This policy could be applied to users that should have administrative
+                control over a specific stream.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "kinesis:*",
+            "Resource": [
+                "arn:aws:kinesis:us-east-1:111122223333:stream/stream1"
+            ]
+        }
+    ]
+}</code></pre></div></div>
+
+        <div class="example"><h6>Example 4: Allow any Kinesis Data Streams action on any stream</h6><div class="example-contents"><p>This policy allows a user or group to use any Kinesis Data Streams operation on any stream in an
+                account. Because this policy grants full access to all your streams, you should
+                restrict it to administrators only.</p><pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": "kinesis:*",
+            "Resource": [
+                "arn:aws:kinesis:*:111122223333:stream/*"
+            ]
+        }
+    ]
+}</code></pre></div></div>
+
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./vpc.html">Using Interface VPC Endpoints</div><div id="next" class="next-link" accesskey="n" href="./akda-java-compliance.html">Compliance Validation</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/controlling-access.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=Kinesis&amp;topic_url=https://docs.aws.amazon.com/en_us/streams/latest/dev/controlling-access.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

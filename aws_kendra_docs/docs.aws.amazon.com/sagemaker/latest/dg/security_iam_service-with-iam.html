@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>How Amazon SageMaker Works with IAM - Amazon SageMaker</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="security_iam_service-with-iam" /><meta name="default_state" content="security_iam_service-with-iam" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/sagemaker/latest/dg/security_iam_service-with-iam.html" /><meta name="description" content="Before you use IAM to manage access to SageMaker, you should understand what IAM features are available to use with SageMaker. To get a high-level view of how SageMaker and other AWS services work with IAM, see AWS Services That Work with IAM in the" /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon SageMaker" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Use Internet Monitor to build, train, and host machine learning models in AWS." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/sagemaker/latest/dg/security_iam_service-with-iam.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/sagemaker/latest/dg/security_iam_service-with-iam.html" hreflang="x-default" /><meta name="feedback-item" content="SageMaker" /><meta name="this_doc_product" content="Amazon SageMaker" /><meta name="this_doc_guide" content="Developer Guide" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'sagemaker'}"></script><meta id="panorama-serviceSubSection" value="Developer Guide" /><meta id="panorama-serviceConsolePage" value="How Amazon SageMaker Works with IAM" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>How Amazon SageMaker Works with IAM - Amazon SageMaker</title><meta name="pdf" content="/pdfs/sagemaker/latest/dg/sagemaker-dg.pdf#security_iam_service-with-iam" /><meta name="rss" content="amazon-sagemaker-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=285" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=http://docs.aws.amazon.com/en_us/sagemaker/latest/dg/security_iam_service-with-iam.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/en_us/sagemaker/latest/dg/security_iam_service-with-iam.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/en_us/sagemaker/latest/dg/security_iam_service-with-iam.html" /><meta name="keywords" content="SageMaker,Amazon SageMaker,machine learning,notebook instance" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon SageMaker",
+        "item" : "https://docs.aws.amazon.com/sagemaker/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Security in Amazon SageMaker",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/security.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Identity and Access Management for Amazon SageMaker",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/security-iam.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "How Amazon SageMaker Works with IAM",
+        "item" : "https://docs.aws.amazon.com/sagemaker/latest/dg/security-iam.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/sagemaker/latest/dg/sagemaker-dg.pdf#security_iam_service-with-iam" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Documentation</a><a href="/sagemaker/index.html">Amazon SageMaker</a><a href="whatis.html">Developer Guide</a></div><div id="page-toc-src"><a href="#security_iam_service-with-iam-id-based-policies">SageMaker
+                    Identity-Based Policies</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="security_iam_service-with-iam">How Amazon SageMaker Works with
+                IAM</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Before you use IAM to manage access to SageMaker, you should understand what
+            IAM features are available to use with SageMaker. To get a high-level view of
+            how SageMaker and other AWS services work with IAM, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html">AWS Services
+                That Work with IAM</a> in the <em>IAM User Guide</em>.</p><div class="highlights" id="inline-topiclist"><h6>Topics</h6><ul><li><a href="#security_iam_service-with-iam-id-based-policies">SageMaker
+                    Identity-Based Policies</a></li></ul></div>
+            <h2 id="security_iam_service-with-iam-id-based-policies">SageMaker
+                    Identity-Based Policies</h2>
+            <p>With IAM identity-based policies, you can specify allowed or denied actions and
+                resources as well as the conditions under which actions are allowed or denied.
+                SageMaker supports specific actions, resources, and condition keys. To learn
+                about all of the elements that you use in a JSON policy, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html">IAM JSON Policy Elements
+                    Reference</a> in the <em>IAM User Guide</em>.</p>
+             
+                <h3 id="security_iam_service-with-iam-id-based-policies-actions">Actions</h3>
+                
+   
+            
+   
+      <p>Administrators can use AWS JSON policies to specify who has access to what. That is, which <b>principal</b> can perform 
+         <b>actions</b> on what <b>resources</b>, and under what <b>conditions</b>.</p>
+  
+            <p>The <code class="code">Action</code> element of a JSON policy describes the
+               actions that you can use to allow or deny access in a policy. Policy
+               actions usually have the same name as the associated AWS API operation. There are some exceptions, such as <em>permission-only 
+               actions</em> that don't have a matching API operation. There are also some operations that require multiple actions in a policy. 
+               These additional actions are called <em>dependent actions</em>.</p>
+            <p>Include actions in a policy to grant permissions to perform the associated operation.</p>
+  
+                
+                <p>Policy actions in SageMaker use the following prefix before the action:
+                        <code class="code">sagemaker:</code>. For example, to grant someone permission
+                    to run a SageMaker training job with the SageMaker
+                        <code class="code">CreateTrainingJob</code> API operation, you include the
+                        <code class="code">sagemaker:CreateTrainingJob</code> action in their policy. Policy
+                    statements must include either an <code class="code">Action</code> or <code class="code">NotAction</code>
+                    element. SageMaker defines its own set of actions that describe tasks
+                    that you can perform with this service.</p>
+                <p>To specify multiple actions in a single statement, separate them with commas
+                    as follows:</p>
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Action": [
+      "sagemaker:<em>action1</em>",
+      "sagemaker:<em>action2</em>"
+]</code></pre>
+                <p>You can specify multiple actions using wildcards (*). For example, to specify
+                    all actions that begin with the word <code class="code">Describe</code>, include the
+                    following action:</p>
+                
+                <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><code class="json ">"Action": "sagemaker:Describe*"</code></pre>
+                <p></p>
+                <p>To see a list of SageMaker actions, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonsagemaker.html">Actions, resources, and condition keys for Amazon SageMaker</a> in the
+                        <em>Service Authorization Reference</em>.</p>
+             
+             
+                <h3 id="security_iam_service-with-iam-id-based-policies-resources">Resources</h3>
+                
+                
+                <p></p>
+                <p>SageMaker does not support specifying resource ARNs in a policy.</p>
+             
+             
+                <h3 id="security_iam_service-with-iam-id-based-policies-conditionkeys">Condition Keys</h3>
+                
+                
+   
+            
+   
+      <p>Administrators can use AWS JSON policies to specify who has access to what. That is, which <b>principal</b> can perform 
+         <b>actions</b> on what <b>resources</b>, and under what <b>conditions</b>.</p>
+  
+            <p>The <code class="code">Condition</code> element (or <code class="code">Condition</code>
+               <em>block</em>) lets you specify conditions in which a
+               statement is in effect. The <code class="code">Condition</code> element is optional. You can create
+               conditional expressions that use <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html">condition
+                  operators</a>, such as equals or less than, to match the condition in the
+               policy with values in the request. </p>
+            <p>If you specify multiple <code class="code">Condition</code> elements in a statement, or
+               multiple keys in a single <code class="code">Condition</code> element, AWS evaluates them using
+               a logical <code class="code">AND</code> operation. If you specify multiple values for a single
+               condition key, AWS evaluates the condition using a logical <code class="code">OR</code>
+               operation. All of the conditions must be met before the statement's permissions are
+               granted.</p>
+            <p> You can also use placeholder variables when you specify conditions. For example,
+               you can grant an IAM user permission to access a resource only if it is tagged with
+               their IAM user name. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html">IAM policy elements:
+                  variables and tags</a> in the <em>IAM User Guide</em>. </p>
+            <p>AWS supports global condition keys and service-specific condition keys. To see all AWS global
+               condition keys, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS global condition context keys</a> in the
+               <em>IAM User Guide</em>.</p>
+  
+                <p>SageMaker defines its own set of condition keys and also supports using
+                    some global condition keys. To see all AWS global condition keys, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS Global
+                        Condition Context Keys</a> in the
+                    <em>IAM User Guide</em>.</p>
+                <p></p>
+                <p>SageMaker supports a number of service-specific condition keys that you can use for
+                    fine-grained access control for the following operations:</p>
+                <div class="itemizedlist">
+                     
+                     
+                     
+                     
+                    
+                     
+                     
+                     
+                     
+                     
+                <ul class="itemizedlist"><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateProcessingJob.html"><code class="code">CreateProcessingJob</code></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTrainingJob.html"><code class="code">CreateTrainingJob</code></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateModel.html"><code class="code">CreateModel</code></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"><code class="code">CreateEndpointConfig</code></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateTransformJob.html"><code class="code">CreateTransformJob</code></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateHyperParameterTuningJob.html"><code class="code">CreateHyperParameterTuningJob</code></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateLabelingJob.html"><code class="code">CreateLabelingJob</code></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateNotebookInstance.html"><code class="code">CreateNotebookInstance</code></a></p>
+                    </li><li class="listitem">
+                        <p><a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateNotebookInstance.html"><code class="code">UpdateNotebookInstance</code></a></p>
+                    </li></ul></div>
+                <p>To see a list of SageMaker condition keys, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonsagemaker.html#amazonsagemaker-policy-keys">Condition keys for Amazon SageMaker </a> in the
+                        <em>IAM User Guide</em>. To learn with which actions and
+                    resources you can use a condition key, see <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonsagemaker.html#amazonsagemaker-actions-as-permissions">Actions defined by Amazon SageMaker</a>.</p>
+                <p>For examples of using SageMaker condition keys, see the following: <a href="./security_iam_id-based-policy-examples.html#sagemaker-condition-examples">Control Creation of SageMaker Resources
+                    with Condition Keys</a>.</p>
+                 
+                    <h4 id="security_iam_service-with-iam-id-based-policies-examples">Examples</h4>
+                    <p></p>
+                    <p>To view examples of SageMaker identity-based policies, see <a href="./security_iam_id-based-policy-examples.html">Amazon SageMaker
+                Identity-Based Policy Examples</a>.</p>
+                 
+             
+             
+                <h3 id="security_iam_service-with-iam-resource-based-policies">SageMaker Resource-Based Policies</h3>
+                
+                
+                <p>SageMaker does not support resource-based policies.</p>
+             
+            
+             
+                <h3 id="security_iam_service-with-iam-tags">Authorization Based on
+                        SageMaker Tags</h3>
+                
+                <p>You can attach tags to SageMaker resources or pass tags in a request to
+                    SageMaker. To control access based on tags, you provide tag information
+                    in the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html">condition element</a> of a policy using the
+                            <code class="code">sagemaker:ResourceTag/<code class="replaceable">key-name</code></code>,
+                            <code class="code">aws:RequestTag/<code class="replaceable">key-name</code></code>, or
+                        <code class="code">aws:TagKeys</code> condition keys. For more information about tagging
+                    SageMaker resources, see <a href="./security_iam_id-based-policy-examples.html#access-tag-policy">Control Access to SageMaker Resources by Using
+                    Tags</a>.</p>
+                <p>To view an example identity-based policy for limiting access to a resource
+                    based on the tags on that resource, see <a href="./security_iam_id-based-policy-examples.html#access-tag-policy">Control Access to SageMaker Resources by Using
+                    Tags</a>.</p>
+             
+             
+                <h3 id="security_iam_service-with-iam-roles">SageMaker IAM
+                        Roles</h3>
+                
+                <p>An <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html">IAM role</a> is an entity
+                    within your AWS account that has specific permissions.</p>
+                 
+                    <h4 id="security_iam_service-with-iam-roles-tempcreds">Using
+                            Temporary Credentials with SageMaker</h4>
+                    <p>You can use temporary credentials to sign in with federation, assume an
+                        IAM role, or to assume a cross-account role. You obtain temporary security
+                        credentials by calling AWS STS API operations such as <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> or <a href="https://docs.aws.amazon.com/STS/latest/APIReference/API_GetFederationToken.html">GetFederationToken</a>. </p>
+                    <p>SageMaker supports using temporary credentials.</p>
+                 
+                 
+                    <h4 id="security_iam_service-with-iam-roles-service-linked">Service-Linked Roles</h4>
+                    <p>SageMaker partially supports <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role">service-linked roles</a>. Service-linked roles are currently
+                        available for SageMaker Studio and SageMaker training jobs.</p>
+                 
+                 
+                    <h4 id="security_iam_service-with-iam-roles-service">Service
+                            Roles</h4>
+                    <p>This feature allows a service to assume a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-role">service role</a> on your behalf. This role allows the service to
+                        access resources in other services to complete an action on your behalf.
+                        Service roles appear in your IAM account and are owned by the account.
+                        This means that an IAM administrator can change the permissions for this
+                        role. However, doing so might break the functionality of the service.</p>
+                    <p>SageMaker supports service roles.</p>
+                 
+                 
+                    <h4 id="security_iam_service-with-iam-roles-choose">Choosing an
+                            IAM Role in SageMaker</h4>
+                    
+                    <p>When you create a notebook instance, processing job, training job, hosted
+                        endpoint, or batch transform job resource in SageMaker, you must
+                        choose a role to allow SageMaker to access SageMaker on your behalf. If
+                        you have previously created a service role or service-linked role, then
+                        SageMaker provides you with a list of roles to choose from. It's
+                        important to choose a role that allows access to the AWS operations and
+                        resources you need. For more information, see <a href="./sagemaker-roles.html">SageMaker Roles</a>.</p>
+                 
+             
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./security-iam.html">Identity and Access Management</div><div id="next" class="next-link" accesskey="n" href="./security_iam_id-based-policy-examples.html">Identity-Based Policy Examples</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/security_iam_service-with-iam.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=SageMaker&amp;topic_url=https://docs.aws.amazon.com/en_us/sagemaker/latest/dg/security_iam_service-with-iam.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

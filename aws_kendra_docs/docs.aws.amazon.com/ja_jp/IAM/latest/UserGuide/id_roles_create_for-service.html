@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="ja-JP"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>AWS のサービスにアクセス許可を委任するロールの作成 - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="id_roles_create_for-service" /><meta name="default_state" content="id_roles_create_for-service" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="description" content="IAM ロールを作成し、このロールで AWS のサービスが AWS アカウント のリソースに対して実行できる操作を決定します。" /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="ユーザーガイド" /><meta name="abstract" content="ユーザー ID (認証) および特定のアクセス許可 (承認) を定義するポリシーで AWS リソースへのアクセスを制限します。" /><meta name="guide-locale" content="ja_jp" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="ユーザーガイド" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="ユーザーガイド" /><meta id="panorama-serviceConsolePage" value="AWS のサービスにアクセス許可を委任するロールの作成" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>AWS のサービスにアクセス許可を委任するロールの作成 - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#id_roles_create_for-service" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM ユーザー,user,IAM グループ,グループ,[IAM role] (IAM ロール),ロール,アクセス許可ポリシー,信頼ポリシー,ポリシー,アクセスキー,パスワード" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "ユーザーガイド",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "IAM ID (ユーザー、ユーザーグループ、ロール)",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM ロール",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "IAM ロールの作成",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "AWS のサービスにアクセス許可を委任するロールの作成",
+        "item" : "https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#id_roles_create_for-service" target="_blank" rel="noopener noreferrer" title="PDF を開く"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">ドキュメント</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">ユーザーガイド</a></div><div id="page-toc-src"><a href="#id_roles_create_service-permissions">サービスロールのアクセス許可</a><a href="#roles-creatingrole-service-console">AWS のサービス用ロールの作成 (コンソール)</a><a href="#roles-creatingrole-service-cli">サービス用のロールを作成する (AWS CLI)</a><a href="#roles-creatingrole-service-api">サービス用のロールを作成する (AWS API)</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="id_roles_create_for-service">AWS のサービスにアクセス許可を委任するロールの作成</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>AWS の多くのサービスでは、ロールを使用して、ユーザーに代わって該当サービスが他のサービスのリソースにアクセスすることを許可する必要があります。サービスがお客様に代わってアクションを実行するために引き受けるロールは、<a href="./id_roles_terms-and-concepts.html#iam-term-service-role">サービスロール</a>と呼ばれます。ロールにサービスに対して特殊な目的がある場合、そのロールは <a href="./id_roles_terms-and-concepts.html#iam-term-service-role-ec2">EC2 インスタンスのサービスロール</a> (この例)、または<a href="./id_roles_terms-and-concepts.html#iam-term-service-linked-role">サービスにリンクされたロール</a>として分類されます。どのサービスがサービスにリンクされたロールの使用をサポートしているのか、またはサービスがあらゆる形式の一時的な認証情報をサポートしているのか確認するには「<a href="./reference_aws-services-that-work-with-iam.html">IAM と連携する AWS のサービス</a>」をご覧ください。サービスがそれぞれロールをどのように使用するのか把握するには、テーブル内のサービス名を選択し、そのサービスに関するドキュメントをご覧ください。</p><p>ロールを使用してアクセス許可を委任する方法の詳細については、「<a href="./id_roles_terms-and-concepts.html">ロールに関する用語と概念</a>」を参照してください。</p>
+    <h2 id="id_roles_create_service-permissions">サービスロールのアクセス許可</h2>
+    <p>IAM エンティティ (ユーザーまたはロール) がサービスロールを作成または編集できるようにするには、アクセス許可を設定する必要があります。</p>
+    <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>注記</h6></div><div class="awsdocs-note-text"><p>サービスにリンクされたロールの ARN にはサービスプリンシパルが含まれています。以下のポリシーでは <code class="code"><code class="replaceable">SERVICE-NAME</code>.amazonaws.com</code> として示されています。サービスプリンシパルは推量しないでください。サービスプリンシパルは、大文字と小文字が区別され、AWS のサービス間で異なる場合があります。サービスのサービスプリンシパルを表示するには、そのサービスにリンクされたロールのドキュメントを参照してください。</p></div></div>
+    <p><b>IAM エンティティが特定のサービスロールを作成することを許可するには</b></p>
+    <p>サービスロールを作成する必要のある IAM エンティティに、以下のポリシーを追加します。このポリシーでは、指定したサービスおよび特定の名前のサービスロールの作成を許可します。管理ポリシーまたはインラインポリシーをそのロールにアタッチできます。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateRole",
+                "iam:PutRolePolicy"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        }
+    ]
+}</code></pre>
+    <p><b>IAM エンティティが任意のサービスロールを作成することを許可するには</b></p>
+    <p>AWS では、管理者ユーザーのみにサービスロールの作成を許可することをお勧めします。ロールの作成とポリシーの添付を許可されたユーザーは、自分のアクセス許可をエスカレートできます。代わりに、彼らが必要とするロールの作成のみを許可したポリシーを作成するか、彼らの代わりに、管理者にサービスロールを作成させます。</p>
+    <p>管理者が AWS アカウント 全体にアクセスできるポリシーを添付するには、<a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS 管理ポリシーを使用します。</p>
+
+    <p><b>IAM エンティティにサービスロールの編集を許可するには</b></p>
+    <p>サービスロールを編集する必要のある IAM エンティティに、以下のポリシーを追加します。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "EditSpecificServiceRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListRolePolicies",
+                "iam:PutRolePolicy",
+                "iam:UpdateRole",
+                "iam:UpdateRoleDescription"
+            ],
+            "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+        },
+        <span>{</span>
+            "Sid": "ViewRolesAndPolicies",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetPolicy",
+                "iam:ListRoles"
+            ],
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+    <p><b>IAM エンティティが特定のサービスロールを削除することを許可するには</b></p>
+    <p>指定したサービスロールを削除する必要のある IAM エンティティのアクセス許可ポリシーに、以下のステートメントを追加します。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><span>{</span>
+    "Effect": "Allow",
+    "Action": "iam:DeleteRole",
+    "Resource": "arn:aws:iam::*:role/<code class="replaceable">SERVICE-ROLE-NAME</code>"
+}</code></pre>
+    <p><b>IAM エンティティがサービスロールを削除することを許可するには</b></p>
+    <p>AWS では、管理者ユーザーのみにサービスロールの削除を許可することをお勧めします。代わりに、彼らが必要とするロールの削除のみを許可したポリシーを作成するか、彼らの代わりに、管理者にサービスロールを削除させます。</p>
+    <p>管理者が AWS アカウント 全体にアクセスできるポリシーを添付するには、<a href="https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AdministratorAccess" rel="noopener noreferrer" target="_blank"><span>AdministratorAccess</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> AWS 管理ポリシーを使用します。</p>
+   
+    <h2 id="roles-creatingrole-service-console">AWS のサービス用ロールの作成 (コンソール)</h2>
+    <p>サービス用のロールを作成するには、AWS Management Console を使用します。一部のサービスでは、複数のサービスロールがサポートされているため、該当サービスの「<a href="https://docs.aws.amazon.com/">AWS ドキュメント</a>」を参照の上、選択するユースケースを確認してください。必要な信頼ポリシーとアクセス権限ポリシーを割り当て、サービスがお客様に代わってロールを引き受ける方法について説明します。ロールのアクセス許可を管理するために使用できるステップは、サービスでユースケースを定義する方法や、サービスにリンクされたロールを作成するかどうかに応じて異なります。</p>
+
+    
+    <div class="procedure"><h6>AWS サービスのロールを作成するには (コンソール)</h6><ol><li><p>AWS Management Console にサインインして、<a href="https://console.aws.amazon.com/iam/" rel="noopener noreferrer" target="_blank"><span>https://console.aws.amazon.com/iam/</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> で IAM コンソールを開きます。</p></li><li>
+        <p>IAM コンソールのナビゲーションペインで、<b>[ロール]</b>、<b>[ロールを作成]</b> の順に選択します。</p>
+      </li><li>
+        <p><b>[Select trusted entity]</b> (信頼されたエンティティの選択) で、<b>[AWS のサービス]</b> を選択します。</p>
+      </li><li>
+        <p>サービスのユースケースを選択します。ユースケースは、サービスに必要な信頼ポリシーを含めるように定義されています。続いて、[<b>Next (次へ)</b>] を選択します。</p>
+      </li><li>
+        <p>可能な場合は、アクセス許可ポリシーとして使用するポリシーを選択するか、[<b>ポリシーの作成</b>] を選択して新しいブラウザタブを開き、新しいポリシーをゼロから作成します。詳細については、「<a href="./access_policies_create-console.html#access_policies_create-start">IAM ポリシーの作成</a>」を参照してください。ポリシーを作成したら、そのタブを閉じて元のタブに戻ります。サービスに割り当てるアクセス許可ポリシーの横にあるチェックボックスをオンにします。</p>
+        <p>選択したユースケースに基づき、サービスで以下のいずれかの実行が許可されることがあります。</p>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>サービスがロールのアクセス許可を定義しているため、何もありません。</p>
+          </li><li class="listitem">
+            <p>制限されたアクセス権限から選択します。</p>
+          </li><li class="listitem">
+            <p>すべてのアクセス権限から選択します。</p>
+          </li><li class="listitem">
+            <p>この時点でポリシーを選択できないようにし、ポリシーを作成してからロールにアタッチします。</p>
+          </li></ul></div>
+      </li><li>
+        <p>(オプション) <a href="./access_policies_boundaries.html">アクセス許可の境界</a>を設定します。このアドバンスド機能は、サービスロールで使用できますが、サービスにリンクされたロールではありません。</p>
+        <p><b>[Permissions boundary]</b> (アクセス許可の境界) セクションを展開し、<b>[Use a permissions boundary to control the maximum role permissions]</b> (アクセス許可の境界を使用して、ロールのアクセス許可の上限を設定する) を選択します。IAM には、アカウント内の AWS 管理ポリシーとカスタマー管理ポリシーのリストがあります。アクセス許可の境界として使用するポリシーを選択するか、<b>[Create policy]</b> (ポリシーの作成) を選択して新しいブラウザタブを開き、新しいポリシーをゼロから作成します。詳細については、「<a href="./access_policies_create-console.html#access_policies_create-start">IAM ポリシーの作成</a>」を参照してください。ポリシーを作成したら、そのタブを閉じて元のタブに戻り、アクセス許可の境界として使用するポリシーを選択します。</p>
+      </li><li>
+        <p><b>[Next]</b> (次へ) をクリックします。</p>
+      </li><li>
+        <p>[<b>ロール名</b>] で、ロール名のカスタマイズの度合いはサービスによって定義されます。サービスのロール名が定義されている場合、このオプションを変更することはできません。それ以外の場合、サービスでロールのプレフィックスが定義され、オプションのサフィックスを入力できる場合があります。一部のサービスでは、ロールの名前全体を指定することができます。</p>
+        <p>可能な場合は、このロールの目的を識別するのに役立つロール名またはロール名サフィックスを入力します。ロール名は AWS アカウント アカウント内で一意である必要があります。大文字と小文字は区別されません。例えば、<code class="userinput">PRODROLE</code> と <code class="userinput">prodrole</code> というロール名を両方作成することはできません。他の AWS リソースがロールを参照している場合があるため、作成後はロールの名前を変更できません。</p>
+      </li><li>
+        <p>(オプション) <b>[Description]</b> (説明) には、新しいロールの説明を入力します。</p>
+      </li><li>
+        <p><b>[Step 1: Select trusted entities]</b> (ステップ 1: 信頼済みエンティティの選択) または <b>[Step 2: Add permissions]</b> (ステップ 2: 権限の追加) のセクションで <b>[Edit]</b> (編集) を選択し、ロールのユースケースと権限を変更します。</p>
+      </li><li>
+        <p>(オプション) タグをキーバリューのペアとしてアタッチして、メタデータをロールに追加します。IAM におけるタグの使用の詳細については、「<a href="./id_tags.html">IAM リソースのタグ付け</a>」を参照してください。</p>
+      </li><li>
+        <p>ロール情報を確認し、[<b>Create role (ロールの作成)</b>] を選択します。</p>
+      </li></ol></div>
+   
+    <h2 id="roles-creatingrole-service-cli">サービス用のロールを作成する (AWS CLI)</h2>
+    <p>AWS CLI を使用したロールの作成には、複数のステップがあります。コンソールを使用してロールを作成する場合、多くのステップは自動的に行われますが、AWS CLI を使用する場合は、各ステップを明示的に実行する必要があります。ロールを作成して、これにアクセス許可ポリシーを割り当てる必要があります。使用しているサービスが Amazon EC2 の場合は、インスタンスプロファイルも作成してロールを追加する必要があります。必要に応じて、ロールの<a href="./access_policies_boundaries.html">アクセス許可の境界</a>を設定することもできます。</p>
+    <div class="procedure"><h6>AWS のサービスのロールを AWS CLI で作成するには</h6><ol><li>
+        <p>次の <code class="code"><a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html">create-role</a></code> コマンドは、<em>Test-Role</em> という名前のロールを作成し、それに信頼ポリシーをアタッチします。</p>
+        <p><code class="prompt">aws iam create-role --role-name Test-Role --assume-role-policy-document
+            file://Test-Role-Trust-Policy.json</code></p>
+
+      </li><li>
+        <p>マネージドアクセス許可ポリシー <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/attach-role-policy.html">aws iam attach-role-policy</a> をロールにアタッチします。</p>
+        <p>たとえば、次の <code class="code">attach-role-policy</code> コマンドは、AWS と呼ばれる <code class="code">ReadOnlyAccess</code> 管理ポリシーIAM ロールを <code class="code">ReadOnlyRole</code> と呼ばれる IAM ロールロールにアタッチします。</p>
+        <p><code class="prompt">aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+            --role-name ReadOnlyRole</code></p>
+        <p> or</p>
+        <p>ロールのインラインアクセス許可ポリシー<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html">aws iam put-role-policy</a> を作成します。</p>
+        <p>インラインアクセス許可ポリシーの追加については、以下の例を参照してください。</p>
+        <p>
+          <code class="prompt">aws iam put-role-policy --role-name Test-Role --policy-name ExamplePolicy
+            --policy-document file://AdminPolicy.json</code></p>
+      </li><li>
+        <p>(オプション) タグ (<a href="https://docs.aws.amazon.com/cli/latest/reference/iam/tag-role.html">aws iam tag-role</a>) をアタッチして、カスタム属性をロールに追加します。</p>
+        <p>詳細については、「<a href="./id_tags_roles.html#id_tags_roles_procs-cli-api">IAM ロールのタグの管理 (AWS CLI または AWS API)</a>」を参照してください。</p>
+      </li><li>
+        <p>(オプション) ロールの<a href="./access_policies_boundaries.html">アクセス許可の境界</a> <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-permissions-boundary.html">aws iam put-role-permissions-boundary</a> を設定します。</p>
+        <p>アクセス許可の境界では、ロールに許可されるアクセス許可の上限を設定します。アクセス許可の境界は AWS のアドバンスド機能です。</p>
+      </li></ol></div>
+    <p>ロールを Amazon EC2 で使用する場合や、Amazon EC2 を使用する AWS の別のサービスで使用する場合は、ロールをインスタンスプロファイルに保存する必要があります。インスタンスプロファイルは、Amazon EC2 インスタンスの起動時にインスタンスにアタッチできるロールのコンテナです。インスタンスプロファイルに含めることができる  ロールは 1 つのみであり、緩和できません。AWS Management Consoleを使用してロールを作成すると、ロールと同じ名前のインスタンスプロファイルが自動的に作成されます。インスタンスプロファイルの詳細については、「<a href="./id_roles_use_switch-role-ec2_instance-profiles.html">インスタンスプロファイルの使用</a>」を参照してください。ロールを使用して EC2 インスタンスを起動する方法については、<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">Linuxインスタンス用AmazonEC2ユーザーガイド</a>の「<em>Amazon EC2リソースへのアクセスの制御</em>」を参照してください。</p>
+    <div class="procedure"><h6>インスタンスプロファイルを作成し、これにロールを保存するには (AWS CLI)</h6><ol><li>
+        <p>インスタンスプロファイル <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/create-instance-profile.html">aws iam create-instance-profile</a> を作成します。</p>
+      </li><li>
+        <p>ロールをインスタンスプロファイル <a href="https://docs.aws.amazon.com/cli/latest/reference/iam/add-role-to-instance-profile.html">aws iam add-role-to-instance-profile</a> に追加します。</p>
+      </li></ol></div>
+    <p>次に示す AWS CLI のコマンド例では、ロールを作成してアクセス許可をアタッチする手順の最初の 2 つのステップを示します。また、インスタンスプロファイルを作成し、これにロールを追加する手順の最初の 2 つのステップも示します。この信頼ポリシー例では、ロールを引き受けて Amazon S3 バケット <code class="code">example_bucket</code> を表示することを Amazon EC2 サービスに許可します。また、この例では、Windows を実行するクライアントコンピュータを使用中であり、アカウントの認証情報とリージョンを使ってコマンドラインインターフェイスを設定済みであることを前提とします。詳細については、「<a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">AWS コマンドラインインターフェイスの設定</a>」を参照してください。</p>
+    <p>この例では、ロールの作成時に、次の信頼ポリシーを最初のコマンドに含めます。この信頼ポリシーにより、Amazon EC2 サービスはロールを引き受けることを許可されます。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Principal": <span>{</span>"Service": "ec2.amazonaws.com"},
+    "Action": "sts:AssumeRole"
+  }
+}</code></pre>
+    <p>2 番目のコマンドを使用する場合、アクセス許可ポリシーをロールにアタッチする必要があります。次のアクセス許可ポリシーの例では、Amazon S3 バケット <code class="code">ListBucket</code> に対して <code class="code">example_bucket</code> アクションのみを実行することをロールに許可します。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class=""><span>{</span>
+  "Version": "2012-10-17",
+  "Statement": <span>{</span>
+    "Effect": "Allow",
+    "Action": "s3:ListBucket",
+    "Resource": "arn:aws:s3:::example_bucket"
+  }
+}</code></pre>
+    <p>この <code class="code">Test-Role-for-EC2</code> ロールを作成するには、まず前の信頼ポリシーを <code class="code">trustpolicyforec2.json</code> という名前で、前のアクセス許可ポリシーを <code class="code">permissionspolicyforec2.json</code> という名前で、ローカル <code class="code">C:</code> ドライブの <code class="code">policies</code> ディレクトリに保存する必要があります。次に、以下のコマンドを使用して、ロールの作成、ポリシーのアタッチ、インスタンスプロファイルの作成、およびインスタンスプロファイルへのロールの追加を行います。</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="コピー"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="false"># Create the role and attach the trust policy that allows EC2 to assume this role.
+$ </code><code class="userinput">aws iam create-role --role-name Test-Role-for-EC2 --assume-role-policy-document file://C:\policies\trustpolicyforec2.json</code>
+
+<code class="code" copy="false"># Embed the permissions policy (in this example an inline policy) to the role to specify what it is allowed to do.
+$ </code><code class="userinput">aws iam put-role-policy --role-name Test-Role-for-EC2 --policy-name Permissions-Policy-For-Ec2 --policy-document file://C:\policies\permissionspolicyforec2.json</code>
+
+<code class="code" copy="false"># Create the instance profile required by EC2 to contain the role
+$ </code><code class="userinput">aws iam create-instance-profile --instance-profile-name EC2-ListBucket-S3</code>
+
+<code class="code" copy="false"># Finally, add the role to the instance profile
+$ </code><code class="userinput">aws iam add-role-to-instance-profile --instance-profile-name EC2-ListBucket-S3 --role-name Test-Role-for-EC2</code></code></pre>
+    <p>EC2 インスタンスを起動するとき、AWS コンソールを使用する場合は、[<b>インスタンスの詳細の設定</b>] ページでインスタンスプロファイル名を指定します。<code class="code">aws ec2 run-instances</code> CLI コマンドを使用する場合は、<code class="code">--iam-instance-profile</code> パラメータを指定します。</p>
+   
+    <h2 id="roles-creatingrole-service-api">サービス用のロールを作成する (AWS API)</h2>
+     
+      <p>AWS API からロールを作成するには、複数のステップが必要です。コンソールでロールを作成する場合は多くのステップが自動的に実行されますが、API では各ステップを手動で明示的に実行する必要があります。ロールを作成して、これにアクセス許可ポリシーを割り当てる必要があります。使用しているサービスが Amazon EC2 の場合は、インスタンスプロファイルも作成してロールを追加する必要があります。必要に応じて、ロールの<a href="./access_policies_boundaries.html">アクセス許可の境界</a>を設定することもできます。</p>
+      <div class="procedure"><h6>AWS のサービスのロールを作成するには (AWS API)</h6><ol><li>
+          <p>ロールとして <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html">CreateRole</a> を作成します。</p>
+          <p>ロールの信頼ポリシーに対して、ファイルの場所を指定できます。</p>
+        </li><li>
+          <p>ロールに管理アクセス許可ポリシーをアタッチします: <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AttachRolePolicy.html">AttachRolePolicy</a></p>
+          <p> or</p>
+          <p>ロールのインラインアクセス許可ポリシー <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html">PutRolePolicy</a> を作成します。</p>
+        </li><li>
+          <p>(オプション) タグ (<a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_TagRole.html">TagRole</a>) をアタッチして、カスタム属性をユーザーに追加します。</p>
+          <p>詳細については、「<a href="./id_tags_users.html#id_tags_users_procs-cli-api">IAM ユーザーのタグの管理 ( AWS CLI または AWS API)</a>」を参照してください。</p>
+        </li><li>
+          <p>(オプション) ロールの<a href="./access_policies_boundaries.html">アクセス許可の境界</a> <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePermissionsBoundary.html">PutRolePermissionsBoundary</a> を設定します。</p>
+          <p>アクセス許可の境界では、ロールに許可されるアクセス許可の上限を設定します。アクセス許可の境界は AWS のアドバンスド機能です。</p>
+        </li></ol></div>
+      <p>ロールを Amazon EC2 で使用する場合や、Amazon EC2 を使用する AWS の別のサービスで使用する場合は、ロールをインスタンスプロファイルに保存する必要があります。インスタンスプロファイルは、ロールのコンテナとして機能します。各インスタンスプロファイルに含めることができるロールは 1 つのみであり、増やすことはできません。AWS Management Consoleでロールを作成すると、ロールと同じ名前のインスタンスプロファイルが自動的に作成されます。インスタンスプロファイルの詳細については、「<a href="./id_roles_use_switch-role-ec2_instance-profiles.html">インスタンスプロファイルの使用</a>」を参照してください。ロールを使用して Amazon EC2 インスタンスを起動する方法については、「<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UsingIAM.html#UsingIAMrolesWithAmazonEC2Instances">Linux インスタンス用 Amazon EC2 ユーザーガイド</a>」の「<em>Amazon EC2 リソースへのアクセスの制御</em>」を参照してください。</p>
+      <div class="procedure"><h6>インスタンスプロファイルを作成し、これにロールを保存するには (AWS API)</h6><ol><li>
+          <p>インスタンスプロファイル <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateInstanceProfile.html">CreateInstanceProfile</a> を作成します。</p>
+        </li><li>
+          <p>ロールをインスタンスプロファイル <a href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AddRoleToInstanceProfile.html">AddRoleToInstanceProfile</a> に追加します。</p>
+        </li></ol></div>
+     
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="警告" /> <strong>ブラウザで JavaScript が無効になっているか、使用できません。</strong></p><p>AWS ドキュメントを使用するには、JavaScript を有効にする必要があります。手順については、使用するブラウザのヘルプページを参照してください。</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">ドキュメントの表記規則</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./id_roles_create_for-user.html">IAM ユーザー用のロールの作成</div><div id="next" class="next-link" accesskey="n" href="./id_roles_create_for-idp.html">ID フェデレーション用のロールの作成</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">このページは役に立ちましたか? - はい</div><div class="content"><p>ページが役に立ったことをお知らせいただき、ありがとうございます。</p><p>お時間がある場合は、何が良かったかお知らせください。今後の参考にさせていただきます。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">このページは役に立ちましたか? - いいえ</div><div class="content"><p>このページは修正が必要なことをお知らせいただき、ありがとうございます。ご期待に沿うことができず申し訳ありません。</p><p>お時間がある場合は、ドキュメントを改善する方法についてお知らせください。</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="フィードバック" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_roles_create_for-service.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Auswertungslogik für Richtlinien - AWS Identity and Access Management</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="reference_policies_evaluation-logic" /><meta name="default_state" content="reference_policies_evaluation-logic" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="description" content="Erfahren Sie, wie JSON-Richtlinien in einem einzigen Konto ausgewertet werden und entsprechend entweder &#34;Allow&#34; (Zugriffserlaubnis) oder &#34;Deny&#34; (Zugriffsverweigerung) zurückgegeben wird. Wie AWS die Richtlinien für den kontenübergreifenden Zugriff auswertet, erfahren Sie unter ." /><meta name="deployment_region" content="IAD" /><meta name="product" content="AWS Identity and Access Management" /><meta name="guide" content="Leitfaden" /><meta name="abstract" content="Steuern des Zugriffs auf Ihre AWS-Ressourcen mit Benutzeridentität (Authentifizierung) und Richtlinien, die spezifische Berechtigungen (Autorisierung) definieren." /><meta name="guide-locale" content="de_de" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" hreflang="x-default" /><meta name="feedback-item" content="IAM" /><meta name="this_doc_product" content="AWS Identity and Access Management" /><meta name="this_doc_guide" content="Leitfaden" /><script defer="" src="/assets/r/vendor4.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor3.js?version=2021.12.02"></script><script defer="" src="/assets/r/vendor1.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-common.js?version=2021.12.02"></script><script defer="" src="/assets/r/awsdocs-doc-page.js?version=2021.12.02"></script><link href="/assets/r/vendor4.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-common.css?version=2021.12.02" rel="stylesheet" /><link href="/assets/r/awsdocs-doc-page.css?version=2021.12.02" rel="stylesheet" /><script async="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'iam'}"></script><meta id="panorama-serviceSubSection" value="Leitfaden" /><meta id="panorama-serviceConsolePage" value="Auswertungslogik für Richtlinien" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Auswertungslogik für Richtlinien - AWS Identity and Access Management</title><meta name="pdf" content="iam-ug.pdf#reference_policies_evaluation-logic" /><meta name="rss" content="aws-iam-release-notes.rss" /><meta name="forums" content="http://forums.aws.amazon.com/forum.jspa?forumID=76" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=http://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=http://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=http://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html" /><meta name="keywords" content="IAM,AWS Identity and Access Management,IAM-Benutzer,user,IAM-Gruppe,Gruppe,IAM role (IAM-Rolle),Rolle,Berechtigungsrichtlinie,Vertrauensrichtlinie,Richtlinie,Zugriffsschlüssel,password" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "AWS Identity and Access Management",
+        "item" : "https://docs.aws.amazon.com/iam/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Leitfaden",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Referenzinformationen für AWS Identity and Access Management.",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "IAM-JSON-Richtlinienreferenz",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Auswertungslogik für Richtlinien",
+        "item" : "https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="iam-ug.pdf#reference_policies_evaluation-logic" target="_blank" rel="noopener noreferrer" title="PDF öffnen"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="https://aws.amazon.com">AWS</a><a href="/index.html">Dokumentation</a><a href="/iam/index.html">AWS Identity and Access Management</a><a href="introduction.html">Leitfaden</a></div><div id="page-toc-src"><a href="#policy-eval-reqcontext">Verarbeitung des Anforderungskontexts</a><a href="#policy-eval-basics">Auswerten von Richtlinien in einem einzelnen Konto</a><a href="#policy-eval-denyallow">Ermitteln, ob eine Anforderung innerhalb eines Kontos zugelassen oder verweigert wird</a><a href="#policies_evaluation_example">Beispielauswertung identitätsbasierter Richtlinien und ressourcenbasierter Richtlinien</a><a href="#AccessPolicyLanguage_Interplay">Der Unterschied zwischen expliziten und impliziten Zugriffsverweigerungen</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="reference_policies_evaluation-logic">Auswertungslogik für Richtlinien</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Wenn ein Auftraggeber versucht, die AWS Management Console, die AWS-API oder die AWS CLI zu verwenden, sendet dieser Auftraggeber eine <em>Anforderung</em> an AWS. Wenn ein AWS-Service die Anforderung erhält, führt AWS mehrere Schritte durch, um festzustellen, ob die Anforderung zugelassen oder abgelehnt werden soll.</p><div class="orderedlist">
+     
+     
+     
+     
+  <ol><li>
+      <p><b>Authentication (Authentifizierung)</b> – AWS authentifiziert zunächst den Auftraggeber, der die Anforderung gesendet hat, falls erforderlich. Dieser Schritt ist für einige wenige Services, wie z. B. Amazon S3, die einige Anforderungen von anonymen Benutzern erlauben, nicht notwendig.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-reqcontext">Verarbeitung des Anforderungskontexts</a></b>AWSverarbeitet die in der Anforderung erfassten Informationen, um festzustellen, welche Richtlinien für die Anforderung gelten.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-basics">Auswerten von Richtlinien in einem einzelnen Konto</a></b>AWSwertet alle Richtlinientypen aus, die die Reihenfolge, in der die Richtlinien ausgewertet werden, beeinflussen.</p>
+    </li><li>
+      <p><b><a href="#policy-eval-denyallow">Ermitteln, ob eine Anforderung innerhalb eines Kontos zugelassen oder verweigert wird</a></b>AWSverarbeitet dann die Richtlinien anhand des Anforderungskontexts, um festzustellen, ob die Anforderung erlaubt oder abgelehnt wird.</p>
+    </li></ol></div>
+    <h2 id="policy-eval-reqcontext">Verarbeitung des Anforderungskontexts</h2>
+    <p>AWS verarbeitet die Anforderung, um die folgenden Informationen in einem <em>Anforderungskontext</em>:</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p><b>Aktionen (oder Operationen)</b> – Die Aktionen oder Operationen, die der Auftraggeber durchführen möchte.</p>
+      </li><li class="listitem">
+        <p><b>Ressourcen</b> – Das AWS-Ressourcenobjekt, mit dem die Aktionen oder Vorgänge durchgeführt werden.</p>
+      </li><li class="listitem">
+        <p><b>Auftraggeber</b> – Der Benutzer, die Rolle, der Verbundbenutzer oder die Anwendung, der bzw. die die Anfrage gesendet hat. Informationen über den Auftraggeber beinhalten die Richtlinien, die diesem Auftraggeber zugeordnet sind. </p>
+      </li><li class="listitem">
+        <p><b>Umgebungsdaten</b> – Informationen über die IP-Adresse, den Benutzeragent, den SSL-Status oder die Tageszeit.</p>
+      </li><li class="listitem">
+        <p><b>Ressourcendaten</b> – Daten zu den angeforderten Ressourcen. Dies sind zum Beispiel Informationen wie ein DynamoDB-Tabellenname oder Tag auf einer Amazon EC2-Instance.</p>
+      </li></ul></div>
+    <p>AWS verwendet diese Informationen dann, um Richtlinien zu finden, die für den Anforderungskontext zutreffen.</p>
+   
+    <h2 id="policy-eval-basics">Auswerten von Richtlinien in einem einzelnen Konto</h2>
+    <p>Wie AWS Richtlinien auswertet, hängt von den Typen von Richtlinien ab, die für den Anforderungskontext gelten. Die folgenden Richtlinientypen, aufgelistet in der Reihenfolge ihrer Häufigkeit, stehen für die Verwendung in einem einzelnen AWS-Konto zur Verfügung. Weitere Informationen zu diesen Richtlinientypen finden Sie unter <a href="./access_policies.html">Berechtigungen und Richtlinien in IAM</a>. Wie AWS die Richtlinien für den kontenübergreifenden Zugriff auswertet, erfahren Sie unter <a href="./reference_policies_evaluation-logic-cross-account.html">Logik für die kontenübergreifende Richtlinienauswertung</a>.</p>
+    <div class="orderedlist">
+       
+       
+       
+       
+       
+    <ol><li>
+        <p><b>Identitätsbasierte Richtlinien</b> – Identitätsbasierte Richtlinien werden einer IAM-Identität (Benutzer, Benutzergruppe oder Rolle) angefügt und gewähren IAM-Entitäten (Benutzer und Rollen) Berechtigungen. Wenn nur identitätsbasierte Richtlinien auf eine Anforderung anwendbar sind, überprüft AWS all diese Richtlinien auf mindestens ein <code class="code">Allow</code>.</p>
+      </li><li>
+        <p><b>Ressourcenbasierte Richtlinien</b> - Ressourcenbasierte Richtlinien erteilen dem angegebenen Auftraggeber (Konto, Benutzer, Rolle und Prizipalsitzungen wie Rollensitzungen und IAM-Verbundbenutzer) Berechtigungen, die als Prinzipal angegeben werden. Die Berechtigungen definieren, welche Aktionen der Auftraggeber mit der Ressource, der die Richtlinie zugewiesen ist. durchführen kann. Wenn sowohl ressourcenbasierte Richtlinien als auch identitätsbasierte Richtlinien auf eine Anforderung anwendbar sind, überprüft AWS alle Richtlinien auf mindestens ein <code class="code">Allow</code>. Wenn ressourcenbasierte Richtlinien ausgewertet werden, bestimmt der in der Richtlinie angegebene Haupt-ARN, ob implizite Ablehnung in anderen Richtlinientypen auf die endgültige Entscheidung anwendbar sind.</p>
+      </li><li>
+        <p><b>IAM-Berechtigungsgrenzen</b> – Berechtigungsgrenzen sind eine erweiterte Funktionalität, die die maximalen Berechtigungen festlegt, die eine identitätsbasierte Richtlinie einer IAM-Entität (Benutzer oder Rolle) erteilen kann. Wenn Sie eine Berechtigungsgrenze für eine Entität festlegen, kann die Entität nur die Aktionen durchführen, die sowohl von den identitätsbasierten Richtlinien als auch den Berechtigungsgrenzen erlaubt werden. In einigen Fällen kann eine implizite Verweigerung in einer Berechtigungsgrenze die Berechtigungen nicht bechränken, die von einer ressourcenbasierten Richtlinie gewährt werden. Weitere Informationen finden Sie unter <a href="#policy-eval-denyallow">Ermitteln, ob eine Anforderung innerhalb eines Kontos zugelassen oder verweigert wird</a> weiter unten in diesem Thema.</p>
+      </li><li>
+        <p><b>AWS Organizations Service-Kontrollrichtlinien (Service Control Policies, SCPs)</b> – -SCPs legen die maximalen Berechtigungen für eine Organisation oder Organisationseinheit (OU) fest. Das SCP-Maximum gilt für Prinzipale in Mitgliedskonten, einschließlich eines jeden Root-Benutzer des AWS-Kontos. Wenn eine SCP vorhanden ist, erteilen identitätsbasierte und ressourcenbasierte Richtlinien Auftraggeber in Mitgliedskonten nur dann Berechtigungen, wenn diese Richtlinien und die SCP die Aktion zulassen. Wenn sowohl eine Berechtigungsgrenze als auch eine SCP vorhanden sind, muss die Grenze, die SCP und die identitätsbasierte Richtlinie die Aktion zulassen.</p>
+      </li><li>
+        <p><b>Sitzungsrichtlinien</b> – Sitzungsrichtlinien sind erweiterte Richtlinien, die Sie als Parameter übergeben, wenn Sie eine temporäre Sitzung für eine Rolle oder einen Verbundbenutzer programmgesteuert erstellen. Um eine Rollensitzung programmgesteuert zu erstellen, verwenden Sie eine der <code class="code">AssumeRole*</code>-API-Operationen. Wenn Sie dies tun und Richtlinien für die Sitzung übergeben, sind die resultierenden Sitzungsberechtigungen eine Schnittmenge der identitätsbasierten Richtlinie der IAM-Entität und der Sitzungsrichtlinien. Um eine Sitzung eines Verbundbenutzers zu erstellen, verwenden Sie die Zugriffsschlüssel eines IAM-Benutzers, um den API-Vorgang <code class="code">GetFederationToken</code> programmatisch aufzurufen. Eine ressourcenbasierte Richtlinie hat andere Auswirkungen auf die Auswertung der Sitzungsrichtlinienberechtigungen. Der Unterschied hängt davon ab, ob der ARN des Benutzers oder der Sitzung in der ressourcenbasierten Richtlinie als Auftraggeber aufgeführt wird. Weitere Informationen finden Sie unter <a href="./access_policies.html#policies_session">Sitzungsrichtlinien</a>.</p>
+      </li></ol></div>
+    <p>Denken Sie daran, dass eine explizite Zugriffsverweigerung in all diesen Richtlinien eine Zugriffserlaubnis überschreibt.</p>
+     
+      <h3 id="policy-eval-basics-id-rdp">Auswerten identitätsbasierter Richtlinien mit ressourcenbasierten Richtlinien</h3>
+      <p>Identitätsbasierte Richtlinien und ressourcenbasierte Richtlinien erteilen Identitäten oder Ressourcen, an die sie angefügt sind, Berechtigungen. Wenn eine IAM-Entität (Benutzer oder Rolle) Zugriff auf eine Ressource innerhalb desselben Kontos anfordert, wertet AWS all die Berechtigungen aus, die von den identitätsbasierten Richtlinien und den ressourcenbasierten Richtlinien erteilt wurden. Die so entstehenden Berechtigungen ergeben sich aus den gesamten Berechtigungen der beiden Typen. Wenn eine Aktion von einer identitätsbasierten Richtlinie, einer ressourcenbasierten Richtlinie oder von beiden erlaubt wird, dann lässt AWS die Aktion zu. Eine explizite Zugriffsverweigerung in einer der beiden Richtlinien überschreibt die Zugriffserlaubnis.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_policies_effective.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Auswertung identitätsbasierter Richtlinien und ressourcenbasierter Richtlinien&#xA;        " />
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-bound">Auswerten von identitätsbasierten Richtlinien mit Berechtigungsgrenzen</h3>
+      <p>Wenn AWS die identitätsbasierten Richtlinien und die Berechtigungsgrenze für einen Benutzer auswertet, sind die resultierenden Berechtigungen die Schnittmenge der beiden Kategorien. Das heißt, wenn Sie einem Benutzer mit bestehenden identitätsbasierten Richtlinien eine Berechtigungsgrenze hinzufügen, reduzieren Sie möglicherweise die Aktionen, die der Benutzer ausführen kann. Wenn Sie andererseits eine Berechtigungsgrenze von einem Benutzer entfernen, können Sie die Aktionen erweitern, die dieser ausführen kann. Eine explizite Zugriffsverweigerung in einer der beiden Richtlinien überschreibt die Zugriffserlaubnis. Informationen darüber, wie andere Richtlinientypen mit Berechtigungsgrenzen ausgewertet werden, finden Sie unter <a href="./access_policies_boundaries.html#access_policies_boundaries-eval-logic">Auswerten von effektiven Berechtigungen mit Grenzen</a>.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_boundary.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Auswertung von identitätsbasierten Richtlinien und Berechtigungsgrenzen&#xA;        " />
+          
+         
+         
+      </div>
+     
+     
+      <h3 id="policy-eval-basics-id-scp">Bewertung von identitätsbasierten Richtlinien mit Organizations-SCPs</h3>
+      <p>Wenn ein Benutzer zu einem Konto gehört, das Mitglied einer Organisation ist, bilden die resultierenden Berechtigungen eine Schnittmenge aus den Richtlinien des Benutzers und der SCP. Das bedeutet, dass eine Aktion sowohl von der identitätsbasierten Richtlinie als auch von der SCP erlaubt sein muss. Eine explizite Zugriffsverweigerung in einer der beiden Richtlinien überschreibt die Zugriffserlaubnis.</p>
+      <div class="mediaobject">
+         
+          <img src="images/permissions_scp-idp.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;          Auswertung identitätsbasierter Richtlinien und SCPs&#xA;        " />
+          
+         
+         
+      </div>
+      <p>Sie können erfahren <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_details.html#orgs_view_account">ob Ihr Konto als Mitgliedskonto einer Organisation</a> in AWS Organizations eingerichtet ist. Eine SCP hat möglicherweise Auswirkungen auf Mitglieder einer Organisation. Zum Anzeigen der Daten mit dem AWS CLI-Befehl oder einer AWS-API-Operation, benötigen Sie Berechtigungen für die <code class="code">organizations:DescribeOrganization</code>-Aktion für Ihre Organizations-Entität. Sie müssen über zusätzliche Berechtigungen verfügen, um die Operation in der Organizations-Konsole auszuführen. Wenden Sie sich an IhrenAWS Organizations-Administrator, wenn Sie wissen möchten, ob eine SCP den Zugriff auf eine bestimmte Anfrage verweigert oder wenn Sie Ihre effektiven Berechtigungen ändern möchten.</p>
+     
+   
+    <h2 id="policy-eval-denyallow">Ermitteln, ob eine Anforderung innerhalb eines Kontos zugelassen oder verweigert wird</h2>
+    <p>Angenommen, ein Auftraggeber sendet eine Anfrage an AWS, um auf eine Ressource in dem Konto zuzugreifen, in dem sich auch die Entität des Auftraggebers befindet. Der AWS-Durchführungscode entscheidet, ob die Anfrage zugelassen oder abgelehnt wird. AWS erfasst alle Richtlinien, die für den Anfragekontext gelten. Im Folgenden finden Sie einen allgemeine Überblick über die AWS-Auswertungslogik für diese Richtlinien innerhalb eines einzelnen Kontos.</p>
+    <div class="itemizedlist">
+       
+       
+       
+       
+    <ul class="itemizedlist"><li class="listitem">
+        <p>Standardmäßig werden alle Anforderungen implizit verweigert, mit Ausnahme des Root-Benutzer des AWS-Kontoss, der vollen Zugriff hat.</p>
+      </li><li class="listitem">
+        <p>Eine explizite Zugriffserlaubnis in einer identitätsbasierten oder ressourcenbasierten Richtlinie hat Vorrang vor diesem Standardwert.</p>
+      </li><li class="listitem">
+        <p>Wenn eine Berechtigungsgrenze, Organizations-SCP oder Sitzungsrichtlinie vorhanden ist, kann sie die Zugriffserlaubnis mit einer impliziten Zugriffsverweigerung überschreiben.</p>
+      </li><li class="listitem">
+        <p>Eine explizite Zugriffsverweigerung überschreibt jede Zugriffserlaubnis in einer Richtlinie.</p>
+      </li></ul></div>
+    
+    <p>Das folgende Flussdiagramm enthält einen Überblick über den Entscheidungsprozess. Dieses Flussdiagramm deckt nicht die Auswirkungen ressourcenbasierter Richtlinien und impliziter Ablehnungen in anderen Arten von Richtlinien ab. </p>
+    <div class="mediaobject">
+       
+        <img src="images/PolicyEvaluationHorizontal111621.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Flussdiagramm zum Entscheidungsprozess&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <div class="orderedlist">
+       
+       
+       
+      
+
+       
+       
+       
+       
+    <ol><li>
+        <p><b>Auswertung für eine Zugriffsverweigerung</b> – Standardmäßig werden alle Anforderungen verweigert. Dieser Vorgang wird als <a href="#AccessPolicyLanguage_Interplay">implizite Zugriffsverweigerung</a> bezeichnet. Durch den AWS-Durchführungscode werden alle Richtlinien innerhalb des Kontos ausgewertet, die auf die Anforderung zutreffen. Darunter fallen AWS Organizations-SCPs, ressourcenbasierte Richtlinien, IAM-Berechtigungsgrenzen und Sitzungsrichtlinien. Der Durchführungscode sucht in allen diesen Richtlinien nach einer <code class="code">Deny</code>-Anweisung, die für die Anforderung gilt. Dieser Vorgang wird als <a href="#AccessPolicyLanguage_Interplay">explizite Zugriffsverweigerung</a> bezeichnet. Wenn der Code auch nur eine gültige explizite Zugriffsverweigerung findet, wird final <b>Zugriffsverweigerung</b> zurückgegeben und die Anforderung wird abgelehnt. Wenn es keine ausdrückliche Verweigerung gibt, wird die Auswertung des Erzwingungscodes fortgesetzt.</p>
+      </li><li>
+        <p><b>Organisations-SCPs</b> – Der Code wertet dann AWS Organizations-Service-Kontrollrichtlinien (SCPs) aus, die für die Anforderung gelten. SCPs gelten für Auftraggeber des Kontos, dem die SCPs zugewiesen sind. Wenn der Durchführungscode keine gültigen <code class="code">Allow</code>-Anweisungen in den SCPs findet, wird die Anforderung explizit abgelehnt, selbst wenn die Ablehnung implizit ist. Der Code gibt die finale Entscheidung <b>Zugriffsverweigerung</b> zurück. Wenn keine SCP vorhanden ist oder wenn die SCP die angeforderte Aktion zulässt, wird die Erzwingungscodeauswertung fortgesetzt.</p>
+      </li><li>
+        <p><b>Ressourcenbasierte Richtlinien</b> - Innerhalb desselben Kontos wirken sich ressourcenbasierte Richtlinien unterschiedlich aus, abhängig von der Art des Prinzipals, der auf die Ressource zugreift, und dem Prinzipal, der in der ressourcenbasierten Richtlinie zulässig ist. Abhängig von der Art des Prinzipals, kann ein <code class="code">Allow</code> in einer ressourcenbasierten Richtlinie zu einer endgültigen Entscheidung von <code class="code">Allow</code> führen, auch wenn eine implizite Ablehnung in einer identitätsbasierten Richtlinie, Berechtigungsgrenze oder Sitzungsrichtlinie vorhanden ist.</p>
+        <p>Für die meisten Ressourcen benötigen Sie nur eine explizite Genehmigung für den Prinzipal entweder in einer identitätsbasierten Richtlinie oder in einer ressourcenbasierten Richtlinie, um Zugriff zu gewähren. <a href="./id_roles_compare-resource-policies.html">IAM-Rollenvertrauensrichtlinien</a> und <a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html">KMS-Schlüsselrichtlinien</a> sind Ausnahmen von dieser Logik, da sie den Zugriff für <a href="./reference_policies_elements_principal.html">Auftraggeber</a> ausdrücklich zulassen müssen.</p>
+        <p>Die ressourcenbasierte Richtlinienlogik unterscheidet sich von anderen Richtlinientypen, wenn der angegebene Prinzipal ein IAM-Benutzer, eine IAM-Rolle oder ein Sitzungsprinzipal ist. Zu den Sitzungsprinzipalen gehören IAM-<a href="./reference_policies_elements_principal.html#principal-role-session">Rollensitzungen</a> oder ein <a href="./reference_policies_elements_principal.html#sts-session-principals">IAM-Verbundbenutzer-Sitzung</a>. Wenn eine ressourcenbasierte Richtlinie dem IAM-Benutzer oder dem Sitzungssprinzipal, der die Anforderung stellt, die Berechtigung direkt erteilt, wirkt sich eine implizite Ablehnung in einer identitätsbasierten Richtlinie, einer Berechtigungsgrenze oder einer Sitzungsrichtlinie nicht auf die endgültige Entscheidung aus.</p>
+        <p>Die folgende Tabelle hilft Ihnen, die Auswirkungen ressourcenbasierter Richtlinien für verschiedene Haupttypen zu verstehen, wenn implizite Ablehnungen in identitätsbasierten Richtlinien, Berechtigungsgrenzen und Sitzungsrichtlinien implizite Ablehnungen vorhanden sind.</p>
+        <div class="table-container"><div class="table-contents"><table id="w339aac25c19c13c13c11b5b9"><thead><tr><th class="table-header" colspan="100"><div class="title">Ressourcenbasierte Richtlinien und implizite Verweigerungen in anderen Richtlinientypen (dasselbe Konto)</div></th></tr>
+              <tr>
+                <th>Prinzipal, der die Anforderung stellt</th>
+                <th>Ressourcenbasierte Richtlinie</th>
+                <th>Identitätsbasierte Richtlinien</th>
+                <th>Berechtigungsgrenze</th>
+                <th>Sitzungsrichtlinie</th>
+                <th>Ergebnis</th>
+                <th>Grund</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>IAM role (IAM-Rolle)</td>
+                <td>Nicht zutreffend</td>
+                <td>Nicht zutreffend</td>
+                <td>Nicht zutreffend</td>
+                <td>Nicht zutreffend</td>
+                <td>Nicht zutreffend</td>
+                <td>Eine Rolle selbst kann keine Anfrage stellen. Anfragen werden mit der Rollensitzung gestellt, nachdem eine Rolle angenommen wurde. </td>
+              </tr>
+              <tr>
+                <td>IAM-Rollensitzung</td>
+                <td>Erlaubt -Rollen-ARN</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>DENY</td>
+                <td>Berechtigungsgrenze und Sitzungsrichtlinie werden im Rahmen der endgültigen Entscheidung ausgewertet. Eine implizite Ablehnung in beiden Richtlinien führt zu einer VERWEIGERN-Entscheidung.</td>
+              </tr>
+              <tr>
+                <td>IAM-Rollensitzung</td>
+                <td>Erlaubt Rollensitzungs-ARN</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>ERLAUBEN</td>
+                <td>Berechtigungen werden direkt für die Sitzung erteilt. Andere Richtlinientypen haben keinen Einfluss auf die Entscheidung.</td>
+              </tr>
+              <tr>
+                <td>IAM-Benutzer</td>
+                <td>Ermöglicht ARN für IAM-Benutzer</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>Nicht zutreffend</td>
+                <td>ERLAUBEN</td>
+                <td>Berechtigungen werden direkt an den Benutzer erteilt. Andere Richtlinientypen haben keinen Einfluss auf die Entscheidung.</td>
+              </tr>
+              <tr>
+                <td>IAM-Verbundbenutzer (<code class="code">GetFederationToken</code>)</td>
+                <td>Ermöglicht ARN für IAM-Benutzer</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>DENY</td>
+                <td>Eine implizite Verweigerung in der Berechtigungsgrenze oder in der Sitzungsrichtlinie führt zu einem VERWEIGERN.</td>
+              </tr>
+              <tr>
+                <td>IAM-Verbundbenutzer (<code class="code">GetFederationToken</code>)</td>
+                <td>Ermöglicht ARN für IAM-Verbundbenutzersitzungen</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>Implizite Verweigerung</td>
+                <td>ERLAUBEN</td>
+                <td>Berechtigungen werden direkt für die Sitzung erteilt. Andere Richtlinientypen haben keinen Einfluss auf die Entscheidung.</td>
+              </tr>
+              <tr>
+                <td>Root-Benutzer</td>
+                <td>Ermöglicht ARN für Stammbenutzer</td>
+                <td>Nicht zutreffend</td>
+                <td>Nicht zutreffend</td>
+                <td>Nicht zutreffend</td>
+                <td>ERLAUBEN</td>
+                <td>Das Root-Konto hat vollständigen und uneingeschränkten Zugriff auf alle Ressourcen in Ihrem AWS-Konto. Um zu erfahren, wie Sie den Zugriff auf Root-Benutzer für Konten in AWS Organizations kontrollieren können, finden Sie unter <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html">Service-Kontrollrichtlinien (SCPs)</a> im <em>Benutzerhandbuch für Organisationen</em>.</td>
+              </tr>
+              <tr>
+                <td>AWS-Service-Prinzipal</td>
+                <td>Ermöglicht eineAWS-Service-Prinzipal</td>
+                <td>Nicht zutreffend</td>
+                <td>Nicht zutreffend</td>
+                <td>Nicht zutreffend</td>
+                <td>ERLAUBEN</td>
+                <td>Wenn eine ressourcenbasierte Richtlinie Berechtigungen direkt an <a href="./reference_policies_elements_principal.html#principal-services">AWS-Service-Prinzipal</a> erteilen, haben andere Richtlinientypen keinen Einfluss auf die Entscheidung.</td>
+              </tr>
+            </table></div></div>
+        <div class="itemizedlist">
+           
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p><b>IAM-Rolle</b> - Ressourcenbasierte Richtlinien, die Berechtigungen für eine IAM-Rolle ARN erteilen, sind durch eine implizite Verweigerung in einer Berechtigungsgrenze oder einer Sitzungsrichtlinie begrenzt.</p>
+            <p><b>Beispielrolle ARN</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:role/examplerole</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM-Rollensitzung</b> – Innerhalb desselben Kontos gewähren ressourcenbasierte Richtlinien, die einem IAM-Rollensitzungs-ARN Berechtigungen erteilen, auch direkt Berechtigungen für die angenommene Rollensitzung. Berechtigungen, die direkt für eine Sitzung gewährt werden, sind nicht durch eine implizite Verweigerung in einer identitätsbasierten Richtlinie, einer Berechtigungsgrenze oder einer Sitzungsrichtlinie beschränkt. Wenn Sie eine Rolle übernehmen und eine Anfrage stellen, ist der Prinzipal, der die Anfrage stellt, der ARN der IAM-Rollensitzung und nicht der ARN der Rolle selbst.</p>
+            <p><b>Beispiel für eine Rollensitzung ARN</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:assumed-role/examplerole/examplerolesessionname</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM-Benutzer</b> - Innerhalb desselben Kontos sind ressourcenbasierte Richtlinien, die einem IAM-Benutzer-ARN (das kein Verbundbenutzersitzung ist) Berechtigungen erteilt, nicht durch eine implizite Verweigerung in einer identitätsbasierten Richtlinie oder Berechtigungsgrenze beschränkt.</p>
+            <p><b>Beispiel eines IAM-Benutzer-ARN</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:iam::111122223333:user/exampleuser</code></code></pre>
+          </li><li class="listitem">
+            <p><b>IAM-Verbundbenutzersitzung</b> – Eine IAM-Verbundbenutzersitzung ist eine Sitzung, die durch Aufruf von <a href="./id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken</a> erstellt wurde. Wenn ein Verbundbenutzer eine Anfrage stellt, ist der Prinzipal, der die Anfrage stellt, der ARN des Verbundbenutzers und nicht der ARN des IAM-Benutzers, der den Verbund erstellt hat. Innerhalb desselben Kontos erteilen ressourcenbasierte Richtlinien, die einem Verbundbenutzer-ARN Berechtigungen gewähren, der Sitzung direkt Berechtigungen. Berechtigungen, die direkt für eine Sitzung gewährt werden, sind nicht durch eine implizite Verweigerung in einer identitätsbasierten Richtlinie, einer Berechtigungsgrenze oder einer Sitzungsrichtlinie beschränkt.</p>
+            <p>Wenn jedoch eine ressourcenbasierte Richtlinie dem ARN des IAM-Benutzers, der den Verbund erstellt hat, die Berechtigung erteilt, werden Anfragen des Verbundbenutzers während der Sitzung durch eine implizite Verweigerung in einer Berechtigungsgrenze oder Sitzungsrichtlinie eingeschränkt.</p>
+            <p><b>Beispiel für IAM-Verbundbenutzersitzung ARN</b></p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="nohighlight"><code class="code" copy="true">arn:aws:sts::111122223333:federated-user/exampleuser</code></code></pre>
+          </li></ul></div>
+      </li><li>
+        <p><b>Identitätsbasierte Richtlinien</b> – Der Code überprüft dann die identitätsbasierten Richtlinien auf den Auftraggeber. Für einen IAM-Benutzer gehören hierzu Benutzerrichtlinien und Richtlinien von Gruppen, zu denen der Benutzer gehört. Wenn es keine Anweisungen gibt, die die angeforderte Aktion zulassen, dann wird die Anforderung implizit verweigert und der Code gibt die finale Entscheidung <b>Deny (Zugriffsverweigerung)</b> zurück. Wenn eine Anweisung in einer geltenden identitätsbasierten Richtlinie die angeforderte Aktion zulässt, dann wird der Code weitergeführt.</p>
+      </li><li>
+        <p><b>IAM-Berechtigungsgrenzen</b> - Der Durchführungscode überprüft dann, ob die IAM-Entität, die vom Auftraggeber verwendet wird, eine Berechtigungsgrenze aufweist. Wenn die Richtlinie, die verwendet wird, um die Berechtigungsgrenze festzulegen, die angeforderte Aktion nicht zulässt, dann wird die Anforderung implizit verweigert. Der Code gibt die finale Entscheidung <b>Deny (Zugriffsverweigerung)</b> zurück. Wenn es keine Berechtigungsgrenze gibt oder wenn die Berechtigungsgrenze die angeforderte Aktion zulässt, wird der Code fortgesetzt.</p>
+      </li><li>
+        <p><b>Sitzungsrichtlinien</b> – Der Code überprüft dann, ob der Prinzipal ein Sitzungsprinzipal ist. Sitzungsprinzipale umfassen eine IAM-Rollensitzung oder eine IAM-Verbundbenutzersitzung. Wenn der Prinzipal kein Sitzungsprinzipal ist, gibt der Durchsetzungscode eine endgültige Entscheidung von<b>Erlauben</b> zurück. </p>
+        <p>Für Sitzungsprinzipale, der Code prüft, ob eine Sitzungsrichtlinie in der Anforderung übergeben wurde. Sie können eine Sitzungsrichtlinie während der Verwendung der AWS CLI oder der AWS-API übergeben, um temporäre Anmeldeinformationen für eine Rolle oder einen IAM-Vebundbenutzer zu erhalten.</p>
+        <div class="itemizedlist">
+           
+           
+           
+        <ul class="itemizedlist"><li class="listitem">
+            <p>Wenn die Sitzungsrichtlinie vorhanden ist und die angeforderte Aktion nicht zulässt, dann wird die Anforderung implizit verweigert. Der Code gibt die finale Entscheidung <b>Deny (Zugriffsverweigerung)</b> zurück.</p>
+          </li><li class="listitem">
+            <p>Wenn keine Sitzungsrichtlinie vorhanden ist, prüft der Code, ob der Prinzipal eine Rollensitzung ist. Wenn der Prinzipal eine Rollensitzung ist, lautet die Anforderung <b>Erlaubt</b>. Daher wird die Anforderung implizit abgelehnt und der Code gibt eine endgültige Entscheidung von <b>Verweigern</b> zurück.</p>
+          </li><li class="listitem">
+            <p>Wenn eine Sitzungsrichtlinie vorhanden ist und die angeforderte Aktion erlaubt, dann gibt der Durchführungscode eine endgültige Entscheidung von <b>Erlauben</b> zurück.</p>
+          </li></ul></div>
+      </li><li>
+        <p><b>Fehler</b> – Wenn der AWS-Durchführungscode zu irgendeinem Zeitpunkt während der Auswertung auf einen Fehler stößt, erzeugt er eine Ausnahme und wird beendet.</p>
+      </li></ol></div>
+
+   
+    <h2 id="policies_evaluation_example">Beispielauswertung identitätsbasierter Richtlinien und ressourcenbasierter Richtlinien</h2>
+    <p>Die gebräuchlichsten Richtlinientypen sind identitätsbasierte Richtlinien und ressourcenbasierte Richtlinien. Wenn Zugriff auf eine Ressource angefordert wird, wertet AWS alle Berechtigungen aus, die durch die Richtlinien für <b>mindestens ein Allow</b> innerhalb desselben Kontos gewährt wurden. Eine explizite Zugriffsverweigerung in einer der Richtlinien setzt eine Zugriffserlaubnis außer Kraft.</p>
+    <div class="awsdocs-note awsdocs-important"><div class="awsdocs-note-title"><awsui-icon name="status-warning" variant="error"></awsui-icon><h6>Wichtig</h6></div><div class="awsdocs-note-text"><p>Wenn entweder die identitätsbasierte Richtlinie oder die ressourcenbasierte Richtlinie innerhalb desselben Kontos die Anforderung zulässt und die andere nicht, ist die Anforderung trotzdem zulässig.</p></div></div>
+    <p>Angenommen, Carlos hat den Benutzernamen <code class="code">carlossalazar</code>, und er versucht, eine Datei im Amazon S3-Bucket <code class="code">carlossalazar-logs</code> zu speichern. </p>
+    <p>Außerdem wird davon ausgegangen, dass die folgende Richtlinie dem IAM-Benutzer <code class="code">carlossalazar</code> zugeordnet ist.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowS3ListRead",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAccessPoints",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        <span>{</span>
+            "Sid": "AllowS3Self",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        },
+        <span>{</span>
+            "Sid": "DenyS3Logs",
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::*log*"
+        }
+    ]
+}</code></pre>
+    <p>Die <code class="code">AllowS3ListRead</code> -Anweisung in dieser Richtlinie erlaubt Carlos, eine Liste aller Buckets im Konto anzuzeigen. Die <code class="code">AllowS3Self</code>-Anweisung erlaubt Carlos vollständigen Zugriff auf den Bucket mit demselben Namen wie seinem Benutzernamen. Die <code class="code">DenyS3Logs</code>-Anweisung verweigert Carlos den Zugriff auf S3-Buckets mit der Zeichenfolge <code class="code">log</code> im Namen. </p>
+    <p>Außerdem ist die folgende ressourcenbasierte Richtlinie (eine sogenannte Bucket-Richtlinie) dem Bucket <code class="code">carlossalazar</code> zugeordnet. </p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Effect": "Allow",
+            "Principal": <span>{</span>
+                "AWS": "arn:aws:iam::<code class="replaceable">123456789012</code>:user/carlossalazar"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::carlossalazar/*",
+                "arn:aws:s3:::carlossalazar"
+            ]
+        }
+    ]
+}</code></pre>
+    <p>Diese Richtlinie gibt an, dass nur der Benutzer <code class="code">carlossalazar</code> auf den Bucket <code class="code">carlossalazar</code> zugreifen kann.</p>
+    <p>Wenn Carlos seine Anforderung sendet, eine Datei im Bucket <code class="code">carlossalazar-logs</code> zu speichern, bestimmt AWS, welche Richtlinien für die Anforderung gelten. In diesem Fall gelten nur die identitätsbasierte Richtlinie und die ressourcenbasierte Richtlinie. Beides sind Berechtigungsrichtlinien. Da keine Berechtigungsgrenzen gelten, wird die Auswertungslogik auf die folgende Logik reduziert.</p>
+    <div class="mediaobject">
+       
+        <img src="images/EffectivePermissionsShort.png" class="aws-docs-img-whiteBg aws-docs-img-padding" alt="&#xA;        Flussdiagramm zum Entscheidungsprozess&#xA;      " style="max-width:100%" />
+       
+       
+    </div>
+    <p>AWS sucht zunächst nach einer <code class="code">Deny</code>-Anweisung, die für den Kontext der Anforderung gilt. Es findet einen, weil die identitätsbasierte Richtlinie Carlos explizit den Zugriff auf alle S3-Buckets verweigert, die für die Protokollierung verwendet werden. Carlos wird der Zugriff verweigert. </p>
+    <p>Angenommen, er erkennt dann seinen Fehler und versucht, die Datei in den Bucket <code class="code">carlossalazar</code> zu speichern. AWS sucht nach einer <code class="code">Deny</code>-Anweisung und findet keine. Dann überprüft es die Berechtigungsrichtlinien. Sowohl die identitätsbasierte Richtlinie, als auch die ressourcenbasierte Richtlinie lassen die Anforderung zu. Daher lässt AWS die Anforderung zu. Hätte eine von ihnen die Anweisung ausdrücklich abgelehnt, wäre die Anforderung abgelehnt worden. Wenn einer der Richtlinientypen die Anforderung zulässt und der andere nicht, ist die Anforderung weiterhin zulässig.</p>
+   
+    <h2 id="AccessPolicyLanguage_Interplay">Der Unterschied zwischen expliziten und impliziten Zugriffsverweigerungen</h2>
+    <p>Eine Anforderung führt zu einer expliziten Zugriffsverweigerung, wenn eine anwendbare Richtlinie eine <code class="code">Deny</code>-Anweisung enthält. Wenn Richtlinien, die auf eine Anforderung anwendbar sind, eine <code class="code">Allow</code>-Anweisung und eine <code class="code">Deny</code>-Anweisung enthalten, übersteuert die <code class="code">Deny</code> -Anweisung die <code class="code">Allow</code> -Anweisung. Die Anforderung wird abgelehnt.</p>
+    <p>Eine implizite Verweigerung tritt auf, wenn es keine entsprechende <code class="code">Deny</code>-Anweisung, aber auch keine anwendbare <code class="code">Allow</code>-Anweisung gibt. Da einem IAM-Prinzipal standardmäßig der Zugriff verweigert wird, muss ihm explizit erlaubt werden, eine Aktion auszuführen. Andernfalls wird ihnen der Zugriff implizit verweigert.</p>
+    <p>Bei der Planung Ihrer Autorisierungsstrategie müssen Sie Richtlinien mit <code class="code">Allow</code>-Anweisungen erstellen, um Ihren Auftraggeber zu gestatten, erfolgreich Anforderungen durchzuführen. Sie können jedoch eine beliebige Kombination von expliziten und impliziten Zugriffsverweigerungen wählen. </p>
+    <p>Sie können beispielsweise die folgende Richtlinie erstellen, die zulässige Aktionen, implizit verweigerte Aktionen und explizit verweigerte Aktionen enthält. Die <code class="code">AllowGetList</code>-Aussage <b>erlaubt</b> Lesezugriff auf IAM-Aktionen, die mit den Präfixen <code class="code">Get</code> und <code class="code">List</code> beginnen. Alle anderen Aktionen in IAM, wie <code class="code">iam:CreatePolicy</code> sind <b>implizit abgelehnt</b>. Die <code class="code">DenyReports</code>-Aussage <b>verweigert explizit</b> Zugriff auf IAM-Berichte durch Verweigern des Zugriffs auf Aktionen, die den <code class="code">Report</code>-Suffix, wie <code class="code">iam:GetOrganizationsAccessReport</code> enthalten. Wenn jemand diesem Prinzipal eine andere Richtlinie hinzufügt, um ihm Zugriff auf IAM-Berichte zu gewähren, z. B. <code class="code">iam:GenerateCredentialReport</code>, werden berichtsbezogene Anfragen aufgrund dieser ausdrücklichen Ablehnung immer noch abgelehnt.</p>
+    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Kopieren"><awsui-icon name="copy"></awsui-icon></div></div><code class="json "><span>{</span>
+    "Version": "2012-10-17",
+    "Statement": [
+        <span>{</span>
+            "Sid": "AllowGetList",
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*"
+            ],
+            "Resource": "*"
+        },
+        <span>{</span>
+            "Sid": "DenyReports",
+            "Effect": "Deny",
+            "Action": "iam:*Report",
+            "Resource": "*"
+        }
+    ]
+}</code></pre>
+  <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warnung" /> <strong>JavaScript ist in Ihrem Browser nicht verfügbar oder deaktiviert.</strong></p><p>Zur Nutzung der AWS-Dokumentation muss JavaScript aktiviert sein. Weitere Informationen finden auf den Hilfe-Seiten Ihres Browsers.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Dokumentkonventionen</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./reference_policies_elements_datatypes.html">Unterstützte Datentypen</div><div id="next" class="next-link" accesskey="n" href="./reference_policies_evaluation-logic-cross-account.html">Logik für die kontenübergreifende Richtlinienauswertung</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Hat Ihnen diese Seite geholfen? – Ja</div><div class="content"><p>Vielen Dank, dass Sie uns mitgeteilt haben, dass wir gute Arbeit geleistet haben!</p><p>Würden Sie sich einen Moment Zeit nehmen, um uns mitzuteilen, was wir richtig gemacht haben, damit wir noch besser werden?</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Hat Ihnen diese Seite geholfen? – Nein</div><div class="content"><p>Vielen Dank, dass Sie uns mitgeteilt haben, dass diese Seite überarbeitet werden muss. Es tut uns Leid, dass wir Ihnen nicht weiterhelfen konnten.</p><p>Würden Sie sich einen Moment Zeit nehmen, um uns mitzuteilen, wie wir die Dokumentation verbessern können?</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?hidden_service_name=IAM&amp;topic_url=https://docs.aws.amazon.com/de_de/IAM/latest/UserGuide/reference_policies_evaluation-logic.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>
