@@ -1,34 +1,44 @@
+import os
 import langchain
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from langchain.memory.chat_message_histories import DynamoDBChatMessageHistory
+from slack_bolt import App
+from slack_bolt.adapter.socket_mode import SocketModeHandler
 from dotenv import load_dotenv
 
 load_dotenv()
+
+SLACK_APP_TOKEN = os.getenv('SLACK_APP_TOKEN')
+SLACK_BOT_TOKEN = os.getenv('SLACK_BOT_TOKEN')
+slack_app = App(token=SLACK_BOT_TOKEN)
+
 langchain.debug = True
-
-
 LLM = ChatOpenAI(model_name='gpt-3.5-turbo-0613', temperature=0, verbose=True)
 
 
-def main():
+@slack_app.event("app_mention")
+def slack_mention_handler(body, say):
 
-    input_data = 'Who is the current Prime Minister of Japan?'
+    event = body.get('event')
+    message = event.get('text').split('> ')[-1]  # '<@U05AZ949XL2> 今日の天気は？'から抽出
+    channel = event.get('channel')
+    thread_ts = event.get("thread_ts") or event.get('ts')  # thread_tsがなければtsを取得
+
+    history_memory = create_conversation_memory_with_dynamodb(thread_ts)
 
     prompt_template = create_prompt_template()
 
-    session_id = '888888'  # 暫定で指定する。Query毎に値を変更してください。
-    history_memory = create_conversation_memory_with_dynamodb(session_id)
-
     chain = LLMChain(llm=LLM,
                      prompt=prompt_template,
-                     verbose=True,
-                     memory=history_memory)
+                     memory=history_memory,
+                     verbose=True)
 
-    response = chain.run(question=input_data)
-    print(response)
+    response = chain.run(question=message)
+
+    say(text=response, channel=channel, thread_ts=thread_ts)
 
 
 def create_prompt_template():
@@ -61,4 +71,5 @@ def create_conversation_memory_with_dynamodb(session_id):
 
 
 if __name__ == "__main__":
-    main()
+    SocketModeHandler(slack_app, SLACK_APP_TOKEN).start()
+    # @chatgpt-botにメンションがあると、デコレータ:@slack_app.eventが呼び出されます。

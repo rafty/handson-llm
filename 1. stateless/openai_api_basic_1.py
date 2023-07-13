@@ -15,7 +15,7 @@ response = openai.ChatCompletion.create(
         },
         {
             'role': 'user',
-            'content': "Who is the current Prime Minister of Japan?",
+            'content': '日本の首相は誰ですか？',
         },
     ],
 )
