@@ -24,8 +24,8 @@ def ingest_html_docs(path):
     documents = loader.load()
     print(f'loaded {len(documents)} documents')
 
-    '../aws_kendra_docs/docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html'
-    'https://docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html'
+    # '../aws_kendra_docs/docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html'
+    # 'https://docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html'
 
     for doc in documents:
         current_path = doc.metadata['source']
@@ -51,7 +51,6 @@ def create_faiss_local_index(documents):
 
 
 if __name__ == '__main__':
-
     docs = ingest_html_docs('../aws_kendra_docs/docs.aws.amazon.com/kendra/latest')
     chunks = split_docs(documents=docs)
     create_faiss_local_index(documents=chunks)

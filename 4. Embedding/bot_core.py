@@ -68,9 +68,6 @@ def load_embedding_db():
 
 
 def create_retrieval_qa_template():
-    # RetrievalQA Template
-    # see:
-    # https://github.com/hwchase17/langchain/blob/master/langchain/chains/retrieval_qa/prompt.py
 
     prompt_template = """
     Use the following pieces of context (delimited by <ctx></ctx>) and 

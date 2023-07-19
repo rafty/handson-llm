@@ -57,7 +57,9 @@ def create_google_search_tool():
     tools = [
         Tool(name='Search',
              # description='Search Google for recent results.',
-             description='useful for when you need to answer questions about current events. You should ask targeted questions',
+             # description='useful for when you need to answer questions about current events. You should ask targeted questions',
+             description='Google search tool. '
+                         'Useful when you need to answer questions about recent events.',
              func=search.run),
     ]
 
@@ -93,8 +95,10 @@ def create_react_agent(prompt, tools, memory):
     agent = ZeroShotAgent(llm_chain=llm_chain, tools=tools, verbose=True)
     agent_chain = AgentExecutor.from_agent_and_tools(agent=agent,
                                                      tools=tools,
+                                                     memory=memory,
                                                      verbose=True,
-                                                     memory=memory)
+                                                     handle_parsing_errors=True,
+                                                     max_iterations=4)
     return agent_chain
 
 
