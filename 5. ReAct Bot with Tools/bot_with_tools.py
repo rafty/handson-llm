@@ -88,7 +88,6 @@ def create_chat_prompt_template():
 
 
 def format_prompt(chat_prompt, user_message):
-    # https://python.langchain.com/docs/modules/model_io/prompts/prompt_templates/#chat-prompt-template
     # text: from '{text}'
     formatted_prompt = chat_prompt.format_prompt(text=user_message).to_messages()
     contents = " ".join([message_prompt.content for message_prompt in formatted_prompt])
@@ -96,7 +95,6 @@ def format_prompt(chat_prompt, user_message):
 
 
 def create_conversation_memory_with_dynamodb(session_id):
-    # see: https://python.langchain.com/docs/modules/memory/integrations/dynamodb_chat_message_history
     message_history = DynamoDBChatMessageHistory(table_name='LangChainSessionTable',
                                                  session_id=session_id)
 
