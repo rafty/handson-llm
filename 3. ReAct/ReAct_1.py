@@ -56,8 +56,6 @@ def create_google_search_tool():
     search = GoogleSearchAPIWrapper()
     tools = [
         Tool(name='Search',
-             # description='Search Google for recent results.',
-             # description='useful for when you need to answer questions about current events. You should ask targeted questions',
              description='Google search tool. '
                          'Useful when you need to answer questions about recent events.',
              func=search.run),
